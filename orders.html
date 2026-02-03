@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Your Order</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #5a6a8a;
+        }
+        
+        /* Search Box */
+        .search-box {
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        .search-box h2 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #1a1a2e;
+        }
+        
+        .search-form {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .search-form input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        
+        .search-form input:focus {
+            outline: none;
+            border-color: #4a6cf7;
+        }
+        
+        .search-form button {
+            padding: 15px 30px;
+            background: #4a6cf7;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .search-form button:hover {
+            background: #3a5ce5;
+        }
+        
+        /* Order Details */
+        .order-details {
+            display: none;
+        }
+        
+        .order-details.visible {
+            display: block;
+        }
+        
+        .order-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+        
+        .order-header {
+            background: #1a1a2e;
+            color: #fff;
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .order-id {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .order-date {
+            color: #8892b0;
+            font-size: 0.9rem;
+        }
+        
+        .order-status-badge {
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .order-status-badge.pending { background: #fff3e0; color: #e65100; }
+        .order-status-badge.processing { background: #e3f2fd; color: #1565c0; }
+        .order-status-badge.shipped { background: #f3e5f5; color: #7b1fa2; }
+        .order-status-badge.out_for_delivery { background: #e8f5e9; color: #2e7d32; }
+        .order-status-badge.delivered { background: #c8e6c9; color: #1b5e20; }
+        .order-status-badge.cancelled { background: #ffebee; color: #c62828; }
+        
+        /* Tracking Timeline */
+        .tracking-section {
+            padding: 30px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .tracking-section h3 {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            color: #1a1a2e;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #e0e0e0;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-bottom: 30px;
+        }
+        
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+        
+        .timeline-icon {
+            position: absolute;
+            left: -40px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            background: #fff;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .timeline-item.completed .timeline-icon {
+            background: #4caf50;
+            border-color: #4caf50;
+            color: #fff;
+        }
+        
+        .timeline-item.current .timeline-icon {
+            background: #4a6cf7;
+            border-color: #4a6cf7;
+            color: #fff;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(74, 108, 247, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(74, 108, 247, 0); }
+        }
+        
+        .timeline-content h4 {
+            font-size: 1rem;
+            color: #1a1a2e;
+            margin-bottom: 5px;
+        }
+        
+        .timeline-content p {
+            font-size: 0.9rem;
+            color: #5a6a8a;
+            margin-bottom: 5px;
+        }
+        
+        .timeline-date {
+            font-size: 0.8rem;
+            color: #8892b0;
+        }
+        
+        /* Tracking Info */
+        .tracking-info {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+        
+        .tracking-info h4 {
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            color: #1a1a2e;
+        }
+        
+        .tracking-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #4a6cf7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .tracking-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Items Section */
+        .items-section {
+            padding: 30px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .items-section h3 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #1a1a2e;
+        }
+        
+        .order-item {
+            display: flex;
+            gap: 20px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .order-item:last-child {
+            border-bottom: none;
+        }
+        
+        .item-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            background: #f0f2f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        
+        .item-details {
+            flex: 1;
+        }
+        
+        .item-name {
+            font-weight: 600;
+            color: #1a1a2e;
+            margin-bottom: 5px;
+        }
+        
+        .item-quantity {
+            font-size: 0.9rem;
+            color: #5a6a8a;
+        }
+        
+        .item-price {
+            font-weight: 600;
+            color: #1a1a2e;
+            text-align: right;
+        }
+        
+        /* Shipping Address */
+        .address-section {
+            padding: 30px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .address-section h3 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #1a1a2e;
+        }
+        
+        .address-content {
+            color: #5a6a8a;
+            line-height: 1.6;
+        }
+        
+        /* Order Summary */
+        .summary-section {
+            padding: 30px;
+        }
+        
+        .summary-section h3 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #1a1a2e;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .summary-row:last-child {
+            border-bottom: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #1a1a2e;
+        }
+        
+        /* Customer Support */
+        .support-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-top: 30px;
+        }
+        
+        .support-section h3 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #1a1a2e;
+        }
+        
+        .support-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .support-option {
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .support-option:hover {
+            background: #e8ecf4;
+        }
+        
+        .support-option svg {
+            width: 30px;
+            height: 30px;
+            margin-bottom: 10px;
+            color: #4a6cf7;
+        }
+        
+        .support-option h4 {
+            font-size: 0.95rem;
+            color: #1a1a2e;
+            margin-bottom: 5px;
+        }
+        
+        .support-option p {
+            font-size: 0.85rem;
+            color: #5a6a8a;
+        }
+        
+        /* Contact Form */
+        .contact-form {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .contact-form.visible {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #1a1a2e;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: #4a6cf7;
+            color: #fff;
+        }
+        
+        .btn-primary:hover {
+            background: #3a5ce5;
+        }
+        
+        .btn-secondary {
+            background: #f0f2f5;
+            color: #1a1a2e;
+        }
+        
+        /* Error State */
+        .error-state {
+            text-align: center;
+            padding: 60px 20px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .error-state svg {
+            width: 80px;
+            height: 80px;
+            color: #f44336;
+            margin-bottom: 20px;
+        }
+        
+        .error-state h2 {
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+        
+        .error-state p {
+            color: #5a6a8a;
+            margin-bottom: 20px;
+        }
+        
+        /* Loading State */
+        .loading-state {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #e0e0e0;
+            border-top-color: #4a6cf7;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .search-form {
+                flex-direction: column;
+            }
+            
+            .order-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .order-item {
+                flex-direction: column;
+            }
+            
+            .item-price {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>📦 Track Your Order</h1>
+            <p>Enter your order ID to see real-time delivery updates</p>
+        </header>
+        
+        <!-- Search Box -->
+        <div class="search-box">
+            <h2>Find Your Order</h2>
+            <form class="search-form" onsubmit="trackOrder(event)">
+                <input type="text" id="orderIdInput" placeholder="Enter your Order ID (e.g., order_12345)" required>
+                <button type="submit">Track Order</button>
+            </form>
+        </div>
+        
+        <!-- Loading State -->
+        <div id="loadingState" class="loading-state" style="display: none;">
+            <div class="spinner"></div>
+            <p>Looking up your order...</p>
+        </div>
+        
+        <!-- Error State -->
+        <div id="errorState" class="error-state" style="display: none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <h2>Order Not Found</h2>
+            <p>We couldn't find an order with that ID. Please check and try again.</p>
+            <button class="btn btn-primary" onclick="resetSearch()">Try Again</button>
+        </div>
+        
+        <!-- Order Details -->
+        <div id="orderDetails" class="order-details">
+            <!-- Order Header -->
+            <div class="order-card">
+                <div class="order-header">
+                    <div>
+                        <div class="order-id" id="displayOrderId">Order #</div>
+                        <div class="order-date" id="displayOrderDate">Placed on</div>
+                    </div>
+                    <div class="order-status-badge pending" id="displayStatus">Pending</div>
+                </div>
+            </div>
+            
+            <!-- Tracking Timeline -->
+            <div class="order-card tracking-section">
+                <h3>📍 Delivery Progress</h3>
+                <div class="timeline" id="trackingTimeline">
+                    <!-- Timeline items loaded dynamically -->
+                </div>
+            </div>
+            
+            <!-- Tracking Info (if shipped) -->
+            <div class="order-card" id="trackingInfoCard" style="display: none;">
+                <div class="tracking-section">
+                    <h3>🚚 Shipping Information</h3>
+                    <div class="tracking-info">
+                        <h4 id="carrierName">Carrier</h4>
+                        <p><strong>Tracking Number:</strong> <span id="trackingNumber"></span></p>
+                        <a href="#" id="trackingLink" class="tracking-link" target="_blank">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                            Track Package
+                        </a>
+                        <p style="margin-top: 10px;"><strong>Estimated Delivery:</strong> <span id="estimatedDelivery"></span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Items -->
+            <div class="order-card">
+                <div class="items-section">
+                    <h3>📦 Order Items</h3>
+                    <div id="orderItems">
+                        <!-- Items loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Shipping Address -->
+            <div class="order-card">
+                <div class="address-section">
+                    <h3>📍 Shipping Address</h3>
+                    <div class="address-content" id="shippingAddress">
+                        <!-- Address loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Order Summary -->
+            <div class="order-card">
+                <div class="summary-section">
+                    <h3>💰 Order Summary</h3>
+                    <div id="orderSummary">
+                        <!-- Summary loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Customer Support -->
+            <div class="support-section">
+                <h3>💬 Need Help?</h3>
+                <div class="support-options">
+                    <div class="support-option" onclick="showContactForm('tracking')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M12 6v6l4 2"></path>
+                        </svg>
+                        <h4>Track My Order</h4>
+                        <p>Get help finding your package</p>
+                    </div>
+                    <div class="support-option" onclick="showContactForm('return')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="1 4 1 10 7 10"></polyline>
+                            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                        </svg>
+                        <h4>Return Item</h4>
+                        <p>Start a return request</p>
+                    </div>
+                    <div class="support-option" onclick="showContactForm('general')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        <h4>General Inquiry</h4>
+                        <p>Ask any other question</p>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div id="contactForm" class="contact-form">
+                    <div class="form-group">
+                        <label>Your Email</label>
+                        <input type="email" id="contactEmail" placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" id="contactName" placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label>Subject</label>
+                        <select id="contactSubject">
+                            <option value="tracking">Tracking Inquiry</option>
+                            <option value="return">Return Request</option>
+                            <option value="damaged">Damaged Item</option>
+                            <option value="wrong_item">Wrong Item Received</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea id="contactMessage" placeholder="Describe your issue..."></textarea>
+                    </div>
+                    <button class="btn btn-primary" onclick="submitContactForm()">Send Message</button>
+                    <button class="btn btn-secondary" onclick="hideContactForm()" style="margin-left: 10px;">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // API Base URL
+        const API_BASE = window.location.hostname === 'localhost' 
+            ? 'http://localhost:3000' 
+            : '/.netlify/functions';
+        
+        let currentOrder = null;
+        
+        // Check for order ID in URL
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('order_id');
+            if (orderId) {
+                document.getElementById('orderIdInput').value = orderId;
+                trackOrder(null, orderId);
+            }
+        });
+        
+        // Track Order
+        async function trackOrder(event, orderId = null) {
+            if (event) event.preventDefault();
+            
+            const id = orderId || document.getElementById('orderIdInput').value.trim();
+            if (!id) return;
+            
+            // Show loading
+            document.querySelector('.search-box').style.display = 'none';
+            document.getElementById('loadingState').style.display = 'block';
+            document.getElementById('errorState').style.display = 'none';
+            document.getElementById('orderDetails').classList.remove('visible');
+            
+            try {
+                const response = await fetch(`${API_BASE}/order-management/track?order_id=${encodeURIComponent(id)}`);
+                const data = await response.json();
+                
+                document.getElementById('loadingState').style.display = 'none';
+                
+                if (data.success) {
+                    displayOrder(data);
+                } else {
+                    showError();
+                }
+            } catch (error) {
+                console.error('Error tracking order:', error);
+                document.getElementById('loadingState').style.display = 'none';
+                showError();
+            }
+        }
+        
+        function displayOrder(data) {
+            currentOrder = data;
+            
+            // Update header
+            document.getElementById('displayOrderId').textContent = `Order #${data.order_id}`;
+            document.getElementById('displayOrderDate').textContent = `Placed on ${formatDate(data.order?.created_at || new Date())}`;
+            
+            const statusBadge = document.getElementById('displayStatus');
+            statusBadge.textContent = formatStatus(data.status);
+            statusBadge.className = `order-status-badge ${data.status}`;
+            
+            // Update timeline
+            renderTimeline(data.timeline || buildDefaultTimeline(data.status));
+            
+            // Update tracking info
+            if (data.tracking?.number) {
+                document.getElementById('trackingInfoCard').style.display = 'block';
+                document.getElementById('trackingNumber').textContent = data.tracking.number;
+                document.getElementById('trackingLink').href = data.tracking.url || '#';
+                document.getElementById('estimatedDelivery').textContent = data.tracking.estimated_delivery 
+                    ? formatDate(data.tracking.estimated_delivery) 
+                    : 'Pending';
+            } else {
+                document.getElementById('trackingInfoCard').style.display = 'none';
+            }
+            
+            // Update items
+            renderItems(data.items || []);
+            
+            // Update address
+            const address = data.shipping_address || {};
+            document.getElementById('shippingAddress').innerHTML = `
+                <p>${address.name || 'N/A'}</p>
+                <p>${address.address1 || ''}</p>
+                ${address.address2 ? `<p>${address.address2}</p>` : ''}
+                <p>${address.city || ''}, ${address.state || ''} ${address.zip || ''}</p>
+                <p>${address.country || ''}</p>
+            `;
+            
+            // Update summary
+            const subtotal = (data.items || []).reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const shipping = 5.99; // Example
+            const total = data.total_amount || subtotal + shipping;
+            
+            document.getElementById('orderSummary').innerHTML = `
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span>${formatCurrency(subtotal)}</span>
+                </div>
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span>${formatCurrency(shipping)}</span>
+                </div>
+                <div class="summary-row">
+                    <span>Total</span>
+                    <span>${formatCurrency(total)}</span>
+                </div>
+            `;
+            
+            // Show details
+            document.getElementById('orderDetails').classList.add('visible');
+        }
+        
+        function renderTimeline(timeline) {
+            const container = document.getElementById('trackingTimeline');
+            container.innerHTML = timeline.map((item, index) => `
+                <div class="timeline-item ${item.completed ? 'completed' : ''} ${index === timeline.findIndex(i => !i.completed) ? 'current' : ''}">
+                    <div class="timeline-icon">${item.icon}</div>
+                    <div class="timeline-content">
+                        <h4>${item.status}</h4>
+                        <p>${item.description}</p>
+                        ${item.tracking ? `
+                            <div class="tracking-info">
+                                <a href="${item.tracking.url}" class="tracking-link" target="_blank">
+                                    Track: ${item.tracking.number}
+                                </a>
+                            </div>
+                        ` : ''}
+                        <div class="timeline-date">${formatDateTime(item.timestamp)}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function buildDefaultTimeline(status) {
+            const timeline = [
+                {
+                    status: 'Order Placed',
+                    description: 'Your order has been received',
+                    icon: '📦',
+                    timestamp: currentOrder?.created_at || new Date(),
+                    completed: true
+                },
+                {
+                    status: 'Payment Confirmed',
+                    description: 'Payment has been processed successfully',
+                    icon: '✅',
+                    timestamp: currentOrder?.payment_confirmed_at,
+                    completed: ['processing', 'packaging', 'shipped', 'delivered'].includes(status)
+                },
+                {
+                    status: 'Processing',
+                    description: 'Your order is being prepared',
+                    icon: '⚙️',
+                    timestamp: currentOrder?.processing_started_at,
+                    completed: ['packaging', 'shipped', 'delivered'].includes(status)
+                },
+                {
+                    status: 'Shipped',
+                    description: 'Package is on its way',
+                    icon: '🚚',
+                    timestamp: currentOrder?.shipped_at,
+                    completed: ['delivered'].includes(status),
+                    tracking: currentOrder?.tracking_number ? {
+                        number: currentOrder.tracking_number,
+                        url: currentOrder.tracking_url
+                    } : null
+                },
+                {
+                    status: 'Delivered',
+                    description: 'Package has been delivered',
+                    icon: '✅',
+                    timestamp: currentOrder?.delivered_at,
+                    completed: status === 'delivered'
+                }
+            ];
+            
+            return timeline;
+        }
+        
+        function renderItems(items) {
+            const container = document.getElementById('orderItems');
+            
+            if (items.length === 0) {
+                container.innerHTML = '<p style="color: #5a6a8a;">No items in order</p>';
+                return;
+            }
+            
+            container.innerHTML = items.map(item => `
+                <div class="order-item">
+                    <div class="item-image">${item.image || '📦'}</div>
+                    <div class="item-details">
+                        <div class="item-name">${item.name || 'Product'}</div>
+                        <div class="item-quantity">Qty: ${item.quantity || 1}</div>
+                    </div>
+                    <div class="item-price">${formatCurrency((item.price || 0) * (item.quantity || 1))}</div>
+                </div>
+            `).join('');
+        }
+        
+        function showError() {
+            document.querySelector('.search-box').style.display = 'block';
+            document.getElementById('errorState').style.display = 'block';
+        }
+        
+        function resetSearch() {
+            document.querySelector('.search-box').style.display = 'block';
+            document.getElementById('errorState').style.display = 'none';
+            document.getElementById('orderDetails').classList.remove('visible');
+            document.getElementById('orderIdInput').value = '';
+            currentOrder = null;
+        }
+        
+        // Contact Form
+        function showContactForm(type) {
+            document.getElementById('contactForm').classList.add('visible');
+            document.getElementById('contactSubject').value = type;
+            
+            if (currentOrder?.customer?.email) {
+                document.getElementById('contactEmail').value = currentOrder.customer.email;
+            }
+            if (currentOrder?.customer?.name) {
+                document.getElementById('contactName').value = currentOrder.customer.name;
+            }
+        }
+        
+        function hideContactForm() {
+            document.getElementById('contactForm').classList.remove('visible');
+        }
+        
+        async function submitContactForm() {
+            const formData = {
+                order_id: currentOrder?.order_id,
+                email: document.getElementById('contactEmail').value,
+                name: document.getElementById('contactName').value,
+                subject: document.getElementById('contactSubject').value,
+                message: document.getElementById('contactMessage').value
+            };
+            
+            if (!formData.email || !formData.message) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/order-management/inquiry`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert('Message sent! We\'ll get back to you soon.');
+                    hideContactForm();
+                    document.getElementById('contactMessage').value = '';
+                } else {
+                    alert('Failed to send message. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error sending message:', error);
+                alert('Failed to send message. Please try again.');
+            }
+        }
+        
+        // Utility Functions
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD'
+            }).format(amount || 0);
+        }
+        
+        function formatDate(dateStr) {
+            if (!dateStr) return 'N/A';
+            return new Date(dateStr).toLocaleDateString('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric'
+            });
+        }
+        
+        function formatDateTime(dateStr) {
+            if (!dateStr) return '';
+            return new Date(dateStr).toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit'
+            });
+        }
+        
+        function formatStatus(status) {
+            const statusMap = {
+                'pending': 'Pending',
+                'processing': 'Processing',
+                'packaging': 'Packaging',
+                'shipped': 'Shipped',
+                'out_for_delivery': 'Out for Delivery',
+                'delivered': 'Delivered',
+                'cancelled': 'Cancelled',
+                'refunded': 'Refunded'
+            };
+            return statusMap[status] || status;
+        }
+    </script>
+</body>
+</html>

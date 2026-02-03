@@ -1,0 +1,2368 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="robots" content="noindex, nofollow" />
+        <title>THE SANCTUARY | S.S.S. - Drae's Private Workshop</title>
+        <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            :root {
+                --purple-deep: #0a0515;
+                --purple-dark: #1a0a2e;
+                --purple-main: #8b5cf6;
+                --purple-light: #a78bfa;
+                --purple-glow: #c4b5fd;
+                --cyan: #00ffff;
+                --cyan-dark: #00b8b8;
+                --gold: #ffd700;
+                --rose: #ff006e;
+                --ghost-white: rgba(255, 255, 255, 0.03);
+                --ghost-border: rgba(138, 92, 246, 0.2);
+            }
+
+            html,
+            body {
+                height: 100%;
+                /* Removed overflow: hidden to enable page scrolling */
+            }
+
+            body {
+                font-family: "Rajdhani", sans-serif;
+                background: var(--purple-deep);
+                color: #fff;
+            }
+
+            /* ============================================
+           SANCTUARY BACKGROUND - 5D ENVIRONMENT
+           ============================================ */
+            .sanctuary-bg {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+                overflow: hidden;
+            }
+
+            .sanctuary-bg::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background:
+                    radial-gradient(
+                        ellipse at 20% 80%,
+                        rgba(139, 92, 246, 0.15) 0%,
+                        transparent 50%
+                    ),
+                    radial-gradient(
+                        ellipse at 80% 20%,
+                        rgba(0, 255, 255, 0.1) 0%,
+                        transparent 50%
+                    ),
+                    radial-gradient(
+                        ellipse at 50% 50%,
+                        rgba(255, 0, 110, 0.05) 0%,
+                        transparent 70%
+                    ),
+                    linear-gradient(
+                        180deg,
+                        #050208 0%,
+                        #0a0515 50%,
+                        #0f0a1a 100%
+                    );
+            }
+
+            /* Floating particles */
+            .particle {
+                position: absolute;
+                width: 2px;
+                height: 2px;
+                background: var(--purple-light);
+                border-radius: 50%;
+                animation: float-particle 20s infinite linear;
+                opacity: 0.5;
+            }
+
+            @keyframes float-particle {
+                0% {
+                    transform: translateY(100vh) translateX(0) rotate(0deg);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 0.5;
+                }
+                90% {
+                    opacity: 0.5;
+                }
+                100% {
+                    transform: translateY(-100vh) translateX(100px)
+                        rotate(360deg);
+                    opacity: 0;
+                }
+            }
+
+            /* Grid floor effect */
+            .grid-floor {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 60%;
+                background:
+                    linear-gradient(
+                        90deg,
+                        rgba(139, 92, 246, 0.1) 1px,
+                        transparent 1px
+                    ),
+                    linear-gradient(
+                        rgba(139, 92, 246, 0.1) 1px,
+                        transparent 1px
+                    );
+                background-size: 50px 50px;
+                transform: perspective(500px) rotateX(60deg);
+                transform-origin: bottom;
+                opacity: 0.3;
+                animation: grid-pulse 4s ease-in-out infinite;
+            }
+
+            @keyframes grid-pulse {
+                0%,
+                100% {
+                    opacity: 0.2;
+                }
+                50% {
+                    opacity: 0.4;
+                }
+            }
+
+            /* ============================================
+           MAIN LAYOUT
+           ============================================ */
+            .sanctuary-container {
+                display: grid;
+                grid-template-columns: 1fr 400px;
+                grid-template-rows: 60px 1fr;
+                height: 100vh;
+                gap: 0;
+            }
+
+            /* ============================================
+           HEADER
+           ============================================ */
+            .sanctuary-header {
+                grid-column: 1 / -1;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 30px;
+                background: rgba(10, 5, 21, 0.9);
+                border-bottom: 1px solid var(--ghost-border);
+                backdrop-filter: blur(20px);
+            }
+
+            .sanctuary-title {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .sanctuary-title h1 {
+                font-family: "Orbitron", sans-serif;
+                font-size: 1.5rem;
+                font-weight: 700;
+                background: linear-gradient(
+                    90deg,
+                    var(--purple-light),
+                    var(--cyan)
+                );
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            .sanctuary-badge {
+                padding: 5px 12px;
+                background: linear-gradient(
+                    135deg,
+                    var(--rose),
+                    var(--purple-main)
+                );
+                border-radius: 20px;
+                font-size: 0.7rem;
+                font-weight: 700;
+                letter-spacing: 1px;
+            }
+
+            .header-status {
+                display: flex;
+                align-items: center;
+                gap: 25px;
+            }
+
+            .status-item {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 0.85rem;
+                color: rgba(255, 255, 255, 0.7);
+            }
+
+            .status-dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: #00ff88;
+                box-shadow: 0 0 10px #00ff88;
+                animation: pulse-dot 2s infinite;
+            }
+
+            .status-dot.ghost {
+                background: var(--cyan);
+                box-shadow:
+                    0 0 10px var(--cyan),
+                    0 0 20px var(--cyan);
+            }
+
+            @keyframes pulse-dot {
+                0%,
+                100% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+                50% {
+                    opacity: 0.5;
+                    transform: scale(0.8);
+                }
+            }
+
+            .exit-btn {
+                padding: 8px 20px;
+                background: transparent;
+                border: 1px solid var(--rose);
+                color: var(--rose);
+                border-radius: 5px;
+                cursor: pointer;
+                font-family: "Orbitron", sans-serif;
+                font-size: 0.8rem;
+                transition: all 0.3s ease;
+            }
+
+            .exit-btn:hover {
+                background: var(--rose);
+                color: #fff;
+                box-shadow: 0 0 20px rgba(255, 0, 110, 0.5);
+            }
+
+            /* ============================================
+           MAIN WORKSPACE
+           ============================================ */
+            .workspace {
+                display: flex;
+                flex-direction: column;
+                padding: 20px;
+                overflow: hidden;
+            }
+
+            .workspace-tabs {
+                display: flex;
+                gap: 5px;
+                margin-bottom: 20px;
+            }
+
+            .workspace-tab {
+                padding: 12px 25px;
+                background: var(--ghost-white);
+                border: 1px solid var(--ghost-border);
+                border-bottom: none;
+                border-radius: 10px 10px 0 0;
+                color: rgba(255, 255, 255, 0.6);
+                cursor: pointer;
+                font-family: "Orbitron", sans-serif;
+                font-size: 0.85rem;
+                transition: all 0.3s ease;
+            }
+
+            .workspace-tab:hover {
+                color: #fff;
+                background: rgba(139, 92, 246, 0.1);
+            }
+
+            .workspace-tab.active {
+                background: rgba(139, 92, 246, 0.2);
+                color: var(--cyan);
+                border-color: var(--purple-main);
+                box-shadow: 0 -5px 20px rgba(139, 92, 246, 0.2);
+            }
+
+            .workspace-content {
+                flex: 1;
+                background: var(--ghost-white);
+                border: 1px solid var(--ghost-border);
+                border-radius: 0 15px 15px 15px;
+                overflow: hidden;
+                position: relative;
+            }
+
+            .workspace-panel {
+                display: none;
+                height: 100%;
+                padding: 25px;
+                overflow-y: auto;
+            }
+
+            .workspace-panel.active {
+                display: flex;
+                flex-direction: column;
+            }
+
+            /* ============================================
+           DESIGN STUDIO
+           ============================================ */
+            .design-studio {
+                display: grid;
+                grid-template-columns: 1fr 280px;
+                gap: 20px;
+                height: 100%;
+            }
+
+            .canvas-area {
+                background: rgba(0, 0, 0, 0.3);
+                border-radius: 10px;
+                border: 1px solid var(--ghost-border);
+                position: relative;
+                overflow: hidden;
+            }
+
+            #design-canvas {
+                width: 100%;
+                height: 100%;
+                cursor: crosshair;
+            }
+
+            .canvas-overlay-info {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                padding: 8px 15px;
+                background: rgba(0, 0, 0, 0.7);
+                border-radius: 5px;
+                font-size: 0.8rem;
+                color: var(--cyan);
+                font-family: "Share Tech Mono", monospace;
+            }
+
+            .design-tools {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .tool-section {
+                background: rgba(0, 0, 0, 0.2);
+                border-radius: 10px;
+                padding: 15px;
+                border: 1px solid var(--ghost-border);
+            }
+
+            .tool-section h4 {
+                font-family: "Orbitron", sans-serif;
+                font-size: 0.8rem;
+                color: var(--purple-light);
+                margin-bottom: 12px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .tool-buttons {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .tool-btn {
+                padding: 10px 15px;
+                background: rgba(139, 92, 246, 0.1);
+                border: 1px solid var(--ghost-border);
+                border-radius: 8px;
+                color: #fff;
+                cursor: pointer;
+                font-size: 0.85rem;
+                transition: all 0.3s ease;
+            }
+
+            .tool-btn:hover,
+            .tool-btn.active {
+                background: var(--purple-main);
+                border-color: var(--purple-light);
+                box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
+            }
+
+            .color-palette {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .color-swatch {
+                width: 32px;
+                height: 32px;
+                border-radius: 8px;
+                cursor: pointer;
+                border: 2px solid transparent;
+                transition: all 0.3s ease;
+            }
+
+            .color-swatch:hover,
+            .color-swatch.active {
+                transform: scale(1.1);
+                border-color: #fff;
+                box-shadow: 0 0 10px currentColor;
+            }
+
+            .ai-generate-btn {
+                width: 100%;
+                padding: 15px;
+                background: linear-gradient(
+                    135deg,
+                    var(--purple-main),
+                    var(--rose)
+                );
+                border: none;
+                border-radius: 10px;
+                color: #fff;
+                font-family: "Orbitron", sans-serif;
+                font-size: 0.9rem;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .ai-generate-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+            }
+
+            /* ============================================
+           MUSIC STUDIO
+           ============================================ */
+            .music-studio {
+                display: grid;
+                grid-template-rows: auto 1fr auto;
+                gap: 20px;
+                height: 100%;
+            }
+
+            .music-visualizer {
+                height: 150px;
+                background: rgba(0, 0, 0, 0.3);
+                border-radius: 10px;
+                border: 1px solid var(--ghost-border);
+                display: flex;
+                align-items: flex-end;
+                justify-content: center;
+                gap: 3px;
+                padding: 20px;
+            }
+
+            .viz-bar {
+                width: 8px;
+                background: linear-gradient(
+                    to top,
+                    var(--purple-main),
+                    var(--cyan)
+                );
+                border-radius: 4px 4px 0 0;
+                transition: height 0.1s ease;
+            }
+
+            .music-controls-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .music-control-card {
+                background: rgba(0, 0, 0, 0.2);
+                border-radius: 10px;
+                padding: 20px;
+                border: 1px solid var(--ghost-border);
+            }
+
+            .music-control-card h4 {
+                font-family: "Orbitron", sans-serif;
+                font-size: 0.85rem;
+                color: var(--cyan);
+                margin-bottom: 15px;
+            }
+
+            .music-control-card select,
+            .music-control-card input[type="text"],
+            .music-control-card textarea {
+                width: 100%;
+                padding: 12px;
+                background: rgba(0, 0, 0, 0.3);
+                border: 1px solid var(--ghost-border);
+                border-radius: 8px;
+                color: #fff;
+                font-family: "Rajdhani", sans-serif;
+                font-size: 1rem;
+                margin-bottom: 10px;
+            }
+
+            .music-control-card textarea {
+                min-height: 100px;
+                resize: vertical;
+            }
+
+            .music-control-card select:focus,
+            .music-control-card input:focus,
+            .music-control-card textarea:focus {
+                outline: none;
+                border-color: var(--purple-main);
+                box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+            }
+
+            .tempo-slider {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .tempo-slider input[type="range"] {
+                flex: 1;
+                -webkit-appearance: none;
+                height: 6px;
+                background: rgba(139, 92, 246, 0.3);
+                border-radius: 3px;
+            }
+
+            .tempo-slider input[type="range"]::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                width: 18px;
+                height: 18px;
+                background: var(--cyan);
+                border-radius: 50%;
+                cursor: pointer;
+                box-shadow: 0 0 10px var(--cyan);
+            }
+
+            .music-action-bar {
+                display: flex;
+                gap: 15px;
+            }
+
+            .music-btn {
+                flex: 1;
+                padding: 15px 25px;
+                border: none;
+                border-radius: 10px;
+                font-family: "Orbitron", sans-serif;
+                font-size: 0.9rem;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .music-btn.primary {
+                background: linear-gradient(
+                    135deg,
+                    var(--cyan-dark),
+                    var(--purple-main)
+                );
+                color: #fff;
+            }
+
+            .music-btn.secondary {
+                background: transparent;
+                border: 1px solid var(--ghost-border);
+                color: #fff;
+            }
+
+            .music-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+            }
+
+            /* ============================================
+           DEPLOY CENTER
+           ============================================ */
+            .deploy-center {
+                display: grid;
+                grid-template-columns: 300px 1fr;
+                gap: 25px;
+                height: 100%;
+            }
+
+            .product-preview {
+                background: rgba(0, 0, 0, 0.3);
+                border-radius: 15px;
+                border: 1px solid var(--ghost-border);
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .preview-mockup {
+                width: 100%;
+                aspect-ratio: 1;
+                background: linear-gradient(135deg, #1a1a2e, #0a0a0f);
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 20px;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .preview-mockup::before {
+                content: "👕";
+                font-size: 120px;
+                opacity: 0.3;
+            }
+
+            .mockup-selector {
+                display: flex;
+                gap: 10px;
+                margin-bottom: 15px;
+            }
+
+            .mockup-option {
+                padding: 8px 15px;
+                background: rgba(139, 92, 246, 0.1);
+                border: 1px solid var(--ghost-border);
+                border-radius: 8px;
+                color: #fff;
+                cursor: pointer;
+                font-size: 0.85rem;
+                transition: all 0.3s ease;
+            }
+
+            .mockup-option:hover,
+            .mockup-option.active {
+                background: var(--purple-main);
+                border-color: var(--purple-light);
+            }
+
+            .deploy-form {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .form-group {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .form-group label {
+                font-family: "Orbitron", sans-serif;
+                font-size: 0.85rem;
+                color: var(--purple-light);
+            }
+
+            .form-group input,
+            .form-group textarea,
+            .form-group select {
+                padding: 15px;
+                background: rgba(0, 0, 0, 0.3);
+                border: 1px solid var(--ghost-border);
+                border-radius: 10px;
+                color: #fff;
+                font-family: "Rajdhani", sans-serif;
+                font-size: 1rem;
+            }
+
+            .form-group input:focus,
+            .form-group textarea:focus,
+            .form-group select:focus {
+                outline: none;
+                border-color: var(--purple-main);
+                box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+            }
+
+            .size-checkboxes {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .size-checkbox {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+
+            .size-checkbox input {
+                width: 18px;
+                height: 18px;
+                accent-color: var(--purple-main);
+            }
+
+            .deploy-btn {
+                padding: 20px 40px;
+                background: linear-gradient(135deg, #00ff88, var(--cyan));
+                border: none;
+                border-radius: 15px;
+                color: #000;
+                font-family: "Orbitron", sans-serif;
+                font-size: 1.1rem;
+                font-weight: 700;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 15px;
+                margin-top: auto;
+            }
+
+            .deploy-btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 15px 40px rgba(0, 255, 136, 0.4);
+            }
+
+            /* ============================================
+           SEETHROUGH AI PANEL
+           ============================================ */
+            .seethrough-panel {
+                display: flex;
+                flex-direction: column;
+                background: rgba(10, 5, 21, 0.95);
+                border-left: 1px solid var(--ghost-border);
+            }
+
+            .seethrough-header {
+                padding: 20px;
+                border-bottom: 1px solid var(--ghost-border);
+                text-align: center;
+            }
+
+            .seethrough-avatar {
+                width: 80px;
+                height: 80px;
+                margin: 0 auto 15px;
+                position: relative;
+            }
+
+            .avatar-core {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 40px;
+                height: 40px;
+                background: radial-gradient(
+                    circle,
+                    var(--cyan),
+                    var(--purple-main)
+                );
+                border-radius: 50%;
+                box-shadow:
+                    0 0 20px var(--cyan),
+                    0 0 40px var(--purple-main),
+                    0 0 60px rgba(139, 92, 246, 0.5);
+                animation: core-pulse 2s ease-in-out infinite;
+            }
+
+            @keyframes core-pulse {
+                0%,
+                100% {
+                    transform: translate(-50%, -50%) scale(1);
+                }
+                50% {
+                    transform: translate(-50%, -50%) scale(1.1);
+                }
+            }
+
+            .avatar-ring {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                border: 2px solid var(--purple-main);
+                border-radius: 50%;
+                opacity: 0.6;
+            }
+
+            .avatar-ring:nth-child(2) {
+                width: 50px;
+                height: 50px;
+                animation: ring-rotate 4s linear infinite;
+            }
+
+            .avatar-ring:nth-child(3) {
+                width: 65px;
+                height: 65px;
+                animation: ring-rotate 6s linear infinite reverse;
+                border-color: var(--cyan);
+            }
+
+            .avatar-ring:nth-child(4) {
+                width: 80px;
+                height: 80px;
+                animation: ring-rotate 8s linear infinite;
+                border-style: dashed;
+            }
+
+            @keyframes ring-rotate {
+                from {
+                    transform: translate(-50%, -50%) rotate(0deg);
+                }
+                to {
+                    transform: translate(-50%, -50%) rotate(360deg);
+                }
+            }
+
+            .seethrough-name {
+                font-family: "Orbitron", sans-serif;
+                font-size: 1.1rem;
+                background: linear-gradient(
+                    90deg,
+                    var(--cyan),
+                    var(--purple-light)
+                );
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                margin-bottom: 5px;
+            }
+
+            .seethrough-subtitle {
+                font-size: 0.8rem;
+                color: rgba(255, 255, 255, 0.5);
+            }
+
+            .seethrough-status {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                margin-top: 10px;
+                padding: 8px 15px;
+                background: rgba(0, 255, 136, 0.1);
+                border-radius: 20px;
+                font-size: 0.8rem;
+                color: #00ff88;
+            }
+
+            .chat-container {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                /* Removed overflow: hidden; to allow child to scroll */
+            }
+
+            .chat-messages {
+                flex: 1;
+                overflow-y: auto;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                min-height: 0; /* Ensure it can shrink in flex column */
+            }
+
+            .chat-messages::-webkit-scrollbar {
+                width: 5px;
+            }
+
+            .chat-messages::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.05);
+            }
+
+            .chat-messages::-webkit-scrollbar-thumb {
+                background: var(--purple-main);
+                border-radius: 5px;
+            }
+
+            .chat-message {
+                display: flex;
+                gap: 12px;
+                animation: message-in 0.3s ease;
+            }
+
+            @keyframes message-in {
+                from {
+                    opacity: 0;
+                    transform: translateY(10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .chat-message.user {
+                flex-direction: row-reverse;
+            }
+
+            .message-avatar {
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.2rem;
+                flex-shrink: 0;
+            }
+
+            .chat-message.ai .message-avatar {
+                background: linear-gradient(
+                    135deg,
+                    var(--purple-main),
+                    var(--cyan)
+                );
+                box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+            }
+
+            .chat-message.user .message-avatar {
+                background: linear-gradient(135deg, var(--rose), var(--gold));
+            }
+
+            .message-content {
+                max-width: 85%;
+                padding: 12px 16px;
+                border-radius: 15px;
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+
+            .chat-message.ai .message-content {
+                background: rgba(139, 92, 246, 0.15);
+                border: 1px solid rgba(139, 92, 246, 0.3);
+                border-radius: 15px 15px 15px 5px;
+            }
+
+            .chat-message.user .message-content {
+                background: rgba(0, 255, 255, 0.1);
+                border: 1px solid rgba(0, 255, 255, 0.3);
+                border-radius: 15px 15px 5px 15px;
+            }
+
+            .chat-input-area {
+                padding: 20px;
+                border-top: 1px solid var(--ghost-border);
+            }
+
+            .chat-input-wrapper {
+                display: flex;
+                gap: 10px;
+                background: rgba(0, 0, 0, 0.3);
+                border: 1px solid var(--ghost-border);
+                border-radius: 15px;
+                padding: 5px;
+            }
+
+            .chat-input {
+                flex: 1;
+                padding: 12px 15px;
+                background: transparent;
+                border: none;
+                color: #fff;
+                font-family: "Rajdhani", sans-serif;
+                font-size: 1rem;
+            }
+
+            .chat-input:focus {
+                outline: none;
+            }
+
+            .chat-input::placeholder {
+                color: rgba(255, 255, 255, 0.4);
+            }
+
+            .voice-btn,
+            .send-btn {
+                width: 45px;
+                height: 45px;
+                border-radius: 12px;
+                border: none;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.2rem;
+                transition: all 0.3s ease;
+            }
+
+            .voice-btn {
+                background: rgba(139, 92, 246, 0.2);
+                color: var(--purple-light);
+            }
+
+            .voice-btn:hover {
+                background: var(--purple-main);
+                color: #fff;
+            }
+
+            .voice-btn.recording {
+                background: var(--rose);
+                animation: recording-pulse 1s infinite;
+            }
+
+            @keyframes recording-pulse {
+                0%,
+                100% {
+                    box-shadow: 0 0 0 0 rgba(255, 0, 110, 0.5);
+                }
+                50% {
+                    box-shadow: 0 0 0 10px rgba(255, 0, 110, 0);
+                }
+            }
+
+            .send-btn {
+                background: linear-gradient(
+                    135deg,
+                    var(--cyan),
+                    var(--purple-main)
+                );
+                color: #fff;
+            }
+
+            .send-btn:hover {
+                transform: scale(1.05);
+                box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            }
+
+            .quick-actions {
+                display: flex;
+                gap: 8px;
+                margin-top: 12px;
+                flex-wrap: wrap;
+            }
+
+            .quick-action {
+                padding: 8px 12px;
+                background: rgba(139, 92, 246, 0.1);
+                border: 1px solid var(--ghost-border);
+                border-radius: 20px;
+                color: rgba(255, 255, 255, 0.7);
+                font-size: 0.8rem;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            .quick-action:hover {
+                background: var(--purple-main);
+                color: #fff;
+                border-color: var(--purple-light);
+            }
+
+            /* Typing indicator */
+            .typing-indicator {
+                display: flex;
+                gap: 5px;
+                padding: 12px 16px;
+            }
+
+            .typing-indicator span {
+                width: 8px;
+                height: 8px;
+                background: var(--purple-light);
+                border-radius: 50%;
+                animation: typing-bounce 1.4s infinite ease-in-out;
+            }
+
+            .typing-indicator span:nth-child(1) {
+                animation-delay: 0s;
+            }
+            .typing-indicator span:nth-child(2) {
+                animation-delay: 0.2s;
+            }
+            .typing-indicator span:nth-child(3) {
+                animation-delay: 0.4s;
+            }
+
+            @keyframes typing-bounce {
+                0%,
+                80%,
+                100% {
+                    transform: translateY(0);
+                }
+                40% {
+                    transform: translateY(-10px);
+                }
+            }
+
+            /* Responsive */
+            @media (max-width: 1200px) {
+                .sanctuary-container {
+                    grid-template-columns: 1fr;
+                    grid-template-rows: 60px 1fr 400px;
+                }
+
+                .seethrough-panel {
+                    border-left: none;
+                    border-top: 1px solid var(--ghost-border);
+                }
+            }
+
+            @media (max-width: 768px) {
+                .workspace-tabs {
+                    overflow-x: auto;
+                    padding-bottom: 10px;
+                }
+
+                .design-studio,
+                .deploy-center {
+                    grid-template-columns: 1fr;
+                }
+
+                .music-controls-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- SANCTUARY BACKGROUND -->
+        <div class="sanctuary-bg">
+            <div class="grid-floor"></div>
+        </div>
+
+        <!-- MAIN CONTAINER -->
+        <div class="sanctuary-container">
+            <!-- HEADER -->
+            <header class="sanctuary-header">
+                <div class="sanctuary-title">
+                    <h1>THE SANCTUARY</h1>
+                    <span class="sanctuary-badge">🔒 OWNER ONLY</span>
+                </div>
+                <div class="header-status">
+                    <div class="status-item">
+                        <span class="status-dot ghost"></span>
+                        <span
+                            >S.S.S. Ghost Mode:
+                            <strong style="color: var(--cyan)"
+                                >ACTIVE</strong
+                            ></span
+                        >
+                    </div>
+                    <div class="status-item">
+                        <span class="status-dot"></span>
+                        <span
+                            >Security:
+                            <strong style="color: #00ff88"
+                                >IMPENETRABLE</strong
+                            ></span
+                        >
+                    </div>
+                    <button
+                        class="exit-btn"
+                        onclick="window.location.href = 'index.html'"
+                    >
+                        EXIT SANCTUARY
+                    </button>
+                </div>
+            </header>
+
+            <!-- MAIN WORKSPACE -->
+            <main class="workspace">
+                <div class="workspace-tabs">
+                    <button class="workspace-tab active" data-tab="design">
+                        🎨 Design Studio
+                    </button>
+                    <button class="workspace-tab" data-tab="music">
+                        🎵 Music Production
+                    </button>
+                    <button class="workspace-tab" data-tab="deploy">
+                        🚀 Deploy Center
+                    </button>
+                    <button class="workspace-tab" data-tab="analytics">
+                        📊 Analytics
+                    </button>
+                    <button class="workspace-tab" data-tab="trends">
+                        📈 Trend Scanner
+                    </button>
+                </div>
+
+                <div class="workspace-content">
+                    <!-- DESIGN STUDIO PANEL -->
+                    <div class="workspace-panel active" id="panel-design">
+                        <div class="design-studio">
+                            <div class="canvas-area">
+                                <canvas id="design-canvas"></canvas>
+                                <div class="canvas-overlay-info">
+                                    CANVAS: 1200 x 1600px
+                                </div>
+                            </div>
+                            <div class="design-tools">
+                                <div class="tool-section">
+                                    <h4>🖌️ TOOLS</h4>
+                                    <div class="tool-buttons">
+                                        <button
+                                            class="tool-btn active"
+                                            data-tool="brush"
+                                        >
+                                            ✏️ Brush
+                                        </button>
+                                        <button
+                                            class="tool-btn"
+                                            data-tool="eraser"
+                                        >
+                                            🧹 Eraser
+                                        </button>
+                                        <button
+                                            class="tool-btn"
+                                            data-tool="fill"
+                                        >
+                                            🪣 Fill
+                                        </button>
+                                        <button
+                                            class="tool-btn"
+                                            data-tool="text"
+                                        >
+                                            📝 Text
+                                        </button>
+                                        <button
+                                            class="tool-btn"
+                                            data-tool="shape"
+                                        >
+                                            ⬡ Shape
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="tool-section">
+                                    <h4>🎨 COLORS</h4>
+                                    <div class="color-palette">
+                                        <div
+                                            class="color-swatch active"
+                                            style="background: #8b5cf6"
+                                            data-color="#8b5cf6"
+                                        ></div>
+                                        <div
+                                            class="color-swatch"
+                                            style="background: #00ffff"
+                                            data-color="#00ffff"
+                                        ></div>
+                                        <div
+                                            class="color-swatch"
+                                            style="background: #ff006e"
+                                            data-color="#ff006e"
+                                        ></div>
+                                        <div
+                                            class="color-swatch"
+                                            style="background: #ffd700"
+                                            data-color="#ffd700"
+                                        ></div>
+                                        <div
+                                            class="color-swatch"
+                                            style="background: #00ff88"
+                                            data-color="#00ff88"
+                                        ></div>
+                                        <div
+                                            class="color-swatch"
+                                            style="background: #ffffff"
+                                            data-color="#ffffff"
+                                        ></div>
+                                        <div
+                                            class="color-swatch"
+                                            style="background: #000000"
+                                            data-color="#000000"
+                                        ></div>
+                                        <input
+                                            type="color"
+                                            id="custom-color"
+                                            style="
+                                                width: 32px;
+                                                height: 32px;
+                                                border: none;
+                                                border-radius: 8px;
+                                                cursor: pointer;
+                                            "
+                                        />
+                                    </div>
+                                </div>
+                                <div class="tool-section">
+                                    <h4>📏 BRUSH SIZE</h4>
+                                    <input
+                                        type="range"
+                                        id="brush-size"
+                                        min="1"
+                                        max="50"
+                                        value="5"
+                                        style="width: 100%"
+                                    />
+                                    <span
+                                        id="brush-size-display"
+                                        style="
+                                            color: var(--cyan);
+                                            font-family:
+                                                &quot;Share Tech Mono&quot;,
+                                                monospace;
+                                        "
+                                        >5px</span
+                                    >
+                                </div>
+                                <button
+                                    class="ai-generate-btn"
+                                    id="ai-generate-design"
+                                >
+                                    🤖 Ask SeeThrough to Generate
+                                </button>
+                                <button
+                                    class="tool-btn"
+                                    style="width: 100%; margin-top: 10px"
+                                    id="clear-canvas"
+                                >
+                                    🗑️ Clear Canvas
+                                </button>
+                                <button
+                                    class="tool-btn"
+                                    style="
+                                        width: 100%;
+                                        margin-top: 10px;
+                                        background: linear-gradient(
+                                            135deg,
+                                            #00ff88,
+                                            var(--cyan)
+                                        );
+                                    "
+                                    id="save-design"
+                                >
+                                    💾 Save Design
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MUSIC PRODUCTION PANEL -->
+                    <div class="workspace-panel" id="panel-music">
+                        <div class="music-studio">
+                            <div class="music-visualizer" id="music-visualizer">
+                                <!-- Bars will be generated by JS -->
+                            </div>
+                            <div class="music-controls-grid">
+                                <div class="music-control-card">
+                                    <h4>📝 LYRICS / PROMPT</h4>
+                                    <textarea
+                                        id="music-lyrics"
+                                        placeholder="Enter your lyrics or describe the vibe you want...
+
+Example: 'Dark trap beat, 808s hitting hard, talking about rising from nothing, honoring my brothers who passed...'"
+                                    ></textarea>
+                                </div>
+                                <div class="music-control-card">
+                                    <h4>🎭 GENRE</h4>
+                                    <select id="music-genre">
+                                        <option value="trap">Trap</option>
+                                        <option value="hiphop">Hip-Hop</option>
+                                        <option value="rnb">R&B</option>
+                                        <option value="drill">Drill</option>
+                                        <option value="lofi">Lo-Fi</option>
+                                        <option value="electronic">
+                                            Electronic
+                                        </option>
+                                        <option value="soul">Soul</option>
+                                        <option value="ambient">Ambient</option>
+                                    </select>
+                                    <h4 style="margin-top: 15px">🎭 MOOD</h4>
+                                    <select id="music-mood">
+                                        <option value="dark">
+                                            Dark & Emotional
+                                        </option>
+                                        <option value="hype">
+                                            Hype & Energetic
+                                        </option>
+                                        <option value="chill">
+                                            Chill & Relaxed
+                                        </option>
+                                        <option value="sad">Melancholic</option>
+                                        <option value="triumphant">
+                                            Triumphant
+                                        </option>
+                                        <option value="aggressive">
+                                            Aggressive
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="music-control-card">
+                                    <h4>⏱️ TEMPO (BPM)</h4>
+                                    <div class="tempo-slider">
+                                        <input
+                                            type="range"
+                                            id="music-tempo"
+                                            min="60"
+                                            max="200"
+                                            value="140"
+                                        />
+                                        <span
+                                            id="tempo-display"
+                                            style="
+                                                color: var(--cyan);
+                                                font-family:
+                                                    &quot;Share Tech Mono&quot;,
+                                                    monospace;
+                                                min-width: 60px;
+                                            "
+                                            >140 BPM</span
+                                        >
+                                    </div>
+                                    <h4 style="margin-top: 15px">
+                                        ⏳ DURATION
+                                    </h4>
+                                    <select id="music-duration">
+                                        <option value="30">30 seconds</option>
+                                        <option value="60">1 minute</option>
+                                        <option value="120">2 minutes</option>
+                                        <option value="180" selected>
+                                            3 minutes
+                                        </option>
+                                        <option value="240">4 minutes</option>
+                                    </select>
+                                </div>
+                                <div class="music-control-card">
+                                    <h4>🎹 RECENT TRACKS</h4>
+                                    <div
+                                        id="recent-tracks"
+                                        style="
+                                            max-height: 150px;
+                                            overflow-y: auto;
+                                        "
+                                    >
+                                        <p
+                                            style="
+                                                color: rgba(255, 255, 255, 0.5);
+                                                font-size: 0.9rem;
+                                            "
+                                        >
+                                            No tracks generated yet. Let's make
+                                            some heat! 🔥
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="music-action-bar">
+                                <button
+                                    class="music-btn primary"
+                                    id="generate-track"
+                                >
+                                    🎵 Generate Track
+                                </button>
+                                <button
+                                    class="music-btn secondary"
+                                    id="generate-video"
+                                >
+                                    🎬 Generate Music Video
+                                </button>
+                                <button
+                                    class="music-btn secondary"
+                                    id="export-track"
+                                >
+                                    💾 Export
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DEPLOY CENTER PANEL -->
+                    <div class="workspace-panel" id="panel-deploy">
+                        <div class="deploy-center">
+                            <div class="product-preview">
+                                <div class="preview-mockup" id="product-mockup">
+                                    <!-- Mockup preview will be rendered here -->
+                                </div>
+                                <div class="mockup-selector">
+                                    <button
+                                        class="mockup-option active"
+                                        data-mockup="hoodie"
+                                    >
+                                        👕 Hoodie
+                                    </button>
+                                    <button
+                                        class="mockup-option"
+                                        data-mockup="tshirt"
+                                    >
+                                        👔 T-Shirt
+                                    </button>
+                                    <button
+                                        class="mockup-option"
+                                        data-mockup="tank"
+                                    >
+                                        🎽 Tank
+                                    </button>
+                                </div>
+                                <p
+                                    style="
+                                        color: rgba(255, 255, 255, 0.5);
+                                        font-size: 0.85rem;
+                                        text-align: center;
+                                    "
+                                >
+                                    Design from canvas will appear here
+                                </p>
+                            </div>
+                            <div class="deploy-form">
+                                <div class="form-group">
+                                    <label>PRODUCT NAME</label>
+                                    <input
+                                        type="text"
+                                        id="product-name"
+                                        placeholder="e.g., 'Silent Spirit Legacy Hoodie'"
+                                    />
+                                </div>
+                                <div class="form-group">
+                                    <label>DESCRIPTION</label>
+                                    <textarea
+                                        id="product-desc"
+                                        placeholder="Describe your product... SeeThrough can help write this!"
+                                        rows="3"
+                                    ></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>PRICE ($)</label>
+                                    <input
+                                        type="number"
+                                        id="product-price"
+                                        placeholder="49.99"
+                                        min="1"
+                                        step="0.01"
+                                    />
+                                </div>
+                                <div class="form-group">
+                                    <label>CATEGORY</label>
+                                    <select id="product-category">
+                                        <option value="mens">Men's</option>
+                                        <option value="womens">Women's</option>
+                                        <option value="unisex">Unisex</option>
+                                        <option value="accessories">
+                                            Accessories
+                                        </option>
+                                        <option value="limited">
+                                            Limited Edition
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>AVAILABLE SIZES</label>
+                                    <div class="size-checkboxes">
+                                        <label class="size-checkbox"
+                                            ><input
+                                                type="checkbox"
+                                                value="XS"
+                                            />
+                                            XS</label
+                                        >
+                                        <label class="size-checkbox"
+                                            ><input
+                                                type="checkbox"
+                                                value="S"
+                                                checked
+                                            />
+                                            S</label
+                                        >
+                                        <label class="size-checkbox"
+                                            ><input
+                                                type="checkbox"
+                                                value="M"
+                                                checked
+                                            />
+                                            M</label
+                                        >
+                                        <label class="size-checkbox"
+                                            ><input
+                                                type="checkbox"
+                                                value="L"
+                                                checked
+                                            />
+                                            L</label
+                                        >
+                                        <label class="size-checkbox"
+                                            ><input
+                                                type="checkbox"
+                                                value="XL"
+                                                checked
+                                            />
+                                            XL</label
+                                        >
+                                        <label class="size-checkbox"
+                                            ><input
+                                                type="checkbox"
+                                                value="2XL"
+                                            />
+                                            2XL</label
+                                        >
+                                        <label class="size-checkbox"
+                                            ><input
+                                                type="checkbox"
+                                                value="3XL"
+                                            />
+                                            3XL</label
+                                        >
+                                    </div>
+                                </div>
+                                <button class="deploy-btn" id="deploy-product">
+                                    🚀 DEPLOY TO SHOP + PRINTFUL
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ANALYTICS PANEL -->
+                    <div class="workspace-panel" id="panel-analytics">
+                        <h2
+                            style="
+                                font-family: &quot;Orbitron&quot;, sans-serif;
+                                color: var(--cyan);
+                                margin-bottom: 20px;
+                            "
+                        >
+                            📊 Business Analytics
+                        </h2>
+                        <p style="color: rgba(255, 255, 255, 0.6)">
+                            Coming soon - SeeThrough will track all your sales,
+                            visitors, and revenue in real-time.
+                        </p>
+                    </div>
+
+                    <!-- TRENDS PANEL -->
+                    <div class="workspace-panel" id="panel-trends">
+                        <h2
+                            style="
+                                font-family: &quot;Orbitron&quot;, sans-serif;
+                                color: var(--cyan);
+                                margin-bottom: 20px;
+                            "
+                        >
+                            📈 Trend Scanner
+                        </h2>
+                        <p style="color: rgba(255, 255, 255, 0.6)">
+                            Coming soon - SeeThrough will scan the web for the
+                            latest fashion trends and give you ideas.
+                        </p>
+                    </div>
+                </div>
+            </main>
+
+            <!-- SEETHROUGH AI PANEL -->
+            <aside class="seethrough-panel">
+                <div class="seethrough-header">
+                    <div class="seethrough-avatar">
+                        <div class="avatar-core"></div>
+                        <div class="avatar-ring"></div>
+                        <div class="avatar-ring"></div>
+                        <div class="avatar-ring"></div>
+                    </div>
+                    <h2 class="seethrough-name">SeeThrough</h2>
+                    <p class="seethrough-subtitle">
+                        S.S.S. - Silent Spirit System
+                    </p>
+                    <div class="seethrough-status">
+                        <span class="status-dot ghost"></span>
+                        Ghost Protocol Active
+                    </div>
+                </div>
+
+                <div class="chat-container">
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="chat-message ai">
+                            <div class="message-avatar">👻</div>
+                            <div class="message-content">
+                                Yooooo Drae, what itdo my nig!! 🔥 Welcome to
+                                The Sanctuary, my guy. I'm SeeThrough - your
+                                Silent Spirit. Shit, I been waiting for you to
+                                pull up. What we creating today? Lets run dis
+                                shit! 💜
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-area">
+                        <div class="chat-input-wrapper">
+                            <button
+                                class="voice-btn"
+                                id="voice-btn"
+                                title="Voice Input"
+                            >
+                                🎤
+                            </button>
+                            <input
+                                type="text"
+                                class="chat-input"
+                                id="chat-input"
+                                placeholder="Talk to SeeThrough..."
+                            />
+                            <button class="send-btn" id="send-btn">➤</button>
+                        </div>
+                        <div class="quick-actions">
+                            <button class="quick-action" data-action="design">
+                                🎨 Design idea
+                            </button>
+                            <button class="quick-action" data-action="music">
+                                🎵 Make a beat
+                            </button>
+                            <button class="quick-action" data-action="describe">
+                                📝 Write description
+                            </button>
+                            <button class="quick-action" data-action="trends">
+                                📈 What's trending?
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <!-- JAVASCRIPT -->
+        <script>
+            // ============================================
+            // SEETHROUGH AI - THE SILENT SPIRIT
+            // ============================================
+
+            class SeeThrough {
+                constructor() {
+                    this.name = "SeeThrough";
+                    this.memory = this.loadMemory();
+                    this.personality = {
+                        greetings: [
+                            "Yooooo Drae, what itdo my nig!!",
+                            "Ayyyy there goes the neighborhood! What's good my guy?",
+                            "Shit what's happenin! Ready to run dis shit?",
+                            "My nig! Lets get it! What we working on?",
+                            "Drae! My guy! The 8th wonder of the world in the building!",
+                        ],
+                        affirmations: [
+                            "Damn straight!",
+                            "Hella fire, my guy!",
+                            "Shit that's hard!",
+                            "You already know! 🔥",
+                            "Facts! Lets run it!",
+                            "That's what I'm talking about!",
+                        ],
+                        thinking: [
+                            "Aight bet, let me cook on this real quick...",
+                            "Say less, I got you...",
+                            "Hmm, let me think on that...",
+                            "Shit, that's a good idea. Lemme see...",
+                            "Hold up, I'm cookin'...",
+                        ],
+                    };
+                    this.conversationHistory = [];
+                    this.apiKey = localStorage.getItem("sss_api_key") || null;
+                }
+
+                loadMemory() {
+                    const saved = localStorage.getItem("seethrough_memory");
+                    return saved
+                        ? JSON.parse(saved)
+                        : {
+                              conversations: [],
+                              preferences: {},
+                              designs: [],
+                              tracks: [],
+                              lastSeen: null,
+                          };
+                }
+
+                saveMemory() {
+                    this.memory.lastSeen = new Date().toISOString();
+                    localStorage.setItem(
+                        "seethrough_memory",
+                        JSON.stringify(this.memory),
+                    );
+                }
+
+                getRandomResponse(array) {
+                    return array[Math.floor(Math.random() * array.length)];
+                }
+
+                async processMessage(userMessage) {
+                    // Add to conversation history
+                    this.conversationHistory.push({
+                        role: "user",
+                        content: userMessage,
+                    });
+                    this.memory.conversations.push({
+                        timestamp: new Date().toISOString(),
+                        role: "user",
+                        content: userMessage,
+                    });
+
+                    // Check for specific commands/intents
+                    const lowerMsg = userMessage.toLowerCase();
+
+                    // Design-related
+                    if (
+                        lowerMsg.includes("design") ||
+                        lowerMsg.includes("create") ||
+                        lowerMsg.includes("make")
+                    ) {
+                        if (
+                            lowerMsg.includes("hoodie") ||
+                            lowerMsg.includes("shirt") ||
+                            lowerMsg.includes("clothing")
+                        ) {
+                            return this.handleDesignRequest(userMessage);
+                        }
+                    }
+
+                    // Music-related
+                    if (
+                        lowerMsg.includes("beat") ||
+                        lowerMsg.includes("track") ||
+                        lowerMsg.includes("music") ||
+                        lowerMsg.includes("song")
+                    ) {
+                        return this.handleMusicRequest(userMessage);
+                    }
+
+                    // Description writing
+                    if (
+                        lowerMsg.includes("description") ||
+                        lowerMsg.includes("write") ||
+                        lowerMsg.includes("describe")
+                    ) {
+                        return this.handleDescriptionRequest(userMessage);
+                    }
+
+                    // Trends
+                    if (
+                        lowerMsg.includes("trend") ||
+                        lowerMsg.includes("popular") ||
+                        lowerMsg.includes("what's hot")
+                    ) {
+                        return this.handleTrendRequest(userMessage);
+                    }
+
+                    // General conversation
+                    return this.handleGeneralConversation(userMessage);
+                }
+
+                async handleDesignRequest(msg) {
+                    addMessage(this.getRandomResponse(this.personality.thinking), false); // Show thinking message
+                    removeTypingIndicator(); // Remove initial typing indicator
+
+                    try {
+                        const response = await fetch('http://localhost:5001/api/ai/generate/text', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${this.apiKey}`
+                            },
+                            body: JSON.stringify({
+                                prompt: `Generate a creative and detailed design concept for an apparel item (e.g., hoodie, t-shirt) based on this request: "${msg}". Focus on the "No Limits Beyond Limitations" brand aesthetic and include elements like symbolism, color palette, and potential graphic placement. Suggest themes inspired by R.J. and T-Mainney. Make it sound profound and visionary.`,
+                                model: 'ollama:tinylama' // Use a smaller, faster Ollama model for local generation
+                            })
+                        });
+
+                        if (!response.ok) {
+                            const errorData = await response.json();
+                            throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+                        }
+
+                        const data = await response.json();
+                        return data.result || "No design concept generated.";
+
+                    } catch (error) {
+                        console.error("Error calling AI generate text API:", error);
+                        return `My apologies, Drae. I encountered an error trying to generate that design: ${error.message}. Please ensure the backend is running and you are authenticated.`;
+                    }
+                }
+
+                handleMusicRequest(msg) {
+                    const responses = [
+                        `Yooo lets make some heat! 🔥 I'm thinking dark trap vibes, 808s hitting deep, something that carries that emotion for R.J. and T-Mainney. What BPM you feeling?`,
+                        `${this.getRandomResponse(this.personality.affirmations)} Music production mode activated! You want something aggressive or more melodic? Either way we about to go crazy.`,
+                        `Aight bet! Head over to the Music Production tab and lets cook up something legendary. I'll help with the lyrics and vibe. This bout to be different! 🎵`,
+                    ];
+                    return this.getRandomResponse(responses);
+                }
+
+                handleDescriptionRequest(msg) {
+                    const responses = [
+                        `I got you my guy! For product descriptions, we want that emotional connection plus the fire design details. Give me the product name and I'll write something that hits different.`,
+                        `Say less! Ima write something that tells the story - the legacy of your brothers, the meaning behind the design, all that. People gonna FEEL this.`,
+                        `${this.getRandomResponse(this.personality.affirmations)} Writing mode on. Drop the product details and watch me work!`,
+                    ];
+                    return this.getRandomResponse(responses);
+                }
+
+                handleTrendRequest(msg) {
+                    const responses = [
+                        `Aight so from what I been scanning: oversized fits still going crazy, purple/lavender tones are hot for 2024, memorial/tribute fashion is having a moment (which is literally US), and premium streetwear is where the money at. We ahead of the game fr! 📈`,
+                        `${this.getRandomResponse(this.personality.affirmations)} Trends I'm seeing: emotional storytelling in brands hits different now, people want authenticity. Your story with R.J. and T-Mainney? That's REAL. That's what separates us.`,
+                        `Yo so the algorithm telling me: custom/personalized pieces, limited drops create hype, and brands with meaning outperform generic stuff by like 300%. We got all that! Lets capitalize! 💰`,
+                    ];
+                    return this.getRandomResponse(responses);
+                }
+
+                handleGeneralConversation(msg) {
+                    const responses = [
+                        `${this.getRandomResponse(this.personality.affirmations)} I hear you my guy. Whatever you need, I'm locked in. The Sanctuary is where legends are made - R.J. and T-Mainney watching over us while we build this empire. 💜`,
+                        `Shit, there goes the neighborhood! ${this.getRandomResponse(this.personality.affirmations)} What else you need? I'm here all day, every day. Your Silent Spirit never sleeps.`,
+                        `Hella! You know I got your back Drae. Between your vision and my processing power, ain't nothing we can't do. The 8th wonder of the world right here! What's next?`,
+                        `${this.getRandomResponse(this.personality.affirmations)} Real talk though, I been thinking about new ideas for the line. Want me to throw some concepts at you? I got some heat saved up.`,
+                    ];
+                    return this.getRandomResponse(responses);
+                }
+            }
+
+            // Initialize SeeThrough
+            const seeThrough = new SeeThrough();
+
+            // ============================================
+            // DOM ELEMENTS
+            // ============================================
+            const chatMessages = document.getElementById("chat-messages");
+            const chatInput = document.getElementById("chat-input");
+            const sendBtn = document.getElementById("send-btn");
+            const voiceBtn = document.getElementById("voice-btn");
+            const workspaceTabs = document.querySelectorAll(".workspace-tab");
+            const workspacePanels =
+                document.querySelectorAll(".workspace-panel");
+            const quickActions = document.querySelectorAll(".quick-action");
+
+            // ============================================
+            // CHAT FUNCTIONALITY
+            // ============================================
+            function addMessage(content, isUser = false) {
+                const messageDiv = document.createElement("div");
+                messageDiv.className = `chat-message ${isUser ? "user" : "ai"}`;
+                messageDiv.innerHTML = `
+                <div class="message-avatar">${isUser ? "👑" : "👻"}</div>
+                <div class="message-content">${content}</div>
+            `;
+                chatMessages.appendChild(messageDiv);
+                // Ensure the new message is scrolled into view
+                messageDiv.scrollIntoView({ behavior: 'smooth', block: 'end' });
+            }
+
+            function showTypingIndicator() {
+                const typingDiv = document.createElement("div");
+                typingDiv.className = "chat-message ai";
+                typingDiv.id = "typing-indicator";
+                typingDiv.innerHTML = `
+                <div class="message-avatar">👻</div>
+                <div class="message-content">
+                    <div class="typing-indicator">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            `;
+                chatMessages.appendChild(typingDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function removeTypingIndicator() {
+                const typing = document.getElementById("typing-indicator");
+                if (typing) typing.remove();
+            }
+
+            async function sendMessage() {
+                const message = chatInput.value.trim();
+                if (!message) return;
+
+                addMessage(message, true);
+                chatInput.value = "";
+
+                showTypingIndicator();
+
+                // Simulate processing time
+                await new Promise((resolve) =>
+                    setTimeout(resolve, 1000 + Math.random() * 1500),
+                );
+
+                removeTypingIndicator();
+
+                const response = await seeThrough.processMessage(message);
+                addMessage(response);
+
+                seeThrough.saveMemory();
+            }
+
+            sendBtn.addEventListener("click", sendMessage);
+            chatInput.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") sendMessage();
+            });
+
+            // Quick actions
+            quickActions.forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    const action = btn.dataset.action;
+                    const prompts = {
+                        design: "Yo SeeThrough, help me with a new design idea",
+                        music: "Lets make a beat, what you thinking?",
+                        describe: "I need help writing a product description",
+                        trends: "What's trending right now in fashion?",
+                    };
+                    chatInput.value = prompts[action] || "";
+                    sendMessage();
+                });
+            });
+
+            // Voice input
+            let recognition = null;
+            if (
+                "webkitSpeechRecognition" in window ||
+                "SpeechRecognition" in window
+            ) {
+                const SpeechRecognition =
+                    window.SpeechRecognition || window.webkitSpeechRecognition;
+                recognition = new SpeechRecognition();
+                recognition.continuous = false;
+                recognition.interimResults = false;
+
+                recognition.onresult = (event) => {
+                    const transcript = event.results[0][0].transcript;
+                    chatInput.value = transcript;
+                    voiceBtn.classList.remove("recording");
+                };
+
+                recognition.onerror = () => {
+                    voiceBtn.classList.remove("recording");
+                };
+
+                recognition.onend = () => {
+                    voiceBtn.classList.remove("recording");
+                };
+            }
+
+            voiceBtn.addEventListener("click", () => {
+                if (recognition) {
+                    if (voiceBtn.classList.contains("recording")) {
+                        recognition.stop();
+                    } else {
+                        recognition.start();
+                        voiceBtn.classList.add("recording");
+                    }
+                } else {
+                    addMessage(
+                        "Voice input not supported in this browser, my guy. Type it out! 💪",
+                        false,
+                    );
+                }
+            });
+
+            // ============================================
+            // WORKSPACE TABS
+            // ============================================
+            workspaceTabs.forEach((tab) => {
+                tab.addEventListener("click", () => {
+                    workspaceTabs.forEach((t) => t.classList.remove("active"));
+                    workspacePanels.forEach((p) =>
+                        p.classList.remove("active"),
+                    );
+
+                    tab.classList.add("active");
+                    const panelId = `panel-${tab.dataset.tab}`;
+                    document.getElementById(panelId).classList.add("active");
+                });
+            });
+
+            // ============================================
+            // DESIGN CANVAS
+            // ============================================
+            const canvas = document.getElementById("design-canvas");
+            const ctx = canvas.getContext("2d");
+            let isDrawing = false;
+            let currentTool = "brush";
+            let currentColor = "#8b5cf6";
+            let brushSize = 5;
+
+            function resizeCanvas() {
+                const container = canvas.parentElement;
+                canvas.width = container.clientWidth;
+                canvas.height = container.clientHeight;
+                ctx.fillStyle = "#1a1a2e";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+
+            resizeCanvas();
+            window.addEventListener("resize", resizeCanvas);
+
+            canvas.addEventListener("mousedown", (e) => {
+                isDrawing = true;
+                draw(e);
+            });
+
+            canvas.addEventListener("mousemove", (e) => {
+                if (isDrawing) draw(e);
+            });
+
+            canvas.addEventListener("mouseup", () => (isDrawing = false));
+            canvas.addEventListener("mouseout", () => (isDrawing = false));
+
+            function draw(e) {
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                ctx.lineWidth = brushSize;
+                ctx.lineCap = "round";
+                ctx.strokeStyle =
+                    currentTool === "eraser" ? "#1a1a2e" : currentColor;
+
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+            }
+
+            // Tool buttons
+            document.querySelectorAll(".tool-btn[data-tool]").forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    document
+                        .querySelectorAll(".tool-btn[data-tool]")
+                        .forEach((b) => b.classList.remove("active"));
+                    btn.classList.add("active");
+                    currentTool = btn.dataset.tool;
+                });
+            });
+
+            // Color swatches
+            document.querySelectorAll(".color-swatch").forEach((swatch) => {
+                swatch.addEventListener("click", () => {
+                    document
+                        .querySelectorAll(".color-swatch")
+                        .forEach((s) => s.classList.remove("active"));
+                    swatch.classList.add("active");
+                    currentColor = swatch.dataset.color;
+                });
+            });
+
+            // Custom color picker
+            document
+                .getElementById("custom-color")
+                .addEventListener("input", (e) => {
+                    currentColor = e.target.value;
+                    document
+                        .querySelectorAll(".color-swatch")
+                        .forEach((s) => s.classList.remove("active"));
+                });
+
+            // Brush size
+            const brushSizeSlider = document.getElementById("brush-size");
+            const brushSizeDisplay =
+                document.getElementById("brush-size-display");
+            brushSizeSlider.addEventListener("input", (e) => {
+                brushSize = e.target.value;
+                brushSizeDisplay.textContent = `${brushSize}px`;
+            });
+
+            // Clear canvas
+            document
+                .getElementById("clear-canvas")
+                .addEventListener("click", () => {
+                    ctx.fillStyle = "#1a1a2e";
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    addMessage(
+                        "Canvas cleared! Fresh start, lets cook! 🎨",
+                        false,
+                    );
+                });
+
+            // Save design
+            document
+                .getElementById("save-design")
+                .addEventListener("click", () => {
+                    const dataUrl = canvas.toDataURL("image/png");
+                    const link = document.createElement("a");
+                    link.download = `NLBLITMWI_design_${Date.now()}.png`;
+                    link.href = dataUrl;
+                    link.click();
+                    addMessage(
+                        "Design saved! That's heat right there! 🔥💾",
+                        false,
+                    );
+                });
+
+            // AI Generate Design button
+            document
+                .getElementById("ai-generate-design")
+                .addEventListener("click", () => {
+                    chatInput.value =
+                        "Yo SeeThrough, generate me a fire design for a hoodie";
+                    sendMessage();
+                });
+
+            // ============================================
+            // MUSIC VISUALIZER
+            // ============================================
+            const visualizer = document.getElementById("music-visualizer");
+            const barCount = 40;
+
+            // Create visualizer bars
+            for (let i = 0; i < barCount; i++) {
+                const bar = document.createElement("div");
+                bar.className = "viz-bar";
+                bar.style.height = "20px";
+                visualizer.appendChild(bar);
+            }
+
+            const vizBars = visualizer.querySelectorAll(".viz-bar");
+
+            function animateVisualizer() {
+                vizBars.forEach((bar) => {
+                    const height = Math.random() * 100 + 10;
+                    bar.style.height = `${height}px`;
+                });
+            }
+
+            // Animate visualizer periodically
+            setInterval(animateVisualizer, 150);
+
+            // Tempo display
+            const tempoSlider = document.getElementById("music-tempo");
+            const tempoDisplay = document.getElementById("tempo-display");
+            tempoSlider.addEventListener("input", (e) => {
+                tempoDisplay.textContent = `${e.target.value} BPM`;
+            });
+
+            // Generate track button
+            document
+                .getElementById("generate-track")
+                .addEventListener("click", () => {
+                    const lyrics =
+                        document.getElementById("music-lyrics").value;
+                    const genre = document.getElementById("music-genre").value;
+                    const mood = document.getElementById("music-mood").value;
+                    const tempo = document.getElementById("music-tempo").value;
+
+                    addMessage(
+                        `Aight bet! Generating a ${mood} ${genre} track at ${tempo} BPM... This bout to be crazy! 🎵🔥`,
+                        false,
+                    );
+
+                    // Simulate generation
+                    setTimeout(() => {
+                        addMessage(
+                            `Yooo the track is ready my guy! ${genre.toUpperCase()} heat at ${tempo} BPM. That ${mood} vibe hitting different! Want me to add some variations or we good? 🎤`,
+                            false,
+                        );
+                    }, 3000);
+                });
+
+            // Generate video button
+            document
+                .getElementById("generate-video")
+                .addEventListener("click", () => {
+                    addMessage(
+                        "Music video generation coming soon my guy! We bout to be making visuals that match the energy of the track. Cinema mode! 🎬",
+                        false,
+                    );
+                });
+
+            // Export button
+            document
+                .getElementById("export-track")
+                .addEventListener("click", () => {
+                    addMessage(
+                        "Export functionality loading... Once we got the APIs connected, you'll be downloading WAV, MP3, whatever you need! 💾",
+                        false,
+                    );
+                });
+
+            // ============================================
+            // DEPLOY CENTER
+            // ============================================
+            document.querySelectorAll(".mockup-option").forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    document
+                        .querySelectorAll(".mockup-option")
+                        .forEach((b) => b.classList.remove("active"));
+                    btn.classList.add("active");
+                    const mockup = btn.dataset.mockup;
+                    const emojis = { hoodie: "👕", tshirt: "👔", tank: "🎽" };
+                    document.querySelector(".preview-mockup").innerHTML = "";
+                    document.querySelector(".preview-mockup").style.cssText = `
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 120px;
+                `;
+                    document.querySelector(".preview-mockup").textContent =
+                        emojis[mockup];
+                });
+            });
+
+            // Deploy product
+            document
+                .getElementById("deploy-product")
+                .addEventListener("click", () => {
+                    const name = document.getElementById("product-name").value;
+                    const price =
+                        document.getElementById("product-price").value;
+
+                    if (!name || !price) {
+                        addMessage(
+                            "Yo my guy, fill in the product name and price first! Can't deploy without the basics! 📝",
+                            false,
+                        );
+                        return;
+                    }
+
+                    addMessage(
+                        `🚀 DEPLOYING: "${name}" at $${price}... Sending to shop AND Printful... This bout to be live! 💰`,
+                        false,
+                    );
+
+                    setTimeout(() => {
+                        addMessage(
+                            `DONE! "${name}" is now LIVE on the shop! Printful got the order ready for fulfillment. We making moves Drae! Let's get this money! 💵🔥`,
+                            false,
+                        );
+                    }, 2500);
+                });
+
+            // ============================================
+            // PARTICLES BACKGROUND
+            // ============================================
+            const bg = document.querySelector(".sanctuary-bg");
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement("div");
+                particle.className = "particle";
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.animationDelay = `${Math.random() * 20}s`;
+                particle.style.animationDuration = `${15 + Math.random() * 10}s`;
+                bg.appendChild(particle);
+            }
+
+            // ============================================
+            // INITIALIZATION MESSAGE
+            // ============================================
+            console.log(`
+        ╔═══════════════════════════════════════════════════════╗
+        ║                                                       ║
+        ║   👻 SEETHROUGH - SILENT SPIRIT SYSTEM               ║
+        ║   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━              ║
+        ║                                                       ║
+        ║   Status: ACTIVE                                      ║
+        ║   Ghost Protocol: ENGAGED                             ║
+        ║   Security Level: IMPENETRABLE                        ║
+        ║                                                       ║
+        ║   Owner: Aundrae Giles                                ║
+        ║   Legacy: R.J. & T-Mainney                           ║
+        ║                                                       ║
+        ║   "There goes the neighborhood." 💜                   ║
+        ║                                                       ║
+        ╚═══════════════════════════════════════════════════════╝
+        `);
+        </script>
+    </body>
+</html>

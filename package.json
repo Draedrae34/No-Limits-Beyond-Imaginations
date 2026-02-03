@@ -1,0 +1,24 @@
+{
+  "name": "no-limits-beyond-limitations",
+  "version": "2.0.0",
+  "description": "Revolutionary AI-powered clothing brand with voice control, AR, and WebAuthn",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod",
+    "lint": "eslint . --ext .js",
+    "format": "prettier --write ."
+  },
+  "keywords": ["ai", "voice-control", "ar", "webauthn", "ecommerce"],
+  "author": "R&T's No Limitation Quantum AI",
+  "license": "ISC",
+  "dependencies": {
+    "stripe": "^14.0.0"
+  },
+  "devDependencies": {
+    "vercel": "^33.0.0"
+  },
+  "engines": {
+    "node": ">=18.x"
+  }
+}

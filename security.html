@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Monitoring - No Limits Beyond Limitations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header class="main-header">
+        <nav class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html">No Limits Beyond Limitations</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="album.html">Album</a></li>
+                <li><a href="personal.html">Personal</a></li>
+                <li><a href="security.html" class="active">Security</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="security-main">
+        <section class="security-dashboard">
+            <h1>🛡️ Security Monitoring Dashboard</h1>
+            <div class="security-stats">
+                <div class="stat-card">
+                    <h3>Security Level</h3>
+                    <span id="sec-level">MAXIMUM</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Last Scan</h3>
+                    <span id="last-scan">Loading...</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Threats Detected</h3>
+                    <span id="threats-count">0</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Blockchain Length</h3>
+                    <span id="blockchain-length">0</span>
+                </div>
+            </div>
+
+            <div class="security-controls">
+                <button id="run-scan-btn">Run Security Scan</button>
+                <button id="refresh-logs-btn">Refresh Logs</button>
+            </div>
+
+            <div class="threat-logs">
+                <h2>Recent Threats</h2>
+                <div id="threats-list" class="logs-container">
+                    <p>Loading threat logs...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        async function loadSecurityData() {
+            try {
+                const response = await fetch('http://localhost:5000/api/security/logs');
+                const data = await response.json();
+                document.getElementById('last-scan').textContent = data.last_scan;
+                document.getElementById('threats-count').textContent = data.threats.length;
+                document.getElementById('blockchain-length').textContent = data.blockchain_length;
+
+                const threatsList = document.getElementById('threats-list');
+                if (data.threats.length === 0) {
+                    threatsList.innerHTML = '<p>No threats detected.</p>';
+                } else {
+                    threatsList.innerHTML = data.threats.map(threat => `
+                        <div class="threat-item">
+                            <div class="threat-time">${threat.timestamp}</div>
+                            <div class="threat-details">${threat.request}</div>
+                            <div class="threat-score">Score: ${threat.score}</div>
+                        </div>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Error loading security data:', error);
+                document.getElementById('threats-list').innerHTML = '<p>Unable to load security logs.</p>';
+            }
+        }
+
+        document.getElementById('run-scan-btn').addEventListener('click', async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/security/scan', {
+                    method: 'POST'
+                });
+                const data = await response.json();
+                alert(`Scan completed. Threats: ${data.threats}`);
+                loadSecurityData();
+            } catch (error) {
+                console.error('Scan error:', error);
+                alert('Scan failed.');
+            }
+        });
+
+        document.getElementById('refresh-logs-btn').addEventListener('click', loadSecurityData);
+
+        // Load data on page load
+        loadSecurityData();
+    </script>
+</body>
+</html>

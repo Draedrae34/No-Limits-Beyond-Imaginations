@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0c0c0c">
+    <title>About Us | No Limits Beyond Limitations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #00FFFF;
+            --secondary: #FF69B4;
+            --gold: #FFD700;
+            --dark: #0c0c0c;
+            --light: #ffffff;
+        }
+        
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, #1a1a2e 0%, #0c0c0c 100%);
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px 60px;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            animation: glow 3s ease-in-out infinite;
+        }
+        
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 10px var(--primary)); }
+            50% { filter: drop-shadow(0 0 30px var(--gold)); }
+        }
+        
+        .header p {
+            font-size: 1.3rem;
+            color: #aaa;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        
+        /* Story Sections */
+        .story-section {
+            margin: 60px 0;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .story-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .story-section p {
+            font-size: 1.2rem;
+            line-height: 1.9;
+            color: #ddd;
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            margin: 40px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--primary), var(--gold));
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin: 40px 0;
+            padding-left: 30px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -44px;
+            top: 10px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 20px var(--gold);
+        }
+        
+        .timeline-item h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-item p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #ccc;
+        }
+        
+        /* Mission Cards */
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .mission-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 20px;
+            border: 2px solid var(--primary);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .mission-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
+            border-color: var(--gold);
+        }
+        
+        .mission-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .mission-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .mission-card p {
+            font-size: 1.1rem;
+            color: #aaa;
+            line-height: 1.7;
+        }
+        
+        /* Quote */
+        .quote {
+            text-align: center;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 105, 180, 0.1));
+            border-radius: 20px;
+            margin: 60px 0;
+            border: 2px solid var(--gold);
+        }
+        
+        .quote p {
+            font-size: 1.8rem;
+            font-style: italic;
+            color: var(--gold);
+            line-height: 1.6;
+        }
+        
+        .quote-author {
+            margin-top: 20px;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary);
+        }
+        
+        /* Navigation */
+        .nav-back {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-back:hover {
+            background: var(--primary);
+            color: var(--dark);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.5rem; }
+            .story-section { padding: 25px; }
+            .mission-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="cosmic-bg"></div>
+    
+    <a href="index.html" class="nav-back">← Back to Home</a>
+    
+    <div class="container">
+        <header class="header">
+            <h1>ℹ️ About Our Company ℹ️</h1>
+            <p>Born from loss, built on love, dedicated to honoring our brothers through every thread we create.</p>
+        </header>
+        
+        <!-- Mission -->
+        <div class="mission-grid">
+            <div class="mission-card">
+                <div class="mission-icon">🎯</div>
+                <h3>Our Mission</h3>
+                <p>To create meaningful products that carry the spirit of our fallen brothers, bringing their memory to life through every design.</p>
+            </div>
+            <div class="mission-card">
+                <div class="mission-icon">💎</div>
+                <h3>Our Vision</h3>
+                <p>A world where every purchase tells a story of remembrance, love, and unbreakable bonds that transcend time and space.</p>
+            </div>
+            <div class="mission-card">
+                <div class="mission-icon">❤️</div>
+                <h3>Our Heart</h3>
+                <p>We pour our souls into every creation, ensuring that our brothers' legacies live on through those who wear our designs.</p>
+            </div>
+        </div>
+        
+        <!-- Story -->
+        <div class="story-section">
+            <h2>🌟 Our Story 🌟</h2>
+            <p style="font-size: 1.2rem; line-height: 1.9; margin-bottom: 20px;">
+                No Limits Beyond Limitations was born from the deepest pain a person can experience—the loss of brothers who meant everything. 
+                Instead of letting that grief consume us, we channeled it into something beautiful, something eternal.
+            </p>
+            <p style="font-size: 1.2rem; line-height: 1.9;">
+                Every product we create carries the energy, the love, and the unbreakable spirit of our brothers. When you wear our clothing, 
+                you're not just wearing fabric—you're wearing a piece of our history, our pain transformed into power, our loss transformed into legacy.
+            </p>
+        </div>
+        
+        <!-- Timeline -->
+        <div class="story-section">
+            <h2>🚀 Our Journey 🚀</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>🎂 The Beginning</h3>
+                    <p>Born from a vision of turning pain into purpose, creating a clothing line that tells our story.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>💪 The Struggle</h3>
+                    <p>Facing challenges that would break most people, but our brothers' strength guided us forward.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>🌈 The Breakthrough</h3>
+                    <p>Finding our identity, our voice, and our mission to honor our brothers through creativity.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>🌍 The Launch</h3>
+                    <p>Sharing our vision with the world, inviting others to be part of our brothers' legacy.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>✨ The Future</h3>
+                    <p>Expanding our reach, touching more lives, and ensuring our brothers' names never fade away.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quote -->
+        <div class="quote">
+            <p>"Every piece tells a story of overcoming darkness, embracing life, and pushing boundaries beyond imagination."</p>
+            <div class="quote-author">- R&T</div>
+        </div>
+        
+        <!-- Why Us -->
+        <div class="story-section">
+            <h2>🌟 Why No Limits? 🌟</h2>
+            <p style="font-size: 1.2rem; line-height: 1.9; margin-bottom: 20px;">
+                We're not just a clothing company—we're a movement. A movement dedicated to remembering, honoring, and celebrating 
+                those who've touched our lives in ways words can never capture.
+            </p>
+            <p style="font-size: 1.2rem; line-height: 1.9;">
+                When you support No Limits, you're not just buying a product—you're becoming part of a family. A family that believes 
+                in the power of remembrance, the strength of love, and the无限 (unlimited) potential of the human spirit.
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // Add smooth scroll reveal animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.story-section, .mission-card, .timeline-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

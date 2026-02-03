@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Operations Dashboard</title>
+    <link rel="stylesheet" href="css/business_dash.css">
+    
+    <!-- Vercel Web Analytics -->
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<div id="galaxy-container"></div>
+    <div class="business-dashboard">
+        <header>
+            <h1>Business Operations Dashboard</h1>
+            <button onclick="window.location.href='dashboard.html'" class="back-btn">← Back to Dashboard</button>
+        </header>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h3>Revenue</h3>
+                <div class="metric-value" id="revenue">$0</div>
+            </div>
+
+            <div class="metric-card">
+                <h3>Products</h3>
+                <div class="metric-value" id="products-count">0</div>
+            </div>
+
+            <div class="metric-card">
+                <h3>Orders</h3>
+                <div class="metric-value" id="orders-count">0</div>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <div class="section">
+                <h3>Products</h3>
+                <div id="products-list" class="list"></div>
+                <button id="add-product" class="action-btn">Add Product</button>
+            </div>
+
+            <div class="section">
+                <h3>Orders</h3>
+                <div id="orders-list" class="list"></div>
+            </div>
+        </div>
+    </div>
+    <script src="js/business_dash.js"></script>
+<script src="js/galaxy.js"></script>
+</body>
+</html>

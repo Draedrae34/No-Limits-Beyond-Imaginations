@@ -1,0 +1,1184 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
+        />
+        <meta name="theme-color" content="#1a0a2e" />
+        <meta
+            name="description"
+            content="No Limits Beyond Limitations Into My Wildest Imagination - A revolutionary clothing brand born from love, loss, and the unbreakable bond of brotherhood. R.J. & T-Mainney live forever."
+        />
+        <meta
+            name="keywords"
+            content="No Limits Beyond Limitations, NLBLITMWI, clothing, memorial, R.J., T-Mainney, custom design, brotherhood"
+        />
+        <meta name="author" content="Aundrae Giles" />
+        <meta
+            property="og:title"
+            content="No Limits Beyond Limitations | Into My Wildest Imagination"
+        />
+        <meta
+            property="og:description"
+            content="A revolutionary clothing brand where legends never die. R.J. & T-Mainney live forever through every design."
+        />
+        <meta property="og:image" content="Logo/logo.png" />
+        <link rel="manifest" href="manifest.json" />
+        <title>
+            No Limits Beyond Limitations | Into My Wildest Imagination
+        </title>
+        <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500;600&family=Great+Vibes&family=Orbitron:wght@400;700;900&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            :root {
+                --purple-deep: #1a0a2e;
+                --purple-dark: #2d1b4e;
+                --purple-main: #8b5cf6;
+                --purple-light: #a78bfa;
+                --purple-glow: #c4b5fd;
+                --gold: #ffd700;
+                --cyan: #00ffff;
+                --rose: #be185d;
+                --white: #ffffff;
+                --text-light: #e2e8f0;
+            }
+
+            html {
+                scroll-behavior: smooth;
+            }
+
+            body {
+                font-family: "Raleway", sans-serif;
+                background: var(--purple-deep);
+                color: var(--text-light);
+                overflow-x: hidden;
+                min-height: 100vh;
+            }
+
+            /* Initial Loading / Greeting Overlay */
+            .greeting-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: #000;
+                z-index: 10000;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition:
+                    opacity 1.5s ease,
+                    visibility 1.5s ease;
+            }
+
+            .greeting-overlay.fade-out {
+                opacity: 0;
+                visibility: hidden;
+            }
+
+            .greeting-logo {
+                width: 150px;
+                height: 150px;
+                margin-bottom: 40px;
+                opacity: 0;
+                animation: logoFadeIn 2s ease forwards;
+                animation-delay: 0.5s;
+                border-radius: 20px;
+                box-shadow: 0 0 60px rgba(139, 92, 246, 0.5);
+            }
+
+            @keyframes logoFadeIn {
+                from {
+                    opacity: 0;
+                    transform: scale(0.8);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+            .greeting-text-container {
+                text-align: center;
+                max-width: 800px;
+                padding: 0 30px;
+            }
+
+            .greeting-text {
+                font-family: "Raleway", sans-serif;
+                font-size: 1.4rem;
+                color: var(--text-light);
+                line-height: 2;
+                opacity: 0;
+                min-height: 150px;
+            }
+
+            .greeting-cursor {
+                display: inline-block;
+                width: 3px;
+                height: 1.4rem;
+                background: var(--purple-light);
+                margin-left: 5px;
+                animation: blink 0.8s infinite;
+            }
+
+            @keyframes blink {
+                0%,
+                50% {
+                    opacity: 1;
+                }
+                51%,
+                100% {
+                    opacity: 0;
+                }
+            }
+
+            .greeting-signature {
+                font-family: "Great Vibes", cursive;
+                font-size: 2rem;
+                color: var(--gold);
+                margin-top: 30px;
+                opacity: 0;
+                transition: opacity 1s ease;
+            }
+
+            .greeting-signature.visible {
+                opacity: 1;
+            }
+
+            .enter-btn {
+                margin-top: 40px;
+                background: linear-gradient(
+                    135deg,
+                    var(--purple-main),
+                    var(--rose)
+                );
+                border: none;
+                color: var(--white);
+                padding: 18px 50px;
+                border-radius: 50px;
+                font-family: "Cinzel", serif;
+                font-size: 1.1rem;
+                cursor: pointer;
+                opacity: 0;
+                transition:
+                    all 0.3s ease,
+                    opacity 1s ease;
+                box-shadow: 0 10px 40px rgba(139, 92, 246, 0.4);
+            }
+
+            .enter-btn.visible {
+                opacity: 1;
+            }
+
+            .enter-btn:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 20px 60px rgba(139, 92, 246, 0.6);
+            }
+
+            /* Cosmic Background */
+            .cosmic-bg {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+                overflow: hidden;
+            }
+
+            .cosmic-bg::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background:
+                    radial-gradient(
+                        ellipse at 20% 80%,
+                        rgba(139, 92, 246, 0.15) 0%,
+                        transparent 50%
+                    ),
+                    radial-gradient(
+                        ellipse at 80% 20%,
+                        rgba(167, 139, 250, 0.1) 0%,
+                        transparent 50%
+                    ),
+                    radial-gradient(
+                        ellipse at 50% 50%,
+                        rgba(45, 27, 78, 0.8) 0%,
+                        var(--purple-deep) 70%
+                    );
+            }
+
+            #star-canvas {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+
+            /* Floating Particles */
+            .particle {
+                position: fixed;
+                width: 4px;
+                height: 4px;
+                background: var(--purple-light);
+                border-radius: 50%;
+                pointer-events: none;
+                animation: floatUp 20s infinite linear;
+                opacity: 0;
+            }
+
+            @keyframes floatUp {
+                0% {
+                    transform: translateY(100vh) rotate(0deg);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 0.5;
+                }
+                90% {
+                    opacity: 0.5;
+                }
+                100% {
+                    transform: translateY(-100vh) rotate(720deg);
+                    opacity: 0;
+                }
+            }
+
+            /* Header / Logo */
+            .site-header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                padding: 20px 30px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                z-index: 100;
+                background: linear-gradient(
+                    to bottom,
+                    rgba(26, 10, 46, 0.9),
+                    transparent
+                );
+            }
+
+            .header-logo {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                text-decoration: none;
+            }
+
+            .header-logo img {
+                width: 60px;
+                height: 60px;
+                border-radius: 10px;
+                box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+            }
+
+            .header-logo-text {
+                font-family: "Cinzel", serif;
+                font-size: 1rem;
+                color: var(--purple-light);
+                letter-spacing: 0.1em;
+            }
+
+            .header-logo-text span {
+                display: block;
+                font-size: 0.7rem;
+                color: var(--gold);
+                letter-spacing: 0.2em;
+            }
+
+            /* Main Navigation */
+            .main-nav {
+                display: flex;
+                gap: 10px;
+            }
+
+            .nav-link {
+                background: rgba(139, 92, 246, 0.1);
+                border: 1px solid rgba(139, 92, 246, 0.3);
+                color: var(--purple-light);
+                padding: 12px 20px;
+                border-radius: 50px;
+                font-family: "Cinzel", serif;
+                font-size: 0.85rem;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                text-decoration: none;
+                backdrop-filter: blur(10px);
+            }
+
+            .nav-link:hover {
+                background: var(--purple-main);
+                color: var(--white);
+                box-shadow: 0 0 25px rgba(139, 92, 246, 0.5);
+                transform: translateY(-2px);
+            }
+
+            .nav-link.special {
+                background: linear-gradient(
+                    135deg,
+                    rgba(139, 92, 246, 0.3),
+                    rgba(190, 24, 93, 0.3)
+                );
+                border-color: var(--gold);
+                color: var(--gold);
+            }
+
+            .nav-link.special:hover {
+                background: linear-gradient(
+                    135deg,
+                    var(--purple-main),
+                    var(--rose)
+                );
+                color: var(--white);
+            }
+
+            /* Hero Section */
+            .hero-section {
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                padding: 120px 20px 80px;
+            }
+
+            .hero-logo {
+                width: 280px;
+                max-width: 80%;
+                border-radius: 20px;
+                box-shadow: 0 0 80px rgba(139, 92, 246, 0.5);
+                margin-bottom: 40px;
+                animation: heroLogoFloat 6s ease-in-out infinite;
+            }
+
+            @keyframes heroLogoFloat {
+                0%,
+                100% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(-15px);
+                }
+            }
+
+            .hero-title {
+                font-family: "Cinzel", serif;
+                font-size: 2.5rem;
+                font-weight: 700;
+                background: linear-gradient(
+                    135deg,
+                    var(--purple-light),
+                    var(--gold),
+                    var(--purple-glow)
+                );
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                margin-bottom: 20px;
+                letter-spacing: 0.05em;
+            }
+
+            .hero-subtitle {
+                font-family: "Great Vibes", cursive;
+                font-size: 2rem;
+                color: var(--purple-light);
+                margin-bottom: 30px;
+            }
+
+            .hero-description {
+                font-size: 1.15rem;
+                color: var(--text-light);
+                max-width: 700px;
+                line-height: 1.9;
+                margin-bottom: 40px;
+                opacity: 0.9;
+            }
+
+            .hero-description .highlight {
+                color: var(--gold);
+                font-weight: 600;
+            }
+
+            /* CTA Buttons */
+            .cta-container {
+                display: flex;
+                gap: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .cta-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                padding: 18px 35px;
+                border-radius: 50px;
+                font-family: "Cinzel", serif;
+                font-size: 1rem;
+                text-decoration: none;
+                transition: all 0.3s ease;
+                cursor: pointer;
+            }
+
+            .cta-btn.primary {
+                background: linear-gradient(
+                    135deg,
+                    var(--purple-main),
+                    var(--rose)
+                );
+                color: var(--white);
+                border: none;
+                box-shadow: 0 10px 40px rgba(139, 92, 246, 0.4);
+            }
+
+            .cta-btn.primary:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 20px 60px rgba(139, 92, 246, 0.5);
+            }
+
+            .cta-btn.secondary {
+                background: transparent;
+                color: var(--purple-light);
+                border: 2px solid var(--purple-main);
+            }
+
+            .cta-btn.secondary:hover {
+                background: var(--purple-main);
+                color: var(--white);
+                box-shadow: 0 10px 40px rgba(139, 92, 246, 0.4);
+            }
+
+            .cta-btn.remembrance {
+                background: linear-gradient(
+                    135deg,
+                    rgba(139, 92, 246, 0.2),
+                    rgba(190, 24, 93, 0.2)
+                );
+                color: var(--gold);
+                border: 2px solid var(--gold);
+            }
+
+            .cta-btn.remembrance:hover {
+                background: linear-gradient(135deg, var(--gold), #fbbf24);
+                color: var(--purple-deep);
+                box-shadow: 0 10px 40px rgba(255, 215, 0, 0.4);
+            }
+
+            /* Sections */
+            .content-section {
+                padding: 100px 20px;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .section-title {
+                font-family: "Great Vibes", cursive;
+                font-size: 3rem;
+                color: var(--purple-light);
+                text-align: center;
+                margin-bottom: 20px;
+                text-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+            }
+
+            .section-subtitle {
+                font-family: "Cinzel", serif;
+                font-size: 1rem;
+                color: var(--gold);
+                text-align: center;
+                letter-spacing: 0.3em;
+                margin-bottom: 60px;
+            }
+
+            /* Feature Cards */
+            .features-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 30px;
+            }
+
+            .feature-card {
+                background: linear-gradient(
+                    135deg,
+                    rgba(45, 27, 78, 0.5),
+                    rgba(26, 10, 46, 0.7)
+                );
+                border: 1px solid rgba(139, 92, 246, 0.2);
+                border-radius: 20px;
+                padding: 40px 30px;
+                text-align: center;
+                transition: all 0.3s ease;
+                backdrop-filter: blur(10px);
+            }
+
+            .feature-card:hover {
+                transform: translateY(-10px);
+                border-color: var(--purple-main);
+                box-shadow: 0 20px 60px rgba(139, 92, 246, 0.3);
+            }
+
+            .feature-icon {
+                font-size: 3rem;
+                margin-bottom: 20px;
+            }
+
+            .feature-title {
+                font-family: "Cinzel", serif;
+                font-size: 1.3rem;
+                color: var(--purple-light);
+                margin-bottom: 15px;
+            }
+
+            .feature-description {
+                font-size: 0.95rem;
+                color: var(--text-light);
+                line-height: 1.7;
+                opacity: 0.8;
+            }
+
+            .feature-link {
+                display: inline-block;
+                margin-top: 20px;
+                color: var(--gold);
+                text-decoration: none;
+                font-family: "Cinzel", serif;
+                font-size: 0.9rem;
+                transition: all 0.3s ease;
+            }
+
+            .feature-link:hover {
+                color: var(--purple-light);
+                transform: translateX(5px);
+            }
+
+            /* Quote Section */
+            .quote-section {
+                padding: 80px 20px;
+                text-align: center;
+                background: linear-gradient(
+                    180deg,
+                    transparent,
+                    rgba(139, 92, 246, 0.1),
+                    transparent
+                );
+            }
+
+            .quote-text {
+                font-family: "Great Vibes", cursive;
+                font-size: 2.5rem;
+                color: var(--purple-glow);
+                max-width: 900px;
+                margin: 0 auto 30px;
+                line-height: 1.5;
+            }
+
+            .quote-author {
+                font-family: "Cinzel", serif;
+                font-size: 1rem;
+                color: var(--gold);
+                letter-spacing: 0.2em;
+            }
+
+            /* Footer */
+            .site-footer {
+                padding: 60px 20px;
+                text-align: center;
+                border-top: 1px solid rgba(139, 92, 246, 0.2);
+            }
+
+            .footer-logo {
+                width: 80px;
+                height: 80px;
+                border-radius: 10px;
+                margin-bottom: 20px;
+                box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
+            }
+
+            .footer-brand {
+                font-family: "Cinzel", serif;
+                font-size: 1.2rem;
+                color: var(--purple-light);
+                margin-bottom: 10px;
+            }
+
+            .footer-tagline {
+                font-family: "Great Vibes", cursive;
+                font-size: 1.5rem;
+                color: var(--gold);
+                margin-bottom: 30px;
+            }
+
+            .footer-links {
+                display: flex;
+                justify-content: center;
+                gap: 30px;
+                flex-wrap: wrap;
+                margin-bottom: 30px;
+            }
+
+            .footer-links a {
+                color: var(--text-light);
+                text-decoration: none;
+                font-size: 0.9rem;
+                opacity: 0.7;
+                transition: all 0.3s ease;
+            }
+
+            .footer-links a:hover {
+                color: var(--purple-light);
+                opacity: 1;
+            }
+
+            .footer-dedication {
+                font-size: 0.85rem;
+                color: var(--text-light);
+                opacity: 0.5;
+                max-width: 500px;
+                margin: 0 auto;
+                line-height: 1.7;
+            }
+
+            .footer-dedication .names {
+                color: var(--gold);
+                font-weight: 600;
+            }
+
+            /* Rose Divider */
+            .rose-divider {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 20px;
+                padding: 40px 0;
+            }
+
+            .rose-divider .line {
+                width: 100px;
+                height: 1px;
+                background: linear-gradient(
+                    90deg,
+                    transparent,
+                    var(--purple-main),
+                    transparent
+                );
+            }
+
+            .rose-divider .rose {
+                font-size: 1.5rem;
+                animation: pulseRose 2s ease-in-out infinite;
+            }
+
+            @keyframes pulseRose {
+                0%,
+                100% {
+                    transform: scale(1);
+                    opacity: 0.8;
+                }
+                50% {
+                    transform: scale(1.1);
+                    opacity: 1;
+                }
+            }
+
+            /* Mobile Responsive */
+            @media (max-width: 768px) {
+                .site-header {
+                    flex-direction: column;
+                    gap: 15px;
+                    padding: 15px;
+                }
+
+                .main-nav {
+                    flex-wrap: wrap;
+                    justify-content: center;
+                }
+
+                .nav-link {
+                    padding: 10px 15px;
+                    font-size: 0.75rem;
+                }
+
+                .hero-title {
+                    font-size: 1.8rem;
+                }
+
+                .hero-subtitle {
+                    font-size: 1.5rem;
+                }
+
+                .hero-description {
+                    font-size: 1rem;
+                }
+
+                .hero-logo {
+                    width: 200px;
+                }
+
+                .section-title {
+                    font-size: 2rem;
+                }
+
+                .quote-text {
+                    font-size: 1.8rem;
+                }
+
+                .cta-container {
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                .cta-btn {
+                    width: 100%;
+                    max-width: 300px;
+                    justify-content: center;
+                }
+
+                .greeting-text {
+                    font-size: 1.1rem;
+                }
+
+                .greeting-logo {
+                    width: 100px;
+                    height: 100px;
+                }
+            }
+
+            /* Hidden Secret Access - Triple tap logo or Ctrl+Shift+P */
+            .secret-portal {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Greeting Overlay with Typewriter Effect -->
+        <div class="greeting-overlay" id="greeting-overlay">
+            <img
+                src="Logo/logo.png"
+                alt="N.L.BL.IT.M.W.I"
+                class="greeting-logo"
+            />
+            <div class="greeting-text-container">
+                <p class="greeting-text" id="greeting-text"></p>
+                <span class="greeting-cursor" id="greeting-cursor"></span>
+            </div>
+            <p class="greeting-signature" id="greeting-signature">
+                — Aundrae Giles
+            </p>
+            <button class="enter-btn" id="enter-btn" onclick="enterSite()">
+                💜 Enter Our Universe 💜
+            </button>
+        </div>
+
+        <!-- Cosmic Background -->
+        <div class="cosmic-bg">
+            <canvas id="star-canvas"></canvas>
+        </div>
+
+        <!-- Floating Particles -->
+        <div id="particles"></div>
+
+        <!-- Header -->
+        <header class="site-header" id="site-header" style="opacity: 0">
+            <a href="index.html" class="header-logo">
+                <img src="Logo/logo.png" alt="N.L.BL.IT.M.W.I" />
+                <div class="header-logo-text">
+                    N.L.BL.IT.M.W.I
+                    <span>No Limits Beyond Limitations</span>
+                </div>
+            </a>
+            <nav class="main-nav">
+                <a href="shop.html" class="nav-link">🛒 Shop</a>
+                <a href="design.html" class="nav-link">🎨 Design</a>
+                <a href="remembrance.html" class="nav-link special"
+                    >💜 Brothers</a
+                >
+                <a href="about.html" class="nav-link">ℹ️ About</a>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main id="main-content" style="opacity: 0">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <img
+                    src="Logo/logo.png"
+                    alt="No Limits Beyond Limitations Into My Wildest Imagination"
+                    class="hero-logo"
+                />
+                <h1 class="hero-title">No Limits Beyond Limitations</h1>
+                <p class="hero-subtitle">Into My Wildest Imagination</p>
+                <p class="hero-description">
+                    Every piece of clothing we create carries the spirit of two
+                    incredible souls —
+                    <span class="highlight">R.J.</span> and
+                    <span class="highlight">T-Mainney</span>. They live through
+                    us. They live through you. When you wear our designs, you're
+                    not just wearing fabric — you're carrying forward a legacy
+                    of love, brotherhood, and the belief that there are truly
+                    <span class="highlight">no limits</span>.
+                </p>
+                <div class="cta-container">
+                    <a href="shop.html" class="cta-btn primary"
+                        >🛒 Shop Collection</a
+                    >
+                    <a href="design.html" class="cta-btn secondary"
+                        >🎨 Create Your Design</a
+                    >
+                    <a href="remembrance.html" class="cta-btn remembrance"
+                        >💜 Honor R.J. & T-Mainney</a
+                    >
+                </div>
+            </section>
+
+            <div class="rose-divider">
+                <span class="line"></span>
+                <span class="rose">🌹</span>
+                <span class="line"></span>
+            </div>
+
+            <!-- Features Section -->
+            <section class="content-section">
+                <h2 class="section-title">What Makes Us Different</h2>
+                <p class="section-subtitle">MORE THAN A BRAND — A MOVEMENT</p>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">👕</div>
+                        <h3 class="feature-title">Premium Products</h3>
+                        <p class="feature-description">
+                            Every piece is crafted with intention and quality.
+                            Our designs aren't mass-produced — they're created
+                            with soul, printed on demand just for you.
+                        </p>
+                        <a href="shop.html" class="feature-link"
+                            >Browse Collection →</a
+                        >
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <h3 class="feature-title">Custom Design Tool</h3>
+                        <p class="feature-description">
+                            Create your own unique piece. Your first design is
+                            FREE. Express yourself with our revolutionary design
+                            studio and make something nobody else has.
+                        </p>
+                        <a href="design.html" class="feature-link"
+                            >Start Designing →</a
+                        >
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">💜</div>
+                        <h3 class="feature-title">A Living Memorial</h3>
+                        <p class="feature-description">
+                            This brand exists to honor R.J. and T-Mainney. Visit
+                            the Brothers Remembrance page to learn their stories
+                            and even leave a message on the memorial wall.
+                        </p>
+                        <a href="remembrance.html" class="feature-link"
+                            >Visit Memorial →</a
+                        >
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🌟</div>
+                        <h3 class="feature-title">Join The Movement</h3>
+                        <p class="feature-description">
+                            When you wear our clothing, you become part of
+                            something bigger. You help carry forward two
+                            incredible legacies. You show the world that love
+                            never dies.
+                        </p>
+                        <a href="about.html" class="feature-link"
+                            >Our Story →</a
+                        >
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quote Section -->
+            <section class="quote-section">
+                <p class="quote-text">
+                    "They couldn't become faded memories. So I made them live
+                    forever."
+                </p>
+                <p class="quote-author">— AUNDRAE GILES, FOUNDER</p>
+            </section>
+
+            <div class="rose-divider">
+                <span class="line"></span>
+                <span class="rose">💜</span>
+                <span class="line"></span>
+            </div>
+
+            <!-- Footer -->
+            <footer class="site-footer">
+                <img
+                    src="Logo/logo.png"
+                    alt="N.L.BL.IT.M.W.I"
+                    class="footer-logo"
+                />
+                <p class="footer-brand">No Limits Beyond Limitations</p>
+                <p class="footer-tagline">Into My Wildest Imagination</p>
+                <div class="footer-links">
+                    <a href="shop.html">Shop</a>
+                    <a href="design.html">Custom Design</a>
+                    <a href="remembrance.html">Brothers Memorial</a>
+                    <a href="message-wall.html">Message Wall</a>
+                    <a href="about.html">About Us</a>
+                </div>
+                <p class="footer-dedication">
+                    In loving memory of
+                    <span class="names">R.J. (Ricky James III)</span> and
+                    <span class="names">T-Mainney (Todd)</span>. Forever in our
+                    hearts. Forever in our designs. Forever living through
+                    everyone who wears our clothing.
+                </p>
+            </footer>
+        </main>
+
+        <script>
+            // ============================================
+            // NO LIMITS BEYOND LIMITATIONS - MAIN SCRIPT
+            // ============================================
+
+            // Greeting Message - Emotional, heartfelt, sets the tone
+            const greetingMessage = `Welcome to a world where love never fades and legends never die...
+
+This isn't just a clothing brand. This is a living memorial — a promise I made to my two brothers, R.J. and T-Mainney, who left this world too soon.
+
+When you wear our clothing, you carry a piece of them with you. Their energy. Their spirit. Their love.
+
+Every design, every thread, every moment you spend here — it all exists because of them. Because I refused to let them become faded memories.
+
+Thank you for being here. Thank you for keeping them alive.`;
+
+            let charIndex = 0;
+            let isTyping = true;
+            const greetingText = document.getElementById("greeting-text");
+            const greetingCursor = document.getElementById("greeting-cursor");
+            const greetingSignature =
+                document.getElementById("greeting-signature");
+            const enterBtn = document.getElementById("enter-btn");
+
+            // Typewriter effect
+            function typeWriter() {
+                if (charIndex < greetingMessage.length && isTyping) {
+                    const char = greetingMessage.charAt(charIndex);
+                    greetingText.innerHTML += char === "\n" ? "<br><br>" : char;
+                    greetingText.style.opacity = "1";
+                    charIndex++;
+
+                    // Variable speed for more natural feel
+                    const delay =
+                        char === "." || char === "," || char === "—"
+                            ? 150
+                            : char === "\n"
+                              ? 300
+                              : 30;
+                    setTimeout(typeWriter, delay);
+                } else if (charIndex >= greetingMessage.length) {
+                    // Typing complete - show signature and enter button
+                    greetingCursor.style.display = "none";
+                    setTimeout(() => {
+                        greetingSignature.classList.add("visible");
+                    }, 500);
+                    setTimeout(() => {
+                        enterBtn.classList.add("visible");
+                    }, 1000);
+                }
+            }
+
+            // Skip typing on click
+            document
+                .getElementById("greeting-overlay")
+                .addEventListener("click", (e) => {
+                    if (
+                        e.target.id !== "enter-btn" &&
+                        isTyping &&
+                        charIndex < greetingMessage.length
+                    ) {
+                        // Skip to end
+                        isTyping = false;
+                        greetingText.innerHTML = greetingMessage.replace(
+                            /\n/g,
+                            "<br><br>",
+                        );
+                        greetingText.style.opacity = "1";
+                        greetingCursor.style.display = "none";
+                        charIndex = greetingMessage.length;
+                        setTimeout(() => {
+                            greetingSignature.classList.add("visible");
+                        }, 300);
+                        setTimeout(() => {
+                            enterBtn.classList.add("visible");
+                        }, 600);
+                    }
+                });
+
+            // Enter the site
+            function enterSite() {
+                const overlay = document.getElementById("greeting-overlay");
+                overlay.classList.add("fade-out");
+
+                // Show main content
+                setTimeout(() => {
+                    overlay.style.display = "none";
+                    document.getElementById("site-header").style.opacity = "1";
+                    document.getElementById("site-header").style.transition =
+                        "opacity 1s ease";
+                    document.getElementById("main-content").style.opacity = "1";
+                    document.getElementById("main-content").style.transition =
+                        "opacity 1s ease";
+                }, 1500);
+            }
+
+            // Start typewriter on load
+            window.addEventListener("load", () => {
+                createParticles();
+                initStarCanvas();
+                setTimeout(typeWriter, 2000);
+            });
+
+            // Create floating particles
+            function createParticles() {
+                const particlesContainer = document.getElementById("particles");
+                for (let i = 0; i < 30; i++) {
+                    const particle = document.createElement("div");
+                    particle.className = "particle";
+                    particle.style.left = Math.random() * 100 + "%";
+                    particle.style.animationDelay = Math.random() * 20 + "s";
+                    particle.style.animationDuration =
+                        20 + Math.random() * 15 + "s";
+                    particlesContainer.appendChild(particle);
+                }
+            }
+
+            // Star canvas animation
+            function initStarCanvas() {
+                const canvas = document.getElementById("star-canvas");
+                const ctx = canvas.getContext("2d");
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+
+                const stars = [];
+                const starCount = 200;
+
+                for (let i = 0; i < starCount; i++) {
+                    stars.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        size: Math.random() * 2,
+                        speed: Math.random() * 0.5 + 0.1,
+                        opacity: Math.random() * 0.5 + 0.3,
+                    });
+                }
+
+                function animateStars() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                    stars.forEach((star) => {
+                        ctx.beginPath();
+                        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(196, 181, 253, ${star.opacity})`;
+                        ctx.fill();
+
+                        // Twinkle effect
+                        star.opacity += (Math.random() - 0.5) * 0.02;
+                        star.opacity = Math.max(
+                            0.2,
+                            Math.min(0.8, star.opacity),
+                        );
+
+                        // Slow drift
+                        star.y += star.speed * 0.1;
+                        if (star.y > canvas.height) {
+                            star.y = 0;
+                            star.x = Math.random() * canvas.width;
+                        }
+                    });
+
+                    requestAnimationFrame(animateStars);
+                }
+
+                animateStars();
+
+                window.addEventListener("resize", () => {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                });
+            }
+
+            // SECRET ACCESS - Ctrl+Shift+P or triple-tap logo
+            let secretTapCount = 0;
+            let secretTapTimer = null;
+
+            document.addEventListener("keydown", (e) => {
+                if (e.ctrlKey && e.shiftKey && e.key === "P") {
+                    e.preventDefault();
+                    openSecretPortal();
+                }
+            });
+
+            document
+                .querySelectorAll(".header-logo, .hero-logo, .footer-logo")
+                .forEach((logo) => {
+                    logo.addEventListener("click", (e) => {
+                        secretTapCount++;
+                        if (secretTapCount === 1) {
+                            secretTapTimer = setTimeout(() => {
+                                secretTapCount = 0;
+                            }, 1000);
+                        } else if (secretTapCount >= 3) {
+                            clearTimeout(secretTapTimer);
+                            secretTapCount = 0;
+                            e.preventDefault();
+                            openSecretPortal();
+                        }
+                    });
+                });
+
+            function openSecretPortal() {
+                // Hidden access to private workshop
+                window.location.href = "private.html";
+            }
+
+            // Console branding
+            console.log(
+                "%c💜 NO LIMITS BEYOND LIMITATIONS 💜",
+                "font-size: 24px; color: #8b5cf6; font-weight: bold;",
+            );
+            console.log(
+                "%cInto My Wildest Imagination",
+                "font-size: 14px; color: #ffd700;",
+            );
+            console.log(
+                "%cR.J. & T-Mainney — Forever in our hearts, forever in our code.",
+                "font-size: 12px; color: #a78bfa;",
+            );
+        </script>
+    </body>
+</html>

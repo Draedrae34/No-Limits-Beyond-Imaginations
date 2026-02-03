@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - No Limits Beyond Limitations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #00ffff;
+            border-radius: 20px;
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
+        }
+
+        .login-title {
+            text-align: center;
+            color: #00ffff;
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #00ffff;
+            margin-bottom: 5px;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #00ffff;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #FF69B4, #00FFFF);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Orbitron', monospace;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .login-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+        }
+
+        .error-message {
+            color: #ff4444;
+            text-align: center;
+            margin-top: 15px;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .success-message {
+            color: #44ff44;
+            text-align: center;
+            margin-top: 15px;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .role-indicator {
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: 'Rajdhani', sans-serif;
+            color: #FFD700;
+        }
+
+        .mfa-section {
+            display: none;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #00ffff;
+        }
+
+        .mfa-section.show {
+            display: block;
+        }
+
+        .qr-code {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .qr-code img {
+            max-width: 200px;
+            border: 2px solid #00ffff;
+            border-radius: 8px;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1 class="login-title">Access Portal</h1>
+        <div class="role-indicator">Login as Customer or Owner</div>
+
+        <form id="login-form">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" required>
+            </div>
+
+            <div class="mfa-section" id="mfa-section">
+                <div class="form-group">
+                    <label for="mfa-code">MFA Code:</label>
+                    <input type="text" id="mfa-code" placeholder="Enter 6-digit code">
+                </div>
+            </div>
+
+            <button type="submit" class="login-btn">Authenticate</button>
+        </form>
+
+        <div id="message"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:5000/api';
+
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const mfaCode = document.getElementById('mfa-code').value;
+
+            const messageDiv = document.getElementById('message');
+            messageDiv.className = '';
+            messageDiv.textContent = 'Authenticating...';
+
+            try {
+                const response = await fetch(`${API_BASE}/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username,
+                        password,
+                        mfa_code: mfaCode || undefined
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Store token
+                    localStorage.setItem('auth_token', data.token);
+                    localStorage.setItem('user_role', data.user.role);
+                    localStorage.setItem('username', data.user.username);
+
+                    messageDiv.className = 'success-message';
+                    messageDiv.textContent = 'Login successful! Redirecting...';
+
+                    // Redirect based on role
+                    setTimeout(() => {
+                        if (data.user.role === 'owner') {
+                            window.location.href = 'index.html'; // Owner gets full access
+                        } else if (data.user.role === 'customer') {
+                            window.location.href = 'shop.html'; // Customers get shop access
+                        } else {
+                            window.location.href = 'index.html'; // Default fallback
+                        }
+                    }, 1000);
+
+                } else {
+                    if (data.error === 'MFA code required') {
+                        document.getElementById('mfa-section').classList.add('show');
+                        messageDiv.className = 'error-message';
+                        messageDiv.textContent = 'MFA required. Please enter your authentication code.';
+                    } else {
+                        messageDiv.className = 'error-message';
+                        messageDiv.textContent = data.error || 'Login failed';
+                    }
+                }
+            } catch (error) {
+                messageDiv.className = 'error-message';
+                messageDiv.textContent = 'Network error. Please try again.';
+                console.error('Login error:', error);
+            }
+        });
+
+        // Check if already logged in
+        window.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('auth_token');
+            const role = localStorage.getItem('user_role');
+
+            if (token && role) {
+                // Already logged in, redirect appropriately
+                if (role === 'owner') {
+                    window.location.href = 'index.html';
+                } else {
+                    window.location.href = 'shop.html';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

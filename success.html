@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed - No Limits Beyond Limitations</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #0a0a0f 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+        .container { text-align: center; padding: 40px; }
+        .checkmark { font-size: 80px; margin-bottom: 20px; }
+        h1 { font-size: 2.5em; margin-bottom: 20px; background: linear-gradient(90deg, #00d4ff, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        p { font-size: 1.2em; margin-bottom: 30px; color: #a0a0a0; }
+        .order-id { background: rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 8px; margin-bottom: 30px; }
+        .btn {
+            background: linear-gradient(90deg, #00d4ff, #7c3aed);
+            color: #fff;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,212,255,0.3); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="checkmark">✅</div>
+        <h1>Order Confirmed!</h1>
+        <p>Thank you for your order. Payment has been processed successfully.</p>
+        <div class="order-id" id="order-id">Order ID: Loading...</div>
+        <p>You will receive a confirmation email shortly.</p>
+        <a href="/" class="btn">Return to Shop</a>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const sessionId = urlParams.get('session_id');
+        document.getElementById('order-id').textContent = 'Session ID: ' + (sessionId || 'N/A');
+    </script>
+</body>
+</html>
