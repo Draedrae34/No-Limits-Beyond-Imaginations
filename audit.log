@@ -1,0 +1,22 @@
+{"timestamp": "2026-01-07T12:11:05.812849", "event_type": "LOGIN_MFA_REQUIRED", "username": "owner", "ip": "127.0.0.1", "user_agent": "curl/8.15.0", "details": {}}
+{"timestamp": "2026-01-07T12:12:05.934248", "event_type": "LOGIN_FAILED", "username": "owner", "ip": "127.0.0.1", "user_agent": "curl/8.15.0", "details": {"reason": "invalid_mfa"}}
+{"timestamp": "2026-01-07T12:12:52.345562", "event_type": "LOGIN_FAILED", "username": "owner", "ip": "127.0.0.1", "user_agent": "curl/8.15.0", "details": {"reason": "invalid_mfa"}}
+{"timestamp": "2026-01-07T12:13:21.490356", "event_type": "LOGIN_SUCCESS", "username": "owner", "ip": "127.0.0.1", "user_agent": "curl/8.15.0", "details": {}}
+{"timestamp": "2026-01-07T12:16:38.835778", "event_type": "ACCESS_DENIED", "username": null, "ip": "127.0.0.1", "user_agent": "curl/8.15.0", "details": {"reason": "no_token"}}
+{"timestamp": "2026-01-07T12:19:22.537152", "event_type": "LOGIN_MFA_REQUIRED", "username": "owner", "ip": "127.0.0.1", "user_agent": "curl/8.15.0", "details": {}}
+{"timestamp": "2026-01-07T12:20:07.258534", "event_type": "LOGIN_FAILED", "username": "owner", "ip": "127.0.0.1", "user_agent": "curl/8.15.0", "details": {"reason": "invalid_mfa"}}
+{"timestamp": "2026-01-07T12:20:31.996668", "event_type": "ACCESS_DENIED", "username": null, "ip": "127.0.0.1", "user_agent": "curl/8.15.0", "details": {"reason": "no_token"}}
+{"timestamp": "2026-01-07T13:33:00.341015", "event_type": "LOGIN_FAILED", "username": "owner", "ip": "127.0.0.1", "user_agent": "curl/8.15.0", "details": {"reason": "invalid_password"}}
+{"timestamp": "2026-01-07T13:33:22.065183", "event_type": "LOGIN_MFA_REQUIRED", "username": "owner", "ip": "127.0.0.1", "user_agent": "curl/8.15.0", "details": {}}
+{"timestamp": "2026-01-07T13:34:00.999601", "event_type": "ACCESS_DENIED", "username": null, "ip": "127.0.0.1", "user_agent": "curl/8.15.0", "details": {"reason": "no_token"}}
+{"timestamp": "2026-01-07T13:36:29.733778", "event_type": "ACCESS_DENIED", "username": null, "ip": "127.0.0.1", "user_agent": "curl/8.15.0", "details": {"reason": "no_token"}}
+{"timestamp": "2026-01-07T14:19:10.041635", "event_type": "LOGIN_MFA_REQUIRED", "username": "owner", "ip": "127.0.0.1", "user_agent": "curl/8.15.0", "details": {}}
+{"timestamp": "2026-01-07T14:21:47.867511", "event_type": "LOGIN_SUCCESS", "username": "owner", "ip": "127.0.0.1", "user_agent": "curl/8.15.0", "details": {}}
+{"timestamp": "2026-01-07T14:23:30.844638", "event_type": "LOGIN_SUCCESS", "username": "owner", "ip": "127.0.0.1", "user_agent": "curl/8.15.0", "details": {}}
+{"timestamp": "2026-01-07T14:23:52.844934", "event_type": "LOGIN_SUCCESS", "username": "owner", "ip": "127.0.0.1", "user_agent": "curl/8.15.0", "details": {}}
+{"timestamp": "2026-01-07T14:30:59.886180", "event_type": "CUSTOMER_CREATED", "username": "customer1", "ip": "127.0.0.1", "user_agent": "curl/8.15.0", "details": {"email": "customer@example.com"}}
+{"timestamp": "2026-01-07T14:31:24.781464", "event_type": "LOGIN_SUCCESS", "username": "customer1", "ip": "127.0.0.1", "user_agent": "curl/8.15.0", "details": {}}
+{"timestamp": "2026-01-07T14:31:44.196367", "event_type": "ACCESS_DENIED", "username": "customer1", "ip": "127.0.0.1", "user_agent": "curl/8.15.0", "details": {"reason": "insufficient_role", "required": "owner"}}
+{"timestamp": "2026-02-03T06:03:42.052995", "event_type": "LOGIN_FAILED", "username": "owner", "ip": "127.0.0.1", "user_agent": "curl/8.15.0", "details": {"reason": "invalid_password"}}
+{"timestamp": "2026-02-03T06:04:50.004365", "event_type": "LOGIN_FAILED", "username": "aundrae", "ip": "127.0.0.1", "user_agent": "curl/8.15.0", "details": {"reason": "user_not_found_or_disabled"}}
+{"timestamp": "2026-02-03T06:12:36.647377", "event_type": "LOGIN_SUCCESS", "username": "owner", "ip": "127.0.0.1", "user_agent": "curl/8.15.0", "details": {}}

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - No Limits Beyond Limitations</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="images/favicon-16x16.png" sizes="16x16">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <meta name="theme-color" content="#0c0c0c">
+    
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #0c0c0c 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            z-index: 10;
+            padding: 20px;
+            max-width: 900px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(255, 0, 255, 0.5), 0 0 60px rgba(0, 191, 255, 0.3);
+            animation: glow 3s ease-in-out infinite;
+        }
+        
+        .hero .tagline {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+        
+        /* Video Container */
+        .video-container {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(255, 0, 255, 0.3);
+        }
+        
+        .video-container video {
+            width: 100%;
+            display: block;
+        }
+        
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(transparent 50%, rgba(0,0,0,0.7) 100%);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 20px;
+        }
+        
+        /* Speech Module */
+        .speech-module {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px auto;
+            max-width: 800px;
+        }
+        
+        .speech-module h2 {
+            color: #ff69b4;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .speech-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            text-align: center;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .speech-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .speech-controls button {
+            background: linear-gradient(45deg, #ff69b4, #9370db);
+            border: none;
+            padding: 15px 30px;
+            color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .speech-controls button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(255, 105, 180, 0.5);
+        }
+        
+        .speech-controls button:active {
+            transform: scale(0.98);
+        }
+        
+        /* Text Speed Control */
+        .speed-control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .speed-control input[type="range"] {
+            width: 200px;
+            accent-color: #ff69b4;
+        }
+        
+        /* AI Voice */
+        .voice-select {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .voice-select select {
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .voice-select select option {
+            background: #1a1a2e;
+        }
+        
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 60px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 0, 255, 0.2);
+        }
+        
+        .feature-card .icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            color: #00bfff;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card p {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+        
+        /* Interactive Gallery */
+        .gallery-section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .gallery-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #9370db;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-grid img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .gallery-grid img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 0, 255, 0.3);
+        }
+        
+        /* Floating Elements */
+        .floating-element {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.3;
+        }
+        
+        .star {
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+        
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 30px rgba(255, 0, 255, 0.5), 0 0 60px rgba(0, 191, 255, 0.3); }
+            50% { text-shadow: 0 0 50px rgba(255, 0, 255, 0.8), 0 0 100px rgba(0, 191, 255, 0.5); }
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* CTA Button */
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff69b4, #9370db);
+            padding: 20px 50px;
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 30px;
+        }
+        
+        .cta-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 40px rgba(255, 105, 180, 0.5);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero .tagline {
+                font-size: 1.1rem;
+            }
+            .speech-module {
+                padding: 20px;
+                margin: 20px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="portal-overlay.css">
+</head>
+<body>
+    <!-- Floating Stars Background -->
+    <div id="stars-container"></div>
+    
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Logo" style="height: 50px;">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html" style="color: #fff; text-decoration: none;">Home</a></li>
+                <li><a href="remembrance.html" style="color: #fff; text-decoration: none;">Remembrance</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <!-- Hero Section with Video -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>No Limits Beyond Limitations<br>Into My Wildest Imagination</h1>
+            <p class="tagline">A journey of creativity, resilience, and unlimited potential</p>
+            
+            <div class="video-container">
+                <video id="welcome-video" poster="logo.png" preload="metadata">
+                    <source src="../My clothing mock ups/I Did This For You Brothers/RPReplay_Final1747745145.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay">
+                    <button onclick="toggleVideo()" style="background: rgba(255,255,255,0.2); border: none; padding: 15px 30px; border-radius: 30px; color: white; cursor: pointer; font-size: 1rem;">
+                        &#9658; Play Welcome Video
+                    </button>
+                </div>
+            </div>
+            
+            <a href="index.html" class="cta-button">Explore the Collection</a>
+        </div>
+    </section>
+    
+    <!-- AI Speech Module -->
+    <section class="speech-module">
+        <h2>&#127908; AI Welcome Speech</h2>
+        <p class="speech-text" id="speech-text">
+            "Welcome to No Limits Beyond Limitations Into My Wildest Imagination. 
+            Here, we believe that clothing is more than fabric—it's a canvas for your dreams. 
+            Every design tells a story of overcoming challenges, embracing creativity, 
+            and pushing beyond what others consider possible. 
+            Join us on this journey where imagination has no boundaries."
+        </p>
+        
+        <div class="speech-controls">
+            <button onclick="speakText()">&#9658; Play Speech</button>
+            <button onclick="pauseSpeech()">&#10074;&#10074; Pause</button>
+            <button onclick="resumeSpeech()">&#9658; Resume</button>
+            <button onclick="stopSpeech()">&#9632; Stop</button>
+        </div>
+        
+        <div class="voice-select">
+            <label for="voice-select">Select Voice:</label>
+            <select id="voice-select">
+                <option value="">Loading voices...</option>
+            </select>
+        </div>
+        
+        <div class="speed-control">
+            <label for="rate">Speed:</label>
+            <input type="range" id="rate" min="0.5" max="2" step="0.1" value="1">
+            <span id="rate-value">1x</span>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features">
+        <div class="feature-card">
+            <div class="icon">&#127925;</div>
+            <h3>Music Production</h3>
+            <p>Access our AI music studio to create custom beats and soundtracks that match your brand's energy.</p>
+        </div>
+        <div class="feature-card">
+            <div class="icon">&#128142;</div>
+            <h3>Galaxy Collection</h3>
+            <p>Explore 390+ mystical galaxy-themed designs with magical electricity and cosmic patterns.</p>
+        </div>
+    </section>
+    
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <h2>&#128444; Gallery</h2>
+        <div class="gallery-grid">
+            <img src="../My clothing mock ups/I Did This For You Brothers/IMG_1464.JPG" alt="Memory 1" onclick="openLightbox(this.src)">
+            <img src="../My clothing mock ups/I Did This For You Brothers/IMG_1402.JPG" alt="Memory 2" onclick="openLightbox(this.src)">
+            <img src="../My clothing mock ups/I Did This For You Brothers/IMG_1445.JPG" alt="Memory 3" onclick="openLightbox(this.src)">
+            <img src="../My clothing mock ups/I Did This For You Brothers/IMG_1459.JPG" alt="Memory 4" onclick="openLightbox(this.src)">
+            <img src="../My clothing mock ups/I Did This For You Brothers/IMG_1449.JPG" alt="Memory 5" onclick="openLightbox(this.src)">
+            <img src="../My clothing mock ups/I Did This For You Brothers/IMG_1456.JPG" alt="Memory 6" onclick="openLightbox(this.src)">
+        </div>
+    </section>
+    
+    <!-- Lightbox Modal -->
+    <div id="lightbox" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; align-items: center; justify-content: center;" onclick="closeLightbox()">
+        <img id="lightbox-img" style="max-width: 90%; max-height: 90%; border-radius: 10px;" src="">
+        <span style="position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; cursor: pointer;">&times;</span>
+    </div>
+    
+    <script>
+        // Create floating stars
+        function createStars() {
+            const container = document.getElementById('stars-container');
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'floating-element star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(star);
+            }
+        }
+        createStars();
+        
+        // Video Controls
+        const video = document.getElementById('welcome-video');
+        
+        function toggleVideo() {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        }
+        
+        // Speech Synthesis
+        let synth = window.speechSynthesis;
+        let utterance = null;
+        
+        function populateVoices() {
+            const select = document.getElementById('voice-select');
+            const voices = synth.getVoices();
+            select.innerHTML = '';
+            voices.forEach((voice, index) => {
+                const option = document.createElement('option');
+                option.textContent = `${voice.name} (${voice.lang})`;
+                option.setAttribute('data-lang', voice.lang);
+                option.setAttribute('data-name', voice.name);
+                select.appendChild(option);
+            });
+        }
+        
+        populateVoices();
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = populateVoices;
+        }
+        
+        function speakText() {
+            const text = document.getElementById('speech-text').textContent;
+            const select = document.getElementById('voice-select');
+            const rate = document.getElementById('rate').value;
+            
+            utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = parseFloat(rate);
+            
+            const selectedOption = select.selectedOptions[0];
+            const selectedVoice = voices.find(v => v.name === selectedOption.getAttribute('data-name'));
+            if (selectedVoice) {
+                utterance.voice = selectedVoice;
+            }
+            
+            synth.speak(utterance);
+        }
+        
+        function pauseSpeech() {
+            synth.pause();
+        }
+        
+        function resumeSpeech() {
+            synth.resume();
+        }
+        
+        function stopSpeech() {
+            synth.cancel();
+        }
+        
+        // Speed control display
+        document.getElementById('rate').addEventListener('input', function() {
+            document.getElementById('rate-value').textContent = this.value + 'x';
+        });
+        
+        // Lightbox
+        function openLightbox(src) {
+            document.getElementById('lightbox').style.display = 'flex';
+            document.getElementById('lightbox-img').src = src;
+        }
+        
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+    </script>
+    <script src="portal-transition.js"></script>
+</body>
+</html>

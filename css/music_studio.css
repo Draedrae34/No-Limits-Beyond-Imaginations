@@ -1,0 +1,117 @@
+@import url('workshop.css');
+
+.music-studio {
+    padding: 20px;
+}
+
+.music-studio header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.music-studio h1 {
+    font-size: 2.5em;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.studio-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 30px;
+    height: calc(100vh - 120px);
+}
+
+.sidebar {
+    background: rgb(255 255 255 / 10%);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 20px;
+    border: 1px solid rgb(255 255 255 / 20%);
+    overflow-y: auto;
+}
+
+.section {
+    margin-bottom: 30px;
+}
+
+.section h3 {
+    color: #4ecdc4;
+    margin-bottom: 15px;
+}
+
+.list {
+    margin-bottom: 15px;
+}
+
+.list div {
+    padding: 10px;
+    margin-bottom: 5px;
+    background: rgb(255 255 255 / 10%);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.list div:hover {
+    background: rgb(255 255 255 / 20%);
+}
+
+.action-btn {
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+}
+
+.main-panel {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 30px;
+}
+
+.timeline, .lyrics-editor {
+    background: rgb(255 255 255 / 10%);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 20px;
+    border: 1px solid rgb(255 255 255 / 20%);
+}
+
+.timeline h3, .lyrics-editor h3 {
+    color: #4ecdc4;
+    margin-bottom: 15px;
+}
+
+.timeline-canvas {
+    height: 200px;
+    background: rgb(0 0 0 / 30%);
+    border-radius: 10px;
+}
+
+#lyrics-text {
+    width: 100%;
+    height: 200px;
+    background: rgb(0 0 0 / 30%);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 15px;
+    font-family: inherit;
+    resize: none;
+}
+
+#lyrics-text::placeholder {
+    color: #b8c5d6;
+}

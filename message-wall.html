@@ -1,0 +1,1120 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#1a0a2e" />
+        <meta
+            name="description"
+            content="Leave a message for R.J. and T-Mainney - A permanent memorial wall"
+        />
+        <title>
+            Message Wall | R.J. & T-Mainney | No Limits Beyond Limitations
+        </title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500;600&family=Great+Vibes&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            :root {
+                --purple-deep: #1a0a2e;
+                --purple-dark: #2d1b4e;
+                --purple-main: #8b5cf6;
+                --purple-light: #a78bfa;
+                --purple-glow: #c4b5fd;
+                --gold: #ffd700;
+                --rose: #be185d;
+                --white: #ffffff;
+                --text-light: #e2e8f0;
+            }
+
+            html {
+                scroll-behavior: smooth;
+            }
+
+            body {
+                font-family: "Raleway", sans-serif;
+                background: var(--purple-deep);
+                color: var(--text-light);
+                min-height: 100vh;
+                overflow-x: hidden;
+            }
+
+            /* Cosmic Background */
+            .cosmic-bg {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+                overflow: hidden;
+            }
+
+            .cosmic-bg::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background:
+                    radial-gradient(
+                        ellipse at 20% 80%,
+                        rgba(139, 92, 246, 0.15) 0%,
+                        transparent 50%
+                    ),
+                    radial-gradient(
+                        ellipse at 80% 20%,
+                        rgba(167, 139, 250, 0.1) 0%,
+                        transparent 50%
+                    ),
+                    radial-gradient(
+                        ellipse at 50% 50%,
+                        rgba(45, 27, 78, 0.8) 0%,
+                        var(--purple-deep) 70%
+                    );
+            }
+
+            .stars {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background-image:
+                    radial-gradient(
+                        2px 2px at 20px 30px,
+                        var(--purple-glow),
+                        transparent
+                    ),
+                    radial-gradient(
+                        2px 2px at 40px 70px,
+                        var(--white),
+                        transparent
+                    ),
+                    radial-gradient(
+                        1px 1px at 90px 40px,
+                        var(--purple-light),
+                        transparent
+                    ),
+                    radial-gradient(
+                        2px 2px at 160px 120px,
+                        var(--purple-glow),
+                        transparent
+                    ),
+                    radial-gradient(
+                        1px 1px at 230px 80px,
+                        var(--white),
+                        transparent
+                    ),
+                    radial-gradient(
+                        2px 2px at 300px 150px,
+                        var(--purple-light),
+                        transparent
+                    );
+                background-size: 500px 500px;
+                animation: twinkle 8s ease-in-out infinite;
+            }
+
+            @keyframes twinkle {
+                0%,
+                100% {
+                    opacity: 0.5;
+                }
+                50% {
+                    opacity: 1;
+                }
+            }
+
+            /* Floating Particles */
+            .particle {
+                position: fixed;
+                width: 4px;
+                height: 4px;
+                background: var(--purple-light);
+                border-radius: 50%;
+                pointer-events: none;
+                animation: floatUp 20s infinite linear;
+                opacity: 0;
+            }
+
+            @keyframes floatUp {
+                0% {
+                    transform: translateY(100vh) rotate(0deg);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 0.4;
+                }
+                90% {
+                    opacity: 0.4;
+                }
+                100% {
+                    transform: translateY(-100vh) rotate(720deg);
+                    opacity: 0;
+                }
+            }
+
+            /* Navigation */
+            .nav-back {
+                position: fixed;
+                top: 20px;
+                left: 20px;
+                background: rgba(139, 92, 246, 0.2);
+                border: 1px solid var(--purple-main);
+                color: var(--purple-light);
+                padding: 12px 24px;
+                border-radius: 50px;
+                cursor: pointer;
+                font-family: "Cinzel", serif;
+                font-size: 0.9rem;
+                z-index: 1000;
+                transition: all 0.3s ease;
+                text-decoration: none;
+                backdrop-filter: blur(10px);
+            }
+
+            .nav-back:hover {
+                background: var(--purple-main);
+                color: var(--white);
+                box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+            }
+
+            /* Header */
+            .page-header {
+                text-align: center;
+                padding: 100px 20px 40px;
+            }
+
+            .page-title {
+                font-family: "Great Vibes", cursive;
+                font-size: 3.5rem;
+                color: var(--purple-light);
+                margin-bottom: 15px;
+                text-shadow: 0 0 40px rgba(139, 92, 246, 0.5);
+            }
+
+            .page-subtitle {
+                font-family: "Cinzel", serif;
+                font-size: 1.2rem;
+                color: var(--gold);
+                letter-spacing: 0.2em;
+                margin-bottom: 10px;
+            }
+
+            .page-description {
+                font-size: 1rem;
+                color: var(--text-light);
+                opacity: 0.8;
+                max-width: 600px;
+                margin: 0 auto;
+                line-height: 1.7;
+            }
+
+            /* Message Form Section */
+            .form-section {
+                max-width: 700px;
+                margin: 40px auto;
+                padding: 0 20px;
+            }
+
+            .message-form {
+                background: linear-gradient(
+                    135deg,
+                    rgba(45, 27, 78, 0.6),
+                    rgba(26, 10, 46, 0.8)
+                );
+                border: 1px solid rgba(139, 92, 246, 0.3);
+                border-radius: 20px;
+                padding: 40px;
+                backdrop-filter: blur(10px);
+            }
+
+            .form-title {
+                font-family: "Cinzel", serif;
+                font-size: 1.5rem;
+                color: var(--purple-light);
+                text-align: center;
+                margin-bottom: 30px;
+            }
+
+            .form-group {
+                margin-bottom: 25px;
+            }
+
+            .form-label {
+                display: block;
+                font-family: "Cinzel", serif;
+                font-size: 0.95rem;
+                color: var(--purple-glow);
+                margin-bottom: 10px;
+                letter-spacing: 0.05em;
+            }
+
+            .form-input,
+            .form-textarea,
+            .form-select {
+                width: 100%;
+                background: rgba(26, 10, 46, 0.6);
+                border: 2px solid rgba(139, 92, 246, 0.3);
+                border-radius: 12px;
+                padding: 15px 20px;
+                color: var(--text-light);
+                font-family: "Raleway", sans-serif;
+                font-size: 1rem;
+                transition: all 0.3s ease;
+            }
+
+            .form-input:focus,
+            .form-textarea:focus,
+            .form-select:focus {
+                outline: none;
+                border-color: var(--purple-main);
+                box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+            }
+
+            .form-input::placeholder,
+            .form-textarea::placeholder {
+                color: rgba(226, 232, 240, 0.4);
+            }
+
+            .form-textarea {
+                min-height: 150px;
+                resize: vertical;
+            }
+
+            .form-select {
+                cursor: pointer;
+                appearance: none;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%238b5cf6' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+                background-repeat: no-repeat;
+                background-position: right 15px center;
+            }
+
+            .form-select option {
+                background: var(--purple-deep);
+                color: var(--text-light);
+            }
+
+            /* Image Upload */
+            .image-upload-area {
+                border: 2px dashed rgba(139, 92, 246, 0.4);
+                border-radius: 12px;
+                padding: 30px;
+                text-align: center;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                position: relative;
+            }
+
+            .image-upload-area:hover {
+                border-color: var(--purple-main);
+                background: rgba(139, 92, 246, 0.1);
+            }
+
+            .image-upload-area input[type="file"] {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                cursor: pointer;
+            }
+
+            .upload-icon {
+                font-size: 2.5rem;
+                margin-bottom: 10px;
+            }
+
+            .upload-text {
+                color: var(--purple-light);
+                font-size: 0.95rem;
+            }
+
+            .upload-hint {
+                color: var(--text-light);
+                opacity: 0.5;
+                font-size: 0.8rem;
+                margin-top: 5px;
+            }
+
+            .image-preview {
+                margin-top: 15px;
+                display: none;
+            }
+
+            .image-preview img {
+                max-width: 200px;
+                max-height: 200px;
+                border-radius: 10px;
+                border: 2px solid var(--purple-main);
+            }
+
+            .image-preview.active {
+                display: block;
+            }
+
+            /* Submit Button */
+            .submit-btn {
+                width: 100%;
+                background: linear-gradient(
+                    135deg,
+                    var(--purple-main),
+                    var(--rose)
+                );
+                border: none;
+                color: var(--white);
+                padding: 18px 40px;
+                border-radius: 50px;
+                font-family: "Cinzel", serif;
+                font-size: 1.1rem;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                margin-top: 20px;
+                box-shadow: 0 10px 40px rgba(139, 92, 246, 0.4);
+            }
+
+            .submit-btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 15px 50px rgba(139, 92, 246, 0.5);
+            }
+
+            .submit-btn:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+                transform: none;
+            }
+
+            /* Success Message */
+            .success-message {
+                display: none;
+                text-align: center;
+                padding: 40px;
+            }
+
+            .success-message.active {
+                display: block;
+                animation: fadeIn 0.5s ease;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .success-icon {
+                font-size: 4rem;
+                margin-bottom: 20px;
+            }
+
+            .success-title {
+                font-family: "Great Vibes", cursive;
+                font-size: 2.5rem;
+                color: var(--purple-light);
+                margin-bottom: 15px;
+            }
+
+            .success-text {
+                color: var(--text-light);
+                line-height: 1.7;
+            }
+
+            /* Message Wall Section */
+            .wall-section {
+                max-width: 1400px;
+                margin: 60px auto;
+                padding: 0 20px;
+            }
+
+            .wall-title {
+                font-family: "Great Vibes", cursive;
+                font-size: 2.5rem;
+                color: var(--purple-light);
+                text-align: center;
+                margin-bottom: 15px;
+            }
+
+            .wall-count {
+                text-align: center;
+                color: var(--gold);
+                font-family: "Cinzel", serif;
+                margin-bottom: 40px;
+                letter-spacing: 0.1em;
+            }
+
+            /* Masonry Grid */
+            .message-wall {
+                column-count: 3;
+                column-gap: 20px;
+            }
+
+            @media (max-width: 1024px) {
+                .message-wall {
+                    column-count: 2;
+                }
+            }
+
+            @media (max-width: 600px) {
+                .message-wall {
+                    column-count: 1;
+                }
+            }
+
+            /* Message Card */
+            .message-card {
+                break-inside: avoid;
+                background: linear-gradient(
+                    135deg,
+                    rgba(45, 27, 78, 0.5),
+                    rgba(26, 10, 46, 0.7)
+                );
+                border: 1px solid rgba(139, 92, 246, 0.2);
+                border-radius: 16px;
+                padding: 25px;
+                margin-bottom: 20px;
+                backdrop-filter: blur(10px);
+                transition: all 0.3s ease;
+                animation: cardAppear 0.6s ease forwards;
+                opacity: 0;
+            }
+
+            @keyframes cardAppear {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .message-card:hover {
+                border-color: var(--purple-main);
+                box-shadow: 0 10px 40px rgba(139, 92, 246, 0.2);
+                transform: translateY(-5px);
+            }
+
+            .message-card.quote {
+                border-left: 4px solid var(--gold);
+            }
+
+            .message-card.memory {
+                border-left: 4px solid var(--purple-main);
+            }
+
+            .message-card.love {
+                border-left: 4px solid var(--rose);
+            }
+
+            .message-card.tribute {
+                border-left: 4px solid var(--purple-glow);
+            }
+
+            .card-image {
+                width: 100%;
+                border-radius: 10px;
+                margin-bottom: 15px;
+                display: block;
+            }
+
+            .card-message {
+                font-size: 1.05rem;
+                line-height: 1.8;
+                color: var(--text-light);
+                margin-bottom: 15px;
+            }
+
+            .card-message.quote-text {
+                font-family: "Great Vibes", cursive;
+                font-size: 1.5rem;
+                color: var(--gold);
+                text-align: center;
+                padding: 10px 0;
+            }
+
+            .card-footer {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-top: 15px;
+                border-top: 1px solid rgba(139, 92, 246, 0.2);
+            }
+
+            .card-author {
+                font-family: "Cinzel", serif;
+                font-size: 0.9rem;
+                color: var(--purple-light);
+            }
+
+            .card-date {
+                font-size: 0.8rem;
+                color: var(--text-light);
+                opacity: 0.5;
+            }
+
+            .card-type {
+                display: inline-block;
+                padding: 4px 12px;
+                border-radius: 20px;
+                font-size: 0.75rem;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                margin-bottom: 10px;
+            }
+
+            .card-type.quote {
+                background: rgba(255, 215, 0, 0.2);
+                color: var(--gold);
+            }
+            .card-type.memory {
+                background: rgba(139, 92, 246, 0.2);
+                color: var(--purple-light);
+            }
+            .card-type.love {
+                background: rgba(190, 24, 93, 0.2);
+                color: #f472b6;
+            }
+            .card-type.tribute {
+                background: rgba(196, 181, 253, 0.2);
+                color: var(--purple-glow);
+            }
+
+            /* Empty State */
+            .empty-wall {
+                text-align: center;
+                padding: 80px 20px;
+            }
+
+            .empty-icon {
+                font-size: 4rem;
+                margin-bottom: 20px;
+                opacity: 0.5;
+            }
+
+            .empty-text {
+                color: var(--text-light);
+                opacity: 0.6;
+                font-size: 1.1rem;
+            }
+
+            /* Rose Divider */
+            .rose-divider {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 20px;
+                padding: 40px 0;
+            }
+
+            .rose-divider .line {
+                width: 100px;
+                height: 1px;
+                background: linear-gradient(
+                    90deg,
+                    transparent,
+                    var(--purple-main),
+                    transparent
+                );
+            }
+
+            .rose-divider .rose {
+                font-size: 2rem;
+                animation: pulseRose 2s ease-in-out infinite;
+            }
+
+            @keyframes pulseRose {
+                0%,
+                100% {
+                    transform: scale(1);
+                    opacity: 0.8;
+                }
+                50% {
+                    transform: scale(1.1);
+                    opacity: 1;
+                }
+            }
+
+            /* Footer */
+            .page-footer {
+                text-align: center;
+                padding: 60px 20px;
+                border-top: 1px solid rgba(139, 92, 246, 0.2);
+            }
+
+            .footer-message {
+                font-family: "Great Vibes", cursive;
+                font-size: 1.8rem;
+                color: var(--purple-light);
+                margin-bottom: 15px;
+            }
+
+            .footer-brand {
+                font-family: "Cinzel", serif;
+                font-size: 0.85rem;
+                color: var(--text-light);
+                opacity: 0.5;
+                letter-spacing: 0.2em;
+            }
+
+            /* Responsive */
+            @media (max-width: 768px) {
+                .page-title {
+                    font-size: 2.5rem;
+                }
+
+                .message-form {
+                    padding: 25px;
+                }
+
+                .form-title {
+                    font-size: 1.2rem;
+                }
+
+                .wall-title {
+                    font-size: 2rem;
+                }
+            }
+
+            /* Loading Spinner */
+            .loading {
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                border: 2px solid rgba(255, 255, 255, 0.3);
+                border-radius: 50%;
+                border-top-color: var(--white);
+                animation: spin 0.8s linear infinite;
+                margin-right: 10px;
+            }
+
+            @keyframes spin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Cosmic Background -->
+        <div class="cosmic-bg">
+            <div class="stars"></div>
+        </div>
+
+        <!-- Floating Particles -->
+        <div id="particles"></div>
+
+        <!-- Navigation -->
+        <a href="remembrance.html" class="nav-back">← Back to Memorial</a>
+
+        <!-- Header -->
+        <header class="page-header">
+            <h1 class="page-title">Messages for R.J. & T-Mainney</h1>
+            <p class="page-subtitle">A WALL OF LOVE</p>
+            <p class="page-description">
+                Leave your message, memory, quote, or words of love. Every
+                message becomes a permanent part of this memorial wall — a
+                forever reminder that R.J. and T-Mainney touched lives beyond
+                measure.
+            </p>
+        </header>
+
+        <div class="rose-divider">
+            <span class="line"></span>
+            <span class="rose">💜</span>
+            <span class="line"></span>
+        </div>
+
+        <!-- Message Form -->
+        <section class="form-section">
+            <form class="message-form" id="message-form">
+                <h2 class="form-title">Share Your Message</h2>
+
+                <!-- Name -->
+                <div class="form-group">
+                    <label class="form-label" for="name">Your Name</label>
+                    <input
+                        type="text"
+                        class="form-input"
+                        id="name"
+                        name="name"
+                        placeholder="How would you like to be remembered?"
+                        required
+                    />
+                </div>
+
+                <!-- Message Type -->
+                <div class="form-group">
+                    <label class="form-label" for="type">Type of Message</label>
+                    <select class="form-select" id="type" name="type" required>
+                        <option value="">Select a type...</option>
+                        <option value="memory">💭 A Memory</option>
+                        <option value="quote">✨ A Quote or Saying</option>
+                        <option value="love">💜 Words of Love</option>
+                        <option value="tribute">🕊️ A Tribute</option>
+                    </select>
+                </div>
+
+                <!-- Message -->
+                <div class="form-group">
+                    <label class="form-label" for="message">Your Message</label>
+                    <textarea
+                        class="form-textarea"
+                        id="message"
+                        name="message"
+                        placeholder="Share your thoughts, a memory, words of encouragement, or anything you'd like R.J. and T-Mainney to know..."
+                        required
+                    ></textarea>
+                </div>
+
+                <!-- Image Upload -->
+                <div class="form-group">
+                    <label class="form-label">Add a Photo (Optional)</label>
+                    <div class="image-upload-area" id="upload-area">
+                        <input
+                            type="file"
+                            id="image"
+                            name="image"
+                            accept="image/*"
+                        />
+                        <div class="upload-icon">📷</div>
+                        <p class="upload-text">
+                            Click or drag to upload a photo
+                        </p>
+                        <p class="upload-hint">JPG, PNG, or GIF • Max 5MB</p>
+                    </div>
+                    <div class="image-preview" id="image-preview">
+                        <img id="preview-img" src="" alt="Preview" />
+                    </div>
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" class="submit-btn" id="submit-btn">
+                    💜 Add to the Wall 💜
+                </button>
+            </form>
+
+            <!-- Success Message -->
+            <div class="success-message" id="success-message">
+                <div class="success-icon">💜</div>
+                <h3 class="success-title">Message Added Forever</h3>
+                <p class="success-text">
+                    Thank you for sharing your love. Your message is now a
+                    permanent part of R.J. and T-Mainney's memorial wall.
+                    <br /><br />
+                    They live on through moments like this.
+                </p>
+                <button
+                    class="submit-btn"
+                    style="margin-top: 30px"
+                    onclick="resetForm()"
+                >
+                    Leave Another Message
+                </button>
+            </div>
+        </section>
+
+        <div class="rose-divider">
+            <span class="line"></span>
+            <span class="rose">🌹</span>
+            <span class="line"></span>
+        </div>
+
+        <!-- Message Wall -->
+        <section class="wall-section">
+            <h2 class="wall-title">The Wall of Love</h2>
+            <p class="wall-count">
+                <span id="message-count">0</span> Messages of Love
+            </p>
+
+            <div class="message-wall" id="message-wall">
+                <!-- Messages will be loaded here -->
+            </div>
+
+            <div class="empty-wall" id="empty-wall">
+                <div class="empty-icon">💜</div>
+                <p class="empty-text">
+                    Be the first to leave a message for R.J. & T-Mainney
+                </p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="page-footer">
+            <p class="footer-message">Every Message is a Forever Memory</p>
+            <p class="footer-brand">
+                NO LIMITS BEYOND LIMITATIONS INTO MY WILDEST IMAGINATION
+            </p>
+        </footer>
+
+        <script>
+            // ============================================
+            // MESSAGE WALL - COMPLETE JAVASCRIPT
+            // ============================================
+
+            // LocalStorage key for messages
+            const STORAGE_KEY = "nlbl_memorial_messages";
+
+            // DOM Elements
+            const form = document.getElementById("message-form");
+            const submitBtn = document.getElementById("submit-btn");
+            const successMessage = document.getElementById("success-message");
+            const messageWall = document.getElementById("message-wall");
+            const emptyWall = document.getElementById("empty-wall");
+            const messageCount = document.getElementById("message-count");
+            const imageInput = document.getElementById("image");
+            const imagePreview = document.getElementById("image-preview");
+            const previewImg = document.getElementById("preview-img");
+
+            // Initialize floating particles
+            function createParticles() {
+                const particlesContainer = document.getElementById("particles");
+                for (let i = 0; i < 25; i++) {
+                    const particle = document.createElement("div");
+                    particle.className = "particle";
+                    particle.style.left = Math.random() * 100 + "%";
+                    particle.style.animationDelay = Math.random() * 20 + "s";
+                    particle.style.animationDuration =
+                        20 + Math.random() * 15 + "s";
+                    particlesContainer.appendChild(particle);
+                }
+            }
+
+            // Load messages from localStorage
+            function loadMessages() {
+                const messages = getMessages();
+
+                if (messages.length === 0) {
+                    emptyWall.style.display = "block";
+                    messageWall.style.display = "none";
+                } else {
+                    emptyWall.style.display = "none";
+                    messageWall.style.display = "block";
+                    renderMessages(messages);
+                }
+
+                messageCount.textContent = messages.length;
+            }
+
+            // Get messages from localStorage
+            function getMessages() {
+                const stored = localStorage.getItem(STORAGE_KEY);
+                return stored ? JSON.parse(stored) : getSampleMessages();
+            }
+
+            // Sample messages to show initially
+            function getSampleMessages() {
+                return [
+                    {
+                        id: 1,
+                        name: "The Giles Family",
+                        type: "love",
+                        message:
+                            "R.J. and Todd, you are forever in our hearts. Every day we carry your memory, your laughter, your spirit. Until we meet again. 💜",
+                        date: "2024-01-15",
+                        image: null,
+                    },
+                    {
+                        id: 2,
+                        name: "A Friend",
+                        type: "memory",
+                        message:
+                            "I remember the way you both lit up every room you walked into. That energy was contagious. You made everyone feel like they mattered.",
+                        date: "2024-02-20",
+                        image: null,
+                    },
+                    {
+                        id: 3,
+                        name: "Anonymous",
+                        type: "quote",
+                        message:
+                            "Gone from our sight, but never from our hearts.",
+                        date: "2024-03-10",
+                        image: null,
+                    },
+                    {
+                        id: 4,
+                        name: "Aundrae",
+                        type: "tribute",
+                        message:
+                            "My brothers, my heroes, my everything. This whole brand exists because of you. You gave me purpose when I had none. I promise to carry your legacy forward every single day. No Limits. Beyond Limitations. Into My Wildest Imagination. For you. Always.",
+                        date: "2024-01-01",
+                        image: null,
+                    },
+                ];
+            }
+
+            // Save messages to localStorage
+            function saveMessages(messages) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+            }
+
+            // Render messages to the wall
+            function renderMessages(messages) {
+                messageWall.innerHTML = "";
+
+                // Sort by date (newest first)
+                const sorted = [...messages].sort(
+                    (a, b) => new Date(b.date) - new Date(a.date),
+                );
+
+                sorted.forEach((msg, index) => {
+                    const card = createMessageCard(msg, index);
+                    messageWall.appendChild(card);
+                });
+            }
+
+            // Create a message card element
+            function createMessageCard(msg, index) {
+                const card = document.createElement("div");
+                card.className = `message-card ${msg.type}`;
+                card.style.animationDelay = `${index * 0.1}s`;
+
+                const typeLabels = {
+                    memory: "💭 Memory",
+                    quote: "✨ Quote",
+                    love: "💜 Words of Love",
+                    tribute: "🕊️ Tribute",
+                };
+
+                const isQuote = msg.type === "quote";
+
+                card.innerHTML = `
+                <span class="card-type ${msg.type}">${typeLabels[msg.type] || "Message"}</span>
+                ${msg.image ? `<img src="${msg.image}" alt="Shared photo" class="card-image">` : ""}
+                <p class="card-message ${isQuote ? "quote-text" : ""}">${isQuote ? '"' + msg.message + '"' : msg.message}</p>
+                <div class="card-footer">
+                    <span class="card-author">— ${msg.name}</span>
+                    <span class="card-date">${formatDate(msg.date)}</span>
+                </div>
+            `;
+
+                return card;
+            }
+
+            // Format date
+            function formatDate(dateStr) {
+                const date = new Date(dateStr);
+                const options = {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                };
+                return date.toLocaleDateString("en-US", options);
+            }
+
+            // Handle image upload preview
+            imageInput.addEventListener("change", function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    if (file.size > 5 * 1024 * 1024) {
+                        alert("Image must be less than 5MB");
+                        return;
+                    }
+
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        previewImg.src = e.target.result;
+                        imagePreview.classList.add("active");
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Handle form submission
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                // Get form values
+                const name = document.getElementById("name").value.trim();
+                const type = document.getElementById("type").value;
+                const message = document.getElementById("message").value.trim();
+
+                if (!name || !type || !message) {
+                    alert("Please fill in all required fields");
+                    return;
+                }
+
+                // Show loading state
+                submitBtn.disabled = true;
+                submitBtn.innerHTML =
+                    '<span class="loading"></span> Adding to Wall...';
+
+                // Get image if uploaded
+                let imageData = null;
+                if (
+                    previewImg.src &&
+                    imagePreview.classList.contains("active")
+                ) {
+                    imageData = previewImg.src;
+                }
+
+                // Create new message object
+                const newMessage = {
+                    id: Date.now(),
+                    name: name,
+                    type: type,
+                    message: message,
+                    date: new Date().toISOString().split("T")[0],
+                    image: imageData,
+                };
+
+                // Simulate a small delay for effect
+                setTimeout(() => {
+                    // Save to localStorage
+                    const messages = getMessages();
+                    messages.push(newMessage);
+                    saveMessages(messages);
+
+                    // Show success message
+                    form.style.display = "none";
+                    successMessage.classList.add("active");
+
+                    // Reload messages
+                    loadMessages();
+
+                    // Reset button
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = "💜 Add to the Wall 💜";
+                }, 1500);
+            });
+
+            // Reset form to add another message
+            function resetForm() {
+                form.reset();
+                form.style.display = "block";
+                successMessage.classList.remove("active");
+                imagePreview.classList.remove("active");
+                previewImg.src = "";
+            }
+
+            // Initialize on page load
+            window.addEventListener("load", () => {
+                createParticles();
+                loadMessages();
+            });
+
+            // Console message
+            console.log(
+                "%c💜 R.J. & T-Mainney Memorial Wall 💜",
+                "font-size: 20px; color: #8b5cf6; font-weight: bold;",
+            );
+            console.log(
+                "%cEvery message is a forever memory.",
+                "font-size: 12px; color: #a78bfa;",
+            );
+        </script>
+    </body>
+</html>

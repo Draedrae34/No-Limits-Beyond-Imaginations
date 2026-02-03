@@ -1,0 +1,28 @@
+{
+  "name": "No Limits Beyond Limitations",
+  "short_name": "NLBL",
+  "description": "The most advanced AI platform for creative minds. Generate music, images, videos, and 3D designs with quantum precision.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0c0c0c",
+  "theme_color": "#00FFFF",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon.svg",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon.svg",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

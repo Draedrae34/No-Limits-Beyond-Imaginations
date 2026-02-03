@@ -1,0 +1,5 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <rect width="32" height="32" fill="#0c0c0c"/>
+  <text x="16" y="12" font-family="monospace" font-size="8" fill="#00FFFF" text-anchor="middle">NLBL</text>
+  <circle cx="16" cy="20" r="6" fill="none" stroke="#FF69B4" stroke-width="1"/>
+</svg>

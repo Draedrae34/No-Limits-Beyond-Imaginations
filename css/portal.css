@@ -1,0 +1,179 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+/* Base Styles */
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* Galaxy Container */
+.galaxy-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* Stars */
+.stars {
+    position: absolute;
+    background: transparent;
+    width: 1px;
+    height: 1px;
+    box-shadow: 1000px 1000px #fff;
+    animation: twinkle 3s infinite;
+}
+
+/* Nebulas */
+.nebula {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 0, 255, 0.1) 0%, rgba(0, 255, 255, 0.1) 50%, rgba(255, 255, 0, 0.1) 100%);
+    animation: nebulaDrift 20s infinite linear;
+    filter: blur(20px);
+}
+
+/* Cosmic Dust */
+.cosmic-dust {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.5);
+    animation: dustFloat 10s infinite linear;
+}
+
+/* Big Bang */
+.big-bang {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, #fff 0%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+    animation: bigBang 5s infinite;
+    transform: translate(-50%, -50%);
+}
+
+/* Portal */
+.portal {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(138, 43, 226, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 50px rgba(138, 43, 226, 0.5);
+    animation: pulse 3s infinite;
+}
+
+.portal::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(138, 43, 226, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+    animation: rotate 10s linear infinite;
+}
+
+/* Portal Content */
+.portal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+/* Portal Title */
+.portal-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(138, 43, 226, 0.7);
+}
+
+/* Portal Button */
+.portal-btn {
+    padding: 10px 20px;
+    background: rgba(138, 43, 226, 0.2);
+    border: 1px solid rgba(138, 43, 226, 0.5);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
+}
+
+.portal-btn:hover {
+    background: rgba(138, 43, 226, 0.3);
+}
+
+/* Animations */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+@keyframes nebulaDrift {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(50px, -30px) rotate(120deg); }
+    66% { transform: translate(-30px, 50px) rotate(240deg); }
+    100% { transform: translate(0, 0) rotate(360deg); }
+}
+
+@keyframes dustFloat {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(20px, -10px); }
+    50% { transform: translate(10px, 20px); }
+    75% { transform: translate(-15px, 5px); }
+    100% { transform: translate(0, 0); }
+}
+
+@keyframes bigBang {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+    50% { transform: translate(-50%, -50%) scale(2); opacity: 0.7; }
+    100% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+}
+
+/* Controls */
+.controls {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.controls button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    background: rgba(138, 43, 226, 0.2);
+    border: 1px solid rgba(138, 43, 226, 0.5);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
+}
+
+.controls button:hover {
+    background: rgba(138, 43, 226, 0.3);
+}

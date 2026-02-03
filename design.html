@@ -1,0 +1,2919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Your Outfit | N.L.B.L.I.T.M.W.I</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #0a0a0f 100%);
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        .design-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .design-header {
+            text-align: center;
+            padding: 30px 0;
+            background: linear-gradient(90deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .design-header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .design-header p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+        }
+
+        .design-limit-banner {
+            background: linear-gradient(90deg, #f093fb, #f5576c);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(240, 147, 251, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(240, 147, 251, 0); }
+        }
+
+        .design-limit-banner svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .main-design-area {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-design-area {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .canvas-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .canvas-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 3/4;
+            background: linear-gradient(180deg, #1a1a2e 0%, #0a0a0f 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        #design-canvas {
+            width: 100%;
+            height: 100%;
+            cursor: crosshair;
+        }
+
+        .canvas-overlay {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .design-tools {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tool-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tool-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .tool-btn.active {
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .tool-btn.brush {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .tool-btn.eraser {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+        }
+
+        .tool-btn.fill {
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+            color: white;
+        }
+
+        .tool-btn.clear {
+            background: linear-gradient(135deg, #eb3349, #f45c43);
+            color: white;
+        }
+
+        .options-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .option-section {
+            margin-bottom: 25px;
+        }
+
+        .option-section h3 {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            color: #667eea;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .color-picker-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .color-swatch {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .color-swatch:hover {
+            transform: scale(1.1);
+        }
+
+        .color-swatch.active {
+            border-color: white;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .custom-color-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .custom-color-input input[type="color"] {
+            width: 50px;
+            height: 40px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .pattern-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .pattern-btn {
+            padding: 15px 10px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .pattern-btn:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .pattern-btn.active {
+            border-color: #667eea;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+        }
+
+        .style-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .style-btn {
+            padding: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .style-btn:hover {
+            border-color: #764ba2;
+        }
+
+        .style-btn.active {
+            border-color: #764ba2;
+            background: linear-gradient(135deg, rgba(118, 75, 162, 0.2), rgba(240, 147, 251, 0.2));
+        }
+
+        /* Logo Upload Styles */
+        .logo-upload-section {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .logo-upload-section h4 {
+            margin-bottom: 15px;
+            color: #f093fb;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-upload-area {
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .logo-upload-area:hover {
+            border-color: #f093fb;
+            background: rgba(240, 147, 251, 0.1);
+        }
+
+        .logo-upload-area input[type="file"] {
+            display: none;
+        }
+
+        .logo-preview-container {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        #logo-preview-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .logo-controls {
+            display: grid;
+            gap: 10px;
+        }
+
+        .logo-control-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-control-row label {
+            min-width: 80px;
+            font-size: 0.85rem;
+        }
+
+        .logo-control-row input[type="range"] {
+            flex: 1;
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            height: 6px;
+        }
+
+        .logo-control-row input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .logo-control-row input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            background: transparent;
+            color: white;
+        }
+
+        .drip-effect-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .drip-effect-toggle input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        /* Galaxy Theme Styles */
+        .galaxy-section {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .galaxy-section h4 {
+            margin-bottom: 15px;
+            color: #667eea;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .galaxy-presets {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .galaxy-preset-btn {
+            padding: 12px 10px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .galaxy-preset-btn:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .galaxy-preset-btn.active {
+            border-color: #667eea;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3));
+        }
+
+        .galaxy-preset-btn .preset-preview {
+            width: 100%;
+            height: 30px;
+            border-radius: 5px;
+            margin-bottom: 8px;
+        }
+
+        .galaxy-controls {
+            display: grid;
+            gap: 10px;
+        }
+
+        /* Copyright Section Styles */
+        .copyright-section {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            border: 1px solid rgba(240, 147, 251, 0.3);
+        }
+
+        .copyright-section h4 {
+            margin-bottom: 15px;
+            color: #f093fb;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .copyright-info {
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        .copyright-id {
+            font-family: monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin: 10px 0;
+            word-break: break-all;
+            font-size: 0.75rem;
+            color: #38ef7d;
+        }
+
+        .copyright-hash {
+            font-family: monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin: 10px 0;
+            word-break: break-all;
+            font-size: 0.7rem;
+            max-height: 60px;
+            overflow-y: auto;
+            color: #f093fb;
+        }
+
+        .watermark-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .watermark-toggle input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .view-copyright-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .view-copyright-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .random-position-indicator {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 10px;
+            padding: 8px;
+            background: rgba(56, 239, 125, 0.1);
+            border-radius: 5px;
+            border-left: 3px solid #38ef7d;
+        }
+
+        .size-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .size-btn {
+            padding: 12px 18px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .size-btn:hover {
+            border-color: #11998e;
+        }
+
+        .size-btn.active {
+            border-color: #38ef7d;
+            background: linear-gradient(135deg, rgba(17, 153, 142, 0.2), rgba(56, 239, 125, 0.2));
+        }
+
+        .brush-size-slider {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .brush-size-slider input[type="range"] {
+            width: 100%;
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            height: 8px;
+        }
+
+        .brush-size-slider input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .preview-section {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .preview-section h4 {
+            margin-bottom: 15px;
+            color: #f093fb;
+        }
+
+        .preview-canvas-container {
+            width: 100%;
+            aspect-ratio: 1;
+            background: linear-gradient(180deg, #1a1a2e 0%, #0a0a0f 100%);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        #preview-canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .design-summary {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 0.9rem;
+        }
+
+        .design-summary p {
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .design-summary span {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .add-to-cart-section {
+            margin-top: 25px;
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .add-to-cart-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .add-to-cart-btn:disabled {
+            background: rgba(255, 255, 255, 0.1);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .price-display {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #f093fb, #f5576c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .design-saved-banner {
+            display: none;
+            background: linear-gradient(90deg, #38ef7d, #11998e);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            align-items: center;
+            gap: 15px;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .design-saved-banner.show {
+            display: flex;
+        }
+
+        .text-input-section {
+            margin-top: 20px;
+        }
+
+        .text-input-section input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: transparent;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .text-input-section input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .text-input-section input[type="text"]::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .category-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: transparent;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .category-select option {
+            background: #1a1a2e;
+            color: white;
+        }
+
+        /* Sound toggle specific to design page */
+        .design-sound-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .design-sound-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .nav-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            z-index: 10000;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .cart-link {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            z-index: 10000;
+        }
+
+        .cart-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .cart-count {
+            background: #f093fb;
+            color: #0a0a0f;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            margin-left: 8px;
+        }
+
+        .undo-redo-btns {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .undo-btn, .redo-btn {
+            padding: 10px 15px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .undo-btn:hover, .redo-btn:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+    </style>
+    <link rel="stylesheet" href="portal-overlay.css">
+</head>
+<body>
+    <a href="index.html" class="nav-link">← Back to Shop</a>
+    <a href="index.html#cart" class="cart-link">🛒 Cart <span class="cart-count" id="cart-count">0</span></a>
+
+    <div class="design-container">
+        <div class="design-header">
+            <h1>✨ Design Your Custom Outfit ✨</h1>
+            <p>Create your unique style with our interactive design tool</p>
+        </div>
+
+        <div class="design-limit-banner" id="design-limit-banner">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+            <span><strong>Special Offer:</strong> Design your first outfit FREE! Each additional design is just $5 extra.</span>
+        </div>
+
+        <div class="design-saved-banner" id="design-saved-banner">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+            <span>Your design has been saved!</span>
+        </div>
+
+        <div class="main-design-area">
+            <div class="canvas-section">
+                <div class="canvas-container">
+                    <canvas id="design-canvas"></canvas>
+                    <div class="canvas-overlay">
+                        <span id="tool-indicator">🖌️ Brush</span>
+                    </div>
+                </div>
+
+                <div class="undo-redo-btns">
+                    <button class="undo-btn" id="undo-btn" title="Undo (Ctrl+Z)">↩️ Undo</button>
+                    <button class="redo-btn" id="redo-btn" title="Redo (Ctrl+Y)">↪️ Redo</button>
+                </div>
+
+                <div class="design-tools">
+                    <button class="tool-btn brush active" data-tool="brush">
+                        <span>🖌️</span> Brush
+                    </button>
+                    <button class="tool-btn eraser" data-tool="eraser">
+                        <span>🧹</span> Eraser
+                    </button>
+                    <button class="tool-btn fill" data-tool="fill">
+                        <span>🪣</span> Fill
+                    </button>
+                    <button class="tool-btn clear" id="clear-canvas">
+                        <span>🗑️</span> Clear All
+                    </button>
+                </div>
+
+                <div class="brush-size-slider" style="margin-top: 15px;">
+                    <label for="brush-size">Brush Size:</label>
+                    <input type="range" id="brush-size" min="1" max="50" value="10">
+                </div>
+            </div>
+
+            <div class="options-panel">
+                <div class="option-section">
+                    <h3>👕 Outfit Category</h3>
+                    <select class="category-select" id="category-select">
+                        <option value="mens">Men's Clothing</option>
+                        <option value="womens">Women's Clothing</option>
+                        <option value="youth">Youth (13-18)</option>
+                        <option value="kids">Kids (3-12)</option>
+                        <option value="babies">Babies (0-3)</option>
+                    </select>
+                </div>
+
+                <div class="option-section">
+                    <h3>🎨 Colors</h3>
+                    <div class="color-picker-container" id="color-picker">
+                        <div class="color-swatch active" style="background: #ffffff;" data-color="#ffffff"></div>
+                        <div class="color-swatch" style="background: #000000;" data-color="#000000"></div>
+                        <div class="color-swatch" style="background: #ff6b6b;" data-color="#ff6b6b"></div>
+                        <div class="color-swatch" style="background: #feca57;" data-color="#feca57"></div>
+                        <div class="color-swatch" style="background: #48dbfb;" data-color="#48dbfb"></div>
+                        <div class="color-swatch" style="background: #ff9ff3;" data-color="#ff9ff3"></div>
+                        <div class="color-swatch" style="background: #54a0ff;" data-color="#54a0ff"></div>
+                        <div class="color-swatch" style="background: #5f27cd;" data-color="#5f27cd"></div>
+                        <div class="color-swatch" style="background: #00d2d3;" data-color="#00d2d3"></div>
+                        <div class="color-swatch" style="background: #ff9f43;" data-color="#ff9f43"></div>
+                        <div class="color-swatch" style="background: #10ac84;" data-color="#10ac84"></div>
+                        <div class="color-swatch" style="background: #ee5253;" data-color="#ee5253"></div>
+                    </div>
+                    <div class="custom-color-input">
+                        <input type="color" id="custom-color" value="#ffffff">
+                        <span>Custom Color</span>
+                    </div>
+                </div>
+
+                <div class="option-section">
+                    <h3>🌈 Patterns</h3>
+                    <div class="pattern-options">
+                        <button class="pattern-btn active" data-pattern="none">None</button>
+                        <button class="pattern-btn" data-pattern="dots">● Dots</button>
+                        <button class="pattern-btn" data-pattern="stripes">║ Stripes</button>
+                        <button class="pattern-btn" data-pattern="checkers">▦ Checkers</button>
+                        <button class="pattern-btn" data-pattern="zigzag">↯ Zigzag</button>
+                        <button class="pattern-btn" data-pattern="stars">★ Stars</button>
+                    </div>
+                </div>
+
+                <div class="option-section">
+                    <h3>👔 Style</h3>
+                    <div class="style-options">
+                        <button class="style-btn active" data-style="casual">👕 Casual</button>
+                        <button class="style-btn" data-style="sport">🏃 Sport</button>
+                        <button class="style-btn" data-style="elegant">👔 Elegant</button>
+                        <button class="style-btn" data-style="vintage">🎭 Vintage</button>
+                        <button class="style-btn" data-style="futuristic">🚀 Futuristic</button>
+                    </div>
+                </div>
+
+                <div class="option-section">
+                    <h3>📏 Size</h3>
+                    <div class="size-options">
+                        <button class="size-btn" data-size="XS">XS</button>
+                        <button class="size-btn active" data-size="S">S</button>
+                        <button class="size-btn" data-size="M">M</button>
+                        <button class="size-btn" data-size="L">L</button>
+                        <button class="size-btn" data-size="XL">XL</button>
+                        <button class="size-btn" data-size="XXL">XXL</button>
+                    </div>
+                </div>
+
+                <div class="text-input-section">
+                    <h3>✏️ Custom Text (Optional)</h3>
+                    <input type="text" id="custom-text" placeholder="Add your custom text here..." maxlength="30">
+                </div>
+
+                <!-- Logo Upload Section -->
+                <div class="logo-upload-section">
+                    <h4>🖼️ Logo Upload</h4>
+                    <div class="logo-upload-area" id="logo-upload-area">
+                        <input type="file" id="logo-upload" accept=".png,.svg,.jpg,.jpeg">
+                        <p>Click to upload logo (PNG, SVG, JPG)</p>
+                        <small>Supports transparent backgrounds</small>
+                    </div>
+                    <div class="logo-preview-container">
+                        <img id="logo-preview-img" src="" alt="Logo Preview" style="display: none;">
+                        <span id="logo-placeholder" style="color: rgba(255,255,255,0.5);">No logo uploaded</span>
+                    </div>
+                    <div class="logo-controls">
+                        <div class="logo-control-row">
+                            <label>Size:</label>
+                            <input type="range" id="logo-size" min="20" max="200" value="80">
+                            <span id="logo-size-value">80px</span>
+                        </div>
+                        <div class="logo-control-row">
+                            <label>Rotation:</label>
+                            <input type="range" id="logo-rotation" min="-180" max="180" value="0">
+                            <span id="logo-rotation-value">0°</span>
+                        </div>
+                        <div class="logo-control-row">
+                            <label>Opacity:</label>
+                            <input type="range" id="logo-opacity" min="10" max="100" value="100">
+                            <span id="logo-opacity-value">100%</span>
+                        </div>
+                    </div>
+                    <div class="drip-effect-toggle">
+                        <input type="checkbox" id="drip-effect">
+                        <label for="drip-effect">💧 Melting/Dripping Effect</label>
+                    </div>
+                    <div class="random-position-indicator" id="random-position-info">
+                        🎯 Random positioning ensures unique placement on each product
+                    </div>
+                </div>
+
+                <!-- Galaxy Theme Section -->
+                <div class="galaxy-section">
+                    <h4>🌌 Galaxy Themes</h4>
+                    <div class="galaxy-presets">
+                        <button class="galaxy-preset-btn" data-galaxy="milkyway">
+                            <div class="preset-preview" style="background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);"></div>
+                            Milky Way
+                        </button>
+                        <button class="galaxy-preset-btn" data-galaxy="andromeda">
+                            <div class="preset-preview" style="background: linear-gradient(135deg, #2d1b4e, #1a1a2e, #4a1942);"></div>
+                            Andromeda
+                        </button>
+                        <button class="galaxy-preset-btn" data-galaxy="nebula">
+                            <div class="preset-preview" style="background: linear-gradient(135deg, #4a1942, #893168, #d62598);"></div>
+                            Nebula
+                        </button>
+                        <button class="galaxy-preset-btn" data-galaxy="blackhole">
+                            <div class="preset-preview" style="background: linear-gradient(135deg, #000000, #1a1a2e, #4a1942);"></div>
+                            Black Hole
+                        </button>
+                    </div>
+                    <div class="galaxy-controls">
+                        <div class="logo-control-row">
+                            <label>Stars:</label>
+                            <input type="range" id="galaxy-stars" min="50" max="500" value="200">
+                            <span id="galaxy-stars-value">200</span>
+                        </div>
+                        <div class="logo-control-row">
+                            <label>Nebula:</label>
+                            <input type="range" id="galaxy-nebula" min="0" max="100" value="50">
+                            <span id="galaxy-nebula-value">50%</span>
+                        </div>
+                        <div class="logo-control-row">
+                            <label>Spiral:</label>
+                            <input type="range" id="galaxy-spiral" min="0" max="100" value="30">
+                            <span id="galaxy-spiral-value">30%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Copyright Section -->
+                <div class="copyright-section">
+                    <h4>© Copyright Protection</h4>
+                    <div class="copyright-info">
+                        Each design receives a unique copyright ID and blockchain-style hash for intellectual property protection.
+                    </div>
+                    <div id="copyright-display">
+                        <p>Copyright ID:</p>
+                        <div class="copyright-id" id="copyright-id">NLB-PENDING</div>
+                        <p>Design Hash:</p>
+                        <div class="copyright-hash" id="copyright-hash">Waiting for design creation...</div>
+                    </div>
+                    <div class="watermark-toggle">
+                        <input type="checkbox" id="watermark-toggle" checked>
+                        <label for="watermark-toggle">Add "© 2026 No Limits Beyond Limitations" watermark</label>
+                    </div>
+                    <button class="view-copyright-btn" id="view-copyright-btn">
+                        📜 View Full Copyright Certificate
+                    </button>
+                </div>
+
+                <div class="preview-section">
+                    <h4>👁️ Live Preview</h4>
+                    <div class="preview-canvas-container">
+                        <canvas id="preview-canvas"></canvas>
+                    </div>
+                    <div class="design-summary">
+                        <p>Category: <span id="summary-category">Men's</span></p>
+                        <p>Style: <span id="summary-style">Casual</span></p>
+                        <p>Size: <span id="summary-size">S</span></p>
+                        <p>Pattern: <span id="summary-pattern">None</span></p>
+                    </div>
+                </div>
+
+                <div class="add-to-cart-section">
+                    <div class="price-display" id="price-display">$25.00</div>
+                    <button class="add-to-cart-btn" id="add-to-cart-btn">
+                        <span>🛒</span> Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="design-sound-toggle" id="design-sound-toggle" title="Toggle Sound Effects">🔊</button>
+
+    <script src="script.js"></script>
+    <script>
+        // =====================================================
+        // CUSTOMER DESIGN TOOL
+        // =====================================================
+
+        class CustomerDesignTool {
+            constructor() {
+                this.canvas = document.getElementById('design-canvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.previewCanvas = document.getElementById('preview-canvas');
+                this.previewCtx = this.previewCanvas.getContext('2d');
+                
+                this.currentTool = 'brush';
+                this.currentColor = '#ffffff';
+                this.currentPattern = 'none';
+                this.currentStyle = 'casual';
+                this.currentSize = 'S';
+                this.currentCategory = 'mens';
+                this.customText = '';
+                
+                this.brushSize = 10;
+                this.isDrawing = false;
+                
+                this.history = [];
+                this.historyIndex = -1;
+                this.maxHistory = 20;
+                
+                this.basePrice = 25;
+                this.additionalDesignPrice = 5;
+                
+                this.soundEnabled = true;
+                
+                // Logo properties
+                this.logoImage = null;
+                this.logoSize = 80;
+                this.logoRotation = 0;
+                this.logoOpacity = 100;
+                this.dripEffect = false;
+                this.logoPosition = this.generateRandomPosition();
+                
+                // Galaxy properties
+                this.currentGalaxy = 'none';
+                this.galaxyStars = 200;
+                this.galaxyNebula = 50;
+                this.galaxySpiral = 30;
+                
+                // Copyright properties
+                this.copyrightId = '';
+                this.copyrightHash = '';
+                this.watermarkEnabled = true;
+                
+                this.init();
+            }
+
+            init() {
+                this.setupCanvas();
+                this.setupEventListeners();
+                this.updatePreview();
+                this.saveState();
+                this.checkExistingDesign();
+                this.setupSoundToggle();
+            }
+
+            setupCanvas() {
+                // Set canvas size based on container
+                const container = this.canvas.parentElement;
+                this.canvas.width = container.clientWidth;
+                this.canvas.height = container.clientWidth * 1.33;
+                
+                // Initialize preview canvas
+                const previewContainer = this.previewCanvas.parentElement;
+                this.previewCanvas.width = previewContainer.clientWidth;
+                this.previewCanvas.height = previewContainer.clientWidth;
+                
+                // Fill with base color
+                this.ctx.fillStyle = '#1a1a2e';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                // Draw outfit outline
+                this.drawOutfitOutline();
+            }
+
+            drawOutfitOutline() {
+                const ctx = this.ctx;
+                const w = this.canvas.width;
+                const h = this.canvas.height;
+                
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+                ctx.lineWidth = 2;
+                
+                // Draw simplified t-shirt outline
+                ctx.beginPath();
+                // Neck
+                ctx.moveTo(w * 0.4, h * 0.1);
+                ctx.quadraticCurveTo(w * 0.5, h * 0.15, w * 0.6, h * 0.1);
+                // Right shoulder
+                ctx.lineTo(w * 0.85, h * 0.15);
+                // Right sleeve
+                ctx.lineTo(w * 0.9, h * 0.35);
+                ctx.lineTo(w * 0.75, h * 0.4);
+                // Right side
+                ctx.lineTo(w * 0.75, h * 0.85);
+                // Bottom
+                ctx.lineTo(w * 0.25, h * 0.85);
+                // Left side
+                ctx.lineTo(w * 0.25, h * 0.4);
+                // Left sleeve
+                ctx.lineTo(w * 0.1, h * 0.35);
+                ctx.lineTo(w * 0.15, h * 0.15);
+                // Close to neck
+                ctx.closePath();
+                ctx.stroke();
+            }
+
+            setupEventListeners() {
+                // Canvas drawing events
+                this.canvas.addEventListener('mousedown', (e) => this.startDrawing(e));
+                this.canvas.addEventListener('mousemove', (e) => this.draw(e));
+                this.canvas.addEventListener('mouseup', () => this.stopDrawing());
+                this.canvas.addEventListener('mouseleave', () => this.stopDrawing());
+                
+                // Touch events
+                this.canvas.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    this.startDrawing(e.touches[0]);
+                });
+                this.canvas.addEventListener('touchmove', (e) => {
+                    e.preventDefault();
+                    this.draw(e.touches[0]);
+                });
+                this.canvas.addEventListener('touchend', () => this.stopDrawing());
+                
+                // Tool buttons
+                document.querySelectorAll('.tool-btn[data-tool]').forEach(btn => {
+                    btn.addEventListener('click', () => this.selectTool(btn.dataset.tool));
+                });
+                
+                // Color swatches
+                document.querySelectorAll('.color-swatch').forEach(swatch => {
+                    swatch.addEventListener('click', () => this.selectColor(swatch.dataset.color, swatch));
+                });
+                
+                // Custom color input
+                document.getElementById('custom-color').addEventListener('input', (e) => {
+                    this.selectColor(e.target.value);
+                });
+                
+                // Pattern buttons
+                document.querySelectorAll('.pattern-btn').forEach(btn => {
+                    btn.addEventListener('click', () => this.selectPattern(btn.dataset.pattern, btn));
+                });
+                
+                // Style buttons
+                document.querySelectorAll('.style-btn').forEach(btn => {
+                    btn.addEventListener('click', () => this.selectStyle(btn.dataset.style, btn));
+                });
+                
+                // Size buttons
+                document.querySelectorAll('.size-btn').forEach(btn => {
+                    btn.addEventListener('click', () => this.selectSize(btn.dataset.size, btn));
+                });
+                
+                // Category select
+                document.getElementById('category-select').addEventListener('change', (e) => {
+                    this.currentCategory = e.target.value;
+                    this.updateSummary();
+                    this.updatePrice();
+                    playButtonClickSound();
+                });
+                
+                // Custom text input
+                document.getElementById('custom-text').addEventListener('input', (e) => {
+                    this.customText = e.target.value;
+                    this.updatePreview();
+                    playButtonHoverSound();
+                });
+                
+                // Brush size
+                document.getElementById('brush-size').addEventListener('input', (e) => {
+                    this.brushSize = parseInt(e.target.value);
+                });
+                
+                // Clear canvas
+                document.getElementById('clear-canvas').addEventListener('click', () => {
+                    this.clearCanvas();
+                    playButtonClickSound();
+                });
+                
+                // Undo/Redo
+                document.getElementById('undo-btn').addEventListener('click', () => {
+                    this.undo();
+                    playButtonClickSound();
+                });
+                
+                document.getElementById('redo-btn').addEventListener('click', () => {
+                    this.redo();
+                    playButtonClickSound();
+                });
+                
+                // Keyboard shortcuts
+                document.addEventListener('keydown', (e) => {
+                    if (e.ctrlKey && e.key === 'z') {
+                        e.preventDefault();
+                        this.undo();
+                    } else if (e.ctrlKey && e.key === 'y') {
+                        e.preventDefault();
+                        this.redo();
+                    }
+                });
+                
+                // Add to cart button
+                document.getElementById('add-to-cart-btn').addEventListener('click', () => {
+                    this.addToCart();
+                });
+                
+                // Window resize
+                window.addEventListener('resize', () => {
+                    this.setupCanvas();
+                    this.redrawFromHistory();
+                });
+                
+                // Logo upload events
+                this.setupLogoEventListeners();
+                
+                // Galaxy theme events
+                this.setupGalaxyEventListeners();
+                
+                // Copyright events
+                this.setupCopyrightEventListeners();
+            }
+
+            // =====================================================
+            // LOGO INTEGRATION METHODS
+            // =====================================================
+            
+            setupLogoEventListeners() {
+                const logoUploadArea = document.getElementById('logo-upload-area');
+                const logoUpload = document.getElementById('logo-upload');
+                
+                logoUploadArea.addEventListener('click', () => logoUpload.click());
+                
+                logoUpload.addEventListener('change', (e) => {
+                    if (e.target.files && e.target.files[0]) {
+                        this.loadLogo(e.target.files[0]);
+                    }
+                });
+                
+                // Logo controls
+                document.getElementById('logo-size').addEventListener('input', (e) => {
+                    this.logoSize = parseInt(e.target.value);
+                    document.getElementById('logo-size-value').textContent = this.logoSize + 'px';
+                    this.updatePreview();
+                });
+                
+                document.getElementById('logo-rotation').addEventListener('input', (e) => {
+                    this.logoRotation = parseInt(e.target.value);
+                    document.getElementById('logo-rotation-value').textContent = this.logoRotation + '°';
+                    this.updatePreview();
+                });
+                
+                document.getElementById('logo-opacity').addEventListener('input', (e) => {
+                    this.logoOpacity = parseInt(e.target.value);
+                    document.getElementById('logo-opacity-value').textContent = this.logoOpacity + '%';
+                    this.updatePreview();
+                });
+                
+                document.getElementById('drip-effect').addEventListener('change', (e) => {
+                    this.dripEffect = e.target.checked;
+                    this.updatePreview();
+                });
+            }
+            
+            loadLogo(file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        this.logoImage = img;
+                        document.getElementById('logo-preview-img').src = e.target.result;
+                        document.getElementById('logo-preview-img').style.display = 'block';
+                        document.getElementById('logo-placeholder').style.display = 'none';
+                        
+                        // Generate new random position for this logo
+                        this.logoPosition = this.generateRandomPosition();
+                        
+                        this.updatePreview();
+                        playSuccessSound();
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+            
+            generateRandomPosition() {
+                // Generate unique position based on timestamp and random factors
+                // Never the same position twice across all products
+                const timestamp = Date.now();
+                const randomX = Math.random() * 0.6 + 0.2; // 20-80% of canvas width
+                const randomY = Math.random() * 0.6 + 0.2; // 20-80% of canvas height
+                const randomSeed = Math.random().toString(36).substring(7);
+                
+                return {
+                    x: randomX,
+                    y: randomY,
+                    seed: randomSeed,
+                    timestamp: timestamp,
+                    id: `NLB-${timestamp}-${randomSeed}`
+                };
+            }
+            
+            drawLogo(ctx) {
+                if (!this.logoImage) return;
+                
+                ctx.save();
+                ctx.globalAlpha = this.logoOpacity / 100;
+                
+                const centerX = this.canvas.width * this.logoPosition.x;
+                const centerY = this.canvas.height * this.logoPosition.y;
+                const size = this.logoSize;
+                
+                ctx.translate(centerX, centerY);
+                ctx.rotate((this.logoRotation * Math.PI) / 180);
+                
+                if (this.dripEffect) {
+                    this.drawLogoWithDrip(ctx, size);
+                } else {
+                    ctx.drawImage(this.logoImage, -size/2, -size/2, size, size);
+                }
+                
+                ctx.restore();
+            }
+            
+            drawLogoWithDrip(ctx, size) {
+                // Create dripping effect by extending paths downward
+                const tempCanvas = document.createElement('canvas');
+                tempCanvas.width = size;
+                tempCanvas.height = size * 1.3; // Extra space for drips
+                const tempCtx = tempCanvas.getContext('2d');
+                
+                // Draw original logo
+                tempCtx.drawImage(this.logoImage, 0, 0, size, size);
+                
+                // Add dripping effect
+                const dripCount = Math.floor(Math.random() * 3) + 2; // 2-4 drips
+                const dripPositions = [];
+                
+                for (let i = 0; i < dripCount; i++) {
+                    const dripX = Math.random() * size;
+                    const dripY = size * 0.6 + Math.random() * (size * 0.2);
+                    const dripLength = Math.random() * size * 0.4 + size * 0.1;
+                    dripPositions.push({ x: dripX, y: dripY, length: dripLength });
+                }
+                
+                // Draw drips
+                tempCtx.fillStyle = ctx.fillStyle || '#ffffff';
+                dripPositions.forEach(drip => {
+                    tempCtx.beginPath();
+                    tempCtx.moveTo(drip.x - 3, drip.y);
+                    tempCtx.quadraticCurveTo(
+                        drip.x, drip.y + drip.length * 0.5,
+                        drip.x, drip.y + drip.length
+                    );
+                    tempCtx.quadraticCurveTo(
+                        drip.x, drip.y + drip.length * 0.5,
+                        drip.x + 3, drip.y
+                    );
+                    tempCtx.closePath();
+                    
+                    // Create gradient for drip
+                    const gradient = tempCtx.createLinearGradient(0, drip.y, 0, drip.y + drip.length);
+                    gradient.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
+                    gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                    tempCtx.fillStyle = gradient;
+                    tempCtx.fill();
+                });
+                
+                ctx.drawImage(tempCanvas, -size/2, -size * 0.65, size, size * 1.3);
+            }
+            
+            // =====================================================
+            // GALAXY THEME GENERATOR METHODS
+            // =====================================================
+            
+            setupGalaxyEventListeners() {
+                document.querySelectorAll('.galaxy-preset-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        this.selectGalaxy(btn.dataset.galaxy, btn);
+                    });
+                });
+                
+                document.getElementById('galaxy-stars').addEventListener('input', (e) => {
+                    this.galaxyStars = parseInt(e.target.value);
+                    document.getElementById('galaxy-stars-value').textContent = this.galaxyStars;
+                    if (this.currentGalaxy !== 'none') this.updatePreview();
+                });
+                
+                document.getElementById('galaxy-nebula').addEventListener('input', (e) => {
+                    this.galaxyNebula = parseInt(e.target.value);
+                    document.getElementById('galaxy-nebula-value').textContent = this.galaxyNebula + '%';
+                    if (this.currentGalaxy !== 'none') this.updatePreview();
+                });
+                
+                document.getElementById('galaxy-spiral').addEventListener('input', (e) => {
+                    this.galaxySpiral = parseInt(e.target.value);
+                    document.getElementById('galaxy-spiral-value').textContent = this.galaxySpiral + '%';
+                    if (this.currentGalaxy !== 'none') this.updatePreview();
+                });
+            }
+            
+            selectGalaxy(galaxy, element) {
+                this.currentGalaxy = galaxy;
+                document.querySelectorAll('.galaxy-preset-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.galaxy === galaxy);
+                });
+                
+                if (galaxy === 'none') {
+                    // Reset to base color
+                    this.ctx.fillStyle = '#1a1a2e';
+                    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                } else {
+                    this.generateGalaxyBackground();
+                }
+                
+                this.drawOutfitOutline();
+                this.updatePreview();
+                playButtonClickSound();
+            }
+            
+            generateGalaxyBackground() {
+                const ctx = this.ctx;
+                const w = this.canvas.width;
+                const h = this.canvas.height;
+                
+                // Define galaxy color palettes
+                const galaxyPalettes = {
+                    milkyway: {
+                        background: ['#1a1a2e', '#16213e', '#0f3460'],
+                        stars: ['#ffffff', '#ffeaa7', '#74b9ff'],
+                        nebula: ['#533483', '#6c5ce7', '#a29bfe'],
+                        spiral: '#e17055'
+                    },
+                    andromeda: {
+                        background: ['#2d1b4e', '#1a1a2e', '#4a1942'],
+                        stars: ['#ffffff', '#fd79a8', '#e84393'],
+                        nebula: ['#9b59b6', '#8e44ad', '#3498db'],
+                        spiral: '#f39c12'
+                    },
+                    nebula: {
+                        background: ['#4a1942', '#2d1b4e', '#1a1a2e'],
+                        stars: ['#ffffff', '#ffeaa7', '#ff7675'],
+                        nebula: ['#d62598', '#893168', '#fdcb6e'],
+                        spiral: '#00cec9'
+                    },
+                    blackhole: {
+                        background: ['#000000', '#1a1a2e', '#0d0d1a'],
+                        stars: ['#ffffff', '#636e72', '#b2bec3'],
+                        nebula: ['#2d3436', '#636e72', '#4a1942'],
+                        spiral: '#d63031'
+                    }
+                };
+                
+                const palette = galaxyPalettes[this.currentGalaxy];
+                if (!palette) return;
+                
+                // Draw background gradient
+                const bgGradient = ctx.createLinearGradient(0, 0, w, h);
+                palette.background.forEach((color, i) => {
+                    bgGradient.addColorStop(i / (palette.background.length - 1), color);
+                });
+                ctx.fillStyle = bgGradient;
+                ctx.fillRect(0, 0, w, h);
+                
+                // Draw nebula clouds
+                if (this.galaxyNebula > 0) {
+                    this.drawNebulaClouds(ctx, palette.nebula, w, h);
+                }
+                
+                // Draw stars
+                this.drawStarField(ctx, palette.stars, w, h);
+                
+                // Draw spiral if enabled
+                if (this.galaxySpiral > 0) {
+                    this.drawGalaxySpiral(ctx, palette.spiral, w, h);
+                }
+            }
+            
+            drawNebulaClouds(ctx, colors, w, h) {
+                const cloudCount = Math.floor(this.galaxyNebula / 10);
+                
+                for (let i = 0; i < cloudCount; i++) {
+                    const x = Math.random() * w;
+                    const y = Math.random() * h;
+                    const radius = Math.random() * 200 + 100;
+                    
+                    const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
+                    const color1 = colors[Math.floor(Math.random() * colors.length)];
+                    const color2 = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    gradient.addColorStop(0, color1 + '40');
+                    gradient.addColorStop(0.5, color2 + '20');
+                    gradient.addColorStop(1, 'transparent');
+                    
+                    ctx.fillStyle = gradient;
+                    ctx.beginPath();
+                    ctx.arc(x, y, radius, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+            
+            drawStarField(ctx, colors, w, h) {
+                for (let i = 0; i < this.galaxyStars; i++) {
+                    const x = Math.random() * w;
+                    const y = Math.random() * h;
+                    const radius = Math.random() * 2 + 0.5;
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    const alpha = Math.random() * 0.8 + 0.2;
+                    
+                    // Draw star glow
+                    const glowGradient = ctx.createRadialGradient(x, y, 0, x, y, radius * 4);
+                    glowGradient.addColorStop(0, color + Math.floor(alpha * 255).toString(16).padStart(2, '0'));
+                    glowGradient.addColorStop(1, 'transparent');
+                    
+                    ctx.fillStyle = glowGradient;
+                    ctx.beginPath();
+                    ctx.arc(x, y, radius * 4, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    // Draw star core
+                    ctx.fillStyle = color;
+                    ctx.beginPath();
+                    ctx.arc(x, y, radius, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+            
+            drawGalaxySpiral(ctx, color, w, h) {
+                const centerX = w * 0.5;
+                const centerY = h * 0.5;
+                const maxRadius = Math.min(w, h) * 0.4 * (this.galaxySpiral / 100);
+                
+                const arms = 2;
+                const pointsPerArm = 100;
+                
+                for (let arm = 0; arm < arms; arm++) {
+                    ctx.beginPath();
+                    
+                    for (let i = 0; i < pointsPerArm; i++) {
+                        const angle = (i / pointsPerArm) * Math.PI * 2 * 1.5 + (arm * Math.PI);
+                        const radius = (i / pointsPerArm) * maxRadius;
+                        const spiralX = centerX + Math.cos(angle) * radius;
+                        const spiralY = centerY + Math.sin(angle) * radius;
+                        
+                        const alpha = 1 - (i / pointsPerArm);
+                        ctx.strokeStyle = color + Math.floor(alpha * 100).toString(16).padStart(2, '0');
+                        ctx.lineWidth = radius * 0.02;
+                        
+                        if (i === 0) {
+                            ctx.moveTo(spiralX, spiralY);
+                        } else {
+                            ctx.lineTo(spiralX, spiralY);
+                        }
+                    }
+                    
+                    ctx.stroke();
+                }
+                
+                // Draw center glow
+                const centerGlow = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, maxRadius * 0.2);
+                centerGlow.addColorStop(0, color + '80');
+                centerGlow.addColorStop(0.5, color + '30');
+                centerGlow.addColorStop(1, 'transparent');
+                
+                ctx.fillStyle = centerGlow;
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, maxRadius * 0.2, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            
+            // =====================================================
+            // COPYRIGHT SYSTEM METHODS
+            // =====================================================
+            
+            setupCopyrightEventListeners() {
+                document.getElementById('watermark-toggle').addEventListener('change', (e) => {
+                    this.watermarkEnabled = e.target.checked;
+                    this.updatePreview();
+                });
+                
+                document.getElementById('view-copyright-btn').addEventListener('click', () => {
+                    this.openCopyrightCertificate();
+                });
+                
+                // Initialize copyright display
+                this.updateCopyrightDisplay();
+            }
+            
+            generateCopyrightId() {
+                const timestamp = Date.now();
+                const random = Math.random().toString(36).substring(2, 8).toUpperCase();
+                return `NLB-${timestamp}-${random}`;
+            }
+            
+            async generateCopyrightHash(designData) {
+                // Create a hash of the design data (SHA-256 simulation)
+                const dataString = JSON.stringify(designData) + Date.now() + this.copyrightId;
+                
+                // Use Web Crypto API for actual SHA-256
+                try {
+                    const encoder = new TextEncoder();
+                    const data = encoder.encode(dataString);
+                    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+                    const hashArray = Array.from(new Uint8Array(hashBuffer));
+                    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                    return hashHex;
+                } catch (e) {
+                    // Fallback for browsers without Web Crypto
+                    let hash = 0;
+                    for (let i = 0; i < dataString.length; i++) {
+                        const char = dataString.charCodeAt(i);
+                        hash = ((hash << 5) - hash) + char;
+                        hash = hash & hash;
+                    }
+                    return Math.abs(hash).toString(16).padStart(64, '0');
+                }
+            }
+            
+            updateCopyrightDisplay() {
+                if (!this.copyrightId) {
+                    this.copyrightId = this.generateCopyrightId();
+                }
+                document.getElementById('copyright-id').textContent = this.copyrightId;
+                
+                if (this.copyrightHash) {
+                    document.getElementById('copyright-hash').textContent = this.copyrightHash;
+                }
+            }
+            
+            async updateCopyrightFromCanvas() {
+                const canvasData = this.canvas.toDataURL('image/png');
+                this.copyrightId = this.generateCopyrightId();
+                
+                const designData = {
+                    canvasData: canvasData,
+                    category: this.currentCategory,
+                    style: this.currentStyle,
+                    size: this.currentSize,
+                    pattern: this.currentPattern,
+                    color: this.currentColor,
+                    customText: this.customText,
+                    logoPosition: this.logoPosition,
+                    galaxy: this.currentGalaxy,
+                    timestamp: Date.now()
+                };
+                
+                this.copyrightHash = await this.generateCopyrightHash(designData);
+                this.updateCopyrightDisplay();
+                
+                // Store in localStorage
+                const copyrightStore = JSON.parse(localStorage.getItem('copyrightStore')) || [];
+                copyrightStore.push({
+                    id: this.copyrightId,
+                    hash: this.copyrightHash,
+                    data: designData,
+                    createdAt: new Date().toISOString()
+                });
+                localStorage.setItem('copyrightStore', JSON.stringify(copyrightStore));
+                
+                return { id: this.copyrightId, hash: this.copyrightHash };
+            }
+            
+            drawWatermark(ctx) {
+                if (!this.watermarkEnabled) return;
+                
+                ctx.save();
+                ctx.globalAlpha = 0.3;
+                ctx.fillStyle = '#ffffff';
+                ctx.font = '12px sans-serif';
+                ctx.textAlign = 'center';
+                
+                // Draw watermark at bottom
+                ctx.fillText('© 2026 No Limits Beyond Limitations', this.canvas.width / 2, this.canvas.height - 15);
+                
+                ctx.restore();
+            }
+            
+            openCopyrightCertificate() {
+                const certificateWindow = window.open('', '_blank', 'width=800,height=600');
+                
+                if (!certificateWindow) {
+                    alert('Please allow popups to view the copyright certificate');
+                    return;
+                }
+                
+                certificateWindow.document.write(`
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <title>Copyright Certificate - ${this.copyrightId}</title>
+                        <style>
+                            * { margin: 0; padding: 0; box-sizing: border-box; }
+                            body { 
+                                font-family: 'Georgia', serif;
+                                background: linear-gradient(135deg, #1a1a2e 0%, #0a0a0f 100%);
+                                color: white;
+                                padding: 40px;
+                                min-height: 100vh;
+                            }
+                            .certificate {
+                                max-width: 700px;
+                                margin: 0 auto;
+                                background: rgba(255, 255, 255, 0.05);
+                                border: 3px solid #f093fb;
+                                border-radius: 20px;
+                                padding: 40px;
+                                position: relative;
+                            }
+                            .certificate::before {
+                                content: '☽';
+                                position: absolute;
+                                top: -30px;
+                                left: 50%;
+                                transform: translateX(-50%);
+                                font-size: 48px;
+                                background: linear-gradient(135deg, #667eea, #764ba2);
+                                -webkit-background-clip: text;
+                                -webkit-text-fill-color: transparent;
+                            }
+                            h1 { 
+                                text-align: center;
+                                color: #f093fb;
+                                margin-bottom: 10px;
+                                font-size: 2rem;
+                            }
+                            .subtitle {
+                                text-align: center;
+                                color: rgba(255, 255, 255, 0.7);
+                                margin-bottom: 30px;
+                            }
+                            .certificate-id {
+                                background: rgba(0, 0, 0, 0.3);
+                                padding: 15px;
+                                border-radius: 10px;
+                                margin: 20px 0;
+                                text-align: center;
+                            }
+                            .certificate-id span {
+                                color: #38ef7d;
+                                font-family: monospace;
+                                font-size: 1.2rem;
+                            }
+                            .hash {
+                                background: rgba(0, 0, 0, 0.3);
+                                padding: 15px;
+                                border-radius: 10px;
+                                margin: 20px 0;
+                                font-family: monospace;
+                                font-size: 0.7rem;
+                                word-break: break-all;
+                                color: #f093fb;
+                            }
+                            .design-preview {
+                                width: 100%;
+                                max-width: 300px;
+                                margin: 20px auto;
+                                border-radius: 10px;
+                                display: block;
+                            }
+                            .info-grid {
+                                display: grid;
+                                grid-template-columns: 1fr 1fr;
+                                gap: 15px;
+                                margin: 20px 0;
+                            }
+                            .info-item {
+                                background: rgba(0, 0, 0, 0.2);
+                                padding: 10px;
+                                border-radius: 8px;
+                            }
+                            .info-item label {
+                                display: block;
+                                color: #667eea;
+                                font-size: 0.8rem;
+                                margin-bottom: 5px;
+                            }
+                            .watermark-text {
+                                text-align: center;
+                                margin-top: 30px;
+                                padding: 15px;
+                                background: rgba(240, 147, 251, 0.1);
+                                border-radius: 10px;
+                                color: #f093fb;
+                            }
+                            .print-btn {
+                                display: block;
+                                width: 100%;
+                                max-width: 300px;
+                                margin: 30px auto 0;
+                                padding: 15px;
+                                background: linear-gradient(135deg, #667eea, #764ba2);
+                                border: none;
+                                border-radius: 10px;
+                                color: white;
+                                font-size: 1rem;
+                                cursor: pointer;
+                            }
+                            .print-btn:hover {
+                                transform: translateY(-2px);
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="certificate">
+                            <h1>☽ Copyright Certificate ☽</h1>
+                            <p class="subtitle">No Limits Beyond Limitations - N.L.B.L.I.T.M.W.I.</p>
+                            
+                            <div class="certificate-id">
+                                <label>Certificate ID</label><br>
+                                <span>${this.copyrightId}</span>
+                            </div>
+                            
+                            <div class="hash">
+                                <label>Blockchain-Style Design Hash (SHA-256)</label><br><br>
+                                ${this.copyrightHash || 'Generating...'}
+                            </div>
+                            
+                            <img class="design-preview" src="${this.canvas.toDataURL('image/png')}" alt="Design Preview">
+                            
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <label>Category</label>
+                                    ${this.currentCategory}
+                                </div>
+                                <div class="info-item">
+                                    <label>Style</label>
+                                    ${this.currentStyle}
+                                </div>
+                                <div class="info-item">
+                                    <label>Size</label>
+                                    ${this.currentSize}
+                                </div>
+                                <div class="info-item">
+                                    <label>Pattern</label>
+                                    ${this.currentPattern}
+                                </div>
+                                <div class="info-item">
+                                    <label>Created</label>
+                                    ${new Date().toLocaleString()}
+                                </div>
+                                <div class="info-item">
+                                    <label>Logo Position ID</label>
+                                    ${this.logoPosition?.id || 'N/A'}
+                                </div>
+                            </div>
+                            
+                            <div class="watermark-text">
+                                © 2026 No Limits Beyond Limitations<br>
+                                This design is protected by copyright law.
+                            </div>
+                            
+                            <button class="print-btn" onclick="window.print()">🖨️ Print Certificate</button>
+                        </div>
+                    </body>
+                    </html>
+                `);
+                certificateWindow.document.close();
+            }
+
+            getMousePos(e) {
+                const rect = this.canvas.getBoundingClientRect();
+                const scaleX = this.canvas.width / rect.width;
+                const scaleY = this.canvas.height / rect.height;
+                return {
+                    x: (e.clientX - rect.left) * scaleX,
+                    y: (e.clientY - rect.top) * scaleY
+                };
+            }
+
+            startDrawing(e) {
+                this.isDrawing = true;
+                const pos = this.getMousePos(e);
+                this.lastX = pos.x;
+                this.lastY = pos.y;
+                
+                if (this.currentTool === 'fill') {
+                    this.floodFill(pos.x, pos.y);
+                    this.isDrawing = false;
+                }
+                
+                playButtonHoverSound();
+            }
+
+            draw(e) {
+                if (!this.isDrawing || this.currentTool === 'fill') return;
+                
+                const pos = this.getMousePos(e);
+                
+                this.ctx.beginPath();
+                this.ctx.moveTo(this.lastX, this.lastY);
+                this.ctx.lineTo(pos.x, pos.y);
+                
+                if (this.currentTool === 'eraser') {
+                    this.ctx.strokeStyle = '#1a1a2e';
+                    this.ctx.lineWidth = this.brushSize * 2;
+                } else {
+                    this.ctx.strokeStyle = this.currentColor;
+                    this.ctx.lineWidth = this.brushSize;
+                    this.ctx.lineCap = 'round';
+                    this.ctx.lineJoin = 'round';
+                }
+                
+                this.ctx.stroke();
+                
+                // Apply pattern if selected
+                if (this.currentPattern !== 'none' && this.currentTool !== 'eraser') {
+                    this.ctx.save();
+                    this.ctx.clip();
+                    this.drawPattern();
+                    this.ctx.restore();
+                }
+                
+                this.lastX = pos.x;
+                this.lastY = pos.y;
+                
+                this.updatePreview();
+            }
+
+            stopDrawing() {
+                if (this.isDrawing) {
+                    this.isDrawing = false;
+                    this.saveState();
+                }
+            }
+
+            floodFill(x, y) {
+                // Simplified flood fill
+                const imageData = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
+                const data = imageData.data;
+                const startPos = (Math.floor(y) * this.canvas.width + Math.floor(x)) * 4;
+                const startColor = [data[startPos], data[startPos + 1], data[startPos + 2]];
+                
+                // Convert hex to RGB
+                const fillColor = this.hexToRgb(this.currentColor);
+                
+                // Simple flood fill (not most efficient but works for this purpose)
+                const stack = [[x, y]];
+                const visited = new Set();
+                
+                while (stack.length > 0) {
+                    const [cx, cy] = stack.pop();
+                    const key = `${Math.floor(cx)},${Math.floor(cy)}`;
+                    
+                    if (visited.has(key)) continue;
+                    if (cx < 0 || cx >= this.canvas.width || cy < 0 || cy >= this.canvas.height) continue;
+                    
+                    const pos = (Math.floor(cy) * this.canvas.width + Math.floor(cx)) * 4;
+                    const currentColor = [data[pos], data[pos + 1], data[pos + 2]];
+                    
+                    if (this.colorsMatch(currentColor, startColor)) {
+                        data[pos] = fillColor.r;
+                        data[pos + 1] = fillColor.g;
+                        data[pos + 2] = fillColor.b;
+                        data[pos + 3] = 255;
+                        
+                        visited.add(key);
+                        stack.push([cx + 1, cy], [cx - 1, cy], [cx, cy + 1], [cx, cy - 1]);
+                    }
+                }
+                
+                this.ctx.putImageData(imageData, 0, 0);
+                this.updatePreview();
+                this.saveState();
+            }
+
+            colorsMatch(c1, c2) {
+                const tolerance = 50;
+                return Math.abs(c1[0] - c2[0]) < tolerance &&
+                       Math.abs(c1[1] - c2[1]) < tolerance &&
+                       Math.abs(c1[2] - c2[2]) < tolerance;
+            }
+
+            hexToRgb(hex) {
+                const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+                return result ? {
+                    r: parseInt(result[1], 16),
+                    g: parseInt(result[2], 16),
+                    b: parseInt(result[3], 16)
+                } : { r: 255, g: 255, b: 255 };
+            }
+
+            drawPattern() {
+                const ctx = this.ctx;
+                const w = this.canvas.width;
+                const h = this.canvas.height;
+                
+                ctx.save();
+                ctx.globalAlpha = 0.3;
+                
+                switch (this.currentPattern) {
+                    case 'dots':
+                        ctx.fillStyle = this.currentColor;
+                        for (let x = 0; x < w; x += 20) {
+                            for (let y = 0; y < h; y += 20) {
+                                ctx.beginPath();
+                                ctx.arc(x, y, 3, 0, Math.PI * 2);
+                                ctx.fill();
+                            }
+                        }
+                        break;
+                    case 'stripes':
+                        ctx.strokeStyle = this.currentColor;
+                        ctx.lineWidth = 2;
+                        for (let y = 0; y < h; y += 15) {
+                            ctx.beginPath();
+                            ctx.moveTo(0, y);
+                            ctx.lineTo(w, y);
+                            ctx.stroke();
+                        }
+                        break;
+                    case 'checkers':
+                        ctx.fillStyle = this.currentColor;
+                        for (let x = 0; x < w; x += 20) {
+                            for (let y = 0; y < h; y += 20) {
+                                if ((x + y) % 40 === 0) {
+                                    ctx.fillRect(x, y, 20, 20);
+                                }
+                            }
+                        }
+                        break;
+                    case 'zigzag':
+                        ctx.strokeStyle = this.currentColor;
+                        ctx.lineWidth = 2;
+                        for (let y = 0; y < h; y += 20) {
+                            ctx.beginPath();
+                            for (let x = 0; x < w; x += 10) {
+                                ctx.lineTo(x, y + (x % 20 === 0 ? 0 : 10));
+                            }
+                            ctx.stroke();
+                        }
+                        break;
+                    case 'stars':
+                        ctx.fillStyle = this.currentColor;
+                        for (let x = 5; x < w; x += 25) {
+                            for (let y = 5; y < h; y += 25) {
+                                this.drawStar(ctx, x, y, 5, 8, 4);
+                            }
+                        }
+                        break;
+                }
+                
+                ctx.restore();
+            }
+
+            drawStar(ctx, cx, cy, spikes, outerRadius, innerRadius) {
+                let rot = Math.PI / 2 * 3;
+                let x = cx;
+                let y = cy;
+                const step = Math.PI / spikes;
+
+                ctx.beginPath();
+                ctx.moveTo(cx, cy - outerRadius);
+                
+                for (let i = 0; i < spikes; i++) {
+                    x = cx + Math.cos(rot) * outerRadius;
+                    y = cy + Math.sin(rot) * outerRadius;
+                    ctx.lineTo(x, y);
+                    rot += step;
+
+                    x = cx + Math.cos(rot) * innerRadius;
+                    y = cy + Math.sin(rot) * innerRadius;
+                    ctx.lineTo(x, y);
+                    rot += step;
+                }
+                
+                ctx.lineTo(cx, cy - outerRadius);
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            selectTool(tool) {
+                this.currentTool = tool;
+                document.querySelectorAll('.tool-btn[data-tool]').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.tool === tool);
+                });
+                document.getElementById('tool-indicator').textContent = 
+                    tool === 'brush' ? '🖌️ Brush' : 
+                    tool === 'eraser' ? '🧹 Eraser' : '🪣 Fill';
+                playButtonClickSound();
+            }
+
+            selectColor(color, element) {
+                this.currentColor = color;
+                document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+                if (element) element.classList.add('active');
+                playButtonClickSound();
+            }
+
+            selectPattern(pattern, element) {
+                this.currentPattern = pattern;
+                document.querySelectorAll('.pattern-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.pattern === pattern);
+                });
+                this.updateSummary();
+                this.updatePreview();
+                playButtonClickSound();
+            }
+
+            selectStyle(style, element) {
+                this.currentStyle = style;
+                document.querySelectorAll('.style-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.style === style);
+                });
+                this.updateSummary();
+                this.updatePrice();
+                playButtonClickSound();
+            }
+
+            selectSize(size, element) {
+                this.currentSize = size;
+                document.querySelectorAll('.size-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.size === size);
+                });
+                this.updateSummary();
+                playButtonClickSound();
+            }
+
+            updateSummary() {
+                const categoryNames = {
+                    'mens': "Men's",
+                    'womens': "Women's",
+                    'youth': 'Youth',
+                    'kids': 'Kids',
+                    'babies': 'Babies'
+                };
+                
+                document.getElementById('summary-category').textContent = categoryNames[this.currentCategory] || this.currentCategory;
+                document.getElementById('summary-style').textContent = this.currentStyle.charAt(0).toUpperCase() + this.currentStyle.slice(1);
+                document.getElementById('summary-size').textContent = this.currentSize;
+                document.getElementById('summary-pattern').textContent = this.currentPattern.charAt(0).toUpperCase() + this.currentPattern.slice(1);
+            }
+
+            updatePrice() {
+                // Price based on category
+                const categoryPrices = {
+                    'mens': 25,
+                    'womens': 28,
+                    'youth': 22,
+                    'kids': 18,
+                    'babies': 15
+                };
+                
+                // Style multiplier
+                const styleMultipliers = {
+                    'casual': 1,
+                    'sport': 1.1,
+                    'elegant': 1.3,
+                    'vintage': 1.2,
+                    'futuristic': 1.4
+                };
+                
+                let price = (categoryPrices[this.currentCategory] || 25) * (styleMultipliers[this.currentStyle] || 1);
+                
+                // Check for existing designs
+                const existingDesigns = this.getExistingDesignsCount();
+                if (existingDesigns > 0) {
+                    price += existingDesigns * this.additionalDesignPrice;
+                }
+                
+                document.getElementById('price-display').textContent = `$${price.toFixed(2)}`;
+            }
+
+            getExistingDesignsCount() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                return cart.filter(item => item.isCustomDesign).length;
+            }
+
+            updatePreview() {
+                // Copy main canvas to preview
+                this.previewCtx.clearRect(0, 0, this.previewCanvas.width, this.previewCanvas.height);
+                this.previewCtx.drawImage(this.canvas, 0, 0, this.previewCanvas.width, this.previewCanvas.height);
+                
+                // Draw logo on preview if present
+                if (this.logoImage) {
+                    this.previewCtx.save();
+                    this.previewCtx.globalAlpha = this.logoOpacity / 100;
+                    
+                    const centerX = this.previewCanvas.width * this.logoPosition.x;
+                    const centerY = this.previewCanvas.height * this.logoPosition.y;
+                    const size = this.logoSize * (this.previewCanvas.width / this.canvas.width);
+                    
+                    this.previewCtx.translate(centerX, centerY);
+                    this.previewCtx.rotate((this.logoRotation * Math.PI) / 180);
+                    
+                    if (this.dripEffect) {
+                        // For preview, just draw the logo normally (drip effect visible in final)
+                        this.previewCtx.drawImage(this.logoImage, -size/2, -size/2 * 0.65, size, size * 1.3);
+                    } else {
+                        this.previewCtx.drawImage(this.logoImage, -size/2, -size/2, size, size);
+                    }
+                    
+                    this.previewCtx.restore();
+                }
+                
+                // Draw watermark on preview
+                this.drawWatermarkPreview();
+                
+                // Add style indicator
+                this.previewCtx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                this.previewCtx.font = 'bold 14px sans-serif';
+                this.previewCtx.textAlign = 'center';
+                this.previewCtx.fillText(`${this.currentStyle.toUpperCase()} - ${this.currentCategory.toUpperCase()}`, this.previewCanvas.width / 2, 20);
+                
+                // Add custom text if present
+                if (this.customText) {
+                    this.previewCtx.fillStyle = this.currentColor;
+                    this.previewCtx.font = 'bold 16px sans-serif';
+                    this.previewCtx.fillText(this.customText, this.previewCanvas.width / 2, this.previewCanvas.height - 20);
+                }
+                
+                // Update copyright display
+                this.updateCopyrightDisplay();
+            }
+            
+            drawWatermarkPreview() {
+                if (!this.watermarkEnabled) return;
+                
+                this.previewCtx.save();
+                this.previewCtx.globalAlpha = 0.3;
+                this.previewCtx.fillStyle = '#ffffff';
+                this.previewCtx.font = '10px sans-serif';
+                this.previewCtx.textAlign = 'center';
+                
+                this.previewCtx.fillText('© 2026 No Limits Beyond Limitations', this.previewCanvas.width / 2, this.previewCanvas.height - 10);
+                
+                this.previewCtx.restore();
+            }
+
+            saveState() {
+                // Remove any states after current index
+                this.history = this.history.slice(0, this.historyIndex + 1);
+                
+                // Save current state
+                this.history.push(this.canvas.toDataURL());
+                this.historyIndex++;
+                
+                // Limit history size
+                if (this.history.length > this.maxHistory) {
+                    this.history.shift();
+                    this.historyIndex--;
+                }
+            }
+
+            undo() {
+                if (this.historyIndex > 0) {
+                    this.historyIndex--;
+                    this.redrawFromHistory();
+                    playSuccessSound();
+                } else {
+                    playNotificationSound();
+                }
+            }
+
+            redo() {
+                if (this.historyIndex < this.history.length - 1) {
+                    this.historyIndex++;
+                    this.redrawFromHistory();
+                    playSuccessSound();
+                } else {
+                    playNotificationSound();
+                }
+            }
+
+            redrawFromHistory() {
+                const img = new Image();
+                img.onload = () => {
+                    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                    this.ctx.drawImage(img, 0, 0);
+                    this.drawOutfitOutline();
+                    this.updatePreview();
+                };
+                img.src = this.history[this.historyIndex];
+            }
+
+            clearCanvas() {
+                this.ctx.fillStyle = '#1a1a2e';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                // Reset galaxy if active
+                if (this.currentGalaxy !== 'none') {
+                    this.generateGalaxyBackground();
+                }
+                
+                this.drawOutfitOutline();
+                
+                // Reset copyright
+                this.copyrightId = '';
+                this.copyrightHash = '';
+                this.updateCopyrightDisplay();
+                
+                // Generate new random position for logo
+                this.logoPosition = this.generateRandomPosition();
+                
+                this.updatePreview();
+                this.saveState();
+                playButtonClickSound();
+            }
+
+            checkExistingDesign() {
+                const existingDesigns = this.getExistingDesignsCount();
+                if (existingDesigns > 0) {
+                    const banner = document.getElementById('design-limit-banner');
+                    banner.innerHTML = `
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                        </svg>
+                        <span><strong>Note:</strong> You have ${existingDesigns} existing custom design(s). Each additional design is $${this.additionalDesignPrice} extra.</span>
+                    `;
+                }
+                this.updatePrice();
+            }
+
+            setupSoundToggle() {
+                const toggle = document.getElementById('design-sound-toggle');
+                const wasMuted = localStorage.getItem('soundMuted') === 'true';
+                soundEffects.setMuted(wasMuted);
+                toggle.textContent = wasMuted ? '🔇' : '🔊';
+                
+                toggle.addEventListener('click', () => {
+                    soundEffects.init();
+                    const isMuted = soundEffects.toggleMute();
+                    toggle.textContent = isMuted ? '🔇' : '🔊';
+                    localStorage.setItem('soundMuted', isMuted);
+                    if (!isMuted) playSuccessSound();
+                });
+            }
+
+            async addToCart() {
+                // Check if already has a design (unless they want to pay extra)
+                const existingDesigns = this.getExistingDesignsCount();
+                
+                if (existingDesigns > 0) {
+                    const confirmAdd = confirm(`You already have ${existingDesigns} custom design(s) in your cart. Each additional design costs ${this.additionalDesignPrice} extra. Do you want to add another?`);
+                    if (!confirmAdd) return;
+                }
+                
+                // Generate copyright ID and hash before adding to cart
+                const copyrightInfo = await this.updateCopyrightFromCanvas();
+                
+                // Generate design data
+                const designData = {
+                    canvasData: this.canvas.toDataURL('image/png'),
+                    category: this.currentCategory,
+                    style: this.currentStyle,
+                    size: this.currentSize,
+                    pattern: this.currentPattern,
+                    color: this.currentColor,
+                    customText: this.customText,
+                    brushSize: this.brushSize,
+                    // Logo data
+                    logoImage: this.logoImage ? this.canvas.toDataURL('image/png') : null,
+                    logoSize: this.logoSize,
+                    logoRotation: this.logoRotation,
+                    logoOpacity: this.logoOpacity,
+                    dripEffect: this.dripEffect,
+                    logoPosition: this.logoPosition,
+                    // Galaxy data
+                    galaxy: this.currentGalaxy,
+                    galaxyStars: this.galaxyStars,
+                    galaxyNebula: this.galaxyNebula,
+                    galaxySpiral: this.galaxySpiral,
+                    // Copyright data
+                    copyrightId: copyrightInfo.id,
+                    copyrightHash: copyrightInfo.hash,
+                    watermarkEnabled: this.watermarkEnabled,
+                    createdAt: new Date().toISOString()
+                };
+                
+                // Create a unique design ID
+                const designId = 'custom_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                
+                // Calculate price
+                this.updatePrice();
+                const priceText = document.getElementById('price-display').textContent;
+                const price = parseFloat(priceText.replace('$', ''));
+                
+                // Add to cart
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cart.push({
+                    id: designId,
+                    isCustomDesign: true,
+                    designData: designData,
+                    name: `Custom ${this.currentStyle.charAt(0).toUpperCase() + this.currentStyle.slice(1)} Outfit - ${this.currentCategory}`,
+                    price: price,
+                    size: this.currentSize,
+                    quantity: 1,
+                    copyrightId: copyrightInfo.id,
+                    copyrightHash: copyrightInfo.hash
+                });
+                localStorage.setItem('cart', JSON.stringify(cart));
+                
+                // Update cart count
+                this.updateCartCount();
+                
+                // Show success message
+                const savedBanner = document.getElementById('design-saved-banner');
+                savedBanner.classList.add('show');
+                setTimeout(() => {
+                    savedBanner.classList.remove('show');
+                }, 3000);
+                
+                // Play success sound
+                playAddToCartSound();
+                playSuccessSound();
+                
+                // Check existing designs again
+                this.checkExistingDesign();
+                
+                // Scroll to cart
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            updateCartCount() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                document.getElementById('cart-count').textContent = cart.length;
+            }
+        }
+
+        // Initialize design tool when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            window.designTool = new CustomerDesignTool();
+            
+            // Update cart count on load
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            document.getElementById('cart-count').textContent = cart.length;
+        });
+
+        // Sound functions for design tool
+        function playButtonClickSound() {
+            if (soundEffects) soundEffects.buttonClick();
+        }
+
+        function playButtonHoverSound() {
+            if (soundEffects) soundEffects.buttonHover();
+        }
+
+        function playSuccessSound() {
+            if (soundEffects) soundEffects.success();
+        }
+
+        function playAddToCartSound() {
+            if (soundEffects) soundEffects.addToCart();
+        }
+
+        function playNotificationSound() {
+            if (soundEffects) soundEffects.notification();
+        }
+    </script>
+    <script src="portal-transition.js"></script>
+</body>
+</html>, ''));
+                
+                // Add to cart
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cart.push({
+                    id: designId,
+                    isCustomDesign: true,
+                    designData: designData,
+                    name: `Custom ${this.currentStyle.charAt(0).toUpperCase() + this.currentStyle.slice(1)} Outfit - ${this.currentCategory}`,
+                    price: price,
+                    size: this.currentSize,
+                    quantity: 1,
+                    copyrightId: copyrightInfo.id,
+                    copyrightHash: copyrightInfo.hash
+                });
+                localStorage.setItem('cart', JSON.stringify(cart));
+                
+                // Update cart count
+                this.updateCartCount();
+                
+                // Show success message
+                const savedBanner = document.getElementById('design-saved-banner');
+                savedBanner.classList.add('show');
+                setTimeout(() => {
+                    savedBanner.classList.remove('show');
+                }, 3000);
+                
+                // Play success sound
+                playAddToCartSound();
+                playSuccessSound();
+                
+                // Check existing designs again
+                this.checkExistingDesign();
+                
+                // Scroll to cart
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            updateCartCount() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                document.getElementById('cart-count').textContent = cart.length;
+            }
+        }
+
+        // Initialize design tool when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            window.designTool = new CustomerDesignTool();
+            
+            // Update cart count on load
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            document.getElementById('cart-count').textContent = cart.length;
+        });
+
+        // Sound functions for design tool
+        function playButtonClickSound() {
+            if (soundEffects) soundEffects.buttonClick();
+        }
+
+        function playButtonHoverSound() {
+            if (soundEffects) soundEffects.buttonHover();
+        }
+
+        function playSuccessSound() {
+            if (soundEffects) soundEffects.success();
+        }
+
+        function playAddToCartSound() {
+            if (soundEffects) soundEffects.addToCart();
+        }
+
+        function playNotificationSound() {
+            if (soundEffects) soundEffects.notification();
+        }
+    </script>
+    <script src="portal-transition.js"></script>
+</body>
+</html>
+                
+                // Add to cart
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cart.push({
+                    id: designId,
+                    isCustomDesign: true,
+                    designData: designData,
+                    name: `Custom ${this.currentStyle.charAt(0).toUpperCase() + this.currentStyle.slice(1)} Outfit - ${this.currentCategory}`,
+                    price: price,
+                    size: this.currentSize,
+                    quantity: 1,
+                    copyrightId: copyrightInfo.id,
+                    copyrightHash: copyrightInfo.hash
+                });
+                localStorage.setItem('cart', JSON.stringify(cart));
+                
+                // Update cart count
+                this.updateCartCount();
+                
+                // Show success message
+                const savedBanner = document.getElementById('design-saved-banner');
+                savedBanner.classList.add('show');
+                setTimeout(() => {
+                    savedBanner.classList.remove('show');
+                }, 3000);
+                
+                // Play success sound
+                playAddToCartSound();
+                playSuccessSound();
+                
+                // Check existing designs again
+                this.checkExistingDesign();
+                
+                // Scroll to cart
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            updateCartCount() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                document.getElementById('cart-count').textContent = cart.length;
+            }
+        }
+
+        // Initialize design tool when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            window.designTool = new CustomerDesignTool();
+            
+            // Update cart count on load
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            document.getElementById('cart-count').textContent = cart.length;
+        });
+
+        // Sound functions for design tool
+        function playButtonClickSound() {
+            if (soundEffects) soundEffects.buttonClick();
+        }
+
+        function playButtonHoverSound() {
+            if (soundEffects) soundEffects.buttonHover();
+        }
+
+        function playSuccessSound() {
+            if (soundEffects) soundEffects.success();
+        }
+
+        function playAddToCartSound() {
+            if (soundEffects) soundEffects.addToCart();
+        }
+
+        function playNotificationSound() {
+            if (soundEffects) soundEffects.notification();
+        }
+    </script>
+    <script src="portal-transition.js"></script>
+</body>
+</html>, ''));
+                
+                // Add to cart
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cart.push({
+                    id: designId,
+                    isCustomDesign: true,
+                    designData: designData,
+                    name: `Custom ${this.currentStyle.charAt(0).toUpperCase() + this.currentStyle.slice(1)} Outfit - ${this.currentCategory}`,
+                    price: price,
+                    size: this.currentSize,
+                    quantity: 1,
+                    copyrightId: copyrightInfo.id,
+                    copyrightHash: copyrightInfo.hash
+                });
+                localStorage.setItem('cart', JSON.stringify(cart));
+                
+                // Update cart count
+                this.updateCartCount();
+                
+                // Show success message
+                const savedBanner = document.getElementById('design-saved-banner');
+                savedBanner.classList.add('show');
+                setTimeout(() => {
+                    savedBanner.classList.remove('show');
+                }, 3000);
+                
+                // Play success sound
+                playAddToCartSound();
+                playSuccessSound();
+                
+                // Check existing designs again
+                this.checkExistingDesign();
+                
+                // Scroll to cart
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            updateCartCount() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                document.getElementById('cart-count').textContent = cart.length;
+            }
+        }
+
+        // Initialize design tool when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            window.designTool = new CustomerDesignTool();
+            
+            // Update cart count on load
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            document.getElementById('cart-count').textContent = cart.length;
+        });
+
+        // Sound functions for design tool
+        function playButtonClickSound() {
+            if (soundEffects) soundEffects.buttonClick();
+        }
+
+        function playButtonHoverSound() {
+            if (soundEffects) soundEffects.buttonHover();
+        }
+
+        function playSuccessSound() {
+            if (soundEffects) soundEffects.success();
+        }
+
+        function playAddToCartSound() {
+            if (soundEffects) soundEffects.addToCart();
+        }
+
+        function playNotificationSound() {
+            if (soundEffects) soundEffects.notification();
+        }
+    </script>
+    <script src="portal-transition.js"></script>
+</body>
+</html>, ''));
+                
+                // Add to cart
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cart.push({
+                    id: designId,
+                    isCustomDesign: true,
+                    designData: designData,
+                    name: `Custom ${this.currentStyle.charAt(0).toUpperCase() + this.currentStyle.slice(1)} Outfit - ${this.currentCategory}`,
+                    price: price,
+                    size: this.currentSize,
+                    quantity: 1,
+                    copyrightId: copyrightInfo.id,
+                    copyrightHash: copyrightInfo.hash
+                });
+                localStorage.setItem('cart', JSON.stringify(cart));
+                
+                // Update cart count
+                this.updateCartCount();
+                
+                // Show success message
+                const savedBanner = document.getElementById('design-saved-banner');
+                savedBanner.classList.add('show');
+                setTimeout(() => {
+                    savedBanner.classList.remove('show');
+                }, 3000);
+                
+                // Play success sound
+                playAddToCartSound();
+                playSuccessSound();
+                
+                // Check existing designs again
+                this.checkExistingDesign();
+                
+                // Scroll to cart
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            updateCartCount() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                document.getElementById('cart-count').textContent = cart.length;
+            }
+        }
+
+        // Initialize design tool when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            window.designTool = new CustomerDesignTool();
+            
+            // Update cart count on load
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            document.getElementById('cart-count').textContent = cart.length;
+        });
+
+        // Sound functions for design tool
+        function playButtonClickSound() {
+            if (soundEffects) soundEffects.buttonClick();
+        }
+
+        function playButtonHoverSound() {
+            if (soundEffects) soundEffects.buttonHover();
+        }
+
+        function playSuccessSound() {
+            if (soundEffects) soundEffects.success();
+        }
+
+        function playAddToCartSound() {
+            if (soundEffects) soundEffects.addToCart();
+        }
+
+        function playNotificationSound() {
+            if (soundEffects) soundEffects.notification();
+        }
+    </script>
+    <script src="portal-transition.js"></script>
+</body>
+</html>
+                
+                // Add to cart
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cart.push({
+                    id: designId,
+                    isCustomDesign: true,
+                    designData: designData,
+                    name: `Custom ${this.currentStyle.charAt(0).toUpperCase() + this.currentStyle.slice(1)} Outfit - ${this.currentCategory}`,
+                    price: price,
+                    size: this.currentSize,
+                    quantity: 1,
+                    copyrightId: copyrightInfo.id,
+                    copyrightHash: copyrightInfo.hash
+                });
+                localStorage.setItem('cart', JSON.stringify(cart));
+                
+                // Update cart count
+                this.updateCartCount();
+                
+                // Show success message
+                const savedBanner = document.getElementById('design-saved-banner');
+                savedBanner.classList.add('show');
+                setTimeout(() => {
+                    savedBanner.classList.remove('show');
+                }, 3000);
+                
+                // Play success sound
+                playAddToCartSound();
+                playSuccessSound();
+                
+                // Check existing designs again
+                this.checkExistingDesign();
+                
+                // Scroll to cart
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            updateCartCount() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                document.getElementById('cart-count').textContent = cart.length;
+            }
+        }
+
+        // Initialize design tool when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            window.designTool = new CustomerDesignTool();
+            
+            // Update cart count on load
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            document.getElementById('cart-count').textContent = cart.length;
+        });
+
+        // Sound functions for design tool
+        function playButtonClickSound() {
+            if (soundEffects) soundEffects.buttonClick();
+        }
+
+        function playButtonHoverSound() {
+            if (soundEffects) soundEffects.buttonHover();
+        }
+
+        function playSuccessSound() {
+            if (soundEffects) soundEffects.success();
+        }
+
+        function playAddToCartSound() {
+            if (soundEffects) soundEffects.addToCart();
+        }
+
+        function playNotificationSound() {
+            if (soundEffects) soundEffects.notification();
+        }
+    </script>
+    <script src="portal-transition.js"></script>
+</body>
+</html>

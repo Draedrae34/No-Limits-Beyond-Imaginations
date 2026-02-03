@@ -1,0 +1,778 @@
+from flask import Flask, jsonify, request, make_response, send_from_directory, g
+from printful_client import PrintfulAPI
+import os
+from security_service import security_service, security_middleware
+from auth_service import auth_service, token_required, owner_required
+import os
+import random
+import threading
+import time
+import openai
+from werkzeug.utils import secure_filename
+import hashlib
+import hmac
+import logging
+import traceback
+import pyotp
+from ai_services import AIServiceManager, photographic_memory
+
+app = Flask(__name__)
+
+# Set up logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(name)s - %(funcName)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler('shop_app.log')
+    ]
+)
+logger = logging.getLogger(__name__)
+
+# Create uploads directory if it doesn't exist
+UPLOAD_FOLDER = 'uploads'
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+# Simple CORS handling
+@app.after_request
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
+    return response
+
+# Load API token from environment variable or use provided token for testing
+API_TOKEN = os.getenv('PRINTFUL_API_TOKEN', 'CjDCeFeC9Dzg877DKifxM8xagXxUHVOPhheHC353')
+STORE_ID = os.getenv('PRINTFUL_STORE_ID')
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+REPLICATE_API_TOKEN = os.getenv('REPLICATE_API_TOKEN')
+
+# Initialize AI Service Manager
+if OPENAI_API_KEY and REPLICATE_API_TOKEN:
+    ai_service_manager = AIServiceManager(OPENAI_API_KEY, REPLICATE_API_TOKEN)
+    logger.info("AIServiceManager initialized successfully.")
+else:
+    ai_service_manager = None
+    logger.warning("AIServiceManager not initialized. OPENAI_API_KEY or REPLICATE_API_TOKEN not found.")
+
+if not API_TOKEN:
+    raise ValueError("PRINTFUL_API_TOKEN environment variable is required")
+
+if OPENAI_API_KEY:
+    openai.api_key = OPENAI_API_KEY
+
+api = PrintfulAPI(API_TOKEN, STORE_ID)
+
+# Global cache for stock data
+stock_cache = {}
+
+# Global storage for order statuses and notifications
+order_statuses = {}  # order_id: {'status': str, 'updated_at': timestamp, 'history': []}
+order_notifications = []  # list of notifications
+
+def poll_stock():
+    """Background function to poll stock levels periodically."""
+    while True:
+        try:
+            logger.info("Starting stock polling cycle")
+            # Get all products
+            products_response = api.get_products()
+            products = products_response.get('result', [])
+            for product in products:
+                product_id = product['id']
+                # Get availability for this product (includes variants)
+                availability = api.get_product_availability(product_id)
+                stock_cache[product_id] = availability
+            logger.info(f"Stock cache updated for {len(products)} products")
+        except Exception as e:
+            logger.error(f"Error polling stock: {str(e)}", exc_info=True)
+        time.sleep(300)  # Poll every 5 minutes
+
+def update_order_status(order_id, new_status):
+    """Update order status and create notification."""
+    current_time = time.time()
+    if order_id not in order_statuses:
+        order_statuses[order_id] = {
+            'status': new_status,
+            'updated_at': current_time,
+            'history': [{'status': new_status, 'timestamp': current_time}]
+        }
+        logger.info(f"New order status initialized for order {order_id}: {new_status}")
+    else:
+        old_status = order_statuses[order_id]['status']
+        if old_status != new_status:
+            order_statuses[order_id]['status'] = new_status
+            order_statuses[order_id]['updated_at'] = current_time
+            order_statuses[order_id]['history'].append({'status': new_status, 'timestamp': current_time})
+
+            # Create notification
+            notification = {
+                'order_id': order_id,
+                'old_status': old_status,
+                'new_status': new_status,
+                'timestamp': current_time,
+                'message': f"Order {order_id} status changed from {old_status} to {new_status}"
+            }
+            order_notifications.append(notification)
+            logger.info(f"Order {order_id} status updated: {old_status} -> {new_status}")
+
+@app.before_request
+def apply_security():
+    security_service.monitor_request()
+
+@app.route('/api/products', methods=['GET'])
+def get_products():
+    """Get catalog products."""
+    params = request.args.to_dict()
+    try:
+        logger.info("Fetching products catalog")
+        data = api.get_products(**params)
+        logger.info(f"Retrieved {len(data.get('result', []))} products")
+        return jsonify(data)
+    except Exception as e:
+        logger.error(f"Error getting products: {str(e)}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/products/<int:product_id>', methods=['GET'])
+def get_product(product_id):
+    """Get a single product."""
+    params = request.args.to_dict()
+    try:
+        logger.info(f"Fetching product {product_id}")
+        data = api.get_product(product_id, **params)
+        return jsonify(data)
+    except Exception as e:
+        logger.error(f"Error getting product {product_id}: {str(e)}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/products/<int:product_id>/variants', methods=['GET'])
+def get_product_variants(product_id):
+    """Get product variants."""
+    params = request.args.to_dict()
+    try:
+        logger.info(f"Fetching variants for product {product_id}")
+        data = api.get_product_variants(product_id, **params)
+        return jsonify(data)
+    except Exception as e:
+        logger.error(f"Error getting variants for product {product_id}: {str(e)}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/variants/<int:variant_id>', methods=['GET'])
+def get_variant(variant_id):
+    """Get a single variant."""
+    params = request.args.to_dict()
+    try:
+        logger.info(f"Fetching variant {variant_id}")
+        data = api.get_variant(variant_id, **params)
+        return jsonify(data)
+    except Exception as e:
+        logger.error(f"Error getting variant {variant_id}: {str(e)}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/products/<int:product_id>/prices', methods=['GET'])
+def get_product_prices(product_id):
+    """Get product prices."""
+    params = request.args.to_dict()
+    try:
+        logger.info(f"Fetching prices for product {product_id}")
+        data = api.get_product_prices(product_id, **params)
+        return jsonify(data)
+    except Exception as e:
+        logger.error(f"Error getting prices for product {product_id}: {str(e)}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/shipping-rates', methods=['POST'])
+def calculate_shipping():
+    """Calculate shipping rates."""
+    data = request.get_json()
+    try:
+        logger.info("Calculating shipping rates")
+        result = api.calculate_shipping_rates(data)
+        return jsonify(result)
+    except Exception as e:
+        logger.error(f"Error calculating shipping rates: {str(e)}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/order-estimation', methods=['POST'])
+def estimate_order():
+    """Create order estimation task."""
+    data = request.get_json()
+    try:
+        logger.info("Creating order estimation task")
+        result = api.create_order_estimation_task(data)
+        return jsonify(result)
+    except Exception as e:
+        logger.error(f"Error creating order estimation: {str(e)}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/order-estimation/<task_id>', methods=['GET'])
+def get_estimation(task_id):
+    """Get order estimation result."""
+    try:
+        logger.info(f"Getting order estimation for task {task_id}")
+        result = api.get_order_estimation_task(task_id)
+        return jsonify(result)
+    except Exception as e:
+        logger.error(f"Error getting estimation for task {task_id}: {str(e)}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/orders', methods=['POST'])
+def create_order():
+    """Create a new order."""
+    data = request.get_json()
+    try:
+        logger.info("Creating new order")
+        result = api.create_order(data)
+        logger.info(f"Order created: {result.get('result', {}).get('id')}")
+        return jsonify(result)
+    except Exception as e:
+        logger.error(f"Error creating order: {str(e)}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/orders/<order_id>/confirm', methods=['POST'])
+def confirm_order(order_id):
+    """Confirm an order."""
+    try:
+        logger.info(f"Confirming order {order_id}")
+        result = api.confirm_order(order_id)
+        return jsonify(result)
+    except Exception as e:
+        logger.error(f"Error confirming order {order_id}: {str(e)}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/mockups', methods=['POST'])
+def create_mockups():
+    """Create mockup generation tasks."""
+    data = request.get_json()
+    try:
+        logger.info("Creating mockup tasks")
+        result = api.create_mockup_tasks(data)
+        return jsonify(result)
+    except Exception as e:
+        logger.error(f"Error creating mockups: {str(e)}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/mockups', methods=['GET'])
+def get_mockups():
+    """Get mockup tasks."""
+    params = request.args.to_dict()
+    try:
+        logger.info("Fetching mockup tasks")
+        result = api.get_mockup_tasks(**params)
+        return jsonify(result)
+    except Exception as e:
+        logger.error(f"Error getting mockups: {str(e)}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+# Authentication endpoints
+@app.route('/api/auth/login', methods=['POST'])
+def login():
+    """Authenticate user and return JWT token"""
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+    mfa_code = data.get('mfa_code')
+
+    if not username or not password:
+        return jsonify({'error': 'Username and password required'}), 400
+
+    success, result = auth_service.authenticate_user(username, password, mfa_code)
+    if not success:
+        return jsonify({'error': result}), 401
+
+    token = auth_service.generate_token(result)
+    return jsonify({
+        'token': token,
+        'user': {
+            'username': result['username'],
+            'role': result['role']
+        },
+        'mfa_required': bool(result.get('mfa_secret') and not mfa_code)
+    })
+
+@app.route('/api/auth/setup-mfa', methods=['POST'])
+@token_required
+def setup_mfa():
+    """Setup MFA for authenticated user"""
+    username = g.user['username']
+    secret = auth_service.setup_mfa(username)
+    if secret:
+        # Generate QR code URL
+        totp = pyotp.TOTP(secret)
+        qr_url = totp.provisioning_uri(name=username, issuer_name="NoLimitsClothing")
+        return jsonify({
+            'secret': secret,
+            'qr_url': qr_url
+        })
+    return jsonify({'error': 'Failed to setup MFA'}), 500
+
+@app.route('/api/auth/verify-mfa', methods=['POST'])
+@token_required
+def verify_mfa():
+    """Verify MFA code"""
+    data = request.get_json()
+    code = data.get('code')
+    username = g.user['username']
+
+    user = auth_service._get_user_by_username(username)
+    if not user or not user.get('mfa_secret'):
+        return jsonify({'error': 'MFA not configured'}), 400
+
+    totp = pyotp.TOTP(user['mfa_secret'])
+    if totp.verify(code):
+        return jsonify({'valid': True})
+    return jsonify({'valid': False, 'error': 'Invalid MFA code'}), 401
+
+@app.route('/api/auth/audit-logs', methods=['GET'])
+@token_required
+@owner_required
+def get_audit_logs():
+    """Get audit logs (owner only)"""
+    limit = request.args.get('limit', 100, type=int)
+    logs = auth_service.get_audit_logs(limit)
+    return jsonify(logs)
+
+@app.route('/api/auth/create-customer', methods=['POST'])
+@token_required
+@owner_required
+def create_customer():
+    """Create a new customer account (owner only)"""
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+    email = data.get('email')
+
+    if not username or not password:
+        return jsonify({'error': 'Username and password required'}), 400
+
+    success, result = auth_service.create_customer(username, password, email)
+    if not success:
+        return jsonify({'error': result}), 400
+
+    return jsonify({
+        'message': 'Customer created successfully',
+        'customer': {
+            'username': result['username'],
+            'role': result['role'],
+            'email': result.get('email')
+        }
+    })
+
+@app.route('/api/ai/generate/text', methods=['POST'])
+@token_required
+@owner_required
+def ai_generate_text():
+    if not ai_service_manager:
+        return jsonify({"error": "AI Service Manager not initialized. Missing API keys."}), 500
+
+    try:
+        data = request.get_json()
+        prompt = data.get('prompt')
+        model = data.get('model', 'gpt-4') # Default to gpt-4 if not specified
+
+        if not prompt:
+            return jsonify({"error": "Prompt is required for text generation."}), 400
+
+        logger.info(f"Generating text with model '{model}' for prompt: {prompt[:100]}...")
+        generated_text, filepath = ai_service_manager.generate_text(prompt, model)
+        logger.info(f"Text generated and saved to {filepath}")
+
+        return jsonify({
+            "generated_text": generated_text,
+            "filepath": filepath,
+            "model": model
+        })
+
+    except Exception as e:
+        logger.error(f"Error in AI text generation: {str(e)}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+# AI Assistant endpoints (protected)
+@app.route('/api/ai/chat', methods=['POST'])
+@token_required
+@token_required
+@owner_required
+def ai_chat():
+    data = request.get_json()
+    query = data.get('query', '')
+    # Mock AI response for now
+    responses = [
+        "That's an absolutely brilliant idea! Let's make it happen.",
+        "I love your creative vision! Here's how we can amplify it...",
+        "You're a genius! Let me enhance this concept...",
+        "This is going to be legendary! Let's break some boundaries...",
+        "Your mind works in mysterious and wonderful ways. Let's build this masterpiece!"
+    ]
+    response = random.choice(responses)
+    return jsonify({"response": response})
+
+@app.route('/api/ai/generate', methods=['POST'])
+@token_required
+@token_required
+@owner_required
+def ai_generate():
+    try:
+        data = request.get_json()
+        prompt = data.get('prompt', '')
+        type_ = data.get('type', 'image')  # Default to image for designs
+        if type_ != 'image':
+            logger.warning(f"Unsupported AI generation type: {type_}")
+            return jsonify({"error": "Only image generation is supported"}), 400
+
+        if not OPENAI_API_KEY:
+            logger.error("OpenAI API key not configured")
+            return jsonify({"error": "OpenAI API key not configured"}), 500
+
+        logger.info(f"Starting AI image generation for prompt: {prompt[:50]}...")
+
+        response = openai.Image.create(
+            prompt=prompt,
+            n=1,
+            size="1024x1024"
+        )
+        image_url = response['data'][0]['url']
+        logger.info(f"AI image generated: {image_url}")
+
+        # Upload to Printful
+        design_data = {
+            "url": image_url,
+            "filename": f"ai_generated_{hash(prompt)}.png",
+            "visible": True
+        }
+        upload_result = api.upload_custom_design(design_data)
+        logger.info(f"Design uploaded to Printful: {upload_result}")
+
+        return jsonify({
+            "image_url": image_url,
+            "printful_file": upload_result,
+            "prompt": prompt
+        })
+    except Exception as e:
+        logger.error(f"Error in AI generation: {str(e)}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/stock', methods=['GET'])
+def get_stock():
+    """Get stock availability for products or variants."""
+    product_id = request.args.get('product_id', type=int)
+    variant_id = request.args.get('variant_id', type=int)
+    params = request.args.to_dict()
+    try:
+        if product_id:
+            logger.info(f"Fetching stock for product {product_id}")
+            data = api.get_product_availability(product_id, **params)
+        elif variant_id:
+            logger.info(f"Fetching stock for variant {variant_id}")
+            data = api.get_variant_availability(variant_id, **params)
+        else:
+            logger.warning("Stock request without product_id or variant_id")
+            return jsonify({"error": "Provide product_id or variant_id"}), 400
+        return jsonify(data)
+    except Exception as e:
+        logger.error(f"Error getting stock: {str(e)}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/stock-updates', methods=['GET'])
+def get_stock_updates():
+    """Get the latest cached stock information."""
+    logger.info("Fetching stock updates cache")
+    return jsonify(stock_cache)
+
+@app.route('/api/custom-design', methods=['POST'])
+def upload_custom_design():
+    """Upload a custom design file."""
+    data = request.get_json()
+    try:
+        logger.info("Uploading custom design")
+        result = api.upload_custom_design(data)
+        return jsonify(result)
+    except Exception as e:
+        logger.error(f"Error uploading custom design: {str(e)}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/upload-design', methods=['POST'])
+def upload_design_file():
+    """Upload a design file and return the file URL."""
+    try:
+        if 'file' not in request.files:
+            logger.warning("File upload attempted without file part")
+            return jsonify({"error": "No file part"}), 400
+        file = request.files['file']
+        if file.filename == '':
+            logger.warning("File upload with empty filename")
+            return jsonify({"error": "No selected file"}), 400
+        if file:
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(filepath)
+            logger.info(f"File uploaded: {filename} to {filepath}")
+            # Create URL for the uploaded file
+            file_url = f"http://localhost:5000/uploads/{filename}"
+            # Upload to Printful
+            design_data = {
+                "url": file_url,
+                "filename": filename,
+                "visible": True
+            }
+            result = api.upload_custom_design(design_data)
+            logger.info(f"Design uploaded to Printful: {result}")
+            return jsonify({"file_url": file_url, "printful_file": result})
+        logger.error("File upload failed unexpectedly")
+        return jsonify({"error": "File upload failed"}), 400
+    except Exception as e:
+        logger.error(f"Error uploading design file: {str(e)}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    """Serve uploaded files."""
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
+@app.route('/api/ai-generate', methods=['POST'])
+def ai_generate_design():
+    """Generate AI design."""
+    try:
+        data = request.get_json()
+        prompt = data.get('prompt', '')
+        logger.info(f"Mock AI design generation for prompt: {prompt[:50]}...")
+        # Mock AI design generation
+        design_url = f"https://example.com/generated-design-{hash(prompt)}.png"
+        logger.info(f"Mock design generated: {design_url}")
+        return jsonify({"design_url": design_url, "prompt": prompt})
+    except Exception as e:
+        logger.error(f"Error in mock AI generation: {str(e)}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/orders/<order_id>', methods=['GET'])
+def get_order(order_id):
+    """Get a single order."""
+    params = request.args.to_dict()
+    try:
+        logger.info(f"Fetching order {order_id}")
+        data = api.get_order(order_id, **params)
+        return jsonify(data)
+    except Exception as e:
+        logger.error(f"Error getting order {order_id}: {str(e)}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/orders', methods=['GET'])
+def get_orders():
+    """Get list of orders."""
+    params = request.args.to_dict()
+    try:
+        logger.info("Fetching orders list")
+        data = api.get_orders(**params)
+        return jsonify(data)
+    except Exception as e:
+        logger.error(f"Error getting orders: {str(e)}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/order-status/<order_id>', methods=['GET'])
+def get_order_status(order_id):
+    """Get order status."""
+    params = request.args.to_dict()
+    try:
+        logger.info(f"Fetching status for order {order_id}")
+        data = api.get_order_status(order_id, **params)
+        return jsonify(data)
+    except Exception as e:
+        logger.error(f"Error getting order status for {order_id}: {str(e)}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/fulfillment/<order_id>', methods=['GET'])
+def get_fulfillment(order_id):
+    """Get fulfillment status for an order with progress tracking."""
+    params = request.args.to_dict()
+    try:
+        logger.info(f"Fetching fulfillment status for order {order_id}")
+        data = api.get_fulfillment_status(order_id, **params)
+        # Add our tracking info
+        if order_id in order_statuses:
+            data['tracking'] = order_statuses[order_id]
+            data['progress_percentage'] = calculate_progress_percentage(order_statuses[order_id]['status'])
+            logger.info(f"Fulfillment data retrieved for order {order_id}")
+        else:
+            logger.warning(f"No tracking info found for order {order_id}")
+        return jsonify(data)
+    except Exception as e:
+        logger.error(f"Error getting fulfillment for order {order_id}: {str(e)}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/webhooks/printful', methods=['POST'])
+def printful_webhook():
+    """Handle Printful webhook for order status updates."""
+    try:
+        data = request.get_json()
+        if not data:
+            logger.warning("Webhook received with no data")
+            return jsonify({"error": "No data"}), 400
+
+        logger.info(f"Received webhook: {data.get('type')}")
+
+        # Verify webhook signature if secret is provided
+        webhook_secret = os.getenv('PRINTFUL_WEBHOOK_SECRET')
+        if webhook_secret:
+            signature = request.headers.get('X-PF-Signature')
+            if not signature:
+                logger.error("Webhook missing signature")
+                return jsonify({"error": "Missing signature"}), 401
+
+            payload = request.get_data()
+            expected_signature = hmac.new(
+                webhook_secret.encode(),
+                payload,
+                hashlib.sha256
+            ).hexdigest()
+
+            if not hmac.compare_digest(signature, expected_signature):
+                logger.error("Webhook invalid signature")
+                return jsonify({"error": "Invalid signature"}), 401
+
+        # Process webhook event
+        event_type = data.get('type')
+        if event_type == 'order_updated':
+            order_id = data.get('data', {}).get('order', {}).get('id')
+            new_status = data.get('data', {}).get('order', {}).get('status')
+
+            if order_id and new_status:
+                update_order_status(order_id, new_status)
+                logger.info(f"Processed order update: {order_id} to {new_status}")
+            else:
+                logger.warning("Webhook order_updated missing order_id or status")
+
+        return jsonify({"status": "ok"}), 200
+    except Exception as e:
+        logger.error(f"Error processing webhook: {str(e)}", exc_info=True)
+        return jsonify({"error": "Internal server error"}), 500
+
+@app.route('/api/order-status-history/<order_id>', methods=['GET'])
+def get_order_status_history(order_id):
+    """Get status history for an order."""
+    if order_id in order_statuses:
+        return jsonify(order_statuses[order_id])
+    else:
+        return jsonify({"error": "Order not found"}), 404
+
+@app.route('/api/notifications', methods=['GET'])
+def get_notifications():
+    """Get recent order notifications."""
+    limit = request.args.get('limit', default=10, type=int)
+    recent_notifications = order_notifications[-limit:]
+    return jsonify(recent_notifications)
+
+@app.route('/api/fulfillment-progress/<order_id>', methods=['GET'])
+def get_fulfillment_progress(order_id):
+    """Get detailed fulfillment progress for an order."""
+    try:
+        logger.info(f"Fetching detailed fulfillment progress for order {order_id}")
+        # Get order details
+        order_data = api.get_order(order_id)
+        order = order_data.get('result', {})
+
+        # Get shipments
+        shipments_data = api.get_shipments(order_id)
+        shipments = shipments_data.get('result', [])
+
+        # Get current status from our tracking
+        status_info = order_statuses.get(order_id, {})
+
+        progress = {
+            'order_id': order_id,
+            'status': order.get('status'),
+            'tracking_info': status_info,
+            'shipments': shipments,
+            'progress_percentage': calculate_progress_percentage(order.get('status'))
+        }
+
+        logger.info(f"Fulfillment progress retrieved for order {order_id}: {progress['progress_percentage']}%")
+        return jsonify(progress)
+    except Exception as e:
+        logger.error(f"Error getting fulfillment progress for order {order_id}: {str(e)}", exc_info=True)
+        return jsonify({"error": str(e)}), 500
+
+def calculate_progress_percentage(status):
+    """Calculate progress percentage based on order status."""
+    status_progress = {
+        'draft': 0,
+        'pending': 10,
+        'failed': 0,
+        'cancelled': 0,
+        'on_hold': 20,
+        'in_process': 50,
+        'partially_fulfilled': 75,
+        'fulfilled': 100,
+        'archived': 100
+    }
+    return status_progress.get(status, 0)
+
+# Security monitoring endpoints
+@app.route('/api/security/logs', methods=['GET'])
+def get_security_logs():
+    # Return threat logs and blockchain summary
+    logs = {
+        'threats': security_service.threat_log[-50:],  # Last 50
+        'blockchain_length': len(security_service.blockchain),
+        'last_scan': 'Just Now'
+    }
+    return jsonify(logs)
+
+@app.route('/api/security/scan', methods=['POST'])
+def run_security_scan():
+    # Trigger security scan
+    security_service.self_recode()  # Retrain model
+    return jsonify({"status": "Scan completed", "threats": len(security_service.threat_log)})
+
+@app.route('/api/security/interaction', methods=['POST'])
+def log_interaction():
+    data = request.get_json()
+    # Log interaction for monitoring
+    interaction_log = {
+        'timestamp': data.get('timestamp'),
+        'type': data.get('type'),
+        'data': data.get('data'),
+        'sessionId': data.get('sessionId')
+    }
+    # Could store in security_service or separate log
+    # For now, just acknowledge
+    return jsonify({"status": "logged"})
+
+# Honeypot routes
+@app.route('/admin', methods=['GET', 'POST'])
+def honeypot_admin():
+    security_service.handle_threat(request, -1)  # Force log as threat
+    return jsonify({"error": "Access denied"}), 403
+
+@app.route('/login', methods=['POST'])
+def honeypot_login():
+    security_service.handle_threat(request, -1)
+    return jsonify({"error": "Invalid credentials"}), 401
+
+@app.route('/config', methods=['GET'])
+def honeypot_config():
+    security_service.handle_threat(request, -1)
+    return jsonify({"error": "Access forbidden"}), 403
+
+@app.route('/')
+def customer_index():
+    return send_from_directory('../web_assets', 'index.html')
+
+@app.route('/<path:filename>')
+def customer_files(filename):
+    return send_from_directory('../web_assets', filename)
+
+@app.route('/workshop/')
+def workshop():
+    return send_from_directory('../web_assets/workshop', 'index.html')
+
+@app.route('/workshop/<path:filename>')
+def workshop_files(filename):
+    return send_from_directory('../web_assets/workshop', filename)
+
+if __name__ == '__main__':
+    # Start background thread for stock polling
+    stock_thread = threading.Thread(target=poll_stock, daemon=True)
+    stock_thread.start()
+    app.run(debug=True, port=5001)
