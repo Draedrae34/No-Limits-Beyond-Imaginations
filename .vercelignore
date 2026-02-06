@@ -1,10 +1,19 @@
-.git
-.git/
-Organized-Project
-My-Story. (N.L.B.L.I.T.M.W.I)
-node_modules
-Ionos Documents
-code_1.108.0-1767881962_amd64 (1).deb
-code_1.108.0-1767881962_amd64 (2).deb
-code_1.107.0-1765353552_amd64
-web_assets
+Clothing_
+Clothing_*.zip
+Clothing_Ideas/
+No_Limits_Clothing/
+labeled_designs/
+Music_Covers/
+My_Story_Journey/
+uploads/
+node_modules/
+*.zip
+*.7z
+*.png
+*.jpg
+*.mp3
+*.mp4
+.vercel/
+docs/
+reference/
+destination*/

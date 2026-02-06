@@ -49,11 +49,11 @@ class VoiceControlSystem {
     // Navigation commands
     this.commands.set('go home', () => this.navigate('index.html'));
     this.commands.set('go to shop', () => this.navigate('shop.html'));
-    this.commands.set('go to design', () => this.navigate('design.html'));
+    this.commands.set('go to wall', () => this.navigate('message-wall.html'));
     this.commands.set('go to story', () => this.navigate('story-remembrance.html'));
     this.commands.set('go to brothers', () => this.navigate('remembrance.html'));
     this.commands.set('go to about', () => this.navigate('about.html'));
-    
+
     // Private realm commands (owner only)
     this.commands.set('open private', () => this.navigate('private.html'));
     this.commands.set('open admin', () => this.navigate('admin.html'));
@@ -69,7 +69,6 @@ class VoiceControlSystem {
 
     // AI commands
     this.commands.set('ask assistant', () => this.activateAI());
-    this.commands.set('generate design', () => this.generateDesign());
   }
 
   start() {
@@ -97,7 +96,7 @@ class VoiceControlSystem {
 
   processCommand(transcript) {
     console.log('[Voice Control] Heard:', transcript);
-    
+
     // Check for exact matches
     if (this.commands.has(transcript)) {
       this.commands.get(transcript)();
@@ -140,7 +139,7 @@ class VoiceControlSystem {
   }
 
   showHelp() {
-    const helpText = 'Available commands: Go home, go to shop, go to design, go to story, search, checkout, help, stop listening';
+    const helpText = 'Available commands: Go home, go to shop, go to wall, go to story, search, checkout, help, stop listening';
     this.speak(helpText);
   }
 
@@ -163,30 +162,25 @@ class VoiceControlSystem {
     }
   }
 
-  generateDesign() {
-    this.speak('Opening design generator');
-    window.location.href = 'design.html?ai=true';
-  }
-
   speak(text) {
     if (this.synthesis) {
       // Cancel any ongoing speech
       this.synthesis.cancel();
-      
+
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.rate = 1.1;
       utterance.pitch = 1;
       utterance.volume = 1;
-      
+
       // Try to use a good voice
       const voices = this.synthesis.getVoices();
-      const preferredVoice = voices.find(v => v.name.includes('Google US English')) || 
+      const preferredVoice = voices.find(v => v.name.includes('Google US English')) ||
                             voices.find(v => v.name.includes('Samantha')) ||
                             voices[0];
       if (preferredVoice) {
         utterance.voice = preferredVoice;
       }
-      
+
       this.synthesis.speak(utterance);
     }
   }
