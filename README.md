@@ -40,6 +40,11 @@ Use `bash scripts/cleanup_deploy.sh` before deployment to archive large design d
 4. Add environment variables in Vercel’s dashboard (same list as local) so the build/test environment stays in sync.
 5. Every push to `main` now runs the same `npm run deploy`, hitting Vercel’s build pipeline and giving you `https://no-limits-beyond-limitations-*.vercel.app` while aliasing the custom domain (`nolimitsbeyondlimitations.com`).
 
+### Vercel settings sanity check
+* Under **Settings → Git**, make sure Automatic Deployments stay toggled on for pushes (and preview branches if you want PR previews), the production branch is still `main`, and the `No-Limits-Beyond-Imaginations` repo is the one hooked up.
+* Enable **Prioritize Production Builds** so the live branch always skips the queue, and keep `Node.js Version` aligned with your `engines` setting (Node 18+).
+* If you want to trigger rebuilds outside GitHub, create a Deploy Hook (name it “manual main deploy” or similar) and document the URL somewhere secure—calling `curl https://vercel.com/deploy/<hook>` from a script lets you rebuild after bulk uploads, Printful syncs, or analytics updates without pushing code.
+
 ## Testing & analytics
 - Use `docs/TEST_PURCHASE_AUTOMATION.md` to automate a Stripe/Printful test order.
 - Check `data/analytics-events.json` to verify visits, conversions, and owner sample logs captured from `api/analytics`.
