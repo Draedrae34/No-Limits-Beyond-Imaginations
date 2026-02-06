@@ -1,9 +1,0 @@
-#!/usr/bin/env xdg-open
-[Desktop Entry]
-Version=1.0
-Terminal=false
-Type=Application
-Name=No Limits Beyond Limitations
-Exec=/usr/bin/chromium "--profile-directory=Profile 1" --app-id=mihfnlapdaaiknbmefdbepighffaefho
-Icon=chrome-mihfnlapdaaiknbmefdbepighffaefho-Profile_1
-StartupWMClass=crx_mihfnlapdaaiknbmefdbepighffaefho

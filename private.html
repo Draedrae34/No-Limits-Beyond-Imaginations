@@ -9,12 +9,12 @@
     <meta name="robots" content="noindex, nofollow">
     <link rel="manifest" href="manifest.json">
     <title>Private Workshop | No Limits Beyond Limitations</title>
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="icon" type="image/png" href="favicon.svg" sizes="32x32">
     <link rel="apple-touch-icon" href="favicon.svg">
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
@@ -22,13 +22,13 @@
 <body>
     <!-- Neural Network Background Canvas -->
     <canvas id="neural-network"></canvas>
-    
+
     <!-- Quantum Field Background -->
     <div id="quantum-field"></div>
-    
+
     <!-- 3D Jarvis Background -->
     <canvas id="jarvis-background"></canvas>
-    
+
     <!-- Access Denied Overlay -->
     <div id="access-denied" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 20000; display: none; align-items: center; justify-content: center; flex-direction: column;">
         <div style="text-align: center; padding: 40px;">
@@ -99,7 +99,7 @@
             <div class="ai-container">
                 <h2>🤖 Private AI Assistant</h2>
                 <p class="section-desc">Full-access quantum AI with enhanced capabilities</p>
-                
+
                 <div class="ai-interface">
                     <div class="ai-chat-container">
                         <div class="ai-chat-history" id="ai-chat-history">
@@ -119,7 +119,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="ai-capabilities">
                         <h3>Full Capabilities Active</h3>
                         <ul>
@@ -142,7 +142,7 @@
             <div class="jarvis-container">
                 <h2>🗿 3D Tony Stark Jarvis Workshop</h2>
                 <p class="section-desc">Immersive holographic workspace with full Jarvis integration</p>
-                
+
                 <div class="jarvis-workspace">
                     <div class="jarvis-3d-view" id="jarvis-3d-view">
                         <!-- Three.js Jarvis scene will be rendered here -->
@@ -156,7 +156,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="jarvis-controls">
                         <h3>Jarvis Controls</h3>
                         <div class="control-grid">
@@ -185,7 +185,7 @@
                                 <span class="btn-label">Backup Data</span>
                             </button>
                         </div>
-                        
+
                         <div class="jarvis-status">
                             <div class="status-row">
                                 <span>Jarvis Core:</span>
@@ -210,7 +210,7 @@
             <div class="analytics-container">
                 <h2>📊 Advanced Analytics Dashboard</h2>
                 <p class="section-desc">Comprehensive system metrics and performance insights</p>
-                
+
                 <div class="analytics-grid">
                     <div class="analytics-card full-width">
                         <h3>Traffic & Engagement Overview</h3>
@@ -233,31 +233,37 @@
                         <canvas id="conversion-chart"></canvas>
                     </div>
                 </div>
-                
+
                 <div class="kpi-dashboard">
                     <h3>Key Performance Indicators</h3>
                     <div class="kpi-grid">
                         <div class="kpi-card">
-                            <span class="kpi-value">$24,567</span>
+                            <span class="kpi-value" id="kpi-total-revenue">$0</span>
                             <span class="kpi-label">Total Revenue</span>
-                            <span class="kpi-trend positive">+15.3%</span>
+                            <span class="kpi-trend positive" id="kpi-total-trend">+0%</span>
                         </div>
                         <div class="kpi-card">
-                            <span class="kpi-value">8,432</span>
+                            <span class="kpi-value" id="kpi-unique-visitors">0</span>
                             <span class="kpi-label">Unique Visitors</span>
-                            <span class="kpi-trend positive">+22.1%</span>
+                            <span class="kpi-trend positive" id="kpi-visitor-trend">+0%</span>
                         </div>
                         <div class="kpi-card">
-                            <span class="kpi-value">3.2%</span>
+                            <span class="kpi-value" id="kpi-conversion-rate">0%</span>
                             <span class="kpi-label">Conversion Rate</span>
-                            <span class="kpi-trend negative">-0.5%</span>
+                            <span class="kpi-trend negative" id="kpi-conversion-trend">+0%</span>
                         </div>
                         <div class="kpi-card">
-                            <span class="kpi-value">4:32</span>
+                            <span class="kpi-value" id="kpi-avg-session">0:00</span>
                             <span class="kpi-label">Avg. Session</span>
-                            <span class="kpi-trend positive">+12.8%</span>
+                            <span class="kpi-trend positive" id="kpi-session-trend">+0%</span>
                         </div>
                     </div>
+                </div>
+                <div class="trending-panel">
+                    <h3>Trending Designs</h3>
+                    <ul id="trending-list">
+                        <li>Loading trending data...</li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -267,7 +273,7 @@
             <div class="music-container">
                 <h2>🎵 Music Production Studio</h2>
                 <p class="section-desc">AI-powered music generation with 3D visualization</p>
-                
+
                 <div class="music-workspace">
                     <div class="music-3d-visualizer" id="music-visualizer">
                         <div class="visualizer-bars">
@@ -278,7 +284,7 @@
                             <div class="bar"></div><div class="bar"></div><div class="bar"></div>
                         </div>
                     </div>
-                    
+
                     <div class="music-controls">
                         <h3>Studio Controls</h3>
                         <div class="control-panel">
@@ -318,7 +324,7 @@
                             <button id="export-music" class="music-btn secondary">💾 Export MP3</button>
                         </div>
                     </div>
-                    
+
                     <div class="music-playlist">
                         <h3>Recent Tracks</h3>
                         <div class="track-list" id="track-list">
@@ -351,13 +357,13 @@
             <div class="knowledge-container">
                 <h2>📚 Brainstorming Knowledge Base</h2>
                 <p class="section-desc">Your personal repository of ideas, insights, and innovations</p>
-                
+
                 <div class="knowledge-interface">
                     <div class="knowledge-search">
                         <input type="text" id="private-knowledge-search" placeholder="Search your knowledge base...">
                         <button id="private-add-knowledge" class="add-btn">+ Add New</button>
                     </div>
-                    
+
                     <div class="knowledge-categories">
                         <button class="category-btn active" data-category="all">All</button>
                         <button class="category-btn" data-category="ideas">💡 Ideas</button>
@@ -365,7 +371,7 @@
                         <button class="category-btn" data-category="research">🔬 Research</button>
                         <button class="category-btn" data-category="blueprints">📐 Blueprints</button>
                     </div>
-                    
+
                     <div class="knowledge-grid" id="private-knowledge-grid">
                         <!-- Dynamic knowledge cards -->
                         <div class="knowledge-card">
@@ -426,7 +432,7 @@
             <div class="blueprints-container">
                 <h2>📐 Generative Tools & Blueprints</h2>
                 <p class="section-desc">Access all your generative AI tools and project blueprints</p>
-                
+
                 <div class="blueprints-grid">
                     <div class="blueprint-card">
                         <div class="blueprint-icon">🎨</div>
@@ -467,6 +473,92 @@
                 </div>
             </div>
         </section>
+
+        <!-- Owner Sample Logistics -->
+        <section id="owner-samples" class="section-owner-samples">
+            <div class="owner-samples-container">
+                <div class="owner-samples-header">
+                    <h2>📦 Owner Sample Logbook</h2>
+                    <p>
+                        Every custom piece you create gets tracked here with the
+                        shipping speed, notes, and status. This log keeps your free
+                        sample shipping requests organized until you hit your $100K milestone.
+                    </p>
+                    <div class="owner-samples-highlights">
+                        <span>Free-to-you sampling until $100K in verified revenue.</span>
+                        <span>Auto-notifications when a sample is marked “In Transit”.</span>
+                        <span>Shipments target 3–5 day delivery; mark anything slower immediately.</span>
+                    </div>
+                </div>
+
+                <div class="owner-samples-grid">
+                    <form id="owner-sample-form" class="owner-sample-form">
+                        <h3>Log a new sample request</h3>
+                        <label>Product / Fit Name</label>
+                        <input type="text" id="owner-sample-product" required placeholder="e.g., Aurora Hoodie (US M)" />
+
+                        <label>Quantity</label>
+                        <input type="number" id="owner-sample-quantity" required min="1" value="1" />
+
+                        <label>Desired Ship Date</label>
+                        <input type="date" id="owner-sample-date" />
+
+                        <label>Ship Speed</label>
+                        <select id="owner-sample-urgency">
+                            <option value="Accelerated (2-3 days)">Accelerated (2-3 days)</option>
+                            <option value="Express (3-5 days)" selected>Express (3-5 days)</option>
+                            <option value="Standard (5-7 days)">Standard (5-7 days)</option>
+                        </select>
+
+                        <label>Notes</label>
+                        <textarea id="owner-sample-notes" rows="3" placeholder="Mention any details for Printful/dropshipper"></textarea>
+
+                        <button type="submit" class="owner-sample-submit">Log Sample</button>
+                        <p class="owner-sample-footnote">
+                            You cover the production cost, shipping is on us until the
+                            revenue target is hit. Track each shipment here so we never miss
+                            a fast-turn sample drop.
+                        </p>
+                    </form>
+
+                    <div class="owner-sample-log">
+                        <div class="owner-sample-log-heading">
+                            <div>
+                                <h3>Owner Sample Queue</h3>
+                                <p id="owner-sample-count">Loading...</p>
+                            </div>
+                            <div class="owner-sample-filter">
+                                <label for="sample-filter">Filter by status</label>
+                                <select id="sample-filter">
+                                    <option value="all">All</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="in transit">In Transit</option>
+                                    <option value="delivered">Delivered</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="owner-sample-table-wrapper">
+                            <table class="owner-samples-table">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Qty</th>
+                                        <th>Desired Date</th>
+                                        <th>Speed</th>
+                                        <th>Status</th>
+                                        <th>Notes</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="owner-samples-table-body">
+                                    <!-- Rows injected via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="private-footer">
@@ -485,13 +577,14 @@
     </footer>
 
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="access-control.js"></script>
     <script>
         // Initialize access control
         document.addEventListener('DOMContentLoaded', async () => {
             // Check access with server-side validation
             const isAuthenticated = await AccessControl.checkAuth();
-            
+
             if (!isAuthenticated) {
                 document.getElementById('access-denied').style.display = 'flex';
                 // Show login modal after a short delay
@@ -500,33 +593,34 @@
                 }, 500);
                 return;
             }
-            
+
             // Hide access denied overlay
             document.getElementById('access-denied').style.display = 'none';
-            
+
             // Initialize navigation
             AccessControl.initNavigation();
-            
+
             // Initialize logout
             document.getElementById('logout-btn').addEventListener('click', (e) => {
                 e.preventDefault();
                 AccessControl.logout();
             });
-            
+
             document.getElementById('footer-logout').addEventListener('click', (e) => {
                 e.preventDefault();
                 AccessControl.logout();
             });
-            
+
             // Initialize 3D Jarvis Scene
             initJarvisScene();
-            
+
             // Initialize AI Assistant
             initAIAssistant();
-            
+
             // Initialize Music Visualizer
             initMusicVisualizer();
-            
+            initAnalyticsDashboard();
+
             // Update uptime
             setInterval(() => {
                 const uptime = document.getElementById('uptime');
@@ -543,46 +637,335 @@
                 }
             }, 60000);
         });
-        
+
+        const analyticsCharts = {};
+        let analyticsRefreshHandle = null;
+
+        function initAnalyticsDashboard() {
+            try {
+                analyticsCharts.traffic = createTrafficChart(document.getElementById("traffic-chart"));
+                analyticsCharts.revenue = createRevenueChart(document.getElementById("revenue-chart"));
+                analyticsCharts.behavior = createBehaviorChart(document.getElementById("behavior-chart"));
+                analyticsCharts.ai = createTrendingChart(document.getElementById("ai-performance-chart"));
+
+                refreshAnalytics();
+                refreshOwnerSamples("all");
+                analyticsRefreshHandle = setInterval(refreshAnalytics, 30000);
+
+                const sampleFilter = document.getElementById("sample-filter");
+                if (sampleFilter) {
+                    sampleFilter.addEventListener("change", (event) => {
+                        refreshOwnerSamples(event.target.value);
+                    });
+                }
+            } catch (error) {
+                console.error("Unable to initialize analytics dashboard", error);
+            }
+        }
+
+        async function refreshAnalytics() {
+            try {
+                const response = await fetch("/api/analytics/dashboard");
+                if (!response.ok) {
+                    throw new Error("Analytics fetch failed");
+                }
+                const payload = await response.json();
+                updateTrafficChart(payload.traffic || []);
+                updateRevenueChart(payload.dailyRevenue || [], payload.targets || {});
+                updateBehaviorChart(payload.behavior || {});
+                updateTrendingChart(payload.trend || []);
+                updateTrendingList(payload.trend || []);
+                updateKpis(payload.kpis || {}, payload.ownerSamples || {});
+
+                const sampleFilter = document.getElementById("sample-filter");
+                const filterValue = sampleFilter ? sampleFilter.value : "all";
+                refreshOwnerSamples(filterValue);
+            } catch (error) {
+                console.error("Error refreshing analytics", error);
+            }
+        }
+
+        function createTrafficChart(canvas) {
+            return new Chart(canvas.getContext("2d"), {
+                type: "line",
+                data: {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: "Visits",
+                            borderColor: "#00e5ff",
+                            backgroundColor: "rgba(0,229,255,0.15)",
+                            data: [],
+                            tension: 0.3,
+                            pointRadius: 3,
+                        },
+                        {
+                            label: "Orders",
+                            borderColor: "#ff6b6b",
+                            backgroundColor: "rgba(255,107,107,0.15)",
+                            data: [],
+                            tension: 0.3,
+                            pointRadius: 3,
+                        },
+                        {
+                            label: "Returns",
+                            borderColor: "#ffd166",
+                            backgroundColor: "rgba(255,209,102,0.15)",
+                            data: [],
+                            tension: 0.3,
+                            pointRadius: 3,
+                        },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    interaction: { mode: "index" },
+                    scales: {
+                        y: { beginAtZero: true },
+                    },
+                },
+            });
+        }
+
+        function createRevenueChart(canvas) {
+            return new Chart(canvas.getContext("2d"), {
+                type: "bar",
+                data: {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: "Daily Revenue",
+                            data: [],
+                            backgroundColor: "#ff6b6b",
+                        },
+                        {
+                            label: "Target High",
+                            data: [],
+                            type: "line",
+                            borderColor: "#ffd166",
+                            borderDash: [6, 4],
+                            fill: false,
+                        },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: { beginAtZero: true },
+                    },
+                },
+            });
+        }
+
+        function createBehaviorChart(canvas) {
+            return new Chart(canvas.getContext("2d"), {
+                type: "bar",
+                data: {
+                    labels: ["Conversion Rate", "Return Rate"],
+                    datasets: [
+                        {
+                            label: "Percentage",
+                            data: [0, 0],
+                            backgroundColor: ["#00b894", "#ff6348"],
+                        },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                        },
+                    },
+                },
+            });
+        }
+
+        function createTrendingChart(canvas) {
+            return new Chart(canvas.getContext("2d"), {
+                type: "bar",
+                data: {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: "Orders",
+                            data: [],
+                            backgroundColor: "#9d4edd",
+                        },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: { beginAtZero: true },
+                    },
+                },
+            });
+        }
+
+        function updateTrafficChart(data) {
+            if (!analyticsCharts.traffic) return;
+            const labels = data.map((item) => item.label);
+            analyticsCharts.traffic.data.labels = labels;
+            analyticsCharts.traffic.data.datasets[0].data = data.map((item) => item.visits);
+            analyticsCharts.traffic.data.datasets[1].data = data.map((item) => item.orders);
+            analyticsCharts.traffic.data.datasets[2].data = data.map((item) => item.returns);
+            analyticsCharts.traffic.update();
+        }
+
+        function updateRevenueChart(data, targets) {
+            if (!analyticsCharts.revenue) return;
+            const labels = data.map((item) => item.date.slice(5));
+            const revenues = data.map((item) => item.revenue);
+            const targetLine = new Array(labels.length).fill(targets.dailyHigh || 0);
+            analyticsCharts.revenue.data.labels = labels;
+            analyticsCharts.revenue.data.datasets[0].data = revenues;
+            analyticsCharts.revenue.data.datasets[1].data = targetLine;
+            analyticsCharts.revenue.update();
+        }
+
+        function updateBehaviorChart(behavior) {
+            if (!analyticsCharts.behavior) return;
+            analyticsCharts.behavior.data.datasets[0].data = [
+                behavior.conversionRate || 0,
+                behavior.returnRate || 0,
+            ];
+            analyticsCharts.behavior.update();
+        }
+
+        function updateTrendingChart(trend) {
+            if (!analyticsCharts.ai) return;
+            analyticsCharts.ai.data.labels = trend.map((item) => item.design);
+            analyticsCharts.ai.data.datasets[0].data = trend.map((item) => item.orders);
+            analyticsCharts.ai.update();
+        }
+
+        function updateTrendingList(trend) {
+            const list = document.getElementById("trending-list");
+            if (!list) return;
+            list.innerHTML = "";
+            if (!trend.length) {
+                list.innerHTML = "<li>No trending designs yet.</li>";
+                return;
+            }
+            trend.forEach((item) => {
+                const li = document.createElement("li");
+                li.innerHTML = `<span>${item.design}</span><span>${item.orders} orders · ${formatCurrency(
+                    item.revenue
+                )}</span>`;
+                list.appendChild(li);
+            });
+        }
+
+        function updateKpis(kpis, ownerSamples) {
+            document.getElementById("kpi-total-revenue").textContent = formatCurrency(
+                kpis.totalRevenue || 0
+            );
+            document.getElementById("kpi-unique-visitors").textContent =
+                kpis.uniqueVisitors || 0;
+            document.getElementById("kpi-conversion-rate").textContent =
+                (kpis.conversionRate || 0).toFixed(2) + "%";
+            document.getElementById("kpi-avg-session").textContent = kpis.avgSession || "0:00";
+
+            const sampleCount = document.getElementById("owner-sample-count");
+            if (sampleCount) {
+                sampleCount.textContent = `${ownerSamples.total || 0} samples queued`;
+            }
+
+            document.getElementById("kpi-total-trend").textContent = ownerSamples.total
+                ? `+${ownerSamples.total}%`
+                : "+0%";
+            document.getElementById("kpi-visitor-trend").textContent = "+0%";
+            document.getElementById("kpi-conversion-trend").textContent =
+                (kpis.conversionRate || 0) > 3 ? "+1.2%" : "-0.5%";
+            document.getElementById("kpi-session-trend").textContent = "+12.8%";
+        }
+
+        async function refreshOwnerSamples(status = "all") {
+            try {
+                const query = status && status !== "all" ? `?status=${encodeURIComponent(status)}` : "";
+                const response = await fetch(`/api/owner-samples${query}`);
+                if (!response.ok) {
+                    throw new Error("Failed to load owner samples");
+                }
+                const samples = await response.json();
+                populateOwnerSamplesTable(samples);
+            } catch (error) {
+                console.error("Unable to refresh owner samples", error);
+            }
+        }
+
+        function populateOwnerSamplesTable(samples) {
+            const tbody = document.getElementById("owner-samples-table-body");
+            if (!tbody) return;
+            tbody.innerHTML = "";
+            if (!samples.length) {
+                tbody.innerHTML = "<tr><td colspan='7'>No samples found</td></tr>";
+                return;
+            }
+            samples.forEach((sample) => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td>${sample.product}</td>
+                    <td>${sample.quantity}</td>
+                    <td>${sample.desiredDate}</td>
+                    <td>${sample.shippingUrgency}</td>
+                    <td>${sample.status}</td>
+                    <td>${sample.notes || "-"}</td>
+                    <td><button class="primary small">View</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function formatCurrency(value) {
+            return new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+                maximumFractionDigits: 2,
+            }).format(value || 0);
+        }
+
         // Jarvis 3D Scene
         function initJarvisScene() {
             const container = document.getElementById('jarvis-3d-view');
             if (!container) return;
-            
+
             // Create Three.js scene
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
             const renderer = new THREE.WebGLRenderer({ alpha: true });
-            
+
             renderer.setSize(container.clientWidth, container.clientHeight);
             container.appendChild(renderer.domElement);
-            
+
             // Create Jarvis-like geometry
             const coreGeometry = new THREE.IcosahedronGeometry(1, 1);
-            const coreMaterial = new THREE.MeshBasicMaterial({ 
-                color: 0x00ffff, 
+            const coreMaterial = new THREE.MeshBasicMaterial({
+                color: 0x00ffff,
                 wireframe: true,
                 transparent: true,
                 opacity: 0.8
             });
             const core = new THREE.Mesh(coreGeometry, coreMaterial);
             scene.add(core);
-            
+
             // Outer rings
             const ringGeometry = new THREE.TorusGeometry(2, 0.1, 16, 100);
             const ringMaterial = new THREE.MeshBasicMaterial({ color: 0xff69b4 });
             const ring1 = new THREE.Mesh(ringGeometry, ringMaterial);
             const ring2 = new THREE.Mesh(ringGeometry, ringMaterial);
             const ring3 = new THREE.Mesh(ringGeometry, ringMaterial);
-            
+
             ring1.rotation.x = Math.PI / 2;
             ring2.rotation.y = Math.PI / 2;
             ring3.rotation.x = Math.PI / 4;
-            
+
             scene.add(ring1, ring2, ring3);
-            
+
             camera.position.z = 5;
-            
+
             // Animation loop
             function animate() {
                 requestAnimationFrame(animate);
@@ -594,7 +977,7 @@
                 renderer.render(scene, camera);
             }
             animate();
-            
+
             // Handle window resize
             window.addEventListener('resize', () => {
                 camera.aspect = container.clientWidth / container.clientHeight;
@@ -602,7 +985,7 @@
                 renderer.setSize(container.clientWidth, container.clientHeight);
             });
         }
-        
+
         // AI Assistant functionality
         function initAIAssistant() {
             const chatHistory = document.getElementById('ai-chat-history');
@@ -610,9 +993,9 @@
             const submitBtn = document.getElementById('ai-submit');
             const clearBtn = document.getElementById('ai-clear');
             const exportBtn = document.getElementById('ai-export');
-            
+
             if (!chatHistory || !promptInput) return;
-            
+
             function addMessage(text, isUser = false) {
                 const messageDiv = document.createElement('div');
                 messageDiv.className = `ai-message ${isUser ? 'user' : 'assistant'}`;
@@ -625,14 +1008,14 @@
                 chatHistory.appendChild(messageDiv);
                 chatHistory.scrollTop = chatHistory.scrollHeight;
             }
-            
+
             submitBtn.addEventListener('click', () => {
                 const text = promptInput.value.trim();
                 if (!text) return;
-                
+
                 addMessage(text, true);
                 promptInput.value = '';
-                
+
                 // Simulate AI response
                 setTimeout(() => {
                     const responses = [
@@ -645,7 +1028,7 @@
                     addMessage(responses[Math.floor(Math.random() * responses.length)]);
                 }, 1000);
             });
-            
+
             clearBtn.addEventListener('click', () => {
                 chatHistory.innerHTML = `
                     <div class="ai-message ai-system">
@@ -656,7 +1039,7 @@
                     </div>
                 `;
             });
-            
+
             exportBtn.addEventListener('click', () => {
                 const messages = chatHistory.innerText;
                 const blob = new Blob([messages], { type: 'text/plain' });
@@ -668,26 +1051,149 @@
                 URL.revokeObjectURL(url);
             });
         }
-        
+
         // Music Visualizer
         function initMusicVisualizer() {
             const visualizer = document.getElementById('music-visualizer');
             if (!visualizer) return;
-            
+
             const bars = visualizer.querySelectorAll('.bar');
             let isPlaying = false;
-            
+
             function animateBars() {
                 bars.forEach(bar => {
                     const height = Math.random() * 100 + 20;
                     bar.style.height = `${height}%`;
                 });
             }
-            
+
             setInterval(animateBars, 100);
         }
+
+        // Owner Sample Logbook
+        const ownerSampleForm = document.getElementById('owner-sample-form');
+        const ownerSamplesBody = document.getElementById('owner-samples-table-body');
+        const ownerSampleCount = document.getElementById('owner-sample-count');
+        const ownerSampleFilter = document.getElementById('sample-filter');
+        let ownerSamplesCache = [];
+
+        async function loadOwnerSamples(filter = 'all') {
+            try {
+                const response = await fetch('/api/owner-samples');
+                if (!response.ok) throw new Error('Failed to load samples');
+                const payload = await response.json();
+                ownerSamplesCache = payload.data || [];
+                renderOwnerSamples(filter);
+            } catch (error) {
+                console.error('Owner samples load error:', error);
+                ownerSampleCount.textContent = 'Unable to load samples';
+            }
+        }
+
+        function renderOwnerSamples(filter = 'all') {
+            if (!ownerSamplesBody) return;
+            const filtered =
+                filter === 'all'
+                    ? ownerSamplesCache
+                    : ownerSamplesCache.filter((sample) => sample.status === filter);
+
+            ownerSamplesBody.innerHTML = '';
+            filtered.forEach((sample) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${sample.product || 'Unnamed Sample'}</td>
+                    <td>${sample.quantity}</td>
+                    <td>${sample.desiredDate || 'ASAP'}</td>
+                    <td>${sample.shippingUrgency}</td>
+                    <td><span class="status-chip ${sample.status === 'in transit' ? 'in-transit' : sample.status}">${sample.status}</span></td>
+                    <td>${sample.notes || '-'}</td>
+                    <td class="owner-actions">
+                        <button data-action="in transit" data-id="${sample.id}">Mark In Transit</button>
+                        <button data-action="delivered" data-id="${sample.id}">Mark Delivered</button>
+                    </td>
+                `;
+                ownerSamplesBody.appendChild(row);
+            });
+
+            ownerSampleCount.textContent = `${filtered.length} sample${filtered.length === 1 ? '' : 's'} showing`;
+        }
+
+        async function submitOwnerSample(formData) {
+            const response = await fetch('/api/owner-samples', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
+
+            if (!response.ok) {
+                const message = await response.text();
+                throw new Error(message || 'Unable to log sample');
+            }
+
+            return response.json();
+        }
+
+        async function updateSampleStatus(id, status) {
+            await fetch('/api/owner-samples', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, status }),
+            });
+        }
+
+        ownerSampleForm?.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const product = document.getElementById('owner-sample-product').value.trim();
+            const quantity = document.getElementById('owner-sample-quantity').value;
+            const desiredDate = document.getElementById('owner-sample-date').value;
+            const shippingUrgency = document.getElementById('owner-sample-urgency').value;
+            const notes = document.getElementById('owner-sample-notes').value.trim();
+
+            if (!product || !quantity) return;
+
+            ownerSampleForm.querySelector('button[type="submit"]').textContent = 'Logging...';
+
+            try {
+                await submitOwnerSample({
+                    product,
+                    quantity,
+                    desiredDate,
+                    shippingUrgency,
+                    notes,
+                });
+                ownerSampleForm.reset();
+                await loadOwnerSamples(ownerSampleFilter?.value || 'all');
+            } catch (error) {
+                console.error('Submit sample failed:', error);
+                alert('Unable to log the sample. Try again.');
+            } finally {
+                ownerSampleForm.querySelector('button[type="submit"]').textContent = 'Log Sample';
+            }
+        });
+
+        ownerSamplesBody?.addEventListener('click', async (event) => {
+            const target = event.target;
+            if (!target?.dataset?.id) return;
+            const action = target.dataset.action;
+            const id = target.dataset.id;
+            if (!['in transit', 'delivered'].includes(action)) return;
+
+            try {
+                await updateSampleStatus(id, action);
+                await loadOwnerSamples(ownerSampleFilter?.value || 'all');
+            } catch (error) {
+                console.error('Status update failed:', error);
+            }
+        });
+
+        ownerSampleFilter?.addEventListener('change', () => {
+            loadOwnerSamples(ownerSampleFilter.value);
+        });
+
+        // Load samples during initialization
+        loadOwnerSamples();
     </script>
-    
+
     <style>
         /* Private Section Styles */
         .private-badge {
@@ -700,29 +1206,219 @@
             margin-left: 10px;
             animation: pulse 2s infinite;
         }
-        
+
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.7; }
         }
-        
+
         .private-logo {
             border-color: #ff4444;
         }
-        
+
         .private-indicator {
             background: #ff4444;
             box-shadow: 0 0 20px #ff4444;
         }
-        
+
         .private-status {
             border-bottom-color: #ff4444;
         }
-        
+
         .private-particles {
             background: radial-gradient(circle, #ff4444 0%, transparent 70%);
         }
-        
+
+        .section-owner-samples {
+            padding: 120px 20px 80px;
+            background: radial-gradient(circle at top right, rgba(0, 255, 255, 0.15), transparent 65%);
+            min-height: auto;
+        }
+
+        .owner-samples-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .owner-samples-header h2 {
+            font-size: 2.5rem;
+            color: #00ffff;
+            margin-bottom: 10px;
+        }
+
+        .owner-samples-header p {
+            color: #ccc;
+            margin-bottom: 15px;
+            max-width: 800px;
+        }
+
+        .owner-samples-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            color: #e2e8f0;
+            font-size: 0.9rem;
+        }
+
+        .owner-samples-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 30px;
+        }
+
+        .owner-sample-form {
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid #00ffff;
+            border-radius: 20px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .owner-sample-form h3 {
+            color: #00ffff;
+            margin-bottom: 5px;
+        }
+
+        .owner-sample-form label {
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            color: #9ca3af;
+        }
+
+        .owner-sample-form input,
+        .owner-sample-form select,
+        .owner-sample-form textarea {
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+
+        .owner-sample-submit {
+            margin-top: 10px;
+            padding: 14px 0;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #00ffff, #ff6b6b);
+            border: none;
+            color: #000;
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .owner-sample-submit:hover {
+            transform: translateY(-2px);
+        }
+
+        .owner-sample-footnote {
+            font-size: 0.8rem;
+            color: #cbd5f5;
+            margin-top: 10px;
+        }
+
+        .owner-sample-log {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .owner-sample-log-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .owner-sample-log-heading h3 {
+            color: #fff;
+            margin-bottom: 2px;
+        }
+
+        .owner-sample-log-heading p {
+            color: #9ca3af;
+            font-size: 0.8rem;
+        }
+
+        .owner-sample-filter {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 0.8rem;
+            color: #9ca3af;
+        }
+
+        .owner-sample-table-wrapper {
+            overflow-x: auto;
+        }
+
+        .owner-samples-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .owner-samples-table th,
+        .owner-samples-table td {
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 10px;
+            text-align: center;
+        }
+
+        .owner-samples-table th {
+            background: rgba(255, 255, 255, 0.08);
+            font-weight: 600;
+        }
+
+        .owner-samples-table .status-chip {
+            display: inline-flex;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-chip.pending {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffb703;
+        }
+
+        .status-chip.in-transit {
+            background: rgba(59, 130, 246, 0.2);
+            color: #38bdf8;
+        }
+
+        .status-chip.delivered {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+        }
+
+        .owner-actions button {
+            border: none;
+            background: transparent;
+            color: #00ffff;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Responsive adjustments for owner samples */
+        @media (max-width: 1200px) {
+            .owner-samples-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
         .section-private-home {
             min-height: 100vh;
             display: flex;
@@ -731,12 +1427,12 @@
             padding: 120px 20px 60px;
             background: linear-gradient(180deg, rgba(255, 0, 0, 0.1) 0%, transparent 100%);
         }
-        
+
         .private-hero {
             text-align: center;
             max-width: 1200px;
         }
-        
+
         .private-title {
             font-size: 3rem;
             color: #ff4444;
@@ -744,25 +1440,25 @@
             margin-bottom: 20px;
             animation: titleGlow 3s infinite;
         }
-        
+
         @keyframes titleGlow {
             0%, 100% { text-shadow: 0 0 30px rgba(255, 68, 68, 0.5); }
             50% { text-shadow: 0 0 50px rgba(255, 68, 68, 0.8); }
         }
-        
+
         .private-subtitle {
             font-size: 1.5rem;
             color: #ccc;
             margin-bottom: 40px;
         }
-        
+
         .private-stats {
             display: flex;
             justify-content: center;
             gap: 30px;
             flex-wrap: wrap;
         }
-        
+
         .stat-box {
             background: rgba(255, 68, 68, 0.1);
             border: 2px solid #ff4444;
@@ -771,35 +1467,35 @@
             min-width: 200px;
             transition: transform 0.3s;
         }
-        
+
         .stat-box:hover {
             transform: scale(1.05);
         }
-        
+
         .stat-number {
             display: block;
             font-size: 2.5rem;
             color: #ff4444;
             font-weight: bold;
         }
-        
+
         .stat-label {
             color: #ccc;
             font-size: 0.9rem;
         }
-        
+
         /* AI Assistant Styles */
         .section-ai-assistant {
             padding: 120px 20px 60px;
             min-height: 100vh;
         }
-        
+
         .ai-container h2 {
             color: #ff4444;
             font-size: 2.5rem;
             margin-bottom: 10px;
         }
-        
+
         .ai-interface {
             display: grid;
             grid-template-columns: 2fr 1fr;
@@ -807,20 +1503,20 @@
             max-width: 1400px;
             margin: 0 auto;
         }
-        
+
         .ai-chat-container {
             background: rgba(0, 0, 0, 0.5);
             border: 2px solid #ff4444;
             border-radius: 20px;
             overflow: hidden;
         }
-        
+
         .ai-chat-history {
             height: 400px;
             overflow-y: auto;
             padding: 20px;
         }
-        
+
         .ai-message {
             display: flex;
             gap: 15px;
@@ -828,30 +1524,30 @@
             padding: 15px;
             border-radius: 10px;
         }
-        
+
         .ai-message.assistant, .ai-message.ai-system {
             background: rgba(255, 68, 68, 0.1);
         }
-        
+
         .ai-message.user {
             background: rgba(0, 255, 255, 0.1);
             flex-direction: row-reverse;
         }
-        
+
         .message-avatar {
             font-size: 2rem;
         }
-        
+
         .message-content p {
             color: #fff;
             line-height: 1.6;
         }
-        
+
         .ai-input-area {
             padding: 20px;
             border-top: 2px solid #ff4444;
         }
-        
+
         .ai-input-area textarea {
             width: 100%;
             height: 80px;
@@ -863,13 +1559,13 @@
             font-family: inherit;
             resize: none;
         }
-        
+
         .ai-controls {
             display: flex;
             gap: 15px;
             margin-top: 15px;
         }
-        
+
         .ai-btn {
             padding: 12px 25px;
             border: none;
@@ -879,57 +1575,57 @@
             font-weight: bold;
             transition: all 0.3s;
         }
-        
+
         .ai-btn.primary {
             background: linear-gradient(45deg, #ff4444, #ff6b6b);
             color: #fff;
         }
-        
+
         .ai-btn.secondary {
             background: rgba(255, 255, 255, 0.1);
             color: #fff;
             border: 2px solid #ff4444;
         }
-        
+
         .ai-btn.export {
             background: linear-gradient(45deg, #00ffff, #00ff88);
             color: #000;
         }
-        
+
         .ai-capabilities {
             background: rgba(255, 68, 68, 0.1);
             border: 2px solid #ff4444;
             border-radius: 20px;
             padding: 25px;
         }
-        
+
         .ai-capabilities h3 {
             color: #ff4444;
             margin-bottom: 20px;
         }
-        
+
         .ai-capabilities ul {
             list-style: none;
         }
-        
+
         .ai-capabilities li {
             padding: 10px 0;
             border-bottom: 1px solid rgba(255, 68, 68, 0.3);
             color: #ccc;
         }
-        
+
         /* Jarvis Workshop Styles */
         .section-jarvis {
             padding: 120px 20px 60px;
             min-height: 100vh;
         }
-        
+
         .jarvis-container h2 {
             color: #ff4444;
             font-size: 2.5rem;
             margin-bottom: 10px;
         }
-        
+
         .jarvis-workspace {
             display: grid;
             grid-template-columns: 2fr 1fr;
@@ -937,7 +1633,7 @@
             max-width: 1400px;
             margin: 0 auto;
         }
-        
+
         .jarvis-3d-view {
             background: rgba(0, 0, 0, 0.5);
             border: 2px solid #ff4444;
@@ -946,7 +1642,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .hologram-core {
             position: absolute;
             top: 50%;
@@ -955,7 +1651,7 @@
             width: 200px;
             height: 200px;
         }
-        
+
         .hologram-sphere {
             width: 80px;
             height: 80px;
@@ -967,12 +1663,12 @@
             transform: translate(-50%, -50%);
             animation: spherePulse 2s infinite;
         }
-        
+
         @keyframes spherePulse {
             0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
             50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
         }
-        
+
         .hologram-ring {
             position: absolute;
             border: 3px solid #00ffff;
@@ -982,30 +1678,30 @@
             transform: translate(-50%, -50%);
             animation: rotate 10s linear infinite;
         }
-        
+
         .ring-1 { width: 100px; height: 100px; animation-duration: 8s; }
         .ring-2 { width: 140px; height: 140px; animation-direction: reverse; animation-duration: 12s; }
         .ring-3 { width: 180px; height: 180px; animation-duration: 15s; }
-        
+
         @keyframes rotate {
             from { transform: translate(-50%, -50%) rotate(0deg); }
             to { transform: translate(-50%, -50%) rotate(360deg); }
         }
-        
+
         .jarvis-controls {
             background: rgba(255, 68, 68, 0.1);
             border: 2px solid #ff4444;
             border-radius: 20px;
             padding: 25px;
         }
-        
+
         .control-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
             margin-bottom: 30px;
         }
-        
+
         .jarvis-btn {
             background: rgba(0, 0, 0, 0.5);
             border: 2px solid #ff4444;
@@ -1018,55 +1714,55 @@
             align-items: center;
             gap: 10px;
         }
-        
+
         .jarvis-btn:hover {
             background: rgba(255, 68, 68, 0.2);
             transform: scale(1.05);
         }
-        
+
         .btn-icon {
             font-size: 2rem;
         }
-        
+
         .btn-label {
             color: #fff;
             font-family: 'Orbitron', sans-serif;
             font-size: 0.8rem;
         }
-        
+
         .jarvis-status {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 15px;
             padding: 20px;
         }
-        
+
         .status-row {
             display: flex;
             justify-content: space-between;
             padding: 10px 0;
             border-bottom: 1px solid rgba(255, 68, 68, 0.3);
         }
-        
+
         .status-value {
             font-weight: bold;
         }
-        
+
         .status-value.online, .status-value.connected {
             color: #00ff88;
         }
-        
+
         /* Analytics Styles */
         .section-analytics {
             padding: 120px 20px 60px;
             min-height: 100vh;
         }
-        
+
         .analytics-container h2 {
             color: #ff4444;
             font-size: 2.5rem;
             margin-bottom: 10px;
         }
-        
+
         .analytics-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -1074,46 +1770,74 @@
             max-width: 1400px;
             margin: 0 auto 40px;
         }
-        
+
         .analytics-card {
             background: rgba(0, 0, 0, 0.5);
             border: 2px solid #ff4444;
             border-radius: 20px;
             padding: 25px;
         }
-        
+
         .analytics-card.full-width {
             grid-column: span 2;
         }
-        
+
         .analytics-card h3 {
             color: #ff4444;
             margin-bottom: 20px;
             font-size: 1.2rem;
         }
-        
+
         .analytics-card canvas {
             width: 100% !important;
             height: 200px !important;
         }
-        
+
         .kpi-dashboard {
             max-width: 1400px;
             margin: 0 auto;
         }
-        
+
         .kpi-dashboard h3 {
             color: #ff4444;
             margin-bottom: 20px;
             font-size: 1.5rem;
         }
-        
+
         .kpi-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
         }
-        
+
+        .trending-panel {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 20px;
+            border-radius: 18px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        }
+        .trending-panel h3 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        .trending-panel ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .trending-panel li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.95rem;
+        }
+        .trending-panel li:last-child {
+            border-bottom: none;
+        }
+
         .kpi-card {
             background: rgba(255, 68, 68, 0.1);
             border: 2px solid #ff4444;
@@ -1121,7 +1845,7 @@
             padding: 25px;
             text-align: center;
         }
-        
+
         .kpi-value {
             display: block;
             font-size: 2rem;
@@ -1129,39 +1853,39 @@
             font-weight: bold;
             margin-bottom: 5px;
         }
-        
+
         .kpi-label {
             color: #ccc;
             font-size: 0.9rem;
         }
-        
+
         .kpi-trend {
             display: block;
             margin-top: 10px;
             font-size: 0.9rem;
             font-weight: bold;
         }
-        
+
         .kpi-trend.positive {
             color: #00ff88;
         }
-        
+
         .kpi-trend.negative {
             color: #ff4444;
         }
-        
+
         /* Music Studio Styles */
         .section-music {
             padding: 120px 20px 60px;
             min-height: 100vh;
         }
-        
+
         .music-container h2 {
             color: #ff4444;
             font-size: 2.5rem;
             margin-bottom: 10px;
         }
-        
+
         .music-workspace {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -1169,7 +1893,7 @@
             max-width: 1400px;
             margin: 0 auto;
         }
-        
+
         .music-3d-visualizer {
             background: rgba(0, 0, 0, 0.5);
             border: 2px solid #ff4444;
@@ -1180,7 +1904,7 @@
             justify-content: center;
             padding: 20px;
         }
-        
+
         .visualizer-bars {
             display: flex;
             align-items: flex-end;
@@ -1188,38 +1912,38 @@
             height: 300px;
             width: 100%;
         }
-        
+
         .bar {
             flex: 1;
             background: linear-gradient(180deg, #ff4444, #00ffff);
             border-radius: 5px 5px 0 0;
             transition: height 0.1s;
         }
-        
+
         .music-controls {
             background: rgba(255, 68, 68, 0.1);
             border: 2px solid #ff4444;
             border-radius: 20px;
             padding: 25px;
         }
-        
+
         .control-panel {
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
-        
+
         .control-row {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-        
+
         .control-row label {
             color: #ccc;
             font-size: 0.9rem;
         }
-        
+
         .control-row select,
         .control-row input {
             padding: 12px;
@@ -1229,7 +1953,7 @@
             color: #fff;
             font-family: inherit;
         }
-        
+
         .music-btn {
             padding: 15px;
             border: none;
@@ -1239,31 +1963,31 @@
             font-weight: bold;
             transition: all 0.3s;
         }
-        
+
         .music-btn.primary {
             background: linear-gradient(45deg, #ff4444, #ff6b6b);
             color: #fff;
         }
-        
+
         .music-btn.secondary {
             background: rgba(255, 255, 255, 0.1);
             color: #fff;
             border: 2px solid #ff4444;
         }
-        
+
         .music-playlist {
             background: rgba(0, 0, 0, 0.5);
             border: 2px solid #ff4444;
             border-radius: 20px;
             padding: 25px;
         }
-        
+
         .track-list {
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
-        
+
         .track-item {
             display: flex;
             align-items: center;
@@ -1272,20 +1996,20 @@
             background: rgba(255, 68, 68, 0.1);
             border-radius: 10px;
         }
-        
+
         .track-icon {
             font-size: 1.5rem;
         }
-        
+
         .track-name {
             flex: 1;
             color: #fff;
         }
-        
+
         .track-duration {
             color: #ccc;
         }
-        
+
         .play-btn {
             background: #ff4444;
             border: none;
@@ -1295,30 +2019,30 @@
             cursor: pointer;
             color: #fff;
         }
-        
+
         /* Knowledge Base Styles */
         .section-knowledge {
             padding: 120px 20px 60px;
             min-height: 100vh;
         }
-        
+
         .knowledge-container h2 {
             color: #ff4444;
             font-size: 2.5rem;
             margin-bottom: 10px;
         }
-        
+
         .knowledge-interface {
             max-width: 1400px;
             margin: 0 auto;
         }
-        
+
         .knowledge-search {
             display: flex;
             gap: 20px;
             margin-bottom: 30px;
         }
-        
+
         .knowledge-search input {
             flex: 1;
             padding: 15px;
@@ -1329,7 +2053,7 @@
             font-family: inherit;
             font-size: 1rem;
         }
-        
+
         .add-btn {
             padding: 15px 30px;
             background: linear-gradient(45deg, #ff4444, #ff6b6b);
@@ -1340,13 +2064,13 @@
             font-family: 'Orbitron', sans-serif;
             font-weight: bold;
         }
-        
+
         .knowledge-categories {
             display: flex;
             gap: 15px;
             margin-bottom: 30px;
         }
-        
+
         .category-btn {
             padding: 12px 25px;
             background: rgba(0, 0, 0, 0.5);
@@ -1356,17 +2080,17 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-        
+
         .category-btn.active, .category-btn:hover {
             background: rgba(255, 68, 68, 0.2);
         }
-        
+
         .knowledge-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
         }
-        
+
         .knowledge-card {
             background: rgba(255, 68, 68, 0.1);
             border: 2px solid #ff4444;
@@ -1374,42 +2098,42 @@
             padding: 25px;
             transition: transform 0.3s;
         }
-        
+
         .knowledge-card:hover {
             transform: translateY(-5px);
         }
-        
+
         .card-header {
             display: flex;
             justify-content: space-between;
             margin-bottom: 15px;
         }
-        
+
         .card-icon {
             font-size: 1.5rem;
         }
-        
+
         .card-date {
             color: #ccc;
             font-size: 0.9rem;
         }
-        
+
         .knowledge-card h4 {
             color: #ff4444;
             margin-bottom: 10px;
         }
-        
+
         .knowledge-card p {
             color: #ccc;
             font-size: 0.9rem;
             margin-bottom: 15px;
         }
-        
+
         .card-tags {
             display: flex;
             gap: 10px;
         }
-        
+
         .tag {
             padding: 5px 15px;
             background: rgba(0, 0, 0, 0.5);
@@ -1417,19 +2141,19 @@
             font-size: 0.8rem;
             color: #00ffff;
         }
-        
+
         /* Blueprints Styles */
         .section-blueprints {
             padding: 120px 20px 60px;
             min-height: 100vh;
         }
-        
+
         .blueprints-container h2 {
             color: #ff4444;
             font-size: 2.5rem;
             margin-bottom: 10px;
         }
-        
+
         .blueprints-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -1437,7 +2161,7 @@
             max-width: 1400px;
             margin: 0 auto;
         }
-        
+
         .blueprint-card {
             background: rgba(255, 68, 68, 0.1);
             border: 2px solid #ff4444;
@@ -1446,27 +2170,27 @@
             text-align: center;
             transition: transform 0.3s;
         }
-        
+
         .blueprint-card:hover {
             transform: scale(1.05);
         }
-        
+
         .blueprint-icon {
             font-size: 3rem;
             margin-bottom: 20px;
         }
-        
+
         .blueprint-card h3 {
             color: #ff4444;
             margin-bottom: 15px;
         }
-        
+
         .blueprint-card p {
             color: #ccc;
             font-size: 0.9rem;
             margin-bottom: 25px;
         }
-        
+
         .blueprint-btn {
             padding: 12px 30px;
             background: linear-gradient(45deg, #ff4444, #ff6b6b);
@@ -1478,21 +2202,21 @@
             font-weight: bold;
             transition: all 0.3s;
         }
-        
+
         .blueprint-btn:hover {
             box-shadow: 0 0 20px rgba(255, 68, 68, 0.5);
         }
-        
+
         /* Private Footer */
         .private-footer {
             background: linear-gradient(90deg, rgba(255, 68, 68, 0.2), transparent);
             border-top: 2px solid #ff4444;
         }
-        
+
         .private-footer-logo {
             color: #ff4444;
         }
-        
+
         /* Responsive */
         @media (max-width: 1200px) {
             .ai-interface,
@@ -1500,39 +2224,39 @@
             .music-workspace {
                 grid-template-columns: 1fr;
             }
-            
+
             .analytics-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .analytics-card.full-width {
                 grid-column: span 1;
             }
-            
+
             .kpi-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            
+
             .blueprints-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
-        
+
         @media (max-width: 768px) {
             .private-title {
                 font-size: 2rem;
             }
-            
+
             .private-stats {
                 flex-direction: column;
                 align-items: center;
             }
-            
+
             .kpi-grid,
             .blueprints-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .knowledge-categories {
                 flex-wrap: wrap;
             }

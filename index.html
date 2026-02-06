@@ -422,6 +422,68 @@
                 font-weight: 600;
             }
 
+            .grand-opening-banner {
+                margin: 40px auto 60px;
+                padding: 30px;
+                border-radius: 20px;
+                background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(139, 92, 246, 0.15));
+                border: 1px solid rgba(255, 215, 0, 0.3);
+                max-width: 900px;
+                text-align: center;
+                box-shadow: 0 0 40px rgba(255, 215, 0, 0.2);
+                animation: glowBanner 3s ease infinite;
+            }
+
+            @keyframes glowBanner {
+                0%, 100% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.2); }
+                50% { box-shadow: 0 0 60px rgba(139, 92, 246, 0.4); }
+            }
+
+            .grand-opening-banner h3 {
+                font-family: "Orbitron", sans-serif;
+                letter-spacing: 0.4em;
+                font-size: 1rem;
+                margin-bottom: 10px;
+            }
+
+            .grand-opening-banner p {
+                font-family: "Raleway", sans-serif;
+                color: var(--text-light);
+            }
+
+            .grand-opening-banner .grand-opening-countdown {
+                margin: 20px 0;
+                font-family: "Orbitron", sans-serif;
+                font-size: 1.25rem;
+                color: var(--gold);
+                display: flex;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            .grand-opening-banner .grand-opening-actions {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+
+            .grand-opening-banner .grand-opening-code {
+                font-size: 0.85rem;
+                letter-spacing: 0.2em;
+                text-transform: uppercase;
+                color: var(--purple-deep);
+            }
+
+            .grand-opening-cta {
+                padding: 12px 30px;
+                border-radius: 999px;
+                background: linear-gradient(135deg, var(--purple-main), var(--rose));
+                color: var(--white);
+                text-decoration: none;
+                font-weight: 600;
+            }
+
             /* CTA Buttons */
             .cta-container {
                 display: flex;
@@ -810,7 +872,7 @@
             </a>
             <nav class="main-nav">
                 <a href="shop.html" class="nav-link">🛒 Shop</a>
-                <a href="design.html" class="nav-link">🎨 Design</a>
+                <a href="message-wall.html" class="nav-link">💌 Wall</a>
                 <a href="remembrance.html" class="nav-link special"
                     >💜 Brothers</a
                 >
@@ -843,14 +905,31 @@
                     <a href="shop.html" class="cta-btn primary"
                         >🛒 Shop Collection</a
                     >
-                    <a href="design.html" class="cta-btn secondary"
-                        >🎨 Create Your Design</a
+                    <a href="message-wall.html" class="cta-btn secondary"
+                        >💌 Message Wall</a
                     >
                     <a href="remembrance.html" class="cta-btn remembrance"
                         >💜 Honor R.J. & T-Mainney</a
                     >
                 </div>
             </section>
+
+            <div class="grand-opening-banner" id="grand-opening-banner">
+                <div>
+                    <h3>Grand Opening: Limitless Drop</h3>
+                    <p>First month only — every order ships with express handling and you get early access to the next release.</p>
+                </div>
+                <div class="grand-opening-countdown" id="grand-opening-countdown">
+                    <span id="grand-opening-days">00</span>d
+                    <span id="grand-opening-hours">00</span>h
+                    <span id="grand-opening-minutes">00</span>m
+                    <span id="grand-opening-seconds">00</span>s
+                </div>
+                <div class="grand-opening-actions">
+                    <span class="grand-opening-code">Use code <strong>LABLAUNCH</strong> at checkout</span>
+                    <a href="shop.html" class="grand-opening-cta">Shop the drop</a>
+                </div>
+            </div>
 
             <div class="rose-divider">
                 <span class="line"></span>
@@ -878,15 +957,15 @@
                     </div>
 
                     <div class="feature-card">
-                        <div class="feature-icon">🎨</div>
-                        <h3 class="feature-title">Custom Design Tool</h3>
+                        <div class="feature-icon">💌</div>
+                        <h3 class="feature-title">Leave a Lasting Message</h3>
                         <p class="feature-description">
-                            Create your own unique piece. Your first design is
-                            FREE. Express yourself with our revolutionary design
-                            studio and make something nobody else has.
+                            Drop your words of love, prayers, or memories on the
+                            memorial wall so R.J. and T-Mainney can live forever
+                            through the stories you share.
                         </p>
-                        <a href="design.html" class="feature-link"
-                            >Start Designing →</a
+                        <a href="message-wall.html" class="feature-link"
+                            >Add to the Wall →</a
                         >
                     </div>
 
@@ -1179,6 +1258,33 @@ Thank you for being here. Thank you for keeping them alive.`;
                 "%cR.J. & T-Mainney — Forever in our hearts, forever in our code.",
                 "font-size: 12px; color: #a78bfa;",
             );
+
+            // Grand Opening Countdown (30 days from first launch)
+            const countdownTarget = new Date();
+            countdownTarget.setDate(countdownTarget.getDate() + 30);
+
+            function updateCountdown() {
+                const now = new Date();
+                const diff = countdownTarget - now;
+                if (isNaN(diff) || diff <= 0) {
+                    document.getElementById("grand-opening-countdown").textContent =
+                        "Welcome to the launch!";
+                    return;
+                }
+
+                const days = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, "0");
+                const hours = String(Math.floor((diff / (1000 * 60 * 60)) % 24)).padStart(2, "0");
+                const minutes = String(Math.floor((diff / (1000 * 60)) % 60)).padStart(2, "0");
+                const seconds = String(Math.floor((diff / 1000) % 60)).padStart(2, "0");
+
+                document.getElementById("grand-opening-days").textContent = days;
+                document.getElementById("grand-opening-hours").textContent = hours;
+                document.getElementById("grand-opening-minutes").textContent = minutes;
+                document.getElementById("grand-opening-seconds").textContent = seconds;
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
         </script>
     </body>
 </html>
