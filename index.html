@@ -346,6 +346,27 @@
                 mix-blend-mode: screen;
             }
 
+            .greeting-overlay.background-alive .logo-wallpaper {
+                opacity: 0.55;
+                filter: grayscale(0.4) blur(9px);
+                animation: logoWallpaperFloat 16s ease-in-out infinite;
+            }
+
+            @keyframes logoWallpaperFloat {
+                0% {
+                    transform: scale(1) translate3d(0, 0, 0);
+                    background-position: 50% 50%;
+                }
+                50% {
+                    transform: scale(1.06) translate3d(0, -12px, 0);
+                    background-position: 54% 46%;
+                }
+                100% {
+                    transform: scale(1) translate3d(0, 0, 0);
+                    background-position: 50% 50%;
+                }
+            }
+
             .portal-layer {
                 position: absolute;
                 inset: 0;
@@ -2046,6 +2067,8 @@ This is the Legacy.`;
             let selectedVoice;
             let voiceUtterance;
             let voiceStarted = false;
+            let experienceStarted = false;
+            let spokenIndex = 0;
             const logoGhost = document.getElementById("logo-ghost");
             const plasmaEffect = document.getElementById("plasma-effect");
             const particleCanvas = document.getElementById("logo-particles");
@@ -2335,14 +2358,15 @@ This is the Legacy.`;
 
             // Typewriter effect
             function typeWriter() {
-                if (!voiceStarted) {
-                    speakGreeting();
-                }
                 if (charIndex < greetingMessage.length && isTyping) {
                     const char = greetingMessage.charAt(charIndex);
                     greetingText.innerHTML += char === "\n" ? "<br><br>" : char;
                     greetingText.style.opacity = "1";
                     charIndex++;
+
+                    if (experienceStarted && voiceSynth && (char === "\n" || /[.!?]/.test(char))) {
+                        speakChunk(charIndex);
+                    }
 
                     // Variable speed for more natural, live feel
                     let baseDelay = 45;
@@ -2374,6 +2398,9 @@ This is the Legacy.`;
                     // Typing complete - show signature and trigger mission sequence
                     greetingCursor.style.display = "none";
                     enterBtn?.classList.add("hidden");
+                    if (experienceStarted && voiceSynth) {
+                        speakChunk(charIndex);
+                    }
                     setTimeout(() => {
                         greetingSignature.classList.add("visible");
                     }, 500);
@@ -2464,6 +2491,24 @@ This is the Legacy.`;
                 voiceStarted = true;
             }
 
+            function speakChunk(nextIndex) {
+                if (!voiceSynth) return;
+                const safeIndex = Math.max(0, Math.min(nextIndex, greetingMessage.length));
+                if (safeIndex <= spokenIndex) return;
+                const chunk = greetingMessage.slice(spokenIndex, safeIndex).replace(/\n+/g, " ");
+                if (!chunk.trim()) {
+                    spokenIndex = safeIndex;
+                    return;
+                }
+
+                const utter = new SpeechSynthesisUtterance(chunk);
+                utter.pitch = 1.05;
+                utter.rate = 0.98;
+                if (selectedVoice) utter.voice = selectedVoice;
+                voiceSynth.speak(utter);
+                spokenIndex = safeIndex;
+            }
+
             function prepareVoice() {
                 if (!("speechSynthesis" in window)) return;
                 voiceSynth = window.speechSynthesis;
@@ -2473,22 +2518,21 @@ This is the Legacy.`;
                 });
             }
 
-            const awakenAmbientAudio = () => {
+            const startExperience = () => {
+                if (experienceStarted) return;
+                experienceStarted = true;
+                prepareVoice();
                 startAmbientAudio();
+                setTimeout(typeWriter, 500);
             };
 
-            document.addEventListener("pointerdown", awakenAmbientAudio, {
-                once: true,
-            });
-            document.addEventListener("keydown", awakenAmbientAudio, {
-                once: true,
-            });
+            document.addEventListener("pointerdown", startExperience, { once: true });
+            document.addEventListener("keydown", startExperience, { once: true });
 
             // Start typewriter on load
             window.addEventListener("load", () => {
                 createParticles();
                 initStarCanvas();
-                setTimeout(typeWriter, 2000);
                 prepareVoice();
                 resizeParticlesCanvas();
             });

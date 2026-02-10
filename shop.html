@@ -602,7 +602,7 @@
 
     <script>
         const cartKey = "nlbl_shop_cart";
-        const products = [
+        const fallbackProducts = [
             {
                 id: 1,
                 name: "No Limits T-Shirt",
@@ -685,6 +685,8 @@
             },
         ];
 
+        let products = [...fallbackProducts];
+
         let cart = JSON.parse(localStorage.getItem(cartKey) || "[]");
         const cartItemsEl = document.getElementById("cart-items");
         const cartTotalEl = document.getElementById("cart-total");
@@ -698,6 +700,36 @@
             currency: "USD",
         });
 
+        async function loadProducts() {
+            try {
+                const res = await fetch("/data/products.json", { cache: "no-store" });
+                if (!res.ok) throw new Error(`products HTTP ${res.status}`);
+                const payload = await res.json();
+                const items = Array.isArray(payload.items) ? payload.items : [];
+
+                const normalized = items
+                    .filter((p) => p && typeof p.id !== "undefined")
+                    .map((p) => ({
+                        id: p.id,
+                        name: p.name || "Untitled",
+                        price: typeof p.price === "number" ? p.price : 0,
+                        category: p.category || "custom",
+                        desc: p.desc || "",
+                        imageUrl: p.imageUrl || "",
+                        printfulVariantId: typeof p.printfulVariantId === "number" ? p.printfulVariantId : null,
+                        size: p.size || "",
+                        emoji: p.emoji || "🛍️",
+                    }));
+
+                if (normalized.length) {
+                    products = normalized;
+                }
+            } catch (e) {
+                console.warn("Failed to load products.json, using fallback products:", e);
+                products = [...fallbackProducts];
+            }
+        }
+
         function renderProducts(category = "all") {
             const grid = document.getElementById("products-grid");
             grid.innerHTML = "";
@@ -710,8 +742,13 @@
             filtered.forEach((product) => {
                 const card = document.createElement("div");
                 card.className = "product-card";
+
+                const imageMarkup = product.imageUrl
+                    ? `<img src="${product.imageUrl}" alt="${product.name}" loading="lazy" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'">`
+                    : product.emoji;
+
                 card.innerHTML = `
-                    <div class="product-image">${product.emoji}</div>
+                    <div class="product-image">${imageMarkup}</div>
                     <div class="product-info">
                         <h3 class="product-name">${product.name}</h3>
                         <div class="product-price">${formatMoney(product.price)}</div>
@@ -744,6 +781,7 @@
                     quantity: 1,
                     size: product.size,
                     emoji: product.emoji,
+                    imageUrl: product.imageUrl || "",
                     printfulVariantId: product.printfulVariantId,
                 });
             }
@@ -899,7 +937,7 @@
                     name: item.name,
                     price: item.price,
                     quantity: item.quantity,
-                    image: item.emoji,
+                    image: item.imageUrl || "",
                     size: item.size,
                     metadata: {
                         printfulVariantId: item.printfulVariantId,
@@ -952,7 +990,9 @@
         });
 
         document.addEventListener("DOMContentLoaded", () => {
-            renderProducts();
+            loadProducts().finally(() => {
+                renderProducts();
+            });
             renderCart();
             loadSizeGuide();
         });
