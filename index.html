@@ -61,7 +61,7 @@
                 --white: #ffffff;
                 --text-light: #e2e8f0;
                 --dark-space: #03010a;
-                --logo-wall: url('Logo/logo.png');
+                --logo-wall: url('Logo/Greeting_Logo.png');
             }
 
             html {
@@ -2523,6 +2523,12 @@ This is the Legacy.`;
                 experienceStarted = true;
                 prepareVoice();
                 startAmbientAudio();
+                if (voiceSynth) {
+                    try {
+                        voiceSynth.cancel();
+                    } catch {}
+                }
+                speakChunk(charIndex);
             };
 
             document.addEventListener("pointerdown", startExperience, { once: true });
