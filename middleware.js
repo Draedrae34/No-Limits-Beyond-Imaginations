@@ -18,10 +18,9 @@ export function middleware(request) {
         const encoded = auth.slice(6).trim();
         const decoded = atob(encoded);
         const idx = decoded.indexOf(':');
-        const user = idx >= 0 ? decoded.slice(0, idx) : decoded;
         const pass = idx >= 0 ? decoded.slice(idx + 1) : '';
 
-        if (user !== 'owner' || pass !== password) return unauthorized();
+        if (pass !== password) return unauthorized();
         return;
     } catch {
         return unauthorized();

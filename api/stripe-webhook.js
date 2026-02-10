@@ -9,7 +9,7 @@ const EMAIL_FROM =
     process.env.EMAIL_FROM || 'No Limits Beyond Limitations <no-reply@nolimitsbeyondlimitations.com>';
 const EMAIL_ADMIN = process.env.EMAIL_ADMIN || '';
 
-export default async function handler(req, res) {
+async function handler(req, res) {
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
     }
@@ -63,7 +63,9 @@ export default async function handler(req, res) {
     res.json({ received: true });
 }
 
-export const config = {
+module.exports = handler;
+module.exports.default = handler;
+module.exports.config = {
     api: {
         bodyParser: false,
     },

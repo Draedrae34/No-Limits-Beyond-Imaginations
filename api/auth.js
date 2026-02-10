@@ -1,8 +1,8 @@
 const crypto = require('crypto');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'no-limits-private-secret-key-2024';
+const JWT_SECRET = process.env.JWT_SECRET;
 const TOKEN_EXPIRY = 24 * 60 * 60 * 1000;
-const ADMIN_PASSWORD = 'Quantum2026$NLB!';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
 function generateToken(username) {
   const header = Buffer.from(JSON.stringify({ alg: 'HS256', typ: 'JWT' })).toString('base64url');
@@ -43,13 +43,20 @@ function verifyToken(token) {
     }
 }
 
-export default async function handler(req, res) {
+async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
+  }
+
+  if (!JWT_SECRET || !ADMIN_PASSWORD) {
+    return res.status(500).json({
+      success: false,
+      error: 'Server auth not configured (set JWT_SECRET and ADMIN_PASSWORD).'
+    });
   }
 
   try {
@@ -85,5 +92,5 @@ export default async function handler(req, res) {
   }
 }
 
-exports.default = handler;
-exports.handler = handler;
+module.exports = handler;
+module.exports.default = handler;

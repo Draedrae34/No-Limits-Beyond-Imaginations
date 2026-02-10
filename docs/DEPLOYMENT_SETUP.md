@@ -5,11 +5,11 @@
 Your live Stripe and Printful API keys have been integrated:
 
 ### Stripe Keys (LIVE MODE):
-- **Publishable Key:** `pk_live_51SGCyq2v0rJBUJlTwPI50qLJbNvhgpIha1SmPxZ4TMev9Fz06ekqe8bQJYWS68TbNYutT0DojuyqOwtgzbVHgx0o00Kv4jFL8X`
-- **Secret Key:** `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`
+- **Publishable Key:** `pk_live_your_key_here`
+- **Secret Key:** `sk_live_your_key_here`
 
 ### Printful Key (LIVE MODE):
-- **API Key:** `WkvAEaDFWHiR3TN7JE2dGAXLQV4leLhxHch6pGor`
+- **API Key:** `your_printful_key_here`
 
 ---
 
@@ -28,9 +28,9 @@ Add ONE variable at a time:
 
 | Variable Name | Value |
 |---------------|-------|
-| `STRIPE_SECRET_KEY` | `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` |
-| `STRIPE_PUBLISHABLE_KEY` | `pk_live_51SGCyq2v0rJBUJlTwPI50qLJbNvhgpIha1SmPxZ4TMev9Fz06ekqe8bQJYWS68TbNYutT0DojuyqOwtgzbVHgx0o00Kv4jFL8X` |
-| `PRINTFUL_API_KEY` | `WkvAEaDFWHiR3TN7JE2dGAXLQV4leLhxHch6pGor` |
+| `STRIPE_SECRET_KEY` | `sk_live_your_key_here` |
+| `STRIPE_PUBLISHABLE_KEY` | `pk_live_your_key_here` |
+| `PRINTFUL_API_KEY` | `your_printful_key_here` |
 
 ### Step 3: Deploy with Updated Settings
 

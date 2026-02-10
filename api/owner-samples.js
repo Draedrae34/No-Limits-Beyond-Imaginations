@@ -1,6 +1,6 @@
 const store = require('../lib/owner-samples-store');
 
-export default async function handler(req, res) {
+async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, OPTIONS');
@@ -62,3 +62,6 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: error.message });
     }
 }
+
+module.exports = handler;
+module.exports.default = handler;

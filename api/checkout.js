@@ -1,6 +1,6 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-export default async function handler(req, res) {
+async function handler(req, res) {
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -29,7 +29,7 @@ export default async function handler(req, res) {
         product_data: {
           name: item.name || item.productName || 'Custom Design',
           description: item.size ? `Size: ${item.size}` : 'Custom apparel',
-          images: item.image ? [item.image] : [],
+          images: (typeof item.image === 'string' && /^https?:\/\//i.test(item.image)) ? [item.image] : [],
           metadata: {
             design_id: item.designId || '',
             copyright_id: item.copyrightId || '',
@@ -106,3 +106,6 @@ export default async function handler(req, res) {
     });
   }
 }
+
+module.exports = handler;
+module.exports.default = handler;

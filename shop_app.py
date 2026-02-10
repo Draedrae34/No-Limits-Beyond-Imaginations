@@ -63,7 +63,7 @@ def add_cors_headers(response):
 
 
 # Load API token from environment variable or use provided token for testing
-API_TOKEN = os.getenv("PRINTFUL_API_TOKEN", "CjDCeFeC9Dzg877DKifxM8xagXxUHVOPhheHC353")
+API_TOKEN = os.getenv("PRINTFUL_API_TOKEN")
 STORE_ID = os.getenv("PRINTFUL_STORE_ID")
 OPENAI_API_KEY = None
 REPLICATE_API_TOKEN = None

@@ -20,5 +20,7 @@ No_Limits_Clothing/
 labeled_designs/
 uploads/
 
+!uploads/story_manifest.json
+
 # Repository artifacts
 no-limits-theme.zip
