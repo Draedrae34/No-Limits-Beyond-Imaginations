@@ -1332,16 +1332,56 @@
 
         async function loadManifestPhotos() {
             try {
-                const res = await fetch('remembrance/media_manifest.json', { cache: 'no-store' });
-                if (!res.ok) throw new Error(`manifest HTTP ${res.status}`);
-                const data = await res.json();
-                const items = Array.isArray(data.items) ? data.items : [];
-                photos = items
-                    .map((it) => (it && typeof it.src === 'string' ? it.src : null))
-                    .filter(Boolean);
+                // First try local photos
+                const photoFiles = [
+                    'remembrance/photos/IMG_1320.JPG', 'remembrance/photos/IMG_1321.PNG', 'remembrance/photos/IMG_1322.JPG',
+                    'remembrance/photos/IMG_1323.JPG', 'remembrance/photos/IMG_1324.JPG', 'remembrance/photos/IMG_1325.JPG',
+                    'remembrance/photos/IMG_1326.JPG', 'remembrance/photos/IMG_1327.JPG', 'remembrance/photos/IMG_1328.JPG',
+                    'remembrance/photos/IMG_1329.JPG', 'remembrance/photos/IMG_1330.JPG', 'remembrance/photos/IMG_1331.JPG',
+                    'remembrance/photos/IMG_1332.JPG', 'remembrance/photos/IMG_1333.JPG', 'remembrance/photos/IMG_1334.JPG',
+                    'remembrance/photos/IMG_1335.JPG', 'remembrance/photos/IMG_1336.PNG', 'remembrance/photos/IMG_1337.JPG',
+                    'remembrance/photos/IMG_1338.JPG', 'remembrance/photos/IMG_1339.JPG', 'remembrance/photos/IMG_1340.JPG',
+                    'remembrance/photos/IMG_1341.JPG', 'remembrance/photos/IMG_1342.JPG', 'remembrance/photos/IMG_1343.JPG',
+                    'remembrance/photos/IMG_1346.JPG', 'remembrance/photos/IMG_1347.JPG', 'remembrance/photos/IMG_1348.PNG',
+                    'remembrance/photos/IMG_1349.JPG', 'remembrance/photos/IMG_1350.JPG', 'remembrance/photos/IMG_1351.JPG',
+                    'remembrance/photos/IMG_1352.JPG', 'remembrance/photos/IMG_1353.JPG', 'remembrance/photos/IMG_1354.JPG',
+                    'remembrance/photos/IMG_1355.JPG', 'remembrance/photos/IMG_1356.JPG', 'remembrance/photos/IMG_1357.JPG',
+                    'remembrance/photos/IMG_1359.JPG', 'remembrance/photos/IMG_1360.JPG', 'remembrance/photos/IMG_1361.JPG',
+                    'remembrance/photos/IMG_1362.JPG', 'remembrance/photos/IMG_1363.JPG', 'remembrance/photos/IMG_1369.JPG',
+                    'remembrance/photos/IMG_1370.JPG', 'remembrance/photos/IMG_1371.JPG', 'remembrance/photos/IMG_1372.JPG',
+                    'remembrance/photos/IMG_1374.JPG', 'remembrance/photos/IMG_1375.JPG', 'remembrance/photos/IMG_1376.JPG',
+                    'remembrance/photos/IMG_1377.JPG', 'remembrance/photos/IMG_1378.JPG', 'remembrance/photos/IMG_1379.JPG',
+                    'remembrance/photos/IMG_1380.JPG', 'remembrance/photos/IMG_1382.JPG', 'remembrance/photos/IMG_1383.JPG',
+                    'remembrance/photos/IMG_1384.JPG', 'remembrance/photos/IMG_1387.JPG', 'remembrance/photos/IMG_1389.JPG',
+                    'remembrance/photos/IMG_1393.JPG', 'remembrance/photos/IMG_1395.JPG', 'remembrance/photos/IMG_1396.JPG',
+                    'remembrance/photos/IMG_1397.PNG', 'remembrance/photos/IMG_1398.JPG', 'remembrance/photos/IMG_1399.JPG',
+                    'remembrance/photos/IMG_1400.JPG', 'remembrance/photos/IMG_1401.JPG', 'remembrance/photos/IMG_1402.JPG',
+                    'remembrance/photos/IMG_1403.JPG', 'remembrance/photos/IMG_1404.JPG', 'remembrance/photos/IMG_1405.JPG',
+                    'remembrance/photos/IMG_1406.JPG', 'remembrance/photos/IMG_1407.JPG', 'remembrance/photos/IMG_1408.JPG',
+                    'remembrance/photos/IMG_1409.JPG', 'remembrance/photos/IMG_1410.JPG', 'remembrance/photos/IMG_1412.JPG',
+                    'remembrance/photos/IMG_1413.JPG', 'remembrance/photos/IMG_1414.JPG', 'remembrance/photos/IMG_1416.JPG',
+                    'remembrance/photos/IMG_1417.JPG', 'remembrance/photos/IMG_1418.JPG', 'remembrance/photos/IMG_1419.PNG',
+                    'remembrance/photos/IMG_1420.JPG', 'remembrance/photos/IMG_1421.JPG', 'remembrance/photos/IMG_1422.JPG',
+                    'remembrance/photos/IMG_1423.JPG', 'remembrance/photos/IMG_1424.JPG', 'remembrance/photos/IMG_1431.JPG',
+                    'remembrance/photos/IMG_1432.JPG', 'remembrance/photos/IMG_1433.JPG', 'remembrance/photos/IMG_1434.JPG',
+                    'remembrance/photos/IMG_1435.JPG', 'remembrance/photos/IMG_1436.JPG', 'remembrance/photos/IMG_1440.JPG',
+                    'remembrance/photos/IMG_1441.JPG', 'remembrance/photos/IMG_1442.JPG', 'remembrance/photos/IMG_1444.JPG',
+                    'remembrance/photos/IMG_1445.JPG', 'remembrance/photos/IMG_1446.JPG', 'remembrance/photos/IMG_1447.JPG',
+                    'remembrance/photos/IMG_1448.JPG', 'remembrance/photos/IMG_1449.JPG', 'remembrance/photos/IMG_1455.JPG',
+                    'remembrance/photos/IMG_1457.JPG', 'remembrance/photos/IMG_1459.JPG', 'remembrance/photos/IMG_1460.JPG',
+                    'remembrance/photos/IMG_1461.JPG', 'remembrance/photos/IMG_1463.PNG', 'remembrance/photos/IMG_1464.JPG',
+                    'remembrance/photos/IMG_1465.JPG', 'remembrance/photos/IMG_1466.JPG', 'remembrance/photos/IMG_1467.JPG',
+                    'remembrance/photos/IMG_1468.JPG', 'remembrance/photos/IMG_1471.JPG', 'remembrance/photos/IMG_1482.JPG',
+                    'remembrance/photos/IMG_1483.JPG', 'remembrance/photos/IMG_1484.JPG', 'remembrance/photos/IMG_1485.JPG',
+                    'remembrance/photos/IMG_1487.JPG', 'remembrance/photos/IMG_1489.PNG', 'remembrance/photos/IMG_1490.JPG',
+                    'remembrance/photos/IMG_1491.JPG', 'remembrance/photos/IMG_1493.JPG', 'remembrance/photos/IMG_1498.JPG',
+                    'remembrance/photos/IMG_1499.JPG', 'remembrance/photos/IMG_1501.JPG'
+                ];
+                photos = photoFiles;
+                console.log(`Loaded ${photos.length} local photos for slideshow`);
             } catch (e) {
-                console.log('Failed to load remembrance media manifest:', e);
-                photos = [];
+                console.log('Failed to load photos:', e);
+                photos = ['Logo/Greeting_Logo.png'];
             }
         }
 

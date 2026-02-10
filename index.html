@@ -184,10 +184,10 @@
             .logo-wallpaper {
                 position: absolute;
                 inset: 0;
-                background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.35), transparent 45%), linear-gradient(120deg, rgba(17, 6, 46, 0.85), rgba(30, 8, 60, 0.75)), url('Logo/Greeting_Logo.png');
+                background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.45), transparent 45%), linear-gradient(120deg, rgba(17, 6, 46, 0.75), rgba(30, 8, 60, 0.65)), url('Logo/Greeting_Logo.png');
                 background-size: cover;
                 background-position: center;
-                opacity: 0.25;
+                opacity: 0.4;
                 filter: grayscale(0.6) blur(15px);
                 transition: opacity 2s ease, filter 2s ease;
                 z-index: -1;
@@ -362,9 +362,9 @@
             }
 
             .greeting-overlay.background-alive .logo-wallpaper {
-                opacity: 0.55;
-                filter: grayscale(0.4) blur(9px);
-                animation: logoWallpaperFloat 16s ease-in-out infinite;
+                opacity: 0.65;
+                filter: grayscale(0.2) blur(6px) brightness(1.2);
+                animation: logoWallpaperFloat 12s ease-in-out infinite;
             }
 
             @keyframes logoWallpaperFloat {
