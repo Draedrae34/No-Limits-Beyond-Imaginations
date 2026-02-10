@@ -6,10 +6,12 @@
     }
   },
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/workshop", "destination": "/private.html" },
-    { "source": "/workshop/", "destination": "/private.html" },
-    { "source": "/workshop/(.*)", "destination": "/private.html" }
+    { "source": "/api/(.*)", "destination": "/api/$1" }
+  ],
+  "redirects": [
+    { "source": "/workshop", "destination": "/private.html", "permanent": false },
+    { "source": "/workshop/", "destination": "/private.html", "permanent": false },
+    { "source": "/workshop/(.*)", "destination": "/private.html", "permanent": false }
   ],
   "headers": [
     {

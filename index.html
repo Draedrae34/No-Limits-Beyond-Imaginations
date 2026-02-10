@@ -2523,7 +2523,6 @@ This is the Legacy.`;
                 experienceStarted = true;
                 prepareVoice();
                 startAmbientAudio();
-                setTimeout(typeWriter, 500);
             };
 
             document.addEventListener("pointerdown", startExperience, { once: true });
@@ -2535,6 +2534,7 @@ This is the Legacy.`;
                 initStarCanvas();
                 prepareVoice();
                 resizeParticlesCanvas();
+                setTimeout(typeWriter, 1200);
             });
 
             // Create floating particles
