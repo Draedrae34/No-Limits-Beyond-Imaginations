@@ -459,6 +459,51 @@
             font-weight: 500;
         }
 
+        /* Photo Gallery */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .gallery-photo {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            background: rgba(255,255,255,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .gallery-photo:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(255,0,255,0.4);
+        }
+
+        .gallery-photo img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .gallery-photo:hover img {
+            transform: scale(1.1);
+        }
+
+        .photo-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: #fff;
+            padding: 15px 10px 10px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
         /* Themed Elements */
         .rose-petal {
             position: fixed;
@@ -577,9 +622,9 @@
             <div class="slide-dots" id="slideDots"></div>
         </section>
 
-        <!-- Full Photo Gallery - 182 Pictures -->
+        <!-- My Personal Photos -->
         <section id="photo-gallery">
-            <h2 class="gallery-title">&#128444; Photo Gallery (182 Pictures)</h2>
+            <h2 class="gallery-title">&#128444; My Journey Photos</h2>
             <div class="photo-gallery" id="photo-gallery-grid"></div>
         </section>
 
@@ -827,15 +872,56 @@
         }
 
         loadStoryVideos();
+        
+        // Load My Personal Photos
+        function loadMyPhotos() {
+            try {
+                // Your personal photos
+                const myPhotos = [
+                    'My_story_Page/1767163286759.jpg',
+                    'My_story_Page/1768202041151_extended_image_cropped_image.jpg',
+                    'My_story_Page/IMG_1890.JPG',
+                    'My_story_Page/IMG_1893.JPG',
+                    'My_story_Page/IMG_1897.JPG',
+                    'My_story_Page/IMG_1898.JPG',
+                    'My_story_Page/IMG_1899.JPG',
+                    'My_story_Page/IMG_1902.JPG',
+                    'My_story_Page/IMG_1907.JPG',
+                    'My_story_Page/IMG_1926.JPG',
+                    'My_story_Page/Snapchat-137177316.jpg',
+                    'My_story_Page/170DC2BC-BDD7-4275-8370-264EEAD2D80E.png',
+                    'My_story_Page/6A145E76-D5C9-409D-BB8B-980507CF470A.png',
+                    'My_story_Page/8EC8EB20-892E-422A-B79C-80FFA0DA5AA2.png',
+                    'My_story_Page/90698661-A844-45F8-8606-918E94E27C3E.png',
+                    'My_story_Page/D5867608-06A2-406B-905C-D03196A711BC.png'
+                ];
+                
+                const photoGallery = document.getElementById('photo-gallery-grid');
+                photoGallery.innerHTML = '';
+                
+                myPhotos.forEach((photoSrc, index) => {
+                    const photoDiv = document.createElement('div');
+                    photoDiv.className = 'gallery-photo';
+                    photoDiv.innerHTML = `
+                        <img src="${photoSrc}" alt="My Journey ${index + 1}" loading="lazy" onclick="openLightbox('${photoSrc}')">
+                        <div class="photo-caption">Memory ${index + 1}</div>
+                    `;
+                    photoGallery.appendChild(photoDiv);
+                });
+                
+                console.log(`Loaded ${myPhotos.length} personal photos`);
+            } catch (e) {
+                console.log('Failed to load my photos:', e);
+            }
+        }
+        
+        loadMyPhotos();
 
     // 5D Cosmic Effects
     // Star cursor with trails
     const starCursor = document.createElement('div');
     starCursor.className = 'star-cursor';
     document.body.appendChild(starCursor);
-
-    let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
 
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
