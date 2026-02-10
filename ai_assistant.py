@@ -19,14 +19,7 @@ app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:8000", "methods": ["GET", "POST", "OPTIONS", "PUT", "DELETE"], "allow_headers": ["Content-Type", "Authorization"]}})
 
 # Initialize AI services
-openai_key = os.getenv('OPENAI_API_KEY')
-replicate_token = os.getenv('REPLICATE_API_TOKEN')
-
-if not openai_key or not replicate_token:
-    logger.warning("AI API keys not configured - AI generation features will be limited")
-    ai_manager = None
-else:
-    ai_manager = AIServiceManager(openai_key, replicate_token)
+ai_manager = AIServiceManager()
 
 # Initialize WebSocket server
 socketio = init_websocket_server(app)

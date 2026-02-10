@@ -22,10 +22,7 @@ class WebSocketServer:
         self.rooms = {}  # room_id: {users: set, data: dict}
 
         # Initialize AI services if API keys are available
-        openai_key = os.getenv('OPENAI_API_KEY')
-        replicate_token = os.getenv('REPLICATE_API_TOKEN')
-        if openai_key and replicate_token:
-            self.ai_manager = AIServiceManager(openai_key, replicate_token)
+        self.ai_manager = AIServiceManager(ollama_api_url=os.getenv('OLLAMA_API_URL', 'http://127.0.0.1:11434'))
         else:
             logger.warning("AI API keys not configured - WebSocket AI features will be limited")
 

@@ -7,9 +7,6 @@ requests
 scikit-learn
 cryptography
 numpy
-openai
-anthropic
-replicate
 pillow
 opencv-python
 PyJWT
@@ -18,5 +15,3 @@ bcrypt
 werkzeug
 python-socketio
 eventlet
-websockets
-asynciooqs

@@ -1,11 +1,11 @@
 /* REMEMBRANCE PAGE INTELLIGENCE */
 
-const images = [
-  "images/brother1.jpg",
-  "images/brother2.jpg",
-  "images/brother3.jpg"
-  // add more when ready
+const fallbackImages = [
+    "images/brother1.jpg",
+    "images/brother2.jpg",
+    "images/brother3.jpg"
 ];
+let images = [];
 
 // TIMING PROFILE (cinematic)
 const IMAGE_DURATION = 12000; // 12 seconds per image
@@ -24,48 +24,65 @@ audio.volume = 0.6;  // very soft, emotional
 audio.autoplay = true; // automatically starts after overlay
 
 function showImage(index) {
-  // Galaxy-themed transition: cosmic fade with particle burst
-  slideshow.style.transition = `opacity ${FADE_TIME}ms ease-in-out, transform 8s cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
-  slideshow.style.opacity = 0;
-  slideshow.style.transform = 'scale(0.8) rotate(-2deg)'; // Start from a distant, tilted view
+    // Galaxy-themed transition: cosmic fade with particle burst
+    slideshow.style.transition = `opacity ${FADE_TIME}ms ease-in-out, transform 8s cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
+    slideshow.style.opacity = 0;
+    slideshow.style.transform = 'scale(0.8) rotate(-2deg)'; // Start from a distant, tilted view
 
-  // Trigger particle burst for galaxy effect
-  triggerGalaxyBurst();
+    // Trigger particle burst for galaxy effect
+    triggerGalaxyBurst();
 
-  setTimeout(() => {
-    slideshow.style.backgroundImage = `url(${images[index]})`;
-    slideshow.style.transform = `scale(${ZOOM_PEAK}) rotate(0deg)`; // Zoom into the memory
-    slideshow.style.opacity = 1;
-  }, FADE_TIME);
+    setTimeout(() => {
+        slideshow.style.backgroundImage = `url(${images[index]})`;
+        slideshow.style.transform = `scale(${ZOOM_PEAK}) rotate(0deg)`; // Zoom into the memory
+        slideshow.style.opacity = 1;
+    }, FADE_TIME);
 
-  setTimeout(() => {
-    slideshow.style.transform = "scale(1) rotate(0deg)"; // Settle into place
-  }, IMAGE_DURATION / 2);
+    setTimeout(() => {
+        slideshow.style.transform = "scale(1) rotate(0deg)"; // Settle into place
+    }, IMAGE_DURATION / 2);
 }
 
 function nextImage() {
-  currentIndex = (currentIndex + 1) % images.length;
-  showImage(currentIndex);
+    currentIndex = (currentIndex + 1) % images.length;
+    showImage(currentIndex);
 }
 
-function startSlideshow() {
-  currentIndex = 0;
-  showImage(currentIndex);
+let slideInterval;
 
-  setInterval(() => {
-    nextImage();
-  }, IMAGE_DURATION);
+async function startSlideshow() {
+    if (!images.length) {
+        console.warn("No remembrance images available, showing fallback.");
+        images = fallbackImages;
+    }
+    currentIndex = 0;
+    showImage(currentIndex);
+
+    slideInterval = setInterval(() => {
+        nextImage();
+    }, IMAGE_DURATION);
 }
 
 replayBtn.addEventListener("click", () => {
-  location.reload();
+    location.reload();
 });
 
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    audio.play().catch(() => {});
-    startSlideshow();
-  }, 6000);
+window.addEventListener("load", async () => {
+    setTimeout(async () => {
+        try {
+            const manifest = await fetch("./media_manifest.json");
+            if (manifest.ok) {
+                const payload = await manifest.json();
+                images = (payload.items || []).map((item) => item.src);
+            } else {
+                throw new Error("manifest fetch failed");
+            }
+        } catch (error) {
+            console.warn("Unable to load media manifest, falling back:", error);
+        }
+        audio.play().catch(() => { });
+        startSlideshow();
+    }, 6000);
 });
 
 // GALAXY PARTICLE VISUALIZER
@@ -78,44 +95,44 @@ canvas.height = window.innerHeight;
 
 // New function for galaxy particle burst during transitions
 function triggerGalaxyBurst() {
-  // Temporarily increase particle density and add twinkling effect
-  const burstParticles = 100;
-  const burstDuration = FADE_TIME * 2;
+    // Temporarily increase particle density and add twinkling effect
+    const burstParticles = 100;
+    const burstDuration = FADE_TIME * 2;
 
-  function burstDraw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (let i = 0; i < burstParticles; i++) {
-      let x = Math.random() * canvas.width;
-      let y = Math.random() * canvas.height;
-      let radius = Math.random() * 3 + 1;
-      let alpha = Math.random() * 0.8 + 0.2; // Brighter particles
-      ctx.beginPath();
-      ctx.arc(x, y, radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
-      ctx.fill();
+    function burstDraw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < burstParticles; i++) {
+            let x = Math.random() * canvas.width;
+            let y = Math.random() * canvas.height;
+            let radius = Math.random() * 3 + 1;
+            let alpha = Math.random() * 0.8 + 0.2; // Brighter particles
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+            ctx.fill();
+        }
     }
-  }
 
-  // Burst animation
-  let burstFrame = 0;
-  const burstInterval = setInterval(() => {
-    burstDraw();
-    burstFrame++;
-    if (burstFrame > burstDuration / 50) {
-      clearInterval(burstInterval);
-      drawParticles(); // Return to normal
-    }
-  }, 50);
+    // Burst animation
+    let burstFrame = 0;
+    const burstInterval = setInterval(() => {
+        burstDraw();
+        burstFrame++;
+        if (burstFrame > burstDuration / 50) {
+            clearInterval(burstInterval);
+            drawParticles(); // Return to normal
+        }
+    }, 50);
 }
 
 function drawParticles() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for(let i=0;i<50;i++){
-        let x = Math.random()*canvas.width;
-        let y = Math.random()*canvas.height;
-        let radius = Math.random()*2 + 1;
+    for (let i = 0; i < 50; i++) {
+        let x = Math.random() * canvas.width;
+        let y = Math.random() * canvas.height;
+        let radius = Math.random() * 2 + 1;
         ctx.beginPath();
-        ctx.arc(x,y,radius,0,Math.PI*2);
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255,255,255,${Math.random()})`;
         ctx.fill();
     }

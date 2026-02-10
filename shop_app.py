@@ -1,22 +1,34 @@
+import base64
 import hashlib
 import hmac
 import json
 import logging
 import os
 import random
+import re
 import threading
 import time
 import traceback
+import uuid
 from collections import Counter
 from datetime import datetime, timedelta, timezone
 
-import openai
 import pyotp
-from flask import Flask, g, jsonify, make_response, request, send_from_directory
+from flask import (
+    Flask,
+    g,
+    jsonify,
+    make_response,
+    request,
+    send_from_directory,
+    url_for,
+)
 from werkzeug.utils import secure_filename
 
 from ai_services import AIServiceManager, photographic_memory
+from auth_service import auth_service, owner_required, token_required
 from printful_client import PrintfulAPI
+from security_service import security_service
 
 app = Flask(__name__)
 
@@ -35,6 +47,11 @@ if not os.path.exists(UPLOAD_FOLDER):
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
+# Static assets directory (current repo root)
+STATIC_DIR = os.path.abspath(os.path.dirname(__file__))
+AI_GENERATED_DIR = os.path.join(STATIC_DIR, "ai_generated")
+AI_UPLOADS_DIR = os.path.join(AI_GENERATED_DIR, "uploads")
+
 
 # Simple CORS handling
 @app.after_request
@@ -48,24 +65,26 @@ def add_cors_headers(response):
 # Load API token from environment variable or use provided token for testing
 API_TOKEN = os.getenv("PRINTFUL_API_TOKEN", "CjDCeFeC9Dzg877DKifxM8xagXxUHVOPhheHC353")
 STORE_ID = os.getenv("PRINTFUL_STORE_ID")
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-REPLICATE_API_TOKEN = os.getenv("REPLICATE_API_TOKEN")
+OPENAI_API_KEY = None
+REPLICATE_API_TOKEN = None
 
-# Initialize AI Service Manager
-if OPENAI_API_KEY and REPLICATE_API_TOKEN:
-    ai_service_manager = AIServiceManager(OPENAI_API_KEY, REPLICATE_API_TOKEN)
-    logger.info("AIServiceManager initialized successfully.")
-else:
-    ai_service_manager = None
+# Initialize AI Service Manager (prefers Ollama when API keys are missing)
+ai_service_manager = None
+try:
+    ai_service_manager = AIServiceManager(
+        ollama_api_url=os.getenv("OLLAMA_API_URL", "http://127.0.0.1:11434"),
+    )
+    logger.info(
+        "AIServiceManager initialized (OpenAI/Replicate keys optional, Ollama ready)."
+    )
+except Exception as exc:
     logger.warning(
-        "AIServiceManager not initialized. OPENAI_API_KEY or REPLICATE_API_TOKEN not found."
+        "AIServiceManager failed to initialize (check local Ollama or API keys): %s"
+        % exc
     )
 
 if not API_TOKEN:
     raise ValueError("PRINTFUL_API_TOKEN environment variable is required")
-
-if OPENAI_API_KEY:
-    openai.api_key = OPENAI_API_KEY
 
 api = PrintfulAPI(API_TOKEN, STORE_ID)
 
@@ -92,6 +111,37 @@ def load_json_file(path, default=None):
             return json.load(fh)
     except (FileNotFoundError, json.JSONDecodeError):
         return default
+
+
+def save_json_file(path, data):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8") as fh:
+        json.dump(data, fh, indent=2)
+
+
+def save_reference_image(data_uri):
+    if not data_uri:
+        return None
+    match = re.match(r"data:(image/[^;]+);base64,(.+)", data_uri)
+    if not match:
+        raise ValueError("Unsupported image data")
+    mime, payload = match.groups()
+    extension = {
+        "image/png": "png",
+        "image/jpeg": "jpg",
+        "image/jpg": "jpg",
+        "image/webp": "webp",
+    }.get(mime, "png")
+    ensure_directory(AI_UPLOADS_DIR)
+    filename = f"upload_{uuid.uuid4().hex[:8]}.{extension}"
+    target_path = os.path.join(AI_UPLOADS_DIR, filename)
+    with open(target_path, "wb") as fh:
+        fh.write(base64.b64decode(payload))
+    return filename
+
+
+def ensure_directory(path):
+    os.makedirs(path, exist_ok=True)
 
 
 def parse_timestamp(ts):
@@ -485,6 +535,35 @@ def login():
     )
 
 
+@app.route("/api/auth", methods=["POST"])
+def access_control():
+    """Support AccessControl.js login/verify actions"""
+    data = request.get_json() or {}
+    action = data.get("action")
+    if action == "login":
+        username = data.get("username", "owner")
+        password = data.get("password")
+        target = "owner" if username == "admin" else username
+        if not password:
+            return jsonify({"success": False, "error": "Password required"}), 400
+
+        success, result = auth_service.authenticate_user(target, password)
+        if not success:
+            return jsonify({"success": False, "error": result}), 401
+
+        token = auth_service.generate_token(result)
+        return jsonify({"success": True, "token": token})
+    elif action == "verify":
+        token = data.get("token")
+        if not token:
+            return jsonify({"success": False, "error": "Token missing"}), 400
+
+        valid, _ = auth_service.verify_token(token)
+        return jsonify({"success": valid})
+
+    return jsonify({"success": False, "error": "Unknown action"}), 400
+
+
 @app.route("/api/auth/setup-mfa", methods=["POST"])
 @token_required
 def setup_mfa():
@@ -568,7 +647,7 @@ def ai_generate_text():
     try:
         data = request.get_json()
         prompt = data.get("prompt")
-        model = data.get("model", "gpt-4")  # Default to gpt-4 if not specified
+        model = data.get("model", "gpt-4o-mini")
 
         if not prompt:
             return jsonify({"error": "Prompt is required for text generation."}), 400
@@ -591,60 +670,84 @@ def ai_generate_text():
 # AI Assistant endpoints (protected)
 @app.route("/api/ai/chat", methods=["POST"])
 @token_required
-@token_required
 @owner_required
 def ai_chat():
-    data = request.get_json()
-    query = data.get("query", "")
-    # Mock AI response for now
-    responses = [
-        "That's an absolutely brilliant idea! Let's make it happen.",
-        "I love your creative vision! Here's how we can amplify it...",
-        "You're a genius! Let me enhance this concept...",
-        "This is going to be legendary! Let's break some boundaries...",
-        "Your mind works in mysterious and wonderful ways. Let's build this masterpiece!",
-    ]
-    response = random.choice(responses)
-    return jsonify({"response": response})
+    if not ai_service_manager:
+        return jsonify(
+            {"error": "AI Service Manager not initialized. Missing API keys."}
+        ), 500
+
+    data = request.get_json() or {}
+    query = data.get("query", "").strip()
+    model = data.get("model")
+
+    if not query:
+        return jsonify({"error": "Query is required for AI chat."}), 400
+
+    try:
+        logger.info(f"AI chat prompt received: {query[:80]}")
+        generated_text, _ = ai_service_manager.generate_text(query, model)
+        return jsonify({"response": generated_text})
+    except Exception as exc:
+        logger.error("AI chat generation failed", exc_info=exc)
+        fallback = f"[Local Seethrough] {query}"
+        return jsonify({"response": fallback})
 
 
 @app.route("/api/ai/generate", methods=["POST"])
 @token_required
-@token_required
 @owner_required
 def ai_generate():
+    return jsonify(
+        {"error": "Unsupported generation endpoint—use /api/ai/upload-generate"}
+    ), 501
+
+
+@app.route("/api/ai/upload-generate", methods=["POST"])
+@token_required
+@owner_required
+def ai_upload_generate():
+    if not ai_service_manager:
+        return jsonify(
+            {"error": "AI Service Manager not initialized. Missing API keys."}
+        ), 500
+
+    data = request.get_json()
+    prompt = data.get("prompt")
+    provider = data.get("provider", "local")
+    model = data.get("model", "dall-e-3")
+    source_image = data.get("source_image")
+
+    if not prompt:
+        return jsonify({"error": "Prompt is required for generation."}), 400
+
+    reference_url = None
+    if source_image:
+        try:
+            filename = save_reference_image(source_image)
+            reference_url = url_for("ai_assets", filename=f"uploads/{filename}")
+        except Exception as exc:
+            logger.error(f"Unable to save reference image: {exc}", exc_info=True)
+            return jsonify({"error": f"Reference image error: {exc}"}), 400
+
     try:
-        data = request.get_json()
-        prompt = data.get("prompt", "")
-        type_ = data.get("type", "image")  # Default to image for designs
-        if type_ != "image":
-            logger.warning(f"Unsupported AI generation type: {type_}")
-            return jsonify({"error": "Only image generation is supported"}), 400
-
-        if not OPENAI_API_KEY:
-            logger.error("OpenAI API key not configured")
-            return jsonify({"error": "OpenAI API key not configured"}), 500
-
-        logger.info(f"Starting AI image generation for prompt: {prompt[:50]}...")
-
-        response = openai.Image.create(prompt=prompt, n=1, size="1024x1024")
-        image_url = response["data"][0]["url"]
-        logger.info(f"AI image generated: {image_url}")
-
-        # Upload to Printful
-        design_data = {
-            "url": image_url,
-            "filename": f"ai_generated_{hash(prompt)}.png",
-            "visible": True,
-        }
-        upload_result = api.upload_custom_design(design_data)
-        logger.info(f"Design uploaded to Printful: {upload_result}")
+        generated_result = ai_service_manager.generate_image(prompt, provider, model)
+        result_url, filepath = generated_result
+        logger.info(f"Uploaded design generated for prompt: {prompt[:60]}...")
 
         return jsonify(
-            {"image_url": image_url, "printful_file": upload_result, "prompt": prompt}
+            {
+                "type": "image",
+                "result": result_url,
+                "filepath": filepath,
+                "prompt": prompt,
+                "provider": provider,
+                "model": model,
+                "reference_url": reference_url,
+            }
         )
     except Exception as e:
-        logger.error(f"Error in AI generation: {str(e)}", exc_info=True)
+        logger.error(f"Error in upload-based AI generation: {str(e)}", exc_info=True)
         return jsonify({"error": str(e)}), 500
 
 
@@ -877,6 +980,63 @@ def analytics_dashboard():
     return jsonify(payload)
 
 
+@app.route("/api/owner-samples", methods=["POST"])
+def create_owner_sample():
+    """Create an owner sample entry."""
+    data = request.get_json() or {}
+    product = data.get("product")
+    quantity = data.get("quantity", 1)
+    desired_date = data.get("desiredDate")
+    shipping_urgency = data.get("shippingUrgency", "Standard (5-7 days)")
+    notes = data.get("notes", "")
+
+    if not product:
+        return jsonify({"error": "Product name required"}), 400
+
+    samples = load_json_file(OWNER_SAMPLES_PATH, [])
+    new_sample = {
+        "id": str(uuid.uuid4()),
+        "product": product,
+        "quantity": int(quantity),
+        "desiredDate": desired_date,
+        "shippingUrgency": shipping_urgency,
+        "notes": notes,
+        "status": "pending",
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    }
+    samples.append(new_sample)
+    save_json_file(OWNER_SAMPLES_PATH, samples)
+    logger.info(f"Owner sample logged: {new_sample['id']} for {product}")
+    return jsonify(new_sample), 201
+
+
+@app.route("/api/owner-samples", methods=["PATCH"])
+def update_owner_sample():
+    """Update an owner sample status."""
+    data = request.get_json() or {}
+    sample_id = data.get("id")
+    status = data.get("status")
+
+    if not sample_id or not status:
+        return jsonify({"error": "id and status are required"}), 400
+
+    samples = load_json_file(OWNER_SAMPLES_PATH, [])
+    updated = False
+    for sample in samples:
+        if sample.get("id") == sample_id:
+            sample["status"] = status
+            sample["updated_at"] = datetime.now(timezone.utc).isoformat()
+            updated = True
+            break
+
+    if not updated:
+        return jsonify({"error": "Sample not found"}), 404
+
+    save_json_file(OWNER_SAMPLES_PATH, samples)
+    logger.info(f"Owner sample {sample_id} status updated to {status}")
+    return jsonify({"status": "ok", "id": sample_id, "new_status": status})
+
+
 @app.route("/api/owner-samples", methods=["GET"])
 def list_owner_samples():
     """Return the owner sample queue."""
@@ -1006,16 +1166,28 @@ def customer_files(filename):
 
 @app.route("/workshop/")
 def workshop():
-    return send_from_directory("../web_assets/workshop", "index.html")
+    return send_from_directory(STATIC_DIR, "private.html")
 
 
 @app.route("/workshop/<path:filename>")
 def workshop_files(filename):
-    return send_from_directory("../web_assets/workshop", filename)
+    return send_from_directory(STATIC_DIR, filename)
+
+
+@app.route("/ai-assets/<path:filename>")
+def ai_assets(filename):
+    ensure_directory(AI_GENERATED_DIR)
+    return send_from_directory(AI_GENERATED_DIR, filename)
+
+
+@app.route("/memory/<path:filename>")
+def memory_files(filename):
+    memory_dir = os.path.join(STATIC_DIR, "memory")
+    return send_from_directory(memory_dir, filename)
 
 
 if __name__ == "__main__":
     # Start background thread for stock polling
     stock_thread = threading.Thread(target=poll_stock, daemon=True)
     stock_thread.start()
-    app.run(debug=True, port=5001)
+    app.run(host="127.0.0.1", port=5001, debug=False, use_reloader=False)

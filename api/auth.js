@@ -38,9 +38,9 @@ function verifyToken(token) {
     if (Date.now() > payloadData.exp) return null;
     
     return payloadData;
-  } catch (e) {
-    return null;
-  }
+    } catch (error) {
+        return null;
+    }
 }
 
 export default async function handler(req, res) {
@@ -80,8 +80,7 @@ export default async function handler(req, res) {
     }
 
     return res.status(400).json({ success: false, error: 'Invalid action' });
-  } catch (error) {
-    console.error('Auth error:', error);
+  } catch {
     return res.status(500).json({ success: false, error: 'Authentication failed' });
   }
 }

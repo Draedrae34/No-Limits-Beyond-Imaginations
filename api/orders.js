@@ -14,8 +14,8 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
-  try {
-    const { action, orderId } = req.query;
+    try {
+    const { orderId } = req.query;
 
     if (req.method === 'GET') {
       if (orderId) {

@@ -4,11 +4,15 @@
     "description": "Revolutionary AI-powered clothing brand with voice control, AR, and WebAuthn",
     "main": "index.html",
     "scripts": {
-        "dev": "vercel dev",
+        "dev": "node scripts/preview.js",
+        "dev:vercel": "vercel dev",
         "deploy": "vercel --prod",
         "lint": "eslint . --ext .js",
+        "ci-test": "npm run lint",
         "format": "prettier --write .",
-        "test-purchase": "node scripts/test-purchase.js"
+        "test-purchase": "node scripts/test-purchase.js",
+        "build:media-manifest": "node scripts/build_media_manifest.js",
+        "upload:media": "bash scripts/upload_to_r2.sh"
     },
     "keywords": [
         "ai",
@@ -20,10 +24,13 @@
     "author": "R&T's No Limitation Quantum AI",
     "license": "ISC",
     "dependencies": {
+        "@vercel/analytics": "^1.6.1",
         "cloudinary": "^2.9.0",
         "stripe": "^14.0.0"
     },
     "devDependencies": {
+        "eslint": "^10.0.0",
+        "inquirer": "^13.2.2",
         "vercel": "^33.0.0"
     },
     "engines": {

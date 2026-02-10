@@ -1,15 +1,46 @@
+const ACCESS_CONTROL_BACKEND_URL = window.NLBL_BACKEND_URL || "http://127.0.0.1:5001";
+const buildAccessUrl = (path) => `${ACCESS_CONTROL_BACKEND_URL}${path}`;
+
 // Access Control - Server-side authentication
 const AccessControl = {
     STORAGE_KEY: 'nlbl_auth_token',
-    
+
     hasPrivateAccess() {
         const token = localStorage.getItem(this.STORAGE_KEY);
         return !!token; // Check if token exists (verification happens server-side)
     },
-    
+
+    async checkAuth() {
+        const token = localStorage.getItem(this.STORAGE_KEY);
+        if (!token) return false;
+
+        try {
+            const response = await fetch(buildAccessUrl('/api/auth'), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    action: 'verify',
+                    token
+                })
+            });
+
+            if (!response.ok) {
+                return false;
+            }
+
+            const payload = await response.json();
+            return payload.success;
+        } catch (error) {
+            console.error('Auth verify error:', error);
+            return false;
+        }
+    },
+
     async authenticate(password) {
         try {
-            const response = await fetch('/api/auth', {
+            const response = await fetch(buildAccessUrl('/api/auth'), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -20,26 +51,26 @@ const AccessControl = {
                     password: password
                 })
             });
-            
+
             const data = await response.json();
-            
+
             if (data.success && data.token) {
                 localStorage.setItem(this.STORAGE_KEY, data.token);
                 return { success: true, message: 'Access granted' };
             }
-            
+
             return { success: false, message: data.error || 'Invalid credentials' };
         } catch (error) {
             console.error('Authentication error:', error);
             return { success: false, message: 'Authentication failed' };
         }
     },
-    
+
     logout() {
         localStorage.removeItem(this.STORAGE_KEY);
         window.location.href = 'index.html';
     },
-    
+
     requirePrivateAccess() {
         if (!this.hasPrivateAccess()) {
             sessionStorage.setItem('redirect_after_login', window.location.href);
@@ -48,8 +79,8 @@ const AccessControl = {
         }
         return true;
     },
-    
-    getNavItems(isPrivatePage = false) {
+
+    getNavItems() {
         // CUSTOMERS ONLY GET THESE - NOTHING ELSE
         const customerNavItems = [
             { href: 'index.html', label: '🏠 Home', private: false, icon: '🏠' },
@@ -59,7 +90,7 @@ const AccessControl = {
             { href: 'about.html', label: 'ℹ️ About', private: false, icon: 'ℹ️' },
             { href: '#contact', label: '✉️ Contact', private: false, icon: '✉️' },
         ];
-        
+
         // YOUR PRIVATE ACCESS - EVERYTHING
         const privateNavItems = [
             { href: 'private.html', label: '🔐 PRIVATE WORKSHOP', private: true, icon: '🔐' },
@@ -69,13 +100,13 @@ const AccessControl = {
             { href: 'design.html', label: '🎨 UNLIMITED DESIGN LAB', private: true, icon: '🎨' },
             { href: 'security.html', label: '🛡️ SECURITY CENTER', private: true, icon: '🛡️' },
         ];
-        
+
         if (this.hasPrivateAccess()) {
             return [...customerNavItems, ...privateNavItems];
         }
         return customerNavItems;
     },
-    
+
     showLoginModal() {
         const modal = document.createElement('div');
         modal.id = 'access-login-modal';
@@ -96,7 +127,7 @@ const AccessControl = {
                 </div>
             </div>
         `;
-        
+
         if (!document.getElementById('access-modal-styles')) {
             const styles = document.createElement('style');
             styles.id = 'access-modal-styles';
@@ -188,18 +219,23 @@ const AccessControl = {
             `;
             document.head.appendChild(styles);
         }
-        
+
         document.body.appendChild(modal);
-        
+
         const closeBtn = modal.querySelector('.close-modal');
         closeBtn.addEventListener('click', () => modal.remove());
-        
+
         const submitBtn = modal.querySelector('#submit-access');
         const passwordInput = modal.querySelector('#private-access-password');
         const messageDiv = modal.querySelector('#access-message');
-        
-        submitBtn.addEventListener('click', () => {
-            const result = this.authenticate(passwordInput.value);
+
+        submitBtn.addEventListener('click', async () => {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Accessing…';
+            const result = await AccessControl.authenticate(passwordInput.value);
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Access Private Area';
+
             if (result.success) {
                 messageDiv.textContent = result.message;
                 messageDiv.className = 'access-message success';
@@ -218,23 +254,23 @@ const AccessControl = {
                 messageDiv.className = 'access-message error';
             }
         });
-        
+
         passwordInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 submitBtn.click();
             }
         });
-        
+
         return modal;
     },
-    
+
     initNavigation() {
         const navList = document.querySelector('.quantum-nav ul');
         if (!navList) return;
-        
+
         const items = this.getNavItems();
         navList.innerHTML = '';
-        
+
         items.forEach(item => {
             const li = document.createElement('li');
             const a = document.createElement('a');
@@ -242,15 +278,15 @@ const AccessControl = {
             a.className = 'nav-link';
             a.setAttribute('data-glow', item.label.toLowerCase().replace(/\s+/g, '-'));
             a.textContent = item.label;
-            
+
             if (item.private) {
                 a.classList.add('private-nav-item');
             }
-            
+
             li.appendChild(a);
             navList.appendChild(li);
         });
-        
+
         if (this.hasPrivateAccess()) {
             const li = document.createElement('li');
             const a = document.createElement('a');
@@ -266,7 +302,7 @@ const AccessControl = {
             navList.appendChild(li);
         }
     },
-    
+
     showCustomerViewBanner() {
         const banner = document.createElement('div');
         banner.id = 'customer-view-banner';
@@ -278,7 +314,7 @@ const AccessControl = {
                 <button id="switch-to-private" class="switch-btn">Switch to Private View</button>
             </div>
         `;
-        
+
         if (!document.getElementById('customer-banner-styles')) {
             const styles = document.createElement('style');
             styles.id = 'customer-banner-styles';
@@ -323,17 +359,17 @@ const AccessControl = {
             `;
             document.head.appendChild(styles);
         }
-        
+
         document.body.appendChild(banner);
-        
+
         document.getElementById('switch-to-private').addEventListener('click', () => {
             this.showLoginModal();
         });
     },
-    
+
     init() {
         this.initNavigation();
-        
+
         document.querySelectorAll('.private-nav-item').forEach(link => {
             link.addEventListener('click', (e) => {
                 if (!this.hasPrivateAccess()) {

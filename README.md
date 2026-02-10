@@ -18,7 +18,10 @@ The storefront is a guided journey—opening greeting, story, brothers, honoring
    - `PRINTFUL_API_KEY`, `PRINTFUL_STORE_ID`
    - `SENDGRID_API_KEY` + `EMAIL_FROM`, `EMAIL_ADMIN` (optional)
    - `NODE_ENV=development`
-3. Run the dev server (not strictly necessary, but a great sanity check): `npm run dev` or open the HTML files in `public/` style directories.
+3. Upload media (remembrance, story, and clothing assets):
+   - Copy `env/r2_credentials.env.example` to `env/r2_credentials.env` and fill it with your Cloudflare R2 account ID, access key, secret, and bucket name.
+   - Run `npm run upload:media`. That helper syncs `remembrance/photos/`, `uploads/my-story/`, and `Clothing_Product/**/*` to R2, sets `MEDIA_BASE_URL`, and rebuilds the manifests for the remembrance and story pages.
+4. Run the dev server (not strictly necessary, but a great sanity check): `npm run dev` starts the bundled Node preview server on `http://localhost:3000`. If you need the full Vercel CLI experience, run `npm run dev:vercel` or `npx vercel dev`.
 4. Update `docs/WEBSITE_LINKS.md` or `data/catalog-metadata.json` before each catalog refresh so Printful can publish through `scripts/publish_catalog.py`.
 
 ## Deploying
@@ -54,5 +57,22 @@ Use `bash scripts/cleanup_deploy.sh` before deployment to archive large design d
 - `docs/WEBHOOK_SETUP.md` walks you through Stripe + Printful webhook URLs.
 - `docs/DEPLOYMENT_SETUP.md` explains the infrastructure (Vercel, Printful store, Stripe webhook settings).
 - `docs/REVOLUTIONARY_UPGRADES.md` holds ideas for future AI-driven merch drops.
+
+## CI & Secrets Guardrails
+
+- A GitHub Actions workflow (`.github/workflows/ci.yml`) now runs on every push/pull request to `main`. It installs dependencies, runs `npm run ci-test` (same as `npm run lint`), and optionally checks formatting (`npm run format -- --check`).
+- Configure the repo secrets (`STRIPE_SECRET_KEY`, `STRIPE_PUBLISHABLE_KEY`, `PRINTFUL_API_TOKEN`, `OPENAI_API_KEY`, etc.) through GitHub’s **Settings → Secrets & variables** so the action can access the keys without checking them into source control. Your “big dawg” directory can stay private on your machine; the CI reads the secrets instead.
+- Once CI passes, it becomes safe to hook this workflow into your deployment pipeline (Vercel, GitHub Pages, etc.) so the branch only deploys when the suite finishes cleanly.
+
+## Quick Sample Flow
+
+Need to check the backend flows fast? Run the helper script:
+
+```bash
+pip install -r requirements.txt
+python scripts/sample_flow.py --prompt "Purple nebula biker hoodie exploding with light"
+```
+
+It hits `/api/ai/generate`, logs a design through `/api/owner-samples`, and then polls `/api/analytics/dashboard` so you can see the resulting KPIs on the private analytics board. Keep `shop_app.py` running (default `http://127.0.0.1:5001`) with your Printful/Stripe/OpenAI secrets in the local `.env` file before running the script (these same secrets should live as GitHub repo secrets for CI/deployments).
 
 Need a refresh or want me to draft the deployment checklist into `docs/DEPLOYMENT_CHECKLIST.md` more verbosely? (Already updated here.)

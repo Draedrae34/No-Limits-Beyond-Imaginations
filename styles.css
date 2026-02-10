@@ -7,10 +7,44 @@
 
 body {
     font-family: Orbitron, Rajdhani, sans-serif;
-    background: #0c0c0c;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.08), transparent 40%),
+        radial-gradient(circle at 80% 10%, rgba(212, 94, 255, 0.15), transparent 35%),
+        linear-gradient(145deg, #04020a 0%, #05031b 40%, #10072f 100%);
     color: #0FF;
     overflow-x: hidden;
     line-height: 1.6;
+    position: relative;
+    min-height: 100vh;
+}
+
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+body::before {
+    background:
+        radial-gradient(circle at 35% 25%, rgba(126, 34, 255, 0.25), transparent 40%),
+        radial-gradient(circle at 60% 80%, rgba(255, 81, 230, 0.25), transparent 45%),
+        radial-gradient(circle at 10% 60%, rgba(0, 255, 216, 0.2), transparent 50%);
+    mix-blend-mode: screen;
+    opacity: 0.85;
+    animation: cosmicPulse 22s ease-in-out infinite;
+}
+
+body::after {
+    background-image:
+        radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, transparent 40%),
+        radial-gradient(circle, rgba(255, 255, 255, 0.35) 0%, transparent 60%);
+    background-size: 3px 3px, 4px 4px;
+    opacity: 0.7;
+    animation: starTwinkle 28s linear infinite;
+    filter: blur(0.5px);
 }
 
 canvas {
@@ -120,7 +154,50 @@ nav ul {
 /* Main Content */
 main {
     margin-top: 100px;
+    padding: 30px;
+    position: relative;
+    z-index: 1;
+}
+
+section,
+.panel-section,
+.design-container,
+.consciousness-display,
+.hologram-container,
+.shop-grid,
+.cosmic-card {
+    background: linear-gradient(115deg, rgba(10, 5, 25, 0.9), rgba(18, 8, 48, 0.8));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 22px;
+    box-shadow: 0 30px 80px rgba(7, 0, 18, 0.7), inset 0 0 30px rgba(255, 255, 255, 0.04);
     padding: 20px;
+    backdrop-filter: blur(12px);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+section:hover,
+.panel-section:hover,
+.cosmic-card:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 40px 120px rgba(120, 60, 255, 0.35), inset 0 0 40px rgba(255, 255, 255, 0.08);
+}
+
+.cosmic-card {
+    display: block;
+    margin-bottom: 20px;
+    border-radius: 28px;
+}
+
+@keyframes starTwinkle {
+    0% { background-position: 0 0, 0 0; }
+    50% { background-position: 400px 200px, -200px -100px; }
+    100% { background-position: 0 0, 0 0; }
+}
+
+@keyframes cosmicPulse {
+    0% { opacity: 0.7; }
+    50% { opacity: 1; }
+    100% { opacity: 0.75; }
 }
 
 .section-holographic, .section-quantum, .section-shop, .section-knowledge, .section-analytics {

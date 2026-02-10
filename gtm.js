@@ -816,7 +816,21 @@ function YH(a,b){var c=this;return f}YH.J="internal.enableAutoEventOnHistoryChan
 var $H=function(a,b){if(a.which===2||a.ctrlKey||a.shiftKey||a.altKey||a.metaKey)return!1;var c=ed(b,"href");if(c.indexOf(":")!==-1&&!ZH.some(function(h){return Lb(c,h)}))return!1;var d=c.indexOf("#"),e=ed(b,"target");if(e&&e!=="_self"&&e!=="_parent"&&e!=="_top"||d===0)return!1;if(d>0){var f=mj(pj(c)),g=mj(pj(w.location.href));return f!==g}return!0},aI=function(a,b){for(var c=jj(pj((b.attributes&&b.attributes.formaction?b.formAction:"")||b.action||ed(b,"href")||b.src||b.code||b.codebase||""),"host"),
 d=0;d<a.length;d++)try{if((new RegExp(a[d])).test(c))return!1}catch(e){}return!0},bI=function(){function a(c){var d=c.target;if(d&&c.which!==3&&!(c.C||c.timeStamp&&c.timeStamp===b)){b=c.timeStamp;d=Yc(d,["a","area"],100);if(!d)return c.returnValue;var e=c.defaultPrevented||c.returnValue===!1,f=mD("lcl",e?"nv.mwt":"mwt",0),g;g=e?mD("lcl","nv.ids",[]):mD("lcl","ids",[]);for(var h=[],l=0;l<g.length;l++){var n=g[l],p=mD("lcl","aff.map",{})[n];p&&!aI(p,d)||h.push(n)}if(h.length){var q=$H(c,d),r=rD(d,"gtm.linkClick",
 h);r["gtm.elementText"]=Wc(d);r["gtm.willOpenInNewWindow"]=!q;if(q&&!e&&f&&d.href){var u=!!vb(String(ed(d,"rel")||"").split(" "),function(y){return y.toLowerCase()==="noreferrer"}),t=w[(ed(d,"target")||"_self").substring(1)],v=!0,x=xB(function(){var y;if(y=v&&t){var z;a:if(u){var C;try{C=new MouseEvent(c.type,{bubbles:!0})}catch(E){if(!A.createEvent){z=!1;break a}C=A.createEvent("MouseEvents");C.initEvent(c.type,!0,!0)}C.C=!0;c.target.dispatchEvent(C);z=!0}else z=!1;y=!z}y&&(t.location.href=ed(d,
-"href"))},f);if(vB(r,x,f))v=!1;else return c.preventDefault&&c.preventDefault(),c.returnValue=!1}else vB(r,function(){},f||2E3);return!0}}}var b=0;Sc(A,"click",a,!1);Sc(A,"auxclick",a,!1)};
+"href"))},f);if(vB(r,x,f)┌──(aundrae㉿Drae)-[~/Silent-Spirits-Legacy]
+└─$ npm run deploy
+
+> no-limits-beyond-limitations@2.0.0 deploy
+> vercel --prod
+
+(node:3739884) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Vercel CLI 33.7.1
+🔍  Inspect: https://vercel.com/aundrae-giles-projects-cf414519/no-limits-beyond-limitations/Bi81Yf16kX3MxSDZ3PRXXKVuvYtk [3s]
+✅  Production: https://no-limits-beyond-limitations-3ysvhss71.vercel.app [3s]
+                                                                   
+┌──(aundrae㉿Drae)-[~/Silent-Spirits-Legacy]
+└─$ 
+)v=!1;else return c.preventDefault&&c.preventDefault(),c.returnValue=!1}else vB(r,function(){},f||2E3);return!0}}}var b=0;Sc(A,"click",a,!1);Sc(A,"auxclick",a,!1)};
 function cI(a,b){var c=this;if(!xh(a))throw H(this.getName(),["Object|undefined","any"],arguments);var d=B(a);fD([function(){J(c,"detect_link_click_events",d)}]);var e=d&&!!d.waitForTags,f=d&&!!d.checkValidation,g=d?d.affiliateDomains:void 0,h=lD(b);if(e){var l=Number(d.waitForTagsTimeout);l>0&&isFinite(l)||(l=2E3);var n=function(q){return Math.max(l,q)};qD("lcl","mwt",n,0);f||qD("lcl","nv.mwt",n,0)}var p=function(q){q.push(h);
 return q};qD("lcl","ids",p,[]);f||qD("lcl","nv.ids",p,[]);g&&qD("lcl","aff.map",function(q){q[h]=g;return q},{});mD("lcl","init",!1)||(bI(),nD("lcl","init",!0));return h}cI.J="internal.enableAutoEventOnLinkClick";var dI,eI;
 var fI=function(a){return mD("sdl",a,{})},gI=function(a,b,c){if(b){var d=Array.isArray(a)?a:[a];qD("sdl",c,function(e){for(var f=0;f<d.length;f++){var g=String(d[f]);e.hasOwnProperty(g)||(e[g]=[]);e[g].push(b)}return e},{})}},jI=function(){function a(){hI();iI(a,!0)}return a},kI=function(){function a(){f?e=w.setTimeout(a,c):(e=0,hI(),iI(b));f=!1}function b(){d&&dI();e?f=!0:(e=w.setTimeout(a,c),nD("sdl","pending",!0))}var c=250,d=!1;A.scrollingElement&&A.documentElement&&(c=50,d=!0);var e=0,f=!1;return b},

@@ -1,5 +1,4 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const crypto = require('crypto');
 const orderStore = require('../lib/order-store');
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
