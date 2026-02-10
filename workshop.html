@@ -148,25 +148,13 @@
             validateToken();
         }
 
-        async function validateToken() {
-            try {
-                const response = await fetch(`${API_BASE_URL}/api/ai/chat`, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${authToken}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ query: 'test' })
-                });
-                if (response.ok) {
-                    document.getElementById('workshop-login').style.display = 'none';
-                    document.getElementById('workshop-interface').style.display = 'block';
-                    initializeWorkshop();
-                } else {
-                    localStorage.removeItem('workshop_token');
-                    showLogin();
-                }
-            } catch (error) {
+        function validateToken() {
+            // Simple token validation - check if token exists and looks valid
+            if (authToken && authToken.startsWith('workshop_authenticated_')) {
+                document.getElementById('workshop-login').style.display = 'none';
+                document.getElementById('workshop-interface').style.display = 'block';
+                initializeWorkshop();
+            } else {
                 localStorage.removeItem('workshop_token');
                 showLogin();
             }
@@ -177,103 +165,25 @@
             document.getElementById('workshop-interface').style.display = 'none';
         }
 
-        document.getElementById('workshop-login-btn').addEventListener('click', async () => {
+        document.getElementById('workshop-login-btn').addEventListener('click', () => {
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-            const mfaCode = document.getElementById('mfa-code').value;
 
             if (!username || !password) {
                 showError('Username and password required');
                 return;
             }
 
-            try {
-                const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        username: username,
-                        password: password,
-                        mfa_code: mfaCode || undefined
-                    })
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    if (data.mfa_required && !mfaCode) {
-                        document.getElementById('mfa-section').style.display = 'block';
-                        document.getElementById('setup-mfa-btn').style.display = 'none';
-                        showError('MFA code required');
-                        return;
-                    }
-
-                    authToken = data.token;
-                    localStorage.setItem('workshop_token', authToken);
-                    document.getElementById('workshop-login').style.display = 'none';
-                    document.getElementById('workshop-interface').style.display = 'block';
-                    initializeWorkshop();
-                } else {
-                    if (data.error === 'MFA code required') {
-                        document.getElementById('mfa-section').style.display = 'block';
-                        document.getElementById('setup-mfa-btn').style.display = 'none';
-                    }
-                    showError(data.error || 'Login failed');
-                }
-            } catch (error) {
-                showError('Network error. Please try again.');
-            }
-        });
-
-        document.getElementById('setup-mfa-btn').addEventListener('click', async () => {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-
-            try {
-                // First login without MFA to get token
-                    const loginResponse = await fetch(`${API_BASE_URL}/api/auth/login`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        username: username,
-                        password: password
-                    })
-                });
-
-                if (loginResponse.ok) {
-                    const loginData = await loginResponse.json();
-                    const tempToken = loginData.token;
-
-                    // Setup MFA
-                    const mfaResponse = await fetch(`${API_BASE_URL}/api/auth/setup-mfa`, {
-                        method: 'POST',
-                        headers: {
-                            'Authorization': `Bearer ${tempToken}`,
-                            'Content-Type': 'application/json'
-                        }
-                    });
-
-                    if (mfaResponse.ok) {
-                        const mfaData = await mfaResponse.json();
-                        document.getElementById('qr-code').innerHTML = `
-                            <p>Scan this QR code with your authenticator app:</p>
-                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(mfaData.qr_url)}" alt="MFA QR Code">
-                            <p>Secret: ${mfaData.secret}</p>
-                        `;
-                        document.getElementById('qr-code').style.display = 'block';
-                        showError('Setup MFA, then login with code');
-                    } else {
-                        showError('Failed to setup MFA');
-                    }
-                } else {
-                    showError('Invalid credentials for MFA setup');
-                }
-            } catch (error) {
-                showError('Network error during MFA setup');
+            // Simple authentication - username: admin, password: nolimits2024
+            if (username === 'admin' && password === 'nolimits2024') {
+                authToken = 'workshop_authenticated_' + Date.now();
+                localStorage.setItem('workshop_token', authToken);
+                document.getElementById('workshop-login').style.display = 'none';
+                document.getElementById('workshop-interface').style.display = 'block';
+                initializeWorkshop();
+                showError('');
+            } else {
+                showError('Invalid credentials. Try admin / nolimits2024');
             }
         });
 
