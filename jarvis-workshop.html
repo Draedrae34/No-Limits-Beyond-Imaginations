@@ -851,18 +851,15 @@
 
             async getCurrentData() {
                 try {
-                    const [salesResponse, trafficResponse] = await Promise.all([
-                        fetch(`${this.apiBase}/api/analytics/sales`),
-                        fetch(`${this.apiBase}/api/analytics/traffic`)
-                    ]);
-                    
-                    const sales = salesResponse.ok ? await salesResponse.json() : {};
-                    const traffic = trafficResponse.ok ? await trafficResponse.json() : {};
+                    const response = await fetch(`${this.apiBase}/api/simple-analytics`);
+                    const data = response.ok ? await response.json() : {};
                     
                     return {
-                        sales,
-                        traffic,
-                        conversionRate: traffic.totalVisitors > 0 ? ((sales.totalOrders || 0) / traffic.totalVisitors * 100).toFixed(1) : 0
+                        sales: data.sales || {},
+                        traffic: data.traffic || {},
+                        printful: data.printful || {},
+                        conversionRate: data.traffic?.totalVisitors > 0 ? 
+                            ((data.sales?.totalOrders || 0) / data.traffic.totalVisitors * 100).toFixed(1) : 0
                     };
                 } catch (error) {
                     return {};
@@ -887,19 +884,15 @@
 
             async fetchRealData() {
                 try {
-                    // Fetch real Stripe sales data
-                    const stripeResponse = await fetch(`${this.apiBase}/api/analytics/sales`);
-                    const salesData = stripeResponse.ok ? await stripeResponse.json() : this.getMockSalesData();
+                    // Fetch unified analytics data
+                    const response = await fetch(`${this.apiBase}/api/simple-analytics`);
+                    const data = response.ok ? await response.json() : null;
                     
-                    // Fetch real Printful orders
-                    const printfulResponse = await fetch(`${this.apiBase}/api/printful/analytics`);
-                    const printfulData = printfulResponse.ok ? await printfulResponse.json() : this.getMockPrintfulData();
-                    
-                    // Fetch Google Analytics data
-                    const gaResponse = await fetch(`${this.apiBase}/api/analytics/traffic`);
-                    const gaData = gaResponse.ok ? await gaResponse.json() : this.getMockGAData();
-                    
-                    this.updateRealMetrics(salesData, printfulData, gaData);
+                    if (data) {
+                        this.updateRealMetrics(data.sales, data.printful, data.traffic);
+                    } else {
+                        this.updateWithFallbackData();
+                    }
                 } catch (error) {
                     console.log('Using fallback data - APIs not ready yet');
                     this.updateWithFallbackData();
