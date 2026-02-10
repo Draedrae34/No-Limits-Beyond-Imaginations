@@ -24,12 +24,13 @@
             property="og:description"
             content="A revolutionary clothing brand where legends never die. R.J. & T-Mainney live forever through every design."
         />
-        <meta property="og:image" content="Logo/logo.png" />
+        <meta property="og:image" content="Logo/Greeting_Logo.png" />
         <link rel="manifest" href="manifest.json" />
         <title>
             No Limits Beyond Limitations | Into My Wildest Imagination
         </title>
         <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+        <link rel="stylesheet" href="portal-overlay.css" />
         <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
         <script>
             window.vercelInsights = window.vercelInsights || [];
@@ -183,14 +184,28 @@
             .logo-wallpaper {
                 position: absolute;
                 inset: 0;
-                background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.35), transparent 45%), linear-gradient(120deg, rgba(17, 6, 46, 0.85), rgba(30, 8, 60, 0.75)), url('Logo/logo.png');
+                background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.35), transparent 45%), linear-gradient(120deg, rgba(17, 6, 46, 0.85), rgba(30, 8, 60, 0.75)), url('Logo/Greeting_Logo.png');
                 background-size: cover;
                 background-position: center;
                 opacity: 0.25;
-                filter: grayscale(0.6) blur(14px);
+                filter: grayscale(0.6) blur(15px);
                 transition: opacity 2s ease, filter 2s ease;
                 z-index: -1;
                 mix-blend-mode: screen;
+            }
+
+            .greeting-overlay::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background:
+                    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.15), transparent 45%),
+                    radial-gradient(circle at 75% 40%, rgba(255, 102, 255, 0.35), transparent 50%),
+                    radial-gradient(circle at 50% 65%, rgba(248, 113, 173, 0.25), transparent 55%);
+                mix-blend-mode: screen;
+                opacity: 0.75;
+                pointer-events: none;
+                animation: auroraGlow 12s ease-in-out infinite;
             }
 
             .portal-layer {
@@ -336,7 +351,7 @@
                 background-image:
                     radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.35), transparent 45%),
                     linear-gradient(120deg, rgba(17, 6, 46, 0.9), rgba(30, 8, 60, 0.85)),
-                    var(--logo-wall);
+                    url('Logo/Greeting_Logo.png');
                 background-size: cover, cover, cover;
                 background-position: center;
                 opacity: 0.38;
@@ -481,11 +496,12 @@
             .logo-ghost {
                 position: absolute;
                 inset: 0;
-                background-image: url("Logo/logo.png");
+                background-image: url("Logo/Greeting_Logo.png");
                 background-size: 125%;
                 background-position: center;
                 background-attachment: fixed;
-                opacity: 0.06;
+                opacity: 0.12;
+                mix-blend-mode: screen;
                 filter: brightness(0.2) blur(1px);
                 transition: opacity 0.8s ease, filter 0.8s ease;
                 z-index: 0;
@@ -761,6 +777,49 @@
                 opacity: 1;
             }
 
+            .voice-hud {
+                position: absolute;
+                top: 18px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 9;
+                padding: 10px 14px;
+                border-radius: 999px;
+                border: 1px solid rgba(255, 255, 255, 0.25);
+                background: rgba(10, 10, 20, 0.55);
+                backdrop-filter: blur(10px);
+                font-family: "Orbitron", sans-serif;
+                font-size: 0.72rem;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                color: rgba(255, 255, 255, 0.9);
+                box-shadow: 0 0 24px rgba(168, 85, 247, 0.35);
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.4s ease, transform 0.4s ease;
+                animation: hudPulse 1.8s ease-in-out infinite;
+            }
+
+            .voice-hud.visible {
+                opacity: 1;
+            }
+
+            .voice-hud.hidden {
+                opacity: 0;
+            }
+
+            @keyframes hudPulse {
+                0% {
+                    box-shadow: 0 0 18px rgba(168, 85, 247, 0.25);
+                }
+                50% {
+                    box-shadow: 0 0 38px rgba(236, 72, 153, 0.35);
+                }
+                100% {
+                    box-shadow: 0 0 18px rgba(168, 85, 247, 0.25);
+                }
+            }
+
             .enter-btn {
                 margin-top: 40px;
                 background: linear-gradient(
@@ -944,6 +1003,49 @@
                 border-color: #ec4899;
                 box-shadow: 0 0 20px rgba(236, 72, 153, 0.7);
                 transform: translateY(-4px);
+            }
+
+            .mission-alert .rose-launch {
+                width: 86px;
+                height: 86px;
+                border-radius: 50%;
+                border: 2px solid rgba(168, 85, 247, 0.6);
+                background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.35), rgba(168, 85, 247, 0.2) 40%, rgba(15, 23, 42, 0.95) 75%);
+                color: rgba(255, 255, 255, 0.92);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: "Orbitron", sans-serif;
+                font-size: 0.7rem;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+                cursor: pointer;
+                transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+                opacity: 0.35;
+                filter: grayscale(0.6);
+            }
+
+            .mission-alert .rose-launch.armed {
+                opacity: 1;
+                filter: none;
+                box-shadow: 0 0 30px rgba(168, 85, 247, 0.7), 0 0 60px rgba(236, 72, 153, 0.45);
+                animation: rosePulse 1.1s ease-in-out infinite;
+            }
+
+            .mission-alert .rose-launch.armed:hover {
+                transform: translateY(-5px) scale(1.04);
+            }
+
+            @keyframes rosePulse {
+                0% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.06);
+                }
+                100% {
+                    transform: scale(1);
+                }
             }
 
             .mission-alert .alert-countdown {
@@ -1809,6 +1911,7 @@
                 <span class="aurora-orb orb-two"></span>
                 <span class="aurora-orb orb-three"></span>
             </div>
+            <div class="voice-hud" id="voice-hud">Tap to enable onboard voice + engine audio</div>
             <div class="logo-wallpaper" id="logo-wallpaper"></div>
             <div class="logo-ghost" id="logo-ghost"></div>
             <div class="plasma-effect" id="plasma-effect"></div>
@@ -1838,6 +1941,7 @@
                     <button class="dog-tag" data-tag="RJ">R.J. Dog Tag</button>
                     <button class="dog-tag" data-tag="TM">T-Mainney Dog Tag</button>
                 </div>
+                <button class="rose-launch" id="rose-launch" type="button">Purple Rose</button>
                 <div class="alert-countdown" id="alert-countdown">5</div>
             </div>
             <div class="legacy-status" id="legacy-status">Phasing neon rose energy...</div>
@@ -1853,22 +1957,21 @@
         <!-- Floating Particles -->
         <div id="particles"></div>
 
+        <script defer src="portal-transition.js"></script>
+
         <!-- Header -->
         <header class="site-header" id="site-header" style="opacity: 0">
             <a href="index.html" class="header-logo">
-                <img src="Logo/logo.png" alt="N.L.BL.IT.M.W.I" />
+                <img src="Logo/Greeting_Logo.png" alt="N.L.BL.IT.M.W.I" />
                 <div class="header-logo-text">
                     N.L.BL.IT.M.W.I
                     <span>No Limits Beyond Limitations</span>
                 </div>
             </a>
             <nav class="main-nav">
-                <a href="shop.html" class="nav-link">🛒 Shop</a>
-                <a href="message-wall.html" class="nav-link">💌 Wall</a>
-                <a href="remembrance.html" class="nav-link special"
-                    >💜 Brothers</a
+                <a href="story-remembrance.html" class="nav-link special"
+                    >🚀 Begin Journey</a
                 >
-                <a href="about.html" class="nav-link">ℹ️ About</a>
             </nav>
         </header>
 
@@ -1877,7 +1980,7 @@
             <!-- Hero Section -->
             <section class="hero-section journey-section">
                 <img
-                    src="Logo/logo.png"
+                    src="Logo/Greeting_Logo.png"
                     alt="No Limits Beyond Limitations Into My Wildest Imagination"
                     class="hero-logo"
                 />
@@ -1894,14 +1997,8 @@
                     <span class="highlight">no limits</span>.
                 </p>
                 <div class="cta-container">
-                    <a href="shop.html" class="cta-btn primary"
-                        >🛒 Shop Collection</a
-                    >
-                    <a href="message-wall.html" class="cta-btn secondary"
-                        >💌 Message Wall</a
-                    >
-                    <a href="remembrance.html" class="cta-btn remembrance"
-                        >💜 Honor R.J. & T-Mainney</a
+                    <a href="story-remembrance.html" class="cta-btn primary"
+                        >🚀 Start the Journey</a
                     >
                 </div>
             </section>
@@ -1919,7 +2016,7 @@
                 </div>
                 <div class="grand-opening-actions">
                     <span class="grand-opening-code">Use code <strong>LABLAUNCH</strong> at checkout</span>
-                    <a href="shop.html" class="grand-opening-cta">Shop the drop</a>
+                    <a href="story-remembrance.html" class="grand-opening-cta">Begin the journey</a>
                 </div>
             </div>
 
@@ -1943,8 +2040,8 @@
                             Our designs aren't mass-produced — they're created
                             with soul, printed on demand just for you.
                         </p>
-                        <a href="shop.html" class="feature-link"
-                            >Browse Collection →</a
+                        <a href="story-remembrance.html" class="feature-link"
+                            >Begin Journey →</a
                         >
                     </div>
 
@@ -1956,8 +2053,8 @@
                             memorial wall so R.J. and T-Mainney can live forever
                             through the stories you share.
                         </p>
-                        <a href="message-wall.html" class="feature-link"
-                            >Add to the Wall →</a
+                        <a href="story-remembrance.html" class="feature-link"
+                            >Begin Journey →</a
                         >
                     </div>
 
@@ -1965,12 +2062,12 @@
                         <div class="feature-icon">💜</div>
                         <h3 class="feature-title">A Living Memorial</h3>
                         <p class="feature-description">
-                            This brand exists to honor R.J. and T-Mainney. Visit
+                            Learn about the brothers behind the legacy. Visit
                             the Brothers Remembrance page to learn their stories
                             and even leave a message on the memorial wall.
                         </p>
-                        <a href="remembrance.html" class="feature-link"
-                            >Visit Memorial →</a
+                        <a href="story-remembrance.html" class="feature-link"
+                            >Begin Journey →</a
                         >
                     </div>
 
@@ -1983,8 +2080,8 @@
                             incredible legacies. You show the world that love
                             never dies.
                         </p>
-                        <a href="about.html" class="feature-link"
-                            >Our Story →</a
+                        <a href="story-remembrance.html" class="feature-link"
+                            >Begin Journey →</a
                         >
                     </div>
                 </div>
@@ -2008,19 +2105,18 @@
             <!-- Footer -->
             <footer class="site-footer">
                 <img
-                    src="Logo/logo.png"
+                    src="Logo/Greeting_Logo.png"
                     alt="N.L.BL.IT.M.W.I"
                     class="footer-logo"
                 />
                 <p class="footer-brand">No Limits Beyond Limitations</p>
                 <p class="footer-tagline">Into My Wildest Imagination</p>
                 <div class="footer-links">
-                    <a href="shop.html">Shop</a>
-                    <a href="design.html">Custom Design</a>
-                    <a href="remembrance.html">Brothers Memorial</a>
-                    <a href="message-wall.html">Message Wall</a>
-                    <a href="about.html">About Us</a>
+                    <a href="story-remembrance.html">Begin Journey</a>
                 </div>
+                <p class="footer-dedication">
+                    Dedicated to R.J. &amp; T-Mainney — forever in our hearts.
+                </p>
                 <p class="footer-dedication">
                     In loving memory of
                     <span class="names">R.J. (Ricky James III)</span> and
@@ -2062,7 +2158,9 @@ This is the Legacy.`;
             const countdownDisplay = document.getElementById("alert-countdown");
             const warningPrompt = document.getElementById("alert-prompt");
             const dogTagButtons = document.querySelectorAll(".dog-tag");
+            const roseLaunchBtn = document.getElementById("rose-launch");
             const legacyStatus = document.getElementById("legacy-status");
+            const voiceHud = document.getElementById("voice-hud");
             let voiceSynth;
             let selectedVoice;
             let voiceUtterance;
@@ -2090,6 +2188,8 @@ This is the Legacy.`;
             let missionTriggered = false;
             let countdownInterval;
             let dogTagState = { RJ: false, TM: false };
+            let roseArmed = false;
+            let countdownStarted = false;
             const storyPageUrl = "story-remembrance.html";
             const legacyMessages = {
                 init: "Legacy voice calibrating neon rose cathedral...",
@@ -2139,6 +2239,8 @@ This is the Legacy.`;
                 if (!missionAlert) return;
                 warningPrompt.textContent =
                     "AVL core stabilized — dog tags merged. Countdown re-syncing.";
+                roseArmed = true;
+                roseLaunchBtn?.classList.add("armed");
                 if (countdownValue > 3) {
                     countdownValue = 3;
                     updateCountdownDisplay(countdownValue);
@@ -2147,6 +2249,8 @@ This is the Legacy.`;
 
             const startMissionCountdown = () => {
                 if (!missionAlert) return;
+                if (countdownStarted) return;
+                countdownStarted = true;
                 countdownValue = 5;
                 updateLegacyStatusText(5);
                 updateCountdownDisplay(countdownValue);
@@ -2174,11 +2278,28 @@ This is the Legacy.`;
                 portalLayer?.classList.add("active");
                 startLightningStorm();
                 warningPrompt.textContent =
-                    "MAYDAY! Holographic trains destabilized. Dog tags ready the insertion key.";
+                    "Emergency alert: cockpit destabilizing. Tap both dog tags to lock into the bulletbike rocket train.";
+                updateLegacyStatusText(5);
+                updateCountdownDisplay(5);
+                dogTagState = { RJ: false, TM: false };
+                roseArmed = false;
+                countdownStarted = false;
+                roseLaunchBtn?.classList.remove("armed");
                 missionAlert.querySelectorAll(".dog-tag").forEach((tag) => {
                     tag.classList.remove("ready");
                 });
-                startMissionCountdown();
+                if (experienceStarted && voiceSynth) {
+                    const alert = new SpeechSynthesisUtterance(
+                        "Mayday. Red alert. The craft is destabilizing. Get into the motor bullet train now. Tap both dog tags, then ignite the purple rose to space jump."
+                    );
+                    alert.pitch = 0.9;
+                    alert.rate = 1.02;
+                    if (selectedVoice) alert.voice = selectedVoice;
+                    try {
+                        voiceSynth.cancel();
+                    } catch {}
+                    voiceSynth.speak(alert);
+                }
             };
 
             const launchStory = () => {
@@ -2187,8 +2308,12 @@ This is the Legacy.`;
                 }
                 enterSite(true);
                 setTimeout(() => {
-                    window.location.href = storyPageUrl;
-                }, 1600);
+                    if (window.portalTransition && typeof window.portalTransition.navigateTo === "function") {
+                        window.portalTransition.navigateTo(storyPageUrl);
+                    } else {
+                        window.location.href = storyPageUrl;
+                    }
+                }, 220);
             };
 
             const handleDogTagToggle = (tagKey, button) => {
@@ -2198,6 +2323,18 @@ This is the Legacy.`;
                     accelerateMission();
                 }
             };
+
+            roseLaunchBtn?.addEventListener("click", () => {
+                if (!missionTriggered) return;
+                if (!roseArmed) {
+                    warningPrompt.textContent =
+                        "Dog tags not locked yet — tap both tags to stabilize the bulletbike rocket train.";
+                    return;
+                }
+                warningPrompt.textContent =
+                    "Purple rose ignition confirmed — brace for space jump.";
+                startMissionCountdown();
+            });
 
             dogTagButtons.forEach((btn) => {
                 const tagKey = btn.dataset.tag;
@@ -2521,6 +2658,7 @@ This is the Legacy.`;
             const startExperience = () => {
                 if (experienceStarted) return;
                 experienceStarted = true;
+                voiceHud?.classList.add("hidden");
                 prepareVoice();
                 startAmbientAudio();
                 if (voiceSynth) {
@@ -2541,6 +2679,7 @@ This is the Legacy.`;
                 prepareVoice();
                 resizeParticlesCanvas();
                 setTimeout(typeWriter, 1200);
+                voiceHud?.classList.add("visible");
             });
 
             // Create floating particles

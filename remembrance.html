@@ -906,7 +906,7 @@
     <!-- Silence Overlay - Shows first -->
     <div class="silence-overlay" id="silence-overlay">
         <p class="silence-message">Take a moment of silence...</p>
-        <p class="silence-subtitle">In Loving Memory</p>
+        <p class="silence-subtitle">In Loving Memory for R.J. &amp; T-Mainney</p>
     </div>
 
     <!-- Ambient Overlay for Music -->
@@ -921,13 +921,14 @@
     <div id="particles"></div>
 
     <!-- Navigation -->
-    <a href="index.html" class="nav-back">← Return Home</a>
+    <a href="story-remembrance.html" class="nav-back">← Back to My Story</a>
 
     <!-- Memorial Header -->
     <header class="memorial-header">
         <h1 class="memorial-title">Forever In Our Hearts</h1>
-        <h2 class="memorial-names">R.J. & T-Mainney</h2>
         <p class="memorial-subtitle">Brothers by Bond, Legends by Legacy</p>
+
+        <p class="memorial-subtitle" style="margin-top: 10px; opacity: 0.9;">In Loving Memory for R.J. &amp; T-Mainney</p>
 
         <div class="dog-tags">
             <div class="dog-tag">R.I.P. R.J.<br><small>R</small>icky James III</small></div>
@@ -973,14 +974,14 @@
 
     <!-- Logo Tribute -->
     <section class="logo-tribute">
-        <img src="Logo/logo.png" alt="N.L.BL.IT.M.W.I - In Memory of R.J. and T-Mainney" class="tribute-logo">
+        <img src="Logo/Greeting_Logo.png" alt="N.L.BL.IT.M.W.I - In Memory of R.J. and T-Mainney" class="tribute-logo">
     </section>
 
     <!-- Dedication Video/Song Section -->
     <section class="dedication-video-section">
         <h2 class="section-title">The Dedication</h2>
         <div class="dedication-video-container">
-            <video class="dedication-video" id="dedication-video" controls poster="Logo/logo.png">
+            <video class="dedication-video" id="dedication-video" controls poster="Logo/Greeting_Logo.png">
                 <source src="Brothers_Pics_Remembrance/RPReplay_Final1747745145.mp4" type="video/mp4">
                 <source src="Brothers_Pics_Remembrance/FE877D1B-9A73-44ED-B150-B64557584C6A.mov" type="video/quicktime">
                 Your browser does not support the video tag.
@@ -1187,8 +1188,8 @@
     <div class="music-player" id="music-player" style="display: none;">
         <button class="music-btn" id="music-toggle">▶</button>
         <div class="music-info">
-            <div class="music-title">Ambient Remembrance</div>
-            <div class="music-subtitle">Background Music</div>
+            <div class="music-title">Dedicated Song</div>
+            <div class="music-subtitle">For R.J. &amp; T-Mainney</div>
         </div>
         <div class="music-visualizer" id="visualizer">
             <div class="visualizer-bar" style="height: 10px;"></div>
@@ -1200,9 +1201,7 @@
         <div class="music-progress" id="music-progress">
             <div class="music-progress-fill" id="music-progress-fill"></div>
         </div>
-        <audio id="ambient-audio" loop>
-            <source src="Music_Covers/Nothing But A Ghost 3 (FINAL AUDIT) By Aundrae Giles.mp3" type="audio/mpeg">
-        </audio>
+        <video id="dedicated-song" preload="auto" playsinline style="display:none; width:0; height:0; opacity:0; position:absolute; left:-9999px;"></video>
     </div>
 
     <script>
@@ -1210,53 +1209,17 @@
         // BROTHERS REMEMBRANCE - COMPLETE JAVASCRIPT
         // ============================================
 
-        // All 185 photos from the Brothers_Pics_Remembrance folder
-        const photos = [
-            'IMG_1320.JPG', 'IMG_1321(1).PNG', 'IMG_1322.JPG', 'IMG_1323.JPG', 'IMG_1324.JPG',
-            'IMG_1325.JPG', 'IMG_1326.JPG', 'IMG_1327.JPG', 'IMG_1328.JPG', 'IMG_1329.JPG',
-            'IMG_1330.JPG', 'IMG_1331.JPG', 'IMG_1332.JPG', 'IMG_1333.JPG', 'IMG_1334.JPG',
-            'IMG_1335.JPG', 'IMG_1336(1).PNG', 'IMG_1336.PNG', 'IMG_1337.JPG', 'IMG_1338.JPG',
-            'IMG_1339.JPG', 'IMG_1340.JPG', 'IMG_1341.JPG', 'IMG_1342(1).JPG', 'IMG_1342.JPG',
-            'IMG_1343.JPG', 'IMG_1344.JPG', 'IMG_1345.JPG', 'IMG_1346.JPG', 'IMG_1347.JPG',
-            'IMG_1348(1).PNG', 'IMG_1348.PNG', 'IMG_1349.JPG', 'IMG_1350.JPG', 'IMG_1351.JPG',
-            'IMG_1352.JPG', 'IMG_1353.JPG', 'IMG_1354.JPG', 'IMG_1355.JPG', 'IMG_1356.JPG',
-            'IMG_1357.JPG', 'IMG_1358.JPG', 'IMG_1359.JPG', 'IMG_1360.JPG', 'IMG_1361.JPG',
-            'IMG_1362.JPG', 'IMG_1363.JPG', 'IMG_1364.JPG', 'IMG_1365.JPG', 'IMG_1366.JPG',
-            'IMG_1367.JPG', 'IMG_1368.JPG', 'IMG_1369.JPG', 'IMG_1370.JPG', 'IMG_1371.JPG',
-            'IMG_1372.JPG', 'IMG_1373.JPG', 'IMG_1374.JPG', 'IMG_1375.JPG', 'IMG_1376.JPG',
-            'IMG_1377.JPG', 'IMG_1378.JPG', 'IMG_1379.JPG', 'IMG_1380.JPG', 'IMG_1382.JPG',
-            'IMG_1383.JPG', 'IMG_1384.JPG', 'IMG_1385.JPG', 'IMG_1386.JPG', 'IMG_1387.JPG',
-            'IMG_1389.JPG', 'IMG_1393.JPG', 'IMG_1394.JPG', 'IMG_1395.JPG', 'IMG_1396.JPG',
-            'IMG_1397(1).PNG', 'IMG_1397.PNG', 'IMG_1398.JPG', 'IMG_1399.JPG', 'IMG_1400.JPG',
-            'IMG_1401.JPG', 'IMG_1402.JPG', 'IMG_1403.JPG', 'IMG_1404.JPG', 'IMG_1405.JPG',
-            'IMG_1406.JPG', 'IMG_1407.JPG', 'IMG_1408.JPG', 'IMG_1409.JPG', 'IMG_1410.JPG',
-            'IMG_1411.JPG', 'IMG_1412.JPG', 'IMG_1413.JPG', 'IMG_1414.JPG', 'IMG_1415.JPG',
-            'IMG_1416.JPG', 'IMG_1417.JPG', 'IMG_1418.JPG', 'IMG_1419(1).PNG', 'IMG_1419.PNG',
-            'IMG_1420(1).JPG', 'IMG_1420.JPG', 'IMG_1421.JPG', 'IMG_1422.JPG', 'IMG_1423.JPG',
-            'IMG_1424.JPG', 'IMG_1425.JPG', 'IMG_1426.JPG', 'IMG_1427.JPG', 'IMG_1428.JPG',
-            'IMG_1429.JPG', 'IMG_1430.JPG', 'IMG_1431.JPG', 'IMG_1432.JPG', 'IMG_1433.JPG',
-            'IMG_1434.JPG', 'IMG_1435.JPG', 'IMG_1436.JPG', 'IMG_1437.JPG', 'IMG_1438.JPG',
-            'IMG_1439.JPG', 'IMG_1440.JPG', 'IMG_1441.JPG', 'IMG_1442.JPG', 'IMG_1444.JPG',
-            'IMG_1445.JPG', 'IMG_1446.JPG', 'IMG_1447.JPG', 'IMG_1448.JPG', 'IMG_1449.JPG',
-            'IMG_1455.JPG', 'IMG_1456.JPG', 'IMG_1457.JPG', 'IMG_1458.JPG', 'IMG_1459.JPG',
-            'IMG_1460.JPG', 'IMG_1461.JPG', 'IMG_1462(1).PNG', 'IMG_1462.PNG', 'IMG_1463(1).PNG',
-            'IMG_1463.PNG', 'IMG_1464.JPG', 'IMG_1465.JPG', 'IMG_1466.JPG', 'IMG_1467(1).JPG',
-            'IMG_1467.JPG', 'IMG_1468.JPG', 'IMG_1469.JPG', 'IMG_1470.JPG', 'IMG_1471.JPG',
-            'IMG_1472.JPG', 'IMG_1473.JPG', 'IMG_1474.JPG', 'IMG_1475.JPG', 'IMG_1476.JPG',
-            'IMG_1477.JPG', 'IMG_1478.JPG', 'IMG_1479.JPG', 'IMG_1480.JPG', 'IMG_1481.JPG',
-            'IMG_1482.JPG', 'IMG_1483.JPG', 'IMG_1484.JPG', 'IMG_1485.JPG', 'IMG_1486.JPG',
-            'IMG_1487.JPG', 'IMG_1488.JPG', 'IMG_1489(1).PNG', 'IMG_1489.PNG', 'IMG_1490.JPG',
-            'IMG_1491.JPG', 'IMG_1492.JPG', 'IMG_1493.JPG', 'IMG_1494.JPG', 'IMG_1495.JPG',
-            'IMG_1496.JPG', 'IMG_1497.JPG', 'IMG_1498.JPG', 'IMG_1499(1).JPG', 'IMG_1499.JPG',
-            'IMG_1500.JPG', 'IMG_1501.JPG'
-        ];
+        // Slideshow media is loaded from remembrance/media_manifest.json so files can live on R2/CDN (keeps Vercel deploy small).
+        let photos = [];
 
         // State variables
         let currentSlide = 0;
         let isPlaying = false;
         let slideshowInterval = null;
         let progressInterval = null;
-        const SLIDE_DURATION = 8000; // 8 seconds per slide
+        const MIN_SLIDE_DURATION = 7000;
+        const MAX_SLIDE_DURATION = 10000;
+        let currentSlideDuration = 8000;
         let progressValue = 0;
 
         // DOM Elements
@@ -1269,14 +1232,75 @@
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
         const musicPlayer = document.getElementById('music-player');
-        const ambientAudio = document.getElementById('ambient-audio');
+        const dedicatedSong = document.getElementById('dedicated-song');
         const musicToggle = document.getElementById('music-toggle');
         const dedicationVideo = document.getElementById('dedication-video');
 
+        function nextSlideDuration() {
+            currentSlideDuration = Math.floor(MIN_SLIDE_DURATION + Math.random() * (MAX_SLIDE_DURATION - MIN_SLIDE_DURATION));
+            return currentSlideDuration;
+        }
+
+        async function loadManifestPhotos() {
+            try {
+                const res = await fetch('remembrance/media_manifest.json', { cache: 'no-store' });
+                if (!res.ok) throw new Error(`manifest HTTP ${res.status}`);
+                const data = await res.json();
+                const items = Array.isArray(data.items) ? data.items : [];
+                photos = items
+                    .map((it) => (it && typeof it.src === 'string' ? it.src : null))
+                    .filter(Boolean);
+            } catch (e) {
+                console.log('Failed to load remembrance media manifest:', e);
+                photos = [];
+            }
+        }
+
+        async function loadDedicatedSong() {
+            if (!dedicatedSong) return;
+            const fallbackSrc = 'uploads/Dedicated_Song.mov';
+
+            try {
+                const res = await fetch('remembrance/dedicated_song.json', { cache: 'no-store' });
+                if (!res.ok) throw new Error(`song manifest HTTP ${res.status}`);
+                const data = await res.json();
+                const src = data && typeof data.src === 'string' ? data.src : fallbackSrc;
+
+                dedicatedSong.innerHTML = '';
+                const source = document.createElement('source');
+                source.src = src;
+                source.type = src.toLowerCase().endsWith('.mov') ? 'video/quicktime' : 'video/mp4';
+                dedicatedSong.appendChild(source);
+                dedicatedSong.load();
+            } catch (e) {
+                console.log('Failed to load dedicated song manifest:', e);
+                dedicatedSong.innerHTML = '';
+                const source = document.createElement('source');
+                source.src = fallbackSrc;
+                source.type = 'video/quicktime';
+                dedicatedSong.appendChild(source);
+                dedicatedSong.load();
+            }
+        }
+
+        function tryAutoStartSong() {
+            if (!dedicatedSong) return;
+            dedicatedSong.play().then(() => {
+                musicPlaying = true;
+                musicToggle.textContent = '⏸';
+                document.getElementById('ambient-overlay').classList.add('active');
+            }).catch(() => {
+                // Autoplay blocked - user gesture required.
+            });
+        }
+
         // Initialize on page load
-        window.addEventListener('load', () => {
+        window.addEventListener('load', async () => {
+            await loadDedicatedSong();
+            await loadManifestPhotos();
+
             // Update total slides count
-            totalSlidesEl.textContent = photos.length;
+            totalSlidesEl.textContent = photos.length || 1;
 
             // Create floating particles
             createParticles();
@@ -1289,6 +1313,7 @@
                 setTimeout(() => {
                     silenceOverlay.style.display = 'none';
                     initSlideshow();
+                    tryAutoStartSong();
                     // Show music player after video section
                     setTimeout(() => {
                         musicPlayer.style.display = 'flex';
@@ -1312,11 +1337,15 @@
 
         // Initialize slideshow
         function initSlideshow() {
+            if (!Array.isArray(photos) || photos.length === 0) {
+                photos = ['Logo/Greeting_Logo.png'];
+            }
             // Create slide elements
             photos.forEach((photo, index) => {
                 const slide = document.createElement('div');
                 slide.className = 'slide' + (index === 0 ? ' active ken-burns' : '');
-                slide.innerHTML = `<img src="Brothers_Pics_Remembrance/${photo}" alt="Memory ${index + 1}" loading="lazy" onerror="this.src='Logo/logo.png'">`;
+                const src = typeof photo === 'string' ? photo : 'Logo/Greeting_Logo.png';
+                slide.innerHTML = `<img src="${src}" alt="Memory ${index + 1}" loading="lazy" onerror="this.src='Logo/Greeting_Logo.png'">`;
                 slideshow.appendChild(slide);
             });
 
@@ -1336,25 +1365,33 @@
             progressValue = 0;
             progressFill.style.width = '0%';
 
-            // Progress animation
-            progressInterval = setInterval(() => {
-                progressValue += 100 / (SLIDE_DURATION / 100);
-                progressFill.style.width = progressValue + '%';
-            }, 100);
-
-            // Slide change interval
-            slideshowInterval = setInterval(() => {
-                nextSlide();
+            function scheduleNext() {
+                if (!isPlaying) return;
+                const duration = nextSlideDuration();
                 progressValue = 0;
                 progressFill.style.width = '0%';
-            }, SLIDE_DURATION);
+
+                clearInterval(progressInterval);
+                progressInterval = setInterval(() => {
+                    progressValue += 100 / (duration / 100);
+                    progressFill.style.width = progressValue + '%';
+                }, 100);
+
+                clearTimeout(slideshowInterval);
+                slideshowInterval = setTimeout(() => {
+                    nextSlide();
+                    scheduleNext();
+                }, duration);
+            }
+
+            scheduleNext();
         }
 
         // Stop slideshow
         function stopSlideshow() {
             isPlaying = false;
             playBtn.textContent = '▶';
-            clearInterval(slideshowInterval);
+            clearTimeout(slideshowInterval);
             clearInterval(progressInterval);
         }
 
@@ -1433,20 +1470,28 @@
         let musicPlaying = false;
         musicToggle.addEventListener('click', () => {
             if (musicPlaying) {
-                ambientAudio.pause();
+                dedicatedSong.pause();
                 musicToggle.textContent = '▶';
                 document.getElementById('ambient-overlay').classList.remove('active');
             } else {
-                ambientAudio.play().catch(e => console.log('Audio play failed:', e));
+                dedicatedSong.play().catch(e => console.log('Song play failed:', e));
                 musicToggle.textContent = '⏸';
                 document.getElementById('ambient-overlay').classList.add('active');
             }
             musicPlaying = !musicPlaying;
         });
 
+        // First user interaction fallback (autoplay policies)
+        document.addEventListener('click', () => {
+            if (!musicPlaying) {
+                tryAutoStartSong();
+            }
+        }, { once: true });
+
         // Music progress update
-        ambientAudio.addEventListener('timeupdate', () => {
-            const progress = (ambientAudio.currentTime / ambientAudio.duration) * 100;
+        dedicatedSong.addEventListener('timeupdate', () => {
+            const duration = dedicatedSong.duration || 0;
+            const progress = duration > 0 ? (dedicatedSong.currentTime / duration) * 100 : 0;
             document.getElementById('music-progress-fill').style.width = progress + '%';
 
             // Animate visualizer bars
@@ -1461,7 +1506,8 @@
         document.getElementById('music-progress').addEventListener('click', (e) => {
             const rect = e.target.getBoundingClientRect();
             const percent = (e.clientX - rect.left) / rect.width;
-            ambientAudio.currentTime = percent * ambientAudio.duration;
+            const duration = dedicatedSong.duration || 0;
+            if (duration > 0) dedicatedSong.currentTime = percent * duration;
         });
 
         // When dedication video ends, prompt to play ambient music
