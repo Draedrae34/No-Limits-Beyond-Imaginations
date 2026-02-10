@@ -437,6 +437,28 @@
             box-shadow: 0 10px 40px rgba(255,0,255,0.3);
         }
 
+        .video-item {
+            margin-bottom: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .video-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255,0,255,0.4);
+        }
+
+        .video-title {
+            text-align: center;
+            margin-top: 10px;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
         /* Themed Elements */
         .rose-petal {
             position: fixed;
@@ -763,47 +785,70 @@
                 return;
             }
             videoItems.forEach(item => {
-                const video = document.createElement('video');
-                video.controls = true;
-                video.preload = 'metadata';
-                video.innerHTML = `<source src="${item.src}" type="${getVideoType(item.src)}">`;
-                videoGrid.appendChild(video);
+                const videoDiv = document.createElement('div');
+                videoDiv.className = 'video-item';
+                videoDiv.innerHTML = `
+                    <video controls preload="metadata" style="width:100%; border-radius:10px;">
+                        <source src="${item.src}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-title">${item.title}</div>
+                `;
+                videoGrid.appendChild(videoDiv);
             });
         }
 
-        async function fetchStoryManifest() {
+        // Load Story Videos
+        async function loadStoryVideos() {
             try {
-                const response = await fetch(manifestUrl);
-                if (!response.ok) throw new Error('Manifest not available');
-                const payload = await response.json();
-                return payload.items || [];
-            } catch (error) {
-                console.warn('Story manifest load failed:', error);
-                return [];
+                // Your story videos
+                const storyVideos = [
+                    { src: 'My_story_Page/10f58e555c584e8d87a852f791d532e9.mov', title: 'Story Chapter 1' },
+                    { src: 'My_story_Page/59025AC7-6356-4063-84FA-13D9D64D761B Copy.mov', title: 'Story Chapter 2' },
+                    { src: 'My_story_Page/e8454549b8a94e858379793b878c27ca.mov', title: 'Story Chapter 3' },
+                    { src: 'My_story_Page/B181C3DCB9D0853EE3CBC4B97BB2D13B9C20A907.mp4', title: 'Story Chapter 4' },
+                    { src: 'My_story_Page/24e8e10e174bb87f1ec093f5397a002aa9b0ffa9594a137a6ebd6d2c903249b3.mp4', title: 'Story Chapter 5' },
+                    { src: 'My_story_Page/363072850358276_ae73c1be-db7d-481d-8e41-4cd2b1c3235b.mp4', title: 'Story Chapter 6' },
+                    { src: 'My_story_Page/363882976497762_ca13a252-cc0b-423c-971d-32016b248413.mp4', title: 'Story Chapter 7' },
+                    { src: 'My_story_Page/363892722291643_f2aea601-c792-4ac8-b823-177b29d9045f.mp4', title: 'Story Chapter 8' },
+                    { src: 'My_story_Page/363907079601089_763f9d6c-b8a0-4941-80ef-6838b955bab1.mp4', title: 'Story Chapter 9' },
+                    { src: 'My_story_Page/365702854147264_503e53fb-5205-4c08-b175-4d3e0398da7d.mp4', title: 'Story Chapter 10' },
+                    { src: 'My_story_Page/3a07258f-8e06-4fc4-bd13-b9041a3be1ac.mp4', title: 'Story Chapter 11' },
+                    { src: 'My_story_Page/c648c038-8da1-4580-a373-e09548e05a3e.mp4', title: 'Story Chapter 12' },
+                    { src: 'My_story_Page/cdb6c4b4-0b3a-49f5-9f07-c021e1e036fd.mp4', title: 'Story Chapter 13' },
+                    { src: 'My_story_Page/1f2d3d65-1e5a-42ac-9d0a-e34ac5a5a37e.mp4', title: 'Story Chapter 14' }
+                ];
+                
+                buildVideoGrid(storyVideos);
+                console.log(`Loaded ${storyVideos.length} story videos`);
+            } catch (e) {
+                console.log('Failed to load story videos:', e);
             }
         }
 
-        async function initStoryMedia() {
-            const manifestItems = await fetchStoryManifest();
-            const imageItems = manifestItems.filter(item => isImagePath(item.src));
-            const videoItems = manifestItems.filter(item => isVideoPath(item.src));
-            buildSlideshow(imageItems);
-            buildPhotoGallery(imageItems);
-            buildVideoGrid(videoItems);
-        }
+        loadStoryVideos();
 
-        function openLightbox(src) {
-            document.getElementById('lightbox').style.display = 'flex';
-            document.getElementById('lightbox-img').src = src;
-        }
+    // 5D Cosmic Effects
+    // Star cursor with trails
+    const starCursor = document.createElement('div');
+    starCursor.className = 'star-cursor';
+    document.body.appendChild(starCursor);
 
-        function closeLightbox() {
-            document.getElementById('lightbox').style.display = 'none';
-        }
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
 
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeLightbox();
-            if (e.key === 'ArrowRight') nextSlide();
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        // Create star trail
+        if (Math.random() > 0.7) {
+            const trail = document.createElement('div');
+            trail.className = 'star-trail';
+            trail.style.left = mouseX + 'px';
+            trail.style.top = mouseY + 'px';
+            document.body.appendChild(trail);
+            setTimeout(() => trail.remove(), 800);
             if (e.key === 'ArrowLeft') prevSlide();
             if (e.key === ' ' && slides.length) {
                 e.preventDefault();
