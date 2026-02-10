@@ -9,9 +9,8 @@
     { "source": "/api/(.*)", "destination": "/api/$1" }
   ],
   "redirects": [
-    { "source": "/workshop", "destination": "/private.html", "permanent": false },
-    { "source": "/workshop/", "destination": "/private.html", "permanent": false },
-    { "source": "/workshop/(.*)", "destination": "/private.html", "permanent": false }
+    { "source": "/workshop", "destination": "/workshop.html", "permanent": false },
+    { "source": "/workshop/", "destination": "/workshop.html", "permanent": false }
   ],
   "headers": [
     {
