@@ -110,6 +110,41 @@
                 radial-gradient(ellipse at 50% 50%, rgba(45, 27, 78, 0.8) 0%, var(--purple-deep) 70%);
         }
 
+        .nebula-cloud {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, rgba(167, 139, 250, 0.1) 40%, transparent 70%);
+            filter: blur(60px);
+            animation: nebulaDrift 30s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes nebulaDrift {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+            25% { transform: translate(100px, -80px) scale(1.1); opacity: 0.6; }
+            50% { transform: translate(-50px, 120px) scale(0.9); opacity: 0.5; }
+            75% { transform: translate(120px, 60px) scale(1.05); opacity: 0.55; }
+        }
+
+        .meteor {
+            position: fixed;
+            width: 2px;
+            height: 60px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), transparent);
+            box-shadow: 0 0 8px rgba(139, 92, 246, 0.8);
+            animation: meteorFall 1.2s ease-out forwards;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        @keyframes meteorFall {
+            0% { transform: translateY(-100vh) translateX(0) rotate(45deg); opacity: 1; }
+            100% { transform: translateY(100vh) translateX(150px) rotate(45deg); opacity: 0; }
+        }
+
         .stars {
             position: absolute;
             width: 100%;
@@ -373,8 +408,14 @@
             color: var(--purple-glow);
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5), 0 0 30px rgba(139, 92, 246, 0.3);
             position: relative;
+            animation: sacredBeam 3s ease-in-out infinite;
+        }
+
+        @keyframes sacredBeam {
+            0%, 100% { box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5), 0 0 30px rgba(139, 92, 246, 0.3); }
+            50% { box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5), 0 0 60px rgba(139, 92, 246, 0.6), 0 -50px 80px rgba(139, 92, 246, 0.4); }
         }
 
         .dog-tag::before {
@@ -448,6 +489,40 @@
             box-shadow:
                 0 0 50px rgba(139, 92, 246, 0.3),
                 inset 0 0 100px rgba(0, 0, 0, 0.5);
+        }
+
+        .slideshow-container::before {
+            content: '';
+            position: absolute;
+            inset: -40px;
+            border: 2px solid rgba(139, 92, 246, 0.4);
+            border-radius: 50%;
+            animation: haloRing1 8s linear infinite;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .slideshow-container::after {
+            content: '';
+            position: absolute;
+            inset: -60px;
+            border: 1px solid rgba(167, 139, 250, 0.3);
+            border-radius: 50%;
+            animation: haloRing2 12s linear infinite reverse;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        @keyframes haloRing1 {
+            0% { transform: rotate(0deg); opacity: 0.6; }
+            50% { opacity: 0.8; }
+            100% { transform: rotate(360deg); opacity: 0.6; }
+        }
+
+        @keyframes haloRing2 {
+            0% { transform: rotate(0deg); opacity: 0.4; }
+            50% { opacity: 0.6; }
+            100% { transform: rotate(360deg); opacity: 0.4; }
         }
 
         .slide {
@@ -636,16 +711,28 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(26, 10, 46, 0.95);
-            padding: 15px 30px;
-            border-radius: 50px;
+            background: rgba(45, 27, 78, 0.95);
+            backdrop-filter: blur(20px);
             border: 2px solid var(--purple-main);
+            border-radius: 50px;
+            padding: 15px 30px;
             display: flex;
             align-items: center;
             gap: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
             z-index: 1000;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
+            max-width: 90%;
+            transition: all 0.4s ease;
+        }
+
+        .music-player.playing {
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 60px rgba(139, 92, 246, 0.5);
+            animation: portalPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes portalPulse {
+            0%, 100% { border-color: var(--purple-main); }
+            50% { border-color: var(--purple-light); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 80px rgba(139, 92, 246, 0.7); }
         }
 
         .music-btn {
@@ -1296,6 +1383,27 @@
             });
         }
 
+        // 5D Cosmic Effects
+        function spawnNebulaClouds() {
+            for (let i = 0; i < 3; i++) {
+                const cloud = document.createElement('div');
+                cloud.className = 'nebula-cloud';
+                cloud.style.left = Math.random() * 100 + '%';
+                cloud.style.top = Math.random() * 100 + '%';
+                cloud.style.animationDelay = (i * 10) + 's';
+                document.querySelector('.cosmic-bg').appendChild(cloud);
+            }
+        }
+
+        function spawnMeteor() {
+            const meteor = document.createElement('div');
+            meteor.className = 'meteor';
+            meteor.style.left = Math.random() * 100 + '%';
+            meteor.style.top = '-100px';
+            document.body.appendChild(meteor);
+            setTimeout(() => meteor.remove(), 1200);
+        }
+
         // Initialize on page load
         window.addEventListener('load', async () => {
             await loadDedicatedSong();
@@ -1306,6 +1414,9 @@
 
             // Create floating particles
             createParticles();
+
+            // Spawn nebula clouds
+            spawnNebulaClouds();
 
             // Silence period (4 seconds), then fade out overlay
             setTimeout(() => {
@@ -1413,6 +1524,11 @@
             // Add active to new slide
             slides[currentSlide].classList.add('active', 'ken-burns');
 
+            // Spawn meteor on transition
+            if (Math.random() > 0.5) {
+                spawnMeteor();
+            }
+
             // Update counter
             currentSlideEl.textContent = currentSlide + 1;
         }
@@ -1474,13 +1590,23 @@
             if (musicPlaying) {
                 dedicatedSong.pause();
                 musicToggle.textContent = '▶';
+                musicPlayer.classList.remove('playing');
                 document.getElementById('ambient-overlay').classList.remove('active');
             } else {
                 dedicatedSong.play().catch(e => console.log('Song play failed:', e));
                 musicToggle.textContent = '⏸';
+                musicPlayer.classList.add('playing');
                 document.getElementById('ambient-overlay').classList.add('active');
             }
             musicPlaying = !musicPlaying;
+        });
+
+        // Update music player state when song plays/pauses
+        dedicatedSong.addEventListener('play', () => {
+            musicPlayer.classList.add('playing');
+        });
+        dedicatedSong.addEventListener('pause', () => {
+            musicPlayer.classList.remove('playing');
         });
 
         // First user interaction fallback (autoplay policies)
