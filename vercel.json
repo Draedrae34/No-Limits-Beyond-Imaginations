@@ -9,8 +9,8 @@
     { "source": "/api/(.*)", "destination": "/api/$1" }
   ],
   "redirects": [
-    { "source": "/workshop", "destination": "/workshop-simple.html", "permanent": false },
-    { "source": "/workshop/", "destination": "/workshop-simple.html", "permanent": false }
+    { "source": "/workshop", "destination": "/jarvis-workshop.html", "permanent": false },
+    { "source": "/workshop/", "destination": "/jarvis-workshop.html", "permanent": false }
   ],
   "headers": [
     {
