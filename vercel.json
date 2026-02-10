@@ -10,7 +10,9 @@
   ],
   "redirects": [
     { "source": "/workshop", "destination": "/jarvis-workshop.html", "permanent": false },
-    { "source": "/workshop/", "destination": "/jarvis-workshop.html", "permanent": false }
+    { "source": "/workshop/", "destination": "/jarvis-workshop.html", "permanent": false },
+    { "source": "/shop", "destination": "/shop.html", "permanent": false },
+    { "source": "/shop/", "destination": "/shop.html", "permanent": false }
   ],
   "headers": [
     {
