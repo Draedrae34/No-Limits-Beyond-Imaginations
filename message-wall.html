@@ -83,6 +83,57 @@
                     );
             }
 
+            .cosmic-overlay {
+                position: absolute;
+                width: 200px;
+                height: 200px;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 40%, transparent 70%);
+                box-shadow: inset 0 0 50px rgba(139, 92, 246, 0.3), 0 0 100px rgba(0, 0, 0, 0.8);
+                animation: blackholeVortex 20s linear infinite;
+                top: 15%;
+                right: 10%;
+                pointer-events: none;
+            }
+
+            @keyframes blackholeVortex {
+                0% { transform: rotate(0deg) scale(1); opacity: 0.4; }
+                50% { transform: rotate(180deg) scale(1.1); opacity: 0.6; }
+                100% { transform: rotate(360deg) scale(1); opacity: 0.4; }
+            }
+
+            .meteor {
+                position: fixed;
+                width: 2px;
+                height: 80px;
+                background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), transparent);
+                box-shadow: 0 0 10px rgba(139, 92, 246, 0.8);
+                animation: meteorFall 1.5s ease-out forwards;
+                pointer-events: none;
+                z-index: 9999;
+            }
+
+            @keyframes meteorFall {
+                0% { transform: translateY(-100vh) translateX(0) rotate(45deg); opacity: 1; }
+                100% { transform: translateY(100vh) translateX(200px) rotate(45deg); opacity: 0; }
+            }
+
+            .cosmic-burst {
+                position: fixed;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(139, 92, 246, 1), transparent);
+                animation: burstExpand 1s ease-out forwards;
+                pointer-events: none;
+                z-index: 9999;
+            }
+
+            @keyframes burstExpand {
+                0% { transform: scale(1); opacity: 1; }
+                100% { transform: scale(30); opacity: 0; }
+            }
+
             .stars {
                 position: absolute;
                 width: 100%;
@@ -299,12 +350,41 @@
                 background: linear-gradient(
                     135deg,
                     rgba(45, 27, 78, 0.6),
-                    rgba(26, 10, 46, 0.8)
+                    rgba(30, 20, 60, 0.8)
                 );
+                backdrop-filter: blur(10px);
                 border: 1px solid rgba(139, 92, 246, 0.3);
                 border-radius: 20px;
                 padding: 40px;
-                backdrop-filter: blur(10px);
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+                max-width: 700px;
+                margin: 0 auto;
+                position: relative;
+                overflow: hidden;
+                transition: all 0.4s ease;
+            }
+
+            .message-form::before {
+                content: '';
+                position: absolute;
+                inset: -2px;
+                background: linear-gradient(45deg, transparent, rgba(139, 92, 246, 0.4), transparent);
+                border-radius: 20px;
+                opacity: 0;
+                transition: opacity 0.4s ease;
+                pointer-events: none;
+                z-index: -1;
+            }
+
+            .message-form.portal-active::before {
+                opacity: 1;
+                animation: portalShimmer 2s ease-in-out infinite;
+            }
+
+            @keyframes portalShimmer {
+                0% { transform: rotate(0deg) scale(1); }
+                50% { transform: rotate(180deg) scale(1.02); }
+                100% { transform: rotate(360deg) scale(1); }
             }
 
             .form-title {
@@ -315,121 +395,74 @@
                 margin-bottom: 30px;
             }
 
-            .form-group {
-                margin-bottom: 25px;
-            }
-
-            .form-label {
-                display: block;
-                font-family: "Cinzel", serif;
-                font-size: 0.95rem;
-                color: var(--purple-glow);
-                margin-bottom: 10px;
-                letter-spacing: 0.05em;
-            }
-
-            .form-input,
-            .form-textarea,
-            .form-select {
-                width: 100%;
-                background: rgba(26, 10, 46, 0.6);
-                border: 2px solid rgba(139, 92, 246, 0.3);
-                border-radius: 12px;
-                padding: 15px 20px;
-                color: var(--text-light);
-                font-family: "Raleway", sans-serif;
-                font-size: 1rem;
+            /* Message Card */
+            .message-card {
+                break-inside: avoid;
+                background: linear-gradient(
+                    135deg,
+                    rgba(45, 27, 78, 0.6),
+                    rgba(30, 20, 60, 0.8)
+                );
+                border: 1px solid rgba(139, 92, 246, 0.3);
+                border-radius: 15px;
+                padding: 25px;
+                margin-bottom: 20px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
                 transition: all 0.3s ease;
-            }
-
-            .form-input:focus,
-            .form-textarea:focus,
-            .form-select:focus {
-                outline: none;
-                border-color: var(--purple-main);
-                box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
-            }
-
-            .form-input::placeholder,
-            .form-textarea::placeholder {
-                color: rgba(226, 232, 240, 0.4);
-            }
-
-            .form-textarea {
-                min-height: 150px;
-                resize: vertical;
-            }
-
-            .form-select {
-                cursor: pointer;
-                appearance: none;
-                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%238b5cf6' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-                background-repeat: no-repeat;
-                background-position: right 15px center;
-            }
-
-            .form-select option {
-                background: var(--purple-deep);
-                color: var(--text-light);
-            }
-
-            /* Image Upload */
-            .image-upload-area {
-                border: 2px dashed rgba(139, 92, 246, 0.4);
-                border-radius: 12px;
-                padding: 30px;
-                text-align: center;
-                cursor: pointer;
-                transition: all 0.3s ease;
+                animation: fadeInUp 0.6s ease forwards, sacredGlow 3s ease-in-out infinite;
+                opacity: 0;
                 position: relative;
+                overflow: hidden;
+
+                @media (prefers-reduced-motion: reduce) {
+                    animation: none;
+                    opacity: 1;
+                }
             }
 
-            .image-upload-area:hover {
-                border-color: var(--purple-main);
-                background: rgba(139, 92, 246, 0.1);
-            }
-
-            .image-upload-area input[type="file"] {
+            .message-card::before {
+                content: '';
                 position: absolute;
-                top: 0;
-                left: 0;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+                animation: sacredPulse 4s ease-in-out infinite;
+                pointer-events: none;
+            }
+
+            @keyframes sacredGlow {
+                0%, 100% { box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(139, 92, 246, 0.2); }
+                50% { box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3), 0 0 30px rgba(139, 92, 246, 0.4); }
+            }
+
+            @keyframes sacredPulse {
+                0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+                50% { transform: translate(-10%, -10%) scale(1.1); opacity: 0.5; }
+            }
+
+            .message-card:hover {
+                border-color: var(--purple-main);
+                box-shadow: 0 10px 40px rgba(139, 92, 246, 0.4), 0 0 50px rgba(139, 92, 246, 0.3);
+                transform: translateY(-5px);
+            }
+
+            /* Particle Burst */
+            .particle-burst {
+                position: absolute;
                 width: 100%;
                 height: 100%;
-                opacity: 0;
-                cursor: pointer;
+                background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%);
+                border-radius: 50%;
+                transform: scale(0);
+                animation: particleBurst 1s ease-out;
+                pointer-events: none;
             }
 
-            .upload-icon {
-                font-size: 2.5rem;
-                margin-bottom: 10px;
-            }
-
-            .upload-text {
-                color: var(--purple-light);
-                font-size: 0.95rem;
-            }
-
-            .upload-hint {
-                color: var(--text-light);
-                opacity: 0.5;
-                font-size: 0.8rem;
-                margin-top: 5px;
-            }
-
-            .image-preview {
-                margin-top: 15px;
-                display: none;
-            }
-
-            .image-preview img {
-                max-width: 200px;
-                max-height: 200px;
-                border-radius: 10px;
-                border: 2px solid var(--purple-main);
-            }
-
-            .image-preview.active {
-                display: block;
+            @keyframes particleBurst {
+                0% { transform: scale(0); opacity: 1; }
+                100% { transform: scale(1.5); opacity: 0; }
             }
 
             /* Submit Button */
@@ -450,132 +483,15 @@
                 transition: all 0.3s ease;
                 margin-top: 20px;
                 box-shadow: 0 10px 40px rgba(139, 92, 246, 0.4);
+                position: relative;
+                overflow: hidden;
             }
 
-            .submit-btn:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 15px 50px rgba(139, 92, 246, 0.5);
-            }
-
-            .submit-btn:disabled {
-                opacity: 0.6;
-                cursor: not-allowed;
-                transform: none;
-            }
-
-            /* Success Message */
-            .success-message {
-                display: none;
-                text-align: center;
-                padding: 40px;
-            }
-
-            .success-message.active {
-                display: block;
-                animation: fadeIn 0.5s ease;
-            }
-
-            @keyframes fadeIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-
-            .success-icon {
-                font-size: 4rem;
-                margin-bottom: 20px;
-            }
-
-            .success-title {
-                font-family: "Great Vibes", cursive;
-                font-size: 2.5rem;
-                color: var(--purple-light);
-                margin-bottom: 15px;
-            }
-
-            .success-text {
-                color: var(--text-light);
-                line-height: 1.7;
-            }
-
-            /* Message Wall Section */
-            .wall-section {
-                max-width: 1400px;
-                margin: 60px auto;
-                padding: 0 20px;
-            }
-
-            .wall-title {
-                font-family: "Great Vibes", cursive;
-                font-size: 2.5rem;
-                color: var(--purple-light);
-                text-align: center;
-                margin-bottom: 15px;
-            }
-
-            .wall-count {
-                text-align: center;
-                color: var(--gold);
-                font-family: "Cinzel", serif;
-                margin-bottom: 40px;
-                letter-spacing: 0.1em;
-            }
-
-            /* Masonry Grid */
-            .message-wall {
-                column-count: 3;
-                column-gap: 20px;
-            }
-
-            @media (max-width: 1024px) {
-                .message-wall {
-                    column-count: 2;
-                }
-            }
-
-            @media (max-width: 600px) {
-                .message-wall {
-                    column-count: 1;
-                }
-            }
-
-            /* Message Card */
-            .message-card {
-                break-inside: avoid;
-                background: linear-gradient(
-                    135deg,
-                    rgba(45, 27, 78, 0.5),
-                    rgba(26, 10, 46, 0.7)
-                );
-                border: 1px solid rgba(139, 92, 246, 0.2);
-                border-radius: 16px;
-                padding: 25px;
-                margin-bottom: 20px;
-                backdrop-filter: blur(10px);
-                transition: all 0.3s ease;
-                animation: cardAppear 0.6s ease forwards;
-                opacity: 0;
-            }
-
-            @keyframes cardAppear {
-                from {
-                    opacity: 0;
-                    transform: translateY(30px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-
-            .message-card:hover {
-                border-color: var(--purple-main);
-                box-shadow: 0 10px 40px rgba(139, 92, 246, 0.2);
+            .submit-btn::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
                 transform: translateY(-5px);
             }
 
@@ -1114,6 +1030,46 @@
                 }
             });
 
+            // 5D Cosmic Effects
+            function spawnMeteors() {
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => {
+                        const meteor = document.createElement('div');
+                        meteor.className = 'meteor';
+                        meteor.style.left = Math.random() * 100 + '%';
+                        meteor.style.top = '-100px';
+                        document.body.appendChild(meteor);
+                        setTimeout(() => meteor.remove(), 1500);
+                    }, i * 200);
+                }
+            }
+
+            function createCosmicBurst(x, y) {
+                for (let i = 0; i < 8; i++) {
+                    setTimeout(() => {
+                        const burst = document.createElement('div');
+                        burst.className = 'cosmic-burst';
+                        burst.style.left = x + 'px';
+                        burst.style.top = y + 'px';
+                        document.body.appendChild(burst);
+                        setTimeout(() => burst.remove(), 1000);
+                    }, i * 100);
+                }
+            }
+
+            // Portal shimmer on form focus
+            const formInputs = form.querySelectorAll('input, textarea, select');
+            formInputs.forEach(input => {
+                input.addEventListener('focus', () => {
+                    form.classList.add('portal-active');
+                });
+                input.addEventListener('blur', () => {
+                    if (!Array.from(formInputs).some(inp => inp === document.activeElement)) {
+                        form.classList.remove('portal-active');
+                    }
+                });
+            });
+
             // Handle form submission
             form.addEventListener("submit", async function (e) {
                 e.preventDefault();
@@ -1127,6 +1083,9 @@
                     alert("Please fill in all required fields");
                     return;
                 }
+
+                // Trigger meteor trails
+                spawnMeteors();
 
                 // Show loading state
                 submitBtn.disabled = true;
@@ -1151,6 +1110,11 @@
 
                 try {
                     await createMessage(newMessage);
+                    
+                    // Cosmic burst on success
+                    const rect = submitBtn.getBoundingClientRect();
+                    createCosmicBurst(rect.left + rect.width / 2, rect.top + rect.height / 2);
+                    
                     form.style.display = "none";
                     successMessage.classList.add("active");
                     await loadMessages();
