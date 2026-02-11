@@ -647,12 +647,12 @@
         let products = [];
         let cart = JSON.parse(localStorage.getItem(cartKey) || "[]");
 
-        // Category Mapping
+        // Category Mapping - Updated to match actual product categories
         const categoryMap = {
-            'mens': ['mens-t-shirts', 'mens-hoodies', 'mens-shirts', 'mens-jeans', 'mens-pants', 'mens-sweats', 'mens-jackets'],
-            'womens': ['womens-t-shirts', 'womens-hoodies', 'womens-tops', 'womens-jeans', 'womens-pants', 'womens-leggings', 'womens-dresses', 'womens-sweats', 'lingerie', 'bras', 'panties'],
+            'mens': ['hoodies', 't-shirts', 'mens-shirts', 'mens-jeans', 'mens-pants', 'mens-sweats', 'mens-jackets'],
+            'womens': ['hoodies', 't-shirts', 'womens-tops', 'womens-jeans', 'womens-pants', 'womens-leggings', 'womens-dresses', 'womens-sweats', 'lingerie', 'bras', 'panties'],
             'kids': ['kids-t-shirts', 'kids-hoodies', 'kids-shorts', 'kids-pants', 'kids-dresses'],
-            'accessories': ['hats', 'beanies', 'socks', 'underwear', 'backpacks', 'shoes', 'bags', 'belts', 'jewelry', 'sunglasses', 'watches']
+            'accessories': ['hats', 'beanies', 'socks', 'underwear', 'backpacks', 'shoes', 'bags', 'belts', 'jewelry', 'sunglasses', 'watches', 'accessories']
         };
 
         // Load Products
@@ -671,7 +671,7 @@
                         price: typeof p.price === "number" ? p.price : 0,
                         category: p.category || "custom",
                         desc: p.desc || "",
-                        imageUrl: p.imageUrl ? `https://sdj05kp7ut7tfuxh.public.blob.vercel-storage.com/${p.imageUrl}` : "",
+                        imageUrl: p.image ? `https://sdj05kp7ut7tfuxh.public.blob.vercel-storage.com/${p.image}` : "",
                         printfulVariantId: typeof p.printfulVariantId === "number" ? p.printfulVariantId : null,
                         printfulProductId: typeof p.printfulProductId === "number" ? p.printfulProductId : null,
                         variants: Array.isArray(p.variants) ? p.variants : [],
@@ -681,6 +681,8 @@
                 if (normalized.length) {
                     products = normalized;
                     console.log(`Loaded ${normalized.length} products from products.json`);
+                    console.log('Sample product:', normalized[0]);
+                    console.log('Categories found:', [...new Set(normalized.map(p => p.category))]);
                     updateCategoryCounts();
                     renderProducts('all');
                 }
@@ -691,13 +693,17 @@
 
         // Update Category Counts
         function updateCategoryCounts() {
+            console.log('All products categories:', products.map(p => p.category));
+            
             const counts = {
                 all: products.length,
-                mens: products.filter(p => categoryMap.mens.includes(p.category)).length,
-                womens: products.filter(p => categoryMap.womens.includes(p.category)).length,
-                kids: products.filter(p => categoryMap.kids.includes(p.category)).length,
-                accessories: products.filter(p => categoryMap.accessories.includes(p.category)).length
+                mens: products.filter(p => categoryMap.mens.includes(p.category) || p.category.includes('men') || p.category.includes('male')).length,
+                womens: products.filter(p => categoryMap.womens.includes(p.category) || p.category.includes('women') || p.category.includes('female')).length,
+                kids: products.filter(p => categoryMap.kids.includes(p.category) || p.category.includes('kid') || p.category.includes('child')).length,
+                accessories: products.filter(p => categoryMap.accessories.includes(p.category) || p.category.includes('accessories') || p.category.includes('hat') || p.category.includes('sock') || p.category.includes('bag')).length
             };
+
+            console.log('Category counts:', counts);
 
             Object.keys(counts).forEach(category => {
                 const element = document.getElementById(`${category}-count`);
@@ -725,8 +731,18 @@
 
             let filtered = products;
             if (category !== 'all') {
-                filtered = products.filter(p => categoryMap[category].includes(p.category));
+                if (category === 'mens') {
+                    filtered = products.filter(p => categoryMap.mens.includes(p.category) || p.category.includes('men') || p.category.includes('male'));
+                } else if (category === 'womens') {
+                    filtered = products.filter(p => categoryMap.womens.includes(p.category) || p.category.includes('women') || p.category.includes('female'));
+                } else if (category === 'kids') {
+                    filtered = products.filter(p => categoryMap.kids.includes(p.category) || p.category.includes('kid') || p.category.includes('child'));
+                } else if (category === 'accessories') {
+                    filtered = products.filter(p => categoryMap.accessories.includes(p.category) || p.category.includes('accessories') || p.category.includes('hat') || p.category.includes('sock') || p.category.includes('bag'));
+                }
             }
+
+            console.log(`Rendering ${filtered.length} products for category: ${category}`);
 
             if (filtered.length === 0) {
                 grid.innerHTML = '<div style="text-align: center; color: rgba(255,255,255,0.6); font-size: 1.2rem; grid-column: 1/-1;">No products found in this category.</div>';
@@ -739,7 +755,7 @@
                 card.style.animationDelay = `${index * 0.1}s`;
 
                 const imageMarkup = product.imageUrl
-                    ? `<img src="${product.imageUrl}" alt="${product.name}" loading="lazy" class="product-image" onerror="this.style.display='none'">`
+                    ? `<img src="${product.imageUrl}" alt="${product.name}" loading="lazy" class="product-image" onerror="this.style.display='none'; console.log('Image failed to load:', '${product.imageUrl}');">`
                     : `<div style="display: flex; align-items: center; justify-content: center; height: 100%; font-size: 4rem;">${product.emoji}</div>`;
 
                 card.innerHTML = `
