@@ -1054,12 +1054,14 @@
                         desc: p.desc || "",
                         imageUrl: p.imageUrl || "",
                         printfulVariantId: typeof p.printfulVariantId === "number" ? p.printfulVariantId : null,
-                        size: p.size || "",
+                        printfulProductId: typeof p.printfulProductId === "number" ? p.printfulProductId : null,
+                        variants: Array.isArray(p.variants) ? p.variants : [],
                         emoji: p.emoji || "🛍️",
                     }));
 
                 if (normalized.length) {
                     products = normalized;
+                    console.log(`Loaded ${normalized.length} products from products.json`);
                 }
             } catch (e) {
                 console.warn("Failed to load products.json, using fallback products:", e);
