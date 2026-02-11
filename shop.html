@@ -1052,7 +1052,7 @@
                         price: typeof p.price === "number" ? p.price : 0,
                         category: p.category || "custom",
                         desc: p.desc || "",
-                        imageUrl: p.imageUrl || "",
+                        imageUrl: p.imageUrl ? `https://sdj05kp7ut7tfuxh.public.blob.vercel-storage.com/${p.imageUrl}` : "",
                         printfulVariantId: typeof p.printfulVariantId === "number" ? p.printfulVariantId : null,
                         printfulProductId: typeof p.printfulProductId === "number" ? p.printfulProductId : null,
                         variants: Array.isArray(p.variants) ? p.variants : [],
@@ -1083,7 +1083,7 @@
                 card.className = "product-card";
 
                 const imageMarkup = product.imageUrl
-                    ? `<img src="${product.imageUrl}" alt="${product.name}" loading="lazy" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'">`
+                    ? `<img src="https://sdj05kp7ut7tfuxh.public.blob.vercel-storage.com/${product.imageUrl}" alt="${product.name}" loading="lazy" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'">`
                     : product.emoji;
 
                 card.innerHTML = `
