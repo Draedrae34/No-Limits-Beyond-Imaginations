@@ -486,10 +486,53 @@
 
         <div class="filters">
             <button class="filter-btn active" data-category="all">All</button>
-            <button class="filter-btn" data-category="t-shirts">T-Shirts</button>
-            <button class="filter-btn" data-category="hoodies">Hoodies</button>
-            <button class="filter-btn" data-category="accessories">Accessories</button>
+            
+            <!-- Men's Clothing -->
+            <button class="filter-btn" data-category="mens-t-shirts">Men's T-Shirts</button>
+            <button class="filter-btn" data-category="mens-hoodies">Men's Hoodies</button>
+            <button class="filter-btn" data-category="mens-shirts">Men's Shirts</button>
+            <button class="filter-btn" data-category="mens-jeans">Men's Jeans</button>
+            <button class="filter-btn" data-category="mens-pants">Men's Pants</button>
+            <button class="filter-btn" data-category="mens-shorts">Men's Shorts</button>
+            <button class="filter-btn" data-category="mens-sweats">Men's Sweats</button>
+            <button class="filter-btn" data-category="mens-jackets">Men's Jackets</button>
+            
+            <!-- Women's Clothing -->
+            <button class="filter-btn" data-category="womens-t-shirts">Women's T-Shirts</button>
+            <button class="filter-btn" data-category="womens-hoodies">Women's Hoodies</button>
+            <button class="filter-btn" data-category="womens-tops">Women's Tops</button>
+            <button class="filter-btn" data-category="womens-jeans">Women's Jeans</button>
+            <button class="filter-btn" data-category="womens-pants">Women's Pants</button>
+            <button class="filter-btn" data-category="womens-leggings">Women's Leggings</button>
+            <button class="filter-btn" data-category="womens-dresses">Women's Dresses</button>
+            <button class="filter-btn" data-category="womens-sweats">Women's Sweats</button>
+            <button class="filter-btn" data-category="lingerie">Lingerie</button>
+            <button class="filter-btn" data-category="bras">Bras</button>
+            <button class="filter-btn" data-category="panties">Panties</button>
+            
+            <!-- Kids Clothing -->
+            <button class="filter-btn" data-category="kids-t-shirts">Kids T-Shirts</button>
+            <button class="filter-btn" data-category="kids-hoodies">Kids Hoodies</button>
+            <button class="filter-btn" data-category="kids-shorts">Kids Shorts</button>
+            <button class="filter-btn" data-category="kids-pants">Kids Pants</button>
+            <button class="filter-btn" data-category="kids-dresses">Kids Dresses</button>
+            
+            <!-- Accessories -->
+            <button class="filter-btn" data-category="hats">Hats</button>
+            <button class="filter-btn" data-category="beanies">Beanies</button>
+            <button class="filter-btn" data-category="socks">Socks</button>
+            <button class="filter-btn" data-category="underwear">Underwear</button>
+            <button class="filter-btn" data-category="backpacks">Backpacks</button>
+            <button class="filter-btn" data-category="shoes">Shoes</button>
+            <button class="filter-btn" data-category="bags">Bags</button>
+            <button class="filter-btn" data-category="belts">Belts</button>
+            <button class="filter-btn" data-category="jewelry">Jewelry</button>
+            <button class="filter-btn" data-category="sunglasses">Sunglasses</button>
+            <button class="filter-btn" data-category="watches">Watches</button>
+            
+            <!-- Special Categories -->
             <button class="filter-btn" data-category="digital">Digital</button>
+            <button class="filter-btn" data-category="custom">Custom</button>
         </div>
 
         <section class="cart-section" id="cart-section">
@@ -605,85 +648,377 @@
     <script>
         const cartKey = "nlbl_shop_cart";
         const fallbackProducts = [
+            // MEN'S CLOTHING
             {
                 id: 1,
-                name: "No Limits T-Shirt",
+                name: "No Limits Men's T-Shirt",
                 price: 29.99,
-                category: "t-shirts",
+                category: "mens-t-shirts",
                 emoji: "👕",
-                desc: "Premium cotton with our signature design",
-                printfulVariantId: 4011,
-                size: "M",
+                desc: "Premium cotton t-shirt for men",
+                printfulVariantId: 5001,
+                printfulProductId: 2001,
+                variants: [
+                    { id: 5001, name: "Men's Tee - S", size: "S", color: "Black", price: 29.99, available: true },
+                    { id: 5002, name: "Men's Tee - M", size: "M", color: "Black", price: 29.99, available: true },
+                    { id: 5003, name: "Men's Tee - L", size: "L", color: "Black", price: 29.99, available: true },
+                    { id: 5004, name: "Men's Tee - XL", size: "XL", color: "Black", price: 29.99, available: true },
+                    { id: 5005, name: "Men's Tee - XXL", size: "XXL", color: "Black", price: 29.99, available: true },
+                ],
             },
             {
                 id: 2,
-                name: "Cosmic Hoodie",
+                name: "Cosmic Men's Hoodie",
                 price: 59.99,
-                category: "hoodies",
+                category: "mens-hoodies",
                 emoji: "🧥",
-                desc: "Warm, comfortable, absolutely stunning",
-                printfulVariantId: 4012,
-                size: "L",
+                desc: "Warm men's hoodie with cosmic design",
+                printfulVariantId: 5006,
+                printfulProductId: 2002,
+                variants: [
+                    { id: 5006, name: "Men's Hoodie - S", size: "S", color: "Black", price: 59.99, available: true },
+                    { id: 5007, name: "Men's Hoodie - M", size: "M", color: "Black", price: 59.99, available: true },
+                    { id: 5008, name: "Men's Hoodie - L", size: "L", color: "Black", price: 59.99, available: true },
+                    { id: 5009, name: "Men's Hoodie - XL", size: "XL", color: "Black", price: 59.99, available: true },
+                    { id: 5010, name: "Men's Hoodie - XXL", size: "XXL", color: "Black", price: 59.99, available: true },
+                ],
             },
             {
                 id: 3,
-                name: "Quantum Cap",
-                price: 24.99,
-                category: "accessories",
-                emoji: "🧢",
-                desc: "Adjustable, stylish, cosmic design",
-                printfulVariantId: 4013,
-                size: "One Size",
+                name: "Men's Dress Shirt",
+                price: 49.99,
+                category: "mens-shirts",
+                emoji: "👔",
+                desc: "Professional men's dress shirt",
+                printfulVariantId: 5011,
+                printfulProductId: 2003,
+                variants: [
+                    { id: 5011, name: "Men's Shirt - S", size: "S", color: "White", price: 49.99, available: true },
+                    { id: 5012, name: "Men's Shirt - M", size: "M", color: "White", price: 49.99, available: true },
+                    { id: 5013, name: "Men's Shirt - L", size: "L", color: "White", price: 49.99, available: true },
+                    { id: 5014, name: "Men's Shirt - XL", size: "XL", color: "White", price: 49.99, available: true },
+                    { id: 5015, name: "Men's Shirt - XXL", size: "XXL", color: "White", price: 49.99, available: true },
+                ],
             },
             {
                 id: 4,
-                name: "Galaxy Tote Bag",
-                price: 19.99,
-                category: "accessories",
-                emoji: "👜",
-                desc: "Eco-friendly and gorgeous",
-                printfulVariantId: 4014,
-                size: "Large",
+                name: "Men's Jeans",
+                price: 69.99,
+                category: "mens-jeans",
+                emoji: "👖",
+                desc: "Classic men's denim jeans",
+                printfulVariantId: 5016,
+                printfulProductId: 2004,
+                variants: [
+                    { id: 5016, name: "Men's Jeans - 30x30", size: "30x30", color: "Blue", price: 69.99, available: true },
+                    { id: 5017, name: "Men's Jeans - 32x32", size: "32x32", color: "Blue", price: 69.99, available: true },
+                    { id: 5018, name: "Men's Jeans - 34x34", size: "34x34", color: "Blue", price: 69.99, available: true },
+                    { id: 5019, name: "Men's Jeans - 36x36", size: "36x36", color: "Blue", price: 69.99, available: true },
+                ],
             },
             {
                 id: 5,
+                name: "Men's Sweatpants",
+                price: 44.99,
+                category: "mens-sweats",
+                emoji: "🏃",
+                desc: "Comfortable men's sweatpants",
+                printfulVariantId: 5020,
+                printfulProductId: 2005,
+                variants: [
+                    { id: 5020, name: "Men's Sweats - S", size: "S", color: "Gray", price: 44.99, available: true },
+                    { id: 5021, name: "Men's Sweats - M", size: "M", color: "Gray", price: 44.99, available: true },
+                    { id: 5022, name: "Men's Sweats - L", size: "L", color: "Gray", price: 44.99, available: true },
+                    { id: 5023, name: "Men's Sweats - XL", size: "XL", color: "Gray", price: 44.99, available: true },
+                    { id: 5024, name: "Men's Sweats - XXL", size: "XXL", color: "Gray", price: 44.99, available: true },
+                ],
+            },
+            {
+                id: 6,
+                name: "Men's Jacket",
+                price: 89.99,
+                category: "mens-jackets",
+                emoji: "🧥",
+                desc: "Stylish men's jacket",
+                printfulVariantId: 5025,
+                printfulProductId: 2006,
+                variants: [
+                    { id: 5025, name: "Men's Jacket - S", size: "S", color: "Black", price: 89.99, available: true },
+                    { id: 5026, name: "Men's Jacket - M", size: "M", color: "Black", price: 89.99, available: true },
+                    { id: 5027, name: "Men's Jacket - L", size: "L", color: "Black", price: 89.99, available: true },
+                    { id: 5028, name: "Men's Jacket - XL", size: "XL", color: "Black", price: 89.99, available: true },
+                    { id: 5029, name: "Men's Jacket - XXL", size: "XXL", color: "Black", price: 89.99, available: true },
+                ],
+            },
+
+            // WOMEN'S CLOTHING
+            {
+                id: 7,
+                name: "Women's T-Shirt",
+                price: 29.99,
+                category: "womens-t-shirts",
+                emoji: "👚",
+                desc: "Cute women's t-shirt",
+                printfulVariantId: 5030,
+                printfulProductId: 2007,
+                variants: [
+                    { id: 5030, name: "Women's Tee - XS", size: "XS", color: "Pink", price: 29.99, available: true },
+                    { id: 5031, name: "Women's Tee - S", size: "S", color: "Pink", price: 29.99, available: true },
+                    { id: 5032, name: "Women's Tee - M", size: "M", color: "Pink", price: 29.99, available: true },
+                    { id: 5033, name: "Women's Tee - L", size: "L", color: "Pink", price: 29.99, available: true },
+                    { id: 5034, name: "Women's Tee - XL", size: "XL", color: "Pink", price: 29.99, available: true },
+                ],
+            },
+            {
+                id: 8,
+                name: "Women's Hoodie",
+                price: 59.99,
+                category: "womens-hoodies",
+                emoji: "🧥",
+                desc: "Cozy women's hoodie",
+                printfulVariantId: 5035,
+                printfulProductId: 2008,
+                variants: [
+                    { id: 5035, name: "Women's Hoodie - XS", size: "XS", color: "Pink", price: 59.99, available: true },
+                    { id: 5036, name: "Women's Hoodie - S", size: "S", color: "Pink", price: 59.99, available: true },
+                    { id: 5037, name: "Women's Hoodie - M", size: "M", color: "Pink", price: 59.99, available: true },
+                    { id: 5038, name: "Women's Hoodie - L", size: "L", color: "Pink", price: 59.99, available: true },
+                    { id: 5039, name: "Women's Hoodie - XL", size: "XL", color: "Pink", price: 59.99, available: true },
+                ],
+            },
+            {
+                id: 9,
+                name: "Women's Top",
+                price: 34.99,
+                category: "womens-tops",
+                emoji: "👗",
+                desc: "Stylish women's top",
+                printfulVariantId: 5040,
+                printfulProductId: 2009,
+                variants: [
+                    { id: 5040, name: "Women's Top - XS", size: "XS", color: "White", price: 34.99, available: true },
+                    { id: 5041, name: "Women's Top - S", size: "S", color: "White", price: 34.99, available: true },
+                    { id: 5042, name: "Women's Top - M", size: "M", color: "White", price: 34.99, available: true },
+                    { id: 5043, name: "Women's Top - L", size: "L", color: "White", price: 34.99, available: true },
+                    { id: 5044, name: "Women's Top - XL", size: "XL", color: "White", price: 34.99, available: true },
+                ],
+            },
+            {
+                id: 10,
+                name: "Women's Jeans",
+                price: 69.99,
+                category: "womens-jeans",
+                emoji: "👖",
+                desc: "Fashionable women's jeans",
+                printfulVariantId: 5045,
+                printfulProductId: 2010,
+                variants: [
+                    { id: 5045, name: "Women's Jeans - 0", size: "0", color: "Blue", price: 69.99, available: true },
+                    { id: 5046, name: "Women's Jeans - 2", size: "2", color: "Blue", price: 69.99, available: true },
+                    { id: 5047, name: "Women's Jeans - 4", size: "4", color: "Blue", price: 69.99, available: true },
+                    { id: 5048, name: "Women's Jeans - 6", size: "6", color: "Blue", price: 69.99, available: true },
+                    { id: 5049, name: "Women's Jeans - 8", size: "8", color: "Blue", price: 69.99, available: true },
+                ],
+            },
+            {
+                id: 11,
+                name: "Women's Leggings",
+                price: 39.99,
+                category: "womens-leggings",
+                emoji: "🏃‍♀️",
+                desc: "Comfortable women's leggings",
+                printfulVariantId: 5050,
+                printfulProductId: 2011,
+                variants: [
+                    { id: 5050, name: "Women's Leggings - XS", size: "XS", color: "Black", price: 39.99, available: true },
+                    { id: 5051, name: "Women's Leggings - S", size: "S", color: "Black", price: 39.99, available: true },
+                    { id: 5052, name: "Women's Leggings - M", size: "M", color: "Black", price: 39.99, available: true },
+                    { id: 5053, name: "Women's Leggings - L", size: "L", color: "Black", price: 39.99, available: true },
+                    { id: 5054, name: "Women's Leggings - XL", size: "XL", color: "Black", price: 39.99, available: true },
+                ],
+            },
+            {
+                id: 12,
+                name: "Women's Dress",
+                price: 79.99,
+                category: "womens-dresses",
+                emoji: "👗",
+                desc: "Elegant women's dress",
+                printfulVariantId: 5055,
+                printfulProductId: 2012,
+                variants: [
+                    { id: 5055, name: "Women's Dress - XS", size: "XS", color: "Red", price: 79.99, available: true },
+                    { id: 5056, name: "Women's Dress - S", size: "S", color: "Red", price: 79.99, available: true },
+                    { id: 5057, name: "Women's Dress - M", size: "M", color: "Red", price: 79.99, available: true },
+                    { id: 5058, name: "Women's Dress - L", size: "L", color: "Red", price: 79.99, available: true },
+                    { id: 5059, name: "Women's Dress - XL", size: "XL", color: "Red", price: 79.99, available: true },
+                ],
+            },
+            {
+                id: 13,
+                name: "Lingerie Set",
+                price: 49.99,
+                category: "lingerie",
+                emoji: "👙",
+                desc: "Beautiful lingerie set",
+                printfulVariantId: 5060,
+                printfulProductId: 2013,
+                variants: [
+                    { id: 5060, name: "Lingerie - XS", size: "XS", color: "Black", price: 49.99, available: true },
+                    { id: 5061, name: "Lingerie - S", size: "S", color: "Black", price: 49.99, available: true },
+                    { id: 5062, name: "Lingerie - M", size: "M", color: "Black", price: 49.99, available: true },
+                    { id: 5063, name: "Lingerie - L", size: "L", color: "Black", price: 49.99, available: true },
+                    { id: 5064, name: "Lingerie - XL", size: "XL", color: "Black", price: 49.99, available: true },
+                ],
+            },
+            {
+                id: 14,
+                name: "Women's Bra",
+                price: 34.99,
+                category: "bras",
+                emoji: "👙",
+                desc: "Comfortable women's bra",
+                printfulVariantId: 5065,
+                printfulProductId: 2014,
+                variants: [
+                    { id: 5065, name: "Bra - 32A", size: "32A", color: "Nude", price: 34.99, available: true },
+                    { id: 5066, name: "Bra - 34B", size: "34B", color: "Nude", price: 34.99, available: true },
+                    { id: 5067, name: "Bra - 36C", size: "36C", color: "Nude", price: 34.99, available: true },
+                    { id: 5068, name: "Bra - 38D", size: "38D", color: "Nude", price: 34.99, available: true },
+                ],
+            },
+            {
+                id: 15,
+                name: "Women's Panties",
+                price: 19.99,
+                category: "panties",
+                emoji: "🩲",
+                desc: "Comfortable women's panties",
+                printfulVariantId: 5069,
+                printfulProductId: 2015,
+                variants: [
+                    { id: 5069, name: "Panties - S", size: "S", color: "Black", price: 19.99, available: true },
+                    { id: 5070, name: "Panties - M", size: "M", color: "Black", price: 19.99, available: true },
+                    { id: 5071, name: "Panties - L", size: "L", color: "Black", price: 19.99, available: true },
+                    { id: 5072, name: "Panties - XL", size: "XL", color: "Black", price: 19.99, available: true },
+                ],
+            },
+
+            // KIDS CLOTHING
+            {
+                id: 16,
+                name: "Kids T-Shirt",
+                price: 19.99,
+                category: "kids-t-shirts",
+                emoji: "👶",
+                desc: "Fun kids t-shirt",
+                printfulVariantId: 5073,
+                printfulProductId: 2016,
+                variants: [
+                    { id: 5073, name: "Kids Tee - 2T", size: "2T", color: "Blue", price: 19.99, available: true },
+                    { id: 5074, name: "Kids Tee - 4T", size: "4T", color: "Blue", price: 19.99, available: true },
+                    { id: 5075, name: "Kids Tee - 6T", size: "6T", color: "Blue", price: 19.99, available: true },
+                    { id: 5076, name: "Kids Tee - 8T", size: "8T", color: "Blue", price: 19.99, available: true },
+                ],
+            },
+            {
+                id: 17,
+                name: "Kids Hoodie",
+                price: 39.99,
+                category: "kids-hoodies",
+                emoji: "👦",
+                desc: "Warm kids hoodie",
+                printfulVariantId: 5077,
+                printfulProductId: 2017,
+                variants: [
+                    { id: 5077, name: "Kids Hoodie - 2T", size: "2T", color: "Red", price: 39.99, available: true },
+                    { id: 5078, name: "Kids Hoodie - 4T", size: "4T", color: "Red", price: 39.99, available: true },
+                    { id: 5079, name: "Kids Hoodie - 6T", size: "6T", color: "Red", price: 39.99, available: true },
+                    { id: 5080, name: "Kids Hoodie - 8T", size: "8T", color: "Red", price: 39.99, available: true },
+                ],
+            },
+
+            // ACCESSORIES
+            {
+                id: 18,
+                name: "Baseball Hat",
+                price: 24.99,
+                category: "hats",
+                emoji: "🧢",
+                desc: "Stylish baseball hat",
+                printfulVariantId: 5081,
+                printfulProductId: 2018,
+                variants: [
+                    { id: 5081, name: "Hat - OSFA", size: "OSFA", color: "Black", price: 24.99, available: true },
+                ],
+            },
+            {
+                id: 19,
+                name: "Warm Beanie",
+                price: 19.99,
+                category: "beanies",
+                emoji: "🧢",
+                desc: "Cozy winter beanie",
+                printfulVariantId: 5082,
+                printfulProductId: 2019,
+                variants: [
+                    { id: 5082, name: "Beanie - OSFA", size: "OSFA", color: "Gray", price: 19.99, available: true },
+                ],
+            },
+            {
+                id: 20,
+                name: "Cool Socks",
+                price: 12.99,
+                category: "socks",
+                emoji: "🧦",
+                desc: "Comfortable socks",
+                printfulVariantId: 5083,
+                printfulProductId: 2020,
+                variants: [
+                    { id: 5083, name: "Socks - OSFA", size: "OSFA", color: "Multi", price: 12.99, available: true },
+                ],
+            },
+            {
+                id: 21,
+                name: "Backpack",
+                price: 49.99,
+                category: "backpacks",
+                emoji: "🎒",
+                desc: "Durable backpack",
+                printfulVariantId: 5084,
+                printfulProductId: 2021,
+                variants: [
+                    { id: 5084, name: "Backpack - OSFA", size: "OSFA", color: "Black", price: 49.99, available: true },
+                ],
+            },
+            {
+                id: 22,
+                name: "Sneakers",
+                price: 79.99,
+                category: "shoes",
+                emoji: "👟",
+                desc: "Cool sneakers",
+                printfulVariantId: 5085,
+                printfulProductId: 2022,
+                variants: [
+                    { id: 5085, name: "Sneakers - 8", size: "8", color: "White", price: 79.99, available: true },
+                    { id: 5086, name: "Sneakers - 9", size: "9", color: "White", price: 79.99, available: true },
+                    { id: 5087, name: "Sneakers - 10", size: "10", color: "White", price: 79.99, available: true },
+                    { id: 5088, name: "Sneakers - 11", size: "11", color: "White", price: 79.99, available: true },
+                ],
+            },
+            {
+                id: 23,
                 name: "Digital Art Print",
                 price: 9.99,
                 category: "digital",
                 emoji: "🖼️",
                 desc: "High-quality digital artwork",
-                printfulVariantId: 4015,
-                size: "12x18",
-            },
-            {
-                id: 6,
-                name: "Brothers Tribute Tee",
-                price: 34.99,
-                category: "t-shirts",
-                emoji: "👕",
-                desc: "Honoring our fallen brothers",
-                printfulVariantId: 4016,
-                size: "XL",
-            },
-            {
-                id: 7,
-                name: "Stellar Sweatshirt",
-                price: 54.99,
-                category: "hoodies",
-                emoji: "🧥",
-                desc: "Perfect for cold cosmic nights",
-                printfulVariantId: 4017,
-                size: "L",
-            },
-            {
-                id: 8,
-                name: "AI Assistant Tee",
-                price: 29.99,
-                category: "t-shirts",
-                emoji: "🤖",
-                desc: "For the tech-savvy soul",
-                printfulVariantId: 4018,
-                size: "M",
+                printfulVariantId: 5089,
+                printfulProductId: 2023,
+                variants: [
+                    { id: 5089, name: "Digital Art - Download", size: "Digital", color: "Digital", price: 9.99, available: true },
+                ],
             },
         ];
 
