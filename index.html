@@ -901,13 +901,13 @@
             }
 
             .mission-alert {
-                position: absolute;
-                bottom: 8%;
+                position: fixed;
+                bottom: 28px;
                 left: 50%;
-                transform: translateX(-50%) translateY(40px);
+                transform: translateX(-50%) translateY(80px);
                 padding: 24px 30px 26px;
                 border-radius: 28px;
-                background: rgba(5, 3, 13, 0.65);
+                background: rgba(5, 3, 13, 0.82);
                 border: 1px solid rgba(255, 255, 255, 0.15);
                 box-shadow: 0 20px 80px rgba(79, 70, 229, 0.5);
                 backdrop-filter: blur(20px);
@@ -917,8 +917,8 @@
                 gap: 12px;
                 opacity: 0;
                 pointer-events: none;
-                transition: opacity 0.8s ease, transform 0.8s ease;
-                z-index: 6;
+                z-index: 1000;
+                width: min(520px, 90vw);
             }
 
             .mission-alert.active {
@@ -1934,7 +1934,7 @@
                 — Aundrae Giles
             </p>
             <div class="legacy-status" id="legacy-status">Phasing neon rose energy...</div>
-            <div class="mission-alert" id="mission-alert" style="opacity: 0; transform: translateY(50px);">
+            <div class="mission-alert" id="mission-alert" style="opacity: 0; transform: translateX(-50%) translateY(80px);">
                 <div class="alert-lights" id="alert-lights"></div>
                 <p class="alert-mode" id="alert-mode">MAYDAY • REACTIVATING LEGENDARY RIDE</p>
                 <p class="alert-prompt" id="alert-prompt">Holographic Bulletbike core is unstable. Engage the dog tag key and prepare to space jump.</p>
