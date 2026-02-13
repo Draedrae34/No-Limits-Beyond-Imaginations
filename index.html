@@ -1933,7 +1933,8 @@
             <p class="greeting-signature" id="greeting-signature">
                 — Aundrae Giles
             </p>
-            <div class="mission-alert" id="mission-alert">
+            <div class="legacy-status" id="legacy-status">Phasing neon rose energy...</div>
+            <div class="mission-alert" id="mission-alert" style="opacity: 0; transform: translateY(50px);">
                 <div class="alert-lights" id="alert-lights"></div>
                 <p class="alert-mode" id="alert-mode">MAYDAY • REACTIVATING LEGENDARY RIDE</p>
                 <p class="alert-prompt" id="alert-prompt">Holographic Bulletbike core is unstable. Engage the dog tag key and prepare to space jump.</p>
@@ -1944,7 +1945,6 @@
                     <button class="dog-tag" data-tag="TM">T-Mainney Dog Tag</button>
                 </div>
             </div>
-            <div class="legacy-status" id="legacy-status">Phasing neon rose energy...</div>
         </div>
 
     <!-- Cosmic Background -->
@@ -2272,6 +2272,10 @@ This is the Legacy.`;
             const startMissionSequence = () => {
                 if (missionTriggered || !missionAlert || !greetingOverlay) return;
                 missionTriggered = true;
+                // Fade in the mission alert
+                missionAlert.style.transition = "all 0.8s ease";
+                missionAlert.style.opacity = "1";
+                missionAlert.style.transform = "translateY(0)";
                 missionAlert.classList.add("active");
                 greetingOverlay.classList.add("critical");
                 greetingOverlay?.classList.add("red-alert", "overlay-shake");
