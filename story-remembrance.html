@@ -604,7 +604,7 @@
         <section class="audio-controls" id="tribute-song">
             <h3>&#127925; Tribute Song for My Brothers</h3>
             <audio id="bg-song" controls preload="auto">
-                <source src="music_workspace/music_workspace/projects/R_T_Remembrance_Track1/song_1144.mp3" type="audio/mp3">
+                <source src="remembrance/The Archives Of Kings By Aundrae Giles.mp3" type="audio/mp3">
             </audio>
             <p class="song-info">A special song dedicated to the brothers who touched my soul and left an indelible mark on my heart.</p>
         </section>
@@ -677,13 +677,14 @@
         const dotsContainer = document.getElementById('slideDots');
         const galleryGrid = document.getElementById('photo-gallery-grid');
         const videoGrid = document.getElementById('video-grid');
-        const manifestUrl = './uploads/story_manifest.json';
+        const manifestUrl = './remembrance/media_manifest.json';
 
         let currentSlide = 0;
         let slides = [];
         let totalSlides = 0;
         let autoPlayInterval = null;
         let isAutoPlaying = false;
+        const AUTO_INTERVAL = 8000; // 8 seconds per request (7-10s window)
 
         function isImagePath(src) {
             return /\.(jpe?g|png|gif|webp)$/i.test(src);
@@ -749,14 +750,13 @@
         }
 
         function toggleAutoPlay() {
-            if (!slides.length) return;
             const btn = document.getElementById('autoplay-btn');
             if (isAutoPlaying) {
                 clearInterval(autoPlayInterval);
                 isAutoPlaying = false;
                 btn.innerHTML = '&#9658; Auto Play';
             } else {
-                autoPlayInterval = setInterval(nextSlide, 3200);
+                autoPlayInterval = setInterval(nextSlide, AUTO_INTERVAL);
                 isAutoPlaying = true;
                 btn.innerHTML = '&#10074;&#10074; Pause';
             }
@@ -786,8 +786,8 @@
                 const slide = document.createElement('div');
                 slide.className = 'slide' + (idx === 0 ? ' active' : '');
                 slide.innerHTML = `
-                    <img src="${item.src}" alt="Memory ${idx + 1}">
-                    <div class="slide-caption">${item.caption || 'Legacy Light'}</div>
+                    <img src="${item.src}" alt="${item.caption || 'Slide'}" loading="lazy">
+                    <div class="slide-caption">${item.caption}</div>
                 `;
                 slideshowContainer.appendChild(slide);
             });
@@ -797,6 +797,23 @@
             currentSlide = 0;
             resetAutoPlay();
             updateSlideInfo();
+        }
+
+        async function loadSlides() {
+            try {
+                const res = await fetch(manifestUrl);
+                const data = await res.json();
+                const imagesOnly = (data.items || []).filter(item => isImagePath(item.src));
+                totalSlides = imagesOnly.length;
+                if (!imagesOnly.length) return;
+                buildSlideshow(imagesOnly);
+                // start autoplay at 8s
+                isAutoPlaying = true;
+                document.getElementById('autoplay-btn').innerHTML = '&#10074;&#10074; Pause';
+                autoPlayInterval = setInterval(nextSlide, AUTO_INTERVAL);
+            } catch (err) {
+                console.error('Failed to load slides:', err);
+            }
         }
 
         function shuffleSlides() {
@@ -878,7 +895,8 @@
         }
 
         loadStoryVideos();
-        
+        loadSlides();
+
         // Load My Personal Photos
         function loadMyPhotos() {
             try {
