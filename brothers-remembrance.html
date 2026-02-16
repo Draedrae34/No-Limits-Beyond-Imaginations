@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
+        />
+        <meta name="theme-color" content="#1a0a2e" />
+        <meta
+            name="description"
+            content="No Limits Beyond Limitations Into My Wildest Imagination - Brothers Remembrance. R.J. & T-Mainney live forever through our memories and legacy."
+        />
+        <meta
+            name="keywords"
+            content="No Limits Beyond Limitations, NLBLITMWI, brothers, memorial, R.J., T-Mainney, remembrance, legacy"
+        />
+        <meta name="author" content="Aundrae Giles" />
+        <meta
+            property="og:title"
+            content="Brothers Remembrance | No Limits Beyond Limitations"
+        />
+        <meta
+            property="og:description"
+            content="Honoring the legacy of R.J. & T-Mainney - brothers who live forever through our memories and the brand they inspired."
+        />
+        <meta property="og:image" content="Logo/Memorial Logo - Enhanced V2.png" />
+        <link rel="manifest" href="manifest.json" />
+        <title>Brothers Remembrance | No Limits Beyond Limitations</title>
+        <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+        <link rel="stylesheet" href="portal-overlay.css" />
+        <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+        <script>
+            window.vercelInsights = window.vercelInsights || [];
+            window.vercelInsights.push(["init"]);
+        </script>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500;600&family=Great+Vibes&family=Orbitron:wght@400;700;900&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            :root {
+                --purple-deep: #1a0a2e;
+                --purple-dark: #2d1b4e;
+                --purple-main: #8b5cf6;
+                --purple-light: #a78bfa;
+                --purple-glow: #c4b5fd;
+                --gold: #ffd700;
+                --gold-sheen: #f9d64a;
+                --cyan: #00ffff;
+                --violet-neon: #c084fc;
+                --nebula-rose: #da22ff;
+                --spark-white: rgba(255, 255, 255, 0.95);
+                --white: #ffffff;
+                --text-light: #e2e8f0;
+                --dark-space: #03010a;
+            }
+
+            html {
+                scroll-behavior: smooth;
+            }
+
+            body {
+                font-family: "Raleway", sans-serif;
+                background: var(--purple-deep);
+                color: var(--text-light);
+                overflow-x: hidden;
+                min-height: 100vh;
+            }
+
+            /* Header Navigation */
+            header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                z-index: 1000;
+                background: rgba(26, 10, 46, 0.95);
+                backdrop-filter: blur(10px);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            nav {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 1rem 2rem;
+                max-width: 1400px;
+                margin: 0 auto;
+            }
+
+            .logo {
+                font-family: "Orbitron", sans-serif;
+                font-size: 1.5rem;
+                font-weight: 900;
+                color: var(--gold);
+                text-decoration: none;
+                text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            }
+
+            .nav-links {
+                display: flex;
+                gap: 2rem;
+                list-style: none;
+            }
+
+            .nav-links a {
+                color: var(--text-light);
+                text-decoration: none;
+                transition: color 0.3s ease;
+                font-weight: 500;
+            }
+
+            .nav-links a:hover {
+                color: var(--gold);
+            }
+
+            /* Main Content */
+            main {
+                margin-top: 80px;
+                padding: 2rem;
+                max-width: 1400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            /* Hero Section */
+            .hero {
+                text-align: center;
+                padding: 4rem 0;
+                background: linear-gradient(135deg, var(--purple-dark), var(--purple-deep));
+                border-radius: 20px;
+                margin-bottom: 3rem;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .hero::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: url('Logo/Memorial Logo - Enhanced V2.png') center/cover;
+                opacity: 0.1;
+                z-index: 0;
+            }
+
+            .hero-content {
+                position: relative;
+                z-index: 1;
+            }
+
+            .hero h1 {
+                font-family: "Cinzel", serif;
+                font-size: 3.5rem;
+                color: var(--gold);
+                margin-bottom: 1rem;
+                text-shadow: 0 0 30px rgba(255, 215, 0, 0.7);
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+                color: var(--text-light);
+                max-width: 800px;
+                margin: 0 auto 2rem;
+            }
+
+            /* Slideshow Section */
+            .slideshow-section {
+                margin-bottom: 3rem;
+            }
+
+            .section-title {
+                font-family: "Cinzel", serif;
+                font-size: 2.5rem;
+                text-align: center;
+                color: var(--gold);
+                margin-bottom: 2rem;
+                text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            }
+
+            .slideshow-container {
+                position: relative;
+                max-width: 1200px;
+                margin: 0 auto;
+                border-radius: 15px;
+                overflow: hidden;
+                box-shadow: 0 20px 60px rgba(139, 92, 246, 0.3);
+            }
+
+            .slide {
+                display: none;
+                width: 100%;
+                height: 600px;
+                object-fit: cover;
+            }
+
+            .slide.active {
+                display: block;
+            }
+
+            .slideshow-nav {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+
+            .slideshow-nav button {
+                background: var(--purple-main);
+                color: white;
+                border: none;
+                padding: 0.5rem 1rem;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background 0.3s ease;
+            }
+
+            .slideshow-nav button:hover {
+                background: var(--purple-dark);
+            }
+
+            /* Stand-Still Portraits Section */
+            .portraits-section {
+                margin-bottom: 3rem;
+            }
+
+            .portraits-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+                margin-top: 2rem;
+            }
+
+            .portrait-card {
+                background: rgba(45, 27, 78, 0.8);
+                border-radius: 15px;
+                overflow: hidden;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                cursor: pointer;
+            }
+
+            .portrait-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 40px rgba(139, 92, 246, 0.4);
+            }
+
+            .portrait-card img {
+                width: 100%;
+                height: 250px;
+                object-fit: cover;
+            }
+
+            .portrait-info {
+                padding: 1.5rem;
+            }
+
+            .portrait-info h3 {
+                color: var(--gold);
+                margin-bottom: 0.5rem;
+                font-family: "Cinzel", serif;
+            }
+
+            .portrait-info p {
+                color: var(--text-light);
+                line-height: 1.6;
+            }
+
+            /* Audio Section */
+            .audio-section {
+                text-align: center;
+                margin-bottom: 3rem;
+            }
+
+            .audio-player {
+                background: rgba(45, 27, 78, 0.8);
+                border-radius: 15px;
+                padding: 2rem;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            /* Lightbox */
+            .lightbox {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.95);
+                z-index: 2000;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .lightbox.active {
+                display: flex;
+            }
+
+            .lightbox img {
+                max-width: 90%;
+                max-height: 90%;
+                border-radius: 10px;
+            }
+
+            .lightbox-close {
+                position: absolute;
+                top: 20px;
+                right: 30px;
+                color: white;
+                font-size: 40px;
+                cursor: pointer;
+            }
+
+            /* Continue Journey Button */
+            .continue-journey {
+                text-align: center;
+                margin: 3rem 0;
+            }
+
+            .continue-journey a {
+                display: inline-block;
+                background: var(--gold);
+                color: var(--purple-deep);
+                padding: 1rem 2rem;
+                text-decoration: none;
+                border-radius: 50px;
+                font-weight: 600;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .continue-journey a:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+            }
+
+            /* Responsive */
+            @media (max-width: 768px) {
+                .hero h1 {
+                    font-size: 2.5rem;
+                }
+                
+                .nav-links {
+                    gap: 1rem;
+                }
+                
+                .portraits-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <a href="index.html" class="logo">NLBLITMWI</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Greeting</a></li>
+                    <li><a href="brothers-remembrance.html">Brothers Remembrance</a></li>
+                    <li><a href="message-wall.html">Honor Wall</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>Brothers Remembrance</h1>
+                    <p>Honoring the legacy of R.J. & T-Mainney - brothers who live forever through our memories, love, and the brand they inspired. Their spirit continues to guide us, their laughter echoes in our hearts, and their bond reminds us that true brotherhood never dies.</p>
+                </div>
+            </section>
+
+            <section class="slideshow-section">
+                <h2 class="section-title">Memory Slideshow</h2>
+                <div class="slideshow-container" id="slideshow-container">
+                    <!-- Slides will be loaded here -->
+                </div>
+                <div class="slideshow-nav">
+                    <button onclick="prevSlide()">Previous</button>
+                    <button onclick="toggleAutoPlay()" id="autoplay-btn">Auto Play</button>
+                    <button onclick="nextSlide()">Next</button>
+                    <button onclick="shuffleSlides()">Shuffle</button>
+                </div>
+            </section>
+
+            <section class="portraits-section">
+                <h2 class="section-title">Stand-Still Legacy Portraits</h2>
+                <div class="portraits-grid" id="portraits-grid">
+                    <!-- Portrait cards will be loaded here -->
+                </div>
+            </section>
+
+            <section class="audio-section">
+                <h2 class="section-title">Tribute Song</h2>
+                <div class="audio-player">
+                    <p>"The Archives Of Kings" - Dedicated to R.J. & T-Mainney</p>
+                    <audio controls style="width: 100%; margin-top: 1rem;">
+                        <source src="remembrance/The Archives Of Kings By Aundrae Giles.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </section>
+
+            <div class="continue-journey">
+                <a href="message-wall.html">Continue to Honor Wall →</a>
+            </div>
+        </main>
+
+        <!-- Lightbox Modal -->
+        <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+            <span class="lightbox-close">&times;</span>
+            <img id="lightbox-img" src="" alt="">
+        </div>
+
+        <script>
+            // Slideshow functionality
+            let slides = [];
+            let currentSlide = 0;
+            let autoPlayInterval = null;
+            let isAutoPlaying = false;
+
+            async function loadSlides() {
+                try {
+                    const response = await fetch('./remembrance/media_manifest.json');
+                    const data = await response.json();
+                    
+                    // Filter for images only
+                    slides = (data.items || []).filter(item => {
+                        const src = item.src || '';
+                        return src.match(/\.(jpg|jpeg|png|gif)$/i);
+                    });
+                    
+                    if (slides.length === 0) {
+                        console.log('No slides found in manifest');
+                        return;
+                    }
+                    
+                    buildSlideshow();
+                    showSlide(0);
+                } catch (error) {
+                    console.error('Error loading slides:', error);
+                }
+            }
+
+            function buildSlideshow() {
+                const container = document.getElementById('slideshow-container');
+                container.innerHTML = '';
+                
+                slides.forEach((slide, index) => {
+                    const img = document.createElement('img');
+                    img.src = slide.src;
+                    img.alt = `Memory ${index + 1}`;
+                    img.className = 'slide';
+                    if (index === 0) img.classList.add('active');
+                    container.appendChild(img);
+                });
+            }
+
+            function showSlide(index) {
+                const slideElements = document.querySelectorAll('.slide');
+                slideElements.forEach(slide => slide.classList.remove('active'));
+                
+                if (slideElements[index]) {
+                    slideElements[index].classList.add('active');
+                }
+                
+                currentSlide = index;
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            function toggleAutoPlay() {
+                const btn = document.getElementById('autoplay-btn');
+                
+                if (isAutoPlaying) {
+                    clearInterval(autoPlayInterval);
+                    isAutoPlaying = false;
+                    btn.textContent = 'Auto Play';
+                } else {
+                    autoPlayInterval = setInterval(nextSlide, 8000);
+                    isAutoPlaying = true;
+                    btn.textContent = 'Pause';
+                }
+            }
+
+            function shuffleSlides() {
+                // Simple shuffle implementation
+                for (let i = slides.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [slides[i], slides[j]] = [slides[j], slides[i]];
+                }
+                buildSlideshow();
+                showSlide(0);
+            }
+
+            // Portrait cards functionality
+            const portraits = [
+                {
+                    image: 'remembrance/RJ_First_Image_SS.jpg',
+                    title: 'RJ • First Light',
+                    description: 'Joy that lit every room; fearless heart that pushed us forward. His energy was contagious, his smile could brighten the darkest days, and his determination inspired everyone around him to be better.'
+                },
+                {
+                    image: 'remembrance/RJ_Dedicated_Picture_SS.jpg',
+                    title: 'RJ • Dedicated',
+                    description: 'Spark that never dies; his energy flows through every design. RJ was the creative force, the visionary who saw possibilities where others saw obstacles, and the brother who made us believe anything was possible.'
+                },
+                {
+                    image: 'remembrance/RJ _Last_Image_SS.jpg',
+                    title: 'RJ • Last Frame',
+                    description: 'Tender, present, a brother whose impact echoes forever. In his final moments, RJ showed us the true meaning of courage and love, leaving behind a legacy that continues to guide us.'
+                },
+                {
+                    image: 'remembrance/T-Mainneys_First_Image_SS.jpg',
+                    title: 'T-Mainney • First Light',
+                    description: 'Magnetic vibe, quick to laugh, always ready to ride. T-Mainney was the adventurer, the free spirit who lived life on his own terms, and the brother who taught us to embrace every moment with passion.'
+                },
+                {
+                    image: 'remembrance/T-Mainneys_Last_Image_SS.jpg',
+                    title: 'T-Mainney • Last Frame',
+                    description: 'Unbreakable spirit; the flame guiding this legacy. T-Mainney\'s resilience and strength continue to inspire us, reminding us that true brotherhood transcends time and space.'
+                },
+                {
+                    image: 'remembrance/Kari_RJ_SS.jpg',
+                    title: 'Kari & RJ (set of 3)',
+                    description: 'Kari holds it down — heart on her sleeve, giving everything, forging an untouchable bond with RJ. Their connection was a testament to the power of family love and the unbreakable ties that bind siblings together.'
+                },
+                {
+                    image: 'remembrance/Kari_TMainney_SS.jpg',
+                    title: 'Kari & T-Mainney (set of 3)',
+                    description: 'Kari\'s kindness, goofyness, charisma — unbreakable connection with T-Mainney. Their relationship showed us the beauty of sibling bonds, filled with laughter, understanding, and unwavering support.'
+                },
+                {
+                    image: 'remembrance/Alisia_RJ_SS.jpg',
+                    title: 'Alisia & RJ (set of 3)',
+                    description: 'Alisia\'s independence and fun — epic parties, caring for kids, laughing with RJ through seasons. Their bond was built on shared adventures, mutual respect, and a love that grew stronger with each passing year.'
+                },
+                {
+                    image: 'remembrance/Alisia_TMainney_SS.jpg',
+                    title: 'Alisia & T-Mainney (set of 3)',
+                    description: 'Giggles and inside jokes; T-Mainney\'s crush on her friends made for unforgettable moments. Their relationship was filled with joy, teasing, and the kind of chemistry that only true siblings can understand.'
+                }
+            ];
+
+            function loadPortraits() {
+                const grid = document.getElementById('portraits-grid');
+                grid.innerHTML = '';
+                
+                portraits.forEach(portrait => {
+                    const card = document.createElement('div');
+                    card.className = 'portrait-card';
+                    card.onclick = () => openLightbox(portrait.image);
+                    
+                    card.innerHTML = `
+                        <img src="${portrait.image}" alt="${portrait.title}" loading="lazy">
+                        <div class="portrait-info">
+                            <h3>${portrait.title}</h3>
+                            <p>${portrait.description}</p>
+                        </div>
+                    `;
+                    
+                    grid.appendChild(card);
+                });
+            }
+
+            // Lightbox functionality
+            function openLightbox(imageSrc) {
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImg = document.getElementById('lightbox-img');
+                
+                lightboxImg.src = imageSrc;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeLightbox() {
+                const lightbox = document.getElementById('lightbox');
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+
+            // Initialize everything when page loads
+            document.addEventListener('DOMContentLoaded', () => {
+                loadSlides();
+                loadPortraits();
+                
+                // Start autoplay after a short delay
+                setTimeout(() => {
+                    toggleAutoPlay();
+                }, 2000);
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') prevSlide();
+                if (e.key === 'ArrowRight') nextSlide();
+                if (e.key === ' ') {
+                    e.preventDefault();
+                    toggleAutoPlay();
+                }
+                if (e.key === 'Escape') closeLightbox();
+            });
+        </script>
+    </body>
+</html>

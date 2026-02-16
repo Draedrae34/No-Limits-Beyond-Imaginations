@@ -62,7 +62,7 @@
                 --white: #ffffff;
                 --text-light: #e2e8f0;
                 --dark-space: #03010a;
-                --logo-wall: url('Logo/Greeting_Logo.png');
+                --logo-wall: url('Logo/Greetings_background_logo.png');
             }
 
             html {
@@ -110,14 +110,8 @@
                 content: '';
                 position: absolute;
                 inset: 0;
-                background:
-                    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.15), transparent 45%),
-                    radial-gradient(circle at 75% 40%, rgba(255, 102, 255, 0.35), transparent 50%),
-                    radial-gradient(circle at 50% 65%, rgba(248, 113, 173, 0.25), transparent 55%);
-                mix-blend-mode: screen;
-                opacity: 0.75;
+                background: transparent;
                 pointer-events: none;
-                animation: auroraGlow 12s ease-in-out infinite;
             }
 
             .aurora-layer {
@@ -198,14 +192,8 @@
                 content: '';
                 position: absolute;
                 inset: 0;
-                background:
-                    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.15), transparent 45%),
-                    radial-gradient(circle at 75% 40%, rgba(255, 102, 255, 0.35), transparent 50%),
-                    radial-gradient(circle at 50% 65%, rgba(248, 113, 173, 0.25), transparent 55%);
-                mix-blend-mode: screen;
-                opacity: 0.75;
+                background: transparent;
                 pointer-events: none;
-                animation: auroraGlow 12s ease-in-out infinite;
             }
 
             .portal-layer {
@@ -310,27 +298,26 @@
             .greeting-text-container {
                 position: relative;
                 z-index: 5;
-                padding: 0 20px;
+                padding: 0 clamp(1.5rem, 4vw, 3rem);
                 max-width: 960px;
                 margin: 40px auto 0;
+                text-align: center;
             }
 
             .greeting-text {
-                font-family: 'Great Vibes', cursive;
-                font-size: clamp(2.2rem, 3.2vw + 1rem, 3.8rem);
-                line-height: 3.2;
-                letter-spacing: 0.175em;
-                color: var(--gold-sheen);
+                font-family: "Great Vibes", cursive;
+                font-size: clamp(1.12rem, 1.25vw + 0.9rem, 1.55rem);
+                line-height: 1.9;
+                letter-spacing: 0.6px;
+                color: var(--gold);
                 text-shadow:
-                    0 0 45px rgba(255, 211, 123, 0.9),
-                    0 0 75px rgba(249, 115, 230, 0.7),
-                    0 0 140px rgba(185, 28, 189, 0.45);
-                opacity: 0;
-                min-height: 280px;
-                text-align: center;
-                padding: 0 clamp(3rem, 6vw, 5rem);
-                max-width: 900px;
-                margin: 0 auto;
+                    0 0 16px rgba(255, 215, 0, 0.55),
+                    0 0 28px rgba(255, 182, 72, 0.45),
+                    0 0 38px rgba(218, 165, 32, 0.35);
+                margin-bottom: 28px;
+                white-space: pre-line;
+                position: relative;
+                z-index: 2;
                 animation: scriptPulse 12s ease-in-out infinite alternate;
             }
 
@@ -902,9 +889,9 @@
 
             .mission-alert {
                 position: fixed;
-                bottom: 28px;
+                bottom: 40px;
                 left: 50%;
-                transform: translateX(-50%) translateY(80px);
+                transform: translateX(-50%);
                 padding: 24px 30px 26px;
                 border-radius: 28px;
                 background: rgba(5, 3, 13, 0.82);
@@ -917,13 +904,12 @@
                 gap: 12px;
                 opacity: 0;
                 pointer-events: none;
-                z-index: 1000;
+                z-index: 10;
                 width: min(520px, 90vw);
             }
 
             .mission-alert.active {
                 opacity: 1;
-                transform: translateX(-50%) translateY(0);
                 pointer-events: auto;
             }
 
@@ -1934,10 +1920,10 @@
                 — Aundrae Giles
             </p>
             <div class="legacy-status" id="legacy-status">Phasing neon rose energy...</div>
-            <div class="mission-alert" id="mission-alert" style="opacity: 0; transform: translateX(-50%) translateY(80px);">
+            <div class="mission-alert" id="mission-alert">
                 <div class="alert-lights" id="alert-lights"></div>
                 <p class="alert-mode" id="alert-mode">MAYDAY • REACTIVATING LEGENDARY RIDE</p>
-                <p class="alert-prompt" id="alert-prompt">Holographic Bulletbike core is unstable. Engage the dog tag key and prepare to space jump.</p>
+                <p class="alert-prompt" id="alert-prompt">MAYDAY MAYDAY — initiate the space jump or you won't make it off this ship in one piece. Click both dog tags to activate the jump.</p>
                 <button class="rose-launch" id="rose-launch" type="button">Purple Rose</button>
                 <div class="alert-countdown" id="alert-countdown">5</div>
                 <div class="dog-tag-pair" id="dog-tag-pair">
@@ -1969,7 +1955,7 @@
                 </div>
             </a>
             <nav class="main-nav">
-                <a href="story-remembrance.html" class="nav-link special"
+                <a href="brothers-remembrance.html" class="nav-link special"
                     >🚀 Begin Journey</a
                 >
             </nav>
@@ -1997,7 +1983,7 @@
                     <span class="highlight">no limits</span>.
                 </p>
                 <div class="cta-container">
-                    <a href="story-remembrance.html" class="cta-btn primary"
+                    <a href="brothers-remembrance.html" class="cta-btn primary"
                         >🚀 Start the Journey</a
                     >
                 </div>
@@ -2016,7 +2002,7 @@
                 </div>
                 <div class="grand-opening-actions">
                     <span class="grand-opening-code">Use code <strong>LABLAUNCH</strong> at checkout</span>
-                    <a href="story-remembrance.html" class="grand-opening-cta">Begin the journey</a>
+                    <a href="brothers-remembrance.html" class="grand-opening-cta">Begin the journey</a>
                 </div>
             </div>
 
@@ -2040,7 +2026,7 @@
                             Our designs aren't mass-produced — they're created
                             with soul, printed on demand just for you.
                         </p>
-                        <a href="story-remembrance.html" class="feature-link"
+                        <a href="brothers-remembrance.html" class="feature-link"
                             >Begin Journey →</a
                         >
                     </div>
@@ -2053,7 +2039,7 @@
                             memorial wall so R.J. and T-Mainney can live forever
                             through the stories you share.
                         </p>
-                        <a href="story-remembrance.html" class="feature-link"
+                        <a href="brothers-remembrance.html" class="feature-link"
                             >Begin Journey →</a
                         >
                     </div>
@@ -2066,7 +2052,7 @@
                             the Brothers Remembrance page to learn their stories
                             and even leave a message on the memorial wall.
                         </p>
-                        <a href="story-remembrance.html" class="feature-link"
+                        <a href="brothers-remembrance.html" class="feature-link"
                             >Begin Journey →</a
                         >
                     </div>
@@ -2080,9 +2066,12 @@
                             incredible legacies. You show the world that love
                             never dies.
                         </p>
-                        <a href="story-remembrance.html" class="feature-link"
-                            >Begin Journey →</a
-                        >
+                        <ul class="nav-links">
+                    <li><a href="index.html">Greeting</a></li>
+                    <li><a href="brothers-remembrance.html">Brothers Remembrance</a></li>
+                    <li><a href="message-wall.html">Honor Wall</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                </ul>
                     </div>
                 </div>
             </section>
@@ -2112,7 +2101,7 @@
                 <p class="footer-brand">No Limits Beyond Limitations</p>
                 <p class="footer-tagline">Into My Wildest Imagination</p>
                 <div class="footer-links">
-                    <a href="story-remembrance.html">Begin Journey</a>
+                    <a href="brothers-remembrance.html">Begin Journey</a>
                 </div>
                 <p class="footer-dedication">
                     Dedicated to R.J. &amp; T-Mainney — forever in our hearts.
@@ -2190,7 +2179,7 @@ This is the Legacy.`;
             let dogTagState = { RJ: false, TM: false };
             let roseArmed = false;
             let countdownStarted = false;
-            const storyPageUrl = "story-remembrance.html";
+            const storyPageUrl = "brothers-remembrance.html";
             const legacyMessages = {
                 init: "Legacy voice calibrating neon rose cathedral...",
                 5: "Dog tags aligning with violet current...",
@@ -2258,9 +2247,10 @@ This is the Legacy.`;
                     countdownValue -= 1;
                     if (countdownValue < 0) {
                         clearInterval(countdownInterval);
-                        updateLegacyStatusText(0);
-                        triggerParticles();
-                        launchStory();
+                        countdownDisplay.textContent = "Welcome to the No Limits Boy's Crew Legacy.";
+                        countdownDisplay.style.fontSize = "1.1rem";
+                        countdownDisplay.style.letterSpacing = "0.08rem";
+                        warningPrompt.textContent = "Space jump activated — welcome to the No Limits Boy's Crew Legacy.";
                         return;
                     }
                     updateCountdownDisplay(countdownValue);
@@ -2273,9 +2263,11 @@ This is the Legacy.`;
                 if (missionTriggered || !missionAlert || !greetingOverlay) return;
                 missionTriggered = true;
                 // Fade in the mission alert
-                missionAlert.style.transition = "all 0.8s ease";
+                missionAlert.style.transition = "opacity 0.6s ease";
                 missionAlert.style.opacity = "1";
-                missionAlert.style.transform = "translateY(0)";
+                missionAlert.style.pointerEvents = "auto";
+                // ensure in-flow block is visible and user sees it
+                setTimeout(() => missionAlert.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
                 missionAlert.classList.add("active");
                 greetingOverlay.classList.add("critical");
                 greetingOverlay?.classList.add("red-alert", "overlay-shake");
