@@ -2537,7 +2537,19 @@ This is the Legacy.`;
                     setTimeout(() => {
                         greetingSignature.classList.add("visible");
                     }, 500);
-                    setTimeout(startMissionSequence, 1200);
+                    setTimeout(() => {
+                        // Fade out greeting text and signature
+                        greetingText.style.opacity = "0";
+                        greetingSignature.style.opacity = "0";
+                        greetingText.style.transition = "opacity 1s ease";
+                        greetingSignature.style.transition = "opacity 1s ease";
+                    }, 2000);
+                    setTimeout(() => {
+                        // Hide greeting text completely and show mayday
+                        greetingText.style.display = "none";
+                        greetingSignature.style.display = "none";
+                        startMissionSequence();
+                    }, 3000);
                 }
             }
 
