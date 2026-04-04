@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vercel API Test</title>
+</head>
+<body>
+    <h1>Testing Vercel API Endpoints</h1>
+    <div id="test-results"></div>
+    <button onclick="testStripePayment()">Test Stripe Payment API</button>
+    <button onclick="testPrintifyOrder()">Test Printify Order API</button>
+
+    <script>
+        async function testStripePayment() {
+            const results = document.getElementById('test-results');
+            results.innerHTML += '<h2>Testing Stripe Payment API...</h2>';
+
+            try {
+                const response = await fetch('/api/stripe-payment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        product_id: 'test-123',
+                        quantity: 1,
+                        amount: 2999, // $29.99 in cents
+                        customer_info: {
+                            email: 'test@example.com',
+                            name: 'Test User'
+                        }
+                    }),
+                });
+
+                const data = await response.json();
+                results.innerHTML += '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            } catch (error) {
+                results.innerHTML += '<p style="color: red;">Error: ' + error.message + '</p>';
+            }
+        }
+
+        async function testPrintifyOrder() {
+            const results = document.getElementById('test-results');
+            results.innerHTML += '<h2>Testing Printify Order API...</h2>';
+
+            try {
+                const response = await fetch('/api/create-printify-order', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        blueprint_id: 'test-blueprint-123',
+                        quantity: 1,
+                        address: {
+                            first_name: 'Test',
+                            last_name: 'User',
+                            address1: '123 Test St',
+                            city: 'Test City',
+                            state: 'TS',
+                            zip: '12345',
+                            country: 'US',
+                            email: 'test@example.com'
+                        },
+                        payment_method_id: 'pm_test_123'
+                    }),
+                });
+
+                const data = await response.json();
+                results.innerHTML += '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            } catch (error) {
+                results.innerHTML += '<p style="color: red;">Error: ' + error.message + '</p>';
+            }
+        }
+
+        // Auto-run tests when page loads
+        window.onload = function() {
+            setTimeout(() => {
+                testStripePayment();
+                setTimeout(() => testPrintifyOrder(), 2000);
+            }, 1000);
+        };
+    </script>
+</body>
+</html>
