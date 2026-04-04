@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A mystical, magical, and sentimental tribute to R.J. and T-Mainney - combining the greetings theme with the honor wall theme">
+    <title>Remembrance of Our Brothers | Mystical Tribute</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="greetings-honor-combined.css">
+
+    <style>
+        /* Additional custom styles for the combined page */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 2rem;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            z-index: 10;
+        }
+
+        .hero-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--greeting-gold), var(--honor-rose), var(--greeting-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            text-shadow: var(--glow-gold);
+            animation: titleGlow 3s ease-in-out infinite;
+            letter-spacing: 0.1em;
+        }
+
+        .hero-subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: var(--mystical-lavender);
+            margin-bottom: 2rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--greeting-silver);
+            margin-bottom: 2.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-button {
+            background: linear-gradient(135deg, var(--greeting-purple), var(--honor-rose));
+            color: white;
+            border: none;
+            border-radius: var(--radius-full);
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Cinzel', serif;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .hero-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-purple), var(--glow-rose);
+        }
+
+        .hero-button.secondary {
+            background: var(--opacity-20);
+            border: 2px solid var(--greeting-purple);
+            color: var(--greeting-silver);
+        }
+
+        .hero-button.secondary:hover {
+            background: var(--opacity-30);
+            box-shadow: var(--glow-purple);
+        }
+
+        /* Scroll animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Floating elements */
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .hero-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-description {
+                font-size: 0.95rem;
+            }
+
+            .hero-button {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body class="greetings-honor-combined">
+    <!-- Stars Container -->
+    <div class="stars-container" id="stars-container"></div>
+
+    <!-- Galactic Overlay -->
+    <div class="galactic-overlay"></div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title fade-in">In Loving Memory</h1>
+            <p class="hero-subtitle fade-in-delay-1">R.J. & T-Mainney</p>
+            <p class="hero-description fade-in-delay-2">
+                A mystical journey through love, friendship, and eternal connection.
+                Two souls forever intertwined in the fabric of our hearts and the
+                universe beyond. Their spirits shine like stars in the night sky.
+            </p>
+            <div class="hero-actions fade-in-delay-3">
+                <a href="#memorial" class="hero-button">Explore Memorial</a>
+                <a href="#message-wall" class="hero-button secondary">Leave a Message</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Container -->
+    <div class="greetings-honor-container">
+        <!-- Memorial Section -->
+        <section id="memorial" class="memorial-section">
+            <div class="memorial-card fade-in">
+                <span class="memorial-card-icon">✨</span>
+                <h3 class="memorial-card-title">Eternal Light</h3>
+                <p class="memorial-card-text">
+                    Their spirits continue to guide us, lighting our paths through
+                    the darkness with wisdom and love that transcends time and space.
+                </p>
+            </div>
+
+            <div class="memorial-card fade-in-delay-1">
+                <span class="memorial-card-icon">💜</span>
+                <h3 class="memorial-card-title">Unbreakable Bond</h3>
+                <p class="memorial-card-text">
+                    A friendship forged in starlight, unbreakable in life and death,
+                    continuing to inspire and strengthen all who knew them.
+                </p>
+            </div>
+
+            <div class="memorial-card fade-in-delay-2">
+                <span class="memorial-card-icon">🌌</span>
+                <h3 class="memorial-card-title">Cosmic Journey</h3>
+                <p class="memorial-card-text">
+                    Now exploring the great beyond, their souls dance among the
+                    constellations, forever connected to those they left behind.
+                </p>
+            </div>
+        </section>
+
+        <!-- Rose Divider -->
+        <div class="rose-divider">
+            <span class="line"></span>
+            <span class="rose">🌹</span>
+            <span class="line"></span>
+        </div>
+
+        <!-- Tribute Poem -->
+        <section class="tribute-poem fade-in">
+            <div class="tribute-poem-content">
+                <h2 class="poem-title">Legacy of Love</h2>
+                <div class="poem-content">
+                    <p class="poem-line">In the silence of the morning, when the stars still shine,</p>
+                    <p class="poem-line">We feel your presence near, like a warm, gentle sign.</p>
+                    <p class="poem-line">R.J. and T-Mainney, brothers of the heart,</p>
+                    <p class="poem-line">Your memory lives on, never to depart.</p>
+                    <p class="poem-line"></p>
+                    <p class="poem-line">Through every laugh we share, through every tear we shed,</p>
+                    <p class="poem-line">Your spirits dance with us, where the wild winds tread.</p>
+                    <p class="poem-line">In the stories we tell, in the songs we sing,</p>
+                    <p class="poem-line">Your legacy echoes, like the beat of a wing.</p>
+                    <p class="poem-line"></p>
+                    <p class="poem-line">You taught us about courage, about living with grace,</p>
+                    <p class="poem-line">About embracing each moment, in every time and place.</p>
+                    <p class="poem-line">Your friendship was a gift, your love was true,</p>
+                    <p class="poem-line">And we'll carry you always, in everything we do.</p>
+                    <p class="poem-line"></p>
+                    <p class="poem-line">So here's to you, our brothers, forever in our hearts,</p>
+                    <p class="poem-line">Where the heavens open wide, and the soul never parts.</p>
+                    <p class="poem-line">May your journey be peaceful, may your spirits fly free,</p>
+                    <p class="poem-line">And know that you're loved, for all eternity.</p>
+                </div>
+                <p class="poem-signature">- Forever in Our Hearts</p>
+            </div>
+        </section>
+
+        <!-- Photo Gallery -->
+        <section class="gallery-section fade-in">
+            <div class="gallery-header">
+                <h2 class="gallery-title">Memories in Time</h2>
+                <p class="gallery-subtitle">Captured Moments of Love and Friendship</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item fade-in">
+                    <img src="images/memory1.jpg" alt="R.J. and T-Mainney together">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-item-title">Forever Friends</h3>
+                        <p class="gallery-item-desc">Two souls, one path</p>
+                    </div>
+                </div>
+                <div class="gallery-item fade-in-delay-1">
+                    <img src="images/memory2.jpg" alt="Celebration moment">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-item-title">Joyous Times</h3>
+                        <p class="gallery-item-desc">Laughter that echoes</p>
+                    </div>
+                </div>
+                <div class="gallery-item fade-in-delay-2">
+                    <img src="images/memory3.jpg" alt="Nature adventure">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-item-title">Adventures</h3>
+                        <p class="gallery-item-desc">Exploring the unknown</p>
+                    </div>
+                </div>
+                <div class="gallery-item fade-in-delay-3">
+                    <img src="images/memory4.jpg" alt="Quiet reflection">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-item-title">Serenity</h3>
+                        <p class="gallery-item-desc">Moments of peace</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Message Wall Section -->
+        <section id="message-wall" class="message-wall-section fade-in">
+            <div class="message-wall-header">
+                <h2 class="message-wall-title">Wall of Eternal Love</h2>
+                <p class="message-wall-subtitle">Leave Your Heartfelt Messages</p>
+            </div>
+
+            <!-- Existing Messages -->
+            <div class="messages-grid">
+                <div class="message-card fade-in">
+                    <div class="message-author">Sarah Johnson</div>
+                    <div class="message-content">
+                        Your friendship touched so many lives. You both taught us
+                        what true loyalty and love really means. Forever in our hearts.
+                    </div>
+                    <div class="message-date">June 15, 2025</div>
+                </div>
+
+                <div class="message-card fade-in-delay-1">
+                    <div class="message-author">Michael Chen</div>
+                    <div class="message-content">
+                        The laughter we shared, the adventures we had... none of
+                        that ever truly ends. You continue to inspire us every day.
+                    </div>
+                    <div class="message-date">July 2, 2025</div>
+                </div>
+
+                <div class="message-card fade-in-delay-2">
+                    <div class="message-author">Jessica Martinez</div>
+                    <div class="message-content">
+                        To R.J. and T-Mainney - your spirits shine brighter than
+                        any stars in the night sky. Thank you for being such wonderful friends.
+                    </div>
+                    <div class="message-date">August 10, 2025</div>
+                </div>
+            </div>
+
+            <!-- Message Form -->
+            <div class="message-form-container">
+                <h3 class="form-title">Share Your Memories</h3>
+                <form class="message-form" id="message-form">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Your Name</label>
+                        <input type="text" id="name" class="form-input" placeholder="Enter your name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message" class="form-label">Your Message</label>
+                        <textarea id="message" class="form-textarea" placeholder="Share your thoughts and memories..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-heart"></i> Add to Memorial Wall
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Quote Section -->
+        <section class="quote-section fade-in">
+            <div class="quote-container">
+                <p class="quote-text">
+                    "Those we love don't go away; they walk beside us every day.
+                    Unseen, unheard, but always near; still loved, still missed,
+                    and very dear."
+                </p>
+                <p class="quote-author">- Unknown</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="greetings-honor-footer">
+        <p class="footer-message">Forever in Our Hearts</p>
+        <p class="footer-brand">No Limits Beyond Limitations</p>
+    </footer>
+
+    <script>
+        // ====================
+        // STARS GENERATION
+        // ====================
+        const starsContainer = document.getElementById('stars-container');
+        const starsCount = 200;
+
+        for (let i = 0; i < starsCount; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.animationDelay = `${Math.random() * 3}s`;
+            starsContainer.appendChild(star);
+        }
+
+        // ====================
+        // PARTICLE GENERATION
+        // ====================
+        const colors = ['#8B5CF6', '#F472B6', '#06B6D4', '#FFD700'];
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            particle.style.animationDelay = `${Math.random() * 15}s`;
+            particle.style.animationDuration = `${10 + Math.random() * 15}s`;
+            starsContainer.appendChild(particle);
+        }
+
+        // ====================
+        // SCROLL ANIMATIONS
+        // ====================
+        const animateOnScrollElements = document.querySelectorAll('.animate-on-scroll');
+        const fadeInElements = document.querySelectorAll('.fade-in, .fade-in-delay-1, .fade-in-delay-2, .fade-in-delay-3');
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        fadeInElements.forEach(element => {
+            observer.observe(element);
+        });
+
+        // ====================
+        // MESSAGE FORM HANDLING
+        // ====================
+        const messageForm = document.getElementById('message-form');
+        const messagesGrid = document.querySelector('.messages-grid');
+
+        messageForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const message = document.getElementById('message').value;
+
+            if (name && message) {
+                const newMessage = createMessageCard(name, message);
+                messagesGrid.insertBefore(newMessage, messagesGrid.firstChild);
+
+                // Clear form
+                messageForm.reset();
+
+                // Scroll to messages section
+                document.getElementById('message-wall').scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        function createMessageCard(name, message) {
+            const messageCard = document.createElement('div');
+            messageCard.className = 'message-card fade-in';
+            messageCard.style.animation = 'fadeIn 0.8s ease-out forwards';
+
+            const date = new Date();
+            const formattedDate = date.toLocaleDateString('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric'
+            });
+
+            messageCard.innerHTML = `
+                <div class="message-author">${name}</div>
+                <div class="message-content">${message}</div>
+                <div class="message-date">${formattedDate}</div>
+            `;
+
+            return messageCard;
+        }
+
+        // ====================
+        // SMOOTH SCROLL
+        // ====================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // ====================
+        // PARALLAX EFFECT
+        // ====================
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.hero-section');
+            const speed = scrolled * 0.5;
+
+            if (parallax) {
+                parallax.style.transform = `translateY(${speed}px)`;
+            }
+        });
+
+        // ====================
+        // STATS COUNTER ANIMATION
+        // ====================
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+
+            const timer = setInterval(() => {
+                start += increment;
+                if (start >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(start);
+                }
+            }, 16);
+        }
+
+        // ====================
+        // DYNAMIC DATE
+        // ====================
+        document.querySelectorAll('.message-date').forEach(element => {
+            const date = new Date(element.textContent);
+            const formattedDate = date.toLocaleDateString('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric'
+            });
+            element.textContent = formattedDate;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+{
+  "10": [
+    {
+      "provider_id": 61,
+      "provider_title": "Dimona Tee",
+      "variant_count": 6
+    },
+    {
+      "provider_id": 54,
+      "provider_title": "JAMS Designs",
+      "variant_count": 36
+    },
+    {
+      "provider_id": 3,
+      "provider_title": "Marco Fine Arts",
+      "variant_count": 21
+    }
+  ],
+  "18": [
+    {
+      "provider_id": 29,
+      "provider_title": "Monster Digital",
+      "variant_count": 27
+    },
+    {
+      "provider_id": 39,
+      "provider_title": "SwiftPOD",
+      "variant_count": 89
+    },
+    {
+      "provider_id": 54,
+      "provider_title": "JAMS Designs",
+      "variant_count": 40
+    }
+  ],
+  "26": [
+    {
+      "provider_id": 99,
+      "provider_title": "Printify Choice",
+      "variant_count": 72
+    },
+    {
+      "provider_id": 3,
+      "provider_title": "Marco Fine Arts",
+      "variant_count": 5
+    },
+    {
+      "provider_id": 29,
+      "provider_title": "Monster Digital",
+      "variant_count": 14
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "generated": "2026-03-04T17:11:05.151023",
+  "total_commits": 4,
+  "commits": [
+    {
+      "type": "docs",
+      "title": "Document product sync process",
+      "description": "\u2022 Update 2 documentation files\n\u2022 Improve clarity\n\u2022 Add examples",
+      "files": [
+        "BULK_UPLOAD_GUIDE.md",
+        "PRODUCT_SYNC_IMPLEMENTATION.md"
+      ],
+      "file_count": 2
+    },
+    {
+      "type": "chore",
+      "title": "Update configuration (1 files)",
+      "description": "\u2022 Update 1 configuration files\n\u2022 Adjust settings\n\u2022 Optimize setup",
+      "files": [
+        ".vscode/settings.json"
+      ],
+      "file_count": 1
+    },
+    {
+      "type": "feat",
+      "title": "Add product catalog and sync system",
+      "description": "\u2022 Add 7 new feature files\n\u2022 Enhance functionality\n\u2022 Improve user experience",
+      "files": [
+        "bulk-upload-all-products.py",
+        "css/shop-products.css",
+        "generate-product-catalog.py",
+        "generate-product-feed.py",
+        "generate-shop-feed.py",
+        "js/shop-loader.js",
+        "printify-sync-master.py"
+      ],
+      "file_count": 7
+    },
+    {
+      "type": "refactor",
+      "title": "Refactor code (1 files)",
+      "description": "\u2022 Refactor 1 files\n\u2022 Improve code quality\n\u2022 Enhance maintainability",
+      "files": [
+        ".gitignore"
+      ],
+      "file_count": 1
+    }
+  ]
+}

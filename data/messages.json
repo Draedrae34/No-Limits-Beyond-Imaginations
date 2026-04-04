@@ -1,0 +1,34 @@
+[
+    {
+        "id": "m-1",
+        "name": "The Giles Family",
+        "type": "love",
+        "message": "R.J. and Todd, you are forever in our hearts. Every day we carry your memory, your laughter, your spirit. Until we meet again. 💜",
+        "date": "2024-01-15",
+        "image": null
+    },
+    {
+        "id": "m-2",
+        "name": "A Friend",
+        "type": "memory",
+        "message": "I remember the way you both lit up every room you walked into. That energy was contagious. You made everyone feel like they mattered.",
+        "date": "2024-02-20",
+        "image": null
+    },
+    {
+        "id": "m-3",
+        "name": "Anonymous",
+        "type": "quote",
+        "message": "Gone from our sight, but never from our hearts.",
+        "date": "2024-03-10",
+        "image": null
+    },
+    {
+        "id": "m-4",
+        "name": "Aundrae",
+        "type": "tribute",
+        "message": "My brothers, my heroes, my everything. This whole brand exists because of you. You gave me purpose when I had none. I promise to carry your legacy forward every single day. No Limits. Beyond Limitations. Into My Wildest Imagination. For you. Always.",
+        "date": "2024-01-01",
+        "image": null
+    }
+]

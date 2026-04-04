@@ -1,0 +1,42 @@
+{
+    "default": {
+        "blueprint_id": 27053648,
+        "print_provider_id": 410,
+        "price_multiplier": 1,
+        "description": "Custom Printify item generated from the No Limits catalog.",
+        "tags": [
+            "printify",
+            "choice",
+            "clothing"
+        ]
+    },
+    "categories": {
+        "hoodies": {
+            "blueprint_id": 27053975,
+            "print_provider_id": 410,
+            "price_multiplier": 1.2,
+            "tags": [
+                "hoodie",
+                "outerwear"
+            ]
+        },
+        "t-shirts": {
+            "blueprint_id": 27053648,
+            "print_provider_id": 410,
+            "price_multiplier": 1,
+            "tags": [
+                "tee",
+                "legacy"
+            ]
+        },
+        "jackets": {
+            "blueprint_id": 27053684,
+            "print_provider_id": 410,
+            "price_multiplier": 1.3,
+            "tags": [
+                "jacket",
+                "quantum"
+            ]
+        }
+    }
+}
