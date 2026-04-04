@@ -275,6 +275,7 @@
         }
     </style>
     <script src="https://js.stripe.com/v3/"></script>
+    <script defer async src="/_vercel/insights/script.js"></script>
 </head>
 <body>
     <div class="hero">
@@ -314,7 +315,7 @@
         // Load ALL products from Printify API (shows actual available products)
         async function loadProducts() {
             try {
-                const response = await fetch('website_products.json');
+                const response = await fetch('https://sdj05kp7ut7tfuxh.public.blob.vercel-storage.com/website_products.json');
                 const data = await response.json();
                 const products = data.products || [];
 
