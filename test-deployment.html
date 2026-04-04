@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Deployment Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test { margin: 20px 0; padding: 10px; border: 1px solid #ccc; }
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+        button { padding: 10px 20px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>NLBL Vercel Deployment Test</h1>
+
+    <div id="results"></div>
+
+    <button onclick="testStripeAPI()">Test Stripe API</button>
+    <button onclick="testProducts()">Test Product Loading</button>
+    <button onclick="testShopRedirect()">Test Shop Redirect</button>
+
+    <script>
+        const results = document.getElementById('results');
+
+        function addResult(testName, success, message) {
+            const div = document.createElement('div');
+            div.className = `test ${success ? 'success' : 'error'}`;
+            div.innerHTML = `<strong>${testName}:</strong> ${message}`;
+            results.appendChild(div);
+        }
+
+        async function testStripeAPI() {
+            try {
+                const response = await fetch('/api/stripe-payment', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        product_id: 'test-123',
+                        quantity: 1,
+                        amount: 2999
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    addResult('Stripe API', true, `Success! Client secret: ${data.client_secret ? 'received' : 'missing'}`);
+                } else {
+                    addResult('Stripe API', false, `Failed: ${response.status} ${response.statusText}`);
+                }
+            } catch (error) {
+                addResult('Stripe API', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function testProducts() {
+            try {
+                const response = await fetch('website_products.json');
+                const data = await response.json();
+                addResult('Product Loading', true, `Loaded ${data.products.length} products`);
+            } catch (error) {
+                addResult('Product Loading', false, `Error: ${error.message}`);
+            }
+        }
+
+        function testShopRedirect() {
+            // Test if we're on the correct shop page
+            const isCorrectShop = window.location.pathname.includes('final_official_shop.html') ||
+                                 document.querySelector('h1')?.textContent?.includes('NLBL GALAXY');
+            addResult('Shop Page', isCorrectShop, isCorrectShop ? 'Correct shop page loaded' : 'Wrong shop page');
+        }
+
+        // Auto-run some tests
+        window.onload = function() {
+            testShopRedirect();
+        };
+    </script>
+</body>
+</html>
