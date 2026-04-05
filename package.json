@@ -1,0 +1,47 @@
+{
+    "name": "no-limits-beyond-limitations",
+    "version": "2.0.0",
+    "description": "Revolutionary AI-powered clothing brand with voice control, AR, and WebAuthn",
+    "main": "index.html",
+    "scripts": {
+        "dev": "node scripts/preview.js",
+        "dev:vercel": "vercel dev",
+        "deploy": "vercel --prod",
+        "lint": "eslint . --ext .js",
+        "test:links": "linkinator \"*.html\"",
+        "test:a11y": "pa11y-ci",
+        "ci-test": "npm run lint",
+        "format": "prettier --write .",
+        "test-purchase": "node scripts/test-purchase.js",
+        "build:media-manifest": "node scripts/build_media_manifest.js",
+        "upload:media": "bash scripts/upload_to_r2.sh",
+        "upload:blob": "node scripts/upload_to_blob.js",
+        "upload:products": "node scripts/upload_products_to_blob.js",
+        "printify:catalog": "node scripts/publish_to_printify.js"
+    },
+    "keywords": [
+        "ai",
+        "voice-control",
+        "ar",
+        "webauthn",
+        "ecommerce"
+    ],
+    "author": "R&T's No Limitation Quantum AI",
+    "license": "ISC",
+    "dependencies": {
+        "@vercel/analytics": "^1.6.1",
+        "@vercel/blob": "^0.24.1",
+        "cloudinary": "^2.9.0",
+        "stripe": "^14.0.0"
+    },
+    "devDependencies": {
+        "eslint": "^10.0.0",
+        "inquirer": "^13.2.2",
+        "linkinator": "^6.0.0",
+        "pa11y-ci": "^4.0.0",
+        "vercel": "^33.7.1"
+    },
+    "engines": {
+        "node": ">=18.x"
+    }
+}

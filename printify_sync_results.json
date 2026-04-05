@@ -1,0 +1,10 @@
+{
+  "success": true,
+  "sync_time": "2026-03-02",
+  "local_products": 2013,
+  "sync_results": {
+    "success": false,
+    "error": "No shops found"
+  },
+  "message": "Printify sync completed"
+}

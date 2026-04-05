@@ -1,0 +1,60 @@
+# Node.js
+node_modules/
+npm-debug.log*
+.env
+.next/
+dist/
+.DS_Store
+
+# Vercel/deploy helpers
+.vercel/
+.vercelignore
+
+# Skip heavy folders
+deploy-archive/
+Clothing_/
+Clothing_Ideas/
+Music_Covers/
+My_Story_Journey/
+No_Limits_Clothing/
+labeled_designs/
+uploads/
+
+!uploads/story_manifest.json
+
+# Repository artifacts
+no-limits-theme.zip
+
+# Local Netlify folder
+.netlify
+# Installers and system files
+*.deb
+*.rpm
+*.gpg
+*.zip
+*.tgz
+vscode/
+__pycache__/
+.env*.local
+*.log
+vercel.env
+vercel.env
+
+.vercel
+.env*.local
+
+# Local credentials and certificates
+printify-creds.txt
+*.pem
+*.key
+
+# Local extracted tooling / binaries
+git-extract/
+mkcert-v1.4.4-linux-amd64
+Git-*.exe
+
+# Editor-local workspace settings
+.vscode/settings.json
+
+.vercel
+.env*.local

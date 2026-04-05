@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Production Studio</title>
+    <link rel="stylesheet" href="css/music_studio.css">
+    
+    <!-- Vercel Web Analytics -->
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<div id="galaxy-container"></div>
+    <div class="music-studio">
+        <header>
+            <h1>Music Production Studio</h1>
+            <button onclick="window.location.href='dashboard.html'" class="back-btn">← Back to Dashboard</button>
+        </header>
+
+        <div class="studio-layout">
+            <div class="sidebar">
+                <div class="section">
+                    <h3>Projects</h3>
+                    <div id="projects-list" class="list"></div>
+                    <button id="new-project" class="action-btn">New Project</button>
+                </div>
+
+                <div class="section">
+                    <h3>Beats</h3>
+                    <div id="beats-list" class="list"></div>
+                </div>
+
+                <div class="section">
+                    <h3>Lyrics</h3>
+                    <div id="lyrics-list" class="list"></div>
+                </div>
+            </div>
+
+            <div class="main-panel">
+                <div class="timeline">
+                    <h3>Timeline</h3>
+                    <div id="timeline-canvas" class="timeline-canvas"></div>
+                </div>
+
+                <div class="lyrics-editor">
+                    <h3>Lyrics Editor</h3>
+                    <textarea id="lyrics-text" placeholder="Enter lyrics here..."></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/music_studio.js"></script>
+<script src="js/galaxy.js"></script>
+</body>
+</html>

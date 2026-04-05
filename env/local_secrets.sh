@@ -1,0 +1,7 @@
+   export PRINTFUL_API_TOKEN="your_printful_api_token_here"
+   export PRINTFUL_STORE_ID="your_printful_store_id_here"
+   export OPENAI_API_KEY="your_openai_api_key_here"
+   export REPLICATE_API_TOKEN="your_replicate_api_token_here"
+   export STRIPE_SECRET_KEY="your_stripe_secret_key_here"
+   export STRIPE_PUBLISHABLE_KEY="your_stripe_publishable_key_here"
+export STRIPE_WEBHOOK_SECRET="your_stripe_webhook_secret_here"

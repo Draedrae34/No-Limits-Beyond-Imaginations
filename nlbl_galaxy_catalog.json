@@ -1,0 +1,595 @@
+{
+  "source": "NLBL Galaxy Catalog Generator",
+  "date": "2024-03-31",
+  "total_products": 28,
+  "products": [
+    {
+      "id": "nlbl_5_1",
+      "name": "NLBL Cosmic Nebula Small",
+      "category": "shirts",
+      "blueprint_id": 5,
+      "variant_id": 1,
+      "price": 24.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Cosmic Nebula design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_cosmic_nebula.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "CosmicNebula"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_5_2",
+      "name": "NLBL Stellar Dust Medium",
+      "category": "shirts",
+      "blueprint_id": 5,
+      "variant_id": 2,
+      "price": 24.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Stellar Dust design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_stellar_dust.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "StellarDust"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_5_3",
+      "name": "NLBL Galactic Core Large",
+      "category": "shirts",
+      "blueprint_id": 5,
+      "variant_id": 3,
+      "price": 24.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Galactic Core design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_galactic_core.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "GalacticCore"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_5_4",
+      "name": "NLBL Milky Way XL",
+      "category": "shirts",
+      "blueprint_id": 5,
+      "variant_id": 4,
+      "price": 24.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Milky Way design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_milky_way.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "MilkyWay"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_12_1",
+      "name": "NLBL Aurora Borealis Small",
+      "category": "shirts",
+      "blueprint_id": 12,
+      "variant_id": 1,
+      "price": 24.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Aurora Borealis design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_aurora_borealis.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "AuroraBorealis"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_12_2",
+      "name": "NLBL Meteor Shower Medium",
+      "category": "shirts",
+      "blueprint_id": 12,
+      "variant_id": 2,
+      "price": 24.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Meteor Shower design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_meteor_shower.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "MeteorShower"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_12_3",
+      "name": "NLBL Black Hole Large",
+      "category": "shirts",
+      "blueprint_id": 12,
+      "variant_id": 3,
+      "price": 24.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Black Hole design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_black_hole.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "BlackHole"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_12_4",
+      "name": "NLBL Solar Flare XL",
+      "category": "shirts",
+      "blueprint_id": 12,
+      "variant_id": 4,
+      "price": 24.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Solar Flare design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_solar_flare.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "SolarFlare"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_49_1",
+      "name": "NLBL Supernova Small",
+      "category": "sweats",
+      "blueprint_id": 49,
+      "variant_id": 1,
+      "price": 24.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Supernova design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_supernova.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "Supernova"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_49_2",
+      "name": "NLBL Eclipse Medium",
+      "category": "sweats",
+      "blueprint_id": 49,
+      "variant_id": 2,
+      "price": 24.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Eclipse design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_eclipse.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "Eclipse"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_49_3",
+      "name": "NLBL Cosmic Nebula Large",
+      "category": "sweats",
+      "blueprint_id": 49,
+      "variant_id": 3,
+      "price": 24.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Cosmic Nebula design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_cosmic_nebula.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "CosmicNebula"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_49_4",
+      "name": "NLBL Stellar Dust XL",
+      "category": "sweats",
+      "blueprint_id": 49,
+      "variant_id": 4,
+      "price": 24.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Stellar Dust design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_stellar_dust.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "StellarDust"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_66_1",
+      "name": "NLBL Galactic Core Small",
+      "category": "hoodies",
+      "blueprint_id": 66,
+      "variant_id": 1,
+      "price": 44.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Galactic Core design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_galactic_core.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "GalacticCore"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_66_2",
+      "name": "NLBL Milky Way Medium",
+      "category": "hoodies",
+      "blueprint_id": 66,
+      "variant_id": 2,
+      "price": 44.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Milky Way design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_milky_way.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "MilkyWay"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_66_3",
+      "name": "NLBL Aurora Borealis Large",
+      "category": "hoodies",
+      "blueprint_id": 66,
+      "variant_id": 3,
+      "price": 44.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Aurora Borealis design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_aurora_borealis.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "AuroraBorealis"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_66_4",
+      "name": "NLBL Meteor Shower XL",
+      "category": "hoodies",
+      "blueprint_id": 66,
+      "variant_id": 4,
+      "price": 44.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Meteor Shower design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_meteor_shower.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "MeteorShower"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_77_1",
+      "name": "NLBL Black Hole Small",
+      "category": "hoodies",
+      "blueprint_id": 77,
+      "variant_id": 1,
+      "price": 44.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Black Hole design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_black_hole.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "BlackHole"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_77_2",
+      "name": "NLBL Solar Flare Medium",
+      "category": "hoodies",
+      "blueprint_id": 77,
+      "variant_id": 2,
+      "price": 44.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Solar Flare design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_solar_flare.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "SolarFlare"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_77_3",
+      "name": "NLBL Supernova Large",
+      "category": "hoodies",
+      "blueprint_id": 77,
+      "variant_id": 3,
+      "price": 44.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Supernova design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_supernova.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "Supernova"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_77_4",
+      "name": "NLBL Eclipse XL",
+      "category": "hoodies",
+      "blueprint_id": 77,
+      "variant_id": 4,
+      "price": 44.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Eclipse design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_eclipse.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "Eclipse"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_91_1",
+      "name": "NLBL Cosmic Nebula Small",
+      "category": "hoodies",
+      "blueprint_id": 91,
+      "variant_id": 1,
+      "price": 44.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Cosmic Nebula design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_cosmic_nebula.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "CosmicNebula"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_91_2",
+      "name": "NLBL Stellar Dust Medium",
+      "category": "hoodies",
+      "blueprint_id": 91,
+      "variant_id": 2,
+      "price": 44.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Stellar Dust design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_stellar_dust.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "StellarDust"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_91_3",
+      "name": "NLBL Galactic Core Large",
+      "category": "hoodies",
+      "blueprint_id": 91,
+      "variant_id": 3,
+      "price": 44.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Galactic Core design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_galactic_core.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "GalacticCore"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_91_4",
+      "name": "NLBL Milky Way XL",
+      "category": "hoodies",
+      "blueprint_id": 91,
+      "variant_id": 4,
+      "price": 44.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Milky Way design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_milky_way.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "MilkyWay"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_68_1",
+      "name": "NLBL Aurora Borealis Small",
+      "category": "mugs",
+      "blueprint_id": 68,
+      "variant_id": 1,
+      "price": 19.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Aurora Borealis design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_aurora_borealis.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "AuroraBorealis"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_68_2",
+      "name": "NLBL Meteor Shower Medium",
+      "category": "mugs",
+      "blueprint_id": 68,
+      "variant_id": 2,
+      "price": 19.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Meteor Shower design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_meteor_shower.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "MeteorShower"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_68_3",
+      "name": "NLBL Black Hole Large",
+      "category": "mugs",
+      "blueprint_id": 68,
+      "variant_id": 3,
+      "price": 19.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Black Hole design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_black_hole.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "BlackHole"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    },
+    {
+      "id": "nlbl_68_4",
+      "name": "NLBL Solar Flare XL",
+      "category": "mugs",
+      "blueprint_id": 68,
+      "variant_id": 4,
+      "price": 19.99,
+      "cost": 8.5,
+      "description": "NLBL Legacy Collection - Solar Flare design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "galaxy_solar_flare.png",
+      "tags": [
+        "NLBL",
+        "Galaxy",
+        "Cosmic",
+        "SolarFlare"
+      ],
+      "visible": true,
+      "print_areas": [
+        "front"
+      ]
+    }
+  ]
+}

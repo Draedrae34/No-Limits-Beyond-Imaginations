@@ -1,0 +1,10 @@
+node_modules
+dist
+build
+.netlify
+.vercel
+__pycache__
+env
+venv
+*.min.js
+*.min.css

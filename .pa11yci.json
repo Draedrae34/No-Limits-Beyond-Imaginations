@@ -1,0 +1,20 @@
+{
+  "defaults": {
+    "reporters": [
+      "cli"
+    ],
+    "standard": "WCAG2AA",
+    "timeout": 20000,
+    "wait": 1500
+  },
+  "urls": [
+    "./index.html",
+    "./story-remembrance.html",
+    {
+      "url": "./private.html",
+      "ignore": [
+        "WCAG2AA.Principle1.Guideline1_1.1_1_1.H53"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+    "windowsaistudio.autoCheckFoundrySkill": true,
+    "svn.ignoreMissingSvnWarning": true,
+    "github.copilot.chat.agentDebugLog.enabled": true,
+    "github.copilot.chat.agentDebugLog.fileLogging.enabled": true,
+    "chat.imageCarousel.enabled": true,
+    "imageCarousel.explorerContextMenu.enabled": true,
+    "chat.useCustomizationsInParentRepositories": true,
+    "editor.find.closeOnResult": true,
+    "terminal.integrated.windowsUseConptyDll": true
+}

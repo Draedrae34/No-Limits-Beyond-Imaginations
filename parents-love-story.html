@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parents Love Story | No Limits Beyond Limitations</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --purple-deep: #0a0015;
+            --purple-dark: #1a0a2e;
+            --purple-main: #16213e;
+            --purple-light: #0f3460;
+            --accent: #e94560;
+            --gold: #ffd700;
+            --rose-gold: #b76e79;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--purple-deep) 0%, var(--purple-dark) 50%, var(--purple-main) 100%);
+            color: white;
+            font-family: 'Raleway', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .love-story-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            background: linear-gradient(45deg, var(--gold), var(--rose-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-style: italic;
+        }
+
+        .parents-photo-section {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeIn 2s ease-out 0.5s both;
+        }
+
+        .parents-photo {
+            max-width: 600px;
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.2);
+            border: 3px solid var(--gold);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .parents-photo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 25px 70px rgba(255, 215, 0, 0.4);
+        }
+
+        .love-story-text {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            animation: fadeInUp 1s ease-out 1s both;
+        }
+
+        .love-story-text h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .love-story-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .love-story-text .highlight {
+            color: var(--rose-gold);
+            font-weight: 600;
+        }
+
+        .ss-gallery {
+            margin-top: 3rem;
+        }
+
+        .ss-gallery h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .ss-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .ss-item {
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .ss-item img {
+            width: 100%;
+            max-width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .ss-item img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
+        }
+
+        .ss-item p {
+            margin-top: 0.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .back-link a {
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+            border: 2px solid var(--gold);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .back-link a:hover {
+            background: var(--gold);
+            color: var(--purple-dark);
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .love-story-text {
+                padding: 2rem;
+            }
+            
+            .ss-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="love-story-container">
+        <div class="header">
+            <h1>A Love Story For The Ages</h1>
+            <p>How Two Souls Found Each Other And Created Forever</p>
+        </div>
+
+        <div class="parents-photo-section">
+            <img src="/remembrance/Parents_Picture_SS.jpg" alt="Parents Stand Still Photo" class="parents-photo">
+        </div>
+
+        <div class="love-story-text">
+            <h2>The Beginning Of Everything</h2>
+            <p>
+                In a world where moments pass like whispers in the wind, <span class="highlight">two hearts found each other</span> and decided to write a story that would echo through eternity. This wasn't just chance - it was destiny dressed as coincidence, bringing together two souls who were always meant to complete each other.
+            </p>
+            <p>
+                Their love wasn't the kind that burns bright and fades away. No, this was the <span class="highlight">deep, steady flame</span> that warms entire generations. It was in the way they looked at each other, like they held secrets of the universe in their gaze. It was in the gentle touch that spoke volumes without words. It was in the silent understanding that passed between them across crowded rooms.
+            </p>
+            <p>
+                Together, they built more than just a life - they built a <span class="highlight">legacy of love</span>. They created a home where laughter was the currency and hugs were the reward. They showed their children what it means to love unconditionally, to stand together through storms, and to dance in the rain. They proved that true love doesn't just happen - it grows, nurtured by patience, watered with kindness, and blessed by time.
+            </p>
+            <p>
+                This photograph captures more than just two people. It captures <span class="highlight">forever in a single frame</span>. It's the promise that love never really ends - it transforms, it evolves, but it never dies. It becomes the foundation upon which futures are built, the compass that guides lost children home, and the light that shines brightest in the darkest nights.
+            </p>
+            <p>
+                To the two who fell in love and changed everything: Your story lives on in every heartbeat of those you touched. Your love became the blueprint for how we should all love - fiercely, completely, without conditions or apologies.
+            </p>
+        </div>
+
+        <div class="ss-gallery">
+            <h3>Stand Still Memories</h3>
+            <div class="ss-grid">
+                <div class="ss-item" style="animation-delay: 0.1s;">
+                    <img src="/remembrance/Alisia_RJ_SS.JPG" alt="Alisia & RJ Stand Still">
+                    <p>Alisia & RJ - A Moment Frozen In Time</p>
+                </div>
+                <div class="ss-item" style="animation-delay: 0.2s;">
+                    <img src="/remembrance/Kari_RJ_SS.JPG" alt="Kari & RJ Stand Still">
+                    <p>Kari & RJ - Brothers In Spirit</p>
+                </div>
+                <div class="ss-item" style="animation-delay: 0.3s;">
+                    <img src="/remembrance/RJ_TMainney_SS.JPG" alt="RJ & T-Mainney Stand Still">
+                    <p>RJ & T-Mainney - Forever Brothers</p>
+                </div>
+                <div class="ss-item" style="animation-delay: 0.4s;">
+                    <img src="/remembrance/Parents_With_RJ_SS.jpg" alt="Parents With RJ">
+                    <p>Family Love - Three Generations Strong</p>
+                </div>
+                <div class="ss-item" style="animation-delay: 0.5s;">
+                    <img src="/remembrance/Alisia_TMainney_SS.JPG" alt="Alisia & T-Mainney">
+                    <p>Alisia & T-Mainney - Angel Memories</p>
+                </div>
+                <div class="ss-item" style="animation-delay: 0.6s;">
+                    <img src="/remembrance/Kari_TMainney_SS.JPG" alt="Kari & T-Mainney">
+                    <p>Kari & T-Mainney - Together Always</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="back-link">
+            <a href="brothers-remembrance.html">← Back To Brothers Memorial</a>
+        </div>
+    </div>
+</body>
+</html>

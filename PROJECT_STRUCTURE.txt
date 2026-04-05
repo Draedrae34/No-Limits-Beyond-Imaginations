@@ -1,0 +1,311 @@
+.
+├── about.html
+├── access-control.js
+├── admin.html
+├── album.html
+├── api
+│   ├── auth.js
+│   ├── checkout.js
+│   ├── orders.js
+│   ├── printful.js
+│   └── stripe-webhook.js
+├── assets
+│   ├── css
+│   ├── images
+│   │   ├── IMG_1250.PNG
+│   │   ├── IMG_1390.JPG
+│   │   ├── IMG_1391(1).JPG
+│   │   ├── IMG_1391.JPG
+│   │   ├── IMG_1392.JPG
+│   │   ├── IMG_1416.JPG
+│   │   ├── IMG_1480.JPG
+│   │   ├── IMG_1842.PNG
+│   │   ├── IMG_1845.PNG
+│   │   ├── IMG_1898.JPG
+│   │   ├── IMG_1900.JPG
+│   │   ├── IMG_1902.JPG
+│   │   ├── IMG_1904.JPG
+│   │   ├── IMG_1909.JPG
+│   │   ├── IMG_2856.PNG
+│   │   ├── IMG_2858.PNG
+│   │   ├── IMG_2860.PNG
+│   │   ├── IMG_2861.PNG
+│   │   ├── IMG_2862.PNG
+│   │   ├── IMG_2863.PNG
+│   │   └── IMG_2864.PNG
+│   └── js
+├── cancel.html
+├── copyright.html
+├── copyright.js
+├── Deployment
+│   ├── awscliv2.zip
+│   ├── deploy_ai.sh
+│   ├── DEPLOY.md
+│   ├── DEPLOYMENT_INSTRUCTIONS.md
+│   ├── deploy_security.sh
+│   ├── deploy_shop.sh
+│   ├── deploy_static.sh
+│   ├── no-limits-theme.zip
+│   ├── PRINTFUL_INTEGRATION_README.md
+│   ├── setup_aws_infrastructure.sh
+│   ├── stripe_backup_code_fordraegiles34.txt
+│   ├── stripe_backup_code.txt
+│   └── upload_website.py
+├── design.html
+├── docs
+│   ├── DEPLOYMENT_SETUP.md
+│   ├── DEPLOYMENT_VERIFICATION_REPORT.md
+│   ├── FIX_PASSWORD_PROTECTION.md
+│   ├── LIVE_WEBSITE_LINKS.md
+│   ├── REVOLUTIONARY_UPGRADES.md
+│   ├── WEBHOOK_SETUP.md
+│   ├── WEBSITE_ACCESS_MATRIX.md
+│   ├── WEBSITE_AND_LOGIN_INFO.md
+│   └── WEBSITE_LINKS.md
+├── favicon.svg
+├── index.html
+├── js
+│   ├── ai-assistant.js
+│   ├── ar-viewer.js
+│   ├── voice-control.js
+│   └── webauthn.js
+├── logo.svg
+├── manifest.json
+├── orders.html
+├── package.json
+├── package-lock.json
+├── personal.html
+├── plans
+│   ├── admin_dashboard_design.md
+│   ├── IMMEDIATE_VERCEL_MIGRATION_PLAN.md
+│   ├── NLBL_REVOLUTIONARY_TRANSFORMATION_PLAN.md
+│   ├── post_deployment_analysis.md
+│   ├── private_admin_dashboard_architecture.md
+│   ├── private_workshop_design.md
+│   └── unified_interface_design.md
+├── portal-overlay.css
+├── portal-transition.js
+├── private.html
+├── products
+│   └── placeholder.txt
+├── PROJECT_STRUCTURE.txt
+├── remembrance
+│   ├── images
+│   ├── music
+│   ├── remembrance.css
+│   ├── remembrance.html
+│   └── remembrance.js
+├── remembrance.html
+├── scripts
+│   └── deploy-vercel.sh
+├── security.html
+├── shop.html
+├── story-remembrance.html
+├── styles.css
+├── success.html
+├── suggestions
+├── sw.js
+├── users.json
+├── vercel.json
+├── web_assets
+│   ├── ai_chat.html
+│   ├── api
+│   │   ├── ai_control.py
+│   │   ├── auth.py
+│   │   ├── business_api.py
+│   │   ├── music_api.py
+│   │   ├── requirements.txt
+│   │   └── server.py
+│   ├── config
+│   │   └── workshop_config.json
+│   ├── css
+│   │   ├── main.css
+│   │   └── remembrance.css
+│   ├── {css,js}
+│   ├── images
+│   │   ├── galaxy_pattern.png
+│   │   └── galaxy.png
+│   ├── index.html
+│   ├── js
+│   │   └── remembrance.js
+│   ├── logo_main.png
+│   ├── music
+│   │   └── remembrance_01.mp3
+│   ├── my-story
+│   │   └── videos
+│   ├── products
+│   │   ├── galaxy_pattern.png
+│   │   ├── hats
+│   │   ├── hoodies
+│   │   │   ├── hoodie_001
+│   │   │   │   ├── index.html
+│   │   │   │   ├── mockup.png
+│   │   │   │   └── product.json
+│   │   │   ├── Hoodie_001_Composite.md
+│   │   │   ├── Hoodie_001_Product.json
+│   │   │   ├── hoodie_005
+│   │   │   │   ├── index.html
+│   │   │   │   ├── mockup.png
+│   │   │   │   └── product.json
+│   │   │   ├── Hoodie_006
+│   │   │   ├── NLBLITMWI_Hoodie_001
+│   │   │   │   ├── 3d
+│   │   │   │   ├── exports
+│   │   │   │   ├── galaxy_texture.png
+│   │   │   │   ├── logo_texture.png
+│   │   │   │   ├── mockups
+│   │   │   │   ├── reference
+│   │   │   │   │   ├── galaxy_pattern.png
+│   │   │   │   │   ├── hoodie_base.png
+│   │   │   │   │   └── Logo.JPG
+│   │   │   │   ├── resize_images.py
+│   │   │   │   ├── source
+│   │   │   │   └── textures
+│   │   │   │       ├── galaxy_pattern.png
+│   │   │   │       ├── Logo.JPG
+│   │   │   │       └── logo_main.png
+│   │   │   └── NLBLITMWI_Hoodie_005_3D
+│   │   │       ├── exports
+│   │   │       ├── models
+│   │   │       ├── reference
+│   │   │       └── textures
+│   │   ├── index.html
+│   │   ├── Logo.JPG
+│   │   ├── logo_main.png
+│   │   └── shirts
+│   ├── public
+│   ├── remembrance.css
+│   ├── remembrance.html
+│   ├── remembrance.js
+│   ├── templates
+│   │   └── placeholder.txt
+│   ├── uploads
+│   ├── vercel.json
+│   └── workshop
+│       ├── assets
+│       │   ├── audio
+│       │   └── icons
+│       ├── business_dash.html
+│       ├── control_panel.html
+│       ├── css
+│       │   ├── business_dash.css
+│       │   ├── control_panel.css
+│       │   ├── music_studio.css
+│       │   ├── portal.css
+│       │   └── workshop.css
+│       ├── dashboard.html
+│       ├── index.html
+│       ├── js
+│       │   ├── auth.js
+│       │   ├── business_dash.js
+│       │   ├── control_panel.js
+│       │   ├── galaxy.js
+│       │   ├── music_studio.js
+│       │   └── portal.js
+│       └── music_studio.html
+└── Website
+    ├── about.html
+    ├── album.html
+    ├── apple-touch-icon.png
+    ├── favicon-16x16.png
+    ├── favicon-32x32.png
+    ├── favicon-instructions.html
+    ├── favicon.svg
+    ├── images
+    │   ├── 082920F3-0975-49F2-9128-A93AEFE134AB.png
+    │   ├── 083B2584-80A0-49D2-88BD-66D40997A637.png
+    │   ├── 09455A3A-E787-4FA4-BB6F-312CD7C066B6.png
+    │   ├── 11616B28-4CC9-4DEE-B3FF-4A0992200599.png
+    │   ├── 121efe4c9e87432ea3002d3e6b4165b7.mov
+    │   ├── 1AD087A7-C574-402A-88ED-2C2BB81CFB00.png
+    │   ├── 2798638D-DC41-41D0-A71B-C60AD0CAFAC2.png
+    │   ├── 280429BA-212C-499F-9A10-6554D247AD8C.png
+    │   ├── 2DF25EBA-EF1F-457C-A51D-97223206A4E9.png
+    │   ├── 2DFF5518-6EDB-4577-9584-94355C3D61F8.png
+    │   ├── 333414C1-0A78-4DEE-80A6-D1047313B914.png
+    │   ├── 362406476743862_f90a1df1-5547-44e1-9b2d-b43da7f36ba1.mp4
+    │   ├── 363836176639818_ca98e7db-94f5-441d-b6b6-5a47cf9f531b.mp4
+    │   ├── 365459862859982_cb2e3a87-0090-426b-a683-723735811edf.mp4
+    │   ├── 394B5629-C0FF-4ACD-9676-F52241BA68AC.png
+    │   ├── 48EE7065-67B6-4D31-9982-DE73640D69F0.png
+    │   ├── 4AD1FCAA-B45E-49D9-9168-CED9FBC11318.png
+    │   ├── 4DD8EFE8-A373-4199-ACD0-7BAF3C8927C7.png
+    │   ├── 4E8D7BB3-4EEC-4AC6-89DB-241CD033CEB7.png
+    │   ├── 4F37EE55-66F6-4B1F-9419-9818DD743005.png
+    │   ├── 5717BC82-1D79-4960-B362-30AC1FA07DD9.png
+    │   ├── 57BA17FF-7F26-4FF3-BC00-B084ED1285E7.png
+    │   ├── 5B1D03F6-BCCF-48B6-8930-C80F4386D369.png
+    │   ├── 5B88A09E-E278-4E89-AF64-DEEBA35BC476.png
+    │   ├── 6A523271-92F5-4C50-BF01-A86B9A5AC9B9.png
+    │   ├── 6B536AD8-ABA1-4A22-B100-283697FD064A.png
+    │   ├── 6F7832AB-3D5C-4F38-818E-B8B3804159E5.png
+    │   ├── 74406C67-B37B-4BFE-9665-FEF3DBC335A7.png
+    │   ├── 78D175C9-A4FF-4F21-811E-9D3E41919FA8.png
+    │   ├── 7A725F69-7380-40B3-861F-854227D0FD92.jpeg
+    │   ├── 7c67fcb26b54e8a3cbe3d4fdf5b9f96d233118e6141bc31e187b1ce70c873e42.mp4
+    │   ├── 7F075B14-4758-43ED-B5BA-BF8BAB089059.png
+    │   ├── 825C3A5C-8835-485F-87B7-A79996A33CA7.png
+    │   ├── 833452f8-065d-44f9-8240-f5f9f4952e43.mp4
+    │   ├── 8FA7DC8E-0B89-4EAB-8FCF-6ECAA09F7A69.png
+    │   ├── 905E55D8-0F85-496C-8A92-906DA433140D.png
+    │   ├── 90BB8B19-DD89-4E69-BCE4-A45D34CC8611.png
+    │   ├── 946C39EE-E685-43A6-9818-E0E4151F3272.png
+    │   ├── 983D4571-B76B-4EB3-A392-CDF53AC2F0E9.png
+    │   ├── 99262FBB-C040-4525-85B3-402703188AB8.png
+    │   ├── A2B81BB6-4F96-4EBF-BEAE-035126759378.png
+    │   ├── a36098f4-ab84-46a5-87ad-ed0d8d42f2b6.mp4
+    │   ├── A4000DCD-3C02-4210-8F30-95AC62D659A1.png
+    │   ├── A79190E8-A1E9-4EE8-85FE-EEEDC2725706.png
+    │   ├── AB48AB1E-CEA7-465D-A312-E3341FD2311A.png
+    │   ├── abf8a1c092eab3252ba83d9853f929b447d81ea8f6060e113beb32ee8b0264f3.mp4
+    │   ├── ACB0EE89-E167-404C-864B-A042624137AB.png
+    │   ├── aimodel_07D544A0-BBDC-4F9B-8962-98B9EFDE4133.jpeg
+    │   ├── aimodel_1D2330CB-29CF-4202-B651-8690D6BCE4FC.jpeg
+    │   ├── aimodel_37D3D803-870A-4B40-A5C6-788846B1536F.jpeg
+    │   ├── aimodel_419AA7A4-7878-4277-B149-C3FBB4C1A225.jpeg
+    │   ├── B33D16DC-33D3-4E70-8586-6373B793D436.png
+    │   ├── B50FE40A-BE55-4793-BE4B-27AA1AAA8534.png
+    │   ├── B715B06A-7A7F-4EC8-A749-B11157F62E3C.png
+    │   ├── B7EAFD99-54DE-4F5F-A2C3-1A05835DD2E5.png
+    │   ├── ba919e7bcb3040ac8bab7c0e76072512.mov
+    │   ├── BB446702-BBE0-41A7-9367-609476B173C9.png
+    │   ├── BF31989C-59C5-44EC-9B8D-6BB161E25EE8.png
+    │   ├── C176B764-01FB-4DCA-941C-50F43BF48E16.png
+    │   ├── c1b74ae6-a5b4-4d52-abe7-147500e10be4.mp4
+    │   ├── CB40DAD5-87D4-480F-8F5E-2F330AB8395D.png
+    │   ├── CC9D2FE2-B462-4508-BF6F-48B998B1C355.png
+    │   ├── copy_4044338A-2853-42CE-B35E-FECCA27EAF0A.mov
+    │   ├── copy_883F24FD-BAF1-4999-A44D-2D3AB0CC9007.mov
+    │   ├── D00D3480-2E7C-4C30-B084-78793A77181B.png
+    │   ├── d1c4c31d-9a7e-4d45-9a63-20e08e591f86.mp4
+    │   ├── D8E23785-86CB-4036-9B56-2F7F2716244A.png
+    │   ├── D9DAABC1-BC57-4DEE-B44F-039FFD4C6F39.png
+    │   ├── DAE373B6-B1F6-4529-A938-E25B3E80501F.png
+    │   ├── E4DF7AAD-73FF-4E7B-A742-C04D0A8F9C5E.png
+    │   ├── E7218986-49FD-4D61-A476-4BFF29B7E3E8.png
+    │   ├── EEB6F490-9AD4-4323-BF49-D02EE54ECCF7.png
+    │   ├── export_1758923113980.mov
+    │   ├── export_1758923527612.mov
+    │   ├── F16D4438-908C-44BD-96A5-28CAFD8271D9.png
+    │   ├── F1BDA5DC-E54D-4753-9239-6589348A66A1.png
+    │   ├── F571E315-65C2-4D8C-BAA1-50C5FF1C8017.png
+    │   ├── F72E6B6E-5CED-4218-9922-FC41F81A3BB7.png
+    │   ├── FC374EBB-E0D7-47AB-BA45-59E6A9990D4E.png
+    │   └── FFB7C425-FA57-40E7-849B-D3B2AAC84A20.png
+    ├── index.html
+    ├── ladies-shoes.html
+    ├── login.html
+    ├── logo.png
+    ├── manifest.json
+    ├── personal.html
+    ├── remembrance.html
+    ├── script.js
+    ├── security.html
+    ├── shop.html
+    ├── SIMPLE_UPLOAD_GUIDE.html
+    ├── styles.css
+    ├── sw.js
+    ├── UPLOAD_INSTRUCTIONS.html
+    └── workshop.html
+
+56 directories, 253 files

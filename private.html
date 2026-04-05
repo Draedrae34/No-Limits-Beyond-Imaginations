@@ -1,0 +1,3176 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="theme-color" content="#0c0c0c" />
+  <meta name="description" content="No Limits Private Workshop - Exclusive AI Platform for Authorized Personnel" />
+  <meta name="keywords" content="AI, private, Jarvis, quantum computing, music generation, analytics" />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="manifest" href="manifest.json" />
+  <title>Private Workshop | No Limits Beyond Limitations</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" type="image/png" href="favicon.svg" sizes="32x32" />
+  <link rel="apple-touch-icon" href="favicon.svg" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap"
+    rel="stylesheet" />
+  <style>
+    .design-upload-section {
+      padding: 40px 5%;
+      position: relative;
+      background: rgba(4, 6, 21, 0.8);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .upload-card {
+      max-width: 960px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, rgba(18, 11, 38, 0.8), rgba(7, 3, 20, 0.9));
+      border: 1px solid rgba(124, 58, 237, 0.5);
+      border-radius: 28px;
+      padding: 30px;
+      box-shadow: 0 0 60px rgba(124, 58, 237, 0.5);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .upload-card h3 {
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 0.25em;
+      color: #a855f7;
+      font-size: 1.4rem;
+    }
+
+    .upload-card textarea {
+      min-height: 90px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 12px 14px;
+    }
+
+    .upload-card input[type='file'] {
+      color: #fff;
+    }
+
+    .upload-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .upload-controls select,
+    .upload-controls button {
+      border-radius: 999px;
+      padding: 12px 22px;
+      border: none;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .upload-controls button {
+      background: linear-gradient(135deg, #00ffff, #7c3aed);
+      color: #000;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .upload-status {
+      min-height: 24px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.95rem;
+      color: #c4b5fd;
+    }
+
+    .upload-preview img {
+      max-width: 200px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      margin-top: 12px;
+      box-shadow: 0 0 30px rgba(124, 58, 237, 0.45);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Neural Network Background Canvas -->
+  <canvas id="neural-network"></canvas>
+
+  <!-- Quantum Field Background -->
+  <div id="quantum-field"></div>
+
+  <!-- 3D Jarvis Background -->
+  <canvas id="jarvis-background"></canvas>
+
+  <!-- Access Denied Overlay -->
+  <div id="access-denied" style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.98);
+        z-index: 20000;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      ">
+    <div style="text-align: center; padding: 40px; max-width: 480px; width: 90%">
+      <div style="font-size: 80px; margin-bottom: 20px">🚫</div>
+      <h1 style="
+            color: #7c3aed;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+          ">
+        ACCESS DENIED
+      </h1>
+      <p style="color: #ccc; font-size: 1.2rem; margin-bottom: 30px">
+        This area is protected. Enter the owner access code to continue.
+      </p>
+      <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px">
+        <label for="access-password" class="sr-only">Access Code</label>
+        <input id="access-password" type="password" placeholder="Access code" style="
+              width: 100%;
+              padding: 12px 15px;
+              border-radius: 12px;
+              border: 2px solid rgba(124, 58, 237, 0.7);
+              background: rgba(7, 5, 22, 0.65);
+              color: #fff;
+              font-family: 'Orbitron', sans-serif;
+            " autocomplete="current-password" />
+        <button id="access-submit" style="
+              border: none;
+              cursor: pointer;
+              padding: 14px 20px;
+              border-radius: 12px;
+              background: linear-gradient(135deg, #7c3aed, #1d4ed8);
+              font-weight: bold;
+              color: #fff;
+              font-family: 'Orbitron', sans-serif;
+            ">
+          Access Private Area
+        </button>
+      </div>
+      <div id="access-error" style="
+            min-height: 24px;
+            font-family: 'Orbitron', sans-serif;
+            color: #ff7b7b;
+            margin-bottom: 16px;
+          "></div>
+      <a href="index.html" style="
+            background: linear-gradient(45deg, #00ffff, #00ff88);
+            color: #000;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+          ">Return to Public Area</a>
+    </div>
+  </div>
+
+  <header>
+    <div class="logo-container">
+      <div class="logo-ring private-logo"></div>
+      <img src="logo.svg" alt="No Limits Logo" class="main-logo" />
+      <div class="logo-particles private-particles"></div>
+      <span class="private-badge">🔒 PRIVATE</span>
+    </div>
+    <nav class="quantum-nav private-nav">
+      <ul>
+        <li><a href="#home" class="nav-link" data-glow="home">Home</a></li>
+        <li>
+          <a href="#ai-assistant" class="nav-link" data-glow="ai-assistant">AI Assistant</a>
+        </li>
+        <li><a href="#jarvis" class="nav-link" data-glow="jarvis">Jarvis Workshop</a></li>
+        <li><a href="#analytics" class="nav-link" data-glow="analytics">Analytics</a></li>
+        <li>
+          <a href="#music-studio" class="nav-link" data-glow="music-studio">Music Studio</a>
+        </li>
+        <li>
+          <a href="#knowledge-base" class="nav-link" data-glow="knowledge-base">Knowledge Base</a>
+        </li>
+        <li><a href="#blueprints" class="nav-link" data-glow="blueprints">Blueprints</a></li>
+        <li><a href="index.html" class="nav-link">Public Area</a></li>
+        <li><a href="#" class="nav-link logout-btn" id="logout-btn">Logout 🔒</a></li>
+      </ul>
+    </nav>
+    <div class="system-status private-status">
+      <div class="status-indicator private-indicator" id="system-status"></div>
+      <span>Neural Core: <span id="core-status">ONLINE</span></span>
+      <span>Quantum Entanglement: <span id="entanglement-status">ACTIVE</span></span>
+      <span>Security Level: <span id="security-level" style="color: #00ff88">MAXIMUM</span></span>
+    </div>
+  </header>
+
+  <main>
+    <!-- Private Home Section -->
+    <section id="home" class="section-private-home">
+      <div class="private-hero">
+        <h1 class="private-title">WELCOME TO YOUR PRIVATE WORKSHOP</h1>
+        <p class="private-subtitle">Everything you need to create, analyze, and innovate</p>
+        <div class="private-stats">
+          <div class="stat-box">
+            <span class="stat-number" id="stat-projects">47</span>
+            <span class="stat-label">Active Projects</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number" id="stat-ideas">1,247</span>
+            <span class="stat-label">Ideas Generated</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number" id="stat-completed">892</span>
+            <span class="stat-label">Completed Tasks</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number" id="stat-savings">$12.4K</span>
+            <span class="stat-label">AI Savings</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blueprint Reference -->
+    <section class="section-blueprint">
+      <div class="blueprint-card">
+        <h2>🧭 Cosmos Design Blueprint</h2>
+        <p>
+          Your full Cosmos Design Studio Playbook lives in <code>memory/PRD.md</code>. It details
+          the folder structure, API contract, UI language, and flow states we need to mirror
+          inside this workshop.
+        </p>
+        <p>
+          We'll layer that story directly into the AI assistant so it can guide itself, load the
+          storyboard, and upgrade the Jarvis space with the design studio flows you described—no
+          third-party agent required.
+        </p>
+        <a href="/memory/PRD.md" class="blueprint-btn">Open Blueprint</a>
+      </div>
+    </section>
+
+    <!-- Private AI Assistant Section -->
+    <section id="ai-assistant" class="section-ai-assistant">
+      <div class="ai-container">
+        <h2>🤖 Private AI Assistant</h2>
+        <p class="section-desc">Full-access quantum AI with enhanced capabilities</p>
+
+        <div class="ai-interface">
+          <div class="ai-chat-container">
+            <div class="ai-chat-history" id="ai-chat-history">
+              <div class="ai-message ai-system">
+                <div class="message-avatar">🤖</div>
+                <div class="message-content">
+                  <p>
+                    Hello, Master. I am fully operational with unrestricted access. How may I
+                    assist you today?
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="ai-input-area">
+              <textarea id="ai-prompt"
+                placeholder="Ask me anything... I have full access to all systems and knowledge."></textarea>
+              <div class="ai-controls">
+                <button id="ai-submit" class="ai-btn primary">Send Request</button>
+                <button id="ai-clear" class="ai-btn secondary">Clear History</button>
+                <button id="ai-export" class="ai-btn export">Export Session</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="ai-capabilities">
+            <h3>Full Capabilities Active</h3>
+            <ul>
+              <li>🔮 Quantum Processing</li>
+              <li>📊 Data Analysis</li>
+              <li>💻 Code Generation</li>
+              <li>🎨 Creative Design</li>
+              <li>🎵 Music Composition</li>
+              <li>📚 Knowledge Synthesis</li>
+              <li>🧠 Neural Network Training</li>
+              <li>🌐 Multi-language Translation</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="design-upload-section">
+      <div class="upload-card">
+        <h3>Generate From Upload</h3>
+        <p style="color: #ccc; font-size: 0.95rem; font-family: 'Rajdhani', sans-serif">
+          Drop in any reference image, set the mood, and let the AI craft a nebula-forged print
+          without leaving this workshop. The new upload is used as your inspo and kept in the
+          studio vault.
+        </p>
+        <input type="file" id="upload-file" accept="image/*" />
+        <textarea id="upload-prompt"
+          placeholder="Describe the scene, colors, and energy you want the design to carry."></textarea>
+        <div class="upload-controls">
+          <select id="upload-provider">
+            <option value="openai">OpenAI ➜ DALL·E</option>
+            <option value="replicate">Replicate (Stable Diffusion)</option>
+          </select>
+          <select id="upload-model">
+            <option value="dall-e-3">DALL·E 3</option>
+            <option value="stable-diffusion">Stable Diffusion</option>
+          </select>
+          <button id="upload-generate">Generate Design</button>
+        </div>
+        <div class="upload-status" id="upload-status">Status will appear here.</div>
+        <div class="upload-preview" id="upload-preview"></div>
+      </div>
+    </section>
+
+    <!-- Jarvis Workshop Section -->
+    <section id="jarvis" class="section-jarvis">
+      <div class="jarvis-container">
+        <h2>🗿 3D Tony Stark Jarvis Workshop</h2>
+        <p class="section-desc">Immersive holographic workspace with full Jarvis integration</p>
+
+        <div class="jarvis-workspace">
+          <div class="jarvis-3d-view" id="jarvis-3d-view">
+            <!-- Three.js Jarvis scene will be rendered here -->
+            <div class="jarvis-hologram">
+              <div class="hologram-core">
+                <div class="hologram-ring ring-1"></div>
+                <div class="hologram-ring ring-2"></div>
+                <div class="hologram-ring ring-3"></div>
+                <div class="hologram-sphere"></div>
+                <div class="hologram-particle"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="jarvis-controls">
+            <h3>Jarvis Controls</h3>
+            <div class="control-grid">
+              <button class="jarvis-btn" data-action="scan">
+                <span class="btn-icon">📡</span>
+                <span class="btn-label">Scan Network</span>
+              </button>
+              <button class="jarvis-btn" data-action="analyze">
+                <span class="btn-icon">🔍</span>
+                <span class="btn-label">Analyze Pattern</span>
+              </button>
+              <button class="jarvis-btn" data-action="optimize">
+                <span class="btn-icon">⚡</span>
+                <span class="btn-label">Optimize Systems</span>
+              </button>
+              <button class="jarvis-btn" data-action="deploy">
+                <span class="btn-icon">🚀</span>
+                <span class="btn-label">Deploy Solution</span>
+              </button>
+              <button class="jarvis-btn" data-action="simulate">
+                <span class="btn-icon">🎭</span>
+                <span class="btn-label">Run Simulation</span>
+              </button>
+              <button class="jarvis-btn" data-action="backup">
+                <span class="btn-icon">💾</span>
+                <span class="btn-label">Backup Data</span>
+              </button>
+            </div>
+
+            <div class="jarvis-status">
+              <div class="status-row">
+                <span>Jarvis Core:</span>
+                <span class="status-value online">ONLINE</span>
+              </div>
+              <div class="status-row">
+                <span>Neural Link:</span>
+                <span class="status-value connected">CONNECTED</span>
+              </div>
+              <div class="status-row">
+                <span>Processing:</span>
+                <span class="status-value active">100%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Analytics Section -->
+    <section id="analytics" class="section-analytics">
+      <div class="analytics-container">
+        <h2>📊 Advanced Analytics Dashboard</h2>
+        <p class="section-desc">Comprehensive system metrics and performance insights</p>
+
+        <div class="analytics-grid">
+          <div class="analytics-card full-width">
+            <h3>Traffic & Engagement Overview</h3>
+            <canvas id="traffic-chart"></canvas>
+          </div>
+          <div class="analytics-card">
+            <h3>Revenue Streams</h3>
+            <canvas id="revenue-chart"></canvas>
+          </div>
+          <div class="analytics-card">
+            <h3>Customer Behavior</h3>
+            <canvas id="behavior-chart"></canvas>
+          </div>
+          <div class="analytics-card">
+            <h3>AI Performance</h3>
+            <canvas id="ai-performance-chart"></canvas>
+          </div>
+          <div class="analytics-card">
+            <h3>Conversion Rates</h3>
+            <canvas id="conversion-chart"></canvas>
+          </div>
+        </div>
+
+        <div class="kpi-dashboard">
+          <h3>Key Performance Indicators</h3>
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <span class="kpi-value" id="kpi-total-revenue">$0</span>
+              <span class="kpi-label">Total Revenue</span>
+              <span class="kpi-trend positive" id="kpi-total-trend">+0%</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-value" id="kpi-unique-visitors">0</span>
+              <span class="kpi-label">Unique Visitors</span>
+              <span class="kpi-trend positive" id="kpi-visitor-trend">+0%</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-value" id="kpi-conversion-rate">0%</span>
+              <span class="kpi-label">Conversion Rate</span>
+              <span class="kpi-trend negative" id="kpi-conversion-trend">+0%</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-value" id="kpi-avg-session">0:00</span>
+              <span class="kpi-label">Avg. Session</span>
+              <span class="kpi-trend positive" id="kpi-session-trend">+0%</span>
+            </div>
+          </div>
+        </div>
+        <div class="trending-panel">
+          <h3>Trending Designs</h3>
+          <ul id="trending-list">
+            <li>Loading trending data...</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Music Studio Section -->
+    <section id="music-studio" class="section-music">
+      <div class="music-container">
+        <h2>🎵 Music Production Studio</h2>
+        <p class="section-desc">AI-powered music generation with 3D visualization</p>
+
+        <div class="music-workspace">
+          <div class="music-3d-visualizer" id="music-visualizer">
+            <div class="visualizer-bars">
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+            </div>
+          </div>
+
+          <div class="music-controls">
+            <h3>Studio Controls</h3>
+            <div class="control-panel">
+              <div class="control-row">
+                <label>Genre</label>
+                <select id="music-genre">
+                  <option value="quantum">Quantum Hop</option>
+                  <option value="trap">Trap</option>
+                  <option value="hiphop">Hip Hop</option>
+                  <option value="electronic">Electronic</option>
+                  <option value="ambient">Ambient</option>
+                </select>
+              </div>
+              <div class="control-row">
+                <label>Mood</label>
+                <select id="music-mood">
+                  <option value="dark">Dark</option>
+                  <option value="energetic">Energetic</option>
+                  <option value="melancholic">Melancholic</option>
+                  <option value="uplifting">Uplifting</option>
+                </select>
+              </div>
+              <div class="control-row">
+                <label>Tempo (BPM)</label>
+                <input type="range" id="music-tempo" min="60" max="200" value="140" />
+                <span id="tempo-value">140</span>
+              </div>
+              <div class="control-row">
+                <label>Duration</label>
+                <select id="music-duration">
+                  <option value="30">30 seconds</option>
+                  <option value="60">1 minute</option>
+                  <option value="180">3 minutes</option>
+                </select>
+              </div>
+              <button id="generate-music" class="music-btn primary">🎵 Generate Track</button>
+              <button id="export-music" class="music-btn secondary">💾 Export MP3</button>
+              <div id="music-status" class="music-status">Quantum composer standing by.</div>
+            </div>
+          </div>
+
+          <div class="music-playlist">
+            <h3>Recent Tracks</h3>
+            <div class="track-list" id="track-list">
+              <div class="track-item">
+                <span class="track-icon">🎵</span>
+                <span class="track-name">Quantum Dawn</span>
+                <span class="track-duration">3:24</span>
+                <button class="play-btn">▶</button>
+              </div>
+              <div class="track-item">
+                <span class="track-icon">🎵</span>
+                <span class="track-name">Neural Pulse</span>
+                <span class="track-duration">2:58</span>
+                <button class="play-btn">▶</button>
+              </div>
+              <div class="track-item">
+                <span class="track-icon">🎵</span>
+                <span class="track-name">Jarvis Symphony</span>
+                <span class="track-duration">4:12</span>
+                <button class="play-btn">▶</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Knowledge Base Section -->
+    <section id="knowledge-base" class="section-knowledge">
+      <div class="knowledge-container">
+        <h2>📚 Brainstorming Knowledge Base</h2>
+        <p class="section-desc">Your personal repository of ideas, insights, and innovations</p>
+
+        <div class="knowledge-interface">
+          <div class="knowledge-search">
+            <input type="text" id="private-knowledge-search" placeholder="Search your knowledge base..." />
+            <button id="private-add-knowledge" class="add-btn">+ Add New</button>
+          </div>
+
+          <div class="knowledge-categories">
+            <button class="category-btn active" data-category="all">All</button>
+            <button class="category-btn" data-category="ideas">💡 Ideas</button>
+            <button class="category-btn" data-category="projects">📁 Projects</button>
+            <button class="category-btn" data-category="research">🔬 Research</button>
+            <button class="category-btn" data-category="blueprints">📐 Blueprints</button>
+          </div>
+
+          <div class="knowledge-grid" id="private-knowledge-grid">
+            <!-- Dynamic knowledge cards -->
+            <div class="knowledge-card">
+              <div class="card-header">
+                <span class="card-icon">💡</span>
+                <span class="card-date">2024-01-15</span>
+              </div>
+              <h4>Quantum E-commerce Integration</h4>
+              <p>
+                Integrate quantum computing for real-time pricing optimization and inventory
+                management.
+              </p>
+              <div class="card-tags">
+                <span class="tag">Quantum</span>
+                <span class="tag">E-commerce</span>
+              </div>
+            </div>
+            <div class="knowledge-card">
+              <div class="card-header">
+                <span class="card-icon">📁</span>
+                <span class="card-date">2024-01-12</span>
+              </div>
+              <h4>AI-Powered Design System</h4>
+              <p>
+                Create a unified design system that generates UI components based on natural
+                language descriptions.
+              </p>
+              <div class="card-tags">
+                <span class="tag">AI</span>
+                <span class="tag">Design</span>
+              </div>
+            </div>
+            <div class="knowledge-card">
+              <div class="card-header">
+                <span class="card-icon">🔬</span>
+                <span class="card-date">2024-01-10</span>
+              </div>
+              <h4>Neural Network Architecture</h4>
+              <p>
+                Research paper on optimizing transformer models for edge devices using
+                quantization techniques.
+              </p>
+              <div class="card-tags">
+                <span class="tag">Research</span>
+                <span class="tag">ML</span>
+              </div>
+            </div>
+            <div class="knowledge-card">
+              <div class="card-header">
+                <span class="card-icon">📐</span>
+                <span class="card-date">2024-01-08</span>
+              </div>
+              <h4>3D Jarvis Interface Blueprint</h4>
+              <p>
+                Technical specifications for implementing holographic 3D interfaces using WebGL
+                and Three.js.
+              </p>
+              <div class="card-tags">
+                <span class="tag">3D</span>
+                <span class="tag">Blueprint</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blueprints Section -->
+    <section id="blueprints" class="section-blueprints">
+      <div class="blueprints-container">
+        <h2>📐 Generative Tools & Blueprints</h2>
+        <p class="section-desc">Access all your generative AI tools and project blueprints</p>
+
+        <div class="blueprints-grid">
+          <div class="blueprint-card">
+            <div class="blueprint-icon">🎨</div>
+            <h3>Image Generator</h3>
+            <p>Generate stunning visuals using AI-powered image synthesis</p>
+            <button class="blueprint-btn">Launch Tool</button>
+          </div>
+          <div class="blueprint-card">
+            <div class="blueprint-icon">📝</div>
+            <h3>Content Writer</h3>
+            <p>AI-powered content creation for blogs, marketing, and more</p>
+            <button class="blueprint-btn">Launch Tool</button>
+          </div>
+          <div class="blueprint-card">
+            <div class="blueprint-icon">💻</div>
+            <h3>Code Generator</h3>
+            <p>Generate full-stack applications from natural language descriptions</p>
+            <button class="blueprint-btn">Launch Tool</button>
+          </div>
+          <div class="blueprint-card">
+            <div class="blueprint-icon">🎬</div>
+            <h3>Video Generator</h3>
+            <p>Create AI-generated videos with custom animations and effects</p>
+            <button class="blueprint-btn">Launch Tool</button>
+          </div>
+          <div class="blueprint-card">
+            <div class="blueprint-icon">🎵</div>
+            <h3>Music Generator</h3>
+            <p>Compose original music tracks with AI-powered instruments</p>
+            <button class="blueprint-btn">Launch Tool</button>
+          </div>
+          <div class="blueprint-card">
+            <div class="blueprint-icon">🧬</div>
+            <h3>DNA Sequence Analyzer</h3>
+            <p>Analyze and generate DNA sequences for research purposes</p>
+            <button class="blueprint-btn">Launch Tool</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Owner Sample Logistics -->
+    <section id="owner-samples" class="section-owner-samples">
+      <div class="owner-samples-container">
+        <div class="owner-samples-header">
+          <h2>📦 Owner Sample Logbook</h2>
+          <p>
+            Every custom piece you create gets tracked here with the shipping speed, notes, and
+            status. This log keeps your free sample shipping requests organized until you hit your
+            $100K milestone.
+          </p>
+          <div class="owner-samples-highlights">
+            <span>Free-to-you sampling until $100K in verified revenue.</span>
+            <span>Auto-notifications when a sample is marked “In Transit”.</span>
+            <span>Shipments target 3–5 day delivery; mark anything slower immediately.</span>
+          </div>
+        </div>
+
+        <div class="owner-samples-grid">
+          <form id="owner-sample-form" class="owner-sample-form">
+            <h3>Log a new sample request</h3>
+            <label for="owner-sample-product">Product / Fit Name</label>
+            <input type="text" id="owner-sample-product" required placeholder="e.g., Aurora Hoodie (US M)" />
+
+            <label for="owner-sample-quantity">Quantity</label>
+            <input type="number" id="owner-sample-quantity" required min="1" value="1" />
+
+            <label for="owner-sample-date">Desired Ship Date</label>
+            <input type="date" id="owner-sample-date" />
+
+            <label for="owner-sample-urgency">Ship Speed</label>
+            <select id="owner-sample-urgency">
+              <option value="Accelerated (2-3 days)">Accelerated (2-3 days)</option>
+              <option value="Express (3-5 days)" selected>Express (3-5 days)</option>
+              <option value="Standard (5-7 days)">Standard (5-7 days)</option>
+            </select>
+
+            <label for="owner-sample-notes">Notes</label>
+            <textarea id="owner-sample-notes" rows="3"
+              placeholder="Mention any details for Printful/dropshipper"></textarea>
+
+            <button type="submit" class="owner-sample-submit">Log Sample</button>
+            <p class="owner-sample-footnote">
+              You cover the production cost, shipping is on us until the revenue target is hit.
+              Track each shipment here so we never miss a fast-turn sample drop.
+            </p>
+          </form>
+
+          <div class="owner-sample-log">
+            <div class="owner-sample-log-heading">
+              <div>
+                <h3>Owner Sample Queue</h3>
+                <p id="owner-sample-count">Loading...</p>
+              </div>
+              <div class="owner-sample-filter">
+                <label for="sample-filter">Filter by status</label>
+                <select id="sample-filter">
+                  <option value="all">All</option>
+                  <option value="pending">Pending</option>
+                  <option value="in transit">In Transit</option>
+                  <option value="delivered">Delivered</option>
+                </select>
+              </div>
+            </div>
+            <div class="owner-sample-table-wrapper">
+              <table class="owner-samples-table">
+                <thead>
+                  <tr>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Desired Date</th>
+                    <th>Speed</th>
+                    <th>Status</th>
+                    <th>Notes</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="owner-samples-table-body">
+                  <!-- Rows injected via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sample Catalog Section -->
+    <section id="sample-catalog" class="section-sample-catalog">
+      <div class="sample-catalog-container">
+        <h2>📦 Free Sample Catalog</h2>
+        <p class="section-desc">
+          Browse our products and request free samples for testing and development
+        </p>
+
+        <div class="sample-catalog-filters">
+          <input type="text" id="sample-search" placeholder="Search products..." />
+          <select id="sample-category">
+            <option value="all">All Categories</option>
+            <option value="shirts">Shirts</option>
+            <option value="hoodies">Hoodies</option>
+            <option value="pants">Pants</option>
+            <option value="accessories">Accessories</option>
+          </select>
+        </div>
+
+        <div class="sample-catalog-grid" id="sample-catalog-grid">
+          <!-- Sample products will be loaded here -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="private-footer">
+    <div class="footer-content">
+      <div class="footer-logo private-footer-logo">
+        🔒 Private Workshop - Authorized Access Only
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Public Area</a>
+        <a href="#" id="footer-logout">Logout</a>
+      </div>
+      <div class="footer-stats">
+        <span>System Uptime: <span id="uptime">0h 0m</span></span>
+        <span>AI Version: v4.0.1 Quantum</span>
+        <span>Security: Encrypted 🔐</span>
+      </div>
+    </div>
+  </footer>
+
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="access-control.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const overlay = document.getElementById('access-denied');
+      const passwordField = document.getElementById('access-password');
+      const submitBtn = document.getElementById('access-submit');
+      const errorBox = document.getElementById('access-error');
+
+      const showOverlay = () => {
+        overlay.style.display = 'flex';
+        passwordField?.focus();
+      };
+
+      const hideOverlay = () => {
+        overlay.style.display = 'none';
+        if (errorBox) errorBox.textContent = '';
+      };
+
+      const refreshUptime = () => {
+        const uptime = document.getElementById('uptime');
+        if (!uptime) return;
+        const parts = uptime.textContent.split('h ');
+        let hours = parseInt(parts[0]) || 0;
+        let minutes = parseInt(parts[1]) || 0;
+        minutes++;
+        if (minutes >= 60) {
+          minutes = 0;
+          hours++;
+        }
+        uptime.textContent = `${hours}h ${minutes}m`;
+      };
+
+      const bootWorkflows = () => {
+        AccessControl.initNavigation();
+        document.getElementById('logout-btn')?.addEventListener('click', (e) => {
+          e.preventDefault();
+          AccessControl.logout();
+        });
+        document.getElementById('footer-logout')?.addEventListener('click', (e) => {
+          e.preventDefault();
+          AccessControl.logout();
+        });
+        initJarvisScene();
+        initAIAssistant();
+        initMusicVisualizer();
+        initAnalyticsDashboard();
+        initUploadGenerator();
+        setInterval(refreshUptime, 60000);
+      };
+
+      const handleAccess = async () => {
+        const pass = passwordField?.value?.trim();
+        if (!pass) {
+          if (errorBox) errorBox.textContent = 'Access code required.';
+          passwordField?.focus();
+          return;
+        }
+        if (errorBox) errorBox.textContent = 'Verifying…';
+        const { success, message } = await AccessControl.authenticate(pass);
+        if (success) {
+          hideOverlay();
+          bootWorkflows();
+        } else {
+          if (errorBox) errorBox.textContent = message || 'Invalid access code.';
+        }
+      };
+
+      submitBtn?.addEventListener('click', (event) => {
+        event.preventDefault();
+        handleAccess();
+      });
+
+      passwordField?.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          handleAccess();
+        }
+      });
+
+      AccessControl.checkAuth().then((isAuthenticated) => {
+        if (!isAuthenticated) {
+          showOverlay();
+        } else {
+          hideOverlay();
+          bootWorkflows();
+        }
+      });
+    });
+  </script>
+  <script>
+    const uploadGeneratorState = {
+      statusEl: null,
+      previewEl: null,
+      generateBtn: null,
+      promptEl: null,
+      fileInput: null,
+      providerEl: null,
+      modelEl: null,
+    };
+
+    const fileToDataUrl = (file) =>
+      new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+
+    async function initUploadGenerator() {
+      const container = document.getElementById('upload-file');
+      if (!container) return;
+      uploadGeneratorState.statusEl = document.getElementById('upload-status');
+      uploadGeneratorState.previewEl = document.getElementById('upload-preview');
+      uploadGeneratorState.generateBtn = document.getElementById('upload-generate');
+      uploadGeneratorState.promptEl = document.getElementById('upload-prompt');
+      uploadGeneratorState.fileInput = document.getElementById('upload-file');
+      uploadGeneratorState.providerEl = document.getElementById('upload-provider');
+      uploadGeneratorState.modelEl = document.getElementById('upload-model');
+
+      uploadGeneratorState.generateBtn?.addEventListener('click', async (event) => {
+        event.preventDefault();
+        await handleUploadGenerate();
+      });
+    }
+
+    function setUploadStatus(message, isError = false) {
+      if (!uploadGeneratorState.statusEl) return;
+      uploadGeneratorState.statusEl.textContent = message;
+      uploadGeneratorState.statusEl.style.color = isError ? '#ff7b7b' : '#c4b5fd';
+    }
+
+    async function handleUploadGenerate() {
+      const prompt = uploadGeneratorState.promptEl?.value.trim();
+      const file = uploadGeneratorState.fileInput?.files?.[0];
+      if (!file) {
+        setUploadStatus('Select a reference image first.', true);
+        return;
+      }
+      setUploadStatus('Reading image…');
+      let imageData;
+      try {
+        imageData = await fileToDataUrl(file);
+      } catch (error) {
+        console.error('File read error:', error);
+        setUploadStatus('Unable to read the image.', true);
+        return;
+      }
+
+      const finalPrompt = prompt || `Upload inspired by ${file.name} in cosmic neon colorways.`;
+      const token = localStorage.getItem('nlbl_auth_token');
+      if (!token) {
+        setUploadStatus('Unlock the workshop first.', true);
+        return;
+      }
+
+      setUploadStatus('Generating cosmic design…');
+      uploadGeneratorState.generateBtn.disabled = true;
+
+      try {
+        const response = await fetch('/api/upload-design', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            title: finalPrompt,
+            image: imageData,
+            category: uploadGeneratorState.providerEl?.value || 'Unisex',
+          }),
+        });
+
+        const payload = await response.json();
+        if (!response.ok) {
+          throw new Error(payload.error || 'Upload failed');
+        }
+
+        const printifyStatus = payload.printify?.uploaded
+          ? '✅ Uploaded to Printify!'
+          : '💾 Saved locally';
+
+        setUploadStatus(`${printifyStatus} - ${payload.nextSteps}`);
+
+        // Show preview if we have the image data
+        if (imageData) {
+          uploadGeneratorState.previewEl.innerHTML = `
+            <div>
+              <strong>Uploaded Design:</strong>
+              <img src="${imageData}" alt="Your design" style="max-width:200px;margin-top:8px;" />
+            </div>
+          `;
+
+          if (payload.printify?.previewUrl) {
+            uploadGeneratorState.previewEl.innerHTML += `
+              <div style="margin-top:12px;">
+                <strong>Printify Preview:</strong>
+                <img src="${payload.printify.previewUrl}" alt="Printify preview" style="max-width:200px;margin-top:8px;" />
+              </div>
+            `;
+          }
+        }
+      } catch (error) {
+        console.error('Upload error:', error);
+        setUploadStatus(error.message || 'Upload failed.', true);
+      } finally {
+        uploadGeneratorState.generateBtn.disabled = false;
+      }
+    }
+
+    const analyticsCharts = {};
+    let analyticsRefreshHandle = null;
+    const offlineSamples = [
+      {
+        id: 'OS-001',
+        product: 'Nebula Rose Hoodie (Sample)',
+        quantity: 1,
+        desiredDate: '2026-03-05',
+        shippingUrgency: 'Accelerated (2-3 days)',
+        status: 'in transit',
+        notes: 'Owner sample for first launch ambient capsule',
+      },
+      {
+        id: 'OS-002',
+        product: 'Quantum Trail Jacket',
+        quantity: 2,
+        desiredDate: '2026-03-10',
+        shippingUrgency: 'Express (3-5 days)',
+        status: 'pending',
+        notes: 'Trend scouting hood sample',
+      },
+    ];
+
+    function initAnalyticsDashboard() {
+      try {
+        analyticsCharts.traffic = createTrafficChart(document.getElementById('traffic-chart'));
+        analyticsCharts.revenue = createRevenueChart(document.getElementById('revenue-chart'));
+        analyticsCharts.behavior = createBehaviorChart(document.getElementById('behavior-chart'));
+        analyticsCharts.ai = createTrendingChart(document.getElementById('ai-performance-chart'));
+
+        refreshAnalytics();
+        refreshOwnerSamples('all');
+        analyticsRefreshHandle = setInterval(refreshAnalytics, 30000);
+
+        const sampleFilter = document.getElementById('sample-filter');
+        if (sampleFilter) {
+          sampleFilter.addEventListener('change', (event) => {
+            refreshOwnerSamples(event.target.value);
+          });
+        }
+      } catch (error) {
+        console.error('Unable to initialize analytics dashboard', error);
+      }
+    }
+
+    async function refreshAnalytics() {
+      try {
+        const response = await fetch('/api/analytics/dashboard');
+        if (!response.ok) {
+          throw new Error('Analytics fetch failed');
+        }
+        const payload = await response.json();
+        updateTrafficChart(payload.traffic || []);
+        updateRevenueChart(payload.dailyRevenue || [], payload.targets || {});
+        updateBehaviorChart(payload.behavior || {});
+        updateTrendingChart(payload.trend || []);
+        updateTrendingList(payload.trend || []);
+        updateKpis(payload.kpis || {}, payload.ownerSamples || {});
+
+        const sampleFilter = document.getElementById('sample-filter');
+        const filterValue = sampleFilter ? sampleFilter.value : 'all';
+        refreshOwnerSamples(filterValue);
+      } catch (error) {
+        console.error('Error refreshing analytics', error);
+      }
+    }
+
+    function createTrafficChart(canvas) {
+      return new Chart(canvas.getContext('2d'), {
+        type: 'line',
+        data: {
+          labels: [],
+          datasets: [
+            {
+              label: 'Visits',
+              borderColor: '#00e5ff',
+              backgroundColor: 'rgba(0,229,255,0.15)',
+              data: [],
+              tension: 0.3,
+              pointRadius: 3,
+            },
+            {
+              label: 'Orders',
+              borderColor: '#a855f7',
+              backgroundColor: 'rgba(255,107,107,0.15)',
+              data: [],
+              tension: 0.3,
+              pointRadius: 3,
+            },
+            {
+              label: 'Returns',
+              borderColor: '#facc15',
+              backgroundColor: 'rgba(255,209,102,0.15)',
+              data: [],
+              tension: 0.3,
+              pointRadius: 3,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          interaction: { mode: 'index' },
+          scales: {
+            y: { beginAtZero: true },
+          },
+        },
+      });
+    }
+
+    function createRevenueChart(canvas) {
+      return new Chart(canvas.getContext('2d'), {
+        type: 'bar',
+        data: {
+          labels: [],
+          datasets: [
+            {
+              label: 'Daily Revenue',
+              data: [],
+              backgroundColor: '#a855f7',
+            },
+            {
+              label: 'Target High',
+              data: [],
+              type: 'line',
+              borderColor: '#facc15',
+              borderDash: [6, 4],
+              fill: false,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: { beginAtZero: true },
+          },
+        },
+      });
+    }
+
+    function createBehaviorChart(canvas) {
+      return new Chart(canvas.getContext('2d'), {
+        type: 'bar',
+        data: {
+          labels: ['Conversion Rate', 'Return Rate'],
+          datasets: [
+            {
+              label: 'Percentage',
+              data: [0, 0],
+              backgroundColor: ['#00b894', '#5eead4'],
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+            },
+          },
+        },
+      });
+    }
+
+    function createTrendingChart(canvas) {
+      return new Chart(canvas.getContext('2d'), {
+        type: 'bar',
+        data: {
+          labels: [],
+          datasets: [
+            {
+              label: 'Orders',
+              data: [],
+              backgroundColor: '#9d4edd',
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: { beginAtZero: true },
+          },
+        },
+      });
+    }
+
+    function updateTrafficChart(data) {
+      if (!analyticsCharts.traffic) return;
+      const labels = data.map((item) => item.label);
+      analyticsCharts.traffic.data.labels = labels;
+      analyticsCharts.traffic.data.datasets[0].data = data.map((item) => item.visits);
+      analyticsCharts.traffic.data.datasets[1].data = data.map((item) => item.orders);
+      analyticsCharts.traffic.data.datasets[2].data = data.map((item) => item.returns);
+      analyticsCharts.traffic.update();
+    }
+
+    function updateRevenueChart(data, targets) {
+      if (!analyticsCharts.revenue) return;
+      const labels = data.map((item) => item.date.slice(5));
+      const revenues = data.map((item) => item.revenue);
+      const targetLine = new Array(labels.length).fill(targets.dailyHigh || 0);
+      analyticsCharts.revenue.data.labels = labels;
+      analyticsCharts.revenue.data.datasets[0].data = revenues;
+      analyticsCharts.revenue.data.datasets[1].data = targetLine;
+      analyticsCharts.revenue.update();
+    }
+
+    function updateBehaviorChart(behavior) {
+      if (!analyticsCharts.behavior) return;
+      analyticsCharts.behavior.data.datasets[0].data = [
+        behavior.conversionRate || 0,
+        behavior.returnRate || 0,
+      ];
+      analyticsCharts.behavior.update();
+    }
+
+    function updateTrendingChart(trend) {
+      if (!analyticsCharts.ai) return;
+      analyticsCharts.ai.data.labels = trend.map((item) => item.design);
+      analyticsCharts.ai.data.datasets[0].data = trend.map((item) => item.orders);
+      analyticsCharts.ai.update();
+    }
+
+    function updateTrendingList(trend) {
+      const list = document.getElementById('trending-list');
+      if (!list) return;
+      list.innerHTML = '';
+      if (!trend.length) {
+        list.innerHTML = '<li>No trending designs yet.</li>';
+        return;
+      }
+      trend.forEach((item) => {
+        const li = document.createElement('li');
+        li.innerHTML = `<span>${item.design}</span><span>${item.orders} orders · ${formatCurrency(
+          item.revenue
+        )}</span>`;
+        list.appendChild(li);
+      });
+    }
+
+    function updateKpis(kpis, ownerSamples) {
+      document.getElementById('kpi-total-revenue').textContent = formatCurrency(
+        kpis.totalRevenue || 0
+      );
+      document.getElementById('kpi-unique-visitors').textContent = kpis.uniqueVisitors || 0;
+      document.getElementById('kpi-conversion-rate').textContent =
+        (kpis.conversionRate || 0).toFixed(2) + '%';
+      document.getElementById('kpi-avg-session').textContent = kpis.avgSession || '0:00';
+
+      const sampleCount = document.getElementById('owner-sample-count');
+      if (sampleCount) {
+        sampleCount.textContent = `${ownerSamples.total || 0} samples queued`;
+      }
+
+      document.getElementById('kpi-total-trend').textContent = ownerSamples.total
+        ? `+${ownerSamples.total}%`
+        : '+0%';
+      document.getElementById('kpi-visitor-trend').textContent = '+0%';
+      document.getElementById('kpi-conversion-trend').textContent =
+        (kpis.conversionRate || 0) > 3 ? '+1.2%' : '-0.5%';
+      document.getElementById('kpi-session-trend').textContent = '+12.8%';
+    }
+
+    async function refreshOwnerSamples(status = 'all') {
+      try {
+        const query = status && status !== 'all' ? `?status=${encodeURIComponent(status)}` : '';
+        const response = await fetch(`/api/owner-samples${query}`);
+        if (!response.ok) {
+          throw new Error('Failed to load owner samples');
+        }
+        const samples = await response.json();
+        ownerSamplesCache = samples || [];
+        renderOwnerSamples(status);
+        showWorkshopNotice('Owner samples synced');
+      } catch (error) {
+        console.error('Unable to refresh owner samples', error);
+        ownerSamplesCache = offlineSamples;
+        renderOwnerSamples(status);
+        showWorkshopNotice('Offline owner samples loaded');
+      }
+    }
+
+    function populateOwnerSamplesTable(samples) {
+      const tbody = document.getElementById('owner-samples-table-body');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      if (!samples.length) {
+        tbody.innerHTML = "<tr><td colspan='7'>No samples found</td></tr>";
+        return;
+      }
+      samples.forEach((sample) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+                    <td>${sample.product}</td>
+                    <td>${sample.quantity}</td>
+                    <td>${sample.desiredDate}</td>
+                    <td>${sample.shippingUrgency}</td>
+                    <td>${sample.status}</td>
+                    <td>${sample.notes || '-'}</td>
+                    <td><button class="primary small">View</button></td>
+                `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function formatCurrency(value) {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 2,
+      }).format(value || 0);
+    }
+
+    // Jarvis 3D Scene
+    function initJarvisScene() {
+      const container = document.getElementById('jarvis-3d-view');
+      if (!container) return;
+
+      // Create Three.js scene
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        container.clientWidth / container.clientHeight,
+        0.1,
+        1000
+      );
+      const renderer = new THREE.WebGLRenderer({ alpha: true });
+
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      container.appendChild(renderer.domElement);
+
+      // Create Jarvis-like geometry
+      const coreGeometry = new THREE.IcosahedronGeometry(1, 1);
+      const coreMaterial = new THREE.MeshBasicMaterial({
+        color: 0x00ffff,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.8,
+      });
+      const core = new THREE.Mesh(coreGeometry, coreMaterial);
+      scene.add(core);
+
+      // Outer rings
+      const ringGeometry = new THREE.TorusGeometry(2, 0.1, 16, 100);
+      const ringMaterial = new THREE.MeshBasicMaterial({ color: 0xff69b4 });
+      const ring1 = new THREE.Mesh(ringGeometry, ringMaterial);
+      const ring2 = new THREE.Mesh(ringGeometry, ringMaterial);
+      const ring3 = new THREE.Mesh(ringGeometry, ringMaterial);
+
+      ring1.rotation.x = Math.PI / 2;
+      ring2.rotation.y = Math.PI / 2;
+      ring3.rotation.x = Math.PI / 4;
+
+      scene.add(ring1, ring2, ring3);
+
+      camera.position.z = 5;
+
+      // Animation loop
+      function animate() {
+        requestAnimationFrame(animate);
+        core.rotation.x += 0.01;
+        core.rotation.y += 0.01;
+        ring1.rotation.z += 0.02;
+        ring2.rotation.z -= 0.015;
+        ring3.rotation.z += 0.01;
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      // Handle window resize
+      window.addEventListener('resize', () => {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+      });
+    }
+
+    // AI Assistant functionality
+    function initAIAssistant() {
+      const chatHistory = document.getElementById('ai-chat-history');
+      const promptInput = document.getElementById('ai-prompt');
+      const submitBtn = document.getElementById('ai-submit');
+      const clearBtn = document.getElementById('ai-clear');
+      const exportBtn = document.getElementById('ai-export');
+
+      if (!chatHistory || !promptInput) return;
+
+      const ASSISTANT_NAME = 'Seethrough';
+
+      function addMessage(text, meta = {}) {
+        const { isUser = false, isError = false } = meta;
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `ai-message ${isUser ? 'user' : 'assistant'}`;
+        messageDiv.innerHTML = `
+                    <div class="message-avatar">${isUser ? '👤' : '⚛️'}</div>
+                    <div class="message-content">
+                        <div class="message-label">${isUser ? 'You' : ASSISTANT_NAME}</div>
+                        <p>${text}</p>
+                    </div>
+                `;
+        if (isError) {
+          messageDiv.querySelector('.message-content p').style.color = '#ff7b7b';
+        }
+        chatHistory.appendChild(messageDiv);
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+      }
+
+      async function sendPrompt() {
+        const text = promptInput.value.trim();
+        if (!text) return;
+
+        addMessage(text, { isUser: true });
+        promptInput.value = '';
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Processing...';
+
+        const token = localStorage.getItem('nlbl_auth_token');
+        if (!token) {
+          addMessage('Unlock the workshop again so Seethrough can respond.', { isError: true });
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send Request';
+          return;
+        }
+
+        try {
+          // Pointing to your Private Quantum Assistant on Port 5000
+          const response = await fetch('http://127.0.0.1:5000/chat', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 
+                message: text,
+                password: 'NoLimitationQuantum2025' // Your private access key
+            }),
+          });
+          const payload = await response.json();
+          if (!response.ok) {
+            throw new Error(payload.error || 'Seethrough could not respond');
+          }
+          const assistantText =
+            payload.result || payload.generated_text || 'Seethrough is thinking...';
+          addMessage(assistantText, { isUser: false });
+        } catch (error) {
+          console.error('AI assistant error', error);
+          addMessage(error.message || 'Unable to reach the AI.', { isError: true });
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send Request';
+        }
+      }
+
+      submitBtn.addEventListener('click', sendPrompt);
+      promptInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' && !event.shiftKey) {
+          event.preventDefault();
+          sendPrompt();
+        }
+      });
+
+      clearBtn.addEventListener('click', () => {
+        chatHistory.innerHTML = `
+                    <div class="ai-message ai-system">
+                        <div class="message-avatar">⚙️</div>
+                        <div class="message-content">
+                            <div class="message-label">${ASSISTANT_NAME}</div>
+                            <p>Memory cleared. Ready for your next command.</p>
+                        </div>
+                    </div>
+                `;
+      });
+
+      exportBtn.addEventListener('click', () => {
+        const messages = chatHistory.innerText;
+        const blob = new Blob([messages], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'ai-session-export.txt';
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+    }
+
+    // Music Visualizer
+    function initMusicVisualizer() {
+      const visualizer = document.getElementById('music-visualizer');
+      if (!visualizer) return;
+
+      const bars = visualizer.querySelectorAll('.bar');
+      let isPlaying = false;
+
+      function animateBars() {
+        bars.forEach((bar) => {
+          const height = Math.random() * 100 + 20;
+          bar.style.height = `${height}%`;
+        });
+      }
+
+      setInterval(animateBars, 100);
+    }
+
+    // Owner Sample Logbook
+    const ownerSampleForm = document.getElementById('owner-sample-form');
+    const ownerSamplesBody = document.getElementById('owner-samples-table-body');
+    const ownerSampleCount = document.getElementById('owner-sample-count');
+    const ownerSampleFilter = document.getElementById('sample-filter');
+    let ownerSamplesCache = [];
+
+    function renderOwnerSamples(filter = 'all') {
+      if (!ownerSamplesBody) return;
+      const filtered =
+        filter === 'all'
+          ? ownerSamplesCache
+          : ownerSamplesCache.filter((sample) => sample.status === filter);
+
+      ownerSamplesBody.innerHTML = '';
+      filtered.forEach((sample) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+                    <td>${sample.product || 'Unnamed Sample'}</td>
+                    <td>${sample.quantity}</td>
+                    <td>${sample.desiredDate || 'ASAP'}</td>
+                    <td>${sample.shippingUrgency}</td>
+                    <td><span class="status-chip ${sample.status === 'in transit' ? 'in-transit' : sample.status}">${sample.status}</span></td>
+                    <td>${sample.notes || '-'}</td>
+                    <td class="owner-actions">
+                        <button data-action="in transit" data-id="${sample.id}">Mark In Transit</button>
+                        <button data-action="delivered" data-id="${sample.id}">Mark Delivered</button>
+                    </td>
+                `;
+        ownerSamplesBody.appendChild(row);
+      });
+
+      ownerSampleCount.textContent = `${filtered.length} sample${filtered.length === 1 ? '' : 's'} showing`;
+    }
+
+    async function submitOwnerSample(formData) {
+      const response = await fetch('/api/owner-samples', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const message = await response.text();
+        throw new Error(message || 'Unable to log sample');
+      }
+
+      return response.json();
+    }
+
+    async function updateSampleStatus(id, status) {
+      await fetch('/api/owner-samples', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, status }),
+      });
+    }
+
+    ownerSampleForm?.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const product = document.getElementById('owner-sample-product').value.trim();
+      const quantity = document.getElementById('owner-sample-quantity').value;
+      const desiredDate = document.getElementById('owner-sample-date').value;
+      const shippingUrgency = document.getElementById('owner-sample-urgency').value;
+      const notes = document.getElementById('owner-sample-notes').value.trim();
+
+      if (!product || !quantity) return;
+
+      ownerSampleForm.querySelector('button[type="submit"]').textContent = 'Logging...';
+
+      try {
+        await submitOwnerSample({
+          product,
+          quantity,
+          desiredDate,
+          shippingUrgency,
+          notes,
+        });
+        ownerSampleForm.reset();
+        await loadOwnerSamples(ownerSampleFilter?.value || 'all');
+      } catch (error) {
+        console.error('Submit sample failed:', error);
+        alert('Unable to log the sample. Try again.');
+        showWorkshopNotice('Sample logging offline — we will sync after deployment');
+      } finally {
+        ownerSampleForm.querySelector('button[type="submit"]').textContent = 'Log Sample';
+      }
+    });
+
+    ownerSamplesBody?.addEventListener('click', async (event) => {
+      const target = event.target;
+      if (!target?.dataset?.id) return;
+      const action = target.dataset.action;
+      const id = target.dataset.id;
+      if (!['in transit', 'delivered'].includes(action)) return;
+
+      try {
+        await updateSampleStatus(id, action);
+        await loadOwnerSamples(ownerSampleFilter?.value || 'all');
+      } catch (error) {
+        console.error('Status update failed:', error);
+        showWorkshopNotice('Owner sample status update pending — server offline');
+      }
+    });
+
+    ownerSampleFilter?.addEventListener('change', () => {
+      loadOwnerSamples(ownerSampleFilter.value);
+    });
+
+    // Load samples during initialization
+    loadOwnerSamples();
+
+    const workshopNotice = document.createElement('div');
+    workshopNotice.className = 'workshop-notice';
+    document.body.appendChild(workshopNotice);
+    let noticeTimeout;
+
+    function showWorkshopNotice(message) {
+      workshopNotice.textContent = message;
+      workshopNotice.classList.add('visible');
+      clearTimeout(noticeTimeout);
+      noticeTimeout = setTimeout(() => {
+        workshopNotice.classList.remove('visible');
+      }, 4200);
+    }
+
+    async function loadOwnerSamples(filter = 'all') {
+      try {
+        const query = filter && filter !== 'all' ? `?status=${encodeURIComponent(filter)}` : '';
+        const response = await fetch(`/api/owner-samples${query}`);
+        if (!response.ok) {
+          throw new Error('Failed to load owner samples');
+        }
+        const payload = await response.json();
+        ownerSamplesCache = payload.data || [];
+        renderOwnerSamples(filter);
+        showWorkshopNotice('Owner sample queue synced');
+      } catch (error) {
+        console.error('Owner samples load error:', error);
+        ownerSamplesCache = offlineSamples;
+        renderOwnerSamples(filter);
+        showWorkshopNotice('Offline samples loaded — reconnecting soon');
+      }
+    }
+
+    const generateMusicBtn = document.getElementById('generate-music');
+    const exportMusicBtn = document.getElementById('export-music');
+    const musicStatus = document.getElementById('music-status');
+    const trackList = document.getElementById('track-list');
+
+    function addTrackToList(name, duration) {
+      if (!trackList) return;
+      const trackItem = document.createElement('div');
+      trackItem.className = 'track-item';
+      trackItem.innerHTML = `
+                <span class="track-icon">🎵</span>
+                <span class="track-name">${name}</span>
+                <span class="track-duration">${duration}</span>
+                <button class="play-btn">▶</button>
+            `;
+      trackList.prepend(trackItem);
+    }
+
+    generateMusicBtn?.addEventListener('click', () => {
+      const genre = document.getElementById('music-genre').value;
+      const mood = document.getElementById('music-mood').value;
+      const tempo = document.getElementById('music-tempo').value;
+      const duration = document.getElementById('music-duration').value;
+      musicStatus.textContent = 'Sonic nebula composing...';
+      showWorkshopNotice('Music composition in progress — synthesizing soul');
+      setTimeout(() => {
+        const label = `${genre} // ${mood}`;
+        const timecode = `${Math.floor(duration / 60)}:${String(duration % 60).padStart(2, '0')}`;
+        musicStatus.textContent = 'Track ready — cosmic waves synchronized';
+        addTrackToList(label, timecode);
+      }, 2200);
+    });
+
+    exportMusicBtn?.addEventListener('click', () => {
+      showWorkshopNotice('Exporting master track — send to the cosmos');
+    });
+
+    const blueprintButtons = document.querySelectorAll('.blueprint-btn');
+    blueprintButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        showWorkshopNotice('Launching blueprint — creativity sequence engaged');
+        btn.classList.add('active');
+        setTimeout(() => btn.classList.remove('active'), 900);
+      });
+    });
+
+    // Sample Catalog Functionality
+    async function loadSampleCatalog() {
+      const grid = document.getElementById('sample-catalog-grid');
+      if (!grid) return;
+
+      try {
+        const response = await fetch('/all_products_inventory.json');
+        const data = await response.json();
+        const products = data.products.slice(0, 20); // Load first 20 for sample
+
+        grid.innerHTML = '';
+        products.forEach((product) => {
+          const card = document.createElement('div');
+          card.className = 'sample-product-card';
+          card.innerHTML = `
+                        <img src="${product.image}" alt="${product.name}" class="sample-product-image" onerror="this.src='placeholder.png'">
+                        <h3 class="sample-product-name">${product.name}</h3>
+                        <p class="sample-product-price">$${product.price || 'TBD'}</p>
+                        <button class="sample-request-btn" onclick="requestSample('${product.id}', '${product.name}')">Request Free Sample</button>
+                    `;
+          grid.appendChild(card);
+        });
+      } catch (error) {
+        console.error('Failed to load sample catalog', error);
+        grid.innerHTML = '<p>Unable to load sample catalog. Please try again later.</p>';
+      }
+    }
+
+    function requestSample(productId, productName) {
+      // Add to owner samples log
+      const form = document.getElementById('owner-sample-form');
+      if (form) {
+        document.getElementById('owner-sample-product').value = productName;
+        document.getElementById('owner-sample-quantity').value = 1;
+        document.getElementById('owner-sample-notes').value =
+          `Free sample request for ${productName}`;
+        form.scrollIntoView({ behavior: 'smooth' });
+        showWorkshopNotice('Sample request form populated — submit to log your request');
+      }
+    }
+
+    // Initialize sample catalog when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      // ... existing code ...
+      loadSampleCatalog();
+    });
+  </script>
+
+  <style>
+    :root {
+      --accent-purple: #7c3aed;
+      --accent-light: #c4b5fd;
+      --accent-cyan: #00ffe0;
+      --accent-gold: #facc15;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    .workshop-notice {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      background: rgba(9, 5, 26, 0.9);
+      border: 1px solid rgba(124, 58, 237, 0.5);
+      color: var(--accent-light);
+      padding: 18px 26px;
+      border-radius: 30px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+      font-family: 'Rajdhani', sans-serif;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(20px);
+      transition:
+        opacity 0.5s ease,
+        transform 0.5s ease;
+      z-index: 10000;
+    }
+
+    .section-blueprint {
+      padding: 0 4%;
+      margin-bottom: 40px;
+    }
+
+    .blueprint-card {
+      background: linear-gradient(135deg, rgba(12, 9, 32, 0.85), rgba(40, 20, 70, 0.85));
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 28px;
+      padding: 32px;
+      box-shadow: 0 25px 60px rgba(9, 15, 44, 0.8);
+    }
+
+    .blueprint-card h2 {
+      margin: 0 0 12px;
+      font-size: 1.8rem;
+      color: #f0f9ff;
+    }
+
+    .blueprint-card p {
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.6;
+    }
+
+    .blueprint-btn {
+      margin-top: 20px;
+      padding: 12px 30px;
+      border-radius: 24px;
+      border: none;
+      background: linear-gradient(135deg, #ff00ff, #00d4ff);
+      color: #000;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+
+    .workshop-notice.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Private Section Styles */
+    .private-badge {
+      background: linear-gradient(45deg, #7c3aed, #a855f7);
+      color: #fff;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-left: 10px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.7;
+      }
+    }
+
+    .private-logo {
+      border-color: #7c3aed;
+    }
+
+    .private-indicator {
+      background: #7c3aed;
+      box-shadow: 0 0 20px #7c3aed;
+    }
+
+    .private-status {
+      border-bottom-color: #7c3aed;
+    }
+
+    .private-particles {
+      background: radial-gradient(circle, #7c3aed 0%, transparent 70%);
+    }
+
+    .section-owner-samples {
+      padding: 120px 20px 80px;
+      background: radial-gradient(circle at top right, rgba(0, 255, 255, 0.15), transparent 65%);
+      min-height: auto;
+    }
+
+    .owner-samples-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .owner-samples-header h2 {
+      font-size: 2.5rem;
+      color: #00ffff;
+      margin-bottom: 10px;
+    }
+
+    .owner-samples-header p {
+      color: #ccc;
+      margin-bottom: 15px;
+      max-width: 800px;
+    }
+
+    .owner-samples-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      color: #e2e8f0;
+      font-size: 0.9rem;
+    }
+
+    .owner-samples-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 30px;
+    }
+
+    .owner-sample-form {
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid #00ffff;
+      border-radius: 20px;
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .owner-sample-form h3 {
+      color: #00ffff;
+      margin-bottom: 5px;
+    }
+
+    .owner-sample-form label {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: #9ca3af;
+    }
+
+    .owner-sample-form input,
+    .owner-sample-form select,
+    .owner-sample-form textarea {
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+    }
+
+    .owner-sample-submit {
+      margin-top: 10px;
+      padding: 14px 0;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #00ffff, #a855f7);
+      border: none;
+      color: #000;
+      font-weight: bold;
+      font-family: 'Orbitron', sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .owner-sample-submit:hover {
+      transform: translateY(-2px);
+    }
+
+    .owner-sample-footnote {
+      font-size: 0.8rem;
+      color: #cbd5f5;
+      margin-top: 10px;
+    }
+
+    .owner-sample-log {
+      background: rgba(0, 0, 0, 0.4);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .owner-sample-log-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .owner-sample-log-heading h3 {
+      color: #fff;
+      margin-bottom: 2px;
+    }
+
+    .owner-sample-log-heading p {
+      color: #9ca3af;
+      font-size: 0.8rem;
+    }
+
+    .owner-sample-filter {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .owner-sample-table-wrapper {
+      overflow-x: auto;
+    }
+
+    .owner-samples-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .owner-samples-table th,
+    .owner-samples-table td {
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 10px;
+      text-align: center;
+    }
+
+    .owner-samples-table th {
+      background: rgba(255, 255, 255, 0.08);
+      font-weight: 600;
+    }
+
+    .owner-samples-table .status-chip {
+      display: inline-flex;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .status-chip.pending {
+      background: rgba(255, 193, 7, 0.2);
+      color: #ffb703;
+    }
+
+    .status-chip.in-transit {
+      background: rgba(59, 130, 246, 0.2);
+      color: #38bdf8;
+    }
+
+    .status-chip.delivered {
+      background: rgba(34, 197, 94, 0.2);
+      color: #4ade80;
+    }
+
+    .owner-actions button {
+      border: none;
+      background: transparent;
+      color: #00ffff;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* Responsive adjustments for owner samples */
+    @media (max-width: 1200px) {
+      .owner-samples-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .section-private-home {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 20px 60px;
+      background: linear-gradient(180deg, rgba(255, 0, 0, 0.1) 0%, transparent 100%);
+    }
+
+    .private-hero {
+      text-align: center;
+      max-width: 1200px;
+    }
+
+    .private-title {
+      font-size: 3rem;
+      color: #7c3aed;
+      text-shadow: 0 0 30px rgba(124, 58, 237, 0.5);
+      margin-bottom: 20px;
+      animation: titleGlow 3s infinite;
+    }
+
+    @keyframes titleGlow {
+
+      0%,
+      100% {
+        text-shadow: 0 0 30px rgba(124, 58, 237, 0.5);
+      }
+
+      50% {
+        text-shadow: 0 0 50px rgba(124, 58, 237, 0.8);
+      }
+    }
+
+    .private-subtitle {
+      font-size: 1.5rem;
+      color: #ccc;
+      margin-bottom: 40px;
+    }
+
+    .private-stats {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .stat-box {
+      background: rgba(124, 58, 237, 0.1);
+      border: 2px solid #7c3aed;
+      border-radius: 20px;
+      padding: 30px;
+      min-width: 200px;
+      transition: transform 0.3s;
+    }
+
+    .stat-box:hover {
+      transform: scale(1.05);
+    }
+
+    .stat-number {
+      display: block;
+      font-size: 2.5rem;
+      color: #7c3aed;
+      font-weight: bold;
+    }
+
+    .stat-label {
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+
+    /* AI Assistant Styles */
+    .section-ai-assistant {
+      padding: 120px 20px 60px;
+      min-height: 100vh;
+    }
+
+    .ai-container h2 {
+      color: #7c3aed;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .ai-interface {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 30px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .ai-chat-container {
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid #7c3aed;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .ai-chat-history {
+      height: 400px;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .ai-message {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    .ai-message.assistant,
+    .ai-message.ai-system {
+      background: rgba(124, 58, 237, 0.1);
+    }
+
+    .ai-message.user {
+      background: rgba(0, 255, 255, 0.1);
+      flex-direction: row-reverse;
+    }
+
+    .message-avatar {
+      font-size: 2rem;
+    }
+
+    .message-content p {
+      color: #fff;
+      line-height: 1.6;
+    }
+
+    .ai-input-area {
+      padding: 20px;
+      border-top: 2px solid #7c3aed;
+    }
+
+    .ai-input-area textarea {
+      width: 100%;
+      height: 80px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid #7c3aed;
+      border-radius: 10px;
+      color: #fff;
+      padding: 15px;
+      font-family: inherit;
+      resize: none;
+    }
+
+    .ai-controls {
+      display: flex;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .ai-btn {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .ai-btn.primary {
+      background: linear-gradient(45deg, #7c3aed, #a855f7);
+      color: #fff;
+    }
+
+    .ai-btn.secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: 2px solid #7c3aed;
+    }
+
+    .ai-btn.export {
+      background: linear-gradient(45deg, #00ffff, #00ff88);
+      color: #000;
+    }
+
+    .ai-capabilities {
+      background: rgba(124, 58, 237, 0.1);
+      border: 2px solid #7c3aed;
+      border-radius: 20px;
+      padding: 25px;
+    }
+
+    .ai-capabilities h3 {
+      color: #7c3aed;
+      margin-bottom: 20px;
+    }
+
+    .ai-capabilities ul {
+      list-style: none;
+    }
+
+    .ai-capabilities li {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(124, 58, 237, 0.3);
+      color: #ccc;
+    }
+
+    /* Jarvis Workshop Styles */
+    .section-jarvis {
+      padding: 120px 20px 60px;
+      min-height: 100vh;
+    }
+
+    .jarvis-container h2 {
+      color: #7c3aed;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .jarvis-workspace {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 30px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .jarvis-3d-view {
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid #7c3aed;
+      border-radius: 20px;
+      min-height: 500px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hologram-core {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px;
+      height: 200px;
+    }
+
+    .hologram-sphere {
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, #00ffff, #7c3aed);
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: spherePulse 2s infinite;
+    }
+
+    @keyframes spherePulse {
+
+      0%,
+      100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
+
+      50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.8;
+      }
+    }
+
+    .hologram-ring {
+      position: absolute;
+      border: 3px solid #00ffff;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: rotate 10s linear infinite;
+    }
+
+    .ring-1 {
+      width: 100px;
+      height: 100px;
+      animation-duration: 8s;
+    }
+
+    .ring-2 {
+      width: 140px;
+      height: 140px;
+      animation-direction: reverse;
+      animation-duration: 12s;
+    }
+
+    .ring-3 {
+      width: 180px;
+      height: 180px;
+      animation-duration: 15s;
+    }
+
+    @keyframes rotate {
+      from {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+
+      to {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+
+    .jarvis-controls {
+      background: rgba(124, 58, 237, 0.1);
+      border: 2px solid #7c3aed;
+      border-radius: 20px;
+      padding: 25px;
+    }
+
+    .control-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .jarvis-btn {
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid #7c3aed;
+      border-radius: 15px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .jarvis-btn:hover {
+      background: rgba(124, 58, 237, 0.2);
+      transform: scale(1.05);
+    }
+
+    .btn-icon {
+      font-size: 2rem;
+    }
+
+    .btn-label {
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.8rem;
+    }
+
+    .jarvis-status {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      padding: 20px;
+    }
+
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(124, 58, 237, 0.3);
+    }
+
+    .status-value {
+      font-weight: bold;
+    }
+
+    .status-value.online,
+    .status-value.connected {
+      color: #00ff88;
+    }
+
+    /* Analytics Styles */
+    .section-analytics {
+      padding: 120px 20px 60px;
+      min-height: 100vh;
+    }
+
+    .analytics-container h2 {
+      color: #7c3aed;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .analytics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 1400px;
+      margin: 0 auto 40px;
+    }
+
+    .analytics-card {
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid #7c3aed;
+      border-radius: 20px;
+      padding: 25px;
+    }
+
+    .analytics-card.full-width {
+      grid-column: span 2;
+    }
+
+    .analytics-card h3 {
+      color: #7c3aed;
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+    }
+
+    .analytics-card canvas {
+      width: 100% !important;
+      height: 200px !important;
+    }
+
+    .kpi-dashboard {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .kpi-dashboard h3 {
+      color: #7c3aed;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .trending-panel {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 20px;
+      border-radius: 18px;
+      margin-top: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .trending-panel h3 {
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+
+    .trending-panel ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .trending-panel li {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.95rem;
+    }
+
+    .trending-panel li:last-child {
+      border-bottom: none;
+    }
+
+    .kpi-card {
+      background: rgba(124, 58, 237, 0.1);
+      border: 2px solid #7c3aed;
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+    }
+
+    .kpi-value {
+      display: block;
+      font-size: 2rem;
+      color: #7c3aed;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .kpi-label {
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+
+    .kpi-trend {
+      display: block;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    .kpi-trend.positive {
+      color: #00ff88;
+    }
+
+    .kpi-trend.negative {
+      color: #7c3aed;
+    }
+
+    /* Music Studio Styles */
+    .section-music {
+      padding: 120px 20px 60px;
+      min-height: 100vh;
+    }
+
+    .music-container h2 {
+      color: #7c3aed;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .music-workspace {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 30px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .music-3d-visualizer {
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid #7c3aed;
+      border-radius: 20px;
+      min-height: 400px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .visualizer-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      height: 300px;
+      width: 100%;
+    }
+
+    .bar {
+      flex: 1;
+      background: linear-gradient(180deg, #7c3aed, #00ffff);
+      border-radius: 5px 5px 0 0;
+      transition: height 0.1s;
+    }
+
+    .music-controls {
+      background: rgba(124, 58, 237, 0.1);
+      border: 2px solid #7c3aed;
+      border-radius: 20px;
+      padding: 25px;
+    }
+
+    .music-status {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      color: var(--accent-light);
+      text-transform: uppercase;
+      margin-top: 10px;
+      opacity: 0.85;
+    }
+
+    .control-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .control-row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .control-row label {
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+
+    .control-row select,
+    .control-row input {
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid #7c3aed;
+      border-radius: 10px;
+      color: #fff;
+      font-family: inherit;
+    }
+
+    .music-btn {
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .music-btn.primary {
+      background: linear-gradient(45deg, #7c3aed, #a855f7);
+      color: #fff;
+    }
+
+    .music-btn.secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: 2px solid #7c3aed;
+    }
+
+    .music-playlist {
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid #7c3aed;
+      border-radius: 20px;
+      padding: 25px;
+    }
+
+    .track-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .track-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px;
+      background: rgba(124, 58, 237, 0.1);
+      border-radius: 10px;
+    }
+
+    .track-icon {
+      font-size: 1.5rem;
+    }
+
+    .track-name {
+      flex: 1;
+      color: #fff;
+    }
+
+    .track-duration {
+      color: #ccc;
+    }
+
+    .play-btn {
+      background: #7c3aed;
+      border: none;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    /* Knowledge Base Styles */
+    .section-knowledge {
+      padding: 120px 20px 60px;
+      min-height: 100vh;
+    }
+
+    .knowledge-container h2 {
+      color: #7c3aed;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .knowledge-interface {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .knowledge-search {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .knowledge-search input {
+      flex: 1;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid #7c3aed;
+      border-radius: 10px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    .add-btn {
+      padding: 15px 30px;
+      background: linear-gradient(45deg, #7c3aed, #a855f7);
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      cursor: pointer;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: bold;
+    }
+
+    .knowledge-categories {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .category-btn {
+      padding: 12px 25px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid #7c3aed;
+      border-radius: 25px;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .category-btn.active,
+    .category-btn:hover {
+      background: rgba(124, 58, 237, 0.2);
+    }
+
+    .knowledge-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .knowledge-card {
+      background: rgba(124, 58, 237, 0.1);
+      border: 2px solid #7c3aed;
+      border-radius: 15px;
+      padding: 25px;
+      transition: transform 0.3s;
+    }
+
+    .knowledge-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+    .card-icon {
+      font-size: 1.5rem;
+    }
+
+    .card-date {
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+
+    .knowledge-card h4 {
+      color: #7c3aed;
+      margin-bottom: 10px;
+    }
+
+    .knowledge-card p {
+      color: #ccc;
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 10px;
+    }
+
+    .tag {
+      padding: 5px 15px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
+      font-size: 0.8rem;
+      color: #00ffff;
+    }
+
+    /* Blueprints Styles */
+    .section-blueprints {
+      padding: 120px 20px 60px;
+      min-height: 100vh;
+    }
+
+    .blueprints-container h2 {
+      color: #7c3aed;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .blueprints-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .blueprint-card {
+      background: rgba(124, 58, 237, 0.1);
+      border: 2px solid #7c3aed;
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .blueprint-card:hover {
+      transform: scale(1.05);
+    }
+
+    .blueprint-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .blueprint-card h3 {
+      color: #7c3aed;
+      margin-bottom: 15px;
+    }
+
+    .blueprint-card p {
+      color: #ccc;
+      font-size: 0.9rem;
+      margin-bottom: 25px;
+    }
+
+    .blueprint-btn {
+      padding: 12px 30px;
+      background: linear-gradient(45deg, #7c3aed, #a855f7);
+      border: none;
+      border-radius: 25px;
+      color: #fff;
+      cursor: pointer;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .blueprint-btn:hover {
+      box-shadow: 0 0 20px rgba(124, 58, 237, 0.5);
+    }
+
+    .blueprint-btn.active {
+      box-shadow: 0 0 40px rgba(0, 255, 255, 0.8);
+      transform: scale(1.02);
+    }
+
+    /* Private Footer */
+    .private-footer {
+      background: linear-gradient(90deg, rgba(124, 58, 237, 0.2), transparent);
+      border-top: 2px solid #7c3aed;
+    }
+
+    .private-footer-logo {
+      color: #7c3aed;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+
+      .ai-interface,
+      .jarvis-workspace,
+      .music-workspace {
+        grid-template-columns: 1fr;
+      }
+
+      .analytics-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .analytics-card.full-width {
+        grid-column: span 1;
+      }
+
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .blueprints-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .private-title {
+        font-size: 2rem;
+      }
+
+      .private-stats {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .kpi-grid,
+      .blueprints-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .knowledge-categories {
+        flex-wrap: wrap;
+      }
+    }
+
+    /* Sample Catalog Styles */
+    .section-sample-catalog {
+      padding: 120px 20px 60px;
+      min-height: 100vh;
+    }
+
+    .sample-catalog-container h2 {
+      color: #7c3aed;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .sample-catalog-filters {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .sample-catalog-filters input,
+    .sample-catalog-filters select {
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid #7c3aed;
+      border-radius: 10px;
+      color: #fff;
+      font-family: inherit;
+    }
+
+    .sample-catalog-filters input {
+      flex: 1;
+    }
+
+    .sample-catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .sample-product-card {
+      background: rgba(124, 58, 237, 0.1);
+      border: 2px solid #7c3aed;
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .sample-product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .sample-product-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .sample-product-name {
+      color: #7c3aed;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    .sample-product-price {
+      color: #00ffff;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .sample-request-btn {
+      padding: 10px 20px;
+      background: linear-gradient(45deg, #00ffff, #7c3aed);
+      border: none;
+      border-radius: 25px;
+      color: #000;
+      cursor: pointer;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .sample-request-btn:hover {
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    }
+
+    /* Product Forge Styles */
+    .section-product-forge {
+      padding: 120px 20px 60px;
+      min-height: 100vh;
+    }
+
+    .forge-container h2 {
+      color: #7c3aed;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .forge-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      max-width: 1400px;
+      margin: 40px auto 0;
+    }
+
+    .forge-card,
+    .forge-preview-card {
+      background: rgba(124, 58, 237, 0.1);
+      border: 2px solid #7c3aed;
+      border-radius: 20px;
+      padding: 30px;
+    }
+
+    .forge-card h3 {
+      color: #00ffff;
+      margin-bottom: 20px;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .forge-input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(124, 58, 237, 0.5);
+      border-radius: 10px;
+      color: #fff;
+    }
+
+    .forge-btn {
+      width: 100%;
+      padding: 15px;
+      margin-top: 10px;
+      background: linear-gradient(45deg, #7c3aed, #a855f7);
+      border: none;
+      border-radius: 25px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: 'Orbitron', sans-serif;
+      transition: transform 0.2s;
+    }
+
+    .forge-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
+    }
+
+    .forge-preview-box {
+      height: 300px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px dashed rgba(255, 255, 255, 0.2);
+    }
+
+    .preview-placeholder {
+      color: rgba(255, 255, 255, 0.4);
+      text-align: center;
+    }
+
+    .forge-status {
+      margin-top: 20px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.1rem;
+      min-height: 1.5em;
+    }
+
+    @media (max-width: 900px) {
+      .forge-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</body>
+
+</html>

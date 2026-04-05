@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        #chat { border: 1px solid #ccc; height: 400px; overflow-y: auto; padding: 10px; margin-bottom: 10px; }
+        #message { width: 80%; padding: 5px; }
+        button { padding: 5px 10px; }
+    </style>
+</head>
+<body>
+    <h1>AI Chat with TinyLlama</h1>
+    <div id="chat"></div>
+    <input type="text" id="message" placeholder="Type your message...">
+    <button onclick="sendMessage()">Send</button>
+    <script>
+        let messages = [];
+        function sendMessage() {
+            const input = document.getElementById('message');
+            const userMessage = input.value.trim();
+            if (!userMessage) return;
+            messages.push({ role: 'user', content: userMessage });
+            displayMessage('You: ' + userMessage);
+            input.value = '';
+            fetch('http://localhost:11434/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    model: 'tinyllama',
+                    messages: messages,
+                    stream: false
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const aiMessage = data.message.content;
+                messages.push({ role: 'assistant', content: aiMessage });
+                displayMessage('AI: ' + aiMessage);
+            })
+            .catch(error => console.error('Error:', error));
+        }
+        function displayMessage(message) {
+            const chat = document.getElementById('chat');
+            const p = document.createElement('p');
+            p.textContent = message;
+            chat.appendChild(p);
+            chat.scrollTop = chat.scrollHeight;
+        }
+    </script>
+</body>
+</html>

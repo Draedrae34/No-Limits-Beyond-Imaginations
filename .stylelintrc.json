@@ -1,0 +1,25 @@
+{
+    "plugins": [
+        "stylelint-no-unsupported-browser-features"
+    ],
+    "rules": {
+        "property-no-vendor-prefix": [
+            true,
+            {
+                "ignoreProperties": [
+                    "-webkit-backdrop-filter",
+                    "-webkit-background-clip"
+                ]
+            }
+        ],
+        "plugin/no-unsupported-browser-features": [
+            true,
+            {
+                "ignore": [
+                    "css-animation"
+                ],
+                "severity": "warning"
+            }
+        ]
+    }
+}

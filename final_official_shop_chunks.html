@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NLBL GALAXY - Official Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {margin:0;padding:0;box-sizing:border-box}
+        body {
+            background: linear-gradient(135deg, #0a0e27 0%, #1a0f3a 50%, #050812 100%);
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            min-height: 100vh;
+        }
+        .hero {
+            padding: 100px 20px;
+            text-align: center;
+            background: radial-gradient(circle at 50% 50%, rgba(139,92,246,0.1), transparent 60%);
+        }
+        .hero h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.5rem;
+            background: linear-gradient(90deg, #00ffff, #ff69b4, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.7);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 30px;
+            padding: 40px 20px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .product {
+            background: linear-gradient(135deg, rgba(45,27,78,0.6), rgba(26,10,46,0.8));
+            border: 1px solid rgba(0,255,255,0.2);
+            border-radius: 20px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+        .product:hover {
+            transform: translateY(-10px);
+            border-color: #00ffff;
+            box-shadow: 0 30px 80px rgba(0,255,255,0.15);
+        }
+        .product img {
+            width: 100%;
+            height: 300px;
+            object-fit: contain;
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+        .product h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        .product .price {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #4ecdc4;
+            margin-bottom: 15px;
+        }
+        .product .type {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 15px;
+        }
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #8b5cf6, #ff006e);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(139,92,246,0.4);
+        }
+        .footer {
+            padding: 60px 20px;
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            margin-top: 60px;
+        }
+        .count {
+            background: rgba(139,92,246,0.2);
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 20px;
+            border: 1px solid rgba(139,92,246,0.4);
+        }
+        .search-container {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .search-container input {
+            padding: 12px 20px;
+            border: 1px solid rgba(0,255,255,0.3);
+            border-radius: 25px;
+            background: rgba(0,0,0,0.3);
+            color: white;
+            font-size: 16px;
+            min-width: 250px;
+        }
+        .search-container input::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+        .search-container select {
+            padding: 12px 20px;
+            border: 1px solid rgba(0,255,255,0.3);
+            border-radius: 25px;
+            background: rgba(0,0,0,0.3);
+            color: white;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>NLBL GALAXY COLLECTION</h1>
+        <p>No Limits Beyond Limitations. Premium products featuring our signature galaxy designs with the NLBL logo.</p>
+        <div class="count" id="productCount">Loading...</div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search products..." onkeyup="filterProducts()">
+            <select id="categorySelect" onchange="filterProducts()">
+                <option value="">All Categories</option>
+                <option value="T-Shirts">T-Shirts</option>
+                <option value="Hoodies">Hoodies</option>
+                <option value="Mugs">Mugs</option>
+                <option value="Hats">Hats</option>
+                <option value="Posters">Posters</option>
+                <option value="Bags">Bags</option>
+                <option value="Phone Cases">Phone Cases</option>
+                <option value="Other">Other</option>
+            </select>
+            <select id="sortSelect" onchange="sortProducts()">
+                <option value="name">Sort by Name</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="products" id="productGrid"></div>
+
+    <div class="footer">
+        <p>© 2026 No Limits Beyond Limitations • All products fulfilled by Printify</p>
+    </div>
+
+    <script>
+        let allProducts = [];
+
+        async function loadProducts() {
+            try {
+                // Load products from all chunk files
+                const chunkUrls = [
+                    'https://sdj05kp7ut7tfuxh.public.blob.vercel-storage.com/products_chunk_1.json',
+                    'https://sdj05kp7ut7tfuxh.public.blob.vercel-storage.com/products_chunk_2.json',
+                    'https://sdj05kp7ut7tfuxh.public.blob.vercel-storage.com/products_chunk_3.json',
+                    'https://sdj05kp7ut7tfuxh.public.blob.vercel-storage.com/products_chunk_4.json',
+                    'https://sdj05kp7ut7tfuxh.public.blob.vercel-storage.com/products_chunk_5.json',
+                    'https://sdj05kp7ut7tfuxh.public.blob.vercel-storage.com/products_chunk_6.json',
+                    'https://sdj05kp7ut7tfuxh.public.blob.vercel-storage.com/products_chunk_7.json',
+                    'https://sdj05kp7ut7tfuxh.public.blob.vercel-storage.com/products_chunk_8.json',
+                    'https://sdj05kp7ut7tfuxh.public.blob.vercel-storage.com/products_chunk_9.json',
+                    'https://sdj05kp7ut7tfuxh.public.blob.vercel-storage.com/products_chunk_10.json',
+                    'https://sdj05kp7ut7tfuxh.public.blob.vercel-storage.com/products_chunk_11.json',
+                    'https://sdj05kp7ut7tfuxh.public.blob.vercel-storage.com/products_chunk_12.json',
+                    'https://sdj05kp7ut7tfuxh.public.blob.vercel-storage.com/products_chunk_13.json',
+                    'https://sdj05kp7ut7tfuxh.public.blob.vercel-storage.com/products_chunk_14.json',
+                    'https://sdj05kp7ut7tfuxh.public.blob.vercel-storage.com/products_chunk_15.json'
+                ];
+
+                let allProductsList = [];
+                
+                for (const url of chunkUrls) {
+                    try {
+                        const response = await fetch(url);
+                        const data = await response.json();
+                        if (data.products) {
+                            allProductsList = allProductsList.concat(data.products);
+                        }
+                    } catch (e) {
+                        console.log('Chunk failed:', url);
+                    }
+                }
+
+                const validProducts = allProductsList.filter(p => p.image && p.title);
+
+                const grouped = {};
+                validProducts.forEach(p => {
+                    const baseName = p.title.replace(/\s*-\s*(S|M|L|XL|2XL|3XL|One Size|Standard|Custom)\s*$/i, '').trim();
+                    let category = 'Other';
+                    if (baseName.toLowerCase().includes('shirt') || baseName.toLowerCase().includes('tee')) category = 'T-Shirts';
+                    else if (baseName.toLowerCase().includes('hoodie') || baseName.toLowerCase().includes('sweatshirt')) category = 'Hoodies';
+                    else if (baseName.toLowerCase().includes('mug') || baseName.toLowerCase().includes('cup')) category = 'Mugs';
+                    else if (baseName.toLowerCase().includes('hat') || baseName.toLowerCase().includes('cap')) category = 'Hats';
+                    else if (baseName.toLowerCase().includes('poster') || baseName.toLowerCase().includes('print')) category = 'Posters';
+                    else if (baseName.toLowerCase().includes('tote') || baseName.toLowerCase().includes('bag')) category = 'Bags';
+                    else if (baseName.toLowerCase().includes('phone') || baseName.toLowerCase().includes('case')) category = 'Phone Cases';
+
+                    if (!grouped[baseName]) {
+                        grouped[baseName] = {
+                            title: baseName,
+                            image: p.image,
+                            price: p.price,
+                            count: 0,
+                            productId: p.id,
+                            category: category
+                        };
+                    }
+                    grouped[baseName].count++;
+                });
+
+                const uniqueProducts = Object.values(grouped);
+                allProducts = uniqueProducts;
+                displayProducts(uniqueProducts);
+                document.getElementById('productCount').textContent = `${uniqueProducts.length} Products Available`;
+            } catch (e) {
+                console.error('Error loading products:', e);
+                document.getElementById('productCount').textContent = 'Error loading products';
+            }
+        }
+
+        function displayProducts(products) {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+            products.forEach(p => {
+                const div = document.createElement('div');
+                div.className = 'product';
+                div.innerHTML = `
+                    <img src="${p.image}" alt="${p.title}" loading="lazy">
+                    <h3>${p.title}</h3>
+                    <div class="type">Multiple Sizes Available</div>
+                    <div class="price">$${p.price.toFixed(2)}</div>
+                    <button class="btn" onclick="buyProduct('${p.productId}')">SHOP NOW</button>
+                `;
+                grid.appendChild(div);
+            });
+        }
+
+        function filterProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const category = document.getElementById('categorySelect').value;
+            const filtered = allProducts.filter(p =>
+                p.title.toLowerCase().includes(searchTerm) &&
+                (category === '' || p.category === category)
+            );
+            displayProducts(filtered);
+            document.getElementById('productCount').textContent = `${filtered.length} Products Available`;
+        }
+
+        function sortProducts() {
+            const sortBy = document.getElementById('sortSelect').value;
+            let sorted = [...allProducts];
+            if (sortBy === 'price-low') {
+                sorted.sort((a, b) => a.price - b.price);
+            } else if (sortBy === 'price-high') {
+                sorted.sort((a, b) => b.price - a.price);
+            } else {
+                sorted.sort((a, b) => a.title.localeCompare(b.title));
+            }
+            displayProducts(sorted);
+        }
+
+        function buyProduct(productId) {
+            const product = allProducts.find(p => p.productId === productId);
+            if (product) {
+                alert(`Product: ${product.title}\nPrice: $${product.price.toFixed(2)}\n\nStripe checkout integration in progress!`);
+            }
+        }
+
+        window.onload = loadProducts;
+    </script>
+</body>
+</html>

@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>No Limits Beyond Limitations - Revolutionary Store</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Space+Grotesk:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary: #00ffff;
+        --secondary: #ff69b4;
+        --tertiary: #39ff14;
+        --gold: #ffd700;
+        --purple: #8b5cf6;
+        --dark-bg: #0a0e27;
+        --darker-bg: #050812;
+        --light: #ffffff;
+        --accent-1: #00d4ff;
+        --accent-2: #ff006e;
+        --glow-1: rgba(0, 255, 255, 0.5);
+        --glow-2: rgba(139, 92, 246, 0.4);
+      }
+
+      body {
+        font-family: 'Space Grotesk', 'Rajdhani', sans-serif;
+        background: linear-gradient(135deg, var(--dark-bg) 0%, #1a0f3a 50%, var(--darker-bg) 100%);
+        background-attachment: fixed;
+        color: var(--light);
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      /* Animated galaxy background */
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image:
+          radial-gradient(2px 2px at 20% 30%, #eee, rgba(255, 255, 255, 0.2) 2px, transparent 40px),
+          radial-gradient(
+            2px 2px at 60% 70%,
+            #fff,
+            rgba(255, 255, 255, 0.15) 1px,
+            transparent 40px
+          ),
+          radial-gradient(1px 1px at 50% 50%, #ddd, rgba(255, 255, 255, 0.1) 1px, transparent 30px),
+          radial-gradient(1px 1px at 80% 10%, #fff, rgba(255, 255, 255, 0.2) 2px, transparent 30px),
+          radial-gradient(2px 2px at 90% 60%, #eee, rgba(255, 255, 255, 0.1) 1px, transparent 50px),
+          radial-gradient(1px 1px at 30% 80%, #fff, rgba(255, 255, 255, 0.15) 1px, transparent 30px);
+        background-size:
+          200% 200%,
+          150% 150%,
+          300% 300%,
+          250% 250%,
+          100% 100%,
+          350% 350%;
+        background-position:
+          0% 0%,
+          40% 60%,
+          130% 270%,
+          70% 100%,
+          150% 140%,
+          90% 10%;
+        pointer-events: none;
+        z-index: 0;
+        animation: drift 20s ease-in-out infinite;
+      }
+
+      @keyframes drift {
+        0%,
+        100% {
+          background-position:
+            0% 0%,
+            40% 60%,
+            130% 270%,
+            70% 100%,
+            150% 140%,
+            90% 10%;
+        }
+        50% {
+          background-position:
+            100% 100%,
+            60% 40%,
+            70% 130%,
+            100% 0%,
+            0% 0%,
+            10% 90%;
+        }
+      }
+
+      .hero {
+        padding: 100px 20px;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero h1 {
+        font-family: 'Orbitron', monospace;
+        font-size: 4rem;
+        font-weight: 900;
+        background: linear-gradient(135deg, var(--primary), var(--secondary), var(--gold));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 0 0 100px var(--glow-1);
+        margin-bottom: 20px;
+      }
+
+      .hero-subtitle {
+        font-size: 1.5rem;
+        color: rgba(255, 255, 255, 0.7);
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 30px;
+        padding: 40px 20px;
+        max-width: 1600px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+
+      .product-card {
+        background: linear-gradient(135deg, rgba(45, 27, 78, 0.6), rgba(26, 10, 46, 0.8));
+        border: 1px solid rgba(139, 92, 246, 0.2);
+        border-radius: 20px;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transform: translateY(0);
+        opacity: 0;
+        animation: fadeInUp 0.6s ease forwards;
+      }
+
+      .product-card:nth-child(1) { animation-delay: 0.1s; }
+      .product-card:nth-child(2) { animation-delay: 0.15s; }
+      .product-card:nth-child(3) { animation-delay: 0.2s; }
+      .product-card:nth-child(4) { animation-delay: 0.25s; }
+      .product-card:nth-child(5) { animation-delay: 0.3s; }
+      .product-card:nth-child(6) { animation-delay: 0.35s; }
+      .product-card:nth-child(7) { animation-delay: 0.4s; }
+      .product-card:nth-child(8) { animation-delay: 0.45s; }
+      .product-card:nth-child(9) { animation-delay: 0.5s; }
+      .product-card:nth-child(10) { animation-delay: 0.55s; }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .product-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        border-color: var(--primary);
+        box-shadow: 0 30px 80px rgba(0, 255, 255, 0.15);
+      }
+
+      .product-image {
+        width: 100%;
+        height: 350px;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+      }
+
+      .product-card:hover .product-image {
+        transform: scale(1.05);
+      }
+
+      .product-info {
+        padding: 25px;
+      }
+
+      .product-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: var(--light);
+      }
+
+      .product-price {
+        font-size: 1.6rem;
+        font-weight: 900;
+        color: var(--primary);
+        margin-bottom: 20px;
+      }
+
+      .add-to-cart-btn {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(135deg, var(--purple), var(--secondary));
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-family: 'Orbitron', monospace;
+        font-weight: 700;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .add-to-cart-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+      }
+
+      .footer {
+        padding: 60px 20px;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+        color: rgba(255, 255, 255, 0.5);
+        margin-top: 60px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero">
+      <h1>NLBL GALAXY SHOP</h1>
+      <p class="hero-subtitle">No Limits Beyond Limitations. Revolutionary designs forged from the cosmos.</p>
+    </div>
+
+    <div class="product-grid" id="productGrid"></div>
+
+    <div class="footer">
+      <p>© 2026 No Limits Beyond Limitations. All rights reserved.</p>
+    </div>
+
+    <script>
+      // YOUR ACTUAL PRODUCTS - NO MORE PRODUCTS ON PRODUCTS!
+      const NLBL_PRODUCTS = [
+        {
+          title: "Black Hole Memorial",
+          image: "Logo_N_Galaxy_Fill_Space/black-hole-memorial-aop.png",
+          price: 59.99
+        },
+        {
+          title: "Milky Way Gold",
+          image: "Logo_N_Galaxy_Fill_Space/milky-way-gold-aop.png",
+          price: 59.99
+        },
+        {
+          title: "Meteor Shower",
+          image: "Logo_N_Galaxy_Fill_Space/no-limits-x-meteor-shower.png",
+          price: 49.99
+        },
+        {
+          title: "Pink Nebula Stained Glass",
+          image: "Logo_N_Galaxy_Fill_Space/no-limits-x-pink-nebula-stained-glass_hq.png",
+          price: 59.99
+        },
+        {
+          title: "Purple Nebula",
+          image: "Logo_N_Galaxy_Fill_Space/no-limits-x-purple-nebula_hq.png",
+          price: 54.99
+        },
+        {
+          title: "Solar Flare",
+          image: "Logo_N_Galaxy_Fill_Space/no-limits-x-solar-flare.png",
+          price: 54.99
+        },
+        {
+          title: "Zodiac",
+          image: "Logo_N_Galaxy_Fill_Space/no-limits-x-zodiac.png",
+          price: 64.99
+        },
+        {
+          title: "Pink Nebula AOP",
+          image: "Logo_N_Galaxy_Fill_Space/pink-nebula-stained-glass-aop.png",
+          price: 59.99
+        },
+        {
+          title: "Solar Flare AOP",
+          image: "Logo_N_Galaxy_Fill_Space/solar-flare-aop.png",
+          price: 64.99
+        },
+        {
+          title: "Untitled Project",
+          image: "Logo_N_Galaxy_Fill_Space/Untitled Project - illustrationImage.png",
+          price: 44.99
+        }
+      ];
+
+      // Render products directly
+      function renderProducts() {
+        const grid = document.getElementById('productGrid');
+        
+        NLBL_PRODUCTS.forEach(product => {
+          const card = document.createElement('div');
+          card.className = 'product-card';
+          
+          card.innerHTML = `
+            <img src="${product.image}" alt="${product.title}" class="product-image" loading="lazy">
+            <div class="product-info">
+              <h3 class="product-title">${product.title}</h3>
+              <div class="product-price">$${product.price.toFixed(2)}</div>
+              <button class="add-to-cart-btn">ADD TO CART</button>
+            </div>
+          `;
+          
+          grid.appendChild(card);
+        });
+        
+        console.log(`✅ Rendered ${NLBL_PRODUCTS.length} NLBL products successfully!`);
+      }
+
+      // Load when page is ready
+      window.addEventListener('load', () => {
+        renderProducts();
+        console.log('🚀 NLBL GALAXY SHOP LOADED - NO MORE PRODUCTS ON PRODUCTS!');
+      });
+    </script>
+  </body>
+</html>

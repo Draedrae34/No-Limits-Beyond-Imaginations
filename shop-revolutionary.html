@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>No Limits Beyond Limitations - Revolutionary Store</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Space+Grotesk:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary: #00ffff;
+        --secondary: #ff69b4;
+        --tertiary: #39ff14;
+        --gold: #ffd700;
+        --purple: #8b5cf6;
+        --dark-bg: #0a0e27;
+        --darker-bg: #050812;
+        --light: #ffffff;
+        --accent-1: #00d4ff;
+        --accent-2: #ff006e;
+        --glow-1: rgba(0, 255, 255, 0.5);
+        --glow-2: rgba(139, 92, 246, 0.4);
+      }
+
+      body {
+        font-family: 'Space Grotesk', 'Rajdhani', sans-serif;
+        background: linear-gradient(135deg, var(--dark-bg) 0%, #1a0f3a 50%, var(--darker-bg) 100%);
+        background-attachment: fixed;
+        color: var(--light);
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      /* Animated galaxy background */
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image:
+          radial-gradient(2px 2px at 20% 30%, #eee, rgba(255, 255, 255, 0.2) 2px, transparent 40px),
+          radial-gradient(
+            2px 2px at 60% 70%,
+            #fff,
+            rgba(255, 255, 255, 0.15) 1px,
+            transparent 40px
+          ),
+          radial-gradient(1px 1px at 50% 50%, #ddd, rgba(255, 255, 255, 0.1) 1px, transparent 30px),
+          radial-gradient(1px 1px at 80% 10%, #fff, rgba(255, 255, 255, 0.2) 2px, transparent 30px),
+          radial-gradient(2px 2px at 90% 60%, #eee, rgba(255, 255, 255, 0.1) 1px, transparent 50px),
+          radial-gradient(1px 1px at 30% 80%, #fff, rgba(255, 255, 255, 0.15) 1px, transparent 30px);
+        background-size:
+          200% 200%,
+          150% 150%,
+          300% 300%,
+          250% 250%,
+          100% 100%,
+          350% 350%;
+        background-position:
+          0% 0%,
+          40% 60%,
+          130% 270%,
+          70% 100%,
+          150% 140%,
+          90% 10%;
+        pointer-events: none;
+        z-index: 0;
+        animation: drift 20s ease-in-out infinite;
+      }
+
+      @keyframes drift {
+        0%,
+        100% {
+          background-position:
+            0% 0%,
+            40% 60%,
+            130% 270%,
+            70% 100%,
+            150% 140%,
+            90% 10%;
+        }
+        50% {
+          background-position:
+            100% 100%,
+            60% 40%,
+            70% 130%,
+            100% 0%,
+            0% 0%,
+            10% 90%;
+        }
+      }
+
+      /* Glowing nebula orbs */
+      body::after {
+        content: '';
+        position: fixed;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background:
+          radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+          radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+        animation: nebula 30s ease-in-out infinite;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      @keyframes nebula {
+        0%,
+        100% {
+          transform: translate(0, 0);
+        }
+        50% {
+          transform: translate(50px, 100px);
+        }
+      }
+
+      .container {
+        position: relative;
+        z-index: 1;
+        max-width: 100%;
+        margin: 0 auto;
+      }
+
+      /* ==== HEADER ==== */
+      header {
+        padding: 2rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        border-bottom: 2px solid var(--accent-1);
+      }
+
+      header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--accent-1), transparent);
+        animation: glow-pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes glow-pulse {
+        0%,
+        100% {
+          opacity: 0.3;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      h1 {
+        font-family: 'Orbitron', sans-serif;
+        font-size: clamp(2.5rem, 8vw, 5rem);
+        font-weight: 900;
+        background: linear-gradient(135deg, var(--accent-1), var(--tertiary), var(--accent-2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 0 0 40px rgba(0, 255, 255, 0.5);
+        letter-spacing: 3px;
+        margin-bottom: 0.5rem;
+        animation: title-float 4s ease-in-out infinite;
+      }
+
+      @keyframes title-float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .tagline {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: clamp(1rem, 3vw, 1.5rem);
+        color: var(--accent-1);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-top: 1rem;
+        opacity: 0.9;
+      }
+
+      /* ==== FILTER SECTION ==== */
+      .filter-bar {
+        padding: 2rem;
+        text-align: center;
+        border: 2px solid rgba(0, 255, 255, 0.2);
+        background: rgba(10, 14, 39, 0.7);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        margin: 2rem;
+        border-radius: 20px;
+        box-shadow: 0 0 40px rgba(0, 255, 255, 0.1);
+      }
+
+      .filter-bar label {
+        font-family: 'Orbitron', sans-serif;
+        display: inline-block;
+        margin-right: 1rem;
+        color: var(--gold);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .filter-bar select {
+        padding: 0.8rem 1.2rem;
+        background: rgba(139, 92, 246, 0.2);
+        border: 2px solid var(--accent-1);
+        border-radius: 8px;
+        color: var(--light);
+        font-family: 'Space Grotesk', sans-serif;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        min-width: 200px;
+      }
+
+      .filter-bar select:hover {
+        background: rgba(139, 92, 246, 0.4);
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+      }
+
+      /* ==== PRODUCTS GRID ==== */
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
+        padding: 2rem;
+        max-width: 1600px;
+        margin: 0 auto;
+      }
+
+      /* ==== PRODUCT CARD ==== */
+      .product-card {
+        position: relative;
+        height: 100%;
+        min-height: 450px;
+        border-radius: 20px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        border: 2px solid transparent;
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(0, 255, 255, 0.05));
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        box-shadow:
+          0 10px 40px rgba(0, 0, 0, 0.5),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        display: flex;
+        flex-direction: column;
+        group: _card;
+      }
+
+      .product-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          135deg,
+          transparent 0%,
+          rgba(0, 255, 255, 0.1) 50%,
+          transparent 100%
+        );
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        pointer-events: none;
+      }
+
+      .product-card:hover::before {
+        opacity: 1;
+      }
+
+      .product-card:hover {
+        border-color: var(--accent-1);
+        transform: translateY(-20px) scale(1.02);
+        box-shadow:
+          0 30px 60px rgba(0, 255, 255, 0.3),
+          0 0 40px rgba(0, 255, 255, 0.2),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      }
+
+      .product-image {
+        position: relative;
+        width: 100%;
+        height: 280px;
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(0, 255, 255, 0.1));
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 6rem;
+      }
+
+      .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .product-card:hover .product-image img {
+        transform: scale(1.1) rotate(5deg);
+      }
+
+      .product-info {
+        padding: 1.5rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .product-name {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--accent-1);
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        line-height: 1.3;
+        min-height: 60px;
+      }
+
+      .product-category {
+        font-size: 0.85rem;
+        color: var(--gold);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 1rem;
+        opacity: 0.8;
+      }
+
+      .product-price {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 1.8rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--gold), var(--accent-2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin: 1rem 0;
+      }
+
+      .product-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+
+      .btn-primary {
+        flex: 1;
+        padding: 0.8rem;
+        background: linear-gradient(135deg, var(--accent-1), var(--tertiary));
+        border: none;
+        border-radius: 8px;
+        color: #000;
+        font-family: 'Orbitron', sans-serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 20px rgba(0, 255, 255, 0.3);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(0, 255, 255, 0.5);
+      }
+
+      /* ==== LOADING STATE ==== */
+      .loading-spinner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 400px;
+      }
+
+      .spinner {
+        width: 60px;
+        height: 60px;
+        border: 4px solid rgba(0, 255, 255, 0.2);
+        border-top: 4px solid var(--accent-1);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* ==== RESPONSIVE ==== */
+      @media (max-width: 768px) {
+        .products-grid {
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+          gap: 1.5rem;
+          padding: 1rem;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        .product-card {
+          min-height: 380px;
+        }
+
+        .product-image {
+          height: 200px;
+          font-size: 4rem;
+        }
+
+        .filter-bar {
+          margin: 1rem;
+        }
+
+        .filter-bar select {
+          min-width: 150px;
+          margin-bottom: 0.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>⚡ NO LIMITS BEYOND LIMITATIONS ⚡</h1>
+        <p class="tagline">Revolutionary Custom Apparel // Advanced Print-On-Demand</p>
+      </header>
+
+      <div class="filter-bar">
+        <label for="category-select">Filter by Category:</label>
+        <select id="category-select" title="Filter products by category">
+          <option value="">All Products</option>
+          <option value="Women">Women</option>
+          <option value="Men">Men</option>
+          <option value="Kids">Kids</option>
+          <option value="Babies">Babies</option>
+          <option value="Unisex">Unisex</option>
+          <option value="Accessories">Accessories</option>
+        </select>
+      </div>
+
+      <div id="products-container" class="products-grid">
+        <div class="loading-spinner">
+          <div class="spinner"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Product loading with Printify sync integration
+      // Priority: 1) shop-products.json (Printify sync) 2) properly-mapped-products.json 3) local fallback
+      let products = [];
+
+      async function loadProducts() {
+        try {
+          // Load overrides first (contains correct names/prices for every product)
+          let overrides = {};
+          try {
+            const oresp = await fetch('/properly-mapped-products.json');
+            if (oresp.ok) {
+              const odata = await oresp.json();
+              if (odata.success && Array.isArray(odata.products)) {
+                odata.products.forEach((p) => {
+                  overrides[p.id] = { name: p.name, price: p.price };
+                });
+                console.log(`🛠️ Loaded ${Object.keys(overrides).length} override entries`);
+              }
+            }
+          } catch (e) {
+            console.warn('⚠️ Could not load overrides file, proceeding without them');
+          }
+
+          // Load the shop-products.json file from Printify sync
+          try {
+            const response = await fetch('/shop-products.json');
+            if (response.ok) {
+              const data = await response.json();
+              if (data.success && data.products && data.products.length > 0) {
+                products = data.products
+                  .filter((p) => p.image && p.name)
+                  .map((p) => {
+                    // Apply overrides if available
+                    if (overrides[p.id]) {
+                      p.name = overrides[p.id].name;
+                      p.price = overrides[p.id].price;
+                    }
+                    return {
+                      id: p.id,
+                      name: p.name,
+                      price: Number(p.price) || 0,
+                      image: p.image,
+                      category: p.category || 'products',
+                    };
+                  });
+                console.log(`🔥 LOADED ${products.length} PRODUCTS FROM PRINTIFY!`);
+                filterProducts();
+                return;
+              }
+            }
+          } catch (e) {
+            console.warn('⚠️ Could not load shop-products.json, trying inventory API');
+          }
+
+          // Try the inventory API endpoint
+          try {
+            const resp = await fetch('/api/inventory');
+            if (resp.ok) {
+              const data = await resp.json();
+              if (data.products && data.products.length > 0) {
+                products = (data.products || []).map((p) => {
+                  if (overrides[p.id]) {
+                    p.name = overrides[p.id].name;
+                    p.price = overrides[p.id].price;
+                  }
+                  p.price = Number(p.price) || 0;
+                  if (!p.category) p.category = 'products';
+                  if (!p.name) p.name = `Product ${p.id}`;
+                  return p;
+                });
+                console.log(`📦 LOADED ${products.length} PRODUCTS FROM INVENTORY API!`);
+                filterProducts();
+                return;
+              }
+            }
+          } catch (e) {
+            console.warn('⚠️ Could not load inventory API, using local fallback');
+          }
+
+          // Final fallback: hardcoded products
+          console.log('⚠️ All API methods failed, using local fallback products');
+          products = [
+            { id: 1001, name: 'Black Tee Front Logo - NLBL Original', price: 34.99, image: '/Clothing_Product/reve_images_2026-02-22_04-06-06/Black Tee Front Logo.png', category: 'T-Shirts' },
+            { id: 1002, name: 'Purple Galaxy Hoodie - Signature NLBL', price: 64.99, image: '/Clothing_Product/reve_images_2026-02-22_04-06-06/Purple Galaxy Hoodie.png', category: 'Hoodies' },
+            { id: 1003, name: 'Gold Varsity Jacket - Premium NLBL', price: 119.99, image: '/Clothing_Product/reve_images_2026-02-22_04-06-06/Gold Varsity Jacket.png', category: 'Jackets' },
+            { id: 1004, name: 'Cyan Denim Jacket - NLBL Streetwear', price: 89.99, image: '/Clothing_Product/reve_images_2026-02-22_04-06-06/Cyan Denim Jacket.png', category: 'Jackets' },
+            { id: 1005, name: 'Navy Polo Shirt - Classic NLBL', price: 39.99, image: '/Clothing_Product/reve_images_2026-02-22_04-06-06/Navy Polo Shirt.png', category: 'T-Shirts' },
+            { id: 1006, name: 'Lavender Long Sleeve - Galaxy Edition', price: 44.99, image: '/Clothing_Product/reve_images_2026-02-22_04-06-06/Lavender Long Sleeve.png', category: 'T-Shirts' },
+            { id: 1007, name: 'White Crewneck Sweatshirt - NLBL Essential', price: 49.99, image: '/Clothing_Product/reve_images_2026-02-22_04-06-06/White Crewneck Sweatshirt.png', category: 'T-Shirts' },
+            { id: 1008, name: 'Blue Tie-Dye Tank Top - Galaxy Pattern', price: 29.99, image: '/Clothing_Product/reve_images_2026-02-22_04-06-06/Blue Tie-Dye Tank Top.png', category: 'T-Shirts' },
+            { id: 1009, name: 'Pink Crop Hoodie - NLBL Street', price: 54.99, image: '/Clothing_Product/reve_images_2026-02-22_04-06-06/Pink Crop Hoodie.png', category: 'Hoodies' },
+            { id: 1010, name: 'Neon Green Bomber Jacket - Galaxy Edition', price: 94.99, image: '/Clothing_Product/reve_images_2026-02-22_04-06-06/Neon Green Bomber Jacket.png', category: 'Jackets' },
+            { id: 1011, name: 'Orange Windbreaker - NLBL Athletic', price: 79.99, image: '/Clothing_Product/reve_images_2026-02-22_04-06-06/Orange Windbreaker.png', category: 'Jackets' },
+            { id: 1012, name: 'Coral Shorts - NLBL Summer', price: 44.99, image: '/Clothing_Product/reve_images_2026-02-22_04-06-06/Coral Shorts.png', category: 'Accessories' },
+            { id: 1013, name: 'Red Galaxy Joggers - NLBL Athletic', price: 59.99, image: '/Clothing_Product/reve_images_2026-02-22_04-06-06/Red Galaxy Joggers.png', category: 'Accessories' },
+            { id: 1014, name: 'Silver Track Pants - NLBL Performance', price: 54.99, image: '/Clothing_Product/reve_images_2026-02-22_04-06-06/Silver Track Pants.png', category: 'Accessories' },
+            { id: 1015, name: 'Mint Green Beanie - NLBL Essential', price: 24.99, image: '/Clothing_Product/reve_images_2026-02-22_04-06-06/Mint Green Beanie.png', category: 'Accessories' },
+            { id: 1016, name: 'Yellow Snapback Hat - NLBL Street', price: 29.99, image: '/Clothing_Product/reve_images_2026-02-22_04-06-06/Yellow Snapback Hat.png', category: 'Accessories' },
+          ];
+          console.log(`📦 Using ${products.length} local fallback products`);
+          filterProducts();
+        } catch (err) {
+          console.error('❌ Error loading products:', err);
+          filterProducts();
+        }
+      }
+
+      // Initialize
+      loadProducts();
+
+      const container = document.getElementById('products-container');
+      const categorySelect = document.getElementById('category-select');
+
+      function renderProducts(filteredProducts) {
+        container.innerHTML = '';
+
+        if (filteredProducts.length === 0) {
+          container.innerHTML =
+            '<p style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--accent-1); font-size: 1.2rem;">No products found in this category.</p>';
+          return;
+        }
+
+        filteredProducts.forEach((product) => {
+          const card = document.createElement('div');
+          card.className = 'product-card';
+          card.innerHTML = `
+                    <div class="product-image">${product.image ? `<img src="${product.image}" alt="${product.name}" />` : '📦'}</div>
+                    <div class="product-info">
+                        <div>
+                            <div class="product-category">${product.category}</div>
+                            <div class="product-name">${product.name}</div>
+                        </div>
+                        <div>
+                            <div class="product-price">$${Number(product.price).toFixed(2)}</div>
+                            <div class="product-actions">
+                                <button class="btn-primary" onclick="window.location.href='checkout.html?product_id=' + product.id + '&promo=' + (window.PROMO_CODE || '')">View & Buy</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+          container.appendChild(card);
+        });
+      }
+
+      function filterProducts() {
+        const selected = categorySelect.value;
+        const filtered = selected ? products.filter((p) => p.category === selected) : products;
+        renderProducts(filtered);
+      }
+
+      categorySelect.addEventListener('change', filterProducts);
+    </script>
+  </body>
+</html>

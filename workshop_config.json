@@ -1,0 +1,20 @@
+{
+  "server": {
+    "host": "0.0.0.0",
+    "port": 5000,
+    "debug": false
+  },
+  "session": {
+    "secret_key": "your-secret-key-here",
+    "expiration_hours": 24
+  },
+  "rate_limiting": {
+    "login_attempts": 5,
+    "window_minutes": 15
+  },
+  "paths": {
+    "music_workspace": null,
+    "product_workspace": null,
+    "run_owner_ai": null
+  }
+}

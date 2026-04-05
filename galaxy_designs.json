@@ -1,0 +1,15 @@
+{
+  "designs": {
+    "cosmic_nebula": "galaxy_designs\\cosmic_nebula.png",
+    "stellar_dust": "galaxy_designs\\stellar_dust.png",
+    "galactic_core": "galaxy_designs\\galactic_core.png",
+    "milky_way": "galaxy_designs\\milky_way.png",
+    "aurora_borealis": "galaxy_designs\\aurora_borealis.png",
+    "meteor_shower": "galaxy_designs\\meteor_shower.png",
+    "black_hole": "galaxy_designs\\black_hole.png",
+    "solar_flare": "galaxy_designs\\solar_flare.png",
+    "supernova": "galaxy_designs\\supernova.png",
+    "eclipse": "galaxy_designs\\eclipse.png"
+  },
+  "description": "NLBL galaxy-themed designs for Printify products"
+}

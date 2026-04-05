@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supreme Control Panel</title>
+    <link rel="stylesheet" href="css/control_panel.css">
+    
+    <!-- Vercel Web Analytics -->
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<div id="galaxy-container"></div>
+    <div class="control-panel">
+        <header>
+            <h1>Supreme Control Panel</h1>
+            <button onclick="window.location.href='dashboard.html'" class="back-btn">← Back to Dashboard</button>
+        </header>
+
+        <div class="control-grid">
+            <div class="control-section">
+                <h2>AI Operations</h2>
+                <button id="run-owner-ai" class="control-btn">Run Owner AI</button>
+                <button id="generate-beat" class="control-btn">Generate Beat</button>
+                <button id="generate-lyrics" class="control-btn">Generate Lyrics</button>
+                <button id="produce-song" class="control-btn">Produce Song</button>
+            </div>
+
+            <div class="control-section">
+                <h2>Output Console</h2>
+                <div id="output-console" class="console"></div>
+            </div>
+        </div>
+    </div>
+    <script src="js/control_panel.js"></script>
+<script src="js/galaxy.js"></script>
+</body>
+</html>

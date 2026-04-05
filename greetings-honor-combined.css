@@ -1,0 +1,927 @@
+/* ========================================
+   GREETINGS + HONOR WALL COMBINED THEME
+   Mystical, Magical, Sentimental Design
+   ======================================== */
+
+/* ====================
+   KEY CSS VARIABLES
+   ==================== */
+:root {
+    /* Greetings Theme (Purple/Gold) */
+    --greeting-purple: #8B5CF6;
+    --greeting-purple-dark: #6D28D9;
+    --greeting-purple-light: #A78BFA;
+    --greeting-gold: #FFD700;
+    --greeting-gold-light: #FDE047;
+    --greeting-silver: #E5E7EB;
+    --greeting-black: #000000;
+    --greeting-dark: #111827;
+    --greeting-dark-purple: #1E1B4B;
+
+    /* Honor Wall Theme (Rose/Blush) */
+    --honor-rose: #F472B6;
+    --honor-rose-dark: #DB2777;
+    --honor-rose-light: #FBCFE8;
+    --honor-blush: #FCE7F3;
+    --honor-pink: #EC4899;
+
+    /* Shared Mystical Colors */
+    --mystical-purple: #7C3AED;
+    --mystical-violet: #9D4EDD;
+    --mystical-lavender: #C084FC;
+    --mystical-indigo: #4F46E5;
+    --mystical-cyan: #06B6D4;
+    --mystical-gold: #F59E0B;
+    --mystical-silver: #9CA3AF;
+
+    /* Transparency */
+    --opacity-10: rgba(255, 255, 255, 0.1);
+    --opacity-20: rgba(255, 255, 255, 0.2);
+    --opacity-30: rgba(255, 255, 255, 0.3);
+    --opacity-50: rgba(255, 255, 255, 0.5);
+    --opacity-70: rgba(255, 255, 255, 0.7);
+    --opacity-80: rgba(255, 255, 255, 0.8);
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    --spacing-2xl: 4rem;
+    --spacing-3xl: 6rem;
+
+    /* Border Radius */
+    --radius-sm: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+    --radius-full: 9999px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+    /* Glows */
+    --glow-gold: 0 0 20px rgba(255, 215, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.3);
+    --glow-purple: 0 0 20px rgba(139, 92, 246, 0.5), 0 0 40px rgba(139, 92, 246, 0.3);
+    --glow-rose: 0 0 20px rgba(244, 114, 182, 0.5), 0 0 40px rgba(244, 114, 182, 0.3);
+    --glow-cyan: 0 0 20px rgba(6, 182, 212, 0.5), 0 0 40px rgba(6, 182, 212, 0.3);
+}
+
+/* ====================
+   BASE STYLES
+   ==================== */
+.greetings-honor-combined {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--greeting-dark-purple) 0%, var(--greeting-dark) 50%, var(--greeting-black) 100%);
+    position: relative;
+    overflow: hidden;
+    font-family: 'Raleway', sans-serif;
+    color: var(--greeting-silver);
+}
+
+/* ====================
+   COSMIC BACKGROUND
+   ==================== */
+.greetings-honor-combined::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(ellipse at top, var(--greeting-purple) 0%, transparent 40%),
+        radial-gradient(ellipse at bottom, var(--honor-rose) 0%, transparent 40%),
+        radial-gradient(ellipse at left, var(--mystical-cyan) 0%, transparent 30%),
+        radial-gradient(ellipse at right, var(--greeting-gold) 0%, transparent 30%);
+    opacity: 0.1;
+    animation: cosmicGlow 20s ease-in-out infinite;
+    z-index: 0;
+    pointer-events: none;
+}
+
+@keyframes cosmicGlow {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 0.1;
+    }
+    50% {
+        transform: scale(1.1) rotate(5deg);
+        opacity: 0.15;
+    }
+}
+
+/* ====================
+   STARS & PARTICLES
+   ==================== */
+.stars-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0;
+    animation: twinkle 3s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 0.8; }
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: float 15s linear infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ====================
+   GALACTIC OVERLAY
+   ==================== */
+.galactic-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(139, 92, 246, 0.03) 0px,
+            rgba(244, 114, 182, 0.03) 2px,
+            rgba(6, 182, 212, 0.03) 4px,
+            transparent 6px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            rgba(139, 92, 246, 0.03) 0px,
+            rgba(244, 114, 182, 0.03) 2px,
+            rgba(6, 182, 212, 0.03) 4px,
+            transparent 6px
+        );
+    z-index: 2;
+    pointer-events: none;
+    animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(12px); }
+}
+
+/* ====================
+   MAIN CONTAINER
+   ==================== */
+.greetings-honor-container {
+    position: relative;
+    z-index: 10;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--spacing-2xl) var(--spacing-lg);
+}
+
+/* ====================
+   HEADER SECTION
+   ==================== */
+.greetings-honor-header {
+    text-align: center;
+    margin-bottom: var(--spacing-3xl);
+    position: relative;
+}
+
+.greeting-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--greeting-gold), var(--honor-rose), var(--greeting-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: var(--spacing-md);
+    text-shadow: var(--glow-gold);
+    animation: titleGlow 3s ease-in-out infinite;
+    letter-spacing: 0.1em;
+}
+
+@keyframes titleGlow {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.2); }
+}
+
+.honor-subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    color: var(--mystical-lavender);
+    margin-bottom: var(--spacing-lg);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
+
+.greeting-intro {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--greeting-silver);
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+    background: var(--opacity-10);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--opacity-20);
+    position: relative;
+    overflow: hidden;
+}
+
+.greeting-intro::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--opacity-20), transparent);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* ====================
+   MEMORIAL SECTION
+   ==================== */
+.memorial-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--spacing-2xl);
+    margin-bottom: var(--spacing-3xl);
+}
+
+.memorial-card {
+    background: var(--opacity-10);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--opacity-20);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.memorial-card:hover {
+    transform: translateY(-10px);
+    background: var(--opacity-20);
+    box-shadow: var(--glow-purple);
+    border-color: var(--greeting-purple);
+}
+
+.memorial-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, var(--opacity-30) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.memorial-card:hover::before {
+    opacity: 1;
+}
+
+.memorial-card-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-lg);
+    display: block;
+}
+
+.memorial-card-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    color: var(--greeting-gold);
+    margin-bottom: var(--spacing-md);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.memorial-card-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--greeting-silver);
+}
+
+/* ====================
+   MESSAGE WALL SECTION
+   ==================== */
+.message-wall-section {
+    margin-bottom: var(--spacing-3xl);
+    position: relative;
+}
+
+.message-wall-header {
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+}
+
+.message-wall-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    color: var(--honor-rose);
+    margin-bottom: var(--spacing-md);
+    text-shadow: var(--glow-rose);
+}
+
+.message-wall-subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    color: var(--mystical-lavender);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+/* ====================
+   MESSAGES GRID
+   ==================== */
+.messages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.message-card {
+    background: var(--opacity-10);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--opacity-20);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.message-card:hover {
+    transform: translateY(-5px);
+    background: var(--opacity-20);
+    box-shadow: var(--glow-cyan);
+    border-color: var(--mystical-cyan);
+}
+
+.message-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--honor-rose), var(--mystical-cyan), var(--greeting-gold));
+}
+
+.message-author {
+    font-weight: 600;
+    color: var(--greeting-gold);
+    margin-bottom: var(--spacing-sm);
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+}
+
+.message-content {
+    color: var(--greeting-silver);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+    font-size: 0.95rem;
+}
+
+.message-date {
+    font-size: 0.8rem;
+    color: var(--mystical-silver);
+    text-align: right;
+    opacity: 0.7;
+}
+
+/* ====================
+   MESSAGE FORM
+   ==================== */
+.message-form-container {
+    background: var(--opacity-10);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--opacity-20);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    margin-top: var(--spacing-2xl);
+}
+
+.form-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2rem;
+    color: var(--honor-rose);
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.message-form {
+    display: grid;
+    gap: var(--spacing-md);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--mystical-lavender);
+    font-size: 0.95rem;
+}
+
+.form-input,
+.form-textarea {
+    background: var(--opacity-10);
+    border: 1px solid var(--opacity-20);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-sm);
+    color: var(--greeting-silver);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--greeting-purple);
+    box-shadow: var(--glow-purple);
+    background: var(--opacity-20);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 150px;
+    line-height: 1.6;
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, var(--greeting-purple), var(--honor-rose));
+    color: white;
+    border: none;
+    border-radius: var(--radius-full);
+    padding: var(--spacing-md) var(--spacing-xl);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    position: relative;
+    overflow: hidden;
+    align-self: center;
+    font-family: 'Cinzel', serif;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--glow-purple), var(--glow-rose);
+}
+
+.submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--opacity-30), transparent);
+    animation: buttonShimmer 2s infinite;
+}
+
+@keyframes buttonShimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* ====================
+   ROSE DIVIDERS
+   ==================== */
+.rose-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    margin: var(--spacing-3xl) 0;
+    position: relative;
+}
+
+.rose-divider .line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--greeting-purple), var(--honor-rose), var(--greeting-purple), transparent);
+    opacity: 0.5;
+}
+
+.rose-divider .rose {
+    font-size: 2rem;
+    color: var(--honor-rose);
+    text-shadow: var(--glow-rose);
+    animation: rosePulse 3s ease-in-out infinite;
+}
+
+@keyframes rosePulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; }
+}
+
+/* ====================
+   TRIBUTE POEM
+   ==================== */
+.tribute-poem {
+    text-align: center;
+    padding: var(--spacing-2xl);
+    background: var(--opacity-10);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--opacity-20);
+    margin: var(--spacing-3xl) 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.tribute-poem::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at top left, var(--greeting-purple) 0%, transparent 40%),
+        radial-gradient(circle at bottom right, var(--honor-rose) 0%, transparent 40%);
+    opacity: 0.1;
+    z-index: 0;
+}
+
+.tribute-poem-content {
+    position: relative;
+    z-index: 1;
+}
+
+.poem-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem;
+    color: var(--greeting-gold);
+    margin-bottom: var(--spacing-xl);
+    text-shadow: var(--glow-gold);
+}
+
+.poem-content {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: var(--greeting-silver);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.poem-line {
+    margin-bottom: var(--spacing-md);
+    opacity: 0.9;
+}
+
+.poem-signature {
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    color: var(--honor-rose);
+    margin-top: var(--spacing-xl);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+/* ====================
+   GALLERY SECTION
+   ==================== */
+.gallery-section {
+    margin-bottom: var(--spacing-3xl);
+}
+
+.gallery-header {
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+}
+
+.gallery-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    color: var(--greeting-gold);
+    margin-bottom: var(--spacing-md);
+    text-shadow: var(--glow-gold);
+}
+
+.gallery-subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    color: var(--mystical-lavender);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.gallery-item {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    aspect-ratio: 1;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid var(--opacity-20);
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+    box-shadow: var(--glow-gold);
+    border-color: var(--greeting-gold);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+.gallery-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    padding: var(--spacing-lg);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+    transform: translateY(0);
+}
+
+.gallery-item-title {
+    color: var(--greeting-gold);
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-xs);
+}
+
+.gallery-item-desc {
+    color: var(--greeting-silver);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* ====================
+   QUOTE SECTION
+   ==================== */
+.quote-section {
+    margin: var(--spacing-3xl) 0;
+    text-align: center;
+}
+
+.quote-container {
+    background: var(--opacity-10);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--opacity-20);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-2xl);
+    position: relative;
+    overflow: hidden;
+}
+
+.quote-container::before {
+    content: '“';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    font-size: 200px;
+    color: var(--greeting-purple);
+    opacity: 0.1;
+    font-family: 'Cinzel', serif;
+}
+
+.quote-container::after {
+    content: '”';
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    font-size: 200px;
+    color: var(--honor-rose);
+    opacity: 0.1;
+    font-family: 'Cinzel', serif;
+}
+
+.quote-text {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem;
+    color: var(--greeting-gold);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-lg);
+    text-shadow: var(--glow-gold);
+}
+
+.quote-author {
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    color: var(--honor-rose);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+/* ====================
+   FOOTER
+   ==================== */
+.greetings-honor-footer {
+    text-align: center;
+    padding: var(--spacing-2xl);
+    margin-top: var(--spacing-3xl);
+    border-top: 1px solid var(--opacity-20);
+    position: relative;
+}
+
+.footer-message {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2rem;
+    color: var(--greeting-gold);
+    margin-bottom: var(--spacing-md);
+    text-shadow: var(--glow-gold);
+}
+
+.footer-brand {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    color: var(--mystical-silver);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.7;
+}
+
+/* ====================
+   RESPONSIVE DESIGN
+   ==================== */
+@media (max-width: 768px) {
+    .greetings-honor-container {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+
+    .greeting-title {
+        font-size: 2.5rem;
+    }
+
+    .honor-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .greeting-intro {
+        font-size: 1rem;
+        padding: var(--spacing-md);
+    }
+
+    .memorial-section {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+    }
+
+    .messages-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
+    .message-wall-title {
+        font-size: 2rem;
+    }
+
+    .poem-title {
+        font-size: 1.8rem;
+    }
+
+    .poem-content {
+        font-size: 1rem;
+    }
+
+    .quote-text {
+        font-size: 1.8rem;
+    }
+
+    .footer-message {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .greeting-title {
+        font-size: 2rem;
+    }
+
+    .honor-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .memorial-card {
+        padding: var(--spacing-lg);
+    }
+
+    .memorial-card-icon {
+        font-size: 2rem;
+    }
+
+    .memorial-card-title {
+        font-size: 1.2rem;
+    }
+
+    .message-form-container {
+        padding: var(--spacing-lg);
+    }
+
+    .submit-btn {
+        padding: var(--spacing-sm) var(--spacing-lg);
+        font-size: 0.95rem;
+    }
+}
+
+/* ====================
+   LOADING ANIMATIONS
+   ==================== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+.fade-in-delay-1 {
+    animation: fadeIn 0.8s ease-out 0.2s forwards;
+    opacity: 0;
+}
+
+.fade-in-delay-2 {
+    animation: fadeIn 0.8s ease-out 0.4s forwards;
+    opacity: 0;
+}
+
+.fade-in-delay-3 {
+    animation: fadeIn 0.8s ease-out 0.6s forwards;
+    opacity: 0;
+}

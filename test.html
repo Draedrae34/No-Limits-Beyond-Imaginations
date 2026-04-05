@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Website Test</title>
+</head>
+<body>
+    <h1>NLBL Website Test</h1>
+    <div id="test-results"></div>
+
+    <script>
+        async function runTests() {
+            const results = document.getElementById('test-results');
+            let output = '';
+
+            try {
+                // Test 1: Load products JSON
+                output += '<h2>Testing product loading...</h2>';
+                const response = await fetch('website_products.json');
+                const data = await response.json();
+                output += `✓ Products loaded: ${data.products.length} products<br>`;
+
+                // Test 2: Check product structure
+                const firstProduct = data.products[0];
+                if (firstProduct.id && firstProduct.title && firstProduct.price && firstProduct.image) {
+                    output += '✓ Product structure is valid<br>';
+                } else {
+                    output += '✗ Product structure is invalid<br>';
+                }
+
+                // Test 3: Check if Stripe script loads
+                if (window.Stripe) {
+                    output += '✓ Stripe.js loaded successfully<br>';
+                } else {
+                    output += '✗ Stripe.js not loaded<br>';
+                }
+
+                // Test 4: Check if stripe-payment.js functions exist
+                setTimeout(() => {
+                    if (window.stripeProcessor) {
+                        output += '✓ Stripe processor initialized<br>';
+                    } else {
+                        output += '✗ Stripe processor not initialized<br>';
+                    }
+                    results.innerHTML = output;
+                }, 1000);
+
+            } catch (error) {
+                output += `✗ Error: ${error.message}<br>`;
+                results.innerHTML = output;
+            }
+
+            results.innerHTML = output;
+        }
+
+        window.onload = runTests;
+    </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "recurse": true,
+  "skip": [
+    "^https://www.instagram.com",
+    "^https://www.facebook.com",
+    "^https://twitter.com",
+    "^https://www.linkedin.com",
+    "^https://www.tiktok.com"
+  ],
+  "retry": true,
+  "concurrency": 5
+}

@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NLBL GALAXY SHOP - REAL PRODUCTS</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {margin:0;padding:0;box-sizing:border-box}
+      body {
+        background: linear-gradient(135deg, #0a0e27 0%, #1a0f3a 50%, #050812 100%);
+        color: white;
+        font-family: 'Rajdhani', sans-serif;
+        min-height: 100vh;
+      }
+      .hero {
+        padding: 80px 20px;
+        text-align: center;
+        background: radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.1) 0%, transparent 60%);
+      }
+      .hero h1 {
+        font-family: 'Orbitron', monospace;
+        font-size: 3rem;
+        background: linear-gradient(90deg, #00ffff, #ff69b4, #ffd700);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 10px;
+      }
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 30px;
+        padding: 40px 20px;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .card {
+        background: rgba(45, 27, 78, 0.6);
+        border: 1px solid rgba(0, 255, 255, 0.3);
+        border-radius: 15px;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s;
+      }
+      .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 60px rgba(0, 255, 255, 0.2);
+        border-color: #00ffff;
+      }
+      .card img {
+        width: 100%;
+        height: 300px;
+        object-fit: contain;
+        background: #050812;
+      }
+      .card-body {
+        padding: 20px;
+      }
+      .card-title {
+        font-family: 'Orbitron', monospace;
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      .card-price {
+        font-size: 1.4rem;
+        color: #4ecdc4;
+        font-weight: 900;
+        margin-bottom: 15px;
+      }
+      .btn {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(135deg, #8b5cf6, #ff006e);
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-family: 'Orbitron', monospace;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .btn:hover {
+        opacity: 0.9;
+      }
+      .footer {
+        text-align: center;
+        padding: 40px;
+        color: rgba(255,255,255,0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero">
+      <h1>NLBL GALAXY COLLECTION</h1>
+      <p>Real products. Real fulfillment. No limits beyond limitations.</p>
+    </div>
+
+    <div class="product-grid" id="grid"></div>
+
+    <div class="footer">
+      <p>© 2026 No Limits Beyond Limitations • Printify Powered</p>
+    </div>
+
+    <script>
+      // Your 10 REAL designs from Logo_N_Galaxy_Fill_Space
+      const designs = [
+        { name: "Black Hole Memorial", file: "black-hole-memorial-aop.png", price: 59.99 },
+        { name: "Milky Way Gold", file: "milky-way-gold-aop.png", price: 59.99 },
+        { name: "Meteor Shower", file: "no-limits-x-meteor-shower.png", price: 49.99 },
+        { name: "Pink Nebula", file: "no-limits-x-pink-nebula-stained-glass_hq.png", price: 59.99 },
+        { name: "Purple Nebula", file: "no-limits-x-purple-nebula_hq.png", price: 54.99 },
+        { name: "Solar Flare", file: "no-limits-x-solar-flare.png", price: 54.99 },
+        { name: "Zodiac", file: "no-limits-x-zodiac.png", price: 64.99 },
+        { name: "Pink Nebula AOP", file: "pink-nebula-stained-glass-aop.png", price: 59.99 },
+        { name: "Solar Flare AOP", file: "solar-flare-aop.png", price: 64.99 },
+        { name: "Untitled Project", file: "Untitled Project - illustrationImage.png", price: 44.99 }
+      ];
+
+      // Product types that Printify CAN fulfill
+      const products = [
+        "T-Shirt", "Hoodie", "Sweatshirt", "Mug"
+      ];
+
+      // Generate all combinations
+      let items = [];
+      designs.forEach(d => {
+        products.forEach(p => {
+          items.push({
+            title: `NLBL ${d.name} ${p}`,
+            image: `Logo_N_Galaxy_Fill_Space/${d.file}`,
+            price: d.price
+          });
+        });
+      });
+
+      console.log(`Total products: ${items.length}`);
+
+      const grid = document.getElementById('grid');
+      items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <img src="${item.image}" alt="${item.title}" loading="lazy">
+          <div class="card-body">
+            <div class="card-title">${item.title}</div>
+            <div class="card-price">$${item.price.toFixed(2)}</div>
+            <button class="btn">BUY NOW</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      console.log('✅ Done! Real NLBL products loaded.');
+    </script>
+  </body>
+</html>
