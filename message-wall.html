@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Honor Wall | No Limits Beyond Limitations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Pacifico&family=Sacramento&family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0c0c0c;
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Cosmic Background */
+        .cosmos {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%),
+                radial-gradient(circle at 20% 80%, rgba(138, 43, 226, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 0, 150, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Header */
+        header {
+            position: relative;
+            z-index: 100;
+            padding: 30px 20px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, transparent 100%);
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            background: linear-gradient(90deg, #FFD700, #FF69B4, #00FFFF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+        }
+
+        /* Navigation */
+        nav {
+            position: relative;
+            z-index: 100;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav a {
+            color: #00ffff;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ff69b4;
+            text-shadow: 0 0 15px #ff69b4;
+        }
+
+        /* Main Content */
+        main {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Message Form */
+        .message-form-container {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 50px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 100;
+        }
+
+        .message-form-container h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: #FFD700;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #00ffff;
+            font-size: 1.1rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 10px;
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #FFD700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Font Style Options */
+        .font-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .font-option {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .font-option:hover {
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        .font-option.selected {
+            background: linear-gradient(45deg, #FF69B4, #FFD700);
+            color: black;
+            border-color: #FFD700;
+        }
+
+        .font-option[data-font="Rajdhani"] { font-family: 'Rajdhani', sans-serif; }
+        .font-option[data-font="Dancing Script"] { font-family: 'Dancing Script', cursive; }
+        .font-option[data-font="Great Vibes"] { font-family: 'Great Vibes', cursive; }
+        .font-option[data-font="Pacifico"] { font-family: 'Pacifico', cursive; }
+        .font-option[data-font="Sacramento"] { font-family: 'Sacramento', cursive; }
+        .font-option[data-font="Tangerine"] { font-family: 'Tangerine', cursive; }
+        .font-option[data-font="Orbitron"] { font-family: 'Orbitron', sans-serif; }
+
+        /* Color Options */
+        .color-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .color-option {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .color-option:hover {
+            transform: scale(1.2);
+        }
+
+        .color-option.selected {
+            border-color: white;
+            box-shadow: 0 0 15px currentColor;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 18px 40px;
+            background: linear-gradient(45deg, #FF69B4, #FFD700);
+            border: none;
+            border-radius: 50px;
+            color: #000;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.5);
+        }
+
+        /* Messages Wall Container */
+        .wall-section {
+            position: relative;
+            min-height: 1500px;
+            margin-top: 50px;
+            margin-bottom: 100px;
+        }
+
+        .wall-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 40px 0 30px;
+            color: #FFD700;
+            position: relative;
+            z-index: 50;
+        }
+
+        .wall-subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 50;
+        }
+
+        /* Messages Wall - Scattered */
+        .messages-wall {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 1500px;
+            pointer-events: none;
+        }
+
+        .wall-message {
+            position: absolute;
+            max-width: 350px;
+            min-width: 200px;
+            padding: 20px;
+            border-radius: 15px;
+            pointer-events: auto;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: messageAppear 0.8s ease forwards;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .wall-message:hover {
+            transform: scale(1.05) rotate(0deg) !important;
+            z-index: 1000;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.8);
+        }
+
+        @keyframes messageAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .wall-message::before {
+            content: '💜';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+        }
+
+        .wall-message .name {
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .wall-message .text {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .wall-message .date {
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+
+        /* Empty State */
+        .empty-wall {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(255, 255, 255, 0.5);
+            position: relative;
+            z-index: 50;
+        }
+
+        .empty-wall p {
+            font-size: 1.3rem;
+        }
+
+        /* Floating hearts animation */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0;
+            animation: floatUp 4s ease-out forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) scale(0);
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) scale(1);
+            }
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+            border-top: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        footer a {
+            color: #00ffff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #FF69B4;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .message-form-container { padding: 20px; }
+            .wall-message {
+                max-width: 90%;
+                min-width: 150px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="cinematic-transitions.css" />
+</head>
+
+<body>
+    <div class="cosmos"></div>
+    <div class="stars" id="stars"></div>
+    <div class="floating-hearts" id="hearts"></div>
+
+    <header>
+        <h1>Honor Wall</h1>
+        <p class="subtitle">Leave your message for R.J. & T-Mainney</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="brothers-remembrance.html">Brothers</a>
+        <a href="shop.html">Shop</a>
+    </nav>
+
+    <main>
+        <!-- Message Form -->
+        <div class="message-form-container">
+            <h2>Leave Your Message</h2>
+            <form id="messageForm">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" placeholder="Enter your name..." required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Your Message</label>
+                    <textarea id="message" placeholder="Write your heartfelt message to R.J. & T-Mainney..." required></textarea>
+                </div>
+
+                <!-- Font Style Options -->
+                <div class="form-group">
+                    <label>Choose Your Font Style</label>
+                    <div class="font-options" id="fontOptions">
+                        <div class="font-option selected" data-font="Rajdhani">Normal</div>
+                        <div class="font-option" data-font="Dancing Script">Script 1</div>
+                        <div class="font-option" data-font="Great Vibes">Script 2</div>
+                        <div class="font-option" data-font="Pacifico">Script 3</div>
+                        <div class="font-option" data-font="Sacramento">Script 4</div>
+                        <div class="font-option" data-font="Tangerine">Script 5</div>
+                        <div class="font-option" data-font="Orbitron">Bold</div>
+                    </div>
+                </div>
+
+                <!-- Color Options -->
+                <div class="form-group">
+                    <label>Choose Message Color</label>
+                    <div class="color-options" id="colorOptions">
+                        <div class="color-option selected" data-color="#FFD700" style="background: #FFD700;"></div>
+                        <div class="color-option" data-color="#FF69B4" style="background: #FF69B4;"></div>
+                        <div class="color-option" data-color="#00FFFF" style="background: #00FFFF;"></div>
+                        <div class="color-option" data-color="#FF6B6B" style="background: #FF6B6B;"></div>
+                        <div class="color-option" data-color="#98FB98" style="background: #98FB98;"></div>
+                        <div class="color-option" data-color="#DDA0DD" style="background: #DDA0DD;"></div>
+                        <div class="color-option" data-color="#87CEEB" style="background: #87CEEB;"></div>
+                        <div class="color-option" data-color="#FFA500" style="background: #FFA500;"></div>
+                        <div class="color-option" data-color="#FFFFFF" style="background: #FFFFFF;"></div>
+                        <div class="color-option" data-color="#C0C0C0" style="background: #C0C0C0;"></div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Post to Wall</button>
+            </form>
+        </div>
+
+        <!-- Messages Wall -->
+        <h2 class="wall-title">Messages of Love</h2>
+        <p class="wall-subtitle">Every message posted here stays forever. Watch the wall fill with love 💜</p>
+
+        <div class="wall-section">
+            <div class="messages-wall" id="messagesWall">
+                <!-- Messages will be scattered here -->
+            </div>
+        </div>
+
+        <div class="empty-wall" id="emptyWall" style="display: none;">
+            <p>No messages yet. Be the first to leave your love!</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>No Limits. No Boundaries. Beyond Limitations.</p>
+        <p><a href="index.html">Return Home</a></p>
+    </footer>
+
+    <script>
+        // Create stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Create floating hearts
+        function createHeart() {
+            const heartsContainer = document.getElementById('hearts');
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = ['💜', '💖', '💘', '❤️', '🫶'][Math.floor(Math.random() * 5)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            heartsContainer.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 5000);
+        }
+
+        // Initialize - load sample messages if localStorage is empty
+        function initMessages() {
+            const existing = localStorage.getItem('nlbl_messages');
+            if (!existing) {
+                // Load sample messages for first time
+                const sampleMessages = [
+                    { name: "The Giles Family", message: "R.J. and Todd, you are forever in our hearts. Every day we carry your memory, your laughter, your spirit. Until we meet again. 💜", date: "2024-01-15", font: "Rajdhani", color: "#FFD700", x: 5, y: 50 },
+                    { name: "A Friend", message: "I remember the way you both lit up every room you walked into. That energy was contagious. You made everyone feel like they mattered.", date: "2024-02-20", font: "Dancing Script", color: "#FF69B4", x: 60, y: 150 },
+                    { name: "Anonymous", message: "Gone from our sight, but never from our hearts.", date: "2024-03-10", font: "Tangerine", color: "#00FFFF", x: 30, y: 300 },
+                    { name: "Aundrae", message: "My brothers, my heroes, my everything. This whole brand exists because of you. You gave me purpose when I had none. I promise to carry your legacy forward every single day.", date: "2024-01-01", font: "Orbitron", color: "#FF69B4", x: 70, y: 450 }
+                ];
+                localStorage.setItem('nlbl_messages', JSON.stringify(sampleMessages));
+            }
+        }
+
+        // Font family mapping
+        const fontFamilies = {
+            'Rajdhani': "'Rajdhani', sans-serif",
+            'Dancing Script': "'Dancing Script', cursive",
+            'Great Vibes': "'Great Vibes', cursive",
+            'Pacifico': "'Pacifico', cursive",
+            'Sacramento': "'Sacramento', cursive",
+            'Tangerine': "'Tangerine', cursive",
+            'Orbitron': "'Orbitron', sans-serif"
+        };
+
+        // Generate random position for new messages
+        function getRandomPosition() {
+            const x = Math.random() * 75; // 0-75% horizontal
+            const y = Math.random() * 90; // 0-90% vertical
+            const rotation = (Math.random() - 0.5) * 15; // -7.5 to 7.5 degrees rotation
+            return { x, y, rotation };
+        }
+
+        // Load messages and scatter them on the wall
+        function loadMessages() {
+            initMessages();
+            const messages = JSON.parse(localStorage.getItem('nlbl_messages') || '[]');
+            const wall = document.getElementById('messagesWall');
+            const empty = document.getElementById('emptyWall');
+
+            if (messages.length === 0) {
+                wall.style.display = 'none';
+                empty.style.display = 'block';
+                return;
+            }
+
+            wall.style.display = 'block';
+            empty.style.display = 'none';
+
+            wall.innerHTML = messages.map((msg, index) => {
+                // Use stored position or generate random
+                let pos;
+                if (msg.x !== undefined && msg.y !== undefined) {
+                    pos = { x: msg.x, y: msg.y, rotation: msg.rotation || 0 };
+                } else {
+                    pos = getRandomPosition();
+                    // Save the position for future loads
+                    msg.x = pos.x;
+                    msg.y = pos.y;
+                    msg.rotation = pos.rotation;
+                }
+
+                const fontFamily = fontFamilies[msg.font] || fontFamilies['Rajdhani'];
+
+                return `
+                    <div class="wall-message" style="
+                        left: ${pos.x}%;
+                        top: ${pos.y}%;
+                        transform: rotate(${pos.rotation}deg);
+                        background: linear-gradient(135deg, ${msg.color}22, ${msg.color}11);
+                        border: 1px solid ${msg.color}66;
+                        color: ${msg.color};
+                        font-family: ${fontFamily};
+                        animation-delay: ${index * 0.1}s;
+                    ">
+                        <div class="name">${escapeHtml(msg.name)}</div>
+                        <div class="text">${escapeHtml(msg.message)}</div>
+                        <div class="date">${formatDate(msg.date)}</div>
+                    </div>
+                `;
+            }).join('');
+
+            // Save updated positions
+            localStorage.setItem('nlbl_messages', JSON.stringify(messages));
+        }
+
+        // Save new message
+        function saveMessage(name, message, font, color) {
+            const messages = JSON.parse(localStorage.getItem('nlbl_messages') || '[]');
+            const pos = getRandomPosition();
+
+            messages.unshift({
+                name: name,
+                message: message,
+                date: new Date().toISOString(),
+                font: font,
+                color: color,
+                x: pos.x,
+                y: pos.y,
+                rotation: pos.rotation
+            });
+
+            localStorage.setItem('nlbl_messages', JSON.stringify(messages));
+        }
+
+        // Format date
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        // Escape HTML
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Font selection
+        let selectedFont = 'Rajdhani';
+        let selectedColor = '#FFD700';
+
+        document.getElementById('fontOptions').addEventListener('click', function(e) {
+            if (e.target.classList.contains('font-option')) {
+                document.querySelectorAll('.font-option').forEach(opt => opt.classList.remove('selected'));
+                e.target.classList.add('selected');
+                selectedFont = e.target.dataset.font;
+            }
+        });
+
+        document.getElementById('colorOptions').addEventListener('click', function(e) {
+            if (e.target.classList.contains('color-option')) {
+                document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('selected'));
+                e.target.classList.add('selected');
+                selectedColor = e.target.dataset.color;
+            }
+        });
+
+        // Form submission
+        document.getElementById('messageForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            if (name && message) {
+                saveMessage(name, message, selectedFont, selectedColor);
+
+                // Clear form
+                document.getElementById('name').value = '';
+                document.getElementById('message').value = '';
+
+                // Reload messages
+                loadMessages();
+
+                // Scroll to wall
+                document.querySelector('.wall-section').scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        // Initialize
+        createStars();
+        setInterval(createHeart, 2000);
+        loadMessages();
+    </script>
+    <script defer src="cinematic-transitions.js"></script>
+</body>
+
+</html>
