@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "*.html", "use": "@vercel/static" },
+    { "src": "css/*.css", "use": "@vercel/static" },
+    { "src": "js/*.js", "use": "@vercel/static" },
+    { "src": "api/*.js", "use": "@vercel/node" },
+    { "src": "textures/*", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/workshop", "dest": "/jarvis-workshop.html" },
+    { "src": "/shop", "dest": "/final_official_shop.html" }
+  ]
+}

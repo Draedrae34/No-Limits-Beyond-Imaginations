@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0c0c0c">
+    <!-- Theme color for browser UI -->
+    <title>Order Success - No Limits Beyond Limitations</title>
+    <link rel="icon" type="image/png" href="./Logo/Favison.png">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Exo+2:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/galaxy.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #00FFFF;
+            --secondary: #FF69B4;
+            --gold: #FFD700;
+            --purple: #8B5CF6;
+            --dark: #0c0c0c;
+            --light: #ffffff;
+            --neon-green: #39FF14;
+            --electric-blue: #00D4FF;
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            cursor: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Quantum Cursor */
+        .quantum-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transition: all 0.1s ease;
+            box-shadow: 0 0 20px var(--primary);
+        }
+
+        .quantum-cursor::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.5; transform: translate(-50%, -50%) scale(1.5); }
+        }
+
+        .success-container {
+            text-align: center;
+            max-width: 600px;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 105, 180, 0.1));
+            border: 2px solid var(--primary);
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.3);
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: var(--neon-green);
+            margin-bottom: 1rem;
+            animation: successGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes successGlow {
+            0% { text-shadow: 0 0 20px rgba(57, 255, 20, 0.5); }
+            100% { text-shadow: 0 0 40px rgba(57, 255, 20, 0.8), 0 0 60px rgba(57, 255, 20, 0.4); }
+        }
+
+        .success-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .success-message {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .order-details {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--purple);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .order-details h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .order-details p {
+            margin-bottom: 0.5rem;
+            color: var(--light);
+        }
+
+        .order-id {
+            color: var(--gold);
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: var(--dark);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4);
+        }
+
+        .action-btn.secondary {
+            background: linear-gradient(45deg, var(--purple), var(--gold));
+        }
+
+        @media (max-width: 768px) {
+            .success-container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+
+            .success-title {
+                font-size: 2rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .action-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quantum-cursor"></div>
+
+    <div class="success-container">
+        <div class="success-icon">✓</div>
+        <h1 class="success-title">QUANTUM PURCHASE COMPLETE</h1>
+        <p class="success-message">
+            Your order has been successfully processed through our quantum transaction system.
+            Your NLBL merchandise is now being prepared for delivery.
+        </p>
+
+        <div class="order-details">
+            <h3>Order Confirmation</h3>
+            <p><strong>Order ID:</strong> <span class="order-id" id="order-id">Loading...</span></p>
+            <p><strong>Status:</strong> Payment Confirmed</p>
+            <p><strong>Processing Time:</strong> 3-5 Business Days</p>
+            <p><strong>Shipping:</strong> Free Quantum Delivery</p>
+        </div>
+
+        <div class="action-buttons">
+            <a href="final_official_shop.html" class="action-btn">Continue Shopping</a>
+            <a href="index.html" class="action-btn secondary">Return Home</a>
+        </div>
+    </div>
+
+    <script>
+        // Quantum Cursor Effect
+        document.addEventListener('mousemove', (e) => {
+            const cursor = document.querySelector('.quantum-cursor');
+            if (cursor) {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            }
+        });
+
+        // Get order details from URL
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('order_id') || urlParams.get('session_id') || 'ORD-' + Date.now();
+
+            document.getElementById('order-id').textContent = orderId;
+
+            // Add some celebratory effects
+            setTimeout(() => {
+                const container = document.querySelector('.success-container');
+                container.style.animation = 'successGlow 2s ease-in-out infinite alternate';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
+    </script>
+</body>
+</html>
