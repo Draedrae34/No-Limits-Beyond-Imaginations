@@ -7,6 +7,7 @@
     <title>Honor Wall | No Limits Beyond Limitations</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Pacifico&family=Sacramento&family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="epic-theme.css">
+    <link rel="stylesheet" href="honor-wall-upgrade.css">
     <style>
         * {
             margin: 0;
@@ -429,11 +430,28 @@
     <div class="cosmos"></div>
     <div class="stars" id="stars"></div>
     <div class="floating-hearts" id="hearts"></div>
+    <div class="memorial-candles" id="candles"></div>
+    
+    <!-- Silent Loading Sequence -->
+    <div class="silent-moment" id="silentMoment">
+        <p class="silent-text">A Moment of Silence</p>
+    </div>
 
     <header>
         <h1>Honor Wall</h1>
-        <p class="subtitle">Leave your message for R.J. & T-Mainney</p>
+        <p class="subtitle">This is sacred ground. Every word left here stays forever. Every message becomes part of the sky they now ride. This is not just a wall. This is where they live on, through us.</p>
     </header>
+    
+    <div class="dog-tags-tribute">
+        <div class="dog-tag">
+            <div class="dog-tag-name">R.J.</div>
+            <div class="dog-tag-years">Forever Riding</div>
+        </div>
+        <div class="dog-tag">
+            <div class="dog-tag-name">T-MAINNEY</div>
+            <div class="dog-tag-years">Forever Free</div>
+        </div>
+    </div>
 
     <nav>
         <a href="index.html">Home</a>
@@ -492,7 +510,7 @@
 
         <!-- Messages Wall -->
         <h2 class="wall-title">Messages of Love</h2>
-        <p class="wall-subtitle">Every message posted here stays forever. Watch the wall fill with love 💜</p>
+        <p class="wall-subtitle">Every message you leave becomes a star in the sky they now ride. These words do not disappear. They are carried forever.</p>
 
         <div class="wall-section">
             <div class="messages-wall" id="messagesWall">
@@ -550,6 +568,26 @@
                 star.style.animationDelay = Math.random() * 3 + 's';
                 starsContainer.appendChild(star);
             }
+        }
+
+        // Create memorial candles
+        function createCandle() {
+            const candlesContainer = document.getElementById('candles');
+            const candle = document.createElement('div');
+            candle.className = 'candle';
+            candle.style.left = Math.random() * 100 + '%';
+            candle.style.animationDuration = (Math.random() * 60 + 80) + 's';
+            candle.style.animationDelay = Math.random() * 10 + 's';
+            candlesContainer.appendChild(candle);
+            setTimeout(() => candle.remove(), 120000);
+        }
+
+        // Start candle generation
+        function startCandleSystem() {
+            for (let i = 0; i < 8; i++) {
+                setTimeout(createCandle, i * 3000);
+            }
+            setInterval(createCandle, 5000);
         }
 
         // Create floating hearts
@@ -732,8 +770,16 @@
 
         // Initialize
         createStars();
-        setInterval(createHeart, 2000);
         loadMessages();
+        startCandleSystem();
+
+        // Silent moment fade out
+        setTimeout(() => {
+            document.getElementById('silentMoment').classList.add('fade-out');
+            setTimeout(() => document.getElementById('silentMoment').remove(), 3000);
+        }, 3500);
+
+        setInterval(createHeart, 3500);
     </script>
     <script defer src="cinematic-transitions.js"></script>
     <script defer src="message-wall-3d.js"></script>
