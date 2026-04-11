@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head><title>Test</title></head>
+<body>
+<h1>Testing shop-products.json</h1>
+<script>
+fetch('shop-products.json')
+  .then(r => r.json())
+  .then(d => {
+    document.body.innerHTML += '<p>Loaded ' + (d.products?.length || 0) + ' products</p>';
+    if (d.products && d.products.length > 0) {
+      document.body.innerHTML += '<p>First product: ' + d.products[0].name + '</p>';
+    }
+  })
+  .catch(e => {
+    document.body.innerHTML += '<p>Error: ' + e.message + '</p>';
+  });
+</script>
+</body>
+</html>
