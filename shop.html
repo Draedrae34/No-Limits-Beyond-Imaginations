@@ -643,14 +643,50 @@
               if (!productImage) {
                 productImage = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMDAwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiNmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5OTUI8L3RleHQ+PC9zdmc+';
               }
-              
+
+              // Add proper tags based on product name
+              let productTags = p.tags || [];
+              if (productTags.length === 0) {
+                productTags = ['NLBL'];
+                if (productName.includes('T-Shirt') || productName.includes('Shirt')) {
+                  productTags.push('shirts');
+                }
+                if (productName.includes('Hoodie') || productName.includes('Sweatshirt')) {
+                  productTags.push('sweats');
+                }
+                if (productName.includes('Tank')) {
+                  productTags.push('tank-tops');
+                }
+                if (productName.includes('Shorts')) {
+                  productTags.push('shorts');
+                }
+                if (productName.includes('Leggings') || productName.includes('Yoga') || productName.includes('Gym')) {
+                  productTags.push('workout');
+                }
+                if (productName.includes('Jacket') || productName.includes('Bomber') || productName.includes('Puffer')) {
+                  productTags.push('jackets');
+                }
+                if (productName.includes('Pants') || productName.includes('Joggers')) {
+                  productTags.push('pants');
+                }
+                if (productName.includes('Skirt')) {
+                  productTags.push('skirts');
+                }
+                if (productName.includes('Hat') || productName.includes('Cap') || productName.includes('Beanie')) {
+                  productTags.push('accessories');
+                }
+                if (productName.includes('Sports Bra')) {
+                  productTags.push('workout');
+                }
+              }
+
               if (!designMap.has(baseName)) {
                 designMap.set(baseName, {
                   id: p.id,
                   title: baseName,
                   price: p.price,
                   image: productImage,
-                  tags: p.tags || [],
+                  tags: productTags,
                   description: p.description || '',
                   variants: []
                 });
@@ -688,11 +724,8 @@
         categorySelect.innerHTML = '<option value="">All Products</option>' +
           categories.map((cat) => `<option value="${cat}">${cat}</option>`).join('');
 
-        if (categories.includes(selected)) {
-          categorySelect.value = selected;
-        } else {
-          categorySelect.value = '';
-        }
+        // Always default to "All Products" to show everything
+        categorySelect.value = '';
       }
 
       function renderProducts(productsToRender) {
