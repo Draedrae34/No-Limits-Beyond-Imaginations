@@ -24,7 +24,7 @@ class PrintifyShop {
         console.warn('⚠️ Could not load overrides file, proceeding without them');
       }
 
-      // Load the new shop-products.json file from Printify
+      // Load the new shop-products.json file with NLBL logos
       const response = await fetch('/shop-products.json');
       if (response.ok) {
         const data = await response.json();

@@ -1,0 +1,123 @@
+/* Unified premium visual layer for core experience pages */
+
+:root {
+    --epic-ink: #070311;
+    --epic-violet: #7d2cff;
+    --epic-magenta: #ff3fb1;
+    --epic-cyan: #37f0ff;
+    --epic-gold: #f6d56b;
+    --epic-card: rgba(11, 8, 24, 0.72);
+    --epic-border: rgba(255, 255, 255, 0.14);
+}
+
+/* Home polish */
+body.epic-home::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+        radial-gradient(80rem 50rem at 10% -5%, rgba(125, 44, 255, 0.22), transparent 60%),
+        radial-gradient(60rem 40rem at 90% 15%, rgba(55, 240, 255, 0.16), transparent 60%),
+        radial-gradient(70rem 45rem at 50% 100%, rgba(255, 63, 177, 0.14), transparent 60%);
+}
+
+body.epic-home .site-header,
+body.epic-home .content-section,
+body.epic-home .grand-opening-banner,
+body.epic-home .feature-card,
+body.epic-home .quote-section,
+body.epic-home .site-footer {
+    backdrop-filter: blur(12px);
+}
+
+body.epic-home .hero-title {
+    font-size: clamp(2rem, 5vw, 4.2rem);
+    letter-spacing: 0.08em;
+}
+
+body.epic-home .hero-description {
+    font-size: clamp(1rem, 1.9vw, 1.2rem);
+}
+
+body.epic-home .feature-card {
+    border: 1px solid var(--epic-border);
+    box-shadow: 0 18px 44px rgba(4, 0, 16, 0.55);
+}
+
+body.epic-home .feature-card:hover {
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.12),
+        0 26px 64px rgba(33, 7, 82, 0.58);
+}
+
+/* Message wall polish */
+body.epic-wall header h1 {
+    font-size: clamp(2rem, 5vw, 4rem);
+}
+
+body.epic-wall .message-form-container,
+body.epic-wall .wall-message,
+body.epic-wall .wall-section {
+    background: var(--epic-card);
+    border: 1px solid var(--epic-border);
+    box-shadow: 0 22px 54px rgba(4, 0, 16, 0.58);
+}
+
+body.epic-wall .submit-btn {
+    background: linear-gradient(125deg, var(--epic-gold), #ff86d5);
+}
+
+body.epic-wall .submit-btn:hover {
+    box-shadow: 0 0 35px rgba(255, 63, 177, 0.45);
+}
+
+body.epic-wall .wall-message {
+    transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+body.epic-wall .wall-message:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 26px 54px rgba(11, 4, 30, 0.8);
+}
+
+/* Remembrance polish */
+body.epic-remembrance main {
+    max-width: 1260px;
+    margin: 0 auto;
+}
+
+body.epic-remembrance .hero,
+body.epic-remembrance .slideshow-section,
+body.epic-remembrance .audio-section,
+body.epic-remembrance .memorial-stills-section,
+body.epic-remembrance .cosmic-honors,
+body.epic-remembrance .portraits-section,
+body.epic-remembrance .space-jump-section {
+    border: 1px solid var(--epic-border);
+    border-radius: 24px;
+    background: linear-gradient(140deg, rgba(15, 8, 35, 0.82), rgba(10, 5, 24, 0.7));
+    box-shadow: 0 28px 72px rgba(7, 2, 22, 0.64);
+}
+
+body.epic-remembrance .hero h1 {
+    font-size: clamp(2rem, 5vw, 4rem);
+}
+
+body.epic-remembrance .slideshow-container,
+body.epic-remembrance .audio-player {
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+body.epic-remembrance .memorial-photo,
+body.epic-remembrance .portrait-card img {
+    transition: transform 320ms ease, filter 320ms ease;
+}
+
+body.epic-remembrance .memorial-card:hover .memorial-photo,
+body.epic-remembrance .portrait-card:hover img {
+    transform: scale(1.04);
+    filter: saturate(1.08) contrast(1.06);
+}
