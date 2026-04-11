@@ -430,7 +430,7 @@
     <div class="cosmos"></div>
     <div class="stars" id="stars"></div>
     <div class="floating-hearts" id="hearts"></div>
-    <div class="memorial-candles" id="candles"></div>
+    <div class="memorial-roses" id="roses"></div>
     
     <!-- Silent Loading Sequence -->
     <div class="silent-moment" id="silentMoment">
@@ -570,24 +570,29 @@
             }
         }
 
-        // Create memorial candles
-        function createCandle() {
-            const candlesContainer = document.getElementById('candles');
-            const candle = document.createElement('div');
-            candle.className = 'candle';
-            candle.style.left = Math.random() * 100 + '%';
-            candle.style.animationDuration = (Math.random() * 60 + 80) + 's';
-            candle.style.animationDelay = Math.random() * 10 + 's';
-            candlesContainer.appendChild(candle);
-            setTimeout(() => candle.remove(), 120000);
+        // Create memorial roses
+        function createRose() {
+            const rosesContainer = document.getElementById('roses');
+            const rose = document.createElement('div');
+            
+            const colors = ['purple', 'pink', 'red', 'lavender', 'blue', 'black'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            rose.className = 'rose ' + randomColor;
+            rose.innerHTML = '🥀';
+            rose.style.left = Math.random() * 100 + '%';
+            rose.style.animationDuration = (Math.random() * 40 + 90) + 's';
+            rose.style.animationDelay = Math.random() * 15 + 's';
+            rosesContainer.appendChild(rose);
+            setTimeout(() => rose.remove(), 110000);
         }
 
-        // Start candle generation
-        function startCandleSystem() {
-            for (let i = 0; i < 8; i++) {
-                setTimeout(createCandle, i * 3000);
+        // Start rose generation
+        function startRoseSystem() {
+            for (let i = 0; i < 6; i++) {
+                setTimeout(createRose, i * 4000);
             }
-            setInterval(createCandle, 5000);
+            setInterval(createRose, 6500);
         }
 
         // Create floating hearts
@@ -771,7 +776,7 @@
         // Initialize
         createStars();
         loadMessages();
-        startCandleSystem();
+        startRoseSystem();
 
         // Silent moment fade out
         setTimeout(() => {
