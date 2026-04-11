@@ -630,7 +630,7 @@
             }
 
             // Handle both old format and new Printify format
-            const rawProducts = (data.products || data.items || []).filter((p) => p.visible !== false && (p.image || p.printifyId));
+            const rawProducts = (data.products || data.items || []).filter((p) => p.name && p.price);
 
             const designMap = new Map();
             rawProducts.forEach((p) => {
@@ -638,10 +638,10 @@
               const productName = p.title || p.name || '';
               const baseName = productName.replace(/\s*-\s*(S|M|L|XL|2XL|3XL|4XL|5XL|One Size|Standard|Custom)\s*$/i, '').trim();
               
-              // Use image if available, otherwise use Printify placeholder
+              // Use image if available, otherwise use a default placeholder
               let productImage = p.image;
-              if (!productImage && p.printifyId) {
-                productImage = 'https://images.printify.com/product/' + p.printifyId + '/placeholder.jpg';
+              if (!productImage) {
+                productImage = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMDAwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiNmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5OTUI8L3RleHQ+PC9zdmc+';
               }
               
               if (!designMap.has(baseName)) {
@@ -668,6 +668,7 @@
           allProducts = groupedProducts;
 
           console.log(`🔥 Loaded ${groupedProducts.length} unique designs from ${rawProducts.length} variants`);
+          console.log('First product:', groupedProducts[0]);
           populateCategorySelect();
           filterProducts();
         } catch (err) {
