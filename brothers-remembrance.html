@@ -30,6 +30,7 @@
         <link rel="icon" type="image/svg+xml" href="favicon.svg" />
         <link rel="stylesheet" href="portal-overlay.css" />
         <link rel="stylesheet" href="cinematic-transitions.css" />
+        <link rel="stylesheet" href="epic-theme.css" />
         <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
         <script>
             window.vercelInsights = window.vercelInsights || [];
@@ -973,6 +974,13 @@
             .tribute-hint.active {
                 color: var(--nebula-rose);
             }
+            .autoplay-note {
+                margin-top: 1rem;
+                max-width: 760px;
+                font-size: 0.95rem;
+                line-height: 1.6;
+                color: rgba(255, 255, 255, 0.84);
+            }
 
             /* Lightbox */
             .lightbox {
@@ -1052,47 +1060,19 @@
             }
         </style>
     </head>
-    <body>
+    <body class="epic-remembrance">
         <!-- 10 Second Moment of Silence Overlay -->
         <div id="silence-overlay" class="silence-overlay">
             <div class="silence-content">
                 <h2>✨ A Moment of Silence ✨</h2>
-                <p class="silence-message">Honoring the memory of R.J. & T-Mainney</p>
+                <p class="silence-message">I would like for you, as my visitors and customers, to take this 10-second moment of silence in remembrance of my brothers.</p>
                 <div class="silence-timer" id="silence-timer">10</div>
+                <p class="autoplay-note">After silence, the tribute song will start automatically. If your device blocks autoplay, tap <strong>Play Tribute Song</strong> once.</p>
             </div>
         </div>
         <div class="stars"></div>
         <div class="nebula-layer"></div>
         <div class="pulse-core"></div>
-        <header>
-            <nav>
-                <a href="index.html" class="logo">NLBLITMWI</a>
-                <ul class="nav-links">
-                    <li><a href="index.html">Greeting</a></li>
-                    <li><a href="brothers-remembrance.html">My Brothers Remembrance</a></li>
-                    <li><a href="message-wall.html">Honor Wall</a></li>
-                    <li><a href="shop.html">Shop</a></li>
-                </ul>
-                <button class="mobile-menu-toggle" id="mobile-menu-toggle">☰</button>
-            </nav>
-        </header>
-
-        <!-- Mobile Navigation -->
-        <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
-        <div class="mobile-nav" id="mobile-nav">
-            <div class="mobile-nav-header">
-                <span class="logo">NLBLITMWI</span>
-                <button class="mobile-nav-close" id="mobile-nav-close">✕</button>
-            </div>
-            <ul class="mobile-nav-links">
-                <li><a href="index.html">🏠 Greeting</a></li>
-                <li><a href="brothers-remembrance.html">💜 My Brothers Remembrance</a></li>
-                <li><a href="message-wall.html">🕊️ Honor Wall</a></li>
-                <li><a href="shop.html">🛒 Shop</a></li>
-                <li><a href="amazon-dashboard.html">🛒 Amazon</a></li>
-            </ul>
-        </div>
-
         <main>
             <section class="hero">
                 <div class="hero-content">
@@ -1114,7 +1094,7 @@
                 </div>
             </section>
 
-            <section class="slideshow-section">
+            <section class="slideshow-section latent-section after-silence">
                 <h2 class="section-title">Memory Slideshow • Cosmic Journey Through Time</h2>
                 <p class="slideshow-intro">
                     These images capture the essence of R.J. & T-Mainney's journey through the cosmos. Each frame holds a piece of their eternal legacy, cycling through memories that shine brighter than the stars.
@@ -1124,10 +1104,31 @@
                     <!-- Slides will be dynamically loaded here -->
                 </div>
 
-                <div class="slideshow-nav">
-                    <button onclick="prevSlide()">Previous</button>
-                    <button id="autoplay-btn" onclick="toggleAutoPlay()">Start Autoplay</button>
-                    <button onclick="nextSlide()">Next</button>
+            </section>
+
+            <section class="audio-section latent-section after-silence">
+                <h2 class="section-title">Tribute Song</h2>
+                <div class="audio-player">
+                    <p>"The Archives Of Kings" - Dedicated to R.J. & T-Mainney</p>
+                    <audio
+                        id="tribute-audio"
+                        controls
+                        preload="auto"
+                        loop
+                        autoplay
+                        style="width: 100%; margin-top: 1rem;"
+                    >
+                        <source src="remembrance/The-Archives-Of-Kings-By-Aundrae-Giles.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div class="tribute-controls">
+                        <button id="tribute-play-btn" class="tribute-play-btn" type="button">
+                            Play Tribute Song
+                        </button>
+                        <p id="tribute-hint" class="tribute-hint">
+                            If audio does not begin automatically, tap Play Tribute Song once.
+                        </p>
+                    </div>
                 </div>
             </section>
 
@@ -1156,7 +1157,7 @@
                 </div>
             </section>
 
-            <section class="memorial-stills-section">
+            <section class="memorial-stills-section latent-section after-silence">
                 <h2 class="section-title">Eternal Legacy • Stand-Still Memories</h2>
                 <p class="memorial-intro">
                     These are not just photographs—they are frozen moments in time where your brothers' spirits shine brightest. Each image captures a piece of their eternal journey through the cosmos.
@@ -1164,7 +1165,7 @@
 
                 <div class="memorial-grid">
                     <div class="memorial-card">
-                        <img src="./RJ_First_Image_SS.jpg" alt="R.J. Forever Young" class="memorial-photo">
+                        <img src="remembrance/RJ_First_Image_SS.jpg" alt="R.J. Forever Young" class="memorial-photo">
                         <div class="memorial-story">
                             <h3>R.J. Forever Young</h3>
                             <p>My brother R.J., forever young in our hearts. His smile could light up the darkest room, his laugh was contagious, and his spirit continues to guide us every day. You were more than a brother - you were my hero.</p>
@@ -1172,7 +1173,7 @@
                     </div>
 
                     <div class="memorial-card">
-                        <img src="./RJ_Dedicated_Picture_SS.jpg" alt="R.J. Dedicated Soul" class="memorial-photo">
+                        <img src="remembrance/RJ_Dedicated_Picture_SS.jpg" alt="R.J. Dedicated Soul" class="memorial-photo">
                         <div class="memorial-story">
                             <h3>R.J. Dedicated Soul</h3>
                             <p>R.J. approached everything with dedication and passion. Whether it was family, friends, or dreams, he gave 1000% of himself. His legacy lives through every life he touched.</p>
@@ -1180,7 +1181,7 @@
                     </div>
 
                     <div class="memorial-card">
-                        <img src="./T-Mainneys_First_Image_SS.jpg" alt="T-Mainney First Light" class="memorial-photo">
+                        <img src="remembrance/T-Mainneys_First_Image_SS.jpg" alt="T-Mainney First Light" class="memorial-photo">
                         <div class="memorial-story">
                             <h3>T-Mainney First Light</h3>
                             <p>T-Mainney brought light wherever he went. His energy was magnetic, his heart was pure gold, and his presence made every moment better. He continues to shine bright in the cosmos above.</p>
@@ -1188,7 +1189,7 @@
                     </div>
 
                     <div class="memorial-card">
-                        <img src="./SS_11.jpg" alt="Brothers Together" class="memorial-photo">
+                        <img src="remembrance/RJ_TMainney_SS.JPG" alt="Brothers Together" class="memorial-photo">
                         <div class="memorial-story">
                             <h3>Brothers Together</h3>
                             <p>R.J. and T-Mainney, together forever. Their bond was unbreakable in life and continues in eternity. They ride together through the stars, watching over us always.</p>
@@ -1196,7 +1197,7 @@
                     </div>
 
                     <div class="memorial-card">
-                        <img src="./SS_12.jpg" alt="Eternal Journey" class="memorial-photo">
+                        <img src="remembrance/T-Mainneys_First_Image_SS.jpg" alt="Eternal Journey" class="memorial-photo">
                         <div class="memorial-story">
                             <h3>Eternal Journey</h3>
                             <p>The journey continues beyond this world. R.J. and T-Mainney explore the cosmos together, their spirits intertwined with the very fabric of the universe they loved.</p>
@@ -1204,7 +1205,7 @@
                     </div>
 
                     <div class="memorial-card">
-                        <img src="./SS_13.jpg" alt="Cosmic Legacy" class="memorial-photo">
+                        <img src="remembrance/RJ_First_Image_SS.jpg" alt="Cosmic Legacy" class="memorial-photo">
                         <div class="memorial-story">
                             <h3>Cosmic Legacy</h3>
                             <p>The legacy they created lives on through us, through the brand they inspired, and through the infinite love they shared. Their journey has just begun.</p>
@@ -1212,58 +1213,10 @@
                     </div>
                 </div>
 
-                <!-- Sister tribute section -->
-                <div class="sister-tribute-section">
-                    <h2 class="section-title">The Foundation of Family</h2>
-                    <p class="slideshow-intro">While this legacy is built for my brothers, it was sustained by my sisters, Kari and Alisia. They were a huge part of my brothers' lives, providing the love and strength that kept us all connected.</p>
-                    <div class="memorial-grid">
-                        <div class="memorial-card">
-                            <img src="remembrance/Kari_RJ_SS.jpg" alt="Family Strength - Kari" class="memorial-photo">
-                            <div class="memorial-story">
-                                <h3>Kari • Unbreakable Bond</h3>
-                                <p>Kari holds the family together with a heart of gold. Her kindness and charisma forged an untouchable connection with her brothers that remains a thread of light across dimensions.</p>
-                            </div>
-                        </div>
-                        <div class="memorial-card">
-                            <img src="remembrance/Alisia_RJ_SS.jpg" alt="Family Joy - Alisia" class="memorial-photo">
-                            <div class="memorial-story">
-                                <h3>Alisia • Vibrant Spirit</h3>
-                                <p>Alisia's independence and fun-loving spirit brought epic laughter to the brothers. Her bond was built on shared adventures and a love that grew stronger every season.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="memorial-message">
                     <h3>Forever Riding Together</h3>
                     <p>R.J. and T-Mainney may have left this earthly realm, but they have never left our hearts. They ride eternal through the cosmos, their spirits intertwined with the very fabric of the universe. Every star that twinkles is their smile. Every breeze that whispers is their voice. They are not gone—they have just changed form, becoming the infinite beauty they always were.</p>
                 </div>
-            </section>
-
-            <section class="tribute-poem">
-                <div class="poem-rose">🌹</div>
-                <h2 class="poem-title">Legacy of Love</h2>
-                <div class="poem-content">
-                    <p>In the silence of the morning, when the stars still shine,</p>
-                    <p>We feel your presence near, like a warm, gentle sign.</p>
-                    <p>R.J. and T-Mainney, brothers of the heart,</p>
-                    <p>Your memory lives on, never to depart.</p>
-                    <p></p>
-                    <p>Through every laugh we share, through every tear we shed,</p>
-                    <p>Your spirits dance with us, where the wild winds tread.</p>
-                    <p>In the stories we tell, in the songs we sing,</p>
-                    <p>Your legacy echoes, like the beat of a wing.</p>
-                    <p></p>
-                    <p>You taught us about courage, about living with grace,</p>
-                    <p>About embracing each moment, in every time and place.</p>
-                    <p>Your friendship was a gift, your love was true,</p>
-                    <p>And we'll carry you always, in everything we do.</p>
-                    <p></p>
-                    <p>So here's to you, our brothers, forever in our hearts,</p>
-                    <p>Where the heavens open wide, and the soul never parts.</p>
-                    <p>May your journey be peaceful, may your spirits fly free,</p>
-                    <p>And know that you're loved, for all eternity.</p>
-                </div>
-                <p class="poem-signature">- Forever in Our Hearts</p>
             </section>
 
             <section class="portraits-section latent-section">
@@ -1273,32 +1226,6 @@
                 </div>
             </section>
             <!-- Portraits now handled via static grid with deep stories -->
-
-            <section class="audio-section">
-                <h2 class="section-title">Tribute Song</h2>
-                <div class="audio-player">
-                    <p>"The Archives Of Kings" - Dedicated to R.J. & T-Mainney</p>
-                    <audio
-                        id="tribute-audio"
-                        controls
-                        preload="auto"
-                        loop
-                        autoplay
-                        style="width: 100%; margin-top: 1rem;"
-                    >
-                        <source src="./The-Archives-Of-Kings-By-Aundrae-Giles.mp3" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                    <div class="tribute-controls">
-                        <button id="tribute-play-btn" class="tribute-play-btn" type="button">
-                            Play Tribute Song
-                        </button>
-                        <p id="tribute-hint" class="tribute-hint">
-                            Tap to unlock the nebula beat—audio may require a touch before it can start automatically.
-                        </p>
-                    </div>
-                </div>
-            </section>
 
             <section
                 class="space-jump-section latent-section"
@@ -1314,13 +1241,6 @@
                     <button class="space-dog-tag" data-tag="RJ">R.J. Dog Tag</button>
                     <button class="space-dog-tag" data-tag="TM">T-Mainney Dog Tag</button>
                 </div>
-                <button
-                    class="space-jump-btn"
-                    id="space-jump-btn"
-                    disabled
-                >
-                    Initiate Space Jump
-                </button>
                 <div class="space-countdown" id="space-countdown">
                     Tap both dog tags to arm the jump
                 </div>
@@ -1334,17 +1254,16 @@
         </div>
 
         <script>
-            const tributeDelayMs = 5000;
+            const tributeDelayMs = 10000;
             const tributeManifestPath = './remembrance/media_manifest.json';
             const ssPhotosPath = './remembrance/ss_photos.json';
-            const autoplayBtn = document.getElementById('autoplay-btn');
             const silenceOverlay = document.getElementById('silence-overlay');
             const tributeAudio = document.getElementById('tribute-audio');
             const tributePlayBtn = document.getElementById('tribute-play-btn');
             const tributeHint = document.getElementById('tribute-hint');
+            const revealAfterSilenceSections = document.querySelectorAll('.after-silence');
             const portraitsSection = document.querySelector('.portraits-section');
             const spaceJumpSection = document.getElementById('space-jump-section');
-            const spaceJumpBtn = document.getElementById('space-jump-btn');
             const spaceCountdownDisplay = document.getElementById('space-countdown');
             const spaceDogTagButtons = document.querySelectorAll('.space-dog-tag');
             let tributeUnlocked = false;
@@ -1362,10 +1281,22 @@
                 try {
                     const response = await fetch(tributeManifestPath);
                     const data = await response.json();
-                    slides = (data.items || []).filter((item) => {
-                        const src = item.src || '';
-                        return src.match(/\.(jpg|jpeg|png|gif)$/i);
-                    });
+                    slides = (data.items || [])
+                        .map((item) => {
+                            const rawSrc = (item.src || '').trim();
+                            if (!rawSrc) return null;
+                            let normalizedSrc = rawSrc;
+                            if (rawSrc.startsWith('./')) {
+                                normalizedSrc = `remembrance/${rawSrc.slice(2)}`;
+                            } else if (rawSrc.startsWith('photos/')) {
+                                normalizedSrc = `remembrance/${rawSrc}`;
+                            }
+                            return {
+                                ...item,
+                                src: normalizedSrc,
+                            };
+                        })
+                        .filter((item) => item?.src?.match(/\.(jpg|jpeg|png|gif)$/i));
 
                     if (!slides.length) {
                         console.warn('No slides found in manifest');
@@ -1445,9 +1376,7 @@
             }
 
             function toggleAutoplayButton(active) {
-                if (!autoplayBtn) return;
-                autoplayBtn.textContent = active ? 'Pause' : 'Auto Play';
-                autoplayBtn.classList.toggle('active', active);
+                if (!document.getElementById('autoplay-btn')) return;
             }
 
             function attemptAutoPlay() {
@@ -1490,26 +1419,6 @@
                     image: 'remembrance/T-Mainneys_Last_Image_SS.jpg',
                     title: 'T-Mainney • Last Frame',
                     description: "Unbreakable spirit; the flame guiding this legacy. T-Mainney's resilience and strength continue to inspire us, reminding us that true brotherhood transcends time and space.",
-                },
-                {
-                    image: 'remembrance/Kari_RJ_SS.jpg',
-                    title: 'Kari & RJ (set of 3)',
-                    description: "Kari holds it down — heart on her sleeve, giving everything, forging an untouchable bond with RJ. Their connection was a testament to the power of family love and the unbreakable ties that bind siblings together.",
-                },
-                {
-                    image: 'remembrance/Kari_TMainney_SS.jpg',
-                    title: 'Kari & T-Mainney (set of 3)',
-                    description: "Kari's kindness, goofyness, charisma — unbreakable connection with T-Mainney. Their relationship showed us the beauty of sibling bonds, filled with laughter, understanding, and unwavering support.",
-                },
-                {
-                    image: 'remembrance/Alisia_RJ_SS.jpg',
-                    title: 'Alisia & RJ (set of 3)',
-                    description: "Alisia's independence and fun — epic parties, caring for kids, laughing with RJ through seasons. Their bond was built on shared adventures, mutual respect, and a love that grew stronger with each passing year.",
-                },
-                {
-                    image: 'remembrance/Alisia_TMainney_SS.jpg',
-                    title: 'Alisia & T-Mainney (set of 3)',
-                    description: "Giggles and inside jokes; T-Mainney's crush on her friends made for unforgettable moments. Their relationship was filled with joy, teasing, and the kind of chemistry that only true siblings can understand.",
                 },
             ];
 
@@ -1559,6 +1468,11 @@
                 tributeSequenceStarted = true;
 
                 attemptAutoPlay();
+                revealAfterSilenceSections.forEach((section) => {
+                    section.classList.add('visible');
+                });
+                portraitsSection?.classList.add('visible');
+                spaceJumpSection?.classList.add('visible');
 
                 if (tributeAudio) {
                     tributeAudio.load();
@@ -1579,12 +1493,10 @@
                         spaceJumpState[tag] = !spaceJumpState[tag];
                         btn.classList.toggle('ready', spaceJumpState[tag]);
                         updateSpaceJumpButton();
+                        if (Object.values(spaceJumpState).every(Boolean) && !spaceCountdownInterval) {
+                            startSpaceCountdown();
+                        }
                     });
-                });
-
-                spaceJumpBtn?.addEventListener('click', () => {
-                    if (spaceJumpBtn.disabled) return;
-                    startSpaceCountdown();
                 });
 
                 updateSpaceJumpButton();
@@ -1592,14 +1504,9 @@
 
             function updateSpaceJumpButton() {
                 const ready = Object.values(spaceJumpState).every(Boolean);
-                if (spaceJumpBtn) {
-                    spaceJumpBtn.disabled = !ready;
-                    spaceJumpBtn.classList.toggle('ready', ready);
-                    spaceJumpBtn.textContent = 'Initiate Space Jump';
-                }
                 if (spaceCountdownDisplay) {
                     spaceCountdownDisplay.textContent = ready
-                        ? 'Countdown armed • press to launch'
+                        ? 'Countdown armed'
                         : 'Tap both dog tags to arm the jump';
                 }
             }
@@ -1626,8 +1533,6 @@
                 }
 
                 let countdownValue = 5;
-                spaceJumpBtn.disabled = true;
-                spaceJumpBtn.textContent = 'Counting Down…';
                 if (spaceCountdownDisplay) {
                     spaceCountdownDisplay.textContent = countdownValue;
                 }
@@ -1663,16 +1568,14 @@
             };
 
             document.addEventListener('DOMContentLoaded', () => {
-                // Mobile Navigation
-                const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-                const mobileNav = document.getElementById('mobile-nav');
-                const mobileNavClose = document.getElementById('mobile-nav-close');
-                const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
                 const silenceOverlay = document.getElementById('silence-overlay');
                 const silenceTimer = document.getElementById('silence-timer');
 
                 // 10-Second Moment of Silence on Page Load
-                let silenceCountdown = 10;
+                let silenceCountdown = Math.max(1, Math.floor(tributeDelayMs / 1000));
+                if (silenceTimer) {
+                    silenceTimer.textContent = silenceCountdown;
+                }
                 const silenceInterval = setInterval(() => {
                     silenceCountdown--;
                     if (silenceTimer) {
@@ -1694,33 +1597,10 @@
                     }
                 }, 1000);
 
-                function openMobileNav() {
-                    mobileNav.classList.add('active');
-                    mobileNavOverlay.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                }
-
-                function closeMobileNav() {
-                    mobileNav.classList.remove('active');
-                    mobileNavOverlay.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-
-                mobileMenuToggle?.addEventListener('click', openMobileNav);
-                mobileNavClose?.addEventListener('click', closeMobileNav);
-                mobileNavOverlay?.addEventListener('click', closeMobileNav);
-
-                // Close mobile nav when clicking on a link
-                const mobileNavLinks = document.querySelectorAll('.mobile-nav-links a');
-                mobileNavLinks.forEach(link => {
-                    link.addEventListener('click', closeMobileNav);
-                });
-
                 // Original functionality
                 loadSlides();
                 loadPortraits();
                 setupSpaceJumpControls();
-                startTributeSequence();
                 tributePlayBtn?.addEventListener('click', () => {
                     playTributeAudio('manual');
                     startTributeSequence();
