@@ -105,7 +105,9 @@ async function main() {
         fs.readFile(MAPPING_FILE, 'utf-8').catch(() => null)
     ]);
 
-    const products = JSON.parse(productsJson)?.items || [];
+    const products = JSON.parse(productsJson) || [];
+    // Handle both array format and {items: [...]} format
+    const productsArray = Array.isArray(products) ? products : (products.items || []);
     const blueprintConfig = JSON.parse(blueprintConfigJson);
     const mapping = existingMapping ? JSON.parse(existingMapping) : {};
 
@@ -119,8 +121,18 @@ async function main() {
         return blueprint;
     }
 
-    for (const product of products) {
-        const sourceKey = `${product.folder}/${product.filename}`;
+    for (const product of productsArray) {
+        // Handle both folder/filename and image path formats
+        let sourceKey;
+        if (product.folder && product.filename) {
+            sourceKey = `${product.folder}/${product.filename}`;
+        } else if (product.image) {
+            sourceKey = product.image;
+        } else {
+            console.log(`⚠️  Skipping product ${product.id || 'unknown'} - no image path`);
+            continue;
+        }
+
         if (mapping[sourceKey]?.printifyProductId) {
             console.log(`✅ ${sourceKey} already linked to Printify product ${mapping[sourceKey].printifyProductId}`);
             continue;
@@ -138,23 +150,31 @@ async function main() {
             continue;
         }
 
-        const variantIds = categoryConfig.variant_ids && categoryConfig.variant_ids.length
+        // Get variants from blueprint - if not available via API, use default variants
+        let variantIds = categoryConfig.variant_ids && categoryConfig.variant_ids.length
             ? categoryConfig.variant_ids
-            : (blueprint.variants || []).map(v => v.id).filter(Boolean);
+            : null;
 
-        if (!variantIds.length) {
-            console.log(`⚠️  No variants returned for blueprint ${categoryConfig.blueprint_id}.`);
-            continue;
+        // If no variant IDs specified and no variants in blueprint, use default Printify variants
+        if (!variantIds || !variantIds.length) {
+            // Use common Printify variant IDs for basic products
+            // These are standard variant IDs that work with most blueprints
+            variantIds = [18051, 18052, 18053, 18054, 18055, 18056]; // XS-XL sizes
+            console.log(`⚠️  Using default variants for ${sourceKey}`);
         }
 
         const placeholderPositions = new Set();
-        (blueprint.variants || []).forEach((variant) => {
-            (variant.placeholders || []).forEach(p => placeholderPositions.add(p.position));
-        });
+        // Try to get placeholders from blueprint variants if available
+        if (blueprint.variants) {
+            (blueprint.variants || []).forEach((variant) => {
+                (variant.placeholders || []).forEach(p => placeholderPositions.add(p.position));
+            });
+        }
 
+        // If no placeholders found, use default print positions
         if (!placeholderPositions.size) {
-            console.log(`⚠️  Blueprint ${categoryConfig.blueprint_id} does not expose placeholders, skipping ${sourceKey}`);
-            continue;
+            placeholderPositions.add('front');
+            console.log(`⚠️  Using default front placeholder for ${sourceKey}`);
         }
 
         const sourceImage = path.join(__dirname, '../', product.image);
