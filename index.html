@@ -24,7 +24,7 @@
             property="og:description"
             content="A revolutionary clothing brand where legends never die. R.J. & T-Mainney live forever through every design."
         />
-        <meta property="og:image" content="Logo/Greeting_Logo.png" />
+        <meta property="og:image" content="Logo/Memorial Logo - Enhanced V2.png" />
         <link rel="manifest" href="manifest.json" />
         <title>
             No Limits Beyond Limitations | Into My Wildest Imagination
@@ -34,6 +34,7 @@
         <link rel="stylesheet" href="cinematic-transitions.css" />
         <link rel="stylesheet" href="galaxy-particles.css" />
         <link rel="stylesheet" href="cosmic-sounds.css" />
+        <link rel="stylesheet" href="epic-theme.css" />
         <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
         <script>
             window.vercelInsights = window.vercelInsights || [];
@@ -68,7 +69,7 @@
                 --neon-pink-glow: #ff5fba;
                 --neon-pink-core: rgba(255, 13, 153, 0.95);
                 --dark-space: #03010a;
-                --logo-wall: url('Greetings_background_logo.png');
+                --logo-wall: url('Logo/Greetings_background_logo.png');
             }
 
             html {
@@ -1822,7 +1823,7 @@
             }
         </style>
     </head>
-    <body>
+    <body class="epic-home">
         <!-- Greeting Overlay with Typewriter Effect -->
         <div class="greeting-overlay" id="greeting-overlay">
             <div class="aurora-layer">
@@ -1881,13 +1882,16 @@
         <!-- Header -->
         <header class="site-header" id="site-header" style="opacity: 0">
             <a href="index.html" class="header-logo">
-                <img src="Logo/Greeting_Logo.png" alt="N.L.BL.IT.M.W.I" />
+                <img src="Logo/Memorial Logo - Enhanced V2.png" alt="N.L.BL.IT.M.W.I" />
                 <div class="header-logo-text">
                     N.L.BL.IT.M.W.I
                     <span>No Limits Beyond Limitations</span>
                 </div>
             </a>
             <nav class="main-nav">
+                <a href="brothers-remembrance.html" class="nav-link">My Brothers</a>
+                <a href="message-wall.html" class="nav-link">Honor Wall</a>
+                <a href="shop.html" class="nav-link">Shop</a>
                 <a href="brothers-remembrance.html" class="nav-link special"
                     >🚀 Begin Journey</a
                 >
@@ -1899,7 +1903,7 @@
             <!-- Hero Section -->
             <section class="hero-section journey-section">
                 <img
-                    src="Logo/Greeting_Logo.png"
+                    src="Logo/Memorial Logo - Enhanced V2.png"
                     alt="No Limits Beyond Limitations Into My Wildest Imagination"
                     class="hero-logo"
                 />
@@ -2024,7 +2028,7 @@
             <!-- Footer -->
             <footer class="site-footer">
                 <img
-                    src="Logo/Greeting_Logo.png"
+                    src="Logo/Memorial Logo - Enhanced V2.png"
                     alt="N.L.BL.IT.M.W.I"
                     class="footer-logo"
                 />
@@ -2106,6 +2110,9 @@
             let roseArmed = false;
             let countdownStarted = false;
             let missionSafetyTimeout;
+            const AUTO_LAUNCH_STORY = false;
+            const greetingMessage =
+                "Legacy online. Welcome to No Limits Beyond Limitations.";
             const storyPageUrl = "brothers-remembrance.html";
             const legacyMessages = {
                 init: "Legacy voice calibrating neon rose cathedral...",
@@ -2188,7 +2195,13 @@
                         clearInterval(countdownInterval);
                         updateLegacyStatusText(0);
                         triggerParticles();
-                        launchStory();
+                        if (AUTO_LAUNCH_STORY) {
+                            launchStory();
+                        } else {
+                            warningPrompt.textContent =
+                                "Sequence complete. Entering the main page.";
+                            enterSite(false);
+                        }
                         return;
                     }
                     updateCountdownDisplay(countdownValue);
@@ -2200,7 +2213,11 @@
                 forcedJumpTimeout = setTimeout(() => {
                     warningPrompt.textContent =
                         "Emergency fallback: activating the jump for you.";
-                    launchStory();
+                    if (AUTO_LAUNCH_STORY) {
+                        launchStory();
+                    } else {
+                        enterSite(false);
+                    }
                 }, 9200);
             };
 
@@ -2253,6 +2270,10 @@
                     missionSafetyTimeout = null;
                 }
                 console.warn("Mission safety timer forcing the journey.");
+                if (!AUTO_LAUNCH_STORY) {
+                    enterSite(false);
+                    return;
+                }
                 startMissionSequence();
                 lockAllDogTags();
                 startMissionCountdown();
@@ -2492,7 +2513,13 @@
                     setTimeout(() => {
                         greetingSignature.classList.add("visible");
                     }, 500);
-                    setTimeout(startMissionSequence, 3000);
+                    setTimeout(() => {
+                        if (AUTO_LAUNCH_STORY) {
+                            startMissionSequence();
+                        } else {
+                            enterSite(false);
+                        }
+                    }, 2200);
                 }, 1000);
             }
 
@@ -2500,10 +2527,6 @@
             const greetingOverlayElement = document.getElementById("greeting-overlay");
             greetingOverlayElement?.addEventListener("pointerdown", () => {
                 startExperience();
-            });
-            greetingOverlayElement?.addEventListener("click", (e) => {
-                startExperience();
-                triggerInstantTransition();
             });
 
             // Enter the site
@@ -2601,7 +2624,9 @@
                     } catch {}
                 }
                 triggerInstantTransition();
-                scheduleMissionSafety();
+                if (AUTO_LAUNCH_STORY) {
+                    scheduleMissionSafety();
+                }
             };
 
             document.addEventListener("pointerdown", startExperience, { once: true });
@@ -2614,7 +2639,15 @@
                 prepareVoice();
                 resizeParticlesCanvas();
                 // Typewriter loop bypassed for revolutionary design
-                scheduleMissionSafety();
+                if (AUTO_LAUNCH_STORY) {
+                    scheduleMissionSafety();
+                } else {
+                    setTimeout(() => {
+                        if (!experienceStarted && greetingOverlay?.style.display !== "none") {
+                            triggerInstantTransition();
+                        }
+                    }, 3500);
+                }
                 voiceHud?.classList.add("visible");
             });
 

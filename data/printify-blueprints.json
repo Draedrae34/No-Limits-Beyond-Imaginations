@@ -26,7 +26,7 @@
             "tags": ["tank", "crop-top"]
         },
         "shorts": {
-            "blueprint_id": 12,
+            "blueprint_id": 757,
             "print_provider_id": 51,
             "price_multiplier": 1,
             "tags": ["shorts"]
@@ -41,13 +41,13 @@
             "blueprint_id": 433,
             "print_provider_id": 51,
             "price_multiplier": 1.5,
-            "tags": ["jacket", "outerwear"]
+            "tags": ["jacket", "outerwear", "bomber"]
         },
         "pants": {
-            "blueprint_id": 12,
+            "blueprint_id": 591,
             "print_provider_id": 51,
             "price_multiplier": 1.2,
-            "tags": ["pants", "jeans"]
+            "tags": ["pants", "joggers"]
         },
         "skirts": {
             "blueprint_id": 286,
@@ -56,16 +56,16 @@
             "tags": ["skirt"]
         },
         "workout": {
-            "blueprint_id": 509,
+            "blueprint_id": 1725,
             "print_provider_id": 51,
             "price_multiplier": 1.1,
-            "tags": ["workout", "gym", "athletic"]
+            "tags": ["workout", "gym", "athletic", "sports-bra"]
         },
         "accessories": {
-            "blueprint_id": 12,
+            "blueprint_id": 1108,
             "print_provider_id": 51,
             "price_multiplier": 0.5,
-            "tags": ["accessories"]
+            "tags": ["accessories", "hat", "cap"]
         }
     }
 }

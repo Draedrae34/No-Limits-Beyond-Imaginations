@@ -127,20 +127,21 @@ async function main() {
         if (product.folder && product.filename) {
             sourceKey = `${product.folder}/${product.filename}`;
         } else if (product.image) {
-            sourceKey = product.image;
+            // Use product ID to make each product unique
+            sourceKey = product.image + '?product=' + product.id;
         } else {
             console.log(`⚠️  Skipping product ${product.id || 'unknown'} - no image path`);
             continue;
         }
 
         if (mapping[sourceKey]?.printifyProductId) {
-            console.log(`✅ ${sourceKey} already linked to Printify product ${mapping[sourceKey].printifyProductId}`);
+            console.log(`✅ ${product.name} already linked to Printify product ${mapping[sourceKey].printifyProductId}`);
             continue;
         }
 
         const categoryConfig = blueprintConfig.categories?.[product.category] || blueprintConfig.default;
         if (!categoryConfig || !categoryConfig.blueprint_id || !categoryConfig.print_provider_id) {
-            console.log(`⚠️  Skipping ${sourceKey} (missing blueprint or provider configuration)`);
+            console.log(`⚠️  Skipping ${product.name} (missing blueprint or provider configuration)`);
             continue;
         }
 

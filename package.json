@@ -29,17 +29,19 @@
     "author": "R&T's No Limitation Quantum AI",
     "license": "ISC",
     "dependencies": {
+        "@tailwindcss/vite": "^4.2.2",
         "@vercel/analytics": "^1.6.1",
         "@vercel/blob": "^0.24.1",
         "cloudinary": "^2.9.0",
-        "stripe": "^14.0.0"
+        "stripe": "^14.0.0",
+        "tailwindcss": "^4.2.2"
     },
     "devDependencies": {
         "eslint": "^10.0.0",
         "inquirer": "^13.2.2",
         "linkinator": "^6.0.0",
         "pa11y-ci": "^4.0.0",
-        "vercel": "^33.7.1"
+        "vercel": "^50.41.0"
     },
     "engines": {
         "node": ">=18.x"
