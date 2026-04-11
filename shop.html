@@ -614,50 +614,61 @@
       let groupedProducts = [];
 
       async function loadProducts() {
-        try {
-          // First try local JSON file
-          let data;
           try {
-            const response = await fetch('website_products.json');
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            data = await response.json();
-          } catch (e) {
-            // If fetch fails, load fallback products
-            console.log('Using fallback product list');
-            data = {
-              products: []
-            };
-          }
-
-          const rawProducts = (data.products || []).filter((p) => p.visible !== false && p.image && p.title);
-
-          const designMap = new Map();
-          rawProducts.forEach((p) => {
-            const baseName = p.title.replace(/\s*-\s*(S|M|L|XL|2XL|3XL|4XL|5XL|One Size|Standard|Custom)\s*$/i, '').trim();
-            if (!designMap.has(baseName)) {
-              designMap.set(baseName, {
-                id: p.id,
-                title: baseName,
-                price: p.price,
-                image: p.image,
-                tags: p.tags || [],
-                description: p.description || '',
-                variants: []
-              });
+            // First try local JSON file (new format from Printify)
+            let data;
+            try {
+              const response = await fetch('shop-products.json');
+              if (!response.ok) throw new Error(`HTTP ${response.status}`);
+              data = await response.json();
+            } catch (e) {
+              // Fallback to old format
+              console.log('Using fallback product list');
+              data = {
+                products: []
+              };
             }
-            const entry = designMap.get(baseName);
-            entry.variants.push({ id: p.id, title: p.title, price: p.price, image: p.image });
-            if (p.price < entry.price) {
-              entry.price = p.price;
-              entry.image = p.image;
-              entry.id = p.id;
-            }
-          });
+
+            // Handle both old format and new Printify format
+            const rawProducts = (data.products || data.items || []).filter((p) => p.name && p.price);
+
+            const designMap = new Map();
+            rawProducts.forEach((p) => {
+              // Handle both old format (title) and new Printify format (name)
+              const productName = p.title || p.name || '';
+              const baseName = productName.replace(/\s*-\s*(S|M|L|XL|2XL|3XL|4XL|5XL|One Size|Standard|Custom)\s*$/i, '').trim();
+              
+              // Use image if available, otherwise use a default placeholder
+              let productImage = p.image;
+              if (!productImage) {
+                productImage = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMDAwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiNmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5OTUI8L3RleHQ+PC9zdmc+';
+              }
+              
+              if (!designMap.has(baseName)) {
+                designMap.set(baseName, {
+                  id: p.id,
+                  title: baseName,
+                  price: p.price,
+                  image: productImage,
+                  tags: p.tags || [],
+                  description: p.description || '',
+                  variants: []
+                });
+              }
+              const entry = designMap.get(baseName);
+              entry.variants.push({ id: p.id, title: productName, price: p.price, image: productImage });
+              if (p.price < entry.price) {
+                entry.price = p.price;
+                entry.image = productImage;
+                entry.id = p.id;
+              }
+            });
 
           groupedProducts = Array.from(designMap.values()).sort((a, b) => a.title.localeCompare(b.title, undefined, { sensitivity: 'base' }));
           allProducts = groupedProducts;
 
           console.log(`🔥 Loaded ${groupedProducts.length} unique designs from ${rawProducts.length} variants`);
+          console.log('First product:', groupedProducts[0]);
           populateCategorySelect();
           filterProducts();
         } catch (err) {
@@ -727,7 +738,7 @@
               <div>
                 <div class="product-price">$${Number(product.price).toFixed(2)}</div>
                 <div class="product-actions">
-                  <button class="btn-primary" onclick="window.open('https://www.printify.com/product/${product.id}', '_blank')">Add to Cart</button>
+                  <button class="btn-primary" onclick="window.open('https://printify.com/product/${product.id}', '_blank')">Add to Cart</button>
                 </div>
               </div>
             </div>
