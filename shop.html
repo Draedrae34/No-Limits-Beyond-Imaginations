@@ -630,29 +630,36 @@
             }
 
             // Handle both old format and new Printify format
-            const rawProducts = (data.products || data.items || []).filter((p) => p.visible !== false && p.image && (p.title || p.name));
+            const rawProducts = (data.products || data.items || []).filter((p) => p.visible !== false && (p.image || p.printifyId));
 
             const designMap = new Map();
             rawProducts.forEach((p) => {
               // Handle both old format (title) and new Printify format (name)
               const productName = p.title || p.name || '';
               const baseName = productName.replace(/\s*-\s*(S|M|L|XL|2XL|3XL|4XL|5XL|One Size|Standard|Custom)\s*$/i, '').trim();
+              
+              // Use image if available, otherwise use Printify placeholder
+              let productImage = p.image;
+              if (!productImage && p.printifyId) {
+                productImage = 'https://images.printify.com/product/' + p.printifyId + '/placeholder.jpg';
+              }
+              
               if (!designMap.has(baseName)) {
                 designMap.set(baseName, {
                   id: p.id,
                   title: baseName,
                   price: p.price,
-                  image: p.image,
+                  image: productImage,
                   tags: p.tags || [],
                   description: p.description || '',
                   variants: []
                 });
               }
               const entry = designMap.get(baseName);
-              entry.variants.push({ id: p.id, title: productName, price: p.price, image: p.image });
+              entry.variants.push({ id: p.id, title: productName, price: p.price, image: productImage });
               if (p.price < entry.price) {
                 entry.price = p.price;
-                entry.image = p.image;
+                entry.image = productImage;
                 entry.id = p.id;
               }
             });
@@ -730,7 +737,7 @@
               <div>
                 <div class="product-price">$${Number(product.price).toFixed(2)}</div>
                 <div class="product-actions">
-                  <button class="btn-primary" onclick="window.open('https://www.printify.com/product/${product.id}', '_blank')">Add to Cart</button>
+                  <button class="btn-primary" onclick="window.open('https://printify.com/product/${product.id}', '_blank')">Add to Cart</button>
                 </div>
               </div>
             </div>
