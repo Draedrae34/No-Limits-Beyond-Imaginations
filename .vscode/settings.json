@@ -10,5 +10,6 @@
     "terminal.integrated.windowsUseConptyDll": true,
     "geminicodeassist.agentDebugMode": true,
     "geminicodeassist.codeGenerationPaneViewEnabled": true,
-    "geminicodeassist.outlines.automaticOutlineGeneration": true
+    "geminicodeassist.outlines.automaticOutlineGeneration": true,
+    "todo-tree.tree.scanMode": "open files"
 }
