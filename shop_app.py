@@ -308,11 +308,12 @@ def poll_stock():
         try:
             if api is None:
                 logger.warning("API not initialized, skipping stock poll")
-                time.sleep(300)
+                time.sleep(600)
                 continue
             logger.info("Starting stock polling cycle (Printify)")
             products = api.get_products()
-            # PrintifyAPI.get_products() already returns a flat list
+            
+            # Only poll a small batch or increase sleep to prevent system strain
             for product in products:
                 product_id = product.get("id")
                 variants = []
@@ -322,10 +323,10 @@ def poll_stock():
                     # some products may not have variants or the call may fail
                     logger.debug(f"Could not load variants for {product_id}")
                 stock_cache[product_id] = {"product": product, "variants": variants}
-            logger.info(f"Stock cache updated for {len(products)} printify products")
+            logger.info(f"Stock cache updated for {len(products)} products. System stable.")
         except Exception as e:
             logger.error(f"Error polling stock: {str(e)}", exc_info=True)
-        time.sleep(300)  # Poll every 5 minutes
+        time.sleep(1800)  # Increased to 30 minutes to reduce CPU/RAM usage
 
 
 def update_order_status(order_id, new_status):
@@ -923,28 +924,34 @@ def sync_products():
     if api is None:
         return jsonify({"error": "API client not initialized"}), 500
     try:
-        products = api.get_products()
+        # Handle both list and dict response formats from Printify
+        raw_data = api.get_products()
+        products = raw_data.get('data', []) if isinstance(raw_data, dict) else raw_data
+        
         inventory = {"products": []}
         for p in products:
+            # Extract variants to find the price
+            p_variants = p.get("variants", [])
             entry = {
                 "id": p.get("id"),
                 "name": p.get("title") or p.get("name") or "Unknown Product",
                 "price": None,
                 "image": None,
+                "shop_id": p.get("shop_id")
             }
-            # try to derive a price from the first variant
-            variants = p.get("variants", [])
-            if variants:
-                price = variants[0].get("price")
+            
+            if p_variants:
+                price = p_variants[0].get("price")
                 if isinstance(price, (int, float)):
-                    # Printify stores prices as cents
                     entry["price"] = price / 100.0
                 else:
                     try:
                         entry["price"] = float(price) / 100.0
                     except Exception:
                         entry["price"] = None
+            
             inventory["products"].append(entry)
+            
         save_json_file("all_products_inventory.json", inventory)
         return jsonify({"success": True, "count": len(inventory["products"])})
     except Exception as e:

@@ -1,5 +1,4 @@
-from flask import Flask, request, jsonify
-from flask import Flask, request, jsonify, render_template_string
+from flask import Flask, request, jsonify, render_template_string, send_from_directory
 import os
 import requests
 from bs4 import BeautifulSoup
@@ -1095,12 +1094,16 @@ def agent_run(message):
 # Flask app for web integration
 app = Flask(__name__)
 
+# Serve local media files from the remembrance folders
+@app.route('/media/remembrance/<path:filename>')
+def serve_remembrance_files(filename):
+    return send_from_directory('remembrance', filename)
+
 @app.route('/chat', methods=['POST'])
 def chat():
     data = request.get_json()
     password = data.get('password', '')
-    # Move this to your .env file as QUANTUM_ADMIN_PASS
-    if password != os.getenv('QUANTUM_ADMIN_PASS'):
+    if password != os.getenv('QUANTUM_ADMIN_PASS', 'admin'):
         return jsonify({'error': 'Unauthorized access'}), 401
     user_message = data.get('message', '')
     if not user_message:
@@ -1159,9 +1162,54 @@ def initialize_printful_products():
             'printful_id': 'pf_003'
         }
     ]
+    """Initialize supreme product catalog from filtered_blueprints.json if available"""
+    blueprint_path = 'filtered_blueprints.json'
+    if os.path.exists(blueprint_path):
+        try:
+            with open(blueprint_path, 'r', encoding='utf-8') as f:
+                blueprints = json.load(f)
+            
+            supreme_products = []
+            for bp in blueprints:
+                title = bp.get('title', 'Unknown Product')
+                t_lower = title.lower()
+                
+                # Smart pricing based on category
+                if any(x in t_lower for x in ['tee', 't-shirt', 'tank']):
+                    base = 25.0
+                elif any(x in t_lower for x in ['hoodie', 'sweatshirt', 'jacket', 'blanket']):
+                    base = 45.0
+                elif 'mug' in t_lower:
+                    base = 15.0
+                else:
+                    base = 20.0
+                
+                # Apply the Golden Ratio Multiplier (1.618)
+                final_price = round(base * 1.618, 2)
+                
+                supreme_products.append({
+                    'id': str(bp.get('id')),
+                    'name': title,
+                    'description': bp.get('description', ''),
+                    'price': final_price,
+                    'image': bp.get('images', [None])[0]
+                })
+            printful_mock_data['products'] = supreme_products
+            printful_mock_data['inventory'] = {p['id']: 1000 for p in supreme_products}
+            return
+        except Exception as e:
+            print(f"Error loading blueprints: {e}")
 
     printful_mock_data['products'] = supreme_products
     printful_mock_data['inventory'] = {p['id']: 1000 for p in supreme_products}  # Unlimited quantum inventory
+    # Minimal fallback if JSON is missing
+    printful_mock_data['products'] = [{
+        'id': 'error_product',
+        'name': 'Catalog Offline',
+        'price': 0.0,
+        'image': None,
+        'description': 'Please ensure filtered_blueprints.json is present.'
+    }]
 
 initialize_printful_products()
 
@@ -1182,8 +1230,10 @@ def create_checkout_session():
             quantum_multiplier = 1.618  # Golden ratio for perfection
             final_price = base_price * quantum_multiplier
 
+            final_price = float(item.get('price', 0))
             quantum_items.append({
                 'name': f"LEGACY: {item.get('name', 'Product')}",
+                'name': f"LEGACY PIECE: {item.get('name', 'Product')}",
                 'price': final_price,
                 'quantity': item.get('quantity', 1)
             })
@@ -1203,6 +1253,7 @@ def create_checkout_session():
         return jsonify({
             'sessionId': session_id,
             'url': f'https://checkout.stripe.com/pay/{session_id}',
+            'url': f'/payment-success?session_id={session_id}',
             'amount': total,
             'currency': 'usd'
         })
@@ -1243,6 +1294,139 @@ def get_printful_products():
         'total': len(printful_mock_data['products']),
         'status': 'quantum_inventory_active'
     })
+    """
+    EPIC SHOP PAGE: THE LEGACY COLLECTION
+    Designed to be 'The Closer' - where the legacy becomes wearable.
+    """
+    return render_template_string("""
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Shop the Legacy | Silent Spirits Collection</title>
+        <style>
+            body { 
+                background: #000; color: #fff; font-family: 'Inter', sans-serif; margin: 0; 
+                overflow-x: hidden;
+                background: radial-gradient(circle at center, #1a1a2e 0%, #000 100%);
+            }
+            .shop-header {
+                padding: 100px 20px 50px; text-align: center;
+                animation: fadeInUp 1.5s ease-out;
+            }
+            .shop-header h1 { font-size: 3.5rem; letter-spacing: 10px; text-transform: uppercase; margin: 0; }
+            .shop-header p { font-style: italic; opacity: 0.7; font-size: 1.2rem; margin-top: 10px; }
+            
+            .product-grid {
+                display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                gap: 40px; padding: 50px; max-width: 1400px; margin: 0 auto;
+            }
+            
+            .product-card {
+                background: rgba(255, 255, 255, 0.03);
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 20px;
+                padding: 25px;
+                transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                display: flex; flex-direction: column;
+                position: relative; overflow: hidden;
+            }
+            .product-card:hover {
+                transform: translateY(-15px);
+                border-color: rgba(255, 255, 255, 0.4);
+                box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            }
+            .product-image {
+                width: 100%; height: 350px; object-fit: cover;
+                border-radius: 15px; margin-bottom: 20px;
+                transition: transform 0.5s;
+            }
+            .product-card:hover .product-image { transform: scale(1.05); }
+            
+            .product-info h3 { margin: 10px 0; font-size: 1.4rem; letter-spacing: 1px; min-height: 3.5rem; }
+            .price-tag { font-size: 1.8rem; font-weight: bold; color: #fff; margin: 15px 0; display: block; }
+            
+            .buy-btn {
+                background: #fff; color: #000; border: none; padding: 15px;
+                border-radius: 10px; font-weight: bold; cursor: pointer;
+                text-transform: uppercase; letter-spacing: 2px;
+                transition: all 0.3s; width: 100%;
+            }
+            .buy-btn:hover { background: #000; color: #fff; box-shadow: 0 0 20px rgba(255,255,255,0.4); }
+            
+            @keyframes fadeInUp {
+                from { opacity: 0; transform: translateY(30px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            
+            .checkout-modal {
+                display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0,0,0,0.9); z-index: 100; align-items: center; justify-content: center;
+            }
+            .modal-content {
+                background: #111; padding: 40px; border-radius: 20px; text-align: center;
+                max-width: 400px; border: 1px solid #333;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="shop-header">
+            <h1>The Legacy Collection</h1>
+            <p>Every thread carries their memory. Every piece anchors their spirit.</p>
+        </div>
+
+        <div class="product-grid">
+            {% for product in products %}
+            <div class="product-card">
+                <img src="{{ product.image }}" class="product-image" alt="{{ product.name }}">
+                <div class="product-info">
+                    <h3>{{ product.name }}</h3>
+                    <span class="price-tag">${{ product.price }}</span>
+                    <button class="buy-btn" onclick="initiateCheckout('{{ product.id }}', '{{ product.name }}', {{ product.price }})">Acquire Piece</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div id="checkoutModal" class="checkout-modal">
+            <div class="modal-content">
+                <h2>Quantum Processing</h2>
+                <p id="modalStatus">Synchronizing with Stripe secure field...</p>
+            </div>
+        </div>
+
+        <script>
+            async function initiateCheckout(id, name, price) {
+                const modal = document.getElementById('checkoutModal');
+                const status = document.getElementById('modalStatus');
+                modal.style.display = 'flex';
+                
+                try {
+                    const response = await fetch('/create-checkout-session', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            items: [{ id: id, name: name, price: price, quantity: 1 }]
+                        })
+                    });
+                    
+                    const session = await response.json();
+                    if (session.url) {
+                        status.innerText = "Redirecting to secure gateway...";
+                        setTimeout(() => { window.location.href = session.url; }, 1000);
+                    } else {
+                        throw new Error("Session failed");
+                    }
+                } catch (e) {
+                    status.innerText = "Error manifesting session. Please try again.";
+                    setTimeout(() => { modal.style.display = 'none'; }, 3000);
+                }
+            }
+        </script>
+    </body>
+    </html>
+    """, products=printful_mock_data['products'])
 
 @app.route('/printful/order', methods=['POST'])
 def create_printful_order():
@@ -1322,7 +1506,10 @@ def printful_webhook():
 
 @app.route('/')
 def home():
-    <!DOCTYPE html>
+    """
+    EPIC GREETINGS PAGE: THE GALAXY STINGER
+    """
+    return render_template_string("""<!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -1343,11 +1530,13 @@ def home():
             h1 { font-size: 4rem; letter-spacing: 15px; text-transform: uppercase; margin-bottom: 20px; text-shadow: 0 0 20px rgba(255,255,255,0.5); }
             p { font-size: 1.2rem; max-width: 600px; line-height: 1.8; opacity: 0.8; font-style: italic; }
             .cta-button {
-                margin-top: 40px; padding: 15px 40px; border: 1px solid #fff;
+                margin-top: 40px; padding: 15px 50px; border: 1px solid #fff;
                 background: transparent; color: #fff; text-transform: uppercase;
                 letter-spacing: 3px; cursor: pointer; transition: all 0.5s;
+                font-weight: bold;
             }
             .cta-button:hover { background: #fff; color: #000; box-shadow: 0 0 50px rgba(255,255,255,0.8); }
+            .cta-button:active { transform: scale(0.95); }
             @keyframes inceptionFade {
                 0% { opacity: 0; transform: scale(0.8) rotateX(-20deg); }
                 100% { opacity: 1; transform: scale(1) rotateX(0deg); }
@@ -1360,7 +1549,10 @@ def home():
             <div class="stars" id="starField"></div>
             <div class="stinger-text">
                 <h1>Silent Spirits</h1>
-                <p>We are the echoes of a silence that speaks volumes. This is not just a journey; it is an unworldly manifestation of legacy. No emotion can prepare you for the energy we’ve anchored here. Welcome to the other side of reality.</p>
+                <p>
+                    We are the echoes of a silence that speaks volumes. This is not just a journey; it is an unworldly manifestation of legacy. 
+                    No emotion can prepare you for the energy we’ve anchored here. Welcome to the other side of reality.
+                </p>
                 <button class="cta-button" onclick="window.location.href='/remembrance'">Enter Remembrance</button>
             </div>
         </div>
@@ -1380,28 +1572,43 @@ def home():
             }
         </script>
     </body>
-    </html>"""
+    </html>""")
 
 @app.route('/remembrance')
 def remembrance():
     """
     THE BROTHERS REMEMBRANCE PAGE
-    Featuring a cinematic slideshow and standstill contemplation photos of your brothers.
+    Cinematic slideshow from /remembrance/slideshow (excluding SS duplicates).
+    Standstill photos from /remembrance (only files with SS in name) with captions.
+    Plays dedicated song found in /remembrance.
     """
-    # JOURNEY SLIDESHOW: Add your high-res journey photo URLs/paths here
-    slideshow_images = [
-        "https://via.placeholder.com/1200x800?text=The+Journey+Begins",
-        "https://via.placeholder.com/1200x800?text=Echoes+of+the+Past",
-        "https://via.placeholder.com/1200x800?text=A+Bond+Unbroken"
-    ]
+    base_dir = os.path.join(os.getcwd(), 'remembrance')
+    slideshow_dir = os.path.join(base_dir, 'slideshow')
     
-    # STANDSTILL PHOTOS: Add your individual contemplation photo URLs/paths here
-    standstill_photos = [
-        "https://via.placeholder.com/400x600?text=Brother+Memory+1",
-        "https://via.placeholder.com/400x600?text=Brother+Memory+2",
-        "https://via.placeholder.com/400x600?text=Brother+Memory+3",
-        "https://via.placeholder.com/400x600?text=Brother+Memory+4"
-    ]
+    # 1. Grab Stand Still photos from main folder
+    standstill = []
+    if os.path.exists(base_dir):
+        ss_files = [f for f in os.listdir(base_dir) if "SS" in f and f.lower().endswith(('.png', '.jpg', '.jpeg'))]
+        for f in ss_files:
+            # Clean filename for description (e.g., "RJ and Kari SS photo 1.jpg" -> "RJ and Kari")
+            desc = os.path.splitext(f)[0]
+            for pattern in [" SS photos", " SS photo", " SS"]:
+                desc = desc.replace(pattern, "")
+            desc = desc.rstrip('0123456789 ')
+            standstill.append({
+                'url': f'/media/remembrance/{f}',
+                'description': desc
+            })
+
+    # 2. Grab Slideshow photos (exclude duplicates/SS files)
+    slideshow = []
+    if os.path.exists(slideshow_dir):
+        slideshow = [f"slideshow/{f}" for f in os.listdir(slideshow_dir) if "SS" not in f and f.lower().endswith(('.png', '.jpg', '.jpeg'))]
+
+    # 3. Grab the Song
+    song_file = None
+    if os.path.exists(base_dir):
+        song_file = next((f for f in os.listdir(base_dir) if f.lower().endswith(('.mp3', '.wav', '.ogg'))), None)
 
     return render_template_string("""
     <!DOCTYPE html>
@@ -1410,11 +1617,11 @@ def remembrance():
         <meta charset="UTF-8">
         <title>The Remembrance | Brothers Forever</title>
         <style>
-            body { background: #050505; color: #fff; font-family: 'Georgia', serif; margin: 0; overflow-x: hidden; }
+            body { background: #000; color: #fff; font-family: 'Georgia', serif; margin: 0; overflow-x: hidden; }
             
             /* Journey Slideshow Section */
             .slideshow-container {
-                position: relative; height: 100vh; width: 100%; overflow: hidden;
+                position: relative; height: 100vh; width: 100%; overflow: hidden; background: #000;
             }
             .slide {
                 position: absolute; width: 100%; height: 100%; opacity: 0;
@@ -1426,15 +1633,20 @@ def remembrance():
             /* Standstill Grid Section */
             .contemplation-grid {
                 display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                gap: 40px; padding: 100px 50px; background: linear-gradient(to bottom, #050505, #0a0a15);
+                gap: 60px; padding: 100px 50px; background: linear-gradient(to bottom, #000, #0a0a15);
             }
+            .photo-card { text-align: left; }
             .standstill-photo {
-                width: 100%; height: 550px; background-size: cover; background-position: center;
-                border: 1px solid rgba(255,255,255,0.05);
-                filter: grayscale(100%) contrast(1.1);
-                transition: all 1.2s ease;
+                width: 100%; height: 500px; background-size: cover; background-position: center;
+                border: 1px solid rgba(255,255,255,0.1); filter: grayscale(100%) brightness(0.6);
+                transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1); cursor: crosshair;
             }
-            .standstill-photo:hover { filter: grayscale(0%); transform: scale(1.02); box-shadow: 0 0 40px rgba(255,255,255,0.1); }
+            .standstill-photo:hover { filter: grayscale(0%) brightness(1); transform: translateY(-10px); box-shadow: 0 20px 40px rgba(255,255,255,0.05); }
+            .photo-description {
+                margin-top: 20px; font-size: 1.1rem; line-height: 1.6; color: #ccc;
+                font-style: italic; border-left: 2px solid #444; padding-left: 15px;
+                text-transform: capitalize;
+            }
 
             .content-box {
                 position: relative; z-index: 5; text-align: center;
@@ -1451,24 +1663,56 @@ def remembrance():
     </head>
     <body>
         <div class="overlay-stinger"></div>
-        <div class="legacy-section">
-            <div class="image-layer" style="background-image: url('{{ img_bg }}');"></div>
-            <div class="content-box">
-                <h2>Undescribable Bond</h2>
-                <p>Built on memories that refuse to fade. This page is for them.</p>
+        {% if song %}
+        <audio id="spiritSong" loop>
+            <source src="/media/remembrance/{{ song }}" type="audio/mpeg">
+        </audio>
+        {% endif %}
+        
+        <div class="slideshow-container">
+            {% for img in slideshow %}
+            <div class="slide {% if loop.first %}active{% endif %}" style="background-image: url('/media/remembrance/{{ img }}');"></div>
+            {% endfor %}
+            <div class="content-box" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                <h2>The Journey of Echoes</h2>
+                <p>A legacy that exists beyond time. For the brothers we hold dear.</p>
             </div>
         </div>
-        <div class="gallery">
-            {% for img in images %}
-            <div class="gallery-item" style="background-image: url('{{ img }}');"></div>
+
+        <div class="contemplation-grid">
+            {% for photo in standstill %}
+            <div class="photo-card">
+                <div class="standstill-photo" style="background-image: url('{{ photo.url }}');"></div>
+                <div class="photo-description">
+                    {{ photo.description }}
+                </div>
+            </div>
             {% endfor %}
         </div>
-        <div style="text-align:center; padding: 100px;">
-            <button onclick="window.location.href='/printful/products'" style="background:none; border:1px solid #fff; color:#fff; padding: 20px 50px; cursor:pointer;">Support the Legacy - Shop the Collection</button>
+
+        <div style="text-align:center; padding: 100px; background: #000;">
+            <button onclick="window.location.href='/printful/products'" style="background:none; border:1px solid #fff; color:#fff; padding: 20px 50px; cursor:pointer; text-transform: uppercase; letter-spacing: 2px;">Support the Legacy - Shop the Collection</button>
         </div>
+
+        <script>
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.slide');
+            function nextSlide() {
+                if(slides.length === 0) return;
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }
+            if(slides.length > 1) setInterval(nextSlide, 6000);
+
+            document.body.addEventListener('click', () => {
+                const audio = document.getElementById('spiritSong');
+                if(audio) audio.play();
+            }, { once: true });
+        </script>
     </body>
     </html>
-    """, images=legacy_images, img_bg=legacy_images[0] if legacy_images else "")
+    """, slideshow=slideshow, standstill=standstill, song=song_file)
 
 All features are FREE for the first year of operation.
 Quantum commerce integration active.
