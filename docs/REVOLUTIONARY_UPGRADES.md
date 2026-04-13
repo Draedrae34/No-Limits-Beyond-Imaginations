@@ -2,7 +2,7 @@
 
 ## What Just Happened?
 
-Your website has been transformed from a standard e-commerce site into the **most revolutionary web experience on the planet**. All features run at **ZERO COST** to you.
+Your website is powered by Vercel and Printify.
 
 ---
 
@@ -49,13 +49,13 @@ Your website has been transformed from a standard e-commerce site into the **mos
   - Works on mobile devices
   - No app download needed
 
-### 5. ⚡ Vercel Edge Functions
+### 5. ⚡ Vercel Functions
 - **What it does:** Serverless functions at the edge
 - **Cost:** $0 (1M requests/month free)
 - **Benefits:**
   - Faster response times
   - Global CDN
-  - Better than Netlify
+  - Global CDN
   - No cold starts
 
 ---
@@ -79,10 +79,10 @@ Your website has been transformed from a standard e-commerce site into the **mos
 ┌─────────────────────────────────────────────────────────────┐
 │                  VERCEL EDGE FUNCTIONS                      │
 │  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐        │
-│  │   /checkout  │ │   /printful  │ │     /auth    │        │
+│  │   /checkout  │ │   /printify  │ │     /auth    │        │
 │  └──────────────┘ └──────────────┘ └──────────────┘        │
 │  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐        │
-│  │/stripe-webhook│ │   /orders   │ │/printful-webhook│     │
+│  │/stripe-webhook│ │   /orders   │ │/printify-webhook│     │
 │  └──────────────┘ └──────────────┘ └──────────────┘        │
 └─────────────────────────────────────────────────────────────┘
                             │
@@ -90,21 +90,12 @@ Your website has been transformed from a standard e-commerce site into the **mos
 ┌─────────────────────────────────────────────────────────────┐
 │                   EXTERNAL SERVICES                         │
 │  ┌──────────────┐ ┌──────────────┐                         │
-│  │    Stripe    │ │   Printful   │                         │
+│  │    Stripe    │ │   Printify   │                         │
 │  └──────────────┘ └──────────────┘                         │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 ---
-
-## 📊 Cost Comparison
-
-| Service | Netlify Cost | Vercel Cost | Savings |
-|---------|-------------|-------------|---------|
-| Functions | $19/month | $0 | $228/year |
-| Bandwidth | $20/month | $0 | $240/year |
-| AI Processing | $50/month | $0 | $600/year |
-| **TOTAL** | **$89/month** | **$0** | **$1,068/year** |
 
 ---
 
@@ -117,8 +108,8 @@ npm install
 
 ### Step 2: Set Environment Variables
 ```bash
-vercel env add PRINTFUL_API_KEY
-vercel env add PRINTFUL_STORE_ID
+vercel env add PRINTIFY_API_TOKEN
+vercel env add PRINTIFY_SHOP_ID
 vercel env add STRIPE_SECRET_KEY
 vercel env add STRIPE_WEBHOOK_SECRET
 vercel env add JWT_SECRET
@@ -140,14 +131,13 @@ chmod +x deploy-vercel.sh
 
 ## 🔧 Post-Deployment Checklist
 
-- [ ] Configure Stripe webhook endpoint (https://your-site.vercel.app/api/stripe-webhook)
-- [ ] Configure Printful webhook endpoint (https://your-site.vercel.app/api/printful-webhook)
+- [ ] Configure Stripe webhook endpoint
+- [ ] Configure Printify webhook endpoint
 - [ ] Test voice control (Ctrl+Shift+V)
 - [ ] Test AI assistant (ask it to generate product descriptions)
 - [ ] Test biometric login on mobile device
 - [ ] Test AR viewer on mobile
-- [ ] Delete all Netlify sites
-- [ ] Cancel Netlify account
+
 - [ ] Update DNS to point to Vercel
 
 ---

@@ -25,7 +25,7 @@ from flask import (
 )
 from werkzeug.utils import secure_filename
 
-from ai_services import AIServiceManager, photographic_memory
+from ai_services_cloud import AIServiceManager, photographic_memory
 from auth_service import auth_service, owner_required, token_required
 from printify_client import PrintifyAPI
 from security_service import security_service
@@ -92,7 +92,9 @@ if API_TOKEN and SHOP_ID:
     except Exception as e:
         logger.warning(f"Could not initialize PrintifyAPI: {e}")
 else:
-    logger.warning("Printify credentials not found - set PRINTIFY_API_KEY and PRINTIFY_SHOP_ID environment variables")
+    logger.warning(
+        "Printify credentials not found - set PRINTIFY_API_KEY and PRINTIFY_SHOP_ID environment variables"
+    )
 
 # Global cache for stock data
 stock_cache = {}
@@ -312,21 +314,48 @@ def poll_stock():
                 continue
             logger.info("Starting stock polling cycle (Printify)")
             products = api.get_products()
-            
-            # Only poll a small batch or increase sleep to prevent system strain
-            for product in products:
+            product_list = (
+                products.get("data", []) if isinstance(products, dict) else products
+            )
+
+            # Spread out requests to prevent CPU spikes and API rate limiting
+            for product in product_list:
                 product_id = product.get("id")
                 variants = []
                 try:
                     variants = api.get_variants(product_id)
+                    time.sleep(1)  # 1 second gap between variant fetches
                 except Exception:
                     # some products may not have variants or the call may fail
                     logger.debug(f"Could not load variants for {product_id}")
                 stock_cache[product_id] = {"product": product, "variants": variants}
-            logger.info(f"Stock cache updated for {len(products)} products. System stable.")
+            logger.info(
+                f"Stock cache updated for {len(product_list)} products. System stable."
+            )
         except Exception as e:
             logger.error(f"Error polling stock: {str(e)}", exc_info=True)
-        time.sleep(1800)  # Increased to 30 minutes to reduce CPU/RAM usage
+        time.sleep(3600)  # Polling once per hour is plenty for POD stock
+
+
+def log_owner_sample_from_order(product_name, quantity):
+    """Automatically queue an owner sample when a customer buys."""
+    try:
+        samples = load_json_file(OWNER_SAMPLES_PATH, [])
+        new_sample = {
+            "id": f"AUTO-{uuid.uuid4().hex[:6]}",
+            "product": f"OWNER COPY: {product_name}",
+            "quantity": int(quantity),
+            "desiredDate": (datetime.now(timezone.utc) + timedelta(days=7)).isoformat(),
+            "shippingUrgency": "Express (3-5 days)",
+            "notes": "Automatic sample triggered by customer purchase.",
+            "status": "pending",
+            "created_at": datetime.now(timezone.utc).isoformat(),
+        }
+        samples.append(new_sample)
+        save_json_file(OWNER_SAMPLES_PATH, samples)
+        logger.info(f"Owner sample auto-queued for {product_name}")
+    except Exception as e:
+        logger.error(f"Failed to auto-queue sample: {e}")
 
 
 def update_order_status(order_id, new_status):
@@ -360,6 +389,49 @@ def update_order_status(order_id, new_status):
             logger.info(
                 f"Order {order_id} status updated: {old_status} -> {new_status}"
             )
+
+
+def handle_printify_fulfillment(payment_intent):
+    """Trigger actual order creation in Printify after payment."""
+    if api is None:
+        logger.error("Printify API not initialized, cannot fulfill order")
+        return
+
+    metadata = payment_intent.get("metadata", {})
+    try:
+        # Extract shipping info from Stripe (Requires customer_info in PaymentIntent)
+        # This is a simplified version; in production, you'd map Stripe addresses
+        order_data = {
+            "external_id": payment_intent.get("id"),
+            "line_items": [
+                {
+                    "product_id": metadata.get("product_id"),
+                    "quantity": int(metadata.get("quantity", 1)),
+                    # Note: Printify usually requires variant_id for line items
+                    "variant_id": metadata.get("variant_id"),
+                }
+            ],
+            "shipping_method": 1,
+            "send_shipping_notification": True,
+            "address_to": {
+                "first_name": metadata.get("customer_name", "Valued"),
+                "last_name": "Customer",
+                "email": metadata.get("customer_email"),
+                "phone": "",
+                "country": "US",
+                "region": "",
+                "city": "",
+                "address1": "",
+                "zip": "",
+            },
+        }
+
+        result = api.create_order(order_data)
+        order_id = result.get("id")
+        update_order_status(order_id, "pending")
+        logger.info(f"Fulfillment automated: Printify order {order_id} created.")
+    except Exception as e:
+        logger.error(f"Failed to automate fulfillment: {e}")
 
 
 @app.before_request
@@ -516,6 +588,7 @@ def create_stripe_payment():
     """
     try:
         import stripe
+
         stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 
         data = request.get_json()
@@ -529,13 +602,17 @@ def create_stripe_payment():
         price_per_item = 2999  # $29.99 in cents
 
         try:
-            # Try to load product price from inventory
+            # Load product and apply 2.2x multiplier for ~55% profit margin
             import json
+
             with open("all_products_inventory.json", "r") as f:
                 inventory = json.load(f)
                 for product in inventory.get("products", []):
                     if str(product.get("id")) == str(product_id):
-                        price_per_item = int(float(product.get("price", 29.99)) * 100)
+                        # Cost from Printify * 2.2 (Targeting 40-70% range)
+                        price_per_item = int(
+                            float(product.get("price", 25.00)) * 2.2 * 100
+                        )
                         break
         except:
             # Fall back to default price
@@ -568,42 +645,41 @@ def create_stripe_payment():
                 "customer_email": customer_info.get("email", ""),
                 "promo_code": promo_code or "",
                 "original_amount": str(original_amount),
-                "discount_applied": str(discount_percent) + "%" if discount_percent > 0 else "0%"
-            }
+                "discount_applied": str(discount_percent) + "%"
+                if discount_percent > 0
+                else "0%",
+            },
         }
 
         intent = stripe.PaymentIntent.create(**payment_intent_params)
 
-        return jsonify({
-            "success": True,
-            "client_secret": intent.client_secret,
-            "payment_intent_id": intent.id,
-            "amount": amount,
-            "currency": "usd",
-            "promo_code": promo_code,
-            "discount_applied": f"{discount_percent}%" if discount_percent > 0 else "0%",
-            "original_price": f"${original_amount / 100:.2f}",
-            "final_price": f"${amount / 100:.2f}"
-        })
+        return jsonify(
+            {
+                "success": True,
+                "client_secret": intent.client_secret,
+                "payment_intent_id": intent.id,
+                "amount": amount,
+                "currency": "usd",
+                "promo_code": promo_code,
+                "discount_applied": f"{discount_percent}%"
+                if discount_percent > 0
+                else "0%",
+                "original_price": f"${original_amount / 100:.2f}",
+                "final_price": f"${amount / 100:.2f}",
+            }
+        )
 
     except stripe.error.CardError as e:
         logger.error(f"Card error: {e.user_message}")
-        return jsonify({
-            "success": False,
-            "error": e.user_message
-        }), 400
+        return jsonify({"success": False, "error": e.user_message}), 400
     except stripe.error.InvalidRequestError as e:
         logger.error(f"Invalid request: {str(e)}")
-        return jsonify({
-            "success": False,
-            "error": f"Invalid request: {str(e)}"
-        }), 400
+        return jsonify({"success": False, "error": f"Invalid request: {str(e)}"}), 400
     except Exception as e:
         logger.error(f"Stripe payment error: {str(e)}")
-        return jsonify({
-            "success": False,
-            "error": f"Payment processing error: {str(e)}"
-        }), 500
+        return jsonify(
+            {"success": False, "error": f"Payment processing error: {str(e)}"}
+        ), 500
 
 
 def create_mockups():
@@ -808,11 +884,12 @@ def ai_chat():
 
     try:
         logger.info(f"AI chat prompt received: {query[:80]}")
-        generated_text, _ = ai_service_manager.generate_text(query, model)
-        return jsonify({"response": generated_text})
+        # Lil-Mystic processes the request through Gemini
+        generated_text, _ = ai_service_manager.generate_text(query, "gemini-1.5-flash")
+        return jsonify({"response": generated_text, "result": generated_text})
     except Exception as exc:
         logger.error("AI chat generation failed", exc_info=exc)
-        fallback = f"[Local Seethrough] {query}"
+        fallback = f"Lil-Mystic is having a moment. Let's try that again, friend."
         return jsonify({"response": fallback})
 
 
@@ -844,16 +921,20 @@ def ai_upload_generate():
         return jsonify({"error": "Prompt is required for generation."}), 400
 
     reference_url = None
+    local_ref_path = None
     if source_image:
         try:
             filename = save_reference_image(source_image)
+            local_ref_path = os.path.join(AI_UPLOADS_DIR, filename)
             reference_url = url_for("ai_assets", filename=f"uploads/{filename}")
         except Exception as exc:
             logger.error(f"Unable to save reference image: {exc}", exc_info=True)
             return jsonify({"error": f"Reference image error: {exc}"}), 400
 
     try:
-        generated_result = ai_service_manager.generate_image(prompt, provider, model)
+        generated_result = ai_service_manager.generate_image(
+            prompt, provider, model, source_image_path=local_ref_path
+        )
         result_url, filepath = generated_result
         logger.info(f"Uploaded design generated for prompt: {prompt[:60]}...")
 
@@ -926,8 +1007,8 @@ def sync_products():
     try:
         # Handle both list and dict response formats from Printify
         raw_data = api.get_products()
-        products = raw_data.get('data', []) if isinstance(raw_data, dict) else raw_data
-        
+        products = raw_data.get("data", []) if isinstance(raw_data, dict) else raw_data
+
         inventory = {"products": []}
         for p in products:
             # Extract variants to find the price
@@ -937,9 +1018,9 @@ def sync_products():
                 "name": p.get("title") or p.get("name") or "Unknown Product",
                 "price": None,
                 "image": None,
-                "shop_id": p.get("shop_id")
+                "shop_id": p.get("shop_id"),
             }
-            
+
             if p_variants:
                 price = p_variants[0].get("price")
                 if isinstance(price, (int, float)):
@@ -949,9 +1030,9 @@ def sync_products():
                         entry["price"] = float(price) / 100.0
                     except Exception:
                         entry["price"] = None
-            
+
             inventory["products"].append(entry)
-            
+
         save_json_file("all_products_inventory.json", inventory)
         return jsonify({"success": True, "count": len(inventory["products"])})
     except Exception as e:
@@ -1005,13 +1086,11 @@ def upload_design_file():
             logger.info(f"File uploaded: {filename} to {filepath}")
             # Create URL for the uploaded file
             file_url = f"http://localhost:5000/uploads/{filename}"
-            # Upload to Printful
+            # Upload to Printify
             design_data = {"url": file_url, "filename": filename, "visible": True}
             result = api.upload_custom_design(design_data)
-            logger.info(f"Design uploaded to Printful: {result}")
-            return jsonify({"file_url": file_url, "printful_file": result})
-        logger.error("File upload failed unexpectedly")
-        return jsonify({"error": "File upload failed"}), 400
+            logger.info(f"Design uploaded to Printify: {result}")
+            return jsonify({"file_url": file_url, "printify_file": result})
     except Exception as e:
         logger.error(f"Error uploading design file: {str(e)}", exc_info=True)
         return jsonify({"error": str(e)}), 500
@@ -1104,50 +1183,40 @@ def get_fulfillment(order_id):
         return jsonify({"error": str(e)}), 500
 
 
+@app.route("/api/webhooks/stripe", methods=["POST"])
+def stripe_webhook():
+    """Handle Stripe webhook for successful payments."""
+    import stripe
+
+    payload = request.get_data()
+    sig_header = request.headers.get("Stripe-Signature")
+    endpoint_secret = os.getenv("STRIPE_WEBHOOK_SECRET")
+
+    try:
+        event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
+    except Exception as e:
+        logger.error(f"Webhook signature verification failed: {e}")
+        return jsonify({"error": str(e)}), 400
+
+    if event["type"] == "payment_intent.succeeded":
+        payment_intent = event["data"]["object"]
+        logger.info(f"Payment Succeeded: {payment_intent['id']}")
+
+        # Extract metadata for fulfillment and samples
+        prod_name = payment_intent.get("metadata", {}).get(
+            "product_name", "Unknown Product"
+        )
+        qty = payment_intent.get("metadata", {}).get("quantity", 1)
+
+        log_owner_sample_from_order(prod_name, qty)
+        # handle_printify_fulfillment(payment_intent) # Trigger actual Printify order
+
+    return jsonify({"success": True}), 200
+
+
 @app.route("/api/webhooks/printful", methods=["POST"])
 def printful_webhook():
-    """Handle Printful webhook for order status updates."""
-    try:
-        data = request.get_json()
-        if not data:
-            logger.warning("Webhook received with no data")
-            return jsonify({"error": "No data"}), 400
-
-        logger.info(f"Received webhook: {data.get('type')}")
-
-        # Verify webhook signature if secret is provided
-        webhook_secret = os.getenv("PRINTFUL_WEBHOOK_SECRET")
-        if webhook_secret:
-            signature = request.headers.get("X-PF-Signature")
-            if not signature:
-                logger.error("Webhook missing signature")
-                return jsonify({"error": "Missing signature"}), 401
-
-            payload = request.get_data()
-            expected_signature = hmac.new(
-                webhook_secret.encode(), payload, hashlib.sha256
-            ).hexdigest()
-
-            if not hmac.compare_digest(signature, expected_signature):
-                logger.error("Webhook invalid signature")
-                return jsonify({"error": "Invalid signature"}), 401
-
-        # Process webhook event
-        event_type = data.get("type")
-        if event_type == "order_updated":
-            order_id = data.get("data", {}).get("order", {}).get("id")
-            new_status = data.get("data", {}).get("order", {}).get("status")
-
-            if order_id and new_status:
-                update_order_status(order_id, new_status)
-                logger.info(f"Processed order update: {order_id} to {new_status}")
-            else:
-                logger.warning("Webhook order_updated missing order_id or status")
-
-        return jsonify({"status": "ok"}), 200
-    except Exception as e:
-        logger.error(f"Error processing webhook: {str(e)}", exc_info=True)
-        return jsonify({"error": "Internal server error"}), 500
+    return jsonify({"message": "Deprecated - Moved to Printify"}), 410
 
 
 @app.route("/api/order-status-history/<order_id>", methods=["GET"])
@@ -1350,12 +1419,12 @@ def honeypot_config():
 
 @app.route("/")
 def customer_index():
-    return send_from_directory("../web_assets", "index.html")
+    return send_from_directory(STATIC_DIR, "index.html")
 
 
 @app.route("/<path:filename>")
 def customer_files(filename):
-    return send_from_directory("../web_assets", filename)
+    return send_from_directory(STATIC_DIR, filename)
 
 
 @app.route("/workshop/")
@@ -1392,4 +1461,5 @@ if __name__ == "__main__":
     # Start background thread for stock polling
     stock_thread = threading.Thread(target=poll_stock, daemon=True)
     stock_thread.start()
-    app.run(host="127.0.0.1", port=5001, debug=False, use_reloader=False)
+    port = int(os.environ.get("PORT", 5001))
+    app.run(host="0.0.0.0", port=port, debug=False, use_reloader=False)

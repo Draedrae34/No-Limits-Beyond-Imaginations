@@ -1,12 +1,18 @@
 {
-  "version": 2,
-  "builds": [
-    { "src": "api/*.js", "use": "@vercel/node" },
-    { "src": "**/*", "use": "@vercel/static" }
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index.py" },
+    { "source": "/workshop/(.*)", "destination": "/private.html" }
   ],
+  "functions": {
+    "api/*.py": {
+      "runtime": "vercel-python@0.0.0"
+    }
+  },
   "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/workshop", "dest": "/jarvis-workshop.html" },
-    { "src": "/shop", "dest": "/shop.html" }
+    {
+      "src": "/(.*)",
+      "headers": { "cache-control": "no-cache" },
+      "dest": "/$1"
+    }
   ]
 }

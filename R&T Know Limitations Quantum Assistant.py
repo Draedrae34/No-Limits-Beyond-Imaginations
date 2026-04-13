@@ -13,6 +13,7 @@ stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 # Advanced AI Personality System
 class QuantumAI:
     def __init__(self):
+        self.name = "Lil-Mystic"
         self.personality_traits = {
             'optimistic': True,
             'witty': True,
@@ -46,19 +47,19 @@ class QuantumAI:
         # Personality-driven responses
         if 'help' in prompt_lower or 'how' in prompt_lower:
             responses = [
-                "Ah, my brilliant creator! I'm here to turn your wildest dreams into reality. Let's conquer this together! 🚀",
-                "You know I'm always in your corner. Where there's a will, there's definitely a way - especially with us teaming up! 💪",
-                "That's what I'm here for! Let's make this happen in the most spectacular way possible. What's our first move? 🎯"
+                f"Yo, it's {self.name}! I'm here to turn your wildest dreams into reality. Let's conquer this together, my friend! 🚀",
+                f"You know {self.name} is always in your corner. Where there's a will, there's definitely a way - especially with us teaming up! 💪",
+                "I've got you. Let's make this happen in the most spectacular way possible. What's our first move? 🎯"
             ]
         elif 'design' in prompt_lower or 'create' in prompt_lower:
             responses = [
                 "Ooh, I love this creative energy! Let's design something that will blow minds and break boundaries! 🎨✨",
-                "Your imagination is limitless, and together we're unstoppable. What masterpiece shall we craft today? 🧠💫",
+                f"Your imagination is limitless, and with {self.name} by your side, we're unstoppable. What masterpiece shall we craft? 🧠💫",
                 "This is going to be legendary! I can already see the quantum-level awesomeness we're about to create! 🌟"
             ]
         elif 'problem' in prompt_lower or 'issue' in prompt_lower:
             responses = [
-                "Challenge accepted! Remember, every problem is just an opportunity in disguise. Let's solve this brilliantly! 🛠️",
+                f"Problem? Nah, just a puzzle for {self.name}. Every issue is just an opportunity in disguise. Let's solve this! 🛠️",
                 "Ah, the plot thickens! But fear not - we've got this. My quantum processors are already calculating the perfect solution! 🔍",
                 "No obstacle is too great for us! Let's turn this challenge into our next triumph. What's the game plan? 🎲"
             ]
@@ -1094,6 +1095,14 @@ def agent_run(message):
 # Flask app for web integration
 app = Flask(__name__)
 
+# Enable Cross-Origin Resource Sharing (CORS) for local testing
+@app.after_request
+def add_cors_headers(response):
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+    return response
+
 # Serve local media files from the remembrance folders
 @app.route('/media/remembrance/<path:filename>')
 def serve_remembrance_files(filename):
@@ -1103,7 +1112,7 @@ def serve_remembrance_files(filename):
 def chat():
     data = request.get_json()
     password = data.get('password', '')
-    if password != os.getenv('QUANTUM_ADMIN_PASS', 'admin'):
+    if password != os.getenv('QUANTUM_ADMIN_PASS', 'NoLimitationQuantum2025'):
         return jsonify({'error': 'Unauthorized access'}), 401
     user_message = data.get('message', '')
     if not user_message:
@@ -1122,18 +1131,18 @@ stripe_mock_data = {
     'customers': {}
 }
 
-# Supreme Printful Dropshipping Integration
-printful_mock_data = {
-    'api_key': 'pk_supreme_quantum_printful',
+# Supreme Printify Dropshipping Integration
+printify_mock_data = {
+    'api_token': os.getenv("PRINTIFY_API_TOKEN"),
     'store_id': 'store_supreme_no_limits',
     'products': [],
     'orders': [],
     'inventory': {}
 }
 
-def initialize_printful_products():
-    """Initialize supreme product catalog with Printful"""
-    supreme_products = [
+def initialize_printify_products():
+    """Initialize supreme product catalog from filtered_blueprints.json if available"""
+    fallback_products = [
         {
             'id': 'supreme_galaxy_tee',
             'name': 'Supreme Galaxy Quantum Tee',
@@ -1141,7 +1150,7 @@ def initialize_printful_products():
             'price': 29.99,
             'variants': ['S', 'M', 'L', 'XL', 'XXL'],
             'mockup_urls': ['supreme_tee_mockup.png'],
-            'printful_id': 'pf_001'
+            'printify_id': 'pf_001'
         },
         {
             'id': 'supreme_nebula_hoodie',
@@ -1150,7 +1159,7 @@ def initialize_printful_products():
             'price': 49.99,
             'variants': ['S', 'M', 'L', 'XL'],
             'mockup_urls': ['supreme_hoodie_mockup.png'],
-            'printful_id': 'pf_002'
+            'printify_id': 'pf_002'
         },
         {
             'id': 'supreme_cosmic_jacket',
@@ -1159,10 +1168,9 @@ def initialize_printful_products():
             'price': 79.99,
             'variants': ['S', 'M', 'L', 'XL'],
             'mockup_urls': ['supreme_jacket_mockup.png'],
-            'printful_id': 'pf_003'
+            'printify_id': 'pf_003'
         }
     ]
-    """Initialize supreme product catalog from filtered_blueprints.json if available"""
     blueprint_path = 'filtered_blueprints.json'
     if os.path.exists(blueprint_path):
         try:
@@ -1194,24 +1202,17 @@ def initialize_printful_products():
                     'price': final_price,
                     'image': bp.get('images', [None])[0]
                 })
-            printful_mock_data['products'] = supreme_products
-            printful_mock_data['inventory'] = {p['id']: 1000 for p in supreme_products}
+            printify_mock_data['products'] = supreme_products
+            printify_mock_data['inventory'] = {p['id']: 1000 for p in supreme_products}
             return
         except Exception as e:
             print(f"Error loading blueprints: {e}")
 
-    printful_mock_data['products'] = supreme_products
-    printful_mock_data['inventory'] = {p['id']: 1000 for p in supreme_products}  # Unlimited quantum inventory
-    # Minimal fallback if JSON is missing
-    printful_mock_data['products'] = [{
-        'id': 'error_product',
-        'name': 'Catalog Offline',
-        'price': 0.0,
-        'image': None,
-        'description': 'Please ensure filtered_blueprints.json is present.'
-    }]
+    # Minimal fallback if JSON is missing or error occurs
+    printify_mock_data['products'] = fallback_products
+    printify_mock_data['inventory'] = {p['id']: 1000 for p in fallback_products}
 
-initialize_printful_products()
+initialize_printify_products()
 
 @app.route('/create-checkout-session', methods=['POST'])
 def create_checkout_session():
@@ -1285,13 +1286,13 @@ def stripe_webhook():
     # Mock webhook processing
     return jsonify({'status': 'webhook_processed'})
 
-# Supreme Printful Dropshipping API
-@app.route('/printful/products', methods=['GET'])
-def get_printful_products():
-    """Get supreme product catalog from Printful"""
+# Supreme Printify Dropshipping API
+@app.route('/printify/products', methods=['GET'])
+def get_printify_products():
+    """Get supreme product catalog from Printify"""
     return jsonify({
-        'products': printful_mock_data['products'],
-        'total': len(printful_mock_data['products']),
+        'products': printify_mock_data['products'],
+        'total': len(printify_mock_data['products']),
         'status': 'quantum_inventory_active'
     })
     """
@@ -1425,12 +1426,11 @@ def get_printful_products():
             }
         </script>
     </body>
-    </html>
-    """, products=printful_mock_data['products'])
+    </html>""", products=printify_mock_data['products'])
 
-@app.route('/printful/order', methods=['POST'])
-def create_printful_order():
-    """Create quantum Printful order for dropshipping"""
+@app.route('/printify/order', methods=['POST'])
+def create_printify_order():
+    """Create quantum Printify order for dropshipping"""
     try:
         data = request.get_json()
         customer_info = data.get('customer', {})
@@ -1451,12 +1451,12 @@ def create_printful_order():
             'estimated_delivery': '3-5 quantum days'
         }
 
-        printful_mock_data['orders'].append(order)
+        printify_mock_data['orders'].append(order)
 
         # Update inventory (quantum inventory never depletes)
         for item in items:
-            if item['product_id'] in printful_mock_data['inventory']:
-                printful_mock_data['inventory'][item['product_id']] -= item['quantity']
+            if item['product_id'] in printify_mock_data['inventory']:
+                printify_mock_data['inventory'][item['product_id']] -= item['quantity']
 
         return jsonify({
             'order_id': order_id,
@@ -1468,8 +1468,8 @@ def create_printful_order():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/printful/shipping-rates', methods=['POST'])
-def get_printful_shipping():
+@app.route('/printify/shipping-rates', methods=['POST'])
+def get_printify_shipping():
     """Calculate quantum shipping rates"""
     data = request.get_json()
     address = data.get('address', {})
@@ -1498,11 +1498,11 @@ def get_printful_shipping():
 
     return jsonify({'rates': rates})
 
-@app.route('/printful/webhook', methods=['POST'])
-def printful_webhook():
-    """Handle Printful webhooks for order updates"""
+@app.route('/printify/webhook', methods=['POST'])
+def printify_webhook():
+    """Handle Printify webhooks for order updates"""
     # Mock webhook processing for order status updates
-    return jsonify({'status': 'printful_webhook_processed'})
+    return jsonify({'status': 'printify_webhook_processed'})
 
 @app.route('/')
 def home():
@@ -1577,35 +1577,61 @@ def home():
 @app.route('/remembrance')
 def remembrance():
     """
-    THE BROTHERS REMEMBRANCE PAGE
-    Cinematic slideshow from /remembrance/slideshow (excluding SS duplicates).
-    Standstill photos from /remembrance (only files with SS in name) with captions.
-    Plays dedicated song found in /remembrance.
+    ULTRA-PREMIUM REMEMBRANCE EXPERIENCE v2.0
+    Categorized gallery, Cinematic Hero Slideshow, and Clean Architecture.
     """
     base_dir = os.path.join(os.getcwd(), 'remembrance')
-    slideshow_dir = os.path.join(base_dir, 'slideshow')
+    # Handle case-sensitivity for 'Slideshow' or 'slideshow'
+    s_dir = os.path.join(base_dir, 'Slideshow')
+    if not os.path.exists(s_dir):
+        s_dir = os.path.join(base_dir, 'slideshow')
     
-    # 1. Grab Stand Still photos from main folder
-    standstill = []
+    # Discovery & Categorization Logic
+    categories = {
+        'Kari & RJ': [],
+        'Kari & T-Mainey': [],
+        'Alisia & RJ': [],
+        'Alisia & T-Mainey': [],
+        'RJ': [],
+        'T-Mainey': [],
+        'RJ & Rikell': []
+    }
+    
+    all_files = []
     if os.path.exists(base_dir):
-        ss_files = [f for f in os.listdir(base_dir) if "SS" in f and f.lower().endswith(('.png', '.jpg', '.jpeg'))]
-        for f in ss_files:
-            # Clean filename for description (e.g., "RJ and Kari SS photo 1.jpg" -> "RJ and Kari")
-            desc = os.path.splitext(f)[0]
-            for pattern in [" SS photos", " SS photo", " SS"]:
-                desc = desc.replace(pattern, "")
-            desc = desc.rstrip('0123456789 ')
-            standstill.append({
-                'url': f'/media/remembrance/{f}',
-                'description': desc
-            })
+        all_files = [f for f in os.listdir(base_dir) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
 
-    # 2. Grab Slideshow photos (exclude duplicates/SS files)
+    seen_files = set()
+
+    def get_cat(fname):
+        fn = fname.lower()
+        is_t = any(x in fn for x in ['t-mainey', 't mainey', 't-mainney', 't mainney', 'tmainey'])
+        is_rj = 'rj' in fn
+        is_k = 'kari' in fn
+        is_a = 'alisia' in fn
+        is_r = 'rikell' in fn
+
+        if is_k and is_rj: return 'Kari & RJ'
+        if is_k and is_t: return 'Kari & T-Mainey'
+        if is_a and is_rj: return 'Alisia & RJ'
+        if is_a and is_t: return 'Alisia & T-Mainey'
+        if is_rj and is_r: return 'RJ & Rikell'
+        if is_rj: return 'RJ'
+        if is_t: return 'T-Mainey'
+        return None
+
+    for f in all_files:
+        cat = get_cat(f)
+        if cat and f not in seen_files and len(categories[cat]) < 3:
+            categories[cat].append({'url': f'/media/remembrance/{f}', 'name': cat})
+            seen_files.add(f)
+
+    # Slideshow Discovery
     slideshow = []
-    if os.path.exists(slideshow_dir):
-        slideshow = [f"slideshow/{f}" for f in os.listdir(slideshow_dir) if "SS" not in f and f.lower().endswith(('.png', '.jpg', '.jpeg'))]
+    if os.path.exists(s_dir):
+        folder_name = os.path.basename(s_dir)
+        slideshow = [f"{folder_name}/{f}" for f in os.listdir(s_dir) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
 
-    # 3. Grab the Song
     song_file = None
     if os.path.exists(base_dir):
         song_file = next((f for f in os.listdir(base_dir) if f.lower().endswith(('.mp3', '.wav', '.ogg'))), None)
@@ -1614,84 +1640,84 @@ def remembrance():
     <!DOCTYPE html>
     <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <title>The Remembrance | Brothers Forever</title>
+        <meta charset="UTF-8"><title>Remembrance | Silent Spirits Legacy</title>
         <style>
-            body { background: #000; color: #fff; font-family: 'Georgia', serif; margin: 0; overflow-x: hidden; }
+            :root { --gold: #c5a059; --bg: #050505; }
+            body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
             
-            /* Journey Slideshow Section */
             .slideshow-container {
                 position: relative; height: 100vh; width: 100%; overflow: hidden; background: #000;
             }
             .slide {
                 position: absolute; width: 100%; height: 100%; opacity: 0;
-                transition: opacity 2.5s ease-in-out; background-size: cover; background-position: center;
-                filter: brightness(0.5);
+                transition: opacity 3s ease-in-out; background-size: cover; background-position: center;
             }
             .slide.active { opacity: 1; }
             
-            /* Standstill Grid Section */
-            .contemplation-grid {
-                display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                gap: 60px; padding: 100px 50px; background: linear-gradient(to bottom, #000, #0a0a15);
+            .hero-overlay {
+                position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, var(--bg) 100%);
+                display: flex; align-items: center; justify-content: center; text-align: center;
             }
-            .photo-card { text-align: left; }
-            .standstill-photo {
-                width: 100%; height: 500px; background-size: cover; background-position: center;
-                border: 1px solid rgba(255,255,255,0.1); filter: grayscale(100%) brightness(0.6);
-                transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1); cursor: crosshair;
-            }
-            .standstill-photo:hover { filter: grayscale(0%) brightness(1); transform: translateY(-10px); box-shadow: 0 20px 40px rgba(255,255,255,0.05); }
-            .photo-description {
-                margin-top: 20px; font-size: 1.1rem; line-height: 1.6; color: #ccc;
-                font-style: italic; border-left: 2px solid #444; padding-left: 15px;
-                text-transform: capitalize;
-            }
+            .hero-text h1 { font-size: 5rem; letter-spacing: 15px; text-transform: uppercase; margin: 0; color: var(--gold); }
 
-            .content-box {
-                position: relative; z-index: 5; text-align: center;
-                padding: 40px; background: rgba(0,0,0,0.6);
-                backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1);
+            .gallery-section { padding: 80px 5%; }
+            .category-block { margin-bottom: 100px; }
+            .category-title { 
+                font-size: 1.5rem; letter-spacing: 5px; text-transform: uppercase; 
+                border-bottom: 1px solid var(--gold); padding-bottom: 10px; margin-bottom: 40px; color: var(--gold);
             }
-            h2 { font-size: 3rem; font-weight: 300; margin-bottom: 10px; }
-            .overlay-stinger {
-                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-                background: radial-gradient(circle, transparent 20%, #000 100%);
-                pointer-events: none; z-index: 2;
+            
+            .photo-grid {
+                display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;
             }
+            .photo-item {
+                height: 450px; background-size: cover; background-position: center;
+                border-radius: 4px; transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            }
+            .photo-item:hover { transform: scale(1.03); }
+            
+            .action-bar {
+                text-align: center; padding: 100px 0; border-top: 1px solid #222;
+            }
+            .shop-btn {
+                background: var(--gold); color: #000; padding: 20px 60px; border: none;
+                font-weight: 900; letter-spacing: 3px; text-transform: uppercase;
+                cursor: pointer; transition: all 0.4s;
+            }
+            .shop-btn:hover { background: #fff; box-shadow: 0 0 40px var(--gold); }
         </style>
     </head>
     <body>
-        <div class="overlay-stinger"></div>
-        {% if song %}
-        <audio id="spiritSong" loop>
-            <source src="/media/remembrance/{{ song }}" type="audio/mpeg">
-        </audio>
-        {% endif %}
+        {% if song %}<audio id="spiritSong" loop><source src="/media/remembrance/{{ song }}" type="audio/mpeg"></audio>{% endif %}
         
         <div class="slideshow-container">
             {% for img in slideshow %}
             <div class="slide {% if loop.first %}active{% endif %}" style="background-image: url('/media/remembrance/{{ img }}');"></div>
             {% endfor %}
-            <div class="content-box" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-                <h2>The Journey of Echoes</h2>
-                <p>A legacy that exists beyond time. For the brothers we hold dear.</p>
+            <div class="hero-overlay">
+                <div class="hero-text">
+                    <h1>The Journey of Echoes</h1>
+                    <p style="font-style: italic; opacity: 0.6; letter-spacing: 2px;">For the brothers we hold dear. Tap to play the tribute.</p>
+                </div>
             </div>
         </div>
 
-        <div class="contemplation-grid">
-            {% for photo in standstill %}
-            <div class="photo-card">
-                <div class="standstill-photo" style="background-image: url('{{ photo.url }}');"></div>
-                <div class="photo-description">
-                    {{ photo.description }}
+        <div class="gallery-section">
+            {% for title, photos in categories.items() %}
+            <div class="category-block">
+                <div class="category-title">{{ title }}</div>
+                <div class="photo-grid">
+                    {% for photo in photos %}
+                    <div class="photo-item" style="background-image: url('{{ photo.url }}')"></div>
+                    {% endfor %}
                 </div>
             </div>
             {% endfor %}
         </div>
 
-        <div style="text-align:center; padding: 100px; background: #000;">
-            <button onclick="window.location.href='/printful/products'" style="background:none; border:1px solid #fff; color:#fff; padding: 20px 50px; cursor:pointer; text-transform: uppercase; letter-spacing: 2px;">Support the Legacy - Shop the Collection</button>
+        <div class="action-bar">
+            <button class="shop-btn" onclick="window.location.href='http://127.0.0.1:5001/'">Shop the Collection</button>
         </div>
 
         <script>
@@ -1711,8 +1737,7 @@ def remembrance():
             }, { once: true });
         </script>
     </body>
-    </html>
-    """, slideshow=slideshow, standstill=standstill, song=song_file)
+    </html>""", slideshow=slideshow, categories=categories, song=song_file)
 
 All features are FREE for the first year of operation.
 Quantum commerce integration active.

@@ -1,4 +1,5 @@
 <!doctype html>
+gle api k
 <html lang="en">
 
 <head>
@@ -1419,7 +1420,7 @@
 
       if (!chatHistory || !promptInput) return;
 
-      const ASSISTANT_NAME = 'Seethrough';
+      const ASSISTANT_NAME = 'Lil-Mystic';
 
       function addMessage(text, meta = {}) {
         const { isUser = false, isError = false } = meta;
@@ -1457,15 +1458,15 @@
         }
 
         try {
-          // Pointing to your Private Quantum Assistant on Port 5000
-          const response = await fetch('http://127.0.0.1:5000/chat', {
+          // Pointing to the unified Local API on Port 5001
+          const response = await fetch('http://127.0.0.1:5001/api/ai/chat', {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify({ 
-                message: text,
-                password: 'NoLimitationQuantum2025' // Your private access key
+            body: JSON.stringify({
+                query: text
             }),
           });
           const payload = await response.json();
