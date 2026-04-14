@@ -1,76 +1,45 @@
 # Webhook Setup Guide
 
-## 🔷 STRIPE WEBHOOK SETUP
+## 🚀 LOCAL TESTING (Heavy Lifting)
 
-### Step 1: Go to Stripe Dashboard
-1. Open browser and go to: https://dashboard.stripe.com/webhooks
-2. Login with your Stripe account
-3. Click **"+ Add endpoint"**
-
-### Step 2: Add Webhook Endpoint
-1. **Endpoint URL**: Copy and paste this exact URL:
-```
-https://spiffy-sable-cca254.netlify.app/.netlify/functions/stripe-webhook
-```
-
-2. **Select events to listen to**: Check these 3 events:
-   - ✅ `checkout.session.completed` (most important!)
-   - ✅ `payment_intent.payment_failed`
-   - ✅ `charge.refunded`
-
-3. Click **"Add endpoint"** (blue button at bottom)
-
-### Step 3: Get Your Webhook Secret
-1. After creating the webhook, scroll down to "Signing secret"
-2. Click to reveal: `whsec_...` (starts with whsec_)
-3. **Copy this entire secret** (you'll need it for the next step)
-
-### Step 4: Add Secret to Netlify
-Run this command in terminal:
-```bash
-cd /home/aundrae/Documents/Owner_Workshop/AI_v0
-npx netlify env:set STRIPE_WEBHOOK_SECRET "whsec_YOUR_SECRET_HERE"
-```
-
-Replace `whsec_YOUR_SECRET_HERE` with the actual secret you copied!
+### Step 1: Start ngrok
+Since Windows doesn't recognize the command yet, do exactly this:
+1. Open the folder where you downloaded `ngrok.exe`.
+2. Click the **Address Bar** at the top of the folder window, type `cmd`, and press **Enter**.
+3. In the black window, type: `ngrok http 5000`
+4. Look for the **Forwarding** line. It looks like `https://a1b2-c3d4.ngrok-free.app`. **Copy that URL.**
 
 ---
 
-## 🔶 PRINTFUL WEBHOOK SETUP
+## 🔷 STRIPE DASHBOARD SETUP
 
-### Step 1: Go to Printful Dashboard
-1. Open browser and go to: https://www.printful.com/dashboard/store/api
-2. Login with your Printful account
-3. Scroll down to **"Webhooks"** section
+1. Go to: Stripe Webhooks
+2. Click **"+ Add endpoint"**
+3. **Endpoint URL**: Paste your ngrok URL and add `/stripe-webhook` to the end.
+   * Example: `https://a1b2-c3d4.ngrok-free.app/stripe-webhook`
+4. **Select events**:
+   - `checkout.session.completed`
+5. Click **"Add endpoint"**.
+6. Click **"Reveal"** under **Signing secret**.
+7. Copy the `whsec_...` key and paste it into your `.env` file as `STRIPE_WEBHOOK_SECRET`.
 
-### Step 2: Add Webhook
-1. Click **"Add webhook"** or **"Create webhook"**
-2. **Webhook URL**: Copy and paste this exact URL:
-```
-https://spiffy-sable-cca254.netlify.app/.netlify/functions/printful-webhook
-```
+---
 
-3. Select events to receive (you can select all):
-   - Order created
-   - Order approved
-   - Order fulfilled
-   - Order cancelled
-   - etc.
+## 🔶 PRINTIFY API SETUP
 
-4. Click **"Save"** or **"Create"**
+Your code handles the Printify "Heavy Lifting" automatically once these are in your `.env` file:
+1. **PRINTIFY_API_TOKEN**: Get this from Printify Settings > API.
+2. **PRINTIFY_SHOP_ID**: When you are on your Printify dashboard, the number in the URL (e.g., `printify.com/app/store/1234567`) is your ID.
 
-### Step 3: Get Your Webhook Secret
-1. After creating, look for "Secret key" or "Webhook secret"
-2. Copy the secret key
+---
 
-### Step 4: Add Secret to Netlify
-Run this command in terminal:
-```bash
-cd /home/aundrae/Documents/Owner_Workshop/AI_v0
-npx netlify env:set PRINTFUL_WEBHOOK_SECRET "YOUR_PRINTFUL_SECRET_HERE"
-```
+## 🛠️ TROUBLESHOOTING NGROK
 
-Replace `YOUR_PRINTFUL_SECRET_HERE` with the actual secret!
+### "ngrok is not recognized..."
+If you see this error in Windows, it means the terminal can't find the `ngrok.exe` file.
+1. **Navigate to the folder** where `ngrok.exe` is located.
+2. Click the **Address Bar** in File Explorer, type `cmd`, and hit Enter.
+3. Run the command as: `ngrok http 5000` (or `.\ngrok http 5000`).
 
 ---
 
