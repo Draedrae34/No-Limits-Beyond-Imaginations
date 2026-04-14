@@ -2,7 +2,7 @@
 
 ## 🚀 CONNECT YOUR ACTUAL BUSINESS DATA
 
-Your JARVIS workshop is now ready to connect to your **REAL** Stripe, Printful, and Google Analytics data!
+Your JARVIS workshop is now ready to connect to your **REAL** Stripe, Printify, and Google Analytics data on Vercel!
 
 ---
 
@@ -29,7 +29,7 @@ STRIPE_SECRET_KEY=sk_live_...your_stripe_secret_key
 
 ---
 
-## 🛍️ **STEP 2: PRINTFUL INTEGRATION**
+## 🛍️ **STEP 2: PRINTIFY INTEGRATION**
 
 ### **Add to Vercel Environment Variables:**
 ```

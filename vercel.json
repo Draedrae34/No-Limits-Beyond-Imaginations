@@ -1,18 +1,14 @@
 {
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/index.py" },
-    { "source": "/workshop/(.*)", "destination": "/private.html" }
-  ],
-  "functions": {
-    "api/*.py": {
-      "runtime": "vercel-python@0.0.0"
+  "builds": [
+    {
+      "src": "quantum_assistant.py",
+      "use": "@vercel/python"
     }
-  },
+  ],
   "routes": [
     {
       "src": "/(.*)",
-      "headers": { "cache-control": "no-cache" },
-      "dest": "/$1"
+      "dest": "quantum_assistant.py"
     }
   ]
 }

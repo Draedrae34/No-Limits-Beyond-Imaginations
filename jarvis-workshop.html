@@ -881,10 +881,7 @@
                     
                     return {
                         sales: data.sales || {},
-                        traffic: data.traffic || {},
-                        printful: data.printful || {},
-                        conversionRate: data.traffic?.totalVisitors > 0 ? 
-                            ((data.sales?.totalOrders || 0) / data.traffic.totalVisitors * 100).toFixed(1) : 0
+                        traffic: data.traffic || {}
                     };
                 } catch (error) {
                     return {};
@@ -914,7 +911,7 @@
                     const data = response.ok ? await response.json() : null;
                     
                     if (data) {
-                        this.updateRealMetrics(data.sales, data.printful, data.traffic);
+                        this.updateRealMetrics(data.sales, data.traffic);
                     } else {
                         this.updateWithFallbackData();
                     }
@@ -924,7 +921,7 @@
                 }
             }
 
-            updateRealMetrics(salesData, printfulData, gaData) {
+updateRealMetrics(salesData, trafficData) {
                 // Update with real Stripe data
                 const sales = document.getElementById('totalSales');
                 const totalRevenue = salesData.totalRevenue || 0;
@@ -932,20 +929,17 @@
                 
                 // Update with real Google Analytics data
                 const visitors = document.getElementById('totalVisitors');
-                const totalVisitors = gaData.totalVisitors || 0;
+                const totalVisitors = trafficData.totalVisitors || 0;
                 visitors.textContent = totalVisitors.toLocaleString();
                 
                 const activeUsers = document.getElementById('activeUsers');
-                const activeNow = gaData.activeUsers || 0;
-                activeUsers.textContent = activeNow;
+                const activeNow = trafficData.activeUsers || 0;
+                activeNow.textContent = activeNow.toLocaleString();
                 
-                // Update conversion rate
                 const conversionRate = document.getElementById('conversionRate');
-                const rate = totalVisitors > 0 ? ((salesData.totalOrders || 0) / totalVisitors * 100).toFixed(1) : 0;
+                const rate = trafficData.totalVisitors > 0 ? 
+                    ((salesData.totalOrders || 0) / trafficData.totalVisitors * 100).toFixed(1) : 0;
                 conversionRate.textContent = rate + '%';
-                
-                // Update trend indicators
-                this.updateTrendIndicators(salesData, gaData);
             }
 
             updateWithFallbackData() {

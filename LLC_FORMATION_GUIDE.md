@@ -153,7 +153,7 @@ No Limits Beyond Limitations LLC
 - Business: E-commerce custom printed apparel
 - Target Market: Customers seeking personalized, memorial-themed clothing
 - Revenue Model: Direct sales via website with Stripe payments
-- Fulfillment: Print-on-demand via Printful
+- Fulfillment: Print-on-demand via Printify
 
 2. COMPANY DESCRIPTION
 - Legal Structure: LLC
@@ -184,7 +184,7 @@ No Limits Beyond Limitations LLC
 - Generated revenue covers operations
 
 7. OPERATIONS
-- Order Processing: Automated via Stripe/Printful
+- Order Processing: Automated via Stripe/Printify
 - Customer Support: Email/Chat
 - Fulfillment: 3-5 day average
 - Inventory: Print-on-demand (no physical inventory)
