@@ -1,5 +1,5 @@
 import os, re
-excluded_dirs = ['node_modules', '.git', 'photos', 'My_story_Page', 'Clothing_Product', 'hoodies', 'netlify/node_modules_dist']
+excluded_dirs = ['node_modules', '.git', 'photos', 'My_story_Page', 'Clothing_Product', 'hoodies', 'node_modules_dist']
 excluded_files = ['count_todo.py', 'list_todo.py', 'find_todo.py', 'real_todo.py', 'plans/post_deployment_analysis.md']
 count = 0
 for root, dirs, files in os.walk('.'):

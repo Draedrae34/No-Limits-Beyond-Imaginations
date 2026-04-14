@@ -168,7 +168,9 @@ def main():
         "Logo/NLBL_Logo.png",
         "Logo/logo.png",
         "logo.png",
-        "NLBL_Logo.png"
+        "NLBL_Logo.png",
+        "Logo_N_Galaxy_Fill_Space/No_Limits_Logo.png",
+        "Logo_N_Galaxy_Fill_Space/No_Limits_Logo_2.png",
     ]
 
     logo_path = None
@@ -177,6 +179,18 @@ def main():
             logo_path = path
             print(f"Found logo: {path}")
             break
+
+    if not logo_path and os.path.exists("Logo_N_Galaxy_Fill_Space"):
+        folder_matches = sorted(
+            [
+                os.path.join("Logo_N_Galaxy_Fill_Space", name)
+                for name in os.listdir("Logo_N_Galaxy_Fill_Space")
+                if name.lower().endswith((".png", ".jpg", ".jpeg", ".webp"))
+            ]
+        )
+        if folder_matches:
+            logo_path = folder_matches[0]
+            print(f"Found logo asset in folder: {logo_path}")
 
     # Generate all designs
     designs = generator.generate_all_designs(logo_path=logo_path)

@@ -1,397 +1,369 @@
 {
-  "source": "NLBL Galaxy Collection",
-  "total_products": 28,
+  "source": "NLBL Logo + Galaxy Collection",
+  "total_products": 26,
   "products": [
     {
-      "id": "nlbl_5_1",
-      "name": "NLBL Cosmic Nebula Small",
-      "category": "shirts",
+      "id": "nlbl-0001-big-bang",
+      "name": "NLBL Big Bang",
+      "category": "T-Shirts",
       "price": 24.99,
-      "image": "galaxy_designs/cosmic_nebula.png",
-      "description": "NLBL Legacy Collection - Cosmic Nebula design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "C:\\Users\\drizzy\\OneDrive\\Silent-Spirits-Legacy\\Logo_N_Galaxy_Fill_Space\\big-bang.png",
+      "description": "NLBL Big Bang from the No Limits Beyond Limitations logo-and-galaxy collection.",
       "tags": [
         "NLBL",
         "Galaxy",
-        "Cosmic",
-        "CosmicNebula"
+        "Logo",
+        "Big Bang"
       ]
     },
     {
-      "id": "nlbl_5_2",
-      "name": "NLBL Stellar Dust Medium",
-      "category": "shirts",
+      "id": "nlbl-0002-black-hole-memorial-aop",
+      "name": "NLBL Black Hole Memorial Aop",
+      "category": "T-Shirts",
       "price": 24.99,
-      "image": "galaxy_designs/stellar_dust.png",
-      "description": "NLBL Legacy Collection - Stellar Dust design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "C:\\Users\\drizzy\\OneDrive\\Silent-Spirits-Legacy\\Logo_N_Galaxy_Fill_Space\\black-hole-memorial-aop.png",
+      "description": "NLBL Black Hole Memorial Aop from the No Limits Beyond Limitations logo-and-galaxy collection.",
       "tags": [
         "NLBL",
         "Galaxy",
-        "Cosmic",
-        "StellarDust"
+        "Logo",
+        "Black Hole Memorial Aop"
       ]
     },
     {
-      "id": "nlbl_5_3",
-      "name": "NLBL Galactic Core Large",
-      "category": "shirts",
+      "id": "nlbl-0003-black-hole",
+      "name": "NLBL Black Hole",
+      "category": "T-Shirts",
       "price": 24.99,
-      "image": "galaxy_designs/galactic_core.png",
-      "description": "NLBL Legacy Collection - Galactic Core design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "C:\\Users\\drizzy\\OneDrive\\Silent-Spirits-Legacy\\Logo_N_Galaxy_Fill_Space\\black-hole.png",
+      "description": "NLBL Black Hole from the No Limits Beyond Limitations logo-and-galaxy collection.",
       "tags": [
         "NLBL",
         "Galaxy",
-        "Cosmic",
-        "GalacticCore"
+        "Logo",
+        "Black Hole"
       ]
     },
     {
-      "id": "nlbl_5_4",
-      "name": "NLBL Milky Way XL",
-      "category": "shirts",
+      "id": "nlbl-0004-blue-orange-milky-way",
+      "name": "NLBL Blue Orange Milky Way",
+      "category": "T-Shirts",
       "price": 24.99,
-      "image": "galaxy_designs/milky_way.png",
-      "description": "NLBL Legacy Collection - Milky Way design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "C:\\Users\\drizzy\\OneDrive\\Silent-Spirits-Legacy\\Logo_N_Galaxy_Fill_Space\\blue-orange-milky-way.png",
+      "description": "NLBL Blue Orange Milky Way from the No Limits Beyond Limitations logo-and-galaxy collection.",
       "tags": [
         "NLBL",
         "Galaxy",
-        "Cosmic",
-        "MilkyWay"
+        "Logo",
+        "Blue Orange Milky Way"
       ]
     },
     {
-      "id": "nlbl_12_1",
-      "name": "NLBL Aurora Borealis Small",
-      "category": "shirts",
+      "id": "nlbl-0005-cosmic-aurora",
+      "name": "NLBL Cosmic Aurora",
+      "category": "T-Shirts",
       "price": 24.99,
-      "image": "galaxy_designs/aurora_borealis.png",
-      "description": "NLBL Legacy Collection - Aurora Borealis design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "C:\\Users\\drizzy\\OneDrive\\Silent-Spirits-Legacy\\Logo_N_Galaxy_Fill_Space\\cosmic-aurora.png",
+      "description": "NLBL Cosmic Aurora from the No Limits Beyond Limitations logo-and-galaxy collection.",
       "tags": [
         "NLBL",
         "Galaxy",
-        "Cosmic",
-        "AuroraBorealis"
+        "Logo",
+        "Cosmic Aurora"
       ]
     },
     {
-      "id": "nlbl_12_2",
-      "name": "NLBL Meteor Shower Medium",
-      "category": "shirts",
+      "id": "nlbl-0006-cosmic-storm",
+      "name": "NLBL Cosmic Storm",
+      "category": "T-Shirts",
       "price": 24.99,
-      "image": "galaxy_designs/meteor_shower.png",
-      "description": "NLBL Legacy Collection - Meteor Shower design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "C:\\Users\\drizzy\\OneDrive\\Silent-Spirits-Legacy\\Logo_N_Galaxy_Fill_Space\\cosmic-storm.png",
+      "description": "NLBL Cosmic Storm from the No Limits Beyond Limitations logo-and-galaxy collection.",
       "tags": [
         "NLBL",
         "Galaxy",
-        "Cosmic",
-        "MeteorShower"
+        "Logo",
+        "Cosmic Storm"
       ]
     },
     {
-      "id": "nlbl_12_3",
-      "name": "NLBL Black Hole Large",
-      "category": "shirts",
+      "id": "nlbl-0007-editor-result",
+      "name": "NLBL Editor Result",
+      "category": "T-Shirts",
       "price": 24.99,
-      "image": "galaxy_designs/black_hole.png",
-      "description": "NLBL Legacy Collection - Black Hole design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "C:\\Users\\drizzy\\OneDrive\\Silent-Spirits-Legacy\\Logo_N_Galaxy_Fill_Space\\Editor result.png",
+      "description": "NLBL Editor Result from the No Limits Beyond Limitations logo-and-galaxy collection.",
       "tags": [
         "NLBL",
         "Galaxy",
-        "Cosmic",
-        "BlackHole"
+        "Logo",
+        "Editor Result"
       ]
     },
     {
-      "id": "nlbl_12_4",
-      "name": "NLBL Solar Flare XL",
-      "category": "shirts",
+      "id": "nlbl-0008-greetings-background-logo",
+      "name": "NLBL Greetings Background Logo",
+      "category": "T-Shirts",
       "price": 24.99,
-      "image": "galaxy_designs/solar_flare.png",
-      "description": "NLBL Legacy Collection - Solar Flare design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "C:\\Users\\drizzy\\OneDrive\\Silent-Spirits-Legacy\\Logo_N_Galaxy_Fill_Space\\Greetings_background_logo.png",
+      "description": "NLBL Greetings Background Logo from the No Limits Beyond Limitations logo-and-galaxy collection.",
       "tags": [
         "NLBL",
         "Galaxy",
-        "Cosmic",
-        "SolarFlare"
+        "Logo",
+        "Greetings Background Logo"
       ]
     },
     {
-      "id": "nlbl_49_1",
-      "name": "NLBL Supernova Small",
-      "category": "sweats",
+      "id": "nlbl-0009-logo-2-womens-clothing",
+      "name": "NLBL Logo 2 Womens Clothing",
+      "category": "T-Shirts",
       "price": 24.99,
-      "image": "galaxy_designs/supernova.png",
-      "description": "NLBL Legacy Collection - Supernova design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "C:\\Users\\drizzy\\OneDrive\\Silent-Spirits-Legacy\\Logo_N_Galaxy_Fill_Space\\Logo_2_Womens_Clothing.png",
+      "description": "NLBL Logo 2 Womens Clothing from the No Limits Beyond Limitations logo-and-galaxy collection.",
       "tags": [
         "NLBL",
         "Galaxy",
-        "Cosmic",
-        "Supernova"
+        "Logo",
+        "Logo 2 Womens Clothing"
       ]
     },
     {
-      "id": "nlbl_49_2",
-      "name": "NLBL Eclipse Medium",
-      "category": "sweats",
+      "id": "nlbl-0010-memorial-logo-enhanced-v2",
+      "name": "NLBL Memorial Logo Enhanced V2",
+      "category": "T-Shirts",
       "price": 24.99,
-      "image": "galaxy_designs/eclipse.png",
-      "description": "NLBL Legacy Collection - Eclipse design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "C:\\Users\\drizzy\\OneDrive\\Silent-Spirits-Legacy\\Logo_N_Galaxy_Fill_Space\\Memorial Logo - Enhanced V2.png",
+      "description": "NLBL Memorial Logo Enhanced V2 from the No Limits Beyond Limitations logo-and-galaxy collection.",
       "tags": [
         "NLBL",
         "Galaxy",
-        "Cosmic",
-        "Eclipse"
+        "Logo",
+        "Memorial Logo Enhanced V2"
       ]
     },
     {
-      "id": "nlbl_49_3",
-      "name": "NLBL Cosmic Nebula Large",
-      "category": "sweats",
+      "id": "nlbl-0011-memorial-logo-explosive-energy",
+      "name": "NLBL Memorial Logo Explosive Energy",
+      "category": "T-Shirts",
       "price": 24.99,
-      "image": "galaxy_designs/cosmic_nebula.png",
-      "description": "NLBL Legacy Collection - Cosmic Nebula design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "C:\\Users\\drizzy\\OneDrive\\Silent-Spirits-Legacy\\Logo_N_Galaxy_Fill_Space\\Memorial Logo - Explosive Energy.png",
+      "description": "NLBL Memorial Logo Explosive Energy from the No Limits Beyond Limitations logo-and-galaxy collection.",
       "tags": [
         "NLBL",
         "Galaxy",
-        "Cosmic",
-        "CosmicNebula"
+        "Logo",
+        "Memorial Logo Explosive Energy"
       ]
     },
     {
-      "id": "nlbl_49_4",
-      "name": "NLBL Stellar Dust XL",
-      "category": "sweats",
+      "id": "nlbl-0012-meteor-shower",
+      "name": "NLBL Meteor Shower",
+      "category": "T-Shirts",
       "price": 24.99,
-      "image": "galaxy_designs/stellar_dust.png",
-      "description": "NLBL Legacy Collection - Stellar Dust design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "image": "C:\\Users\\drizzy\\OneDrive\\Silent-Spirits-Legacy\\Logo_N_Galaxy_Fill_Space\\meteor-shower.png",
+      "description": "NLBL Meteor Shower from the No Limits Beyond Limitations logo-and-galaxy collection.",
       "tags": [
         "NLBL",
         "Galaxy",
-        "Cosmic",
-        "StellarDust"
+        "Logo",
+        "Meteor Shower"
       ]
     },
     {
-      "id": "nlbl_66_1",
-      "name": "NLBL Galactic Core Small",
-      "category": "hoodies",
-      "price": 44.99,
-      "image": "galaxy_designs/galactic_core.png",
-      "description": "NLBL Legacy Collection - Galactic Core design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "id": "nlbl-0013-nlblitmwi-gold-luxury",
+      "name": "NLBL Nlblitmwi Gold Luxury",
+      "category": "T-Shirts",
+      "price": 24.99,
+      "image": "C:\\Users\\drizzy\\OneDrive\\Silent-Spirits-Legacy\\Logo_N_Galaxy_Fill_Space\\NLBLITMWI Gold Luxury.png",
+      "description": "NLBL Nlblitmwi Gold Luxury from the No Limits Beyond Limitations logo-and-galaxy collection.",
       "tags": [
         "NLBL",
         "Galaxy",
-        "Cosmic",
-        "GalacticCore"
+        "Logo",
+        "Nlblitmwi Gold Luxury"
       ]
     },
     {
-      "id": "nlbl_66_2",
-      "name": "NLBL Milky Way Medium",
-      "category": "hoodies",
-      "price": 44.99,
-      "image": "galaxy_designs/milky_way.png",
-      "description": "NLBL Legacy Collection - Milky Way design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "id": "nlbl-0014-nlblitmwi-stained-glass",
+      "name": "NLBL Nlblitmwi Stained Glass",
+      "category": "T-Shirts",
+      "price": 24.99,
+      "image": "C:\\Users\\drizzy\\OneDrive\\Silent-Spirits-Legacy\\Logo_N_Galaxy_Fill_Space\\NLBLITMWI Stained Glass.png",
+      "description": "NLBL Nlblitmwi Stained Glass from the No Limits Beyond Limitations logo-and-galaxy collection.",
       "tags": [
         "NLBL",
         "Galaxy",
-        "Cosmic",
-        "MilkyWay"
+        "Logo",
+        "Nlblitmwi Stained Glass"
       ]
     },
     {
-      "id": "nlbl_66_3",
-      "name": "NLBL Aurora Borealis Large",
-      "category": "hoodies",
-      "price": 44.99,
-      "image": "galaxy_designs/aurora_borealis.png",
-      "description": "NLBL Legacy Collection - Aurora Borealis design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "id": "nlbl-0015-no-limits-x-meteor-shower",
+      "name": "NLBL No Limits X Meteor Shower",
+      "category": "T-Shirts",
+      "price": 24.99,
+      "image": "C:\\Users\\drizzy\\OneDrive\\Silent-Spirits-Legacy\\Logo_N_Galaxy_Fill_Space\\no-limits-x-meteor-shower.png",
+      "description": "NLBL No Limits X Meteor Shower from the No Limits Beyond Limitations logo-and-galaxy collection.",
       "tags": [
         "NLBL",
         "Galaxy",
-        "Cosmic",
-        "AuroraBorealis"
+        "Logo",
+        "No Limits X Meteor Shower"
       ]
     },
     {
-      "id": "nlbl_66_4",
-      "name": "NLBL Meteor Shower XL",
-      "category": "hoodies",
-      "price": 44.99,
-      "image": "galaxy_designs/meteor_shower.png",
-      "description": "NLBL Legacy Collection - Meteor Shower design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "id": "nlbl-0016-no-limits-x-pink-nebula-stained-glass-hq",
+      "name": "NLBL No Limits X Pink Nebula Stained Glass Hq",
+      "category": "T-Shirts",
+      "price": 24.99,
+      "image": "C:\\Users\\drizzy\\OneDrive\\Silent-Spirits-Legacy\\Logo_N_Galaxy_Fill_Space\\no-limits-x-pink-nebula-stained-glass_hq.png",
+      "description": "NLBL No Limits X Pink Nebula Stained Glass Hq from the No Limits Beyond Limitations logo-and-galaxy collection.",
       "tags": [
         "NLBL",
         "Galaxy",
-        "Cosmic",
-        "MeteorShower"
+        "Logo",
+        "No Limits X Pink Nebula Stained Glass Hq"
       ]
     },
     {
-      "id": "nlbl_77_1",
-      "name": "NLBL Black Hole Small",
-      "category": "hoodies",
-      "price": 44.99,
-      "image": "galaxy_designs/black_hole.png",
-      "description": "NLBL Legacy Collection - Black Hole design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "id": "nlbl-0017-no-limits-x-purple-nebula-hq",
+      "name": "NLBL No Limits X Purple Nebula Hq",
+      "category": "T-Shirts",
+      "price": 24.99,
+      "image": "C:\\Users\\drizzy\\OneDrive\\Silent-Spirits-Legacy\\Logo_N_Galaxy_Fill_Space\\no-limits-x-purple-nebula_hq.png",
+      "description": "NLBL No Limits X Purple Nebula Hq from the No Limits Beyond Limitations logo-and-galaxy collection.",
       "tags": [
         "NLBL",
         "Galaxy",
-        "Cosmic",
-        "BlackHole"
+        "Logo",
+        "No Limits X Purple Nebula Hq"
       ]
     },
     {
-      "id": "nlbl_77_2",
-      "name": "NLBL Solar Flare Medium",
-      "category": "hoodies",
-      "price": 44.99,
-      "image": "galaxy_designs/solar_flare.png",
-      "description": "NLBL Legacy Collection - Solar Flare design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "id": "nlbl-0018-no-limits-x-solar-flare",
+      "name": "NLBL No Limits X Solar Flare",
+      "category": "T-Shirts",
+      "price": 24.99,
+      "image": "C:\\Users\\drizzy\\OneDrive\\Silent-Spirits-Legacy\\Logo_N_Galaxy_Fill_Space\\no-limits-x-solar-flare.png",
+      "description": "NLBL No Limits X Solar Flare from the No Limits Beyond Limitations logo-and-galaxy collection.",
       "tags": [
         "NLBL",
         "Galaxy",
-        "Cosmic",
-        "SolarFlare"
+        "Logo",
+        "No Limits X Solar Flare"
       ]
     },
     {
-      "id": "nlbl_77_3",
-      "name": "NLBL Supernova Large",
-      "category": "hoodies",
-      "price": 44.99,
-      "image": "galaxy_designs/supernova.png",
-      "description": "NLBL Legacy Collection - Supernova design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "id": "nlbl-0019-no-limits-x-zodiac",
+      "name": "NLBL No Limits X Zodiac",
+      "category": "T-Shirts",
+      "price": 24.99,
+      "image": "C:\\Users\\drizzy\\OneDrive\\Silent-Spirits-Legacy\\Logo_N_Galaxy_Fill_Space\\no-limits-x-zodiac.png",
+      "description": "NLBL No Limits X Zodiac from the No Limits Beyond Limitations logo-and-galaxy collection.",
       "tags": [
         "NLBL",
         "Galaxy",
-        "Cosmic",
-        "Supernova"
+        "Logo",
+        "No Limits X Zodiac"
       ]
     },
     {
-      "id": "nlbl_77_4",
-      "name": "NLBL Eclipse XL",
-      "category": "hoodies",
-      "price": 44.99,
-      "image": "galaxy_designs/eclipse.png",
-      "description": "NLBL Legacy Collection - Eclipse design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "id": "nlbl-0020-no-limits-logo",
+      "name": "NLBL No Limits Logo",
+      "category": "T-Shirts",
+      "price": 24.99,
+      "image": "C:\\Users\\drizzy\\OneDrive\\Silent-Spirits-Legacy\\Logo_N_Galaxy_Fill_Space\\No_Limits_Logo.png",
+      "description": "NLBL No Limits Logo from the No Limits Beyond Limitations logo-and-galaxy collection.",
       "tags": [
         "NLBL",
         "Galaxy",
-        "Cosmic",
-        "Eclipse"
+        "Logo",
+        "No Limits Logo"
       ]
     },
     {
-      "id": "nlbl_91_1",
-      "name": "NLBL Cosmic Nebula Small",
-      "category": "hoodies",
-      "price": 44.99,
-      "image": "galaxy_designs/cosmic_nebula.png",
-      "description": "NLBL Legacy Collection - Cosmic Nebula design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "id": "nlbl-0021-no-limits-logo-2",
+      "name": "NLBL No Limits Logo 2",
+      "category": "T-Shirts",
+      "price": 24.99,
+      "image": "C:\\Users\\drizzy\\OneDrive\\Silent-Spirits-Legacy\\Logo_N_Galaxy_Fill_Space\\No_Limits_Logo_2.png",
+      "description": "NLBL No Limits Logo 2 from the No Limits Beyond Limitations logo-and-galaxy collection.",
       "tags": [
         "NLBL",
         "Galaxy",
-        "Cosmic",
-        "CosmicNebula"
+        "Logo",
+        "No Limits Logo 2"
       ]
     },
     {
-      "id": "nlbl_91_2",
-      "name": "NLBL Stellar Dust Medium",
-      "category": "hoodies",
-      "price": 44.99,
-      "image": "galaxy_designs/stellar_dust.png",
-      "description": "NLBL Legacy Collection - Stellar Dust design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "id": "nlbl-0022-pink-nebula-stained-glass-aop",
+      "name": "NLBL Pink Nebula Stained Glass Aop",
+      "category": "T-Shirts",
+      "price": 24.99,
+      "image": "C:\\Users\\drizzy\\OneDrive\\Silent-Spirits-Legacy\\Logo_N_Galaxy_Fill_Space\\pink-nebula-stained-glass-aop.png",
+      "description": "NLBL Pink Nebula Stained Glass Aop from the No Limits Beyond Limitations logo-and-galaxy collection.",
       "tags": [
         "NLBL",
         "Galaxy",
-        "Cosmic",
-        "StellarDust"
+        "Logo",
+        "Pink Nebula Stained Glass Aop"
       ]
     },
     {
-      "id": "nlbl_91_3",
-      "name": "NLBL Galactic Core Large",
-      "category": "hoodies",
-      "price": 44.99,
-      "image": "galaxy_designs/galactic_core.png",
-      "description": "NLBL Legacy Collection - Galactic Core design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "id": "nlbl-0023-purple-pink-nebula",
+      "name": "NLBL Purple Pink Nebula",
+      "category": "T-Shirts",
+      "price": 24.99,
+      "image": "C:\\Users\\drizzy\\OneDrive\\Silent-Spirits-Legacy\\Logo_N_Galaxy_Fill_Space\\purple-pink-nebula.png",
+      "description": "NLBL Purple Pink Nebula from the No Limits Beyond Limitations logo-and-galaxy collection.",
       "tags": [
         "NLBL",
         "Galaxy",
-        "Cosmic",
-        "GalacticCore"
+        "Logo",
+        "Purple Pink Nebula"
       ]
     },
     {
-      "id": "nlbl_91_4",
-      "name": "NLBL Milky Way XL",
-      "category": "hoodies",
-      "price": 44.99,
-      "image": "galaxy_designs/milky_way.png",
-      "description": "NLBL Legacy Collection - Milky Way design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "id": "nlbl-0024-supernova-explosion",
+      "name": "NLBL Supernova Explosion",
+      "category": "T-Shirts",
+      "price": 24.99,
+      "image": "C:\\Users\\drizzy\\OneDrive\\Silent-Spirits-Legacy\\Logo_N_Galaxy_Fill_Space\\supernova-explosion.png",
+      "description": "NLBL Supernova Explosion from the No Limits Beyond Limitations logo-and-galaxy collection.",
       "tags": [
         "NLBL",
         "Galaxy",
-        "Cosmic",
-        "MilkyWay"
+        "Logo",
+        "Supernova Explosion"
       ]
     },
     {
-      "id": "nlbl_68_1",
-      "name": "NLBL Aurora Borealis Small",
-      "category": "mugs",
-      "price": 19.99,
-      "image": "galaxy_designs/aurora_borealis.png",
-      "description": "NLBL Legacy Collection - Aurora Borealis design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "id": "nlbl-0025-texture-for-clothing",
+      "name": "NLBL Texture For Clothing",
+      "category": "T-Shirts",
+      "price": 24.99,
+      "image": "C:\\Users\\drizzy\\OneDrive\\Silent-Spirits-Legacy\\Logo_N_Galaxy_Fill_Space\\Texture_For_Clothing.png",
+      "description": "NLBL Texture For Clothing from the No Limits Beyond Limitations logo-and-galaxy collection.",
       "tags": [
         "NLBL",
         "Galaxy",
-        "Cosmic",
-        "AuroraBorealis"
+        "Logo",
+        "Texture For Clothing"
       ]
     },
     {
-      "id": "nlbl_68_2",
-      "name": "NLBL Meteor Shower Medium",
-      "category": "mugs",
-      "price": 19.99,
-      "image": "galaxy_designs/meteor_shower.png",
-      "description": "NLBL Legacy Collection - Meteor Shower design. Part of the No Limits Beyond Limitations cosmic apparel line.",
+      "id": "nlbl-0026-untitled-project-illustrationimage",
+      "name": "NLBL Untitled Project Illustrationimage",
+      "category": "T-Shirts",
+      "price": 24.99,
+      "image": "C:\\Users\\drizzy\\OneDrive\\Silent-Spirits-Legacy\\Logo_N_Galaxy_Fill_Space\\Untitled Project - illustrationImage.png",
+      "description": "NLBL Untitled Project Illustrationimage from the No Limits Beyond Limitations logo-and-galaxy collection.",
       "tags": [
         "NLBL",
         "Galaxy",
-        "Cosmic",
-        "MeteorShower"
-      ]
-    },
-    {
-      "id": "nlbl_68_3",
-      "name": "NLBL Black Hole Large",
-      "category": "mugs",
-      "price": 19.99,
-      "image": "galaxy_designs/black_hole.png",
-      "description": "NLBL Legacy Collection - Black Hole design. Part of the No Limits Beyond Limitations cosmic apparel line.",
-      "tags": [
-        "NLBL",
-        "Galaxy",
-        "Cosmic",
-        "BlackHole"
-      ]
-    },
-    {
-      "id": "nlbl_68_4",
-      "name": "NLBL Solar Flare XL",
-      "category": "mugs",
-      "price": 19.99,
-      "image": "galaxy_designs/solar_flare.png",
-      "description": "NLBL Legacy Collection - Solar Flare design. Part of the No Limits Beyond Limitations cosmic apparel line.",
-      "tags": [
-        "NLBL",
-        "Galaxy",
-        "Cosmic",
-        "SolarFlare"
+        "Logo",
+        "Untitled Project Illustrationimage"
       ]
     }
   ]

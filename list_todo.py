@@ -1,5 +1,5 @@
 import os, re
-excluded = ['node_modules', '.git', 'photos', 'My_story_Page', 'Clothing_Product', 'hoodies', 'netlify/node_modules_dist']
+excluded = ['node_modules', '.git', 'photos', 'My_story_Page', 'Clothing_Product', 'hoodies', 'node_modules_dist']
 for root, dirs, files in os.walk('.'):
     dirs[:] = [d for d in dirs if not any(ex in os.path.join(root, d).replace('\\\\', '/') for ex in excluded)]
     for f in files:

@@ -1,5 +1,5 @@
 import os, re
-excluded = ['node_modules', '.git', 'photos', 'My_story_Page', 'Clothing_Product', 'hoodies', 'netlify/node_modules_dist']
+excluded = ['node_modules', '.git', 'photos', 'My_story_Page', 'Clothing_Product', 'hoodies', 'node_modules_dist']
 count = 0
 for root, dirs, files in os.walk('.'):
     # Modify dirs in-place to skip excluded directories

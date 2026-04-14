@@ -10,8 +10,12 @@ import json
 from dotenv import load_dotenv
 import logging
 
-# Set up logging to a file so we can see what Stripe is doing
-logging.basicConfig(filename='flask.log', level=logging.INFO, 
+# Set up logging to both a file and the console
+logging.basicConfig(level=logging.INFO, 
+                    handlers=[
+                        logging.FileHandler("flask.log"),
+                        logging.StreamHandler()
+                    ],
                     format='%(asctime)s %(levelname)s: %(message)s')
 
 # Load environment variables
@@ -266,14 +270,14 @@ def mock_shipping_api(query):
 # Self-update tool via code generation
 def self_update_code(code_snippet):
     """
-    Tool to update the assistant's code by appending generated code.
-    This is a simple mechanism; in production, use with caution.
+    SECURE LOCKDOWN: In production, we log suggestions to quantum_updates.log
+    instead of appending to the live running script.
     """
     try:
-        current_file = os.path.basename(__file__)
-        with open(current_file, "a") as f:
-            f.write("\n# Generated code\n" + code_snippet + "\n")
-        return "Code updated successfully. Restart the script to apply changes."
+        update_log = "quantum_updates.log"
+        with open(update_log, "a") as f:
+            f.write(f"\n--- Quantum Insight Generated at {time.ctime()} ---\n" + code_snippet + "\n")
+        return "Insight archived in quantum_updates.log for owner review. Live code remains locked."
     except Exception as e:
         return f"Error updating code: {str(e)}"
 
@@ -368,10 +372,10 @@ def self_improve(area):
     """
     prompt = f"Generate Python code to enhance the AI assistant's {area} capabilities."
     code = llm(prompt)[:1000]
-    current_file = os.path.basename(__file__)
-    with open(current_file, "a") as f:
-        f.write(f"\n# Self-improvement in {area}\n{code}\n")
-    return f"Self-improvement code added for {area}."
+    update_log = "quantum_updates.log"
+    with open(update_log, "a") as f:
+        f.write(f"\n# Self-improvement Idea for {area}\n{code}\n")
+    return f"Lil-Mystic has evolved a new strategy for {area}. Review quantum_updates.log to apply."
 
 
 # Supreme Music/Singing Generator - 1000x Better Than Any App
@@ -1014,18 +1018,12 @@ def continuous_learning():
                 for specialty in set(ai_specialties):
                     prompt = f"Learn the specialty of {specialty} from other AIs and generate code to integrate it into this AI."
                     code = llm(prompt)[:1000]
-                    current_file = os.path.basename(__file__)
-                    with open(current_file, "a") as f:
-                        f.write(f"\n# Learned {specialty} from other AIs\n{code}\n")
+                    self_update_code(code)
 
                 # Use LLM to generate self-improvement code or knowledge integration
                 prompt = f"Based on this new knowledge:\n{new_knowledge}\nGenerate Python code to improve the AI assistant's capabilities, such as new tools or better responses. Keep it concise."
                 generated_code = llm(prompt)[:1000]
-                current_file = os.path.basename(__file__)
-                with open(current_file, "a") as f:
-                    f.write(
-                        f"\n# Self-generated improvement from continuous learning\n{generated_code}\n"
-                    )
+                self_update_code(generated_code)
                 # Also update memory with new knowledge
                 memory.append(
                     {
@@ -1210,17 +1208,27 @@ def chat():
         return jsonify({"error": str(e)}), 500
 
 
-# Supreme Stripe Payment Integration
-stripe_mock_data = {
-    "account_id": "acct_supreme_quantum_ai",
-    "balance": 999999.99,
-    "transactions": [],
-    "customers": {},
-}
+# Real-World Order Ledger Persistence
+ORDER_LEDGER_FILE = os.path.join("data", "order_ledger.json")
+
+def save_order_to_ledger(order_data):
+    try:
+        current_orders = []
+        if os.path.exists(ORDER_LEDGER_FILE):
+            with open(ORDER_LEDGER_FILE, "r") as f:
+                current_orders = json.load(f)
+        
+        current_orders.append(order_data)
+        os.makedirs("data", exist_ok=True)
+        with open(ORDER_LEDGER_FILE, "w") as f:
+            json.dump(current_orders, f, indent=4)
+    except Exception as e:
+        logging.error(f"Ledger critical failure: {str(e)}")
+
 
 # Supreme Printify Dropshipping Integration
 printify_mock_data = {
-    "api_token": os.getenv("PRINTIFY_API_TOKEN"),
+    "api_token": os.getenv("PRINTIFY_API_TOKEN") or os.getenv("PRINTIFY_API_KEY"),
     "store_id": "store_supreme_no_limits",
     "products": [],
     "orders": [],
@@ -1267,6 +1275,15 @@ def initialize_printify_products():
                 # Apply the Golden Ratio Multiplier (1.618)
                 final_price = round(base * 1.618, 2)
 
+                # Mock variant mapping for production launch (S, M, L, XL, 2XL)
+                variants = [
+                    {"id": "71352", "size": "S"},
+                    {"id": "71353", "size": "M"},
+                    {"id": "71354", "size": "L"},
+                    {"id": "71355", "size": "XL"},
+                    {"id": "71356", "size": "2XL"}
+                ]
+
                 # If coming from products_catalog.json, use its existing price if available
                 supreme_products.append(
                     {
@@ -1275,6 +1292,7 @@ def initialize_printify_products():
                         "description": bp.get("description", ""),
                         "price": bp.get("price", final_price),
                         "image": bp.get("image", bp.get("images", [None])[0]),
+                        "variants": variants
                     }
                 )
             printify_mock_data["products"] = supreme_products
@@ -1298,6 +1316,9 @@ def create_checkout_session():
         data = request.get_json()
         items = data.get("items", [])
 
+        # Use SITE_URL from env if available for Vercel custom domains
+        base_url = (os.getenv("SITE_URL") or request.host_url).rstrip('/')
+
         line_items = []
         for item in items:
             line_items.append({
@@ -1306,8 +1327,8 @@ def create_checkout_session():
                     "product_data": {
                         "name": f"LEGACY PIECE: {item.get('name', 'Product')}",
                         "metadata": {
-                            "printify_product_id": item.get("id"),
-                            "printify_variant_id": item.get("variant_id", "71352")
+                            "printify_product_id": item.get("id", ""),
+                            "printify_variant_id": str(item.get("variant_id", "71352"))
                         }
                     },
                     "unit_amount": int(float(item.get("price", 0)) * 100),
@@ -1320,21 +1341,23 @@ def create_checkout_session():
             payment_method_types=['card'],
             line_items=line_items,
             mode='payment',
-            success_url=request.host_url + 'payment-success?session_id={CHECKOUT_SESSION_ID}',
-            cancel_url=request.host_url + 'payment-cancel',
+            success_url=f"{base_url}/payment-success?session_id={{CHECKOUT_SESSION_ID}}",
+            cancel_url=f"{base_url}/payment-cancel",
+            shipping_address_collection={"allowed_countries": ["US", "CA", "GB", "AU", "DE", "FR"]},
+            phone_number_collection={"enabled": True},
         )
 
         session_id = session.id
-
-        stripe_mock_data["transactions"].append(
-            {
-                "session_id": session_id,
-                "amount": sum(float(item.get('price', 0)) * item.get('quantity', 1) for item in items),
-                "items": items,
-                "timestamp": time.time(),
-                "status": "pending",
-            }
-        )
+        
+        # Save to permanent ledger
+        save_order_to_ledger({
+            "session_id": session_id,
+            "amount": sum(float(item.get('price', 0)) * item.get('quantity', 1) for item in items),
+            "items": items,
+            "timestamp": time.time(),
+            "status": "created",
+            "source": "stripe_checkout"
+        })
 
         return jsonify(
             {
@@ -1352,14 +1375,7 @@ def create_checkout_session():
 def payment_success():
     """Handle successful payments"""
     session_id = request.args.get("session_id")
-    if session_id:
-        # Mark transaction as completed
-        for transaction in stripe_mock_data["transactions"]:
-            if transaction["session_id"] == session_id:
-                transaction["status"] = "completed"
-                break
-
-    return "Payment successful! Your supreme products are being prepared with quantum precision."
+    return render_template_string("<h1>Payment Manifested!</h1><p>Check your email for the arrival coordinates. Your spirit piece is in production.</p>")
 
 
 @app.route("/payment-cancel")
@@ -1369,6 +1385,7 @@ def payment_cancel():
 
 
 @app.route("/stripe-webhook", methods=["POST"])
+@app.route("/api/stripe-webhook", methods=["POST"])
 def stripe_webhook():
     """REAL Stripe Webhook: Processes payment and triggers Printify fulfillment"""
     payload = request.get_data(as_text=True)
@@ -1398,7 +1415,9 @@ def stripe_webhook():
         address = shipping.get("address", {}) or {}
         customer = session.get("customer_details", {}) or {}
         name_parts = shipping.get("name", "Valued Customer").split(" ")
-        
+        first_name = name_parts[0] if name_parts else "Valued"
+        last_name = " ".join(name_parts[1:]) if len(name_parts) > 1 else "Customer"
+
         printify_order = {
             "external_id": session.get("id"),
             "label": f"NLBL_{int(time.time())}",
@@ -1412,11 +1431,11 @@ def stripe_webhook():
             "shipping_method": 1,
             "send_shipping_notification": True,
             "address_to": {
-                "first_name": name_parts[0],
-                "last_name": " ".join(name_parts[1:]) if len(name_parts) > 1 else "",
-                "email": customer.get("email"),
+                "first_name": first_name,
+                "last_name": last_name,
+                "email": customer.get("email") or session.get("customer_email", "contact@nolimitsbeyondlimitations.com"),
                 "phone": customer.get("phone", ""),
-                "address1": address.get("line1"),
+                "address1": address.get("line1", ""),
                 "address2": address.get("line2", ""),
                 "city": address.get("city"),
                 "region": address.get("state"),
@@ -1425,21 +1444,50 @@ def stripe_webhook():
             }
         }
 
+        # Log a safe summary by default (avoid writing full addresses to logs unless debugging).
+        try:
+            safe_items = []
+            for li in printify_order.get("line_items", []):
+                safe_items.append(
+                    {
+                        "product_id": li.get("product_id"),
+                        "variant_id": li.get("variant_id"),
+                        "quantity": li.get("quantity"),
+                    }
+                )
+            logging.info(
+                "Stripe->Printify prepared: external_id=%s items=%s email=%s",
+                printify_order.get("external_id"),
+                safe_items,
+                printify_order.get("address_to", {}).get("email"),
+            )
+            if os.getenv("WEBHOOK_DEBUG", "").strip().lower() in {"1", "true", "yes", "y", "on"}:
+                logging.info("Stripe->Printify full payload: %s", json.dumps(printify_order))
+        except Exception:
+            pass
+
         # 3. Submit to REAL Printify API
-        printify_token = os.getenv("PRINTIFY_API_TOKEN")
+        printify_token = os.getenv("PRINTIFY_API_TOKEN") or os.getenv("PRINTIFY_API_KEY")
         shop_id = os.getenv("PRINTIFY_SHOP_ID")
         
         if printify_token and shop_id:
             try:
+                logging.info(f"Manifesting Printify order for session {session.get('id')}...")
                 response = requests.post(
                     f"https://api.printify.com/v1/shops/{shop_id}/orders.json",
                     json=printify_order,
-                    headers={"Authorization": f"Bearer {printify_token}"}
+                    headers={"Authorization": f"Bearer {printify_token}", "Content-Type": "application/json"},
+                    timeout=30,
                 )
+                logging.info(f"Printify Response [{response.status_code}]: {response.text}")
                 if response.status_code in [200, 201]:
-                    llm.store_in_photographic_memory("Order Manifested", f"Real order {session.get('id')} sent to Printify.")
+                    order_data = response.json()
+                    llm.store_in_photographic_memory("Order Manifested", f"Order {order_data.get('id')} sent to Printify for {customer.get('email')}.")
+                else:
+                    logging.error(f"Printify API Error: {response.text}")
+                    # In a 110% setup, we would trigger an admin alert email here
             except Exception as e:
-                print(f"Failed to connect to Printify: {str(e)}")
+                logging.error(f"Failed to connect to Printify: {str(e)}")
 
     return jsonify({"status": "success"}), 200
 
@@ -1510,6 +1558,18 @@ def get_printify_products():
             .product-info h3 { margin: 10px 0; font-size: 1.4rem; letter-spacing: 1px; min-height: 3.5rem; }
             .price-tag { font-size: 1.8rem; font-weight: bold; color: #fff; margin: 15px 0; display: block; }
             
+            .variant-selection {
+                margin-bottom: 15px; display: flex; align-items: center; gap: 10px;
+            }
+            .size-label { font-size: 0.9rem; opacity: 0.8; text-transform: uppercase; }
+            .size-select {
+                background: rgba(255, 255, 255, 0.05); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2);
+                padding: 10px; border-radius: 8px; flex-grow: 1; cursor: pointer; outline: none;
+                transition: border-color 0.3s;
+            }
+            .size-select:focus { border-color: #fff; }
+            .size-select option { background: #111; color: #fff; }
+            
             .buy-btn {
                 background: #fff; color: #000; border: none; padding: 15px;
                 border-radius: 10px; font-weight: bold; cursor: pointer;
@@ -1545,6 +1605,14 @@ def get_printify_products():
                 <img src="{{ product.image }}" class="product-image" alt="{{ product.name }}">
                 <div class="product-info">
                     <h3>{{ product.name }}</h3>
+                    <div class="variant-selection">
+                        <span class="size-label">Size</span>
+                        <select id="size-{{ product.id }}" class="size-select">
+                            {% for variant in product.variants %}
+                            <option value="{{ variant.id }}">{{ variant.size }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                     <span class="price-tag">${{ product.price }}</span>
                     <button class="buy-btn" onclick="initiateCheckout('{{ product.id }}', '{{ product.name }}', {{ product.price }})">Acquire Piece</button>
                 </div>
@@ -1563,6 +1631,7 @@ def get_printify_products():
             async function initiateCheckout(id, name, price) {
                 const modal = document.getElementById('checkoutModal');
                 const status = document.getElementById('modalStatus');
+                const variantId = document.getElementById(`size-${id}`).value;
                 modal.style.display = 'flex';
                 
                 try {
@@ -1570,7 +1639,7 @@ def get_printify_products():
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
-                            items: [{ id: id, name: name, price: price, quantity: 1 }]
+                            items: [{ id: id, name: name, price: price, quantity: 1, variant_id: variantId }]
                         })
                     });
                     

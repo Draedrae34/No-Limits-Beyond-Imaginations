@@ -1,7 +1,6 @@
 node_modules
 dist
 build
-.netlify
 .vercel
 __pycache__
 env

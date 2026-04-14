@@ -1,6 +1,6 @@
 import os, re
 # Directories to exclude
-excluded_dirs = ['node_modules', '.git', 'photos', 'My_story_Page', 'Clothing_Product', 'hoodies', 'netlify/node_modules_dist']
+excluded_dirs = ['node_modules', '.git', 'photos', 'My_story_Page', 'Clothing_Product', 'hoodies', 'node_modules_dist']
 # Files to exclude (our temporary scripts)
 excluded_files = {'count_todo.py', 'list_todo.py', 'find_todo.py', 'real_todo.py', 'actual_todos.py', 'final_todo.py', 'code_todo.py'}
 count = 0

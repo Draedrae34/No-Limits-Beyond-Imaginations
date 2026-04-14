@@ -712,7 +712,7 @@ graph LR
 ### Immediate Actions (This Week)
 
 1. **Configure Printful Webhook**
-   - Set up webhook endpoint in [`netlify/functions/printful-webhook.js`](netlify/functions/printful-webhook.js)
+   - Set up webhook endpoint in `quantum_assistant.py` (Stripe: `/stripe-webhook` or `/api/stripe-webhook`)
    - Test order flow from checkout to fulfillment
    - Verify inventory sync
 
