@@ -25,7 +25,7 @@
     "blueprint_title": "Women's Flowy Racerback Tank",
     "provider_id": 3,
     "provider_title": "Marco Fine Arts",
-    "variant_count": 18
+    "variant_count": 21
   },
   {
     "blueprint_id": 11,
@@ -37,9 +37,9 @@
   {
     "blueprint_id": 12,
     "blueprint_title": "Unisex Jersey Short Sleeve Tee",
-    "provider_id": 217,
-    "provider_title": "Fulfill Engine",
-    "variant_count": 643
+    "provider_id": 39,
+    "provider_title": "SwiftPOD",
+    "variant_count": 945
   },
   {
     "blueprint_id": 14,
@@ -72,9 +72,9 @@
   {
     "blueprint_id": 32,
     "blueprint_title": "Toddler's Fine Jersey Tee",
-    "provider_id": 3,
-    "provider_title": "Marco Fine Arts",
-    "variant_count": 8
+    "provider_id": 27,
+    "provider_title": "Print Geek",
+    "variant_count": 31
   },
   {
     "blueprint_id": 34,
@@ -102,7 +102,7 @@
     "blueprint_title": "Unisex Jersey Long Sleeve Tee",
     "provider_id": 3,
     "provider_title": "Marco Fine Arts",
-    "variant_count": 45
+    "variant_count": 46
   },
   {
     "blueprint_id": 45,
@@ -121,16 +121,16 @@
   {
     "blueprint_id": 48,
     "blueprint_title": "Unisex Jersey Short Sleeve V-Neck Tee",
-    "provider_id": 29,
-    "provider_title": "Monster Digital",
-    "variant_count": 25
+    "provider_id": 3,
+    "provider_title": "Marco Fine Arts",
+    "variant_count": 72
   },
   {
     "blueprint_id": 49,
     "blueprint_title": "Unisex Heavy Blend\u2122 Crewneck Sweatshirt",
     "provider_id": 3,
     "provider_title": "Marco Fine Arts",
-    "variant_count": 134
+    "variant_count": 135
   },
   {
     "blueprint_id": 65,
@@ -198,9 +198,9 @@
   {
     "blueprint_id": 88,
     "blueprint_title": "Women's Softstyle Tee",
-    "provider_id": 30,
-    "provider_title": "OPT OnDemand",
-    "variant_count": 36
+    "provider_id": 26,
+    "provider_title": "Textildruck Europa",
+    "variant_count": 41
   },
   {
     "blueprint_id": 91,
@@ -242,7 +242,7 @@
     "blueprint_title": "Men's NUBLEND\u00ae Hooded Sweatshirt",
     "provider_id": 3,
     "provider_title": "Marco Fine Arts",
-    "variant_count": 29
+    "variant_count": 31
   },
   {
     "blueprint_id": 139,
@@ -256,7 +256,7 @@
     "blueprint_title": "Women's Tri-Blend Racerback Tank",
     "provider_id": 3,
     "provider_title": "Marco Fine Arts",
-    "variant_count": 28
+    "variant_count": 29
   },
   {
     "blueprint_id": 142,
@@ -291,7 +291,7 @@
     "blueprint_title": "Kids Heavy Cotton\u2122 Tee",
     "provider_id": 3,
     "provider_title": "Marco Fine Arts",
-    "variant_count": 29
+    "variant_count": 30
   },
   {
     "blueprint_id": 175,
@@ -305,7 +305,7 @@
     "blueprint_title": "Unisex Triblend Tee",
     "provider_id": 3,
     "provider_title": "Marco Fine Arts",
-    "variant_count": 38
+    "variant_count": 39
   },
   {
     "blueprint_id": 256,
@@ -361,7 +361,7 @@
     "blueprint_title": "Youth Heavy Blend Hooded Sweatshirt",
     "provider_id": 29,
     "provider_title": "Monster Digital",
-    "variant_count": 30
+    "variant_count": 29
   },
   {
     "blueprint_id": 346,
@@ -450,9 +450,9 @@
   {
     "blueprint_id": 439,
     "blueprint_title": "Three-Panel Fleece Hoodie",
-    "provider_id": 217,
-    "provider_title": "Fulfill Engine",
-    "variant_count": 119
+    "provider_id": 3,
+    "provider_title": "Marco Fine Arts",
+    "variant_count": 22
   },
   {
     "blueprint_id": 440,
@@ -553,11 +553,81 @@
     "variant_count": 30
   },
   {
+    "blueprint_id": 461,
+    "blueprint_title": "Men's Lightweight V-Neck Tee",
+    "provider_id": 29,
+    "provider_title": "Monster Digital",
+    "variant_count": 1
+  },
+  {
+    "blueprint_id": 464,
+    "blueprint_title": "Men's Modern-fit Tee",
+    "provider_id": 30,
+    "provider_title": "OPT OnDemand",
+    "variant_count": 78
+  },
+  {
+    "blueprint_id": 466,
+    "blueprint_title": "Women's Midweight Cotton Tee",
+    "provider_id": 34,
+    "provider_title": "The Print Bar",
+    "variant_count": 64
+  },
+  {
+    "blueprint_id": 472,
+    "blueprint_title": "Women's Cotton Tee",
+    "provider_id": 29,
+    "provider_title": "Monster Digital",
+    "variant_count": 48
+  },
+  {
     "blueprint_id": 478,
     "blueprint_title": "Ceramic Mug, (11oz, 15oz)",
     "provider_id": 28,
     "provider_title": "District Photo",
     "variant_count": 2
+  },
+  {
+    "blueprint_id": 479,
+    "blueprint_title": "Black Mug (11oz, 15oz)",
+    "provider_id": 28,
+    "provider_title": "District Photo",
+    "variant_count": 2
+  },
+  {
+    "blueprint_id": 483,
+    "blueprint_title": "Enamel Camping Mug",
+    "provider_id": 28,
+    "provider_title": "District Photo",
+    "variant_count": 1
+  },
+  {
+    "blueprint_id": 496,
+    "blueprint_title": "Sublimation Crew Socks (EU)",
+    "provider_id": 26,
+    "provider_title": "Textildruck Europa",
+    "variant_count": 3
+  },
+  {
+    "blueprint_id": 498,
+    "blueprint_title": "Unisex Deluxe T-shirt ",
+    "provider_id": 217,
+    "provider_title": "Fulfill Engine",
+    "variant_count": 29
+  },
+  {
+    "blueprint_id": 499,
+    "blueprint_title": "Unisex Supply Hoodie",
+    "provider_id": 34,
+    "provider_title": "The Print Bar",
+    "variant_count": 89
+  },
+  {
+    "blueprint_id": 500,
+    "blueprint_title": "Unisex Barnard Tank ",
+    "provider_id": 217,
+    "provider_title": "Fulfill Engine",
+    "variant_count": 31
   },
   {
     "blueprint_id": 501,
@@ -669,7 +739,7 @@
     "blueprint_title": "Unisex EcoSmart\u00ae Pullover Hoodie Sweatshirt",
     "provider_id": 39,
     "provider_title": "SwiftPOD",
-    "variant_count": 176
+    "variant_count": 175
   },
   {
     "blueprint_id": 565,
@@ -709,9 +779,9 @@
   {
     "blueprint_id": 579,
     "blueprint_title": "Unisex Drop Shoulder Sweatshirt",
-    "provider_id": 51,
-    "provider_title": "Stylus",
-    "variant_count": 13
+    "provider_id": 3,
+    "provider_title": "Marco Fine Arts",
+    "variant_count": 9
   },
   {
     "blueprint_id": 580,
@@ -896,6 +966,41 @@
     "variant_count": 35
   },
   {
+    "blueprint_id": 706,
+    "blueprint_title": "Unisex Garment-Dyed T-shirt",
+    "provider_id": 217,
+    "provider_title": "Fulfill Engine",
+    "variant_count": 139
+  },
+  {
+    "blueprint_id": 710,
+    "blueprint_title": "Unisex Garment-dyed Long Sleeve T-Shirt",
+    "provider_id": 99,
+    "provider_title": "Printify Choice",
+    "variant_count": 210
+  },
+  {
+    "blueprint_id": 723,
+    "blueprint_title": "Unisex Crew Neck Sweatshirt",
+    "provider_id": 74,
+    "provider_title": "Ink Blot",
+    "variant_count": 96
+  },
+  {
+    "blueprint_id": 725,
+    "blueprint_title": "Unisex Classic Tee",
+    "provider_id": 29,
+    "provider_title": "Monster Digital",
+    "variant_count": 20
+  },
+  {
+    "blueprint_id": 739,
+    "blueprint_title": "Women's Pajama Pants (AOP)",
+    "provider_id": 10,
+    "provider_title": "MWW On Demand",
+    "variant_count": 6
+  },
+  {
     "blueprint_id": 740,
     "blueprint_title": "Men's Pajama Pants (AOP)",
     "provider_id": 10,
@@ -903,11 +1008,46 @@
     "variant_count": 6
   },
   {
+    "blueprint_id": 750,
+    "blueprint_title": "Youth Midweight Tee",
+    "provider_id": 29,
+    "provider_title": "Monster Digital",
+    "variant_count": 48
+  },
+  {
+    "blueprint_id": 751,
+    "blueprint_title": "Kid's Jersey Tank Top",
+    "provider_id": 42,
+    "provider_title": "Drive Fulfillment",
+    "variant_count": 10
+  },
+  {
+    "blueprint_id": 757,
+    "blueprint_title": "Men's Jogger Shorts (AOP)",
+    "provider_id": 85,
+    "provider_title": "Custom Luxe",
+    "variant_count": 5
+  },
+  {
     "blueprint_id": 783,
     "blueprint_title": "Women's Hoodie Dress (AOP)",
     "provider_id": 90,
     "provider_title": "Smart Printee",
     "variant_count": 5
+  },
+  {
+    "blueprint_id": 791,
+    "blueprint_title": "Latte Mug, 12oz",
+    "provider_id": 41,
+    "provider_title": "Duplium",
+    "variant_count": 1
+  },
+  {
+    "blueprint_id": 793,
+    "blueprint_title": "Unisex Fleece Hoodie",
+    "provider_id": 410,
+    "provider_title": "Printful",
+    "variant_count": 84
   },
   {
     "blueprint_id": 795,
@@ -1225,6 +1365,62 @@
     "variant_count": 3
   },
   {
+    "blueprint_id": 1050,
+    "blueprint_title": "Women\u2019s Capri Leggings (AOP)",
+    "provider_id": 10,
+    "provider_title": "MWW On Demand",
+    "variant_count": 6
+  },
+  {
+    "blueprint_id": 1058,
+    "blueprint_title": "Baby Short Sleeve T-Shirt",
+    "provider_id": 74,
+    "provider_title": "Ink Blot",
+    "variant_count": 15
+  },
+  {
+    "blueprint_id": 1062,
+    "blueprint_title": "Unisex Tank Top (AOP)",
+    "provider_id": 83,
+    "provider_title": "Subliminator",
+    "variant_count": 8
+  },
+  {
+    "blueprint_id": 1066,
+    "blueprint_title": "Multifunctional Diaper Backpack",
+    "provider_id": 14,
+    "provider_title": "ArtsAdd",
+    "variant_count": 1
+  },
+  {
+    "blueprint_id": 1078,
+    "blueprint_title": "Basketball Rib Shorts (AOP)",
+    "provider_id": 83,
+    "provider_title": "Subliminator",
+    "variant_count": 8
+  },
+  {
+    "blueprint_id": 1084,
+    "blueprint_title": "Athletic Long Shorts (AOP)",
+    "provider_id": 83,
+    "provider_title": "Subliminator",
+    "variant_count": 8
+  },
+  {
+    "blueprint_id": 1088,
+    "blueprint_title": "Beer Stein Mug",
+    "provider_id": 59,
+    "provider_title": "Imagine Your Photos",
+    "variant_count": 1
+  },
+  {
+    "blueprint_id": 1089,
+    "blueprint_title": "Unisex Zone Performance T-shirt",
+    "provider_id": 3,
+    "provider_title": "Marco Fine Arts",
+    "variant_count": 24
+  },
+  {
     "blueprint_id": 1097,
     "blueprint_title": "Youth Leggings (AOP)",
     "provider_id": 83,
@@ -1236,7 +1432,7 @@
     "blueprint_title": "Women's Performance V-Neck T-Shirt",
     "provider_id": 3,
     "provider_title": "Marco Fine Arts",
-    "variant_count": 29
+    "variant_count": 28
   },
   {
     "blueprint_id": 1105,
@@ -1663,7 +1859,7 @@
     "blueprint_title": "Unisex Oversized Boxy Tee",
     "provider_id": 99,
     "provider_title": "Printify Choice",
-    "variant_count": 63
+    "variant_count": 62
   },
   {
     "blueprint_id": 1390,
@@ -1752,9 +1948,9 @@
   {
     "blueprint_id": 1439,
     "blueprint_title": "Unisex HD Cotton\u2122 T-shirt",
-    "provider_id": 99,
-    "provider_title": "Printify Choice",
-    "variant_count": 244
+    "provider_id": 39,
+    "provider_title": "SwiftPOD",
+    "variant_count": 243
   },
   {
     "blueprint_id": 1457,
@@ -1929,7 +2125,7 @@
     "blueprint_title": "Unisex ComfortWash\u00ae Garment-Dyed T-Shirt",
     "provider_id": 217,
     "provider_title": "Fulfill Engine",
-    "variant_count": 94
+    "variant_count": 98
   },
   {
     "blueprint_id": 1569,
@@ -2261,6 +2457,167 @@
     "variant_count": 3
   },
   {
+    "blueprint_id": 1706,
+    "blueprint_title": "Unisex Sponge Fleece Raglan Sweatshirt",
+    "provider_id": 29,
+    "provider_title": "Monster Digital",
+    "variant_count": 32
+  },
+  {
+    "blueprint_id": 1707,
+    "blueprint_title": "Unisex French Terry Hoodie",
+    "provider_id": 29,
+    "provider_title": "Monster Digital",
+    "variant_count": 42
+  },
+  {
+    "blueprint_id": 1709,
+    "blueprint_title": "Women's Casual Dress (AOP)",
+    "provider_id": 332,
+    "provider_title": "Printdoors",
+    "variant_count": 9
+  },
+  {
+    "blueprint_id": 1712,
+    "blueprint_title": "Men's Heavyweight Tee",
+    "provider_id": 410,
+    "provider_title": "Printful",
+    "variant_count": 42
+  },
+  {
+    "blueprint_id": 1723,
+    "blueprint_title": "Unisex Garment-Dyed Drop-Shoulder T-Shirt",
+    "provider_id": 74,
+    "provider_title": "Ink Blot",
+    "variant_count": 34
+  },
+  {
+    "blueprint_id": 1724,
+    "blueprint_title": "Women's Polyester Yoga Shorts (AOP)",
+    "provider_id": 332,
+    "provider_title": "Printdoors",
+    "variant_count": 6
+  },
+  {
+    "blueprint_id": 1726,
+    "blueprint_title": "Unisex Long Sleeve T-Shirt",
+    "provider_id": 29,
+    "provider_title": "Monster Digital",
+    "variant_count": 66
+  },
+  {
+    "blueprint_id": 1728,
+    "blueprint_title": "Knit Beanie (Embroidery)",
+    "provider_id": 99,
+    "provider_title": "Printify Choice",
+    "variant_count": 6
+  },
+  {
+    "blueprint_id": 1729,
+    "blueprint_title": "Distressed Dad Hat (Embroidery)",
+    "provider_id": 99,
+    "provider_title": "Printify Choice",
+    "variant_count": 4
+  },
+  {
+    "blueprint_id": 1731,
+    "blueprint_title": "Unisex Fleece Sweatpants (Embroidery)",
+    "provider_id": 99,
+    "provider_title": "Printify Choice",
+    "variant_count": 48
+  },
+  {
+    "blueprint_id": 1733,
+    "blueprint_title": "Unisex Eco Raglan Hoodie (Embroidery)",
+    "provider_id": 99,
+    "provider_title": "Printify Choice",
+    "variant_count": 39
+  },
+  {
+    "blueprint_id": 1735,
+    "blueprint_title": "Foam Trucker Hat",
+    "provider_id": 410,
+    "provider_title": "Printful",
+    "variant_count": 13
+  },
+  {
+    "blueprint_id": 1745,
+    "blueprint_title": "Core Cotton Tee",
+    "provider_id": 59,
+    "provider_title": "Imagine Your Photos",
+    "variant_count": 17
+  },
+  {
+    "blueprint_id": 1749,
+    "blueprint_title": "Unisex Champion Tie-Dye Hoodie (Embroidery)",
+    "provider_id": 410,
+    "provider_title": "Printful",
+    "variant_count": 6
+  },
+  {
+    "blueprint_id": 1751,
+    "blueprint_title": "Women's Curvy Fine Jersey Tee",
+    "provider_id": 29,
+    "provider_title": "Monster Digital",
+    "variant_count": 24
+  },
+  {
+    "blueprint_id": 1752,
+    "blueprint_title": "Camouflage Trucker Hat (Embroidery)",
+    "provider_id": 410,
+    "provider_title": "Printful",
+    "variant_count": 3
+  },
+  {
+    "blueprint_id": 1900,
+    "blueprint_title": "Denim Hat (Embroidery)",
+    "provider_id": 410,
+    "provider_title": "Printful",
+    "variant_count": 3
+  },
+  {
+    "blueprint_id": 1902,
+    "blueprint_title": "Unisex Columbia Fleece Jacket (Embroidery)",
+    "provider_id": 410,
+    "provider_title": "Printful",
+    "variant_count": 15
+  },
+  {
+    "blueprint_id": 1906,
+    "blueprint_title": "Oversized Tie-Dye T-Shirt (Embroidery)",
+    "provider_id": 410,
+    "provider_title": "Printful",
+    "variant_count": 25
+  },
+  {
+    "blueprint_id": 1907,
+    "blueprint_title": "Kids Fleece Hoodie (Embroidery)",
+    "provider_id": 410,
+    "provider_title": "Printful",
+    "variant_count": 16
+  },
+  {
+    "blueprint_id": 1908,
+    "blueprint_title": "Unisex Pigment-Dyed Hoodie",
+    "provider_id": 410,
+    "provider_title": "Printful",
+    "variant_count": 35
+  },
+  {
+    "blueprint_id": 1910,
+    "blueprint_title": "Bucket Hat (Embroidery)",
+    "provider_id": 410,
+    "provider_title": "Printful",
+    "variant_count": 3
+  },
+  {
+    "blueprint_id": 1912,
+    "blueprint_title": "Women's Heavy Faded Crop Tee",
+    "provider_id": 217,
+    "provider_title": "Fulfill Engine",
+    "variant_count": 15
+  },
+  {
     "blueprint_id": 1915,
     "blueprint_title": "Women's Cropped Hoodie",
     "provider_id": 99,
@@ -2419,21 +2776,21 @@
     "blueprint_title": "Port Authority\u00ae Men's Core Soft Shell Jacket (Embroidery)",
     "provider_id": 217,
     "provider_title": "Fulfill Engine",
-    "variant_count": 107
+    "variant_count": 105
   },
   {
     "blueprint_id": 1979,
     "blueprint_title": "District\u00ae V.I.T.\u2122 Men's Fleece Hoodie",
     "provider_id": 217,
     "provider_title": "Fulfill Engine",
-    "variant_count": 283
+    "variant_count": 284
   },
   {
     "blueprint_id": 1986,
     "blueprint_title": "Port Authority\u00ae Men's Collective Soft Shell Jacket (Embroidery)",
     "provider_id": 217,
     "provider_title": "Fulfill Engine",
-    "variant_count": 32
+    "variant_count": 31
   },
   {
     "blueprint_id": 1987,
@@ -2510,7 +2867,7 @@
     "blueprint_title": "District \u00ae Perfect Tri \u00ae Tee",
     "provider_id": 217,
     "provider_title": "Fulfill Engine",
-    "variant_count": 399
+    "variant_count": 398
   },
   {
     "blueprint_id": 2035,
@@ -2611,6 +2968,118 @@
     "variant_count": 17
   },
   {
+    "blueprint_id": 2693,
+    "blueprint_title": "Two-Tone Accent Mug (11oz, 15oz)",
+    "provider_id": 59,
+    "provider_title": "Imagine Your Photos",
+    "variant_count": 18
+  },
+  {
+    "blueprint_id": 2694,
+    "blueprint_title": "Unisex Organic Side Pocket Sounder Hoodie",
+    "provider_id": 99,
+    "provider_title": "Printify Choice",
+    "variant_count": 20
+  },
+  {
+    "blueprint_id": 2728,
+    "blueprint_title": "Toddler Full-Zip Fleece Hoodie",
+    "provider_id": 217,
+    "provider_title": "Fulfill Engine",
+    "variant_count": 9
+  },
+  {
+    "blueprint_id": 2738,
+    "blueprint_title": "Round Stainless Steel Keychain",
+    "provider_id": 332,
+    "provider_title": "Printdoors",
+    "variant_count": 1
+  },
+  {
+    "blueprint_id": 2742,
+    "blueprint_title": "Unisex Tie-Dye Tank Top",
+    "provider_id": 217,
+    "provider_title": "Fulfill Engine",
+    "variant_count": 39
+  },
+  {
+    "blueprint_id": 2743,
+    "blueprint_title": "Heavyweight Color Blast Youth T-Shirt",
+    "provider_id": 29,
+    "provider_title": "Monster Digital",
+    "variant_count": 30
+  },
+  {
+    "blueprint_id": 2747,
+    "blueprint_title": "Unisex Heavyweight Long Sleeve Tee",
+    "provider_id": 29,
+    "provider_title": "Monster Digital",
+    "variant_count": 35
+  },
+  {
+    "blueprint_id": 2752,
+    "blueprint_title": "Car Steering Wheel Cover",
+    "provider_id": 332,
+    "provider_title": "Printdoors",
+    "variant_count": 1
+  },
+  {
+    "blueprint_id": 2754,
+    "blueprint_title": "Stainless Steel Round Keychain (Engraving)",
+    "provider_id": 332,
+    "provider_title": "Printdoors",
+    "variant_count": 2
+  },
+  {
+    "blueprint_id": 2762,
+    "blueprint_title": "Tapered Glass Mug, 15.5 oz (Engraving)",
+    "provider_id": 228,
+    "provider_title": "Taylor",
+    "variant_count": 1
+  },
+  {
+    "blueprint_id": 2766,
+    "blueprint_title": "Women's Ringer Tee",
+    "provider_id": 29,
+    "provider_title": "Monster Digital",
+    "variant_count": 23
+  },
+  {
+    "blueprint_id": 2789,
+    "blueprint_title": "Adult Crewneck Sweatshirt",
+    "provider_id": 29,
+    "provider_title": "Monster Digital",
+    "variant_count": 9
+  },
+  {
+    "blueprint_id": 2790,
+    "blueprint_title": "Vintage Crewneck Tee",
+    "provider_id": 29,
+    "provider_title": "Monster Digital",
+    "variant_count": 33
+  },
+  {
+    "blueprint_id": 2799,
+    "blueprint_title": "Dri-Power 50/50 Cotton/Poly Long Sleeve T-Shirt",
+    "provider_id": 52,
+    "provider_title": "Stakes Manufacturing",
+    "variant_count": 174
+  },
+  {
+    "blueprint_id": 2803,
+    "blueprint_title": "Long Sleeve T-Shirt",
+    "provider_id": 52,
+    "provider_title": "Stakes Manufacturing",
+    "variant_count": 48
+  },
+  {
+    "blueprint_id": 2806,
+    "blueprint_title": "Long Sleeve T-Shirt",
+    "provider_id": 52,
+    "provider_title": "Stakes Manufacturing",
+    "variant_count": 48
+  },
+  {
     "blueprint_id": 2815,
     "blueprint_title": "Unisex T-Shirt",
     "provider_id": 52,
@@ -2672,181 +3141,6 @@
     "provider_id": 52,
     "provider_title": "Stakes Manufacturing",
     "variant_count": 72
-  },
-  {
-    "blueprint_id": 2842,
-    "blueprint_title": "Women's Flex Scoop Neck Tee",
-    "provider_id": 52,
-    "provider_title": "Stakes Manufacturing",
-    "variant_count": 64
-  },
-  {
-    "blueprint_id": 2843,
-    "blueprint_title": "Women's Re-Tee V-Neck",
-    "provider_id": 52,
-    "provider_title": "Stakes Manufacturing",
-    "variant_count": 88
-  },
-  {
-    "blueprint_id": 2844,
-    "blueprint_title": "Re-Tee Long Sleeve",
-    "provider_id": 52,
-    "provider_title": "Stakes Manufacturing",
-    "variant_count": 40
-  },
-  {
-    "blueprint_id": 2848,
-    "blueprint_title": "Long Sleeve T-Shirt",
-    "provider_id": 52,
-    "provider_title": "Stakes Manufacturing",
-    "variant_count": 27
-  },
-  {
-    "blueprint_id": 2856,
-    "blueprint_title": "Women's Performance Tank",
-    "provider_id": 52,
-    "provider_title": "Stakes Manufacturing",
-    "variant_count": 24
-  },
-  {
-    "blueprint_id": 2857,
-    "blueprint_title": "Women's Long Sleeve Fan Favorite V-Neck Tee",
-    "provider_id": 52,
-    "provider_title": "Stakes Manufacturing",
-    "variant_count": 63
-  },
-  {
-    "blueprint_id": 2858,
-    "blueprint_title": "Women's Core Cotton Tank Top",
-    "provider_id": 52,
-    "provider_title": "Stakes Manufacturing",
-    "variant_count": 64
-  },
-  {
-    "blueprint_id": 2860,
-    "blueprint_title": "Women's Sleeveless PosiCharge Competitor V-Neck Tee",
-    "provider_id": 52,
-    "provider_title": "Stakes Manufacturing",
-    "variant_count": 40
-  },
-  {
-    "blueprint_id": 2863,
-    "blueprint_title": "Women's PosiCharge Tri-Blend Wicking Scoop Neck Raglan Tee",
-    "provider_id": 52,
-    "provider_title": "Stakes Manufacturing",
-    "variant_count": 80
-  },
-  {
-    "blueprint_id": 2867,
-    "blueprint_title": "Women's Rashguard Tee",
-    "provider_id": 52,
-    "provider_title": "Stakes Manufacturing",
-    "variant_count": 40
-  },
-  {
-    "blueprint_id": 2900,
-    "blueprint_title": "Tie-Dye Long Sleeve Tee",
-    "provider_id": 52,
-    "provider_title": "Stakes Manufacturing",
-    "variant_count": 42
-  },
-  {
-    "blueprint_id": 2901,
-    "blueprint_title": "Tri-Blend Tee",
-    "provider_id": 52,
-    "provider_title": "Stakes Manufacturing",
-    "variant_count": 49
-  },
-  {
-    "blueprint_id": 2903,
-    "blueprint_title": "Performance Sleeveless Tee",
-    "provider_id": 52,
-    "provider_title": "Stakes Manufacturing",
-    "variant_count": 42
-  },
-  {
-    "blueprint_id": 2904,
-    "blueprint_title": "Long Sleeve Core Cotton Tee",
-    "provider_id": 52,
-    "provider_title": "Stakes Manufacturing",
-    "variant_count": 133
-  },
-  {
-    "blueprint_id": 2908,
-    "blueprint_title": "Tee",
-    "provider_id": 52,
-    "provider_title": "Stakes Manufacturing",
-    "variant_count": 8
-  },
-  {
-    "blueprint_id": 2909,
-    "blueprint_title": "Long Sleeve Pocket Tee",
-    "provider_id": 52,
-    "provider_title": "Stakes Manufacturing",
-    "variant_count": 8
-  },
-  {
-    "blueprint_id": 2910,
-    "blueprint_title": "Colorblock Performance Tee",
-    "provider_id": 52,
-    "provider_title": "Stakes Manufacturing",
-    "variant_count": 24
-  },
-  {
-    "blueprint_id": 2911,
-    "blueprint_title": "Colorblock Performance Long Sleeve Tee",
-    "provider_id": 52,
-    "provider_title": "Stakes Manufacturing",
-    "variant_count": 24
-  },
-  {
-    "blueprint_id": 2916,
-    "blueprint_title": "Colorblock PosiCharge Competitor Tee",
-    "provider_id": 52,
-    "provider_title": "Stakes Manufacturing",
-    "variant_count": 56
-  },
-  {
-    "blueprint_id": 2917,
-    "blueprint_title": "PosiCharge Competitor Tank",
-    "provider_id": 52,
-    "provider_title": "Stakes Manufacturing",
-    "variant_count": 48
-  },
-  {
-    "blueprint_id": 2918,
-    "blueprint_title": "Long Sleeve Heather Contender Tee",
-    "provider_id": 52,
-    "provider_title": "Stakes Manufacturing",
-    "variant_count": 32
-  },
-  {
-    "blueprint_id": 2919,
-    "blueprint_title": "Long Sleeve Heather Colorblock Contender Tee",
-    "provider_id": 52,
-    "provider_title": "Stakes Manufacturing",
-    "variant_count": 72
-  },
-  {
-    "blueprint_id": 2920,
-    "blueprint_title": "CamoHex Colorblock Tee",
-    "provider_id": 52,
-    "provider_title": "Stakes Manufacturing",
-    "variant_count": 48
-  },
-  {
-    "blueprint_id": 2921,
-    "blueprint_title": "Drift Camo Tee",
-    "provider_id": 52,
-    "provider_title": "Stakes Manufacturing",
-    "variant_count": 48
-  },
-  {
-    "blueprint_id": 2922,
-    "blueprint_title": "Drift Camo Colorblock Tee",
-    "provider_id": 52,
-    "provider_title": "Stakes Manufacturing",
-    "variant_count": 48
   },
   {
     "blueprint_id": 2924,
@@ -2959,6 +3253,27 @@
     "provider_id": 39,
     "provider_title": "SwiftPOD",
     "variant_count": 57
+  },
+  {
+    "blueprint_id": 4745,
+    "blueprint_title": "Women's Cropped Boxy Tee",
+    "provider_id": 29,
+    "provider_title": "Monster Digital",
+    "variant_count": 24
+  },
+  {
+    "blueprint_id": 5080,
+    "blueprint_title": "Clear Backpack",
+    "provider_id": 217,
+    "provider_title": "Fulfill Engine",
+    "variant_count": 1
+  },
+  {
+    "blueprint_id": 5335,
+    "blueprint_title": "Men's Box Hoodie",
+    "provider_id": 99,
+    "provider_title": "Printify Choice",
+    "variant_count": 36
   },
   {
     "blueprint_id": 5358,

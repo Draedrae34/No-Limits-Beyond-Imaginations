@@ -23,6 +23,8 @@ load_dotenv()
 
 # Initialize Stripe with your Secret Key from the environment
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+if not stripe.api_key:
+    logging.warning("STRIPE_SECRET_KEY not found in environment variables. Checkout will fail.")
 
 
 # Advanced AI Personality System
@@ -1192,6 +1194,12 @@ def serve_remembrance_files(filename):
     return send_from_directory("remembrance", filename)
 
 
+# Serve local assets from the Galaxy Fill Space folder
+@app.route("/Logo_N_Galaxy_Fill_Space/<path:filename>")
+def serve_galaxy_fill_files(filename):
+    return send_from_directory("Logo_N_Galaxy_Fill_Space", filename)
+
+
 @app.route("/chat", methods=["POST"])
 def chat():
     data = request.get_json()
@@ -1237,73 +1245,115 @@ printify_mock_data = {
 
 
 def initialize_printify_products():
-    """Initialize supreme product catalog from filtered_blueprints.json if available"""
-    fallback_products = []
+    """
+    Initialize product catalog for the shop UI.
+    Priority: Live Printify API > local chunks/catalog > blueprints.
+    """
+    printify_token = os.getenv("PRINTIFY_API_TOKEN") or os.getenv("PRINTIFY_API_KEY")
+    shop_id = os.getenv("PRINTIFY_SHOP_ID")
 
-    # Priority 1: Full Catalog (1000+ items)
-    catalog_path = os.path.join(os.path.dirname(__file__), "products_catalog.json")
-    # Priority 2: Filtered Blueprints
-    blueprint_path = os.path.join(os.path.dirname(__file__), "filtered_blueprints.json")
-
-    target_path = catalog_path if os.path.exists(catalog_path) else blueprint_path
-
-    if os.path.exists(target_path):
+    # 1. Try Live Printify API if credentials exist
+    if printify_token and shop_id:
         try:
-            with open(target_path, "r", encoding="utf-8") as f:
-                data = json.load(f)
-
-            # Handle both list and dict formats
-            blueprints = data.get("products", data) if isinstance(data, dict) else data
-
-            supreme_products = []
-            for bp in blueprints:
-                title = bp.get("title", "Unknown Product")
-                t_lower = title.lower()
-
-                # Smart pricing based on category
-                if any(x in t_lower for x in ["tee", "t-shirt", "tank"]):
-                    base = 25.0
-                elif any(
-                    x in t_lower for x in ["hoodie", "sweatshirt", "jacket", "blanket"]
-                ):
-                    base = 45.0
-                elif "mug" in t_lower:
-                    base = 15.0
-                else:
-                    base = 20.0
-
-                # Apply the Golden Ratio Multiplier (1.618)
-                final_price = round(base * 1.618, 2)
-
-                # Mock variant mapping for production launch (S, M, L, XL, 2XL)
-                variants = [
-                    {"id": "71352", "size": "S"},
-                    {"id": "71353", "size": "M"},
-                    {"id": "71354", "size": "L"},
-                    {"id": "71355", "size": "XL"},
-                    {"id": "71356", "size": "2XL"}
-                ]
-
-                # If coming from products_catalog.json, use its existing price if available
-                supreme_products.append(
-                    {
-                        "id": str(bp.get("id")),
-                        "name": bp.get("name", title),
-                        "description": bp.get("description", ""),
-                        "price": bp.get("price", final_price),
-                        "image": bp.get("image", bp.get("images", [None])[0]),
-                        "variants": variants
-                    }
+            headers = {"Authorization": f"Bearer {printify_token}", "Content-Type": "application/json"}
+            all_products = []
+            for page in range(1, 11): # Paginate through first 10 pages
+                resp = requests.get(
+                    f"https://api.printify.com/v1/shops/{shop_id}/products.json?limit=50&page={page}",
+                    headers=headers,
+                    timeout=20,
                 )
-            printify_mock_data["products"] = supreme_products
-            printify_mock_data["inventory"] = {p["id"]: 1000 for p in supreme_products}
-            return
-        except Exception as e:
-            print(f"Error loading blueprints: {e}")
+                if resp.status_code != 200: break
+                data = resp.json()
+                batch = data.get("data", [])
+                if not batch: break
+                all_products.extend(batch)
+                if len(batch) < 50: break
 
-    # Minimal fallback if JSON is missing or error occurs
-    printify_mock_data["products"] = fallback_products
-    printify_mock_data["inventory"] = {p["id"]: 1000 for p in fallback_products}
+            if all_products:
+                supreme_products = []
+                for p in all_products:
+                    title = (p.get("title") or "").strip()
+                    if not title: continue
+
+                    variants = []
+                    display_price = 29.99
+                    for v in p.get("variants", []):
+                        if v.get("is_enabled", True):
+                            if v.get("price") and display_price == 29.99:
+                                display_price = v["price"] / 100.0
+                            variants.append({"id": str(v.get("id")), "size": v.get("title", "Standard")})
+
+                    images = p.get("images", [])
+                    img_url = images[0].get("src") if images else ""
+
+                    supreme_products.append({
+                        "id": str(p.get("id")),
+                        "name": title,
+                        "description": p.get("description", ""),
+                        "price": display_price,
+                        "image": img_url,
+                        "variants": variants,
+                    })
+                printify_mock_data["products"] = supreme_products
+                printify_mock_data["inventory"] = {p["id"]: 1000 for p in supreme_products}
+                logging.info(f"Loaded {len(supreme_products)} products from live Printify shop")
+                return
+        except Exception as e:
+            logging.error(f"Live API sync failed: {str(e)}")
+
+    # 2. Fallback: Local JSON files (Priority: Catalog > Chunks > Blueprints)
+    fallback_products = []
+    search_files = ["products_catalog.json", "products_chunk_15.json", "filtered_blueprints.json", "all_blueprints.json"]
+    
+    for filename in search_files:
+        target_path = os.path.join(os.path.dirname(__file__), filename)
+        if os.path.exists(target_path):
+            try:
+                with open(target_path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                
+                items = data.get("products") or data.get("blueprints") if isinstance(data, dict) else data
+                if not items: continue
+
+                for bp in items:
+                    title = bp.get("name") or bp.get("title") or "Unknown Product"
+                    raw_variants = bp.get("variants", [])
+                    variants = []
+                    if isinstance(raw_variants, list):
+                        for v in raw_variants:
+                            if isinstance(v, dict):
+                                variants.append({"id": str(v.get("id", "71352")), "size": v.get("size") or v.get("title") or "Standard"})
+                    
+                    if not variants:
+                        variants = [{"id": "71352", "size": "Standard Fit"}]
+
+                    img_url = bp.get("image") or (bp.get("images")[0] if bp.get("images") else "")
+                    if isinstance(img_url, dict): img_url = img_url.get("src") or img_url.get("url")
+
+                    # Ensure local paths are absolute for the browser
+                    if img_url and not img_url.startswith("http") and not img_url.startswith("/"):
+                        img_url = "/" + img_url
+
+                    fallback_products.append(
+                        {
+                            "id": str(bp.get("id", secrets.token_hex(4))),
+                            "name": title,
+                            "description": bp.get("description", "Legacy Collection Piece"),
+                            "price": float(str(bp.get("price", 29.99)).replace('$', '')),
+                            "image": img_url,
+                            "variants": variants,
+                        }
+                    )
+                if fallback_products:
+                    printify_mock_data["products"] = fallback_products
+                    printify_mock_data["inventory"] = {p["id"]: 1000 for p in fallback_products}
+                    logging.info(f"Loaded {len(fallback_products)} items from local file: {filename}")
+                    return
+            except Exception as e:
+                logging.error(f"Error parsing local file {filename}: {e}")
+
+    logging.warning("No products loaded into the shop. Please check your data files.")
 
 
 initialize_printify_products()
@@ -1315,6 +1365,9 @@ def create_checkout_session():
     try:
         data = request.get_json()
         items = data.get("items", [])
+        
+        if not items:
+            return jsonify({"error": "No items provided for checkout"}), 400
 
         # Use SITE_URL from env if available for Vercel custom domains
         base_url = (os.getenv("SITE_URL") or request.host_url).rstrip('/')
@@ -1331,7 +1384,7 @@ def create_checkout_session():
                             "printify_variant_id": str(item.get("variant_id", "71352"))
                         }
                     },
-                    "unit_amount": int(float(item.get("price", 0)) * 100),
+                    "unit_amount": int(float(str(item.get('price', 0)).replace('$', '')) * 100),
                 },
                 'quantity': item.get('quantity', 1),
             })
@@ -1392,6 +1445,10 @@ def stripe_webhook():
     sig_header = request.headers.get("Stripe-Signature")
     endpoint_secret = os.getenv("STRIPE_WEBHOOK_SECRET")
     
+    if not endpoint_secret:
+        logging.error("STRIPE_WEBHOOK_SECRET not set. Cannot verify webhook signature.")
+        return jsonify({"error": "Server configuration error"}), 500
+
     logging.info("Stripe Webhook received a request.")
 
     try:
@@ -1444,6 +1501,15 @@ def stripe_webhook():
             }
         }
 
+        # Validate we have real IDs (otherwise Printify will reject and we'd rather surface it clearly).
+        bad_items = []
+        for idx, li in enumerate(printify_order.get("line_items", []), 1):
+            if not li.get("product_id") or not li.get("variant_id"):
+                bad_items.append({"index": idx, **li})
+        if bad_items:
+            logging.error(f"Stripe->Printify missing product/variant IDs: {bad_items}")
+            return jsonify({"error": "Missing Printify product_id/variant_id"}), 400
+
         # Log a safe summary by default (avoid writing full addresses to logs unless debugging).
         try:
             safe_items = []
@@ -1473,12 +1539,24 @@ def stripe_webhook():
         if printify_token and shop_id:
             try:
                 logging.info(f"Manifesting Printify order for session {session.get('id')}...")
-                response = requests.post(
-                    f"https://api.printify.com/v1/shops/{shop_id}/orders.json",
-                    json=printify_order,
-                    headers={"Authorization": f"Bearer {printify_token}", "Content-Type": "application/json"},
-                    timeout=30,
-                )
+                orders_url = f"https://api.printify.com/v1/shops/{shop_id}/orders.json"
+                headers = {"Authorization": f"Bearer {printify_token}", "Content-Type": "application/json"}
+
+                response = requests.post(orders_url, json=printify_order, headers=headers, timeout=30)
+
+                # If shipping method is invalid for the product/provider combo, retry once without it.
+                if response.status_code == 400:
+                    try:
+                        body = response.json()
+                        reason = (body.get("errors") or {}).get("reason", "")
+                    except Exception:
+                        reason = response.text
+
+                    if "shipping_method" in str(reason).lower():
+                        retry_order = dict(printify_order)
+                        retry_order.pop("shipping_method", None)
+                        logging.warning(f"Retrying Printify order without shipping_method (reason: {reason})")
+                        response = requests.post(orders_url, json=retry_order, headers=headers, timeout=30)
                 logging.info(f"Printify Response [{response.status_code}]: {response.text}")
                 if response.status_code in [200, 201]:
                     order_data = response.json()
@@ -1848,10 +1926,11 @@ def remembrance():
     REMEMBRANCE EXPERIENCE (brothers-remembrance.html)
     Categorized gallery, Cinematic Hero Slideshow, and Clean Architecture.
     """
-    base_dir = os.path.join(os.getcwd(), "remembrance")
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    base_dir = os.path.join(script_dir, "remembrance")
     # Handle case-sensitivity for 'Slideshow' or 'slideshow'
     s_dir = os.path.join(base_dir, "Slideshow")
-    if not os.path.exists(s_dir):
+    if os.path.exists(base_dir) and not os.path.exists(s_dir):
         s_dir = os.path.join(base_dir, "slideshow")
 
     # Discovery & Categorization Logic
