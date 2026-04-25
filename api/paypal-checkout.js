@@ -1,19 +1,10 @@
 import pool from '../src/utils/db.js';
+import { ensureOrdersSchema } from '../src/utils/orders.js';
 
 const PAYPAL_ENV = process.env.PAYPAL_ENV === 'live' ? 'live' : 'sandbox';
 const PAYPAL_BASE = PAYPAL_ENV === 'live' ? 'https://api-m.paypal.com' : 'https://api-m.sandbox.paypal.com';
 
-await pool.query(`
-  CREATE TABLE IF NOT EXISTS orders (
-    id SERIAL PRIMARY KEY,
-    paypal_order_id TEXT NOT NULL,
-    product_id TEXT,
-    amount NUMERIC,
-    buyer_email TEXT,
-    buyer_name TEXT,
-    created_at TIMESTAMPTZ DEFAULT NOW()
-  )
-`);
+await ensureOrdersSchema(pool);
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {

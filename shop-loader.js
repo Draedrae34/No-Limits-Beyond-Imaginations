@@ -10,7 +10,7 @@ async function loadShop() {
   container.innerHTML = "";
 
   activeProducts.forEach((product) => {
-    const imageUrl = resolveProductImageUrl(product.image_filename);
+    const imageUrl = resolveProductImageUrl(product.image_url || product.image_filename);
     const card = document.createElement("div");
     card.className = "product-card";
     card.innerHTML = `

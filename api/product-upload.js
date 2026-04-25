@@ -17,6 +17,7 @@ export default async function handler(req, res) {
     return res.status(200).json({
       success: true,
       url: blob.url,
+      image_url: blob.url,
       filename: blob.url,
     });
   } catch (err) {

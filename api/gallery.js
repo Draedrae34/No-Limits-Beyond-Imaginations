@@ -8,6 +8,7 @@ await pool.query(`
   CREATE TABLE IF NOT EXISTS gallery (
     id SERIAL PRIMARY KEY,
     filename TEXT NOT NULL,
+    image_url TEXT,
     original_name TEXT,
     cosmic_text TEXT,
     category TEXT DEFAULT 'memories',
@@ -16,6 +17,7 @@ await pool.query(`
 `);
 await pool.query(`ALTER TABLE gallery ADD COLUMN IF NOT EXISTS cosmic_text TEXT`);
 await pool.query(`ALTER TABLE gallery ADD COLUMN IF NOT EXISTS category TEXT DEFAULT 'memories'`);
+await pool.query(`ALTER TABLE gallery ADD COLUMN IF NOT EXISTS image_url TEXT`);
 
 export const config = rawBodyConfig;
 
@@ -36,12 +38,12 @@ export default async function handler(req, res) {
   if (req.method === "GET") {
     try {
       const result = await pool.query(
-        "SELECT id, filename, original_name, cosmic_text, category, uploaded_at FROM gallery ORDER BY id DESC"
+        "SELECT id, filename, image_url, original_name, cosmic_text, category, uploaded_at FROM gallery ORDER BY id DESC"
       );
 
       const items = result.rows.map((row) => ({
         ...row,
-        image_url: toGalleryImageUrl(row.filename),
+        image_url: toGalleryImageUrl(row.image_url || row.filename),
       }));
 
       return res.status(200).json(items);
@@ -64,7 +66,7 @@ export default async function handler(req, res) {
       const cosmicText = "A moment frozen in time, echoing through the silent cosmos...";
 
       await pool.query(
-        "INSERT INTO gallery (filename, original_name, cosmic_text, category) VALUES ($1, $2, $3, $4)",
+        "INSERT INTO gallery (filename, image_url, original_name, cosmic_text, category) VALUES ($1, $1, $2, $3, $4)",
         [blob.url, originalName, cosmicText, category]
       );
 
@@ -92,20 +94,20 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: "Missing id" });
       }
 
-      const result = await pool.query("SELECT filename FROM gallery WHERE id = $1", [id]);
+      const result = await pool.query("SELECT filename, image_url FROM gallery WHERE id = $1", [id]);
       if (result.rows.length === 0) {
         return res.status(404).json({ error: "Not found" });
       }
 
-      const filename = result.rows[0].filename;
-      if (filename && /^https?:\/\//i.test(filename)) {
+      const storedImage = result.rows[0].image_url || result.rows[0].filename;
+      if (storedImage && /^https?:\/\//i.test(storedImage)) {
         try {
-          await del(filename);
+          await del(storedImage);
         } catch (blobError) {
           console.error("Blob delete failed:", blobError);
         }
-      } else if (filename) {
-        deleteLegacyLocalFile(filename);
+      } else if (storedImage) {
+        deleteLegacyLocalFile(storedImage);
       }
 
       await pool.query("DELETE FROM gallery WHERE id = $1", [id]);

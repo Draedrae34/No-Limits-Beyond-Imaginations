@@ -1652,6 +1652,11 @@
                     }
 
                     galleryItems.forEach((item) => {
+                        const imageUrl = item.image_url ||
+                            (/^https?:\/\//i.test(item.filename || "")
+                                ? item.filename
+                                : `remembrance/Stand_Still_photos/${item.filename}`);
+
                         const card = document.createElement('div');
                         card.style.background = 'rgba(255,255,255,0.04)';
                         card.style.border = '1px solid rgba(255,255,255,0.08)';
@@ -1662,7 +1667,7 @@
                         card.style.cursor = 'pointer';
 
                         const img = document.createElement('img');
-                        img.src = `remembrance/Stand_Still_photos/${item.filename}`;
+                        img.src = imageUrl;
                         img.alt = item.original_name || 'Remembrance photo';
                         img.style.width = '100%';
                         img.style.display = 'block';

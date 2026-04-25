@@ -158,6 +158,21 @@
       opacity: 0.9;
     }
 
+    .action-btn {
+      background: #2d2d2d;
+      color: #fff;
+      border: 1px solid #4a4a4a;
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      margin-right: 8px;
+    }
+
+    .action-btn:hover {
+      background: #3c3c3c;
+    }
+
     .panel-actions {
       display: flex;
       flex-wrap: wrap;
@@ -171,6 +186,93 @@
       font-size: 0.95rem;
       line-height: 1.4;
       min-height: 1.4rem;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.72);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+    }
+
+    .modal-card {
+      width: min(760px, 100%);
+      background: #121212;
+      border: 1px solid #333;
+      border-radius: 12px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid #333;
+      background: #151515;
+    }
+
+    .modal-close {
+      border: none;
+      background: transparent;
+      color: #fff;
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+
+    .modal-content {
+      padding: 16px;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .detail-grid div {
+      background: #0f0f0f;
+      border: 1px solid #2b2b2b;
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    .detail-grid small {
+      color: #8f8f8f;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .fulfillment-fields {
+      display: grid;
+      gap: 10px;
+    }
+
+    .fulfillment-fields label {
+      color: #cfcfcf;
+      font-size: 0.9rem;
+    }
+
+    .fulfillment-fields textarea,
+    .fulfillment-fields select {
+      width: 100%;
+      margin-top: 6px;
+      background: #090909;
+      color: #fff;
+      border: 1px solid #3a3a3a;
+      border-radius: 8px;
+      padding: 10px;
+      resize: vertical;
     }
 
     @media (max-width: 720px) {
@@ -207,7 +309,9 @@
           <th>Amount</th>
           <th>Buyer</th>
           <th>Email</th>
+          <th>Fulfillment</th>
           <th>Date</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -280,6 +384,35 @@
       </thead>
       <tbody></tbody>
     </table>
+  </div>
+
+  <div id="order-modal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="order-modal-title" style="margin:0;">Order Detail</h3>
+        <button id="order-modal-close" class="modal-close" aria-label="Close order detail">x</button>
+      </div>
+      <div class="modal-content">
+        <div id="order-detail-grid" class="detail-grid"></div>
+        <div class="fulfillment-fields">
+          <label>
+            Fulfillment Status
+            <select id="order-fulfillment-status">
+              <option value="pending">Pending</option>
+              <option value="fulfilled">Fulfilled</option>
+            </select>
+          </label>
+          <label>
+            Fulfillment Notes
+            <textarea id="order-fulfillment-notes" rows="4" placeholder="Add shipping, tracking, or internal notes"></textarea>
+          </label>
+          <div style="display:flex; gap:10px; align-items:center;">
+            <button id="order-fulfillment-save" class="action-btn">Save Fulfillment</button>
+            <small id="order-fulfillment-status-text" style="color:#bbb;"></small>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="workshop.js"></script>
