@@ -1,0 +1,9 @@
+{
+  "name": "silent-spirits-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "stripe": "^12.0.0"
+  }
+}
