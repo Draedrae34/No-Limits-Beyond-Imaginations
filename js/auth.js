@@ -12,12 +12,12 @@ document.addEventListener('DOMContentLoaded', function () {
             const password = passwordInput.value;
 
             try {
-                const response = await fetch('/api/auth/login', {
+                const response = await fetch('/api/auth?action=login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ password }),
+                    body: JSON.stringify({ action: 'login', password }),
                 });
 
                 const data = await response.json();
@@ -44,7 +44,11 @@ document.addEventListener('DOMContentLoaded', function () {
     if (logoutBtn) {
         logoutBtn.addEventListener('click', async function () {
             try {
-                await fetch('/api/auth/logout', { method: 'POST' });
+                await fetch('/api/auth?action=logout', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'logout' }),
+                });
                 window.location.href = '/workshop/';
             } catch (error) {
                 console.error('Logout failed:', error);

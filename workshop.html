@@ -7,7 +7,7 @@
 
   <script>
     (async () => {
-      const res = await fetch("/api/auth-verify");
+      const res = await fetch("/api/auth?action=verify");
       const data = await res.json();
       if (!data.authenticated) {
         window.location.href = "/workshop-login.html";
