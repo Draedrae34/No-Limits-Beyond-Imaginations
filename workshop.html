@@ -106,6 +106,21 @@
       width: auto;
     }
 
+    .panel-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .panel-status {
+      color: #bbb;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      min-height: 1.4rem;
+    }
+
     @media (max-width: 720px) {
       nav {
         flex-wrap: wrap;
@@ -127,6 +142,10 @@
   <div id="orders" class="panel active">
     <h2>Orders</h2>
     <p>All PayPal orders logged in Neon.</p>
+    <div class="panel-actions">
+      <button id="refresh-orders">Refresh Orders</button>
+      <div id="orders-status" class="panel-status">Loaded orders will appear below.</div>
+    </div>
     <table id="orders-table">
       <thead>
         <tr>
@@ -145,6 +164,10 @@
   <!-- MESSAGES PANEL -->
   <div id="messages" class="panel">
     <h2>Message Wall Submissions</h2>
+    <div class="panel-actions">
+      <button id="refresh-messages">Refresh Messages</button>
+      <div id="messages-status" class="panel-status">Loaded messages will appear below.</div>
+    </div>
     <div id="messages-container"></div>
   </div>
 
