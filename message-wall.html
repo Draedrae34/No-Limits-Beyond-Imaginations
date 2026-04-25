@@ -523,6 +523,72 @@
             font-size: 0.8rem;
         }
 
+        /* Cosmic Tribute Styling */
+        .wall-message.pinned.tribute-text {
+            position: relative !important;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            padding: 30px;
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(139, 92, 246, 0.05));
+            box-shadow:
+                0 0 40px rgba(255, 215, 0, 0.15),
+                0 0 80px rgba(139, 92, 246, 0.1),
+                inset 0 0 60px rgba(255, 215, 0, 0.05);
+            animation: tributeGlow 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes tributeGlow {
+            0% {
+                box-shadow:
+                    0 0 40px rgba(255, 215, 0, 0.15),
+                    0 0 80px rgba(139, 92, 246, 0.1),
+                    inset 0 0 60px rgba(255, 215, 0, 0.05);
+            }
+            100% {
+                box-shadow:
+                    0 0 60px rgba(255, 215, 0, 0.25),
+                    0 0 100px rgba(139, 92, 246, 0.15),
+                    inset 0 0 80px rgba(255, 215, 0, 0.08);
+            }
+        }
+
+        .wall-message.pinned .tribute-text {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .wall-message.pinned .tribute-text p {
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .wall-message.pinned .tribute-text p:hover {
+            color: #FFD700;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .wall-message.pinned .name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem !important;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            letter-spacing: 2px;
+        }
+
+        .wall-message.pinned .date {
+            text-align: center;
+            margin-top: 20px;
+            font-style: italic;
+            color: rgba(255, 215, 0, 0.7);
+            font-size: 1.1rem;
+        }
+
         .wall-message .date {
             font-size: 0.75rem;
             opacity: 0.7;
@@ -649,29 +715,69 @@
             </p>
 
             <div id="message-wall">
-                <!-- Tribute Poem - Pinned (Permanent) -->
+                <!-- Tribute - Pinned (Permanent) -->
                 <div class="wall-message pinned tribute-text" style="position: relative; left: 0; top: 0; border-color: #FFD700; background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(139, 92, 246, 0.1));">
                     <div class="name" style="color: #FFD700; font-size: 1.3rem;">Aundrae Giles - Founder</div>
-                    <div class="tribute-text" style="font-style: italic; line-height: 1.8;">
-                        <p>In the silence of the morning, when the stars still shine,</p>
-                        <p>We feel your presence near, like a warm, gentle sign.</p>
-                        <p>R.J. and T-Mainney, brothers of the heart,</p>
-                        <p>Your memory lives on, never to depart.</p>
-                        <p></p>
-                        <p>Through every laugh we share, through every tear we shed,</p>
-                        <p>Your spirits dance with us, where the wild winds tread.</p>
-                        <p>In the stories we tell, in the songs we sing,</p>
-                        <p>Your legacy echoes, like the beat of a wing.</p>
-                        <p></p>
-                        <p>You taught us about courage, about living with grace,</p>
-                        <p>About embracing each moment, in every time and place.</p>
-                        <p>Your friendship was a gift, your love was true,</p>
-                        <p>And we'll carry you always, in everything we do.</p>
-                        <p></p>
-                        <p>So here's to you, our brothers, forever in our hearts,</p>
-                        <p>Where the heavens open wide, and the soul never parts.</p>
-                        <p>May your journey be peaceful, may your spirits fly free,</p>
-                        <p>And know that you're loved, for all eternity.</p>
+                    <div class="tribute-text" style="font-style: italic; line-height: 1.8; font-size: 1.05rem;">
+                        <p style="margin-bottom: 12px;">There are places in this world where the veil feels thin —<br>
+                        where memory becomes light,<br>
+                        and light becomes presence,<br>
+                        and presence becomes them.</p>
+
+                        <p style="margin-bottom: 12px;">This is one of those places.<br>
+                        A doorway carved out of love and defiance,<br>
+                        built so their names don't echo —<br>
+                        they resonate.</p>
+
+                        <p style="margin-bottom: 12px;">I speak into this space<br>
+                        and the universe shifts,<br>
+                        like it recognizes the sound of them.<br>
+                        Like it remembers the weight of their laughter,<br>
+                        the shape of their dreams,<br>
+                        the gravity of their absence.</p>
+
+                        <p style="margin-bottom: 12px;">But absence is a lie.<br>
+                        They are not gone —<br>
+                        they are diffused.<br>
+                        Spread into every quiet moment,<br>
+                        every spark of strength,<br>
+                        every breath that refuses to break.</p>
+
+                        <p style="margin-bottom: 12px;">I feel them in the stillness.<br>
+                        I feel them in the storms.<br>
+                        I feel them in the way my heart keeps beating<br>
+                        even when it shouldn't have known how.</p>
+
+                        <p style="margin-bottom: 12px;">This wall is not a memorial.<br>
+                        It is a constellation.<br>
+                        Every message is a star,<br>
+                        every memory a pulse,<br>
+                        every word a bridge<br>
+                        between here<br>
+                        and wherever their spirits roam.</p>
+
+                        <p style="margin-bottom: 12px;">And if you listen closely —<br>
+                        not with your ears,<br>
+                        but with the part of you that knows love doesn't end —<br>
+                        you'll feel it too.</p>
+
+                        <p style="margin-bottom: 12px;">They're still here.<br>
+                        Not as shadows,<br>
+                        but as light.<br>
+                        Not as ghosts,<br>
+                        but as gravity.<br>
+                        Not as loss,<br>
+                        but as the force that keeps you rising<br>
+                        when the world tries to pull you under.</p>
+
+                        <p style="margin-bottom: 12px;">This is their place.<br>
+                        This is their echo.<br>
+                        This is their forever.</p>
+
+                        <p>And every message written here<br>
+                        is a reminder that the universe<br>
+                        never forgets<br>
+                        the ones who were made of fire.</p>
                     </div>
                     <div class="date">- Forever in Our Hearts</div>
                 </div>
