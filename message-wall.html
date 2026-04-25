@@ -385,6 +385,144 @@
             margin-bottom: 10px;
         }
 
+        /* New Emotional Message Wall Styles */
+        .message-wall {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .mw-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            background: linear-gradient(90deg, #FFD700, #FF69B4, #00FFFF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .mw-subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #message-wall {
+            min-height: 200px;
+            margin: 40px 0;
+        }
+
+        .mw-divider {
+            text-align: center;
+            color: rgba(255, 215, 0, 0.7);
+            font-style: italic;
+            margin: 40px 0;
+            padding: 20px;
+            border-top: 1px solid rgba(255, 215, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .mw-form {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        .mw-form input[type="text"],
+        .mw-form textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 10px;
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .mw-form input[type="text"]:focus,
+        .mw-form textarea:focus {
+            outline: none;
+            border-color: #FFD700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .mw-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .mw-submit {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 18px 40px;
+            background: linear-gradient(45deg, #FF69B4, #FFD700);
+            border: none;
+            border-radius: 50px;
+            color: #000;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+
+        .mw-submit:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.5);
+        }
+
+        .mw-note {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+            margin-top: 15px;
+        }
+
+        .message-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(5px);
+            animation: messageAppear 0.8s ease forwards;
+        }
+
+        .message-card h3 {
+            color: #FFD700;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .message-card p {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .message-card small {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+
         .wall-message .date {
             font-size: 0.75rem;
             opacity: 0.7;
@@ -502,66 +640,17 @@
     </nav>
 
     <main>
-        <!-- Message Form -->
-        <div class="message-form-container">
-            <h2>Leave Your Message</h2>
-            <form id="messageForm">
-                <div class="form-group">
-                    <label for="name">Your Name</label>
-                    <input type="text" id="name" placeholder="Enter your name..." required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Your Message</label>
-                    <textarea id="message" placeholder="Write your heartfelt message to R.J. & T-Mainney..." required></textarea>
-                </div>
+        <section class="message-wall">
+            <h1 class="mw-title">Speak to Them</h1>
+            <p class="mw-subtitle">
+                This wall is a place where their energy still moves.
+                Your words don't disappear — they land where they're meant to.
+                Say what's on your heart. They're listening.
+            </p>
 
-                <!-- Font Style Options -->
-                <div class="form-group">
-                    <label>Choose Your Font Style</label>
-                    <div class="font-options" id="fontOptions">
-                        <div class="font-option selected" data-font="Rajdhani">Normal</div>
-                        <div class="font-option" data-font="Dancing Script">Script 1</div>
-                        <div class="font-option" data-font="Great Vibes">Script 2</div>
-                        <div class="font-option" data-font="Pacifico">Script 3</div>
-                        <div class="font-option" data-font="Sacramento">Script 4</div>
-                        <div class="font-option" data-font="Tangerine">Script 5</div>
-                        <div class="font-option" data-font="Orbitron">Bold</div>
-                    </div>
-                </div>
-
-                <!-- Color Options -->
-                <div class="form-group">
-                    <label>Choose Message Color</label>
-                    <div class="color-options" id="colorOptions">
-                        <div class="color-option selected" data-color="#FFD700" style="background: #FFD700;"></div>
-                        <div class="color-option" data-color="#FF69B4" style="background: #FF69B4;"></div>
-                        <div class="color-option" data-color="#00FFFF" style="background: #00FFFF;"></div>
-                        <div class="color-option" data-color="#FF6B6B" style="background: #FF6B6B;"></div>
-                        <div class="color-option" data-color="#98FB98" style="background: #98FB98;"></div>
-                        <div class="color-option" data-color="#DDA0DD" style="background: #DDA0DD;"></div>
-                        <div class="color-option" data-color="#87CEEB" style="background: #87CEEB;"></div>
-                        <div class="color-option" data-color="#FFA500" style="background: #FFA500;"></div>
-                        <div class="color-option" data-color="#FFFFFF" style="background: #FFFFFF;"></div>
-                        <div class="color-option" data-color="#C0C0C0" style="background: #C0C0C0;"></div>
-                    </div>
-                </div>
-
-                <button type="submit" class="submit-btn">
-                    <span class="btn-text">Post to Wall</span>
-                    <span class="btn-spinner"></span>
-                </button>
-                <div id="messageStatus" class="message-status" style="margin-top: 0.75rem; min-height: 1.3rem; font-size: 0.95rem; color: #FFFFFF;"></div>
-            </form>
-        </div>
-
-        <!-- Messages Wall -->
-        <h2 class="wall-title">Messages of Love</h2>
-        <p class="wall-subtitle">Every message you leave becomes a star in the sky they now ride. These words do not disappear. They are carried forever.</p>
-
-        <div class="wall-section">
-            <div class="messages-wall" id="messagesWall">
-                <!-- Tribute Poem - Pinned -->
-                <div class="wall-message pinned" style="position: relative; left: 0; top: 0; border-color: #FFD700; background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(139, 92, 246, 0.1));">
+            <div id="message-wall">
+                <!-- Tribute Poem - Pinned (Permanent) -->
+                <div class="wall-message pinned tribute-text" style="position: relative; left: 0; top: 0; border-color: #FFD700; background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(139, 92, 246, 0.1));">
                     <div class="name" style="color: #FFD700; font-size: 1.3rem;">Aundrae Giles - Founder</div>
                     <div class="tribute-text" style="font-style: italic; line-height: 1.8;">
                         <p>In the silence of the morning, when the stars still shine,</p>
@@ -586,13 +675,33 @@
                     </div>
                     <div class="date">- Forever in Our Hearts</div>
                 </div>
-                <!-- Messages will be scattered here -->
+                <!-- Dynamic messages will be inserted here -->
             </div>
-        </div>
 
-        <div class="empty-wall" id="emptyWall" style="display: none;">
-            <p>No messages yet. Be the first to leave your love!</p>
-        </div>
+            <div class="mw-divider">
+                Their bodies left — their presence didn't.
+                Every message keeps the connection alive.
+            </div>
+
+            <form id="message-form" class="mw-form">
+                <input
+                    type="text"
+                    id="message-name"
+                    placeholder="Your name (or leave it — they'll know who you are)"
+                />
+
+                <textarea
+                    id="message-text"
+                    placeholder="Say what you'd say if they were standing right in front of you…"
+                ></textarea>
+
+                <button type="submit" class="mw-submit">Send It to Them</button>
+
+                <p class="mw-note">
+                    Every message is reviewed to keep this space safe, sacred, and full of love.
+                </p>
+            </form>
+        </section>
     </main>
 
     <footer>
@@ -620,10 +729,10 @@
         function createRose() {
             const rosesContainer = document.getElementById('roses');
             const rose = document.createElement('div');
-            
+
             const colors = ['purple', 'pink', 'red', 'lavender', 'blue', 'black'];
             const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            
+
             rose.className = 'rose ' + randomColor;
             rose.innerHTML = '🥀';
             rose.style.left = Math.random() * 100 + '%';
@@ -654,90 +763,6 @@
             setTimeout(() => heart.remove(), 5000);
         }
 
-        async function loadMessages() {
-            const wall = document.getElementById('messagesWall');
-            const empty = document.getElementById('emptyWall');
-
-            try {
-                const res = await fetch('/api/messages?filter=approved');
-                if (!res.ok) throw new Error('Failed to load messages');
-                const data = await res.json();
-                const messages = data.messages || [];
-
-                if (!messages.length) {
-                    wall.style.display = 'none';
-                    empty.style.display = 'block';
-                    empty.textContent = 'No messages yet. Be the first to leave your love!';
-                    return;
-                }
-
-                wall.style.display = 'block';
-                empty.style.display = 'none';
-
-                wall.innerHTML = messages.map((msg, index) => {
-                    const pos = getRandomPosition();
-                    const fontFamily = fontFamilies[msg.font] || fontFamilies['Rajdhani'];
-                    const color = msg.color || '#FFD700';
-
-                    return `
-                        <div class="wall-message" style="
-                            left: ${pos.x}%;
-                            top: ${pos.y}%;
-                            transform: rotate(${pos.rotation}deg);
-                            background: linear-gradient(135deg, ${color}22, ${color}11);
-                            border: 1px solid ${color}66;
-                            color: ${color};
-                            font-family: ${fontFamily};
-                            animation-delay: ${index * 0.1}s;
-                        ">
-                            <div class="name">${escapeHtml(msg.name)}</div>
-                            <div class="text">${escapeHtml(msg.message)}</div>
-                            <div class="date">${formatDate(msg.created_at)}</div>
-                        </div>
-                    `;
-                }).join('');
-            } catch (err) {
-                console.error('Error loading messages:', err);
-                wall.style.display = 'none';
-                empty.style.display = 'block';
-                empty.textContent = 'Unable to load messages right now.';
-            }
-        }
-
-        async function saveMessage(name, message, font, color) {
-            try {
-                const res = await fetch('/api/messages', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, message, font, color })
-                });
-                const data = await res.json();
-                return res.ok && data.success;
-            } catch (err) {
-                console.error('Error saving message:', err);
-                return false;
-            }
-        }
-
-        // Font family mapping
-        const fontFamilies = {
-            'Rajdhani': "'Rajdhani', sans-serif",
-            'Dancing Script': "'Dancing Script', cursive",
-            'Great Vibes': "'Great Vibes', cursive",
-            'Pacifico': "'Pacifico', cursive",
-            'Sacramento': "'Sacramento', cursive",
-            'Tangerine': "'Tangerine', cursive",
-            'Orbitron': "'Orbitron', sans-serif"
-        };
-
-        // Generate random position for new messages
-        function getRandomPosition() {
-            const x = Math.random() * 75; // 0-75% horizontal
-            const y = Math.random() * 90; // 0-90% vertical
-            const rotation = (Math.random() - 0.5) * 15; // -7.5 to 7.5 degrees rotation
-            return { x, y, rotation };
-        }
-
         // Format date
         function formatDate(dateStr) {
             const date = new Date(dateStr);
@@ -755,77 +780,114 @@
             return div.innerHTML;
         }
 
-        // Font selection
-        let selectedFont = 'Rajdhani';
-        let selectedColor = '#FFD700';
-
-        document.getElementById('fontOptions').addEventListener('click', function(e) {
-            if (e.target.classList.contains('font-option')) {
-                document.querySelectorAll('.font-option').forEach(opt => opt.classList.remove('selected'));
-                e.target.classList.add('selected');
-                selectedFont = e.target.dataset.font;
-            }
-        });
-
-        document.getElementById('colorOptions').addEventListener('click', function(e) {
-            if (e.target.classList.contains('color-option')) {
-                document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('selected'));
-                e.target.classList.add('selected');
-                selectedColor = e.target.dataset.color;
-                const spinner = document.querySelector('.btn-spinner');
-                if (spinner) {
-                    spinner.style.borderTopColor = selectedColor;
-                }
-            }
-        });
-
-        const messageStatus = document.getElementById('messageStatus');
-        const submitButton = document.querySelector('.submit-btn');
-        const submitSpinner = submitButton.querySelector('.btn-spinner');
-        if (submitSpinner) {
-            submitSpinner.style.borderTopColor = selectedColor;
+        // Render a single message card
+        function renderMessage(msg) {
+            return `
+                <div class="message-card">
+                    <h3>${escapeHtml(msg.name || "Someone who remembers")}</h3>
+                    <p>${escapeHtml(msg.message)}</p>
+                    <small>Shared on ${new Date(msg.created_at).toLocaleString()} — carried forward in their light.</small>
+                </div>
+            `;
         }
 
-        function updateFormStatus(text, type = 'info') {
-            messageStatus.textContent = text;
-            messageStatus.style.color = type === 'error' ? '#FF6B6B' : type === 'success' ? '#7CFC00' : '#FFFFFF';
+        // Load messages from API and render
+        async function loadMessages() {
+            const wall = document.getElementById('message-wall');
+            if (!wall) return;
+
+            try {
+                const res = await fetch('/api/messages?filter=approved');
+                if (!res.ok) throw new Error('Failed to load messages');
+                const data = await res.json();
+                const messages = data.messages || [];
+
+                // Remove existing dynamic message cards (keep pinned tribute)
+                wall.querySelectorAll('.message-card').forEach(card => card.remove());
+
+                if (!messages.length) {
+                    const emptyNote = document.createElement('p');
+                    emptyNote.className = 'mw-note';
+                    emptyNote.style.textAlign = 'center';
+                    emptyNote.style.marginTop = '20px';
+                    emptyNote.textContent = 'No messages yet. Be the first to speak to them.';
+                    wall.appendChild(emptyNote);
+                    return;
+                }
+
+                // Append each message card
+                messages.forEach(msg => {
+                    const div = document.createElement('div');
+                    div.innerHTML = renderMessage(msg);
+                    wall.appendChild(div.firstElementChild);
+                });
+            } catch (err) {
+                console.error('Error loading messages:', err);
+                const wall = document.getElementById('message-wall');
+                if (wall) {
+                    const errorNote = document.createElement('p');
+                    errorNote.className = 'mw-note';
+                    errorNote.style.textAlign = 'center';
+                    errorNote.style.color = 'rgba(255,255,255,0.5)';
+                    errorNote.textContent = 'Unable to load messages right now.';
+                    wall.appendChild(errorNote);
+                }
+            }
+        }
+
+        // Save a new message
+        async function saveMessage(name, message) {
+            try {
+                const res = await fetch('/api/messages', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name,
+                        message,
+                        font: 'Rajdhani',
+                        color: '#FFD700'
+                    })
+                });
+                const data = await res.json();
+                return res.ok && data.success;
+            } catch (err) {
+                console.error('Error saving message:', err);
+                return false;
+            }
         }
 
         // Form submission
-        document.getElementById('messageForm').addEventListener('submit', async function(e) {
+        document.getElementById('message-form').addEventListener('submit', async function(e) {
             e.preventDefault();
 
-            const name = document.getElementById('name').value.trim();
-            const message = document.getElementById('message').value.trim();
+            const nameInput = document.getElementById('message-name');
+            const messageInput = document.getElementById('message-text');
+            const name = nameInput.value.trim();
+            const message = messageInput.value.trim();
 
-            if (!name || !message) {
-                updateFormStatus('Please enter your name and message before posting.', 'error');
+            if (!message) {
+                alert('Please write a message before sending.');
                 return;
             }
 
-            submitButton.disabled = true;
-            submitButton.classList.add('loading');
-            if (submitSpinner) {
-                submitSpinner.style.borderTopColor = selectedColor;
-            }
-            submitButton.style.boxShadow = `0 0 35px ${selectedColor}77`;
-            updateFormStatus('Saving your tribute to the wall...', 'info');
+            const submitButton = this.querySelector('.mw-submit');
+            const originalText = submitButton.textContent;
 
-            const saved = await saveMessage(name, message, selectedFont, selectedColor);
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
+
+            const saved = await saveMessage(name, message);
             if (saved) {
-                updateFormStatus('Message posted successfully. Thank you.', 'success');
-                document.getElementById('name').value = '';
-                document.getElementById('message').value = '';
+                nameInput.value = '';
+                messageInput.value = '';
                 await loadMessages();
-                document.querySelector('.wall-section').scrollIntoView({ behavior: 'smooth' });
-                setTimeout(() => updateFormStatus('', 'info'), 4000);
+                document.getElementById('message-wall').scrollIntoView({ behavior: 'smooth' });
             } else {
-                updateFormStatus('Unable to save your message right now. Please try again in a moment.', 'error');
+                alert('Unable to send your message right now. Please try again.');
             }
 
             submitButton.disabled = false;
-            submitButton.classList.remove('loading');
-            submitButton.style.boxShadow = '';
+            submitButton.textContent = originalText;
         });
 
         // Initialize
@@ -835,8 +897,11 @@
 
         // Silent moment fade out
         setTimeout(() => {
-            document.getElementById('silentMoment').classList.add('fade-out');
-            setTimeout(() => document.getElementById('silentMoment').remove(), 3000);
+            const silentMoment = document.getElementById('silentMoment');
+            if (silentMoment) {
+                silentMoment.classList.add('fade-out');
+                setTimeout(() => silentMoment.remove(), 3000);
+            }
         }, 3500);
 
         setInterval(createHeart, 3500);
