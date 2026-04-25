@@ -539,6 +539,52 @@
             animation: tributeGlow 4s ease-in-out infinite alternate;
         }
 
+        /* New Cosmic Sacred CSS */
+        .pinned-tribute {
+            padding: 40px 20px;
+            margin-bottom: 40px;
+            background: radial-gradient(circle at top, rgba(255,255,255,0.08), rgba(0,0,0,0));
+            border-radius: 12px;
+            text-align: center;
+            animation: tributeFade 1.8s ease-out forwards;
+        }
+
+        .tribute-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #ffffff, #b38bff, #6a4cff);
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .tribute-subtitle {
+            font-size: 1.1rem;
+            color: #dcdcdc;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .tribute-text {
+            font-size: 1.15rem;
+            color: #f0f0f0;
+            line-height: 1.8;
+            white-space: pre-line;
+            margin-bottom: 30px;
+        }
+
+        .tribute-divider {
+            margin-top: 20px;
+            font-size: 0.95rem;
+            color: #c9b8ff;
+            opacity: 0.8;
+        }
+
+        @keyframes tributeFade {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         @keyframes tributeGlow {
             0% {
                 box-shadow:
@@ -716,9 +762,10 @@
 
             <div id="message-wall">
                 <!-- Tribute - Pinned (Permanent) -->
-                <div class="wall-message pinned tribute-text" style="position: relative; left: 0; top: 0; border-color: #FFD700; background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(139, 92, 246, 0.1));">
-                    <div class="name" style="color: #FFD700; font-size: 1.3rem;">Aundrae Giles - Founder</div>
-                    <div class="tribute-text" style="font-style: italic; line-height: 1.8; font-size: 1.05rem;">
+                <div class="wall-message pinned tribute-text pinned-tribute" style="position: relative; left: 0; top: 0; border-color: #FFD700; background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(139, 92, 246, 0.1));">
+                    <div class="name tribute-title" style="color: #FFD700; font-size: 1.5rem;">Aundrae Giles - Founder</div>
+                    <div class="tribute-subtitle" style="font-size: 1.1rem; color: #dcdcdc; margin-bottom: 25px; line-height: 1.6;">When the Universe Remembers Their Names</div>
+                    <div class="tribute-text" style="font-style: italic; line-height: 1.8; font-size: 1.15rem; color: #f0f0f0; white-space: pre-line;">
                         <p style="margin-bottom: 12px;">There are places in this world where the veil feels thin —<br>
                         where memory becomes light,<br>
                         and light becomes presence,<br>
@@ -779,7 +826,7 @@
                         never forgets<br>
                         the ones who were made of fire.</p>
                     </div>
-                    <div class="date">- Forever in Our Hearts</div>
+                    <div class="date tribute-divider">- Forever in Our Hearts</div>
                 </div>
                 <!-- Dynamic messages will be inserted here -->
             </div>
