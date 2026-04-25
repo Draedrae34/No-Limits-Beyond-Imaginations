@@ -1,0 +1,83 @@
+{
+  "python.defaultInterpreterPath": "python",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "kilocode.kilo-code",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "python.analysis.typeCheckingMode": "basic",
+  "python.languageServer": "Pylance",
+  "errorLens.enabled": true,
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#1a0a2e",
+    "statusBar.foreground": "#ffd700",
+    "activityBar.background": "#03010a",
+    "sideBar.background": "#0a0015"
+  },
+  "editor.fontFamily": "'JetBrains Mono', 'Fira Code', monospace",
+  "editor.letterSpacing": 0.5,
+  "editor.lineHeight": 25,
+  "editor.cursorBlinking": "expand",
+  "workbench.editor.alwaysShowEditorActions": true,
+  "workbench.editor.autoLockGroups": {
+    "imagePreview.previewEditor": true,
+    "agentSessionsWelcomePage": true,
+    "workbench.editor.chatSession": true,
+    "workbench.editor.chatDebug": true,
+    "default": true,
+    "mainThreadWebview-markdown.preview": true,
+    "workbench.input.interactive": true,
+    "chatgpt.conversationEditor": true
+  },
+  "workbench.editor.centeredLayoutFixedWidth": true,
+  "workbench.editor.centeredLayoutAutoResize": true,
+  "workbench.editor.defaultBinaryEditor": "agentSessionsWelcomePage",
+  "workbench.editor.enablePreviewFromCodeNavigation": true,
+  "workbench.editor.enablePreviewFromQuickOpen": true,
+  "workbench.editor.highlightModifiedTabs": true,
+  "workbench.editor.preferHistoryBasedLanguageDetection": false,
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "editor.codeActions.triggerOnFocusChange": true,
+  "svn.ignoreMissingSvnWarning": true,
+  "cSpell.words": [
+    "alisia",
+    "Cinzel",
+    "FIRSTORDER",
+    "fulfillability",
+    "GLTF",
+    "gmtime",
+    "holo",
+    "hyperdimensional",
+    "LABLAUNCH",
+    "Lockdown",
+    "mainey",
+    "mainney",
+    "minmax",
+    "NLBL",
+    "ollama",
+    "Printful",
+    "printify",
+    "rikell",
+    "tmainey",
+    "totp",
+    "Vercel"
+  ],
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-containers"
+  },
+  "geminicodeassist.inlineSuggestions.nextEditPredictions": true,
+  "geminicodeassist.verboseLogging": true,
+  "geminicodeassist.updateChannel": "Default",
+  "notebook.defaultFormatter": "google.geminicodeassist",
+  "geminicodeassist.agentDebugMode": true,
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
