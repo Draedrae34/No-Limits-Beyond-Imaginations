@@ -3,6 +3,17 @@ const state = {
   activeOrderId: null,
 };
 
+const messagesState = {
+  list: [],
+  selected: null,
+};
+
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
+}
+
 const tabs = document.querySelectorAll(".tab-btn");
 const panels = document.querySelectorAll(".panel");
 
@@ -192,47 +203,155 @@ async function updateOrderFulfillment(orderId, fulfillmentStatus, fulfillmentNot
 }
 
 async function loadMessages() {
-  const container = document.getElementById("messages-container");
+  const filter = document.getElementById("messages-filter")?.value;
+  const q = document.getElementById("messages-search")?.value.trim();
   const statusEl = document.getElementById("messages-status");
-  if (!container || !statusEl) return;
+  if (!statusEl) return;
 
-  container.innerHTML = "";
   statusEl.textContent = "Refreshing messages...";
 
   try {
-    const res = await fetch("/api/messages");
-    const messages = await res.json();
-    if (!Array.isArray(messages)) {
-      container.innerHTML = '<div class="message-box">Unable to load messages.</div>';
-      statusEl.textContent = "Unable to load messages.";
-      return;
-    }
+    const params = new URLSearchParams();
+    if (filter && filter !== "all") params.set("filter", filter);
+    if (q) params.set("q", q);
 
-    if (!messages.length) {
-      container.innerHTML = '<div class="message-box">No messages found.</div>';
-      statusEl.textContent = "No messages found.";
-      return;
-    }
+    const res = await fetch(`/api/messages?${params.toString()}`);
+    const data = await res.json();
+    const messages = data.messages || [];
+    messagesState.list = messages;
 
-    messages.forEach((message) => {
-      const box = document.createElement("div");
-      box.className = "message-box";
-      box.innerHTML = `
-        <strong>${message.name || "Anonymous"}</strong><br>
-        <span style="color:${message.color || "#fff"}; font-family:${message.font || "Arial"};">
-          ${message.message || ""}
-        </span><br>
-        <small>${formatDate(message.created_at)}</small>
-      `;
-      container.appendChild(box);
-    });
+    renderMessagesTable();
 
     statusEl.textContent = `Loaded ${messages.length} message${messages.length === 1 ? "" : "s"}.`;
   } catch (error) {
     console.error(error);
-    container.innerHTML = '<div class="message-box">Unable to load messages.</div>';
+    const tbody = document.querySelector("#messages-table tbody");
+    if (tbody) tbody.innerHTML = '<tr><td colspan="6">Unable to load messages.</td></tr>';
     statusEl.textContent = "Unable to load messages.";
   }
+}
+
+function renderMessagesTable() {
+  const tbody = document.querySelector("#messages-table tbody");
+  if (!tbody) return;
+  tbody.innerHTML = "";
+
+  messagesState.list.forEach((msg) => {
+    const preview = msg.message.length > 40 ? msg.message.slice(0, 40) + "…" : msg.message;
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${escapeHtml(msg.name || "Anonymous")}</td>
+      <td>${escapeHtml(preview)}</td>
+      <td>${msg.approved ? "Yes" : "No"}</td>
+      <td>${msg.hidden ? "Yes" : "No"}</td>
+      <td>${formatDate(msg.created_at)}</td>
+      <td>
+        <button class="action-btn" data-action="view" data-id="${msg.id}">View</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  tbody.querySelectorAll('button[data-action="view"]').forEach((btn) => {
+    btn.addEventListener("click", () => openMessageModal(btn.dataset.id));
+  });
+}
+
+function openMessageModal(id) {
+  const msg = messagesState.list.find(m => String(m.id) === String(id));
+  if (!msg) return;
+
+  messagesState.selected = msg;
+
+  document.getElementById("modal-message-name").textContent = msg.name || "Anonymous";
+  document.getElementById("modal-message-text").textContent = msg.message || "";
+  document.getElementById("modal-message-approved").checked = !!msg.approved;
+  document.getElementById("modal-message-hidden").checked = !!msg.hidden;
+  document.getElementById("modal-message-notes").value = msg.admin_notes || "";
+
+  const modal = document.getElementById("message-modal");
+  if (modal) {
+    modal.classList.add("active");
+    modal.setAttribute("aria-hidden", "false");
+  }
+}
+
+function closeMessageModal() {
+  const modal = document.getElementById("message-modal");
+  if (modal) {
+    modal.classList.remove("active");
+    modal.setAttribute("aria-hidden", "true");
+  }
+  messagesState.selected = null;
+}
+
+async function saveMessageModeration() {
+  if (!messagesState.selected) return;
+
+  const id = messagesState.selected.id;
+  const approved = document.getElementById("modal-message-approved").checked;
+  const hidden = document.getElementById("modal-message-hidden").checked;
+  const admin_notes = document.getElementById("modal-message-notes").value.trim();
+
+  try {
+    const res = await fetch("/api/messages", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, approved, hidden, admin_notes }),
+    });
+    const data = await res.json();
+    if (!res.ok || !data.success) {
+      throw new Error(data.error || "Failed to save message");
+    }
+    await loadMessages();
+    closeMessageModal();
+  } catch (error) {
+    console.error(error);
+    const statusEl = document.getElementById("messages-status");
+    if (statusEl) statusEl.textContent = error.message || "Failed to save message.";
+  }
+}
+
+async function deleteMessage() {
+  if (!messagesState.selected) return;
+  const id = messagesState.selected.id;
+
+  if (!confirm("Delete this message permanently?")) return;
+
+  try {
+    const res = await fetch("/api/messages", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    });
+    const data = await res.json();
+    if (!res.ok || !data.success) {
+      throw new Error(data.error || "Failed to delete message");
+    }
+    await loadMessages();
+    closeMessageModal();
+  } catch (error) {
+    console.error(error);
+    const statusEl = document.getElementById("messages-status");
+    if (statusEl) statusEl.textContent = error.message || "Failed to delete message.";
+  }
+}
+
+function initMessagesSection() {
+  document.getElementById("messages-refresh")?.addEventListener("click", loadMessages);
+  document.getElementById("messages-filter")?.addEventListener("change", loadMessages);
+  document.getElementById("messages-search")?.addEventListener("keyup", (e) => {
+    if (e.key === "Enter") loadMessages();
+  });
+
+  document.getElementById("modal-message-save")?.addEventListener("click", saveMessageModeration);
+  document.getElementById("modal-message-delete")?.addEventListener("click", deleteMessage);
+  document.getElementById("modal-message-close")?.addEventListener("click", closeMessageModal);
+  document.getElementById("message-modal-close")?.addEventListener("click", closeMessageModal);
+  const messageModal = document.getElementById("message-modal");
+  messageModal?.addEventListener("click", (e) => {
+    if (e.target === messageModal) closeMessageModal();
+  });
 }
 
 function uploadGalleryFile() {
@@ -520,6 +639,7 @@ function wireUiEvents() {
 async function initializeWorkshop() {
   wireUiEvents();
   uploadGalleryFile();
+  initMessagesSection();
   await Promise.all([loadOrders(), loadMessages(), loadGallery(), loadGalleryAdmin()]);
 }
 

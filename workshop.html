@@ -321,11 +321,31 @@
   <!-- MESSAGES PANEL -->
   <div id="messages" class="panel">
     <h2>Message Wall Submissions</h2>
-    <div class="panel-actions">
-      <button id="refresh-messages">Refresh Messages</button>
+    <div class="messages-controls panel-actions">
+      <select id="messages-filter">
+        <option value="all">All</option>
+        <option value="approved">Approved</option>
+        <option value="unapproved">Unapproved</option>
+        <option value="hidden">Hidden</option>
+      </select>
+      <input id="messages-search" type="text" placeholder="Search by name or text" style="background: #090909; color: #fff; border: 1px solid #3a3a3a; border-radius: 8px; padding: 8px; width: 220px;" />
+      <button id="messages-refresh">Refresh</button>
       <div id="messages-status" class="panel-status">Loaded messages will appear below.</div>
     </div>
-    <div id="messages-container"></div>
+
+    <table id="messages-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Preview</th>
+          <th>Approved</th>
+          <th>Hidden</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
   </div>
 
   <!-- GALLERY PANEL -->
@@ -366,8 +386,8 @@
       <input id="prod-price" type="number" step="0.01" value="29.99" />
       <label>Category</label>
       <input id="prod-category" placeholder="Apparel" />
-      <label>Image</label>
-      <input id="prod-image" type="file" />
+      <label>Image URL</label>
+      <input id="prod-image-url" placeholder="https://example.com/image.jpg" />
       <label style="display: flex; align-items: center; gap: 8px; margin-top: 10px;">
         <input id="prod-active" type="checkbox" checked /> Active
       </label>
@@ -410,6 +430,41 @@
             <button id="order-fulfillment-save" class="action-btn">Save Fulfillment</button>
             <small id="order-fulfillment-status-text" style="color:#bbb;"></small>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Message Moderation Modal -->
+  <div id="message-modal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Message Details</h3>
+        <button id="message-modal-close" class="modal-close" aria-label="Close message detail">x</button>
+      </div>
+      <div class="modal-content">
+        <p><strong>Name:</strong> <span id="modal-message-name"></span></p>
+        <p><strong>Message:</strong></p>
+        <p id="modal-message-text" style="background: #090909; padding: 10px; border-radius: 8px; margin: 8px 0; white-space: pre-wrap;"></p>
+
+        <label style="display: flex; align-items: center; gap: 8px; margin-top: 10px; color: #cfcfcf;">
+          <input type="checkbox" id="modal-message-approved" />
+          Approved
+        </label>
+        <label style="display: flex; align-items: center; gap: 8px; margin-top: 10px; color: #cfcfcf;">
+          <input type="checkbox" id="modal-message-hidden" />
+          Hidden
+        </label>
+
+        <label style="margin-top: 10px; color: #cfcfcf; font-size: 0.9rem; display: block;">
+          Admin Notes
+          <textarea id="modal-message-notes" rows="4" style="width: 100%; margin-top: 6px; background: #090909; color: #fff; border: 1px solid #3a3a3a; border-radius: 8px; padding: 10px; resize: vertical;"></textarea>
+        </label>
+
+        <div class="modal-actions" style="display: flex; gap: 10px; margin-top: 16px;">
+          <button id="modal-message-save" class="action-btn">Save</button>
+          <button id="modal-message-delete" class="delete-btn">Delete</button>
+          <button id="modal-message-close-btn" class="action-btn">Close</button>
         </div>
       </div>
     </div>
