@@ -1195,6 +1195,12 @@
                 </div>
             </section>
 
+            <section class="dynamic-gallery-section latent-section">
+                <h2 class="section-title">Stand-Still Gallery</h2>
+                <p class="memorial-intro">Browse the newest uploaded remembrance images from the Workshop.</p>
+                <div id="dynamic-gallery" class="memorial-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; margin-top:1rem;"></div>
+            </section>
+
             <section class="portraits-section latent-section">
                 <h2 class="section-title">Stand-Still Legacy Portrait Stories</h2>
                 <div class="portraits-grid" id="portraits-grid">
@@ -1577,11 +1583,59 @@
                 loadSlides();
                 loadPortraits();
                 setupSpaceJumpControls();
+                loadDynamicGallery();
                 tributePlayBtn?.addEventListener('click', () => {
                     playTributeAudio('manual');
                     startTributeSequence();
                 });
             });
+
+            async function loadDynamicGallery() {
+                try {
+                    const galleryContainer = document.getElementById('dynamic-gallery');
+                    if (!galleryContainer) return;
+
+                    const response = await fetch('/api/gallery');
+                    const items = await response.json();
+                    const galleryItems = Array.isArray(items) ? items : items.items || [];
+
+                    galleryContainer.innerHTML = '';
+                    if (!galleryItems.length) {
+                        galleryContainer.innerHTML = '<p style="color:#c4c4ff;">No remembrance uploads yet.</p>';
+                        return;
+                    }
+
+                    galleryItems.forEach((item) => {
+                        const card = document.createElement('div');
+                        card.style.background = 'rgba(255,255,255,0.04)';
+                        card.style.border = '1px solid rgba(255,255,255,0.08)';
+                        card.style.borderRadius = '20px';
+                        card.style.overflow = 'hidden';
+                        card.style.padding = '0.5rem';
+                        card.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
+
+                        const img = document.createElement('img');
+                        img.src = `remembrance/Stand_Still_photos/${item.filename}`;
+                        img.alt = item.original_name || 'Remembrance photo';
+                        img.style.width = '100%';
+                        img.style.display = 'block';
+                        img.style.objectFit = 'cover';
+                        img.style.borderRadius = '18px';
+                        card.appendChild(img);
+
+                        const caption = document.createElement('p');
+                        caption.style.color = '#c4c4ff';
+                        caption.style.fontSize = '0.95rem';
+                        caption.style.margin = '0.75rem 0 0';
+                        caption.textContent = item.original_name || 'Uploaded photo';
+                        card.appendChild(caption);
+
+                        galleryContainer.appendChild(card);
+                    });
+                } catch (error) {
+                    console.error('Unable to load gallery:', error);
+                }
+            }
             document.addEventListener('pointerdown', captureInteraction, { once: true });
 
             document.addEventListener('keydown', (e) => {

@@ -176,10 +176,17 @@
     <h2>Remembrance Gallery</h2>
     <p>Upload new Stand Still photos here.</p>
 
+    <div class="panel-actions">
+      <button id="refresh-gallery">Refresh Gallery</button>
+      <div id="gallery-status" class="panel-status">Choose a photo to upload.</div>
+    </div>
+
     <div class="upload-box">
       <input type="file" id="gallery-upload" />
       <button id="upload-btn">Upload</button>
     </div>
+
+    <div id="gallery-items" style="margin-top: 20px;"></div>
   </div>
 
   <script src="workshop.js"></script>

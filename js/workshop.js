@@ -79,25 +79,86 @@ async function loadMessages() {
   status.textContent = `Loaded ${messages.length} message${messages.length === 1 ? "" : "s"}.`;
 }
 
-// GALLERY UPLOAD PLACEHOLDER
-function setupGalleryUpload() {
+// GALLERY UPLOAD
+async function uploadGalleryFile() {
   const uploadButton = document.getElementById("upload-btn");
   const uploadInput = document.getElementById("gallery-upload");
+  const status = document.getElementById("gallery-status");
 
-  uploadButton.addEventListener("click", () => {
-    if (!uploadInput.files.length) {
+  uploadButton.addEventListener("click", async () => {
+    const file = uploadInput.files[0];
+    if (!file) {
       alert("Please choose a file before uploading.");
       return;
     }
 
-    alert("Gallery upload is a placeholder for now. Backend wiring coming next.");
+    status.textContent = "Uploading...";
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await fetch("/api/gallery", {
+        method: "POST",
+        body: formData,
+      });
+      const result = await response.json();
+
+      if (result.success) {
+        status.textContent = "Upload successful!";
+        uploadInput.value = "";
+        await loadGallery();
+      } else {
+        status.textContent = result.error || "Upload failed.";
+      }
+    } catch (error) {
+      console.error(error);
+      status.textContent = "Upload failed. Check console.";
+    }
   });
+}
+
+async function loadGallery() {
+  const res = await fetch("/api/gallery");
+  const items = await res.json();
+  const container = document.getElementById("gallery-items");
+  const status = document.getElementById("gallery-status");
+
+  container.innerHTML = "";
+  status.textContent = "Refreshing gallery...";
+
+  const galleryItems = Array.isArray(items) ? items : items.items || [];
+  if (!galleryItems.length) {
+    container.innerHTML = '<div class="message-box">No gallery images found.</div>';
+    status.textContent = "No gallery images found.";
+    return;
+  }
+
+  galleryItems.forEach((item) => {
+    const card = document.createElement("div");
+    card.className = "message-box";
+    card.style.display = "flex";
+    card.style.alignItems = "center";
+    card.style.gap = "12px";
+    card.innerHTML = `
+      <img src="/remembrance/Stand_Still_photos/${item.filename}" alt="${item.original_name || 'Uploaded'}" style="width:96px; height:auto; border-radius:12px; object-fit:cover;" />
+      <div>
+        <strong>${item.original_name || 'Uploaded image'}</strong><br />
+        <small>${new Date(item.uploaded_at).toLocaleString()}</small>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+
+  status.textContent = `Loaded ${galleryItems.length} gallery item${galleryItems.length === 1 ? "" : "s"}.`;
 }
 
 // INITIAL LOAD
 loadOrders();
 loadMessages();
-setupGalleryUpload();
+loadGallery();
+uploadGalleryFile();
 
 document.getElementById("refresh-orders").addEventListener("click", loadOrders);
 document.getElementById("refresh-messages").addEventListener("click", loadMessages);
+document.getElementById("refresh-gallery").addEventListener("click", loadGallery);
