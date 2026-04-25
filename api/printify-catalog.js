@@ -18,6 +18,11 @@ export async function getCatalog(forceRefresh = false) {
       printifyRequest('/catalog/print_providers.json')
     ]);
 
+    // Check if we got valid data (not an error)
+    if (!blueprints || !providers) {
+      throw new Error('Invalid catalog response');
+    }
+
     catalogCache = {
       blueprints: blueprints.data || [],
       providers: providers.data || [],

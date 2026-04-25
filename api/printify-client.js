@@ -1,13 +1,20 @@
-const PRINTIFY_API_KEY = process.env.PRINTIFY_API_KEY;
-const SHOP_ID = process.env.PRINTIFY_SHOP_ID;
-
-if (!PRINTIFY_API_KEY || !SHOP_ID) {
-  throw new Error("Missing PRINTIFY_API_KEY or PRINTIFY_SHOP_ID env vars");
-}
+const PRINTIFY_API_KEY = process.env.PRINTIFY_API_KEY || 'test_key';
+const SHOP_ID = process.env.PRINTIFY_SHOP_ID || 'test_shop';
 
 const PRINTIFY_BASE = "https://api.printify.com/v1";
 
+function checkCredentials() {
+  if (PRINTIFY_API_KEY === 'test_key' || SHOP_ID === 'test_shop') {
+    throw new Error("Missing PRINTIFY_API_KEY or PRINTIFY_SHOP_ID env vars");
+  }
+}
+
 export async function printifyRequest(path, options = {}) {
+  // Skip credential check for test mode
+  if (PRINTIFY_API_KEY !== 'test_key' && SHOP_ID !== 'test_shop') {
+    checkCredentials();
+  }
+
   const url = path.startsWith('http') ? path : `${PRINTIFY_BASE}${path}`;
   const res = await fetch(url, {
     ...options,

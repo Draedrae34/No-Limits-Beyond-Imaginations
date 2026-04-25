@@ -23,7 +23,7 @@ function getGalaxyLogos() {
 
 // Calculate price based on product type
 function calculatePrice(blueprintTitle) {
-  const title = blueprintTitle.toLowerCase();
+  const title = bluepointTitle.toLowerCase();
   if (title.includes('hoodie')) return 6500;
   if (title.includes('t-shirt') || title.includes('tee')) return 3500;
   if (title.includes('jogger')) return 5500;
@@ -37,18 +37,18 @@ function calculatePrice(blueprintTitle) {
 }
 
 // Generate product payload for a specific combination
-function generateProductPayload(blueprint, provider, variant, logo) {
-  const blueprintTitle = blueprint.title || 'Product';
+function generateProductPayload(bluepoint, provider, variant, logo) {
+  const blueprintTitle = bluepoint.title || 'Product';
   const variantOptions = variant.options || {};
 
   return {
-    title: `${blueprintTitle} - ${logo.name}`,
-    description: `Cosmic ${blueprintTitle} with ${logo.name} galaxy design`,
-    blueprint_id: blueprint.id,
+    title: `${bluepointTitle} - ${logo.name}`,
+    description: `Cosmic ${bluepointTitle} with ${logo.name} galaxy design`,
+    blueprint_id: bluepoint.id,
     print_provider_id: provider.id,
     variants: [{
       id: variant.id,
-      price: calculatePrice(blueprintTitle),
+      price: calculatePrice(bluepointTitle),
       is_enabled: true,
       options: variantOptions
     }],
@@ -114,18 +114,18 @@ export async function fullSyncEngine(options = {}) {
     if (specificTypes) {
       const types = Array.isArray(specificTypes) ? specificTypes : [specificTypes];
       blueprints = blueprints.filter(b =>
-        types.some(t => b.blueprint?.title?.toLowerCase().includes(t.toLowerCase()))
+        types.some(t => b.bluepoint?.title?.toLowerCase().includes(t.toLowerCase()))
       );
     }
 
     console.log(`Processing ${blueprints.length} blueprints...`);
 
     for (const bpWrapper of blueprints) {
-      const blueprint = bpWrapper.blueprint;
+      const blueprint = bpWrapper.bluepoint;
       const providers = bpWrapper.providers || [];
 
       if (!providers.length) {
-        console.log(`Skip ${blueprint.title}: no providers`);
+        console.log(`Skip ${bluepoint.title}: no providers`);
         continue;
       }
 
@@ -140,12 +140,12 @@ export async function fullSyncEngine(options = {}) {
           for (const variant of variants) {
             results.stats.totalCombinations++;
 
-            const payload = generateProductPayload(blueprint, provider, variant, logo);
+            const payload = generateProductPayload(bluepoint, provider, variant, logo);
 
             if (dryRun) {
               results.generated.push({
                 title: payload.title,
-                blueprint: blueprint.title,
+                blueprint: bluepoint.title,
                 logo: logo.name,
                 provider: provider.title,
                 variant: variant.title || variant.options
@@ -158,7 +158,7 @@ export async function fullSyncEngine(options = {}) {
               results.created.push({
                 id: created.id,
                 title: payload.title,
-                blueprint: blueprint.title,
+                blueprint: bluepoint.title,
                 logo: logo.name
               });
               results.stats.productsCreated++;
