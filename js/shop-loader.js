@@ -338,6 +338,13 @@ class NLBLShopLoader {
 
     window.paypal
       .Buttons({
+        commit: true,
+        style: {
+          layout: 'vertical',
+          color: 'blue',
+          shape: 'rect',
+          label: 'pay',
+        },
         createOrder: (data, actions) => {
           return actions.order.create({
             purchase_units: [

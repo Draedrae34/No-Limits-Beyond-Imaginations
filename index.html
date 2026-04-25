@@ -1889,13 +1889,26 @@
                 </div>
             </a>
             <nav class="main-nav">
-                <a href="brothers-remembrance.html" class="nav-link">My Brothers</a>
-                <a href="message-wall.html" class="nav-link">Honor Wall</a>
+                <a href="index.html" class="nav-link">Home</a>
                 <a href="shop.html" class="nav-link">Shop</a>
-                <a href="brothers-remembrance.html" class="nav-link special"
-                    >🚀 Begin Journey</a
-                >
+                <a href="brothers-remembrance.html" class="nav-link">Remembrance</a>
+                <a href="message-wall.html" class="nav-link">Message Wall</a>
+                <a id="workshop-nav-link" href="workshop-login.html" class="nav-link" style="display:none;">Workshop</a>
+                <a href="brothers-remembrance.html" class="nav-link special">🚀 Begin Journey</a>
             </nav>
+            <script>
+              (async function () {
+                try {
+                  const res = await fetch('/api/auth?action=verify');
+                  const data = await res.json();
+                  if (res.ok && data.authenticated) {
+                    document.getElementById('workshop-nav-link').style.display = 'inline-block';
+                  }
+                } catch (err) {
+                  console.debug('Workshop nav hidden', err);
+                }
+              })();
+            </script>
         </header>
 
         <!-- Main Content -->
