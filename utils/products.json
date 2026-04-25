@@ -1,0 +1,79 @@
+[
+  {
+    "title": "Galaxy Hoodie - NLBL",
+    "description": "Cosmic hoodie with NLBL logo on galaxy background",
+    "variants": [
+      {
+        "id": 1,
+        "product_id": 1,
+        "color": "Black",
+        "size": "S",
+        "price": "49.99"
+      },
+      {
+        "id": 2,
+        "product_id": 1,
+        "color": "Black",
+        "size": "M",
+        "price": "49.99"
+      },
+      {
+        "id": 3,
+        "product_id": 1,
+        "color": "Black",
+        "size": "L",
+        "price": "49.99"
+      }
+    ],
+    "print_areas": [
+      {
+        "variant_ids": [1, 2, 3],
+        "print_area": "front",
+        "width": 2400,
+        "height": 3000
+      }
+    ],
+    "images": [
+      {
+        "src": "https://your-cdn.com/products/galaxy-hoodie-nlbl.png",
+        "variant_ids": [1, 2, 3],
+        "position": "front"
+      }
+    ]
+  },
+  {
+    "title": "Galaxy T-Shirt - NLBL",
+    "description": "Cosmic T-shirt with NLBL logo on galaxy background",
+    "variants": [
+      {
+        "id": 4,
+        "product_id": 2,
+        "color": "Black",
+        "size": "S",
+        "price": "29.99"
+      },
+      {
+        "id": 5,
+        "product_id": 2,
+        "color": "Black",
+        "size": "M",
+        "price": "29.99"
+      }
+    ],
+    "print_areas": [
+      {
+        "variant_ids": [4, 5],
+        "print_area": "front",
+        "width": 1800,
+        "height": 2400
+      }
+    ],
+    "images": [
+      {
+        "src": "https://your-cdn.com/products/galaxy-tshirt-nlbl.png",
+        "variant_ids": [4, 5],
+        "position": "front"
+      }
+    ]
+  }
+]

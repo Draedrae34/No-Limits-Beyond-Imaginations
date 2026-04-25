@@ -706,7 +706,31 @@
       </div>
     </div>
 
-    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_LIVE_CLIENT_ID&currency=USD"></script>
     <script src="js/shop-loader.js"></script>
+
+    <script>
+        // Live PayPal Button - Replace PRICE_HERE and PRODUCT_NAME_HERE
+        if (typeof paypal !== 'undefined') {
+            paypal.Buttons({
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: "PRICE_HERE"
+                            },
+                            description: "PRODUCT_NAME_HERE"
+                        }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        alert("Payment completed by " + details.payer.name.given_name);
+                        window.location.href = "/order-complete.html";
+                    });
+                }
+            }).render('#paypal-button-container');
+        }
+    </script>
   </body>
 </html>

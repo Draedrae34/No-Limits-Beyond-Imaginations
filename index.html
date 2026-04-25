@@ -9,27 +9,22 @@
         <meta name="theme-color" content="#1a0a2e" />
         <meta
             name="description"
-            content="No Limits Beyond Limitations Into My Wildest Imagination - A revolutionary clothing brand born from love, loss, and the unbreakable bond of brotherhood. R.J. & T-Mainney live forever."
+            content="Silent Spirits Legacy — a cosmic memorial platform built to honor two brothers whose presence lives on through love, memory, and community."
         />
         <meta
             name="keywords"
             content="No Limits Beyond Limitations, NLBLITMWI, clothing, memorial, R.J., T-Mainney, custom design, brotherhood"
         />
         <meta name="author" content="Aundrae Giles" />
-        <meta
-            property="og:title"
-            content="No Limits Beyond Limitations | Into My Wildest Imagination"
-        />
-        <meta
-            property="og:description"
-            content="A revolutionary clothing brand where legends never die. R.J. & T-Mainney live forever through every design."
-        />
-        <meta property="og:image" content="Logo/Memorial Logo - Enhanced V2.png" />
+        <meta property="og:image" content="/preview.jpg" />
+        <meta property="og:title" content="Silent Spirits Legacy" />
+        <meta property="og:description" content="A cosmic memorial platform built from love, loss, and the light that refuses to fade." />
         <link rel="manifest" href="manifest.json" />
         <title>
             No Limits Beyond Limitations | Into My Wildest Imagination
         </title>
-        <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link rel="stylesheet" href="portal-overlay.css" />
         <link rel="stylesheet" href="cinematic-transitions.css" />
         <link rel="stylesheet" href="galaxy-particles.css" />
@@ -82,6 +77,11 @@
                 color: var(--text-light);
                 overflow-x: hidden;
                 min-height: 100vh;
+            }
+
+            img {
+                max-width: 100%;
+                height: auto;
             }
 
             /* Initial Loading / Greeting Overlay */
@@ -1399,17 +1399,130 @@
                 }
             }
 
+            /* Polish Updates */
+            .hero {
+              padding: 80px 20px 60px;
+              text-align: center;
+              background: radial-gradient(circle at top, #2b1b4a, #05030a);
+              color: #f7f3ff;
+            }
+            .hero-inner {
+              max-width: 800px;
+              margin: 0 auto;
+            }
             .hero-title {
-                font-family: "Orbitron", sans-serif;
-                font-size: 3rem;
-                font-weight: 700;
-                background: linear-gradient(90deg, #ffffff, #b38bff, #6a4cff);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-                margin-bottom: 20px;
-                letter-spacing: 0.05em;
-                text-shadow: 0 0 40px rgba(139, 92, 246, 0.5);
+              font-family: "Orbitron", sans-serif;
+              font-size: 2.8rem;
+              font-weight: 800;
+              letter-spacing: 0.04em;
+              margin-bottom: 16px;
+              background: linear-gradient(90deg, #ffffff, #c9a6ff, #7a4dff);
+              -webkit-background-clip: text;
+              color: transparent;
+              text-shadow: 0 0 40px rgba(139, 92, 246, 0.5);
+            }
+            .hero-subtitle {
+              font-size: 1.1rem;
+              line-height: 1.7;
+              color: #e4ddff;
+              margin-bottom: 28px;
+            }
+            .hero-actions {
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: center;
+              gap: 12px;
+            }
+            .hero-btn {
+              padding: 10px 20px;
+              border-radius: 999px;
+              font-size: 0.95rem;
+              text-decoration: none;
+              border: 1px solid #c9a6ff;
+              color: #f7f3ff;
+              transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+            }
+            .hero-btn.primary {
+              background: linear-gradient(90deg, #7a4dff, #c9a6ff);
+              color: #05030a;
+              border: none;
+            }
+            .hero-btn.ghost {
+              background: transparent;
+            }
+            .hero-btn:hover {
+              transform: translateY(-1px);
+              background: rgba(201, 166, 255, 0.12);
+            }
+            .hero-btn.primary:hover {
+              background: linear-gradient(90deg, #8b63ff, #ddc4ff);
+            }
+
+            .story-section {
+              padding: 50px 20px 40px;
+              background: #05030a;
+              color: #f5f0ff;
+            }
+            .story-inner {
+              max-width: 720px;
+              margin: 0 auto;
+              text-align: center;
+            }
+            .story-title {
+              font-size: 1.8rem;
+              margin-bottom: 18px;
+              color: #fdfbff;
+            }
+            .story-text {
+              font-size: 1rem;
+              line-height: 1.8;
+              color: #d7cfff;
+              margin-bottom: 12px;
+            }
+
+            .product-card {
+              background: #0b0714;
+              border-radius: 10px;
+              padding: 16px;
+              border: 1px solid rgba(255,255,255,0.06);
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
+              transition: transform 0.15s ease, box-shadow 0.15s ease;
+            }
+            .product-card:hover {
+              transform: translateY(-2px);
+              box-shadow: 0 10px 25px rgba(0,0,0,0.45);
+            }
+            .product-card .paypal-button-container {
+              margin-top: 8px;
+            }
+
+            .remembrance-gallery {
+              display: grid;
+              gap: 14px;
+              grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+              padding: 30px 20px 40px;
+            }
+            .remembrance-gallery img {
+              width: 100%;
+              border-radius: 10px;
+              object-fit: cover;
+              display: block;
+              opacity: 0.92;
+              transition: opacity 0.2s ease, transform 0.15s ease;
+            }
+            .remembrance-gallery img:hover {
+              opacity: 1;
+              transform: translateY(-2px);
+            }
+
+            .footer {
+              text-align: center;
+              padding: 40px 20px;
+              color: #b8a8ff;
+              font-size: 0.9rem;
+              opacity: 0.8;
             }
 
             .hero-subtitle {
@@ -1986,24 +2099,44 @@
         <!-- Main Content -->
         <main id="main-content" style="opacity: 0">
             <!-- Hero Section -->
-            <section class="hero-section journey-section">
-                <img
-                    src="Logo/Memorial Logo - Enhanced V2.png"
-                    alt="No Limits Beyond Limitations Into My Wildest Imagination"
-                    class="hero-logo"
-                />
+            <section class="hero journey-section">
+              <div class="hero-inner">
                 <h1 class="hero-title">No Limits Beyond Limitations</h1>
-                <p class="hero-subtitle">A legacy built from love, loss, and the light that refuses to fade.</p>
-                <p class="hero-description">
-                    This is a place where presence lives on,<br>
-                    where memory becomes motion,<br>
-                    and where the spirits we carry still walk beside us.
+                <p class="hero-subtitle">
+                  A legacy built from love, loss, and the light that refuses to fade.  
+                  This is a place where presence lives on,  
+                  where memory becomes motion,  
+                  and where the spirits we carry still walk beside us.
                 </p>
-                <div class="cta-container">
-                    <a href="brothers-remembrance.html" class="cta-btn primary">Enter the Legacy</a>
-                    <a href="message-wall.html" class="cta-btn secondary">Visit the Message Wall</a>
-                    <a href="shop.html" class="cta-btn tertiary">Shop the Collection</a>
+
+                <div class="hero-actions">
+                  <a href="#shop" class="hero-btn primary">Enter the Legacy</a>
+                  <a href="#message-wall" class="hero-btn ghost">Visit the Message Wall</a>
+                  <a href="#remembrance" class="hero-btn ghost">Remembrance Gallery</a>
                 </div>
+              </div>
+            </section>
+
+            <!-- “Story of the Brothers” section -->
+            <section id="story" class="story-section journey-section">
+              <div class="story-inner">
+                <h2 class="story-title">The Story Behind This Legacy</h2>
+                <p class="story-text">
+                  This space was built for two souls who left the world too early,  
+                  but never left the people who loved them.
+                </p>
+                <p class="story-text">
+                  R.J. — a spark of energy that lit every room.  
+                  T‑Mainney — a steady force, a protector, a heartbeat.
+                </p>
+                <p class="story-text">
+                  Their stories didn’t end. They shifted.  
+                  They became the reason this legacy exists —  
+                  a place where their presence is honored,  
+                  their names are spoken,  
+                  and their light continues forward.
+                </p>
+              </div>
             </section>
 
             <div class="grand-opening-banner journey-section" id="grand-opening-banner">
@@ -2030,12 +2163,12 @@
             </div>
 
             <!-- Features Section -->
-            <section class="content-section journey-section">
+            <section class="content-section journey-section" id="remembrance">
                 <h2 class="section-title">What Makes Us Different</h2>
                 <p class="section-subtitle">MORE THAN A BRAND — A MOVEMENT</p>
 
                 <div class="features-grid">
-                    <div class="feature-card">
+                    <div class="feature-card" id="shop">
                         <div class="feature-icon">👕</div>
                         <h3 class="feature-title">Premium Products</h3>
                         <p class="feature-description">
@@ -2048,7 +2181,7 @@
                         >
                     </div>
 
-                    <div class="feature-card">
+                    <div class="feature-card" id="message-wall">
                         <div class="feature-icon">💌</div>
                         <h3 class="feature-title">Leave a Lasting Message</h3>
                         <p class="feature-description">
@@ -2105,31 +2238,8 @@
                 <span class="line"></span>
             </div>
 
-            <!-- Footer -->
-            <footer class="site-footer">
-                <img
-                    src="Logo/Memorial Logo - Enhanced V2.png"
-                    alt="N.L.BL.IT.M.W.I"
-                    class="footer-logo"
-                />
-                <p class="footer-brand">No Limits Beyond Limitations</p>
-                <p class="footer-tagline">Into My Wildest Imagination</p>
-                <div class="footer-links">
-                    <a href="brothers-remembrance.html">Brothers Remembrance</a>
-                    <a href="message-wall.html">Honor Wall</a>
-                     <a href="https://sdj05kp7ut7tfuxh.public.blob.vercel-storage.com/final_official_shop_chunks.html">Shop</a>
-                    <a href="about.html">About</a>
-                </div>
-                <p class="footer-dedication">
-                    Dedicated to R.J. &amp; T-Mainney — forever in our hearts.
-                </p>
-                <p class="footer-dedication">
-                    In loving memory of
-                    <span class="names">R.J. (Ricky James III)</span> and
-                    <span class="names">T-Mainney (Todd)</span>. Forever in our
-                    hearts. Forever in our designs. Forever living through
-                    everyone who wears our clothing.
-                </p>
+            <footer class="footer">
+              <p>© Silent Spirits Legacy — No Limits Beyond Limitations</p>
             </footer>
         </main>
 
@@ -2786,6 +2896,20 @@
                         if (star.y > canvas.height) {
                             star.y = 0;
                             star.x = Math.random() * canvas.width;
+            // Smooth Scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+              anchor.addEventListener("click", function (e) {
+                const targetId = this.getAttribute("href");
+                if (targetId === "#") return;
+                const targetEl = document.querySelector(targetId);
+                if (targetEl) {
+                  e.preventDefault();
+                  targetEl.scrollIntoView({
+                    behavior: "smooth"
+                  });
+                }
+              });
+            });
                         }
                     });
 
