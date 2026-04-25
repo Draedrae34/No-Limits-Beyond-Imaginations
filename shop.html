@@ -490,6 +490,83 @@
         box-shadow: 0 10px 30px rgba(0, 255, 255, 0.5);
       }
 
+      .paypal-buy-now-btn {
+        flex: 1;
+        padding: 0.9rem;
+        background: linear-gradient(135deg, #ffc439, #ff4d4f);
+        border: none;
+        border-radius: 10px;
+        color: #000;
+        font-family: 'Orbitron', sans-serif;
+        font-weight: 700;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 20px rgba(255, 204, 56, 0.25);
+      }
+
+      .paypal-buy-now-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(255, 204, 56, 0.35);
+      }
+
+      .paypal-checkout-panel {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        z-index: 9999;
+      }
+
+      .paypal-checkout-panel.hidden {
+        display: none;
+      }
+
+      .paypal-panel-inner {
+        width: min(720px, 100%);
+        background: rgba(10, 14, 39, 0.95);
+        border: 2px solid rgba(255, 193, 7, 0.25);
+        border-radius: 22px;
+        padding: 2rem;
+        box-shadow: 0 0 80px rgba(255, 193, 7, 0.2);
+      }
+
+      .paypal-close {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border: none;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        font-size: 1.5rem;
+        cursor: pointer;
+        position: absolute;
+        top: 24px;
+        right: 24px;
+      }
+
+      .paypal-checkout-panel h2 {
+        margin-bottom: 1rem;
+        font-family: 'Orbitron', sans-serif;
+        letter-spacing: 2px;
+        color: #fff;
+      }
+
+      .paypal-status {
+        margin-top: 1rem;
+        min-height: 1.2rem;
+        color: #fff;
+        font-size: 0.95rem;
+      }
+
       /* ==== LOADING STATE ==== */
       .loading-spinner {
         display: flex;
@@ -607,6 +684,15 @@
       </div>
       <div id="product-count" class="product-count" style="display: none;"></div>
       <div id="product-count" class="product-count" style="display: none;"></div>
+    </div>
+
+    <div id="paypal-checkout-panel" class="paypal-checkout-panel hidden">
+      <div class="paypal-panel-inner">
+        <button id="paypal-close" class="paypal-close" aria-label="Close PayPal checkout">×</button>
+        <h2>Pay with PayPal</h2>
+        <div id="paypal-button-container"></div>
+        <div id="paypal-checkout-status" class="paypal-status"></div>
+      </div>
     </div>
 
     <script src="https://js.stripe.com/v3/"></script>

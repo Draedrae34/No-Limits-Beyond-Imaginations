@@ -112,7 +112,10 @@ class NLBLShopLoader {
                             🛒 Add to Cart
                         </button>
                         <button class="buy-now-btn" data-id="${product.id}">
-                            💳 Buy Now
+                            💳 Stripe Now
+                        </button>
+                        <button class="paypal-buy-now-btn" data-id="${product.id}">
+                            🅿️ PayPal
                         </button>
                     </div>
                 </div>
@@ -160,6 +163,15 @@ class NLBLShopLoader {
         e.preventDefault();
         const productId = btn.dataset.id;
         this.buyNow(productId);
+      });
+    });
+
+    // PayPal buy now
+    document.querySelectorAll('.paypal-buy-now-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const productId = btn.dataset.id;
+        this.paypalBuyNow(productId);
       });
     });
 
@@ -263,6 +275,103 @@ class NLBLShopLoader {
       console.error('❌ Checkout error:', error);
       this.showError('Failed to initiate checkout');
     }
+  }
+
+  async paypalBuyNow(productId) {
+    const product = this.products.find((p) => p.id == productId);
+    if (!product) return;
+
+    this.currentPaypalProduct = product;
+    this.showPaypalPanel();
+    await this.loadPaypalSdk();
+    this.renderPaypalButton();
+  }
+
+  showPaypalPanel() {
+    const panel = document.getElementById('paypal-checkout-panel');
+    const status = document.getElementById('paypal-checkout-status');
+    const closeButton = panel.querySelector('#paypal-close');
+
+    panel.classList.remove('hidden');
+    if (!closeButton.dataset.paypalListenerAttached) {
+      closeButton.addEventListener('click', () => {
+        panel.classList.add('hidden');
+        status.textContent = '';
+        document.getElementById('paypal-button-container').innerHTML = '';
+      });
+      closeButton.dataset.paypalListenerAttached = 'true';
+    }
+  }
+
+  async loadPaypalSdk() {
+    if (window.paypal) return;
+
+    const response = await fetch('/api/paypal-client-id');
+    const data = await response.json();
+    if (!response.ok || !data.clientId) {
+      throw new Error(data.error || 'Failed to load PayPal configuration');
+    }
+
+    await new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = `https://www.paypal.com/sdk/js?client-id=${encodeURIComponent(data.clientId)}&currency=USD`;
+      script.onload = resolve;
+      script.onerror = reject;
+      document.head.appendChild(script);
+    });
+  }
+
+  renderPaypalButton() {
+    const product = this.currentPaypalProduct;
+    const container = document.getElementById('paypal-button-container');
+    const status = document.getElementById('paypal-checkout-status');
+
+    if (!product || !container || !window.paypal) return;
+
+    container.innerHTML = '';
+    status.textContent = `Paying for ${product.name}...`;
+
+    window.paypal.Buttons({
+      createOrder: (data, actions) => {
+        return actions.order.create({
+          purchase_units: [
+            {
+              amount: {
+                value: product.price.toFixed(2),
+              },
+              description: product.name,
+            },
+          ],
+        });
+      },
+      onApprove: async (data, actions) => {
+        status.textContent = 'Capturing your payment...';
+        const order = await actions.order.capture();
+
+        const response = await fetch('/api/paypal-checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ orderID: order.id }),
+        });
+
+        const result = await response.json();
+        if (result.success) {
+          status.textContent = 'Payment successful! Thank you.';
+          this.showNotification(`PayPal payment completed for ${product.name}.`);
+        } else {
+          status.textContent = 'Payment capture failed. Please try again.';
+          this.showError(result.error || 'PayPal payment failed');
+        }
+      },
+      onCancel: () => {
+        status.textContent = 'Payment cancelled. You can try again anytime.';
+      },
+      onError: (err) => {
+        console.error('PayPal error:', err);
+        status.textContent = 'PayPal checkout failed. Please try again later.';
+        this.showError('PayPal checkout failed.');
+      },
+    }).render('#paypal-button-container');
   }
 
   showQuickView(productId) {
