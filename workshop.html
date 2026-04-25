@@ -1,328 +1,164 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Private Workshop | No Limits Beyond Limitations</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      :root {
-        color-scheme: dark;
-        --bg: #050812;
-        --panel: rgba(10, 14, 39, 0.95);
-        --panel-border: rgba(139, 92, 246, 0.25);
-        --text: #f4f7ff;
-        --muted: #9aa3bb;
-        --accent: #00ffff;
-        --accent-2: #ff69b4;
-        --success: #7cfc00;
-        --danger: #ff6b6b;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Silent Spirits Workshop</title>
 
-      * {
-        box-sizing: border-box;
-      }
+  <style>
+    body {
+      margin: 0;
+      background: #0a0a0a;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
 
-      body {
-        margin: 0;
-        min-height: 100vh;
-        font-family: 'Rajdhani', sans-serif;
-        background: radial-gradient(circle at top, rgba(0, 255, 255, 0.08), transparent 35%),
-          radial-gradient(circle at 20% 20%, rgba(255, 105, 180, 0.08), transparent 18%),
-          linear-gradient(180deg, #04060f 0%, #090d1d 100%);
-        color: var(--text);
-      }
+    header {
+      padding: 20px;
+      background: #111;
+      border-bottom: 1px solid #333;
+      text-align: center;
+      font-size: 1.6rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
 
-      .page-shell {
-        max-width: 1300px;
-        margin: 0 auto;
-        padding: 2rem 1.5rem 4rem;
-      }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 15px;
+      background: #141414;
+      border-bottom: 1px solid #222;
+    }
 
-      header {
-        display: flex;
+    nav button {
+      background: #222;
+      color: white;
+      border: 1px solid #444;
+      padding: 10px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    nav button.active {
+      background: #6a00ff;
+      border-color: #8f3dff;
+      box-shadow: 0 0 10px #6a00ff;
+    }
+
+    nav button:hover {
+      background: #333;
+    }
+
+    .panel {
+      display: none;
+      padding: 20px;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #333;
+      text-align: left;
+    }
+
+    th {
+      background: #1a1a1a;
+    }
+
+    .message-box {
+      background: #111;
+      padding: 12px;
+      margin-bottom: 12px;
+      border-radius: 6px;
+      border: 1px solid #333;
+    }
+
+    .upload-box {
+      background: #111;
+      padding: 20px;
+      border-radius: 6px;
+      border: 1px solid #333;
+      margin-top: 20px;
+    }
+
+    .upload-box input,
+    .upload-box button {
+      display: block;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .upload-box button {
+      max-width: 180px;
+      margin: 10px 0 0;
+      width: auto;
+    }
+
+    @media (max-width: 720px) {
+      nav {
         flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: center;
-        gap: 1rem;
-        margin-bottom: 2rem;
       }
+    }
+  </style>
+</head>
 
-      header h1 {
-        font-family: 'Orbitron', sans-serif;
-        font-size: clamp(2rem, 3vw, 3.4rem);
-        letter-spacing: 0.2em;
-      }
+<body>
+  <header>Silent Spirits Workshop Dashboard</header>
 
-      header p {
-        max-width: 680px;
-        color: var(--muted);
-        line-height: 1.7;
-      }
+  <nav>
+    <button class="tab-btn active" data-tab="orders">Orders</button>
+    <button class="tab-btn" data-tab="messages">Messages</button>
+    <button class="tab-btn" data-tab="gallery">Gallery</button>
+  </nav>
 
-      .panel {
-        background: var(--panel);
-        border: 1px solid var(--panel-border);
-        border-radius: 24px;
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-      }
+  <!-- ORDERS PANEL -->
+  <div id="orders" class="panel active">
+    <h2>Orders</h2>
+    <p>All PayPal orders logged in Neon.</p>
+    <table id="orders-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Product</th>
+          <th>Amount</th>
+          <th>Buyer</th>
+          <th>Email</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
 
-      .panel h2 {
-        margin: 0 0 1rem;
-        font-family: 'Orbitron', sans-serif;
-        letter-spacing: 0.15em;
-      }
+  <!-- MESSAGES PANEL -->
+  <div id="messages" class="panel">
+    <h2>Message Wall Submissions</h2>
+    <div id="messages-container"></div>
+  </div>
 
-      .grid-cols {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 1.5rem;
-      }
+  <!-- GALLERY PANEL -->
+  <div id="gallery" class="panel">
+    <h2>Remembrance Gallery</h2>
+    <p>Upload new Stand Still photos here.</p>
 
-      .hidden {
-        display: none !important;
-      }
-
-      .login-card {
-        max-width: 500px;
-        margin: 0 auto;
-      }
-
-      label {
-        display: block;
-        margin-bottom: 0.75rem;
-        color: var(--muted);
-      }
-
-      input,
-      textarea {
-        width: 100%;
-        border-radius: 14px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        background: rgba(255, 255, 255, 0.03);
-        color: var(--text);
-        padding: 1rem 1.1rem;
-        font-size: 1rem;
-      }
-
-      button {
-        border: none;
-        border-radius: 999px;
-        padding: 1rem 1.6rem;
-        background: linear-gradient(135deg, var(--accent), var(--accent-2));
-        color: #000;
-        font-weight: 700;
-        cursor: pointer;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-      }
-
-      button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 30px rgba(0, 255, 255, 0.14);
-      }
-
-      .status {
-        margin-top: 1rem;
-        color: var(--accent);
-      }
-
-      .table-wrapper {
-        overflow-x: auto;
-      }
-
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        min-width: 760px;
-      }
-
-      th,
-      td {
-        padding: 0.95rem 1rem;
-        text-align: left;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      }
-
-      th {
-        color: var(--accent);
-        font-weight: 700;
-        font-size: 0.9rem;
-      }
-
-      td {
-        color: var(--text);
-      }
-
-      .mini-card {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 18px;
-        padding: 1rem;
-      }
-
-      .mini-card strong {
-        display: block;
-        margin-bottom: 0.5rem;
-        color: var(--accent);
-      }
-
-      .section-nav {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.75rem;
-        margin-bottom: 1rem;
-      }
-
-      .section-nav button {
-        background: rgba(255, 255, 255, 0.05);
-        color: var(--text);
-        box-shadow: none;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-      }
-
-      .section-nav button.active {
-        background: var(--accent);
-        color: #000;
-      }
-
-      .card-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 1rem;
-      }
-
-      .message-card,
-      .gallery-card {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 18px;
-        padding: 1rem;
-      }
-
-      .message-card h3,
-      .gallery-card h3 {
-        margin-top: 0;
-        font-size: 1rem;
-        color: var(--accent);
-      }
-
-      .message-card p,
-      .gallery-card p {
-        color: var(--muted);
-        line-height: 1.6;
-      }
-
-      .alert {
-        margin-top: 1rem;
-        color: var(--danger);
-      }
-
-      @media (max-width: 920px) {
-        .grid-cols {
-          grid-template-columns: 1fr;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="page-shell">
-      <header>
-        <div>
-          <h1>Private Workshop</h1>
-          <p>Orders, messages, gallery uploads, and admin tools for the NLBL platform.</p>
-        </div>
-      </header>
-
-      <section id="login-section" class="panel login-card">
-        <h2>Owner Login</h2>
-        <form id="login-form">
-          <label for="admin-password">Admin Password</label>
-          <input id="admin-password" type="password" placeholder="Enter workshop password" required />
-          <button type="submit">Unlock Workshop</button>
-          <p id="login-status" class="status"></p>
-        </form>
-      </section>
-
-      <section id="dashboard-section" class="hidden">
-        <div class="panel">
-          <div class="section-nav">
-            <button id="nav-orders" class="active">Orders</button>
-            <button id="nav-messages">Messages</button>
-            <button id="nav-gallery">Gallery</button>
-          </div>
-
-          <div id="orders-panel" class="dashboard-panel">
-            <div class="grid-cols">
-              <div class="mini-card">
-                <strong>Orders</strong>
-                <p id="orders-count">Loading...</p>
-              </div>
-              <div class="mini-card">
-                <strong>Message Posts</strong>
-                <p id="messages-count">Loading...</p>
-              </div>
-              <div class="mini-card">
-                <strong>Gallery Items</strong>
-                <p id="gallery-count">Loading...</p>
-              </div>
-            </div>
-
-            <div class="panel" style="margin-top: 1.5rem;">
-              <h2>Recent Orders</h2>
-              <div class="table-wrapper">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>PayPal Order</th>
-                      <th>Product</th>
-                      <th>Amount</th>
-                      <th>Buyer</th>
-                      <th>Email</th>
-                      <th>Date</th>
-                    </tr>
-                  </thead>
-                  <tbody id="orders-table"></tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <div id="messages-panel" class="dashboard-panel hidden">
-            <div class="panel">
-              <h2>Message Wall Posts</h2>
-              <div id="messages-list" class="card-list"></div>
-            </div>
-          </div>
-
-          <div id="gallery-panel" class="dashboard-panel hidden">
-            <div class="panel">
-              <h2>Remembrance Gallery</h2>
-              <form id="gallery-form">
-                <label for="gallery-title">Photo Title</label>
-                <input id="gallery-title" type="text" placeholder="Title for photo" required />
-                <label for="gallery-url">Image URL</label>
-                <input id="gallery-url" type="url" placeholder="https://..." required />
-                <button type="submit">Save Gallery Item</button>
-                <p id="gallery-status" class="status"></p>
-              </form>
-              <div id="gallery-list" class="card-list" style="margin-top: 1.5rem;"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel">
-          <button id="logout-button">Log Out</button>
-          <p class="status">Logged in with your admin access token.</p>
-        </div>
-      </section>
+    <div class="upload-box">
+      <input type="file" id="gallery-upload" />
+      <button id="upload-btn">Upload</button>
     </div>
+  </div>
 
-    <script src="js/workshop.js"></script>
-  </body>
+  <script src="workshop.js"></script>
+</body>
 </html>
