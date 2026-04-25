@@ -22,7 +22,7 @@ export default async function handler(req, res) {
 
   try {
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
-    const { orderID } = body || {};
+    const { orderID, productID, amount } = body || {};
 
     if (!orderID) {
       return res.status(400).json({ success: false, error: 'Missing orderID' });
@@ -45,31 +45,23 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
-    if (data.status === 'COMPLETED') {
-      const purchaseUnit = data.purchase_units?.[0] || {};
-      const capture = purchaseUnit.payments?.captures?.[0] || {};
-      const amount = capture.amount?.value ? parseFloat(capture.amount.value) : null;
-      const productId = purchaseUnit.custom_id || purchaseUnit.reference_id || null;
-      const buyerEmail = data.payer?.email_address || null;
-      const buyerName = data.payer?.name
-        ? [data.payer.name.given_name, data.payer.name.surname].filter(Boolean).join(' ')
-        : null;
-
-      const insertResult = await pool.query(
-        `INSERT INTO orders (paypal_order_id, product_id, amount, buyer_email, buyer_name)
-         VALUES ($1, $2, $3, $4, $5)
-         RETURNING id`,
-        [data.id, productId, amount, buyerEmail, buyerName]
-      );
-
-      return res.status(200).json({
-        success: true,
-        orderId: insertResult.rows[0]?.id,
-        data,
-      });
+    if (data.status !== 'COMPLETED') {
+      return res.status(400).json({ success: false, data });
     }
 
-    return res.status(400).json({ success: false, data });
+    const payer = data.payer || {};
+    const buyerEmail = payer.email_address || null;
+    const buyerName = payer.name
+      ? [payer.name.given_name, payer.name.surname].filter(Boolean).join(' ')
+      : null;
+
+    await pool.query(
+      `INSERT INTO orders (paypal_order_id, product_id, amount, buyer_email, buyer_name)
+       VALUES ($1, $2, $3, $4, $5)`,
+      [orderID, productID || null, amount || null, buyerEmail, buyerName]
+    );
+
+    return res.status(200).json({ success: true, data });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: 'Server error' });

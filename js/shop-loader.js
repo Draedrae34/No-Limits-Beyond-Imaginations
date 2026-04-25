@@ -352,7 +352,11 @@ class NLBLShopLoader {
         const response = await fetch('/api/paypal-checkout', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ orderID: order.id }),
+          body: JSON.stringify({
+            orderID: order.id,
+            productID: product.id,
+            amount: product.price,
+          }),
         });
 
         const result = await response.json();
