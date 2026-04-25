@@ -435,6 +435,93 @@
                 text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
             }
 
+            /* Story of the Brothers Section */
+            .story-section {
+                padding: 4rem 2rem;
+                max-width: 1200px;
+                margin: 0 auto;
+                animation: fadeInUp 1s ease-out 1.1s both;
+            }
+
+            .story-intro {
+                text-align: center;
+                max-width: 900px;
+                margin: 0 auto 3rem;
+                font-family: "Raleway", sans-serif;
+                font-size: 1.2rem;
+                color: var(--text-light);
+                line-height: 1.8;
+            }
+
+            .story-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                gap: 2rem;
+                margin-bottom: 3rem;
+            }
+
+            .story-card {
+                background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(218, 34, 255, 0.1));
+                border: 2px solid rgba(139, 92, 246, 0.3);
+                border-radius: 15px;
+                padding: 2rem;
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .story-card::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.08), transparent 70%);
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            .story-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+                border-color: rgba(255, 215, 0, 0.5);
+            }
+
+            .story-card:hover::before {
+                opacity: 1;
+            }
+
+            .story-card h3 {
+                font-family: "Orbitron", sans-serif;
+                font-size: 1.5rem;
+                color: var(--gold);
+                margin-bottom: 1rem;
+                letter-spacing: 0.05em;
+                text-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+            }
+
+            .story-card p {
+                font-family: "Raleway", sans-serif;
+                color: rgba(255, 255, 255, 0.9);
+                line-height: 1.7;
+                font-size: 1rem;
+                position: relative;
+                z-index: 1;
+            }
+
+            .story-conclusion {
+                text-align: center;
+                max-width: 800px;
+                margin: 0 auto;
+                font-family: "Raleway", sans-serif;
+                font-size: 1.15rem;
+                color: #f0f0f0;
+                line-height: 1.8;
+                white-space: pre-line;
+                padding: 2rem;
+                background: radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.08), transparent 70%);
+                border-radius: 15px;
+                border: 1px solid rgba(139, 92, 246, 0.2);
+            }
+
             .slideshow-intro {
                 text-align: center;
                 max-width: 900px;
@@ -1122,6 +1209,42 @@
                         “Memory slideshow incoming—burned with 120+ orbital frames, each 8s cadence, carrying nebula rose energy. Keep your eyes centered on the glow; every frame pulses their ride.”
                     </div>
                 </div>
+            </section>
+
+            <!-- Story of the Brothers Section -->
+            <section class="story-section latent-section after-silence">
+                <h2 class="section-title">Their Story Lives On</h2>
+                <p class="story-intro">
+                    R.J. and T-Mainney were more than brothers — they were a force of nature.
+                    Two souls who rode together, dreamed together, and left this world
+                    hand in hand, forever etched into the fabric of everyone who knew them.
+                </p>
+                <div class="story-grid">
+                    <div class="story-card">
+                        <h3>R.J.</h3>
+                        <p>
+                            A spirit that couldn't be contained. Ricky James III lived with a fire
+                            that warmed everyone around him. His laugh, his loyalty, his presence —
+                            these things don't die. They echo through every design we create,
+                            every message left on this wall, every life he touched.
+                        </p>
+                    </div>
+                    <div class="story-card">
+                        <h3>T-Mainney</h3>
+                        <p>
+                            Todd moved through this world with a grace that defied explanation.
+                            A brother in the truest sense — steady, kind, unbreakable.
+                            His journey ended too soon, but his spirit didn't fade.
+                            It multiplied. It lives in the brand, in the memories, in us.
+                        </p>
+                    </div>
+                </div>
+                <p class="story-conclusion">
+                    This isn't a memorial. It's a continuation.<br>
+                    Their bodies left — their presence didn't.<br>
+                    Every shirt you wear, every message you leave, every prayer you whisper —
+                    it all keeps them moving, breathing, living.
+                </p>
             </section>
 
             <section class="slideshow-section latent-section after-silence">
