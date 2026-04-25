@@ -1,5 +1,19 @@
+import pool from '../src/utils/db.js';
+
 const PAYPAL_ENV = process.env.PAYPAL_ENV === 'live' ? 'live' : 'sandbox';
 const PAYPAL_BASE = PAYPAL_ENV === 'live' ? 'https://api-m.paypal.com' : 'https://api-m.sandbox.paypal.com';
+
+await pool.query(`
+  CREATE TABLE IF NOT EXISTS orders (
+    id SERIAL PRIMARY KEY,
+    paypal_order_id TEXT NOT NULL,
+    product_id TEXT,
+    amount NUMERIC,
+    buyer_email TEXT,
+    buyer_name TEXT,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+  )
+`);
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -32,7 +46,27 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (data.status === 'COMPLETED') {
-      return res.status(200).json({ success: true, data });
+      const purchaseUnit = data.purchase_units?.[0] || {};
+      const capture = purchaseUnit.payments?.captures?.[0] || {};
+      const amount = capture.amount?.value ? parseFloat(capture.amount.value) : null;
+      const productId = purchaseUnit.custom_id || purchaseUnit.reference_id || null;
+      const buyerEmail = data.payer?.email_address || null;
+      const buyerName = data.payer?.name
+        ? [data.payer.name.given_name, data.payer.name.surname].filter(Boolean).join(' ')
+        : null;
+
+      const insertResult = await pool.query(
+        `INSERT INTO orders (paypal_order_id, product_id, amount, buyer_email, buyer_name)
+         VALUES ($1, $2, $3, $4, $5)
+         RETURNING id`,
+        [data.id, productId, amount, buyerEmail, buyerName]
+      );
+
+      return res.status(200).json({
+        success: true,
+        orderId: insertResult.rows[0]?.id,
+        data,
+      });
     }
 
     return res.status(400).json({ success: false, data });

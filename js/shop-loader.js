@@ -340,6 +340,7 @@ class NLBLShopLoader {
                 value: product.price.toFixed(2),
               },
               description: product.name,
+              custom_id: String(product.id),
             },
           ],
         });
