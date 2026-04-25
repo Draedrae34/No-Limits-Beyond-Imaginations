@@ -41,10 +41,42 @@ class NLBLShopLoader {
 
   async loadProducts() {
     try {
-      const apiResponse = await fetch("/api/products");
+      // Load from Printify API
+      const apiResponse = await fetch("/api/products-list");
       if (!apiResponse.ok) {
-        throw new Error("API products unavailable");
+        throw new Error("Printify API unavailable");
       }
+
+      const apiData = await apiResponse.json();
+      if (!apiData.products || !Array.isArray(apiData.products)) {
+        throw new Error("Invalid Printify product payload");
+      }
+
+      this.products = apiData.products.map((product) => this.normalizeProduct(product));
+      return this.products;
+    } catch (apiError) {
+      console.warn("Printify API failed, falling back to static:", apiError);
+    }
+
+    // Fallback to static JSON
+    try {
+      const response = await fetch("/shop-products.json");
+      if (!response.ok) {
+        throw new Error("Failed to load static products");
+      }
+
+      const feed = await response.json();
+      this.products = (feed.products || [])
+        .map((product) => this.normalizeProduct(product))
+        .filter((product) => product.active);
+      return this.products;
+    } catch (error) {
+      console.error("Unable to load products:", error);
+      this.products = [];
+      this.showError("Failed to load products. Please refresh the page.");
+      return [];
+    }
+  }
 
       const apiData = await apiResponse.json();
       if (!apiData.success || !Array.isArray(apiData.products)) {
