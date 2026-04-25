@@ -1,5 +1,4 @@
-import { createPrintifyProduct, SHOP_ID } from './printify-client.js';
-import { PRODUCT_TEMPLATES, toPrintifyPayload } from './product-templates.js';
+import { fullSyncEngine } from './sync-engine.js';
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -7,35 +6,16 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { variantPrices } = req.body || {};
-    const created = [];
-    const errors = [];
-
-    for (const template of PRODUCT_TEMPLATES) {
-      try {
-        const payload = toPrintifyPayload(template, variantPrices?.[template.slug]);
-        const product = await createPrintifyProduct(SHOP_ID, payload);
-
-        created.push({
-          slug: template.slug,
-          id: product.id,
-          title: product.title,
-          type: template.productType
-        });
-      } catch (err) {
-        console.error(`Failed to create ${template.slug}:`, err.message);
-        errors.push({ slug: template.slug, error: err.message });
-      }
-    }
+    const options = req.body || {};
+    const results = await fullSyncEngine(options);
 
     return res.status(200).json({
       ok: true,
-      created,
-      errors,
-      message: `Created ${created.length} products, ${errors.length} errors.`
+      ...results,
+      message: `Sync completed: ${results.stats.productsCreated} created, ${results.stats.errors} errors.`
     });
   } catch (err) {
     console.error("Sync error:", err);
-    return res.status(500).json({ error: "Sync failed" });
+    return res.status(500).json({ error: "Sync failed", message: err.message });
   }
 }
