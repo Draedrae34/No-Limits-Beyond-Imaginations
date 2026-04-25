@@ -1,0 +1,167 @@
+[
+  {
+    "id": 1,
+    "title": "Galaxy Hoodie - No Limits Logo",
+    "description": "Cosmic hoodie with No Limits Logo on galaxy background",
+    "price": "49.99",
+    "category": "Hoodies",
+    "logo": "Logo/No_Limits_Logo.png",
+    "image": "Logo_N_Galaxy_Fill_Space/No_Limits_Logo.png",
+    "variant": "Black",
+    "sizes": ["S", "M", "L", "XL", "2XL"]
+  },
+  {
+    "id": 2,
+    "title": "Galaxy Hoodie - No Limits Logo 2",
+    "description": "Cosmic hoodie with No Limits Logo 2 on galaxy background",
+    "price": "49.99",
+    "category": "Hoodies",
+    "logo": "Logo/No_Limits_Logo_2.png",
+    "image": "Logo_N_Galaxy_Fill_Space/No_Limits_Logo_2.png",
+    "variant": "Black",
+    "sizes": ["S", "M", "L", "XL", "2XL"]
+  },
+  {
+    "id": 3,
+    "title": "Galaxy T-Shirt - Memorial Enhanced",
+    "description": "Cosmic T-shirt with Memorial Logo Enhanced V2",
+    "price": "29.99",
+    "category": "T-Shirts",
+    "logo": "Logo/Memorial Logo - Enhanced V2.png",
+    "image": "Logo_N_Galaxy_Fill_Space/Memorial Logo - Enhanced V2.png",
+    "variant": "Black",
+    "sizes": ["S", "M", "L", "XL", "2XL"]
+  },
+  {
+    "id": 4,
+    "title": "Galaxy T-Shirt - NLBLITMWI Stained Glass",
+    "description": "Cosmic T-shirt with stained glass design",
+    "price": "29.99",
+    "category": "T-Shirts",
+    "logo": "Logo/NLBLITMWI Stained Glass.png",
+    "image": "Logo_N_Galaxy_Fill_Space/NLBLITMWI Stained Glass.png",
+    "variant": "Black",
+    "sizes": ["S", "M", "L", "XL", "2XL"]
+  },
+  {
+    "id": 5,
+    "title": "Galaxy Joggers - Gold Luxury",
+    "description": "Cosmic joggers with gold luxury design",
+    "price": "44.99",
+    "category": "Joggers",
+    "logo": "Logo/NLBLITMWI Gold Luxury.png",
+    "image": "Logo_N_Galaxy_Fill_Space/NLBLITMWI Gold Luxury.png",
+    "variant": "Black",
+    "sizes": ["S", "M", "L", "XL"]
+  },
+  {
+    "id": 6,
+    "title": "Phone Case - Supernova Explosion",
+    "description": "Galaxy phone case with supernova design",
+    "price": "24.99",
+    "category": "Phone Cases",
+    "logo": "Logo/supernova-explosion.png",
+    "image": "Logo_N_Galaxy_Fill_Space/supernova-explosion.png",
+    "variant": "Black",
+    "sizes": ["iPhone 14", "iPhone 15", "Samsung S23", "Samsung S24"]
+  },
+  {
+    "id": 7,
+    "title": "Poster - Cosmic Storm",
+    "description": "Galaxy poster with cosmic storm design",
+    "price": "19.99",
+    "category": "Posters",
+    "logo": "Logo/cosmic-storm.png",
+    "image": "Logo_N_Galaxy_Fill_Space/cosmic-storm.png",
+    "variant": "Matte",
+    "sizes": ["18x24", "24x36"]
+  },
+  {
+    "id": 8,
+    "title": "Sticker Pack - Purple Pink Nebula",
+    "description": "Galaxy sticker pack with nebula design",
+    "price": "12.99",
+    "category": "Stickers",
+    "logo": "Logo/purple-pink-nebula.png",
+    "image": "Logo_N_Galaxy_Fill_Space/purple-pink-nebula.png",
+    "variant": "Matte",
+    "sizes": ["Pack of 10", "Pack of 25"]
+  },
+  {
+    "id": 9,
+    "title": "Hat - Black Hole Memorial",
+    "description": "Galaxy hat with black hole memorial design",
+    "price": "27.99",
+    "category": "Hats",
+    "logo": "Logo/black-hole-memorial-aop.png",
+    "image": "Logo_N_Galaxy_Fill_Space/black-hole-memorial-aop.png",
+    "variant": "Black",
+    "sizes": ["S/M", "L/XL"]
+  },
+  {
+    "id": 10,
+    "title": "Tumbler - Meteor Shower",
+    "description": "Galaxy tumbler with meteor shower design",
+    "price": "32.99",
+    "category": "Tumblers",
+    "logo": "Logo/meteor-shower.png",
+    "image": "Logo_N_Galaxy_Fill_Space/meteor-shower.png",
+    "variant": "Black",
+    "sizes": ["20oz", "30oz"]
+  },
+  {
+    "id": 11,
+    "title": "Backpack - Cosmic Aurora",
+    "description": "Galaxy backpack with cosmic aurora design",
+    "price": "59.99",
+    "category": "Backpacks",
+    "logo": "Logo/cosmic-aurora.png",
+    "image": "Logo_N_Galaxy_Fill_Space/cosmic-aurora.png",
+    "variant": "Black",
+    "sizes": ["Standard"]
+  },
+  {
+    "id": 12,
+    "title": "Galaxy Hoodie - Memorial Explosive Energy",
+    "description": "Cosmic hoodie with explosive energy memorial design",
+    "price": "49.99",
+    "category": "Hoodies",
+    "logo": "Logo/Memorial Logo - Explosive Energy.png",
+    "image": "Logo_N_Galaxy_Fill_Space/Memorial Logo - Explosive Energy.png",
+    "variant": "Black",
+    "sizes": ["S", "M", "L", "XL", "2XL"]
+  },
+  {
+    "id": 13,
+    "title": "Galaxy T-Shirt - Big Bang",
+    "description": "Cosmic T-shirt with big bang design",
+    "price": "29.99",
+    "category": "T-Shirts",
+    "logo": "Logo/big-bang.png",
+    "image": "Logo_N_Galaxy_Fill_Space/big-bang.png",
+    "variant": "Black",
+    "sizes": ["S", "M", "L", "XL", "2XL"]
+  },
+  {
+    "id": 14,
+    "title": "Poster - Black Hole",
+    "description": "Galaxy poster with black hole design",
+    "price": "19.99",
+    "category": "Posters",
+    "logo": "Logo/black-hole.png",
+    "image": "Logo_N_Galaxy_Fill_Space/black-hole.png",
+    "variant": "Matte",
+    "sizes": ["18x24", "24x36"]
+  },
+  {
+    "id": 15,
+    "title": "Sticker Pack - No Limits Zodiac",
+    "description": "Galaxy sticker pack with zodiac design",
+    "price": "12.99",
+    "category": "Stickers",
+    "logo": "Logo/no-limits-x-zodiac.png",
+    "image": "Logo_N_Galaxy_Fill_Space/no-limits-x-zodiac.png",
+    "variant": "Matte",
+    "sizes": ["Pack of 10", "Pack of 25"]
+  }
+]
