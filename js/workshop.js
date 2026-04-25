@@ -137,13 +137,14 @@ async function loadGallery() {
   }
 
   galleryItems.forEach((item) => {
+    const imageUrl = resolveGalleryImageUrl(item);
     const card = document.createElement("div");
     card.className = "message-box";
     card.style.display = "flex";
     card.style.alignItems = "center";
     card.style.gap = "12px";
     card.innerHTML = `
-      <img src="/remembrance/Stand_Still_photos/${item.filename}" alt="${item.original_name || 'Uploaded'}" style="width:96px; height:auto; border-radius:12px; object-fit:cover;" />
+      <img src="${imageUrl}" alt="${item.original_name || 'Uploaded'}" style="width:96px; height:auto; border-radius:12px; object-fit:cover;" />
       <div>
         <strong>${item.original_name || 'Uploaded image'}</strong><br />
         <small>${new Date(item.uploaded_at).toLocaleString()}</small>
@@ -168,10 +169,11 @@ async function loadGalleryAdmin() {
   }
 
   galleryItems.forEach((item) => {
+    const imageUrl = resolveGalleryImageUrl(item);
     const div = document.createElement("div");
     div.className = "gallery-item";
     div.innerHTML = `
-      <img src="/remembrance/Stand_Still_photos/${item.filename}" alt="${item.original_name || 'Uploaded'}" />
+      <img src="${imageUrl}" alt="${item.original_name || 'Uploaded'}" />
       <div style="flex:1;">
         <p><strong>${item.original_name || 'Uploaded image'}</strong></p>
         <p style="margin:6px 0 0; color:#aaa;">${item.category || 'memories'}</p>
@@ -191,6 +193,14 @@ async function loadGalleryAdmin() {
       await Promise.all([loadGallery(), loadGalleryAdmin()]);
     });
   });
+}
+
+function resolveGalleryImageUrl(item) {
+  if (!item) return "";
+  if (item.image_url) return item.image_url;
+  if (item.filename && /^https?:\/\//i.test(item.filename)) return item.filename;
+  if (item.filename) return `/remembrance/Stand_Still_photos/${item.filename}`;
+  return "";
 }
 
 // INITIAL LOAD
