@@ -236,7 +236,9 @@
         }
 
         .submit-btn {
-            display: block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             width: 100%;
             padding: 18px 40px;
             background: linear-gradient(45deg, #FF69B4, #FFD700);
@@ -250,6 +252,46 @@
             transition: all 0.3s ease;
             text-transform: uppercase;
             margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn .btn-text {
+            display: inline-block;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .submit-btn .btn-spinner {
+            width: 18px;
+            height: 18px;
+            border: 3px solid rgba(0, 0, 0, 0.25);
+            border-top-color: rgba(0, 0, 0, 0.8);
+            border-radius: 50%;
+            margin-left: 12px;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            animation: spin 0.75s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg) scale(0.8); }
+            to { transform: rotate(360deg) scale(0.8); }
+        }
+
+        .submit-btn.loading {
+            cursor: progress;
+            transform: scale(1.0);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.35);
+        }
+
+        .submit-btn.loading .btn-text {
+            transform: translateX(-6px);
+        }
+
+        .submit-btn.loading .btn-spinner {
+            opacity: 1;
+            transform: scale(1);
         }
 
         .submit-btn:hover {
@@ -504,7 +546,11 @@
                     </div>
                 </div>
 
-                <button type="submit" class="submit-btn">Post to Wall</button>
+                <button type="submit" class="submit-btn">
+                    <span class="btn-text">Post to Wall</span>
+                    <span class="btn-spinner"></span>
+                </button>
+                <div id="messageStatus" class="message-status" style="margin-top: 0.75rem; min-height: 1.3rem; font-size: 0.95rem; color: #FFFFFF;"></div>
             </form>
         </div>
 
@@ -608,18 +654,67 @@
             setTimeout(() => heart.remove(), 5000);
         }
 
-        // Initialize - load sample messages if localStorage is empty
-        function initMessages() {
-            const existing = localStorage.getItem('nlbl_messages');
-            if (!existing) {
-                // Load sample messages for first time
-                const sampleMessages = [
-                    { name: "The Giles Family", message: "R.J. and Todd, you are forever in our hearts. Every day we carry your memory, your laughter, your spirit. Until we meet again. 💜", date: "2024-01-15", font: "Rajdhani", color: "#FFD700", x: 5, y: 50 },
-                    { name: "A Friend", message: "I remember the way you both lit up every room you walked into. That energy was contagious. You made everyone feel like they mattered.", date: "2024-02-20", font: "Dancing Script", color: "#FF69B4", x: 60, y: 150 },
-                    { name: "Anonymous", message: "Gone from our sight, but never from our hearts.", date: "2024-03-10", font: "Tangerine", color: "#00FFFF", x: 30, y: 300 },
-                    { name: "Aundrae", message: "My brothers, my heroes, my everything. This whole brand exists because of you. You gave me purpose when I had none. I promise to carry your legacy forward every single day.", date: "2024-01-01", font: "Orbitron", color: "#FF69B4", x: 70, y: 450 }
-                ];
-                localStorage.setItem('nlbl_messages', JSON.stringify(sampleMessages));
+        async function loadMessages() {
+            const wall = document.getElementById('messagesWall');
+            const empty = document.getElementById('emptyWall');
+
+            try {
+                const res = await fetch('/api/messages');
+                if (!res.ok) throw new Error('Failed to load messages');
+                const messages = await res.json();
+
+                if (!messages.length) {
+                    wall.style.display = 'none';
+                    empty.style.display = 'block';
+                    empty.textContent = 'No messages yet. Be the first to leave your love!';
+                    return;
+                }
+
+                wall.style.display = 'block';
+                empty.style.display = 'none';
+
+                wall.innerHTML = messages.map((msg, index) => {
+                    const pos = getRandomPosition();
+                    const fontFamily = fontFamilies[msg.font] || fontFamilies['Rajdhani'];
+                    const color = msg.color || '#FFD700';
+
+                    return `
+                        <div class="wall-message" style="
+                            left: ${pos.x}%;
+                            top: ${pos.y}%;
+                            transform: rotate(${pos.rotation}deg);
+                            background: linear-gradient(135deg, ${color}22, ${color}11);
+                            border: 1px solid ${color}66;
+                            color: ${color};
+                            font-family: ${fontFamily};
+                            animation-delay: ${index * 0.1}s;
+                        ">
+                            <div class="name">${escapeHtml(msg.name)}</div>
+                            <div class="text">${escapeHtml(msg.message)}</div>
+                            <div class="date">${formatDate(msg.created_at)}</div>
+                        </div>
+                    `;
+                }).join('');
+            } catch (err) {
+                console.error('Error loading messages:', err);
+                wall.style.display = 'none';
+                empty.style.display = 'block';
+                empty.textContent = 'Unable to load messages right now.';
+            }
+        }
+
+        async function saveMessage(name, message, font, color) {
+            try {
+                const res = await fetch('/api/messages', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, message, font, color })
+                });
+                const data = await res.json();
+                return res.ok && data.success;
+            } catch (err) {
+                console.error('Error saving message:', err);
+                return false;
             }
         }
 
@@ -640,78 +735,6 @@
             const y = Math.random() * 90; // 0-90% vertical
             const rotation = (Math.random() - 0.5) * 15; // -7.5 to 7.5 degrees rotation
             return { x, y, rotation };
-        }
-
-        // Load messages and scatter them on the wall
-        function loadMessages() {
-            initMessages();
-            const messages = JSON.parse(localStorage.getItem('nlbl_messages') || '[]');
-            const wall = document.getElementById('messagesWall');
-            const empty = document.getElementById('emptyWall');
-
-            if (messages.length === 0) {
-                wall.style.display = 'none';
-                empty.style.display = 'block';
-                return;
-            }
-
-            wall.style.display = 'block';
-            empty.style.display = 'none';
-
-            wall.innerHTML = messages.map((msg, index) => {
-                // Use stored position or generate random
-                let pos;
-                if (msg.x !== undefined && msg.y !== undefined) {
-                    pos = { x: msg.x, y: msg.y, rotation: msg.rotation || 0 };
-                } else {
-                    pos = getRandomPosition();
-                    // Save the position for future loads
-                    msg.x = pos.x;
-                    msg.y = pos.y;
-                    msg.rotation = pos.rotation;
-                }
-
-                const fontFamily = fontFamilies[msg.font] || fontFamilies['Rajdhani'];
-
-                return `
-                    <div class="wall-message" style="
-                        left: ${pos.x}%;
-                        top: ${pos.y}%;
-                        transform: rotate(${pos.rotation}deg);
-                        background: linear-gradient(135deg, ${msg.color}22, ${msg.color}11);
-                        border: 1px solid ${msg.color}66;
-                        color: ${msg.color};
-                        font-family: ${fontFamily};
-                        animation-delay: ${index * 0.1}s;
-                    ">
-                        <div class="name">${escapeHtml(msg.name)}</div>
-                        <div class="text">${escapeHtml(msg.message)}</div>
-                        <div class="date">${formatDate(msg.date)}</div>
-                    </div>
-                `;
-            }).join('');
-
-            // Save updated positions
-            localStorage.setItem('nlbl_messages', JSON.stringify(messages));
-        }
-
-        // Save new message
-        function saveMessage(name, message, font, color) {
-            const messages = JSON.parse(localStorage.getItem('nlbl_messages') || '[]');
-            const pos = getRandomPosition();
-
-            messages.unshift({
-                name: name,
-                message: message,
-                date: new Date().toISOString(),
-                font: font,
-                color: color,
-                x: pos.x,
-                y: pos.y,
-                rotation: pos.rotation
-            });
-
-            localStorage.setItem('nlbl_messages', JSON.stringify(messages));
         }
 
         // Format date
@@ -748,29 +771,60 @@
                 document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('selected'));
                 e.target.classList.add('selected');
                 selectedColor = e.target.dataset.color;
+                const spinner = document.querySelector('.btn-spinner');
+                if (spinner) {
+                    spinner.style.borderTopColor = selectedColor;
+                }
             }
         });
 
+        const messageStatus = document.getElementById('messageStatus');
+        const submitButton = document.querySelector('.submit-btn');
+        const submitSpinner = submitButton.querySelector('.btn-spinner');
+        if (submitSpinner) {
+            submitSpinner.style.borderTopColor = selectedColor;
+        }
+
+        function updateFormStatus(text, type = 'info') {
+            messageStatus.textContent = text;
+            messageStatus.style.color = type === 'error' ? '#FF6B6B' : type === 'success' ? '#7CFC00' : '#FFFFFF';
+        }
+
         // Form submission
-        document.getElementById('messageForm').addEventListener('submit', function(e) {
+        document.getElementById('messageForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
             const name = document.getElementById('name').value.trim();
             const message = document.getElementById('message').value.trim();
 
-            if (name && message) {
-                saveMessage(name, message, selectedFont, selectedColor);
+            if (!name || !message) {
+                updateFormStatus('Please enter your name and message before posting.', 'error');
+                return;
+            }
 
-                // Clear form
+            submitButton.disabled = true;
+            submitButton.classList.add('loading');
+            if (submitSpinner) {
+                submitSpinner.style.borderTopColor = selectedColor;
+            }
+            submitButton.style.boxShadow = `0 0 35px ${selectedColor}77`;
+            updateFormStatus('Saving your tribute to the wall...', 'info');
+
+            const saved = await saveMessage(name, message, selectedFont, selectedColor);
+            if (saved) {
+                updateFormStatus('Message posted successfully. Thank you.', 'success');
                 document.getElementById('name').value = '';
                 document.getElementById('message').value = '';
-
-                // Reload messages
-                loadMessages();
-
-                // Scroll to wall
+                await loadMessages();
                 document.querySelector('.wall-section').scrollIntoView({ behavior: 'smooth' });
+                setTimeout(() => updateFormStatus('', 'info'), 4000);
+            } else {
+                updateFormStatus('Unable to save your message right now. Please try again in a moment.', 'error');
             }
+
+            submitButton.disabled = false;
+            submitButton.classList.remove('loading');
+            submitButton.style.boxShadow = '';
         });
 
         // Initialize

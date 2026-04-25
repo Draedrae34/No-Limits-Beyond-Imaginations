@@ -1,6 +1,10 @@
 .vercel
 .env*.local
 node_modules
+*.log
+data/*.json
+__pycache__/
+*.pyc
 __pycache__/
 *.pyc
 *.log
