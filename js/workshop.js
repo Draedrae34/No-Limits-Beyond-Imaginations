@@ -83,6 +83,7 @@ async function loadMessages() {
 async function uploadGalleryFile() {
   const uploadButton = document.getElementById("upload-btn");
   const uploadInput = document.getElementById("gallery-upload");
+  const galleryCategory = document.getElementById("gallery-category");
   const status = document.getElementById("gallery-status");
 
   uploadButton.addEventListener("click", async () => {
@@ -97,6 +98,7 @@ async function uploadGalleryFile() {
     try {
       const formData = new FormData();
       formData.append("file", file);
+      formData.append("category", galleryCategory.value || "memories");
 
       const response = await fetch("/api/gallery", {
         method: "POST",
@@ -107,7 +109,7 @@ async function uploadGalleryFile() {
       if (result.success) {
         status.textContent = "Upload successful!";
         uploadInput.value = "";
-        await loadGallery();
+        await Promise.all([loadGallery(), loadGalleryAdmin()]);
       } else {
         status.textContent = result.error || "Upload failed.";
       }
@@ -153,12 +155,54 @@ async function loadGallery() {
   status.textContent = `Loaded ${galleryItems.length} gallery item${galleryItems.length === 1 ? "" : "s"}.`;
 }
 
+async function loadGalleryAdmin() {
+  const res = await fetch("/api/gallery");
+  const items = await res.json();
+  const container = document.getElementById("gallery-admin");
+  const galleryItems = Array.isArray(items) ? items : items.items || [];
+
+  container.innerHTML = "";
+  if (!galleryItems.length) {
+    container.innerHTML = '<div class="message-box">No gallery uploads yet.</div>';
+    return;
+  }
+
+  galleryItems.forEach((item) => {
+    const div = document.createElement("div");
+    div.className = "gallery-item";
+    div.innerHTML = `
+      <img src="/remembrance/Stand_Still_photos/${item.filename}" alt="${item.original_name || 'Uploaded'}" />
+      <div style="flex:1;">
+        <p><strong>${item.original_name || 'Uploaded image'}</strong></p>
+        <p style="margin:6px 0 0; color:#aaa;">${item.category || 'memories'}</p>
+      </div>
+      <button data-id="${item.id}" class="delete-btn">Delete</button>
+    `;
+    container.appendChild(div);
+  });
+
+  container.querySelectorAll(".delete-btn").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const id = btn.dataset.id;
+      await fetch("/api/gallery", {
+        method: "DELETE",
+        body: JSON.stringify({ id }),
+      });
+      await Promise.all([loadGallery(), loadGalleryAdmin()]);
+    });
+  });
+}
+
 // INITIAL LOAD
 loadOrders();
 loadMessages();
 loadGallery();
+loadGalleryAdmin();
 uploadGalleryFile();
 
 document.getElementById("refresh-orders").addEventListener("click", loadOrders);
 document.getElementById("refresh-messages").addEventListener("click", loadMessages);
-document.getElementById("refresh-gallery").addEventListener("click", loadGallery);
+document.getElementById("refresh-gallery").addEventListener("click", () => {
+  loadGallery();
+  loadGalleryAdmin();
+});

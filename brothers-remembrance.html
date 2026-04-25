@@ -167,6 +167,36 @@
                 50% { transform: scale(1.2); opacity: 0.5; }
             }
 
+            #fullscreen {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.95);
+                display: none;
+                justify-content: center;
+                align-items: center;
+                z-index: 20000;
+                padding: 20px;
+            }
+
+            #fullscreen img {
+                max-width: 90%;
+                max-height: 90%;
+                border-radius: 18px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            }
+
+            #fullscreen::after {
+                content: 'Click anywhere to close';
+                position: absolute;
+                bottom: 25px;
+                color: rgba(255, 255, 255, 0.75);
+                font-size: 0.95rem;
+                letter-spacing: 0.08em;
+            }
+
             /* Greeting Overlay */
             .greeting-overlay {
                 position: fixed;
@@ -1198,6 +1228,22 @@
             <section class="dynamic-gallery-section latent-section">
                 <h2 class="section-title">Stand-Still Gallery</h2>
                 <p class="memorial-intro">Browse the newest uploaded remembrance images from the Workshop.</p>
+                <div class="gallery-controls" style="display:flex; flex-wrap:wrap; gap:12px; margin-top:1rem; align-items:center;">
+                    <label style="color:#c4c4ff;">Sort:
+                        <select id="gallery-sort" style="margin-left:8px; padding:8px; border-radius:12px; border:1px solid rgba(255,255,255,0.12); background:#111; color:#fff;">
+                            <option value="newest">Newest</option>
+                            <option value="oldest">Oldest</option>
+                        </select>
+                    </label>
+                    <label style="color:#c4c4ff;">Filter:
+                        <select id="gallery-filter" style="margin-left:8px; padding:8px; border-radius:12px; border:1px solid rgba(255,255,255,0.12); background:#111; color:#fff;">
+                            <option value="all">All</option>
+                            <option value="childhood">Childhood</option>
+                            <option value="memories">Memories</option>
+                            <option value="legacy">Legacy</option>
+                        </select>
+                    </label>
+                </div>
                 <div id="dynamic-gallery" class="memorial-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; margin-top:1rem;"></div>
             </section>
 
@@ -1613,6 +1659,7 @@
                         card.style.overflow = 'hidden';
                         card.style.padding = '0.5rem';
                         card.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
+                        card.style.cursor = 'pointer';
 
                         const img = document.createElement('img');
                         img.src = `remembrance/Stand_Still_photos/${item.filename}`;
@@ -1629,6 +1676,24 @@
                         caption.style.margin = '0.75rem 0 0';
                         caption.textContent = item.original_name || 'Uploaded photo';
                         card.appendChild(caption);
+
+                        const categoryLabel = document.createElement('small');
+                        categoryLabel.style.color = '#8f8fef';
+                        categoryLabel.textContent = item.category || 'memories';
+                        card.appendChild(categoryLabel);
+
+                        const cosmic = document.createElement('p');
+                        cosmic.style.color = '#ddd';
+                        cosmic.style.margin = '0.4rem 0 0';
+                        cosmic.style.fontSize = '0.9rem';
+                        cosmic.textContent = item.cosmic_text || 'A moment frozen in time, echoing through the silent cosmos...';
+                        card.appendChild(cosmic);
+
+                        img.addEventListener('click', () => {
+                            const fs = document.getElementById('fullscreen');
+                            fs.style.display = 'flex';
+                            fs.querySelector('img').src = img.src;
+                        });
 
                         galleryContainer.appendChild(card);
                     });
@@ -1651,5 +1716,6 @@
         <script defer src="portal-transition.js"></script>
         <script defer src="cinematic-transitions.js"></script>
 
+        <div id="fullscreen"><img alt="Full screen remembrance" /></div>
     </body>
 </html>

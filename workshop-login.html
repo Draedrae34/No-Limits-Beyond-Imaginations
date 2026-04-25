@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Workshop Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body { margin:0; background:#050509; color:#fff; font-family:system-ui; display:flex; justify-content:center; align-items:center; height:100vh; }
+    .card { background:#111; padding:24px 28px; border-radius:10px; border:1px solid #333; width:100%; max-width:360px; box-shadow:0 0 25px rgba(106,0,255,0.4); }
+    h1 { margin-top:0; font-size:1.4rem; text-align:center; }
+    label { display:block; margin-top:12px; font-size:0.9rem; }
+    input { width:100%; padding:8px 10px; margin-top:4px; border-radius:6px; border:1px solid #444; background:#050509; color:#fff; }
+    button { margin-top:16px; width:100%; padding:10px; border-radius:6px; border:none; background:#6a00ff; color:#fff; font-weight:600; cursor:pointer; }
+    button:hover { background:#8f3dff; }
+    .error { margin-top:10px; color:#f97373; font-size:0.85rem; text-align:center; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Silent Spirits Workshop</h1>
+    <label>Email</label>
+    <input id="email" type="email" autocomplete="email" />
+    <label>Password</label>
+    <input id="password" type="password" autocomplete="current-password" />
+    <button id="login-btn">Enter Workshop</button>
+    <div id="error" class="error"></div>
+  </div>
+
+  <script>
+    document.getElementById("login-btn").addEventListener("click", async () => {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      const res = await fetch("/api/auth-login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        window.location.href = "/workshop.html";
+      } else {
+        document.getElementById("error").textContent = data.error || "Login failed.";
+      }
+    });
+  </script>
+</body>
+</html>
