@@ -2,17 +2,225 @@
 // Replaces: catalog-endpoint.js, generate-full-catalog.js, import-products.js,
 //            printify-catalog.js, printify-client.js, sync-engine.js
 
-import { SHOP_ID, printifyRequest, createPrintifyProduct } from './printify-client.js';
-import { loadLogos } from '../utils/logo-loader.js';
-import { writeShopProductsJson } from '../src/utils/shop-json.js';
-import { saveGeneratedProducts } from '../src/utils/products.js';
+import fetch from 'node-fetch';
+import fs from 'fs';
+import path from 'path';
 
-// Get all logos from Logo_N_Galaxy_Fill_Space folder
-function getGalaxyLogos() {
-  return loadLogos();
+const PRINTIFY_API_KEY = process.env.PRINTIFY_API_KEY || 'test_key';
+const SHOP_ID = process.env.PRINTIFY_SHOP_ID || 'test_shop';
+const PRINTIFY_BASE = "https://api.printify.com/v1";
+
+// Printify API client functions
+function checkCredentials() {
+  if (PRINTIFY_API_KEY === 'test_key' || SHOP_ID === 'test_shop') {
+    throw new Error("Missing PRINTIFY_API_KEY or PRINTIFY_SHOP_ID env vars");
+  }
 }
 
-// Calculate price based on product type
+async function printifyRequest(path, options = {}) {
+  // Skip credential check for test mode
+  if (PRINTIFY_API_KEY !== 'test_key' && SHOP_ID !== 'test_shop') {
+    checkCredentials();
+  }
+
+  const url = path.startsWith('http') ? path : `${PRINTIFY_BASE}${path}`;
+  const res = await fetch(url, {
+    ...options,
+    headers: {
+      "Authorization": `Bearer ${PRINTIFY_API_KEY}`,
+      "Content-Type": "application/json",
+      ...(options.headers || {})
+    }
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    console.error("Printify error:", res.status, text);
+    throw new Error(`Printify API error: ${res.status}`);
+  }
+
+  return res.json();
+}
+
+async function createPrintifyProduct(shopId, productData) {
+  return printifyRequest(`/shops/${shopId}/products.json`, {
+    method: "POST",
+    body: JSON.stringify(productData)
+  });
+}
+
+async function listPrintifyProducts(shopId) {
+  return printifyRequest(`/shops/${shopId}/products.json`);
+}
+
+// Logo loader
+function loadLogos() {
+  const logoDir = path.join(process.cwd(), 'Logo_N_Galaxy_Fill_Space');
+  try {
+    const files = fs.readdirSync(logoDir);
+    return files
+      .filter(f => /\.(png|jpg|jpeg|gif)$/i.test(f))
+      .map(file => {
+        const name = path.basename(file, path.extname(file));
+        const publicUrl = `${process.env.BLOB_BASE_URL || 'https://your-blob-domain/logos'}/${encodeURIComponent(file)}`;
+        return {
+          file,
+          name,
+          path: `/Logo_N_Galaxy_Fill_Space/${file}`,
+          publicUrl
+        };
+      });
+  } catch (err) {
+    console.error('Error reading logos:', err);
+    return [];
+  }
+}
+
+// Shop JSON writer
+function writeShopProductsJson(products) {
+  const filePath = path.join(process.cwd(), 'shop-products.json');
+  const payload = products.map(p => ({
+    id: p.printifyId || p.id,
+    title: p.title || 'Untitled Product',
+    logoName: p.logoName || '',
+    image: p.image || '',
+    blueprintId: p.blueprintId,
+    providerId: p.providerId,
+    type: p.type || 'other'
+  }));
+  fs.writeFileSync(filePath, JSON.stringify(payload, null, 2), 'utf8');
+}
+
+// Database functions
+async function saveGeneratedProducts(products, db) {
+  if (!db) {
+    try {
+      const dbModule = await import('../src/utils/db.js');
+      db = await dbModule.default;
+    } catch (err) {
+      console.warn('Could not load database, skipping DB save');
+      return;
+    }
+  }
+  
+  for (const p of products) {
+    try {
+      await db.query(
+        `INSERT INTO products (printify_id, blueprint_id, provider_id, logo_name, title, type)
+         VALUES ($1, $2, $3, $4, $5, $6)
+         ON CONFLICT (printify_id) DO UPDATE
+         SET logo_name = EXCLUDED.logo_name,
+             title = EXCLUDED.title,
+             type = EXCLUDED.type`,
+        [p.printifyId, p.blueprintId, p.providerId, p.logoName, p.title, p.type]
+      );
+    } catch (err) {
+      console.error(`Failed to save product ${p.title}:`, err.message);
+    }
+  }
+}
+
+// Catalog functions
+async function getCatalog(forceRefresh = false) {
+  const now = Date.now();
+  const CACHE_TTL = 5 * 60 * 1000;
+  
+  if (getCatalog.cache && now < getCatalog.cacheExpiry && !forceRefresh) {
+    return getCatalog.cache;
+  }
+
+  try {
+    const [blueprints, providers] = await Promise.all([
+      printifyRequest('/catalog/blueprints.json'),
+      printifyRequest('/catalog/print_providers.json')
+    ]);
+
+    getCatalog.cache = {
+      blueprints: blueprints.data || [],
+      providers: providers.data || [],
+      fetchedAt: now
+    };
+    getCatalog.cacheExpiry = now + CACHE_TTL;
+
+    return getCatalog.cache;
+  } catch (error) {
+    console.error('Catalog fetch error:', error);
+    throw error;
+  }
+}
+
+async function getBlueprintDetails(blueprintId) {
+  try {
+    const [blueprint, providers] = await Promise.all([
+      printifyRequest(`/catalog/blueprints/${blueprintId}.json`),
+      printifyRequest(`/catalog/blueprints/${blueprintId}/print_providers.json`)
+    ]);
+
+    return {
+      blueprint,
+      providers: providers.data || []
+    };
+  } catch (error) {
+    console.error(`Blueprint ${blueprintId} details error:`, error);
+    throw error;
+  }
+}
+
+async function getProviderVariants(blueprintId, providerId) {
+  try {
+    const res = await printifyRequest(
+      `/catalog/blueprints/${blueprintId}/print_providers/${providerId}/variants.json`
+    );
+    return res.data || [];
+  } catch (error) {
+    console.error(`Provider ${providerId} variants error:`, error);
+    throw error;
+  }
+}
+
+async function getAllCatalogData() {
+  try {
+    const catalog = await getCatalog(true);
+    const blueprintDetails = [];
+
+    for (const blueprint of catalog.blueprints) {
+      try {
+        const details = await getBlueprintDetails(blueprint.id);
+        const providersWithVariants = [];
+
+        for (const provider of details.providers) {
+          try {
+            const variants = await getProviderVariants(blueprint.id, provider.id);
+            providersWithVariants.push({
+              ...provider,
+              variants
+            });
+          } catch (err) {
+            console.warn(`Skip provider ${provider.id}:`, err.message);
+          }
+        }
+
+        blueprintDetails.push({
+          blueprint,
+          providers: providersWithVariants
+        });
+      } catch (err) {
+        console.warn(`Skip blueprint ${blueprint.id}:`, err.message);
+      }
+    }
+
+    return {
+      blueprints: blueprintDetails,
+      allProviders: catalog.providers,
+      fetchedAt: Date.now()
+    };
+  } catch (error) {
+    console.error('Full catalog fetch error:', error);
+    throw error;
+  }
+}
+
+// Product generation
 function calculatePrice(blueprintTitle) {
   const title = blueprintTitle.toLowerCase();
   if (title.includes('hoodie')) return 6500;
@@ -24,10 +232,9 @@ function calculatePrice(blueprintTitle) {
   if (title.includes('hat')) return 3499;
   if (title.includes('tumbler')) return 3999;
   if (title.includes('backpack')) return 6999;
-  return 4500; // default
+  return 4500;
 }
 
-// Generate product payload for a specific combination
 function generateProductPayload(blueprint, provider, variant, logo) {
   const blueprintTitle = blueprint.title || 'Product';
   const variantOptions = variant.options || {};
@@ -85,9 +292,6 @@ export async function fullSyncEngine(options = {}) {
   };
 
   try {
-    // Import catalog functions dynamically to avoid circular dependencies
-    const { getAllCatalogData } = await import('./printify-catalog.js');
-    
     console.log('Loading full Printify catalog...');
     const catalog = await getAllCatalogData();
     results.catalog.blueprints = catalog.blueprints.length;
@@ -95,7 +299,7 @@ export async function fullSyncEngine(options = {}) {
 
     console.log(`Got ${catalog.blueprints.length} blueprints, ${catalog.allProviders.length} providers`);
 
-    const logos = getGalaxyLogos();
+    const logos = loadLogos();
     results.logos = logos.length;
     console.log(`Got ${logos.length} galaxy logos`);
 
@@ -182,8 +386,7 @@ export async function fullSyncEngine(options = {}) {
 
 // Catalog endpoint
 export async function getCatalog() {
-  const { getAllCatalogData } = await import('./printify-catalog.js');
-  const catalog = await getAllCatalogData();
+  const catalog = await getCatalog();
 
   return {
     blueprints: catalog.blueprints.map(b => ({
@@ -207,7 +410,6 @@ export async function getCatalog() {
 
 // Products list endpoint
 export async function getProductsList() {
-  const { listPrintifyProducts } = await import('./printify-client.js');
   const data = await listPrintifyProducts(SHOP_ID);
 
   const products = (data.data || []).map(p => {
@@ -236,12 +438,10 @@ export async function getProductsList() {
 
 // Import products
 export async function importProducts() {
-  const { getProducts } = await import('./printify-client.js');
-  const data = await getProducts();
+  const data = await listPrintifyProducts(SHOP_ID);
   const products = data.products || [];
 
-  const db = await (await import('../src/utils/db.js')).default;
-  await saveGeneratedProducts(products, db);
+  await saveGeneratedProducts(products);
   writeShopProductsJson(products);
 
   return { count: products.length };
