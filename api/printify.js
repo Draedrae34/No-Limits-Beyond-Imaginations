@@ -8,7 +8,13 @@ module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
-  const action = req.query.action || req.body?.action || 'status';
+  // Parse body if it's a string (Vercel wraps body in JSON string)
+  let body = req.body || {};
+  if (typeof body === 'string') {
+    try { body = JSON.parse(body); } catch { body = {}; }
+  }
+
+  const action = (req.query && req.query.action) || (body && body.action) || 'status';
   const PRINTIFY_API_KEY = process.env.PRINTIFY_API_KEY;
   const PRINTIFY_SHOP_ID = process.env.PRINTIFY_SHOP_ID;
 
@@ -108,7 +114,7 @@ module.exports = async (req, res) => {
       case 'sync': {
         if (!PRINTIFY_API_KEY || !PRINTIFY_SHOP_ID)
           return res.status(400).json({ error: 'Missing PRINTIFY_API_KEY or PRINTIFY_SHOP_ID' });
-        const dryRun = req.query.dryRun === 'true' || req.body?.dryRun === true;
+        const dryRun = (req.query && req.query.dryRun === 'true') || (body && body.dryRun === true);
         const products = await printifyFetch(`shops/${PRINTIFY_SHOP_ID}/products.json`);
         const items = (products.data || products || []);
         const syncResults = items.map(p => {
