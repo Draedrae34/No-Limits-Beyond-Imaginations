@@ -1,7 +1,7 @@
 // api/printify.js - Consolidated Printify API (Zero external dependencies)
 // Handles: status, catalog, list, sync, import
 
-module.exports = async (req, res) => {
+export default async function(req, res) {
   // CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
