@@ -1,0 +1,10 @@
+{
+    "scripts": [
+        "https://js.stripe.com/v3/"
+    ],
+    "styles": [],
+    "layout": "splitLeft",
+    "showConsole": true,
+    "readmeBehavior": "previewHeader",
+    "themePreview": true
+}
