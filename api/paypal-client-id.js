@@ -5,7 +5,7 @@ export default function handler(req, res) {
 
   const clientId = process.env.PAYPAL_CLIENT_ID;
   if (!clientId) {
-    return res.status(500).json({ error: 'PayPal client ID is not configured.' });
+    return res.status(500).json({ error: 'PayPal client ID is not configured in Vercel variables.' });
   }
 
   return res.status(200).json({ clientId });

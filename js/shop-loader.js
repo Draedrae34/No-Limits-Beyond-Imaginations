@@ -10,8 +10,9 @@ class NLBLShopLoader {
     this.cart = [];
     this.currentFilter = "all";
     this.currentPaypalProduct = null;
-    const stripePublishableKey = process.env.STRIPE_PUBLISHABLE_KEY || "";
-    this.stripe = Stripe(stripePublishableKey);
+    this.stripe = Stripe(
+      "pk_live_51St8KxGbrgLPuQFwopxDC9rr1o2hYJujJ7ceGP9RgxafShwb5zlt1i96vN9jAcktWLdAsvanJdivugVGWrT1UdlJ00cLbBlzuF"
+    );
 
     this.init();
   }
@@ -77,10 +78,6 @@ class NLBLShopLoader {
     }
   }
 
-  renderCategoryOptions() {
-    const select = document.getElementById("category-select");
-    if (!select) return;
-
     const categories = [...new Set(this.products.map((p) => p.category).filter(Boolean))].sort();
     select.innerHTML = '<option value="all">All Products</option>';
     categories.forEach((category) => {
@@ -93,7 +90,87 @@ class NLBLShopLoader {
 
   renderProducts(filter = "all") {
     const container =
+   
+
+  renderProducts(filter = "all") {
+    const container =
       document.querySelector(".products-grid") || document.querySelector("#products-container");
+    if (!container) {
+      return;
+    }
+
+    let filtered = this.products;
+    if (filter !== "all") {
+      filtered = this.products.filter(
+        (product) => (product.category || "").toLowerCase() === filter.toLowerCase()
+      );
+    }
+
+    container.innerHTML = "";
+    if (!filtered.length) {
+      container.innerHTML = '<p class="no-products">No products found in this category.</p>';
+      this.updateProductCount(0);
+      return;
+    }
+
+    container.innerHTML = filtered.map((product) => this.createProductCard(product)).join("");
+    this.attachCardListeners();
+    this.updateProductCount(filtered.length);
+  }
+
+  updateProductCount(count) {
+    const countEl = document.getElementById("product-count");
+    if (!countEl) return;
+    countEl.style.display = "block";
+    countEl.innerHTML = `Showing <span>${count}</span> product${count === 1 ? "" : "s"}`;
+  }
+
+  createProductCard(product) {
+    const imageUrl = this.getImageUrl(product.image_url);
+    const priceDisplay = this.formatPrice(product.price);
+    const tagsHtml = product.tags.length
+      ? `<div class="product-tags">${product.tags
+          .map((tag) => `<span class="product-tag">${tag}</span>`)
+          .join("")}</div>`
+      : "";
+
+    return `
+      <div class="product-card quantum-card fade-in" data-product-id="${product.id}">
+        <div class="product-image">
+          <img src="${imageUrl}" alt="${product.name}" onerror="this.src='/placeholder-product.png'">
+          <div class="product-overlay">
+            <button class="quick-view" data-id="${product.id}">Quick View</button>
+          </div>
+        </div>
+
+        <div class="product-info">
+          ${tagsHtml}
+          <h3 class="product-name">${product.name}</h3>
+          <p class="product-category">${product.category}</p>
+          <p class="product-description">${product.description}</p>
+          <div class="product-price">${priceDisplay}</div>
+          <div class="product-actions">
+            <button class="btn-primary buy-now-btn" data-id="${product.id}">Stripe Now</button>
+            <button class="paypal-buy-now-btn" data-id="${product.id}">PayPal</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  getImageUrl(imagePath) {
+    if (!imagePath) return "/placeholder-product.png";
+    if (imagePath.startsWith("
+
+    const categories = [...new Set(this.products.map((p) => p.category).filter(Boolean))].sort();
+    select.innerHTML = '<option value="all">All Products</option>';
+    categories.forEach((category) => {
+      const option = document.createElement("option");
+      option.value = category;
+      option.textContent = category;
+      select.appendChild(option);
+    });
+  }   document.querySelector(".products-grid") || document.querySelector("#products-container");
     if (!container) {
       return;
     }
