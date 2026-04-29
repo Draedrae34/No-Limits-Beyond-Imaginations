@@ -1,43 +1,78 @@
-import { listPrintifyProducts, SHOP_ID } from './printify-client.js';
-
 export default async function handler(req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
   if (req.method !== "GET") {
-    return res.status(405).json({ error: "Method not allowed" });
+    return res.status(405).json({ error: "Method not allowed." });
+  }
+
+  var apiKey = process.env.PRINTIFY_API_KEY;
+  var shopId = process.env.PRINTIFY_SHOP_ID;
+
+  if (!apiKey || !shopId) {
+    return res.status(500).json({
+      success: false,
+      error: "Printify not configured. Set PRINTIFY_API_KEY and PRINTIFY_SHOP_ID in Vercel env vars."
+    });
   }
 
   try {
-    const data = await listPrintifyProducts(SHOP_ID);
+    var page = parseInt(req.query.page) || 1;
+    var limit = parseInt(req.query.limit) || 20;
+    var url = "https://api.printify.com/v1/shops/" + shopId + "/products.json?page=" + page + "&limit=" + limit;
 
-    if (!data.data || !Array.isArray(data.data)) {
-      return res.status(200).json({ products: [] });
+    var response = await fetch(url, {
+      headers: {
+        "Authorization": "Bearer " + apiKey,
+        "Content-Type": "application/json"
+      }
+    });
+
+    if (!response.ok) {
+      var errText = await response.text();
+      return res.status(response.status).json({
+        success: false,
+        error: "Printify API error: " + response.status,
+        details: errText
+      });
     }
 
-    const products = data.data.map(p => {
-      // Get the first image from print areas
-      let imageUrl = '';
-      if (p.print_areas && p.print_areas[0] && p.print_areas[0].placeholders) {
-        const placeholder = p.print_areas[0].placeholders.find(ph => ph.images && ph.images[0]);
-        if (placeholder && placeholder.images[0]) {
-          imageUrl = placeholder.images[0].src || '';
-        }
-      }
-
-      // Get price from first variant
-      const price = p.variants && p.variants[0] ? (p.variants[0].price || 0) / 100 : 0;
-
+    var data = await response.json();
+    var products = (data.data || []).map(function(p) {
       return {
         id: p.id,
-        title: p.title || 'Untitled Product',
-        description: p.description || '',
-        image: imageUrl,
-        price: price,
-        variants: p.variants ? p.variants.length : 0
+        title: p.title,
+        description: p.description || "",
+        tags: p.tags || [],
+        images: (p.images || []).map(function(img) {
+          return { src: img.src, is_default: img.is_default };
+        }),
+        variants: (p.variants || []).map(function(v) {
+          return { id: v.id, title: v.title, price: v.price, is_enabled: v.is_enabled };
+        }),
+        created_at: p.created_at,
+        visible: p.visible,
+        is_locked: p.is_locked
       };
     });
 
-    return res.status(200).json({ products });
+    return res.status(200).json({
+      success: true,
+      products: products,
+      total: data.total || products.length,
+      page: page,
+      limit: limit
+    });
   } catch (err) {
-    console.error("List products error:", err);
-    return res.status(500).json({ error: "Failed to load products" });
+    console.error("[products-list] Error:", err.message);
+    return res.status(500).json({
+      success: false,
+      error: "Failed to fetch products: " + err.message
+    });
   }
 }
