@@ -78,38 +78,6 @@ class NLBLShopLoader {
     }
   }
 
-      const apiData = await apiResponse.json();
-      if (!apiData.success || !Array.isArray(apiData.products)) {
-        throw new Error("Invalid API product payload");
-      }
-
-      this.products = apiData.products
-        .map((product) => this.normalizeProduct(product))
-        .filter((product) => product.active);
-      return this.products;
-    } catch (apiError) {
-      console.warn("Falling back to static product feed:", apiError);
-    }
-
-    try {
-      const response = await fetch("/shop-products.json");
-      if (!response.ok) {
-        throw new Error("Failed to load static products");
-      }
-
-      const feed = await response.json();
-      this.products = (feed.products || [])
-        .map((product) => this.normalizeProduct(product))
-        .filter((product) => product.active);
-      return this.products;
-    } catch (error) {
-      console.error("Unable to load products:", error);
-      this.products = [];
-      this.showError("Failed to load products. Please refresh the page.");
-      return [];
-    }
-  }
-
   renderCategoryOptions() {
     const select = document.getElementById("category-select");
     if (!select) return;
