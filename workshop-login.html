@@ -1,49 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Workshop Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    body { margin:0; background:#050509; color:#fff; font-family:system-ui; display:flex; justify-content:center; align-items:center; height:100vh; }
-    .card { background:#111; padding:24px 28px; border-radius:10px; border:1px solid #333; width:100%; max-width:360px; box-shadow:0 0 25px rgba(106,0,255,0.4); }
-    h1 { margin-top:0; font-size:1.4rem; text-align:center; }
-    label { display:block; margin-top:12px; font-size:0.9rem; }
-    input { width:100%; padding:8px 10px; margin-top:4px; border-radius:6px; border:1px solid #444; background:#050509; color:#fff; }
-    button { margin-top:16px; width:100%; padding:10px; border-radius:6px; border:none; background:#6a00ff; color:#fff; font-weight:600; cursor:pointer; }
-    button:hover { background:#8f3dff; }
-    .error { margin-top:10px; color:#f97373; font-size:0.85rem; text-align:center; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop Login | Silent Spirits Legacy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            background: #03010a;
+            color: #e2e8f0;
+            font-family: 'Raleway', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .login-card {
+            background: rgba(26, 10, 46, 0.8);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid #8b5cf6;
+            box-shadow: 0 0 50px rgba(139, 92, 246, 0.3);
+            text-align: center;
+            backdrop-filter: blur(10px);
+            width: 320px;
+        }
+        h1 { font-family: 'Orbitron', sans-serif; color: #ffd700; font-size: 1.2rem; letter-spacing: 2px; }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 20px 0;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid #a78bfa;
+            color: white;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            background: linear-gradient(45deg, #7c3aed, #8b5cf6);
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            width: 100%;
+            transition: 0.3s;
+        }
+        button:hover { transform: scale(1.02); box-shadow: 0 0 20px #8b5cf6; }
+        #status { margin-top: 15px; font-size: 0.8rem; color: #ff0d99; }
+    </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Silent Spirits Workshop</h1>
-    <label>Email</label>
-    <input id="email" type="email" autocomplete="email" />
-    <label>Password</label>
-    <input id="password" type="password" autocomplete="current-password" />
-    <button id="login-btn">Enter Workshop</button>
-    <div id="error" class="error"></div>
-  </div>
+    <div class="login-card">
+        <h1>ASCENSION KEY</h1>
+        <p style="font-size: 0.7rem; color: #a78bfa;">PRIVATE WORKSHOP ACCESS</p>
+        <input type="password" id="pass" placeholder="Enter Admin Password">
+        <button onclick="attemptLogin()">Engage Portal</button>
+        <div id="status"></div>
+    </div>
 
-  <script>
-    document.getElementById("login-btn").addEventListener("click", async () => {
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
+    <script>
+        // Allow Enter key to trigger login
+        document.getElementById('pass').addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') attemptLogin();
+        });
 
-      const res = await fetch("/api/auth?action=login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
-      });
+        async function attemptLogin() {
+            const password = document.getElementById('pass').value;
+            const status = document.getElementById('status');
+            const btn = document.querySelector('button');
 
-      const data = await res.json();
-      if (data.success) {
-        window.location.href = "/workshop.html";
-      } else {
-        document.getElementById("error").textContent = data.error || "Login failed.";
-      }
-    });
-  </script>
+            btn.disabled = true;
+            btn.textContent = 'Engaging...';
+            
+            try {
+                const res = await fetch('/api/auth', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password })
+                });
+                const data = await res.json();
+                
+                if (data.success) {
+                    status.style.color = "#00ffff";
+                    status.textContent = "Access Granted. Syncing...";
+                    window.location.href = "private.html";
+                } else {
+                    status.textContent = data.error || "Invalid Credentials";
+                }
+            } catch (err) {
+                status.textContent = "Engine Error. Check Connection.";
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Engage Portal';
+            }
+        }
+    </script>
 </body>
 </html>

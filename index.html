@@ -2896,25 +2896,26 @@
                         if (star.y > canvas.height) {
                             star.y = 0;
                             star.x = Math.random() * canvas.width;
-            // Smooth Scroll
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-              anchor.addEventListener("click", function (e) {
-                const targetId = this.getAttribute("href");
-                if (targetId === "#") return;
-                const targetEl = document.querySelector(targetId);
-                if (targetEl) {
-                  e.preventDefault();
-                  targetEl.scrollIntoView({
-                    behavior: "smooth"
-                  });
-                }
-              });
-            });
                         }
                     });
 
                     requestAnimationFrame(animateStars);
                 }
+
+                // Smooth Scroll - Moved outside the animation loop to prevent lag
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener("click", function (e) {
+                        const targetId = this.getAttribute("href");
+                        if (targetId === "#") return;
+                        const targetEl = document.querySelector(targetId);
+                        if (targetEl) {
+                            e.preventDefault();
+                            targetEl.scrollIntoView({
+                                behavior: "smooth"
+                            });
+                        }
+                    });
+                });
 
                 animateStars();
 
