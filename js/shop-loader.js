@@ -10,9 +10,8 @@ class NLBLShopLoader {
     this.cart = [];
     this.currentFilter = "all";
     this.currentPaypalProduct = null;
-    this.stripe = Stripe(
-      "pk_live_51St8KxGbrgLPuQFwopxDC9rr1o2hYJujJ7ceGP9RgxafShwb5zlt1i96vN9jAcktWLdAsvanJdivugVGWrT1UdlJ00cLbBlzuF"
-    );
+    const stripePublishableKey = process.env.STRIPE_PUBLISHABLE_KEY || "";
+    this.stripe = Stripe(stripePublishableKey);
 
     this.init();
   }
