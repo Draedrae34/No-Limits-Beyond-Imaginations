@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Private Space | Silent Spirits Legacy</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Raleway:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Raleway:wght@300;400&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <style>
         body {
             background: #03010a;
             color: #e2e8f0;
             font-family: 'Raleway', sans-serif;
-            padding: 50px;
+            margin: 0;
+            padding: 20px;
         }
         .dashboard {
             max-width: 900px;
@@ -17,46 +18,205 @@
         }
         header { border-bottom: 2px solid #8b5cf6; padding-bottom: 20px; margin-bottom: 40px; }
         h1 { font-family: 'Orbitron', sans-serif; color: #ffd700; margin: 0; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .tool-card {
-            background: rgba(255,255,255,0.05);
-            padding: 25px;
-            border-radius: 15px;
-            border: 1px solid rgba(139, 92, 246, 0.2);
+        
+        /* Tabs Navigation */
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; }
+        .tab-btn {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid #8b5cf6;
+            color: #a78bfa;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
             transition: 0.3s;
         }
-        .tool-card:hover { background: rgba(139, 92, 246, 0.1); border-color: #8b5cf6; }
-        .status-dot { height: 10px; width: 10px; background: #00ffff; border-radius: 50%; display: inline-block; margin-right: 10px; }
-        .btn-action { color: #00ffff; text-decoration: none; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        .tab-btn.active { background: #8b5cf6; color: white; }
+
+        /* Panel Visibility */
+        .panel { display: none; }
+        .panel.active { display: block; animation: fadeIn 0.5s ease; }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; background: rgba(26, 10, 46, 0.4); border-radius: 12px; overflow: hidden; margin-top: 20px; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid rgba(139, 92, 246, 0.2); }
+        th { background: rgba(139, 92, 246, 0.2); color: #00ffff; font-family: 'Orbitron', sans-serif; font-size: 0.75rem; text-transform: uppercase; }
+        tr:hover { background: rgba(139, 92, 246, 0.1); }
+
+        /* Moderation Controls */
+        .status-pill { padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
+        .status-pending { background: #ffd700; color: #000; }
+        .status-approved { background: #00ff88; color: #000; }
+
+        .action-btn {
+            background: transparent;
+            border: 1px solid #00ffff;
+            color: #00ffff;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: 0.2s;
+        }
+        .action-btn:hover { background: #00ffff; color: #000; }
+
+        /* Modals */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        .modal.active { display: flex; }
+        .modal-content {
+            background: #0a0a1a;
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid #8b5cf6;
+            width: min(500px, 90vw);
+        }
+        .modal h2 { margin-top: 0; color: #ffd700; font-family: 'Orbitron', sans-serif; }
+        .modal-body { margin: 20px 0; line-height: 1.6; }
+        .modal-footer { display: flex; justify-content: flex-end; gap: 10px; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .logout-bar { text-align: right; margin-bottom: 20px; }
     </style>
 </head>
 <body>
     <div class="dashboard">
+        <div class="logout-bar">
+            <button onclick="logout()" style="background:none; border:1px solid #ff0d99; color:#ff0d99; padding:5px 15px; border-radius:20px; cursor:pointer; font-size: 0.7rem;">LOGOUT ENGINE</button>
+        </div>
+
         <header>
             <h1>THE SPACE</h1>
             <p>Legacy Control Center — All Engines Operational</p>
         </header>
 
-        <div class="grid">
-            <div class="tool-card">
-                <h3><span class="status-dot"></span>Message Wall</h3>
-                <p>Moderate and manage tributes for R.J. and T-Mainney.</p>
-                <a href="message-wall.html" class="btn-action">View Wall</a>
+        <nav class="tabs">
+            <button class="tab-btn active" data-tab="messages">Honor Wall</button>
+            <button class="tab-btn" data-tab="orders">Orders</button>
+            <button class="tab-btn" data-tab="products">Inventory</button>
+        </nav>
+
+        <!-- Messages Panel -->
+        <section id="messages" class="panel active">
+            <div class="panel-header" style="display:flex; justify-content:space-between; align-items:center;">
+                <h3>Moderate Tributes</h3>
+                <button id="messages-refresh" class="action-btn">Refresh Feed</button>
             </div>
-            <div class="tool-card">
-                <h3><span class="status-dot"></span>Inventory</h3>
-                <p>Syncing with Printify Shop ID. 50+ Products active.</p>
-                <a href="shop.html" class="btn-action">Check Shop</a>
+            <div id="messages-status" style="font-size:0.8rem; margin:10px 0; color:#a78bfa;">Ready.</div>
+            <table id="messages-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Message Preview</th>
+                        <th>Approved</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Content injected by js/workshop.js -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Orders Panel -->
+        <section id="orders" class="panel">
+            <div class="panel-header" style="display:flex; justify-content:space-between; align-items:center;">
+                <h3>Global Orders</h3>
+                <button id="refresh-orders" class="action-btn">Sync Orders</button>
             </div>
-            <div class="tool-card">
-                <h3><span class="status-dot"></span>System Sync</h3>
-                <button onclick="logout()" style="background:none; border:1px solid #ff0d99; color:#ff0d99; padding:5px 10px; cursor:pointer;">Logout</button>
+            <div id="orders-status" style="font-size:0.8rem; margin:10px 0; color:#a78bfa;">Syncing with PayPal/Stripe...</div>
+            <table id="orders-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Buyer</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Content injected by js/workshop.js -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Products Panel -->
+        <section id="products" class="panel">
+            <h3>Collection Management</h3>
+            <div id="prod-status" style="font-size:0.8rem; margin:10px 0; color:#a78bfa;">Printify Sync Active.</div>
+            <table id="products-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Active</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Content injected by js/workshop.js -->
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <!-- Moderation Modal -->
+    <div id="message-modal" class="modal">
+        <div class="modal-content">
+            <h2 id="modal-message-name">Message Review</h2>
+            <div class="modal-body">
+                <p id="modal-message-text" style="font-style:italic; padding:15px; background:rgba(255,255,255,0.05); border-radius:10px;"></p>
+                <div style="margin-top:20px;">
+                    <label><input type="checkbox" id="modal-message-approved"> Approve for Wall</label><br>
+                    <label><input type="checkbox" id="modal-message-hidden"> Hide Message</label>
+                </div>
+                <textarea id="modal-message-notes" placeholder="Admin notes (private)" style="width:100%; margin-top:15px; background:#000; border:1px solid #8b5cf6; color:white; padding:10px; border-radius:5px;"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button id="modal-message-delete" style="background:#ff3b3b; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer;">Delete</button>
+                <button id="modal-message-save" style="background:#00ff88; color:black; border:none; padding:8px 15px; border-radius:5px; cursor:pointer;">Save Changes</button>
+                <button id="modal-message-close" class="action-btn">Cancel</button>
             </div>
         </div>
     </div>
 
+    <!-- Order Modal -->
+    <div id="order-modal" class="modal">
+        <div class="modal-content">
+            <h2 id="order-modal-title">Order Details</h2>
+            <div id="order-detail-grid" class="modal-body" style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; font-size:0.8rem;"></div>
+            <div class="modal-body">
+                <label>Fulfillment Status</label>
+                <select id="order-fulfillment-status" style="width:100%; padding:10px; background:#000; color:white; border:1px solid #8b5cf6;">
+                    <option value="pending">Pending</option>
+                    <option value="fulfilled">Fulfilled</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+                <textarea id="order-fulfillment-notes" placeholder="Shipping tracking or notes..." style="width:100%; margin-top:10px; background:#000; border:1px solid #8b5cf6; color:white; padding:10px;"></textarea>
+                <div id="order-fulfillment-status-text" style="font-size:0.7rem; color:#00ff88;"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="order-fulfillment-save" style="background:#00ff88; color:black; border:none; padding:8px 15px; border-radius:5px; cursor:pointer;">Update Order</button>
+                <button id="order-modal-close" class="action-btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/workshop.js"></script>
     <script>
-        // Auth Guard
+        // Auth Guard logic
         (async function checkAuth() {
             const res = await fetch('/api/auth');
             const data = await res.json();
