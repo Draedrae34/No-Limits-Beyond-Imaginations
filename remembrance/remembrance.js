@@ -16,13 +16,6 @@ let currentIndex = 0;
 const slideshow = document.getElementById("slideshow");
 const replayBtn = document.getElementById("replay-button");
 
-// AUDIO
-const audio = new Audio();
-audio.src = "music/remembrance_01.mp3";  // <- local track
-audio.loop = true;
-audio.volume = 0.6;  // very soft, emotional
-audio.autoplay = true; // automatically starts after overlay
-
 function showImage(index) {
     // Galaxy-themed transition: cosmic fade with particle burst
     slideshow.style.transition = `opacity ${FADE_TIME}ms ease-in-out, transform 8s cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
