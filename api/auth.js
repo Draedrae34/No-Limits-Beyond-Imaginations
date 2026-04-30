@@ -18,13 +18,14 @@ export default function handler(req, res) {
     const password = body.password || "";
     const email = body.email || "";
     const adminPass = process.env.QUANTUM_ADMIN_PASS || "";
+    const isProd = process.env.NODE_ENV === 'production';
 
     if (!password) {
       return res.status(400).json({ success: false, error: "Password is required." });
     }
 
     if (adminPass && password === adminPass) {
-      res.setHeader("Set-Cookie", "nlbl_auth=authenticated; Path=/; HttpOnly; SameSite=Strict; Max-Age=86400; Secure");
+      res.setHeader("Set-Cookie", `nlbl_auth=authenticated; Path=/; HttpOnly; SameSite=Strict; Max-Age=86400${isProd ? '; Secure' : ''}`);
       return res.status(200).json({ success: true, message: "Welcome to the Workshop.", user: email || "admin" });
     }
 

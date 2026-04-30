@@ -71,9 +71,8 @@ window.addEventListener("load", async () => {
         } catch (error) {
             console.warn("Unable to load media manifest, falling back:", error);
         }
-        audio.play().catch(() => { });
         startSlideshow();
-    }, 6000);
+    }, 1500);
 });
 
 // GALAXY PARTICLE VISUALIZER
