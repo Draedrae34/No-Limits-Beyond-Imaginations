@@ -301,12 +301,33 @@ class NLBLShopLoader {
       throw new Error(data.error || "Failed to load PayPal configuration");
     }
 
+    // Load the PayPal SDK script
     await new Promise((resolve, reject) => {
       const script = document.createElement("script");
       script.src = `https://www.paypal.com/sdk/js?client-id=${encodeURIComponent(data.clientId)}&currency=USD`;
       script.onload = resolve;
       script.onerror = reject;
       document.head.appendChild(script);
+    });
+
+    // Wait for PayPal to fully initialize
+    await this.waitForPayPal();
+  }
+
+  waitForPayPal() {
+    return new Promise((resolve, reject) => {
+      const maxWait = 10000; // 10 second timeout
+      const startTime = Date.now();
+
+      const checkInterval = setInterval(() => {
+        if (window.paypal && window.paypal.Buttons) {
+          clearInterval(checkInterval);
+          resolve();
+        } else if (Date.now() - startTime > maxWait) {
+          clearInterval(checkInterval);
+          reject(new Error("PayPal SDK failed to initialize within timeout"));
+        }
+      }, 100);
     });
   }
 
