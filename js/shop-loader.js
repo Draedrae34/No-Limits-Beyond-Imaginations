@@ -10,18 +10,33 @@ class NLBLShopLoader {
     this.cart = [];
     this.currentFilter = "all";
     this.currentPaypalProduct = null;
-    this.stripe = Stripe(
-      "pk_live_51St8KxGbrgLPuQFwopxDC9rr1o2hYJujJ7ceGP9RgxafShwb5zlt1i96vN9jAcktWLdAsvanJdivugVGWrT1UdlJ00cLbBlzuF"
-    );
+    this.stripe = null;
+    this.stripeKey = null;
 
     this.init();
   }
 
   async init() {
     await this.loadProducts();
+    await this.loadStripeKey(); // Load Stripe key early
     this.renderCategoryOptions();
     this.renderProducts(this.currentFilter);
     this.setupEventListeners();
+  }
+
+  async loadStripeKey() {
+    try {
+      const response = await fetch("/api/stripe-public-key");
+      if (response.ok) {
+        const data = await response.json();
+        this.stripeKey = data.publishableKey;
+        if (this.stripeKey) {
+          this.stripe = Stripe(this.stripeKey);
+        }
+      }
+    } catch (error) {
+      console.error("Failed to load Stripe key:", error);
+    }
   }
 
   normalizeProduct(raw) {
@@ -220,6 +235,12 @@ class NLBLShopLoader {
   async buyNow(productId) {
     const product = this.products.find((item) => String(item.id) === String(productId));
     if (!product) return;
+
+    // Ensure Stripe is initialized
+    if (!this.stripe) {
+      this.showError("Payment system not ready. Please refresh and try again.");
+      return;
+    }
 
     try {
       const response = await fetch("/api/create-checkout-session", {
