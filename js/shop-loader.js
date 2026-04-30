@@ -40,17 +40,43 @@ class NLBLShopLoader {
   }
 
   normalizeProduct(raw) {
-    const imageUrl = raw.image_url || raw.image_filename || raw.image || "";
-    const price = Number(raw.price);
+    // Handle both Printify API format and local fallback format
+    const id = raw.id;
+    const name = raw.name || raw.title || "Untitled Product";
+    const description = raw.description || "Premium NLBL Collection";
+    
+    // Handle price - from direct price field or first variant's price
+    let price = Number(raw.price);
+    if (!Number.isFinite(price) && raw.variants && raw.variants.length > 0) {
+      price = Number(raw.variants[0].price);
+    }
+    if (!Number.isFinite(price)) price = 0;
+    
+    // Handle image - from image_url, images array, or direct image field
+    let imageUrl = raw.image_url || raw.image || "";
+    if (!imageUrl && raw.images && raw.images.length > 0) {
+      imageUrl = raw.images[0].src || raw.images[0];
+    }
+    if (!imageUrl) imageUrl = "/placeholder-product.png";
+    
+    // Handle tags
+    const tags = Array.isArray(raw.tags) ? raw.tags : [];
+    
+    // Handle category
+    const category = raw.category || "General";
+    
+    // Handle active status (visible field from Printify)
+    const active = raw.active !== false && raw.visible !== false;
+
     return {
-      id: raw.id,
-      name: raw.name || "Untitled Product",
-      description: raw.description || "Premium NLBL Collection",
-      category: raw.category || "General",
-      price: Number.isFinite(price) ? price : 0,
+      id,
+      name,
+      description,
+      category,
+      price,
       image_url: imageUrl,
-      tags: Array.isArray(raw.tags) ? raw.tags : [],
-      active: raw.active !== false,
+      tags,
+      active
     };
   }
 
