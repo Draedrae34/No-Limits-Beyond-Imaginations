@@ -1,710 +1,110 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>No Limits Beyond Limitations - Revolutionary Store</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Space+Grotesk:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      :root {
-        --primary: #00ffff;
-        --secondary: #ff69b4;
-        --tertiary: #39ff14;
-        --gold: #ffd700;
-        --purple: #8b5cf6;
-        --dark-bg: #0a0e27;
-        --darker-bg: #050812;
-        --light: #ffffff;
-        --accent-1: #00d4ff;
-        --accent-2: #ff006e;
-        --glow-1: rgba(0, 255, 255, 0.5);
-        --glow-2: rgba(139, 92, 246, 0.4);
-      }
-
-      body {
-        font-family: 'Space Grotesk', 'Rajdhani', sans-serif;
-        background: linear-gradient(135deg, var(--dark-bg) 0%, #1a0f3a 50%, var(--darker-bg) 100%);
-        background-attachment: fixed;
-        color: var(--light);
-        overflow-x: hidden;
-        position: relative;
-      }
-
-      /* Animated galaxy background */
-      body::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image:
-          radial-gradient(2px 2px at 20% 30%, #eee, rgba(255, 255, 255, 0.2) 2px, transparent 40px),
-          radial-gradient(
-            2px 2px at 60% 70%,
-            #fff,
-            rgba(255, 255, 255, 0.15) 1px,
-            transparent 40px
-          ),
-          radial-gradient(1px 1px at 50% 50%, #ddd, rgba(255, 255, 255, 0.1) 1px, transparent 30px),
-          radial-gradient(1px 1px at 80% 10%, #fff, rgba(255, 255, 255, 0.2) 2px, transparent 30px),
-          radial-gradient(2px 2px at 90% 60%, #eee, rgba(255, 255, 255, 0.1) 1px, transparent 50px),
-          radial-gradient(1px 1px at 30% 80%, #fff, rgba(255, 255, 255, 0.15) 1px, transparent 30px);
-        background-size:
-          200% 200%,
-          150% 150%,
-          300% 300%,
-          250% 250%,
-          100% 100%,
-          350% 350%;
-        background-position:
-          0% 0%,
-          40% 60%,
-          130% 270%,
-          70% 100%,
-          150% 140%,
-          90% 10%;
-        pointer-events: none;
-        z-index: 0;
-        animation: drift 20s ease-in-out infinite;
-      }
-
-      @keyframes drift {
-        0%,
-        100% {
-          background-position:
-            0% 0%,
-            40% 60%,
-            130% 270%,
-            70% 100%,
-            150% 140%,
-            90% 10%;
-        }
-        50% {
-          background-position:
-            100% 100%,
-            60% 40%,
-            70% 130%,
-            100% 0%,
-            0% 0%,
-            10% 90%;
-        }
-      }
-
-      /* Glowing nebula orbs */
-      body::after {
-        content: '';
-        position: fixed;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background:
-          radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
-          radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
-        animation: nebula 30s ease-in-out infinite;
-        pointer-events: none;
-        z-index: 0;
-      }
-
-      @keyframes nebula {
-        0%,
-        100% {
-          transform: translate(0, 0);
-        }
-        50% {
-          transform: translate(50px, 100px);
-        }
-      }
-
-      .container {
-        position: relative;
-        z-index: 1;
-        max-width: 100%;
-        margin: 0 auto;
-      }
-
-      /* ==== HEADER ==== */
-      header {
-        padding: 2rem;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-        border-bottom: 2px solid var(--accent-1);
-      }
-
-      header::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, var(--accent-1), transparent);
-        animation: glow-pulse 2s ease-in-out infinite;
-      }
-
-      @keyframes glow-pulse {
-        0%,
-        100% {
-          opacity: 0.3;
-        }
-        50% {
-          opacity: 1;
-        }
-      }
-
-      h1 {
-        font-family: 'Orbitron', sans-serif;
-        font-size: clamp(2.5rem, 8vw, 5rem);
-        font-weight: 900;
-        background: linear-gradient(135deg, var(--accent-1), var(--tertiary), var(--accent-2));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-shadow: 0 0 40px rgba(0, 255, 255, 0.5);
-        letter-spacing: 3px;
-        margin-bottom: 0.5rem;
-        animation: title-float 4s ease-in-out infinite;
-      }
-
-      @keyframes title-float {
-        0%,
-        100% {
-          transform: translateY(0px);
-        }
-        50% {
-          transform: translateY(-10px);
-        }
-      }
-
-      .tagline {
-        font-family: 'Rajdhani', sans-serif;
-        font-size: clamp(1rem, 3vw, 1.5rem);
-        color: var(--accent-1);
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        margin-top: 1rem;
-        opacity: 0.9;
-      }
-
-      /* ==== FILTER SECTION ==== */
-      .filter-bar {
-        padding: 2rem;
-        text-align: center;
-        border: 2px solid rgba(0, 255, 255, 0.2);
-        background: rgba(10, 14, 39, 0.7);
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
-        margin: 2rem;
-        border-radius: 20px;
-        box-shadow: 0 0 40px rgba(0, 255, 255, 0.1);
-      }
-
-      .filter-bar label {
-        font-family: 'Orbitron', sans-serif;
-        display: inline-block;
-        margin-right: 1rem;
-        color: var(--gold);
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-      }
-
-      .filter-bar select {
-        padding: 0.8rem 1.2rem;
-        background: rgba(139, 92, 246, 0.2);
-        border: 2px solid var(--accent-1);
-        border-radius: 8px;
-        color: var(--light);
-        font-family: 'Space Grotesk', sans-serif;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        min-width: 200px;
-      }
-
-      .filter-bar select:hover {
-        background: rgba(139, 92, 246, 0.4);
-        box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-      }
-
-      /* ==== PRODUCTS GRID ==== */
-      .products-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 2.5rem;
-        padding: 2.5rem;
-        max-width: 1600px;
-        margin: 0 auto;
-      }
-
-      /* ==== FADE-IN ANIMATION ==== */
-      .fade-in {
-        animation: card-fade-in 0.6s ease-out forwards;
-      }
-
-      /* ==== PRODUCT CARD ==== */
-      .product-card {
-        position: relative;
-        height: 100%;
-        min-height: 480px;
-        border-radius: 24px;
-        overflow: hidden;
-        cursor: pointer;
-        transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-        border: 2px solid transparent;
-        background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(0, 255, 255, 0.05));
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
-        box-shadow:
-          0 10px 40px rgba(0, 0, 0, 0.5),
-          inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        display: flex;
-        flex-direction: column;
-        opacity: 0;
-        transform: translateY(30px);
-      }
-
-      @keyframes card-fade-in {
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .product-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(
-          135deg,
-          transparent 0%,
-          rgba(0, 255, 255, 0.1) 50%,
-          transparent 100%
-        );
-        opacity: 0;
-        transition: opacity 0.5s ease;
-        pointer-events: none;
-        z-index: 1;
-      }
-
-      .product-card:hover::before {
-        opacity: 1;
-      }
-
-      .product-card:hover {
-        border-color: var(--accent-1);
-        transform: translateY(-20px) scale(1.02);
-        box-shadow:
-          0 30px 60px rgba(0, 255, 255, 0.3),
-          0 0 40px rgba(0, 255, 255, 0.2),
-          inset 0 1px 0 rgba(255, 255, 255, 0.2);
-      }
-
-      .product-image {
-        position: relative;
-        width: 100%;
-        height: 300px;
-        background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(0, 255, 255, 0.1));
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 6rem;
-      }
-
-      .product-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      }
-
-      .product-card:hover .product-image img {
-        transform: scale(1.12) rotate(3deg);
-      }
-
-      .product-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-        padding-bottom: 1.5rem;
-        opacity: 0;
-        transition: opacity 0.4s ease;
-        z-index: 2;
-      }
-
-      .product-card:hover .product-overlay {
-        opacity: 1;
-      }
-
-      .quick-view {
-        font-family: 'Orbitron', sans-serif;
-        font-size: 0.9rem;
-        font-weight: 700;
-        color: var(--light);
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        padding: 0.6rem 1.5rem;
-        border: 2px solid var(--accent-1);
-        border-radius: 8px;
-        background: rgba(0, 255, 255, 0.1);
-        -webkit-backdrop-filter: blur(5px);
-        backdrop-filter: blur(5px);
-        transition: all 0.3s ease;
-      }
-
-      .quick-view:hover {
-        background: var(--accent-1);
-        color: var(--darker-bg);
-      }
-
-       .product-info {
-        padding: 1.5rem 1.5rem 1.2rem;
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        gap: 0.5rem;
-      }
-
-      .product-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        margin-bottom: 0.75rem;
-      }
-
-      .product-tag {
-        font-size: 0.7rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        padding: 0.25rem 0.6rem;
-        border-radius: 20px;
-        background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(0, 255, 255, 0.2));
-        border: 1px solid rgba(0, 255, 255, 0.3);
-        color: var(--accent-1);
-      }
-
-      .product-name {
-        font-family: 'Orbitron', sans-serif;
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: var(--accent-1);
-        margin-bottom: 0.5rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        line-height: 1.4;
-        min-height: 50px;
-      }
-
-      .product-variants {
-        font-size: 0.8rem;
-        color: var(--tertiary);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 0.5rem;
-        opacity: 0.8;
-      }
-
-      .product-category {
-        font-size: 0.85rem;
-        color: var(--gold);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 1rem;
-        opacity: 0.8;
-      }
-
-      .product-price {
-        font-family: 'Rajdhani', sans-serif;
-        font-size: 2rem;
-        font-weight: 700;
-        background: linear-gradient(135deg, var(--gold), var(--accent-2));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        margin: 0.75rem 0;
-      }
-
-       .product-actions {
-        display: flex;
-        gap: 1rem;
-        margin-top: 1.25rem;
-        padding-top: 1rem;
-        border-top: 1px solid rgba(0, 255, 255, 0.15);
-      }
-
-       .product-actions .btn-primary {
-        flex: 1.2;
-      }
-
-       .product-actions .paypal-buy-now-btn {
-        flex: 1;
-      }
-
-      .btn-primary {
-        flex: 1;
-        padding: 0.9rem;
-        background: linear-gradient(135deg, var(--accent-1), var(--tertiary));
-        border: none;
-        border-radius: 10px;
-        color: #000;
-        font-family: 'Orbitron', sans-serif;
-        font-weight: 700;
-        font-size: 0.85rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 5px 20px rgba(0, 255, 255, 0.3);
-        position: relative;
-        overflow: hidden;
-      }
-
-      .btn-primary::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-        transition: left 0.5s ease;
-      }
-
-      .btn-primary:hover::before {
-        left: 100%;
-      }
-
-      .btn-primary:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(0, 255, 255, 0.5);
-      }
-
-      .paypal-buy-now-btn {
-        flex: 1;
-        padding: 0.9rem;
-        background: linear-gradient(135deg, #ffc439, #ff4d4f);
-        border: none;
-        border-radius: 10px;
-        color: #000;
-        font-family: 'Orbitron', sans-serif;
-        font-weight: 700;
-        font-size: 0.85rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 5px 20px rgba(255, 204, 56, 0.25);
-      }
-
-      .paypal-buy-now-btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(255, 204, 56, 0.35);
-      }
-
-      .paypal-checkout-panel {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.85);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 2rem;
-        z-index: 9999;
-      }
-
-      .paypal-checkout-panel.hidden {
-        display: none;
-      }
-
-      .paypal-panel-inner {
-        width: min(720px, 100%);
-        background: rgba(10, 14, 39, 0.95);
-        border: 2px solid rgba(255, 193, 7, 0.25);
-        border-radius: 22px;
-        padding: 2rem;
-        box-shadow: 0 0 80px rgba(255, 193, 7, 0.2);
-      }
-
-      .paypal-close {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 40px;
-        border: none;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.1);
-        color: #fff;
-        font-size: 1.5rem;
-        cursor: pointer;
-        position: absolute;
-        top: 24px;
-        right: 24px;
-      }
-
-      .paypal-checkout-panel h2 {
-        margin-bottom: 1rem;
-        font-family: 'Orbitron', sans-serif;
-        letter-spacing: 2px;
-        color: #fff;
-      }
-
-      .paypal-status {
-        margin-top: 1rem;
-        min-height: 1.2rem;
-        color: #fff;
-        font-size: 0.95rem;
-      }
-
-      /* ==== LOADING STATE ==== */
-      .loading-spinner {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 400px;
-      }
-
-      .spinner {
-        width: 60px;
-        height: 60px;
-        border: 4px solid rgba(0, 255, 255, 0.2);
-        border-top: 4px solid var(--accent-1);
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-      }
-
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
-
-      /* ==== PRODUCT COUNT ==== */
-      .product-count {
-        text-align: center;
-        padding: 1rem 2rem;
-        font-family: 'Rajdhani', sans-serif;
-        color: rgba(255, 255, 255, 0.7);
-        font-size: 1rem;
-        letter-spacing: 1px;
-      }
-
-      .product-count span {
-        color: var(--accent-1);
-        font-weight: 700;
-      }
-
-      /* ==== PRODUCT COUNT ==== */
-      .product-count {
-        text-align: center;
-        padding: 1rem 2rem;
-        font-family: 'Rajdhani', sans-serif;
-        color: rgba(255, 255, 255, 0.7);
-        font-size: 1rem;
-        letter-spacing: 1px;
-      }
-
-      .product-count span {
-        color: var(--accent-1);
-        font-weight: 700;
-      }
-
-      /* ==== RESPONSIVE ==== */
-      @media (max-width: 768px) {
-        .products-grid {
-          grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-          gap: 1.5rem;
-          padding: 1.5rem;
-        }
-
-        h1 {
-          font-size: 2rem;
-        }
-
-        .product-card {
-          min-height: 420px;
-        }
-
-        .product-image {
-          height: 220px;
-          font-size: 4rem;
-        }
-
-        .product-name {
-          font-size: 1rem;
-          min-height: 45px;
-        }
-
-        .product-price {
-          font-size: 1.6rem;
-        }
-
-        .filter-bar {
-          margin: 1rem;
-          padding: 1.5rem;
-        }
-
-        .filter-bar select {
-          min-width: 150px;
-          margin-bottom: 0.5rem;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <header>
-        <h1>⚡ NO LIMITS BEYOND LIMITATIONS ⚡</h1>
-        <p class="tagline">Revolutionary Custom Apparel // Advanced Print-On-Demand</p>
-      </header>
-
-      <div class="filter-bar">
-        <label for="category-select">Filter by Category:</label>
-        <select id="category-select" title="Filter products by category">
-          <option value="">All Products</option>
-          <!-- categories will be populated dynamically -->
-        </select>
-      </div>
-
-      <div id="products-container" class="products-grid">
-        <div class="loading-spinner">
-          <div class="spinner"></div>
+<head>
+  <meta charset="UTF-8" />
+  <title>No Limits Beyond Limitations – Cosmic Shop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/shop.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body class="nlbl-body">
+  <!-- Cosmic Background -->
+  <div id="cosmic-background">
+    <canvas id="cosmic-canvas"></canvas>
+    <div class="cosmic-vortex-overlay"></div>
+  </div>
+
+  <!-- Page Wrapper -->
+  <div class="nlbl-page">
+
+    <!-- Hero Section -->
+    <header class="shop-hero">
+      <div class="shop-hero-inner">
+        <div class="shop-hero-badge">No Limits Beyond Limitations</div>
+        <h1 class="shop-hero-title">
+          Born From Memory.<br />
+          Forged in the Stars.<br />
+          <span class="shop-hero-highlight">Beyond Every Limit.</span>
+        </h1>
+        <p class="shop-hero-subtitle">
+          A cosmic collection crafted from grief, grit, and galaxies. Every piece carries a story, a spark, and a promise:
+          there is no end to what we can become.
+        </p>
+
+        <div class="shop-hero-actions">
+          <button class="btn-primary" data-scroll-target="#shop-grid">
+            Enter the Cosmic Vault
+          </button>
+          <button class="btn-ghost" id="memorial-mode-toggle">
+            Memorial Mode: <span id="memorial-mode-label">Off</span>
+          </button>
         </div>
       </div>
-      <div id="product-count" class="product-count" style="display: none;"></div>
-    </div>
+    </header>
 
-    <div id="paypal-checkout-panel" class="paypal-checkout-panel hidden">
-      <div class="paypal-panel-inner">
-        <button id="paypal-close" class="paypal-close" aria-label="Close PayPal checkout">×</button>
-        <h2>Pay with PayPal</h2>
-        <div id="paypal-button-container"></div>
-        <div id="paypal-checkout-status" class="paypal-status"></div>
+    <!-- Filters -->
+    <section class="shop-filters">
+      <div class="shop-filters-inner">
+        <div class="shop-filter-group">
+          <span class="shop-filter-label">Filter by Category</span>
+          <div id="category-filters" class="filter-pill-row">
+            <!-- Filled dynamically -->
+          </div>
+        </div>
+        <div class="shop-filter-group">
+          <span class="shop-filter-label">Search</span>
+          <input type="text" id="product-search" class="shop-search-input" placeholder="Search the cosmos…" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Grid -->
+    <main class="shop-main">
+      <section id="shop-grid" class="shop-grid">
+        <!-- Product cards injected here -->
+      </section>
+    </main>
+
+    <!-- Product Modal -->
+    <div id="product-modal" class="modal-backdrop hidden">
+      <div class="modal">
+        <button class="modal-close" id="modal-close-btn">&times;</button>
+        <div class="modal-content">
+          <div class="modal-image-wrap">
+            <img id="modal-image" src="" alt="" />
+          </div>
+          <div class="modal-details">
+            <h2 id="modal-title"></h2>
+            <p id="modal-description"></p>
+            <div class="modal-tags" id="modal-tags"></div>
+            <div class="modal-price-row">
+              <span class="modal-price" id="modal-price"></span>
+            </div>
+            <button class="btn-primary" id="modal-add-to-cart">
+              Add to Cart
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
-     <script src="js/shop.js"></script>
-   </body>
- </html>
+    <!-- Floating Cart Icon (visual only for now) -->
+    <button id="floating-cart" class="floating-cart">
+      <span class="cart-icon">🛒</span>
+      <span id="cart-count" class="cart-count">0</span>
+    </button>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/cosmic-background.js"></script>
+  <script src="js/shop.js"></script>
+</body>
+</html>
