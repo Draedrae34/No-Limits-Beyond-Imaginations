@@ -1,24 +1,35 @@
-import pool from '../src/utils/db.js';
+import { neon } from '@neondatabase/serverless';
+
+const sql = neon(process.env.DATABASE_URL);
 
 // Initialize messages table with moderation fields
-await pool.query(`
-  CREATE TABLE IF NOT EXISTS messages (
-    id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL,
-    message TEXT NOT NULL,
-    font TEXT NOT NULL DEFAULT 'Rajdhani',
-    color TEXT NOT NULL DEFAULT '#FFD700',
-    approved BOOLEAN DEFAULT TRUE,
-    hidden BOOLEAN DEFAULT FALSE,
-    admin_notes TEXT,
-    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-  )
-`);
+const initializeDatabase = async () => {
+  try {
+    await sql`
+      CREATE TABLE IF NOT EXISTS messages (
+        id SERIAL PRIMARY KEY,
+        name TEXT NOT NULL,
+        message TEXT NOT NULL,
+        font TEXT NOT NULL DEFAULT 'Rajdhani',
+        color TEXT NOT NULL DEFAULT '#FFD700',
+        approved BOOLEAN DEFAULT TRUE,
+        hidden BOOLEAN DEFAULT FALSE,
+        admin_notes TEXT,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      )
+    `;
+    
+    // Add moderation columns if they don't exist (for existing tables)
+    await sql`ALTER TABLE messages ADD COLUMN IF NOT EXISTS approved BOOLEAN DEFAULT TRUE`;
+    await sql`ALTER TABLE messages ADD COLUMN IF NOT EXISTS hidden BOOLEAN DEFAULT FALSE`;
+    await sql`ALTER TABLE messages ADD COLUMN IF NOT EXISTS admin_notes TEXT`;
+  } catch (error) {
+    console.error('Database initialization error:', error);
+  }
+};
 
-// Add moderation columns if they don't exist (for existing tables)
-await pool.query(`ALTER TABLE messages ADD COLUMN IF NOT EXISTS approved BOOLEAN DEFAULT TRUE`);
-await pool.query(`ALTER TABLE messages ADD COLUMN IF NOT EXISTS hidden BOOLEAN DEFAULT FALSE`);
-await pool.query(`ALTER TABLE messages ADD COLUMN IF NOT EXISTS admin_notes TEXT`);
+// Initialize database on module load
+initializeDatabase().catch(console.error);
 
 export default async function handler(req, res) {
   try {
@@ -44,7 +55,7 @@ export default async function handler(req, res) {
       }
 
       const whereSql = where.length ? `WHERE ${where.join(' AND ')}` : '';
-      const result = await pool.query(
+      const rows = await sql(
         `SELECT id, name, message, font, color, created_at, approved, hidden, admin_notes
          FROM messages
          ${whereSql}
@@ -52,7 +63,7 @@ export default async function handler(req, res) {
         params
       );
 
-      return res.status(200).json({ success: true, messages: result.rows });
+      return res.status(200).json({ success: true, messages: rows });
     }
 
     if (req.method === 'POST') {
@@ -63,14 +74,14 @@ export default async function handler(req, res) {
         return res.status(400).json({ success: false, error: 'Missing fields' });
       }
 
-      const result = await pool.query(
+      const rows = await sql(
         `INSERT INTO messages (name, message, font, color)
          VALUES ($1, $2, $3, $4)
          RETURNING id, name, message, font, color, created_at, approved, hidden, admin_notes`,
         [name, message, font || 'Rajdhani', color || '#FFD700']
       );
 
-      return res.status(201).json({ success: true, message: result.rows[0] });
+      return res.status(201).json({ success: true, message: rows[0] });
     }
 
     if (req.method === 'PUT') {
@@ -79,7 +90,7 @@ export default async function handler(req, res) {
         return res.status(400).json({ success: false, error: 'Missing id' });
       }
 
-      const result = await pool.query(
+      const rows = await sql(
         `UPDATE messages
          SET approved = COALESCE($2, approved),
              hidden = COALESCE($3, hidden),
@@ -89,11 +100,11 @@ export default async function handler(req, res) {
         [id, approved, hidden, admin_notes]
       );
 
-      if (!result.rows.length) {
+      if (!rows.length) {
         return res.status(404).json({ success: false, error: 'Message not found' });
       }
 
-      return res.status(200).json({ success: true, message: result.rows[0] });
+      return res.status(200).json({ success: true, message: rows[0] });
     }
 
     if (req.method === 'DELETE') {
@@ -102,12 +113,12 @@ export default async function handler(req, res) {
         return res.status(400).json({ success: false, error: 'Missing id' });
       }
 
-      const result = await pool.query(
+      const rows = await sql(
         `DELETE FROM messages WHERE id = $1 RETURNING id`,
         [id]
       );
 
-      if (!result.rows.length) {
+      if (!rows.length) {
         return res.status(404).json({ success: false, error: 'Message not found' });
       }
 
