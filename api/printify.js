@@ -91,24 +91,24 @@ export default async function(req, res) {
         if (!PRINTIFY_API_KEY || !PRINTIFY_SHOP_ID)
           return res.status(400).json({ error: 'Missing PRINTIFY_API_KEY or PRINTIFY_SHOP_ID' });
         const products = await printifyFetch(`shops/${PRINTIFY_SHOP_ID}/products.json`);
-        const catalog = (products.data || products || []).map(p => {
+        const items = (products.data || products || []);
+        const catalog = items.map(p => {
           const { type, basePrice } = classifyProduct(p.title);
           const images = (p.images || []).map(img => img.src);
           return {
-            id: p.id, title: p.title, description: p.description || '',
-            category: type, price: (basePrice / 100).toFixed(2), priceCents: basePrice,
-            image: images[0] || null, images, tags: p.tags || [], inStock: true
+            id: p.id,
+            title: p.title,
+            description: p.description || '',
+            category: type,
+            price: (basePrice / 100).toFixed(2),
+            priceCents: basePrice,
+            image: images[0] || null,
+            images,
+            tags: p.tags || [],
+            inStock: true
           };
         });
-        const categories = {};
-        catalog.forEach(item => {
-          if (!categories[item.category]) categories[item.category] = [];
-          categories[item.category].push(item);
-        });
-        return res.status(200).json({
-          total: catalog.length, categories: Object.keys(categories),
-          catalog, grouped: categories, timestamp: new Date().toISOString()
-        });
+        return res.status(200).json({ catalog });
       }
 
       case 'sync': {
