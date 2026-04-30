@@ -694,19 +694,6 @@
         </div>
       </div>
       <div id="product-count" class="product-count" style="display: none;"></div>
-CREATE TABLE IF NOT EXISTS orders (
-  id SERIAL PRIMARY KEY,
-  paypal_order_id TEXT,
-  stripe_session_id TEXT,
-  product_id TEXT NOT NULL,
-  amount DECIMAL(10, 2) NOT NULL,
-  buyer_name TEXT,
-  buyer_email TEXT,
-  fulfillment_status TEXT DEFAULT 'pending',
-  fulfillment_notes TEXT,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  fulfilled_at TIMESTAMPTZ
-);
     </div>
 
     <div id="paypal-checkout-panel" class="paypal-checkout-panel hidden">
@@ -718,32 +705,6 @@ CREATE TABLE IF NOT EXISTS orders (
       </div>
     </div>
 
-    <!-- REPLACE YOUR_LIVE_CLIENT_ID with your actual ID from the PayPal Developer Dashboard -->
-    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_LIVE_CLIENT_ID&currency=USD"></script>
-    <script src="js/shop.js"></script>
-
-    <script>
-        // Live PayPal Button - Replace PRICE_HERE and PRODUCT_NAME_HERE
-        if (typeof paypal !== 'undefined') {
-            paypal.Buttons({
-                createOrder: function(data, actions) {
-                    return actions.order.create({
-                        purchase_units: [{
-                            amount: {
-                                value: "PRICE_HERE"
-                            },
-                            description: "PRODUCT_NAME_HERE"
-                        }]
-                    });
-                },
-                onApprove: function(data, actions) {
-                    return actions.order.capture().then(function(details) {
-                        alert("Payment completed by " + details.payer.name.given_name);
-                        window.location.href = "/order-complete.html";
-                    });
-                }
-            }).render('#paypal-button-container');
-        }
-    </script>
+    <script src="js/shop-loader.js"></script>
   </body>
 </html>
