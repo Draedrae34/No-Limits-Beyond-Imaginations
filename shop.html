@@ -694,7 +694,19 @@
         </div>
       </div>
       <div id="product-count" class="product-count" style="display: none;"></div>
-      <div id="product-count" class="product-count" style="display: none;"></div>
+CREATE TABLE IF NOT EXISTS orders (
+  id SERIAL PRIMARY KEY,
+  paypal_order_id TEXT,
+  stripe_session_id TEXT,
+  product_id TEXT NOT NULL,
+  amount DECIMAL(10, 2) NOT NULL,
+  buyer_name TEXT,
+  buyer_email TEXT,
+  fulfillment_status TEXT DEFAULT 'pending',
+  fulfillment_notes TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  fulfilled_at TIMESTAMPTZ
+);
     </div>
 
     <div id="paypal-checkout-panel" class="paypal-checkout-panel hidden">

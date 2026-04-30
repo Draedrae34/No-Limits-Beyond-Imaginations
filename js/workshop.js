@@ -147,13 +147,14 @@ async function saveOrderFulfillment() {
 // MESSAGES
 async function loadMessages() {
   const res = await fetch("/api/messages");
-  const messages = await res.json();
+  const data = await res.json();
+  const messages = data.messages || [];
   const container = document.getElementById("messages-container");
   const status = document.getElementById("messages-status");
-  container.innerHTML = "";
+  if (container) container.innerHTML = "";
   status.textContent = "Refreshing messages...";
 
-  if (!Array.isArray(messages)) {
+  if (!res.ok) {
     container.innerHTML = '<div class="message-box">Unable to load messages.</div>';
     status.textContent = "Unable to load messages.";
     return;
