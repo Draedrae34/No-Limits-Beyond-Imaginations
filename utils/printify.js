@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+
 
 export const PRINTIFY_API_KEY = process.env.PRINTIFY_API_KEY || "YOUR_API_KEY";
 export const SHOP_ID = process.env.PRINTIFY_SHOP_ID || "YOUR_SHOP_ID";
