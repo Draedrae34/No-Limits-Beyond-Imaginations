@@ -116,7 +116,14 @@ class NLBLShopLoader {
         </div>
       </div>
     `;
-  }
+   }
+   
+   getImageUrl(imagePath) {
+     if (!imagePath) return "/placeholder-product.png";
+     if (imagePath.startsWith("http")) return imagePath;
+     if (imagePath.startsWith("/")) return imagePath;
+     return `/${imagePath}`;
+   }
 
   renderProducts(filter = "all") {
     const container = document.querySelector(".products-grid") || document.querySelector("#products-container");
