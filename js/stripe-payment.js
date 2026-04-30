@@ -1,9 +1,25 @@
 // Stripe Payment Integration for Printify Orders
 class StripePaymentProcessor {
     constructor() {
-        // Initialize Stripe with your publishable key
-        this.stripe = Stripe('pk_live_51St8KxGbrgLPuQFwopxDC9rr1o2hYJujJ7ceGP9RgxafShwb5zlt1i96vN9jAcktWLdAsvanJdivugVGWrT1UdlJ00cLbBlzuF'); // Using actual key from .env
-        this.elements = this.stripe.elements();
+        // Stripe will be initialized after fetching public key from API
+        this.stripe = null;
+        this.elements = null;
+    }
+
+    async initializeStripe() {
+        if (this.stripe) return;
+        const response = await fetch("/api/payments", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ action: "stripe-public-key" })
+        });
+        const data = await response.json();
+        if (data.publishableKey) {
+            this.stripe = Stripe(data.publishableKey);
+            this.elements = this.stripe.elements();
+        } else {
+            throw new Error("Failed to load Stripe publishable key");
+        }
     }
 
     createPaymentForm() {
@@ -117,13 +133,14 @@ class StripePaymentProcessor {
                 throw new Error(error.message);
             }
 
-            // Create payment intent (you'll need a backend endpoint for this)
-            const response = await fetch('/api/stripe-payment', {
+            // Create payment intent via unified payments endpoint
+            const response = await fetch('/api/payments', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
+                    action: 'stripe-payment-intent',
                     product_id: blueprintId,
                     quantity: 1,
                     amount: Math.round(price * 100), // Convert to cents
@@ -189,12 +206,27 @@ class StripePaymentProcessor {
                 payment_method_id: paymentMethodId,
             };
 
-            const response = await fetch('/api/create-printify-order', {
+            const response = await fetch('/api/payments', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(orderData),
+                body: JSON.stringify({
+                    action: 'create-printify-order',
+                    blueprint_id: blueprintId,
+                    quantity: 1,
+                    address: {
+                        first_name: document.getElementById('customer-name').value.split(' ')[0],
+                        last_name: document.getElementById('customer-name').value.split(' ').slice(1).join(' '),
+                        address1: document.getElementById('address-line1').value,
+                        city: document.getElementById('city').value,
+                        state: document.getElementById('state').value,
+                        zip: document.getElementById('zip').value,
+                        country: 'US',
+                        email: document.getElementById('customer-email').value,
+                    },
+                    payment_method_id: paymentMethodId,
+                }),
             });
 
             const result = await response.json();
@@ -234,20 +266,27 @@ class StripePaymentProcessor {
         document.body.appendChild(modal);
 
         // Initialize Stripe elements
-        setTimeout(() => {
-            // Set product info
-            const product = printifyShop.products.find(p => p.id === blueprintId);
-            if (product) {
-                document.getElementById('modal-product-name').textContent = product.name;
-                document.getElementById('modal-product-price').textContent = `$${product.price.toFixed(2)}`;
+        setTimeout(async () => {
+            try {
+                await this.initializeStripe(); // Ensure Stripe is loaded first
+
+                // Set product info
+                const product = printifyShop.products.find(p => p.id === blueprintId);
+                if (product) {
+                    document.getElementById('modal-product-name').textContent = product.name;
+                    document.getElementById('modal-product-price').textContent = `$${product.price.toFixed(2)}`;
+                }
+                
+                this.initializeStripeElements();
+                
+                // Set up payment handler
+                document.getElementById('submit-payment').onclick = () => {
+                    this.handlePayment(blueprintId, price);
+                };
+            } catch (error) {
+                console.error("Failed to initialize Stripe:", error);
+                alert("Payment system failed to load. Please refresh and try again.");
             }
-            
-            this.initializeStripeElements();
-            
-            // Set up payment handler
-            document.getElementById('submit-payment').onclick = () => {
-                this.handlePayment(blueprintId, price);
-            };
         }, 100);
     }
 }

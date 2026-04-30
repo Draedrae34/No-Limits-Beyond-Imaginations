@@ -26,7 +26,11 @@ class NLBLShopLoader {
 
   async loadStripeKey() {
     try {
-      const response = await fetch("/api/stripe-public-key");
+      const response = await fetch("/api/payments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "stripe-public-key" })
+      });
       if (response.ok) {
         const data = await response.json();
         this.stripeKey = data.publishableKey;
@@ -269,10 +273,11 @@ class NLBLShopLoader {
     }
 
     try {
-      const response = await fetch("/api/create-checkout-session", {
+      const response = await fetch("/api/payments", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          action: "stripe-checkout-session",
           product: {
             id: product.id,
             name: product.name,
@@ -342,7 +347,11 @@ class NLBLShopLoader {
   async loadPaypalSdk() {
     if (window.paypal) return;
 
-    const response = await fetch("/api/paypal-client-id");
+    const response = await fetch("/api/payments", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "paypal-client-id" })
+    });
     const data = await response.json();
     if (!response.ok || !data.clientId) {
       throw new Error(data.error || "Failed to load PayPal configuration");
@@ -411,10 +420,11 @@ class NLBLShopLoader {
           status.textContent = "Capturing your payment...";
           const order = await actions.order.capture();
 
-          const response = await fetch("/api/paypal-checkout", {
+          const response = await fetch("/api/payments", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
+              action: "paypal-log-order",
               orderID: order.id,
               productID: product.id,
               amount: product.price,
