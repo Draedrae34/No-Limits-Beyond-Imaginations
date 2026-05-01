@@ -105,7 +105,7 @@ async function loadAudit() {
 
 async function loadRoutineLogs() {
   try {
-    const res = await fetch('/api/routine-logs?limit=10');
+    const res = await fetch('/api/logs?action=routine&limit=10');
     if (!res.ok) return;
     const data = await res.json();
     const logs = data.logs || [];
@@ -137,7 +137,7 @@ async function loadRoutineLogs() {
 
 async function loadPerformanceMetrics() {
   try {
-    const res = await fetch('/api/routine-logs?limit=50');
+    const res = await fetch('/api/logs?action=routine&limit=50');
     if (!res.ok) throw new Error('Failed to fetch logs');
     const data = await res.json();
     const logs = data.logs || [];
@@ -212,7 +212,7 @@ async function loadPerformanceMetrics() {
 
 async function loadRoutineMetrics() {
   try {
-    const res = await fetch('/api/routine-logs?limit=20');
+    const res = await fetch('/api/logs?action=routine&limit=20');
     if (!res.ok) return;
     const data = await res.json();
     const logs = data.logs || [];
@@ -240,7 +240,7 @@ async function loadRoutineMetrics() {
 
 async function loadLatencyMetrics() {
   try {
-    const res = await fetch('/api/last-audit');
+    const res = await fetch('/api/logs?action=audit');
     if (!res.ok) return;
     const data = await res.json();
     const endpoints = data.endpoints || {};

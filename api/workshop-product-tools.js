@@ -188,10 +188,10 @@ export async function runSiteAudit() {
   // Endpoint latency checks
   await timedFetch('shop', '/api/shop', results.endpoints);
   await timedFetch('printify-status', '/api/printify?action=status', results.endpoints);
-  await timedFetch('products-list', '/api/products-list', results.endpoints);
+  await timedFetch('products-list', '/api/printify?action=adminList', results.endpoints);
   await timedFetch('messages', '/api/messages', results.endpoints);
   await timedFetch('orders', '/api/orders', results.endpoints);
-  await timedFetch('gallery', '/api/gallery', results.endpoints);
+  await timedFetch('gallery', '/api/messages?action=galleryList', results.endpoints);
 
   // Env checks
   results.env = {

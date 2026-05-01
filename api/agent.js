@@ -1,8 +1,15 @@
-// api/agent.js - Lil Mystic's brain with intent parser + sequence runner + auth + logging
-import { runCatalogSync, cleanupGibberish, generateNewProducts, runSiteAudit, testEndpoints, featureRecentProducts, setFeatured, applyMargin, runOnDemandRoutine } from './workshop-routines.js';
+// api/agent.js - Unified Lil Mystic Agent Core (intents + heartbeat + cosmic logging)
+// POST actions: intent (chat), heartbeat
+// GET actions: status, cost, health, resources
+import {
+  runCatalogSync, cleanupGibberish, generateNewProducts, runSiteAudit,
+  testEndpoints, featureRecentProducts, setFeatured, applyMargin, runOnDemandRoutine
+} from './workshop-routines.js';
 import { analyzeAndOptimize, getAutoTuningStatus } from './adaptive-engine.js';
-import { generatePredictions, getOptimizationSuggestions } from './predictive-alerts.js';
-import { getRoutineCostStats, getSystemHealthScore } from './resource-tracker.js';
+import { generatePredictions } from './predictive-alerts.js';
+import { getRoutineCostStats, getSystemHealthScore, getCurrentResourceUsage } from './resource-tracker.js';
+import { ensureProductsSchema } from '../src/utils/products.js';
+import pool from '../src/utils/db.js';
 import pool from '../src/utils/db.js';
 
 const INTENTS = [
@@ -24,25 +31,17 @@ async function getCurrentUser(req) {
   const cookies = req.headers.cookie || '';
   const match = cookies.match(/nlbl_auth=([^;]+)/);
   if (match && match[1] === 'authenticated') return 'admin';
-  
   const authHeader = req.headers.authorization || '';
   if (authHeader.startsWith('Bearer ')) return 'api-user';
-  
   return null;
 }
 
 async function logAction(user, action, outcome, req) {
   try {
     await pool.query(
-      `INSERT INTO action_logs (user_email, action, outcome, ip, user_agent, created_at) 
+      `INSERT INTO action_logs (user_email, action, outcome, ip, user_agent, created_at)
        VALUES ($1, $2, $3, $4, $5, NOW())`,
-      [
-        user,
-        action,
-        outcome,
-        req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown',
-        req.headers['user-agent'] || ''
-      ]
+      [user, action, outcome, req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown', req.headers['user-agent'] || '']
     );
   } catch (err) {
     console.error('Failed to log action:', err.message);
@@ -69,30 +68,13 @@ function parseIntent(message, toolHint) {
   return steps;
 }
 
-export default async function handler(req, res) {
-  // CORS
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  if (req.method === 'OPTIONS') return res.status(200).end();
-  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
-
-  // Auth check
-  const user = await getCurrentUser(req);
-  if (!user) {
-    return res.status(401).json({ error: 'Authentication required' });
-  }
-
-  let body = req.body || {};
-  if (typeof body === 'string') {
-    try { body = JSON.parse(body); } catch { body = {}; }
-  }
-
+// --- Intent Handler ---
+async function handleIntent(req, res, body) {
   const { message = '', toolHint, context } = body;
   const steps = parseIntent(message, toolHint);
 
   if (!steps.length) {
-    await logAction(user, `chat:${message.slice(0,50)}`, 'no_match', req);
+    await logAction('guest', `chat:${message.slice(0,50)}`, 'no_match', req);
     return res.json({
       reply: `I heard: "${message}". I can sync catalog, clean gibberish, generate products, audit the site, and test endpoints. Try: "Sync catalog, generate new products, then audit."`
     });
@@ -108,17 +90,118 @@ export default async function handler(req, res) {
       actionsRun.push(step.key);
       if (result?.ok) {
         messages.push(`✅ ${step.name}: ${result.summary || 'Done.'}`);
-        await logAction(user, step.key, 'success', req);
+        await logAction('admin', step.key, 'success', req);
       } else {
         messages.push(`⚠️ ${step.name} returned issue: ${result?.summary || 'Unknown.'}`);
-        await logAction(user, step.key, 'failed', req);
+        await logAction('admin', step.key, 'failed', req);
       }
     } catch (err) {
       console.error(`Tool [${step.name}] error:`, err);
       messages.push(`❌ ${step.name} failed: ${err.message}`);
-      await logAction(user, step.key, `error:${err.message}`, req);
+      await logAction('admin', step.key, `error:${err.message}`, req);
     }
   }
 
   return res.json({ messages, actionsRun, count: steps.length });
+}
+
+// --- Heartbeat Handler ---
+async function handleHeartbeat(req, res) {
+  const ENDPOINTS = [
+    '/api/printify?action=status',
+    '/api/shop',
+    '/api/orders',
+    '/api/messages',
+    '/api/logs?action=routine'
+  ];
+
+  async function measureLatency(url) {
+    const start = Date.now();
+    try {
+      const r = await fetch(url, { method: 'GET' });
+      return { url, ok: r.ok, latency: Date.now() - start, status: r.status };
+    } catch (e) {
+      return { url, ok: false, latency: Date.now() - start, error: e.message };
+    }
+  }
+
+  const results = await Promise.all(ENDPOINTS.map(measureLatency));
+  const slow = results.filter(r => r.latency > 500);
+  const errors = results.filter(r => !r.ok);
+
+  // DB checks
+  await ensureProductsSchema(pool);
+  const lastHour = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+  const recent = await pool.query(
+    `SELECT routine_type, duration_ms, auto_fixes FROM routine_logs WHERE created_at >= $1 ORDER BY created_at DESC`,
+    [lastHour]
+  );
+  const hourlyCount = recent.rows.filter(r => r.routine_type === 'hourly').length;
+
+  const alerts = [];
+  errors.forEach(e => alerts.push({ type: 'error', message: `Endpoint down: ${e.url}` }));
+  slow.forEach(s => alerts.push({ type: 'warning', message: `Slow: ${s.url} (${s.latency}ms)` }));
+  if (hourlyCount === 0) alerts.push({ type: 'warning', message: 'No hourly runs in last hour' });
+
+  const errorCount = alerts.filter(a => a.type === 'error').length;
+  const health = errorCount ? 'critical' : alerts.length ? 'degraded' : 'healthy';
+
+  console.log(`🌌 [Lil Mystic Heartbeat] Health: ${health}, Alerts: ${alerts.length}`);
+  return res.json({ health, alerts, timestamp: new Date().toISOString() });
+}
+
+// --- Main Handler ---
+export default async function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  if (req.method === 'OPTIONS') return res.status(200).end();
+
+  // Auth check
+  const user = await getCurrentUser(req);
+  if (!user) {
+    return res.status(401).json({ error: 'Authentication required' });
+  }
+
+  try {
+    if (req.method === 'POST') {
+      let body = req.body || {};
+      if (typeof body === 'string') body = JSON.parse(body);
+      const { action } = body;
+
+      if (action === 'heartbeat') {
+        console.log(`🌌 [Lil Mystic] Heartbeat triggered by ${user}`);
+        return await handleHeartbeat(req, res);
+      }
+
+      // Default: handle intent (chat)
+      return await handleIntent(req, res, body);
+    }
+
+    if (req.method === 'GET') {
+      const { action } = req.query;
+      if (action === 'status') {
+        const status = await getAutoTuningStatus();
+        return res.json(status);
+      }
+      if (action === 'cost') {
+        const days = parseInt(req.query.days) || 30;
+        const stats = await getRoutineCostStats(days);
+        return res.json(stats);
+      }
+      if (action === 'health') {
+        const health = await getSystemHealthScore();
+        return res.json(health);
+      }
+      if (action === 'resources') {
+        const usage = getCurrentResourceUsage();
+        return res.json(usage);
+      }
+    }
+
+    return res.status(405).json({ error: 'Method not allowed' });
+  } catch (err) {
+    console.error('🌌 [Lil Mystic] Handler error:', err);
+    return res.status(500).json({ error: err.message });
+  }
 }

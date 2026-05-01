@@ -151,8 +151,56 @@ export default async function(req, res) {
         });
       }
 
+      case 'adminList': {
+        // Admin detailed product list (from former products-list.js)
+        if (!PRINTIFY_API_KEY || !PRINTIFY_SHOP_ID)
+          return res.status(400).json({ error: 'Missing PRINTIFY_API_KEY or PRINTIFY_SHOP_ID' });
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 20;
+        const url = `shops/${PRINTIFY_SHOP_ID}/products.json?page=${page}&limit=${limit}`;
+        const response = await fetch(`https://api.printify.com/v1/${url}`, {
+          headers: {
+            'Authorization': `Bearer ${PRINTIFY_API_KEY}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        if (!response.ok) {
+          const errText = await response.text();
+          return res.status(response.status).json({
+            success: false,
+            error: `Printify API error: ${response.status}`,
+            details: errText
+          });
+        }
+        const data = await response.json();
+        const products = (data.data || []).map(p => ({
+          id: p.id,
+          title: p.title,
+          description: p.description || "",
+          tags: p.tags || [],
+          images: (p.images || []).map(img => ({ src: img.src, is_default: img.is_default })),
+          variants: (p.variants || []).map(v => ({
+            id: v.id, title: v.title, price: v.price, is_enabled: v.is_enabled
+          })),
+          created_at: p.created_at,
+          visible: p.visible,
+          is_locked: p.is_locked
+        }));
+        console.log(`🌌 [NLBL Printify] Admin list: page=${page}, limit=${limit}, total=${data.total || products.length}`);
+        return res.status(200).json({
+          success: true,
+          products,
+          total: data.total || products.length,
+          page,
+          limit
+        });
+      }
+
       default:
-        return res.status(400).json({ error: `Unknown action: ${action}`, availableActions: ['status', 'catalog', 'list', 'sync', 'import'] });
+        return res.status(400).json({
+          error: `Unknown action: ${action}`,
+          availableActions: ['status', 'catalog', 'list', 'sync', 'import', 'adminList']
+        });
     }
   } catch (err) {
     console.error('Printify API Error:', err.message);

@@ -1,37 +1,10 @@
 import { neon } from '@neondatabase/serverless';
+import { verifyAdmin } from '../src/utils/auth.js';
 
 const sql = neon(process.env.DATABASE_URL);
 
-// Initialize messages table with moderation fields
-const initializeDatabase = async () => {
-  try {
-    await sql`
-      CREATE TABLE IF NOT EXISTS messages (
-        id SERIAL PRIMARY KEY,
-        name TEXT NOT NULL,
-        message TEXT NOT NULL,
-        font TEXT NOT NULL DEFAULT 'Rajdhani',
-        color TEXT NOT NULL DEFAULT '#FFD700',
-        approved BOOLEAN DEFAULT TRUE,
-        hidden BOOLEAN DEFAULT FALSE,
-        admin_notes TEXT,
-        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-      )
-    `;
-    
-    // Add moderation columns if they don't exist (for existing tables)
-    await sql`ALTER TABLE messages ADD COLUMN IF NOT EXISTS approved BOOLEAN DEFAULT TRUE`;
-    await sql`ALTER TABLE messages ADD COLUMN IF NOT EXISTS hidden BOOLEAN DEFAULT FALSE`;
-    await sql`ALTER TABLE messages ADD COLUMN IF NOT EXISTS admin_notes TEXT`;
-  } catch (error) {
-    console.error('Database initialization error:', error);
-  }
-};
-
-// Initialize database on module load
-initializeDatabase().catch(console.error);
-
 const actions = {
+  // 🕯️ LIST MESSAGES
   list: async (req, res) => {
     const { filter, q } = req.query;
     let where = [];
@@ -56,24 +29,32 @@ const actions = {
        ORDER BY created_at DESC`,
       params
     );
+
     return res.status(200).json({ success: true, messages: rows });
   },
 
+  // 🕯️ ADD MESSAGE
   add: async (req, res) => {
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
     const { name, message, font, color } = body;
-    if (!name || !message) return res.status(400).json({ success: false, error: 'Missing fields' });
+
+    if (!name || !message)
+      return res.status(400).json({ success: false, error: 'Missing fields' });
 
     const rows = await sql(
       `INSERT INTO messages (name, message, font, color)
        VALUES ($1, $2, $3, $4)
-       RETURNING id, name, message, font, color, created_at, approved, hidden, admin_notes`,
+       RETURNING *`,
       [name, message, font || 'Rajdhani', color || '#FFD700']
     );
+
     return res.status(201).json({ success: true, message: rows[0] });
   },
 
+  // 🕯️ UPDATE MESSAGE (ADMIN)
   update: async (req, res) => {
+    if (!(await verifyAdmin(req))) return res.status(401).json({ error: 'Unauthorized' });
+
     const { id, approved, hidden, admin_notes } = req.body;
     if (!id) return res.status(400).json({ success: false, error: 'Missing id' });
 
@@ -83,18 +64,60 @@ const actions = {
            hidden = COALESCE($3, hidden),
            admin_notes = COALESCE($4, admin_notes)
        WHERE id = $1
-       RETURNING id, name, message, font, color, created_at, approved, hidden, admin_notes`,
+       RETURNING *`,
       [id, approved, hidden, admin_notes]
     );
+
     if (!rows.length) return res.status(404).json({ success: false, error: 'Message not found' });
     return res.status(200).json({ success: true, message: rows[0] });
   },
 
+  // 🕯️ DELETE MESSAGE (ADMIN)
   delete: async (req, res) => {
+    if (!(await verifyAdmin(req))) return res.status(401).json({ error: 'Unauthorized' });
+
     const { id } = req.body;
     if (!id) return res.status(400).json({ success: false, error: 'Missing id' });
+
     const rows = await sql(`DELETE FROM messages WHERE id = $1 RETURNING id`, [id]);
-    if (!rows.length) return res.status(404).json({ success: false, error: 'Message not found' });
+    if (!rows.length)
+      return res.status(404).json({ success: false, error: 'Message not found' });
+
+    return res.status(200).json({ success: true });
+  },
+
+  // 🕯️ GALLERY LIST
+  galleryList: async (req, res) => {
+    const rows = await sql(`SELECT * FROM gallery ORDER BY uploaded_at DESC`);
+    return res.status(200).json({ success: true, gallery: rows });
+  },
+
+  // 🕯️ GALLERY ADD (ADMIN)
+  galleryAdd: async (req, res) => {
+    if (!(await verifyAdmin(req))) return res.status(401).json({ error: 'Unauthorized' });
+
+    const { url, caption } = req.body;
+    if (!url) return res.status(400).json({ error: 'Missing url' });
+
+    const rows = await sql(
+      `INSERT INTO gallery (image_url, filename, cosmic_text) VALUES ($1, $1, $2) RETURNING *`,
+      [url, caption || 'A moment frozen in time...']
+    );
+
+    return res.status(201).json({ success: true, item: rows[0] });
+  },
+
+  // 🕯️ GALLERY DELETE (ADMIN)
+  galleryDelete: async (req, res) => {
+    if (!(await verifyAdmin(req))) return res.status(401).json({ error: 'Unauthorized' });
+
+    const { id } = req.body;
+    if (!id) return res.status(400).json({ error: 'Missing id' });
+
+    const rows = await sql(`DELETE FROM gallery WHERE id = $1 RETURNING id`, [id]);
+    if (!rows.length)
+      return res.status(404).json({ success: false, error: 'Gallery item not found' });
+
     return res.status(200).json({ success: true });
   }
 };
@@ -109,14 +132,12 @@ export default async function handler(req, res) {
 
   try {
     if (actions[action]) {
-      console.log(`🕯️ [NLBL Remembrance] Accessing the void: ${action}`);
+      console.log(`🕯️ [NLBL Remembrance] Action: ${action}`);
       return await actionsaction;
     }
-    return res
-      .status(400)
-      .json({ success: false, error: `Action '${action}' not found in the remembrance records` });
+    return res.status(400).json({ error: `Unknown action '${action}'` });
   } catch (err) {
-    console.error('🕯️ [NLBL Remembrance] API error:', err);
-    return res.status(500).json({ success: false, error: 'Server error' });
+    console.error('🕯️ [NLBL Remembrance] Error:', err);
+    return res.status(500).json({ error: err.message });
   }
 }

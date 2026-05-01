@@ -23,8 +23,8 @@ class NLBLShopLoader {
 
   async loadProducts() {
     try {
-      // Load from Printify API
-      const apiResponse = await fetch("/api/products-list");
+      // Load from Printify API via unified printify endpoint (adminList)
+      const apiResponse = await fetch("/api/printify?action=adminList");
       if (!apiResponse.ok) {
         throw new Error("Printify API unavailable");
       }

@@ -1,57 +1,31 @@
-// api/shop.js - Unified shop catalog (Printify + local featured + price overrides) with cache mode
+// api/shop.js - Unified Shop Catalog + Product Detail (DB-backed, cosmic theme)
+// Actions: list, get, featured, search, syncCatalog, detail (alias for get)
 import printify from './printify.js';
 import pool from '../src/utils/db.js';
-import fs from 'fs/promises';
-import path from 'path';
-
-const CACHE_FLAG_PATH = path.join(process.cwd(), '.cache-mode-enabled');
-const CACHE_FILE_PATH = path.join(process.cwd(), 'shop-catalog-cache.json');
+import { ensureProductsSchema } from '../src/utils/products.js';
+import { getCatalogCache, setCatalogCache } from './auto-tuner.js';
 
 async function isCacheEnabled() {
-  try {
-    await fs.access(CACHE_FLAG_PATH);
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-async function saveCatalogCache(catalog) {
-  try {
-    await fs.writeFile(CACHE_FILE_PATH, JSON.stringify({
-      catalog,
-      cached_at: new Date().toISOString()
-    }));
-  } catch (err) {
-    console.error('Failed to save catalog cache:', err.message);
-  }
-}
-
-async function loadCatalogCache() {
-  try {
-    const raw = await fs.readFile(CACHE_FILE_PATH, 'utf-8');
-    const data = JSON.parse(raw);
-    return data.catalog || [];
-  } catch {
-    return null;
-  }
+  await ensureProductsSchema(pool);
+  const res = await pool.query(`SELECT cache_mode_enabled FROM adaptive_config WHERE id = 1`);
+  return res.rows[0]?.cache_mode_enabled || false;
 }
 
 async function getMergedCatalog(cacheMode) {
   let printifyProducts;
   if (cacheMode) {
-    const cached = await loadCatalogCache();
+    const cached = await getCatalogCache();
     if (cached && cached.length) {
       printifyProducts = cached;
     } else {
       const data = await printify('catalog');
       printifyProducts = data?.catalog || [];
-      await saveCatalogCache(printifyProducts);
+      await setCatalogCache(printifyProducts);
     }
   } else {
     const data = await printify('catalog');
     printifyProducts = data?.catalog || [];
-    await saveCatalogCache(printifyProducts);
+    await setCatalogCache(printifyProducts);
   }
 
   const dbResult = await pool.query(`
@@ -108,6 +82,15 @@ const actions = {
     return res.status(200).json({ success: true, product });
   },
 
+  // Alias for get (product-detail compatibility)
+  detail: async (req, res, cacheMode) => {
+    const { id } = req.query;
+    const products = await getMergedCatalog(cacheMode);
+    const product = products.find(p => p.id === id);
+    if (!product) return res.status(404).json({ error: 'Product not found in cosmic stream' });
+    return res.status(200).json({ success: true, product });
+  },
+
   featured: async (req, res, cacheMode) => {
     const products = await getMergedCatalog(cacheMode);
     const featured = products.filter(p => p.featured);
@@ -117,18 +100,18 @@ const actions = {
   search: async (req, res, cacheMode) => {
     const { q } = req.query;
     const products = await getMergedCatalog(cacheMode);
-    const filtered = products.filter(p => 
-      p.title?.toLowerCase().includes(q?.toLowerCase()) || 
+    const filtered = products.filter(p =>
+      p.title?.toLowerCase().includes(q?.toLowerCase()) ||
       p.description?.toLowerCase().includes(q?.toLowerCase())
     );
     return res.status(200).json({ success: true, products: filtered });
   },
 
   syncCatalog: async (req, res) => {
-    console.log('🌌 [NLBL Shop] Force-syncing cosmic catalog...');
+    console.log('🌌 [NLBL Shop Engine] Force-syncing cosmic catalog...');
     const data = await printify('catalog');
     const products = data?.catalog || [];
-    await saveCatalogCache(products);
+    await setCatalogCache(products);
     return res.status(200).json({ success: true, message: 'Catalog synced with the void' });
   }
 };
@@ -144,14 +127,12 @@ export default async function handler(req, res) {
 
   try {
     if (actions[action]) {
-      console.log(`✨ [NLBL Engine] Action triggered: ${action}`);
-      return await actionsaction;
+      console.log(`✨ [NLBL Shop Engine] Action: ${action}`);
+      return await actions[action](req, res, cacheMode);
     }
-    return res
-      .status(400)
-      .json({ error: `Action '${action}' is unknown in this dimension` });
+    return res.status(400).json({ error: `Action '${action}' unknown in shop engine` });
   } catch (err) {
-    console.error('🌌 [NLBL Engine] Cosmic Shop error:', err);
+    console.error('🌌 [NLBL Shop Engine] Error:', err);
     return res.status(500).json({ error: err.message });
   }
 }
