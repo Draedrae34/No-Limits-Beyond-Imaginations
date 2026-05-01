@@ -58,11 +58,21 @@ export function ensureProductsSchema(pool) {
       `);
       await pool.query(`CREATE INDEX IF NOT EXISTS idx_routine_logs_type ON routine_logs(routine_type)`);
       await pool.query(`CREATE INDEX IF NOT EXISTS idx_routine_logs_created ON routine_logs(created_at DESC)`);
+
+      // Optimization logs for autonomous tuning decisions
+      await pool.query(`
+        CREATE TABLE IF NOT EXISTS optimization_logs (
+          id SERIAL PRIMARY KEY,
+          decision_type TEXT NOT NULL,
+          reason TEXT,
+          action TEXT,
+          severity TEXT DEFAULT 'info',
+          created_at TIMESTAMPTZ DEFAULT NOW()
+        )
+      `);
+      await pool.query(`CREATE INDEX IF NOT EXISTS idx_optimization_logs_created ON optimization_logs(created_at DESC)`);
     })();
   }
-
-  return schemaReadyPromise;
-}
 
   return schemaReadyPromise;
 }

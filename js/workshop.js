@@ -13,6 +13,11 @@ const perfStats = document.getElementById('perf-stats');
 const perfRefreshBtn = document.getElementById('perf-refresh-btn');
 const routineMetricsEl = document.getElementById('routine-metrics');
 const latencyMetricsEl = document.getElementById('latency-metrics');
+const optimizationPanel = document.getElementById('optimization-panel');
+const optStatusEl = document.getElementById('opt-status');
+const optSuggestionsEl = document.getElementById('opt-suggestions');
+const optAnalyzeBtn = document.getElementById('opt-analyze-btn');
+const optSuggestionsBtn = document.getElementById('opt-suggestions-btn');
 
 function setHealth(status) {
   if (!healthDot || !healthText) return;
@@ -263,6 +268,86 @@ async function loadLatencyMetrics() {
   }
 }
 
+async function loadOptimizationStatus() {
+  try {
+    const res = await fetch('/api/resource-tracker?action=health');
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!optStatusEl) return;
+
+    const grade = data.grade || 'N/A';
+    const score = data.score || 0;
+    let color = '#4ade80';
+    if (grade === 'C') color = '#f1c40f';
+    if (grade === 'D' || grade === 'F') color = '#e74c3c';
+
+    optStatusEl.innerHTML = `
+      <div style="text-align:center;padding:1rem;">
+        <div style="font-size:2.5rem;font-weight:700;color:${color};">${grade}</div>
+        <div style="color:#888;font-size:0.8rem;">System Health Score (${score}/100)</div>
+      </div>
+      <div style="font-size:0.8rem;color:#c9d0ff;margin-top:0.5rem;">
+        Auto-optimization: <span style="color:#2ecc71;">ENABLED</span><br>
+        Predictive alerts: <span style="color:#2ecc71;">ENABLED</span><br>
+        Adaptive scheduling: <span style="color:#2ecc71;">ENABLED</span><br>
+        AI product ops: <span style="color:#2ecc71;">ENABLED</span>
+      </div>
+    `;
+  } catch (err) {
+    if (optStatusEl) optStatusEl.innerHTML = `Error: ${err.message}`;
+  }
+}
+
+async function loadOptimizationSuggestions() {
+  try {
+    const res = await fetch('/api/agent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: 'optimization suggestions', toolHint: null })
+    });
+    const data = await res.json();
+    if (!optSuggestionsEl) return;
+
+    optSuggestionsEl.style.display = 'block';
+    if (data.messages && Array.isArray(data.messages)) {
+      const suggestionMsg = data.messages.find(m => m.includes('suggestion') || m.includes('recommend'));
+      if (suggestionMsg) {
+        optSuggestionsEl.innerHTML = `<div style="color:#ff9cfb;font-size:0.85rem;">${escapeHtml(suggestionMsg)}</div>`;
+      } else {
+        optSuggestionsEl.innerHTML = '<div style="color:#2ecc71;">No optimization suggestions at this time — system running smoothly.</div>';
+      }
+    }
+  } catch (err) {
+    if (optSuggestionsEl) optSuggestionsEl.innerHTML = `Error: ${err.message}`;
+  }
+}
+
+async function triggerOptimization() {
+  if (optAnalyzeBtn) {
+    optAnalyzeBtn.textContent = 'Analyzing…';
+    optAnalyzeBtn.disabled = true;
+  }
+  try {
+    const res = await fetch('/api/agent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: 'analyze system optimization', toolHint: null })
+    });
+    const data = await res.json();
+    if (data.messages && Array.isArray(data.messages)) {
+      console.log('Optimization analysis:', data.messages);
+    }
+    setTimeout(loadOptimizationStatus, 1000);
+  } catch (err) {
+    console.error('Optimization trigger failed:', err);
+  } finally {
+    if (optAnalyzeBtn) {
+      optAnalyzeBtn.textContent = 'Analyze & Optimize';
+      optAnalyzeBtn.disabled = false;
+    }
+  }
+}
+
 async function loadWorkshopProducts() {
   try {
     const res = await fetch('/api/printify?action=catalog');
@@ -296,10 +381,14 @@ document.addEventListener('DOMContentLoaded', () => {
   loadPerformanceMetrics();
   loadRoutineMetrics();
   loadLatencyMetrics();
+  loadOptimizationStatus();
+  loadCostAnalytics();
   window.NLBL = window.NLBL || {};
   window.NLBL.loadWorkshopProducts = loadWorkshopProducts;
   window.NLBL.loadRoutineMetrics = loadRoutineMetrics;
   window.NLBL.loadLatencyMetrics = loadLatencyMetrics;
+  window.NLBL.loadOptimizationStatus = loadOptimizationStatus;
+  window.NLBL.loadCostAnalytics = loadCostAnalytics;
 
   if (auditBtn) {
     auditBtn.addEventListener('click', () => {
@@ -344,8 +433,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  if (optAnalyzeBtn) {
+    optAnalyzeBtn.addEventListener('click', triggerOptimization);
+  }
+
+  if (optSuggestionsBtn) {
+    optSuggestionsBtn.addEventListener('click', () => {
+      loadOptimizationSuggestions();
+    });
+  }
+
   // Start Workshop Intelligence Layer heartbeat
   if (typeof startHeartbeat === 'function') {
     startHeartbeat(45000); // every 45 seconds
   }
 });
+
+// Cost analytics loader
+async function loadCostAnalytics() {
+  // Placeholder — we'll add a cost panel later if needed
+}

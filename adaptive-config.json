@@ -1,0 +1,35 @@
+{
+  "name": "adaptive-config",
+  "version": "1.0.0",
+  "description": "NLBL Adaptive Optimization Layer configuration",
+  "thresholds": {
+    "autoFixEscalatePerHour": 10,
+    "costSpikePercentage": 50,
+    "predictionConfidence": 0.8,
+    "routineDurationIncreasePercent": 30,
+    "latencyIncreasePercent": 50
+  },
+  "safeRanges": {
+    "batchSize": {
+      "min": 1,
+      "max": 10,
+      "default": 5
+    },
+    "scheduleShiftHours": {
+      "max": 2
+    },
+    "catalogThrottleThresholdMs": 5000,
+    "routineDurationThresholdMs": 30000
+  },
+  "optimization": {
+    "enableAutoTuning": true,
+    "enablePredictiveAlerts": true,
+    "enableAdaptiveScheduling": true,
+    "enableResourceTracking": true,
+    "enableAIProductOptimization": true
+  },
+  "cost": {
+    "vercelRatePerMs": 0.0000002,
+    "monthlyBudgetAlertUSD": 10.00
+  }
+}

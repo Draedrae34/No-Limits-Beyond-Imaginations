@@ -108,6 +108,19 @@
       <button id="perf-refresh-btn" style="margin-top:0.75rem;padding:0.4rem 0.7rem;border-radius:999px;border:1px solid rgba(140,140,255,0.5);background:rgba(120,120,255,0.2);color:#f5f5ff;font-size:0.75rem;cursor:pointer;">Refresh Metrics</button>
     </div>
 
+    <!-- Optimization Dashboard Panel -->
+    <div class="audit-panel" id="optimization-panel">
+      <div class="workshop-section-title">Adaptive Optimization Engine</div>
+      <div id="opt-status" class="audit-json" style="max-height:200px;overflow:auto;">
+        Loading optimization status…
+      </div>
+      <div style="margin-top:0.75rem;display:flex;gap:0.5rem;">
+        <button id="opt-analyze-btn" style="padding:0.4rem 0.7rem;border-radius:999px;border:1px solid rgba(140,140,255,0.5);background:rgba(120,120,255,0.2);color:#f5f5ff;font-size:0.75rem;cursor:pointer;">Analyze & Optimize</button>
+        <button id="opt-suggestions-btn" style="padding:0.4rem 0.7rem;border-radius:999px;border:1px solid rgba(140,140,255,0.5);background:rgba(120,120,255,0.2);color:#f5f5ff;font-size:0.75rem;cursor:pointer;">Show Suggestions</button>
+      </div>
+      <div id="opt-suggestions" class="audit-json" style="margin-top:0.75rem;max-height:150px;overflow:auto;display:none;"></div>
+    </div>
+
     <!-- Right: Lil Mystic -->
     <section class="workshop-panel" id="lil-mystic-panel">
       <div class="mystic-header">
