@@ -2,6 +2,7 @@
 // Actions: optimization, routine, audit
 import pool from '../src/utils/db.js';
 import { ensureProductsSchema } from '../src/utils/products.js';
+import { ensureProductsSchema } from '../src/utils/products.js';
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
