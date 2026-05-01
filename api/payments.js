@@ -1,8 +1,7 @@
+// api/payments.js - PayPal Braintree/NVP integration (no Stripe)
 import { neon } from '@neondatabase/serverless';
-import Stripe from 'stripe';
 
 const sql = neon(process.env.DATABASE_URL);
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '');
 
 export default async function handler(req, res) {
   // Handle CORS preflight
@@ -37,87 +36,7 @@ export default async function handler(req, res) {
     }
 
     // ---------------------------------------------------------
-    // ⭐ ACTION: GET STRIPE PUBLIC KEY
-    // ---------------------------------------------------------
-    if (action === 'stripe-public-key') {
-      const publishableKey = process.env.STRIPE_PUBLISHABLE_KEY;
-
-      if (!publishableKey) {
-        return res.status(500).json({
-          error: 'Stripe publishable key is not configured in Vercel variables.'
-        });
-      }
-
-      return res.status(200).json({ publishableKey });
-    }
-
-    // ---------------------------------------------------------
-    // ⭐ ACTION: CREATE STRIPE PAYMENT INTENT
-    // (formerly stripe-payment.js)
-    // ---------------------------------------------------------
-    if (action === 'stripe-payment-intent') {
-      const { product_id, quantity = 1, amount, customer_info } = req.body;
-
-      // Use the provided amount (in cents) from the frontend
-      const finalAmount = amount || 2999; // Default fallback
-
-      // Create payment intent
-      const paymentIntent = await stripe.paymentIntents.create({
-        amount: finalAmount,
-        currency: 'usd',
-        metadata: {
-          product_id: product_id,
-          quantity: quantity,
-          order_id: `NLBL-${product_id}-${Date.now()}`
-        },
-        automatic_payment_methods: {
-          enabled: true,
-        },
-      });
-
-      return res.status(200).json({
-        success: true,
-        client_secret: paymentIntent.client_secret,
-        payment_intent_id: paymentIntent.id,
-        amount: finalAmount,
-        currency: 'usd'
-      });
-    }
-
-    // ---------------------------------------------------------
-    // ⭐ ACTION: CREATE STRIPE CHECKOUT SESSION
-    // (formerly create-checkout-session.js)
-    // ---------------------------------------------------------
-    if (action === 'stripe-checkout-session') {
-      const { product } = req.body;
-
-      // Create a checkout session
-      const session = await stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
-        line_items: [
-          {
-            price_data: {
-              currency: 'usd',
-              product_data: {
-                name: product.name,
-                images: [product.image.startsWith('http') ? product.image : `${process.env.VERCEL_URL}${product.image}`],
-              },
-              unit_amount: product.price, // Already in cents from frontend
-            },
-            quantity: product.quantity,
-          },
-        ],
-        mode: 'payment',
-        success_url: `${req.headers.origin}/order-complete.html?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${req.headers.origin}/shop.html`,
-      });
-
-      return res.status(200).json({ sessionId: session.id });
-    }
-
-    // ---------------------------------------------------------
     // ⭐ ACTION: LOG PAYPAL ORDER TO DATABASE
-    // (formerly paypal-checkout.js)
     // ---------------------------------------------------------
     if (action === 'paypal-log-order') {
       const { orderID, productID, amount, buyerName, buyerEmail } = req.body;
@@ -137,7 +56,6 @@ export default async function handler(req, res) {
 
     // ---------------------------------------------------------
     // ⭐ ACTION: CREATE PRINTIFY ORDER
-    // (formerly create-printify-order.js)
     // ---------------------------------------------------------
     if (action === 'create-printify-order') {
       const { blueprint_id, quantity, address, payment_method_id } = req.body;
@@ -149,15 +67,16 @@ export default async function handler(req, res) {
         payment_method_id
       };
 
-      // Simulated Printify order ID
+      // Simulated Printify order ID (replace with real Printify API call)
       const mockOrderId = `PRINTIFY-${blueprint_id}-${Date.now()}`;
 
-      console.log('Printify order would be created:', orderData);
+      console.log('Printify order payload:', orderData);
+      console.log('→ Would call Printify /orders.json here with auth & fulfillment');
 
       return res.status(200).json({
         success: true,
         order_id: mockOrderId,
-        message: 'Order created successfully (Printify integration pending)'
+        message: 'Order created successfully (Printify integration pending real API key)'
       });
     }
 

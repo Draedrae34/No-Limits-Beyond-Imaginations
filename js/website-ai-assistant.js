@@ -83,7 +83,7 @@ class ShopAssistant {
 
 🛍️ **Products**: Ask about our tees, hoodies, blankets, and accessories
 📦 **Orders**: Check order status, tracking, and support
-💳 **Payments**: Secure checkout with Stripe and Printify fulfillment
+ 💳 **Payments**: Secure checkout with PayPal and Printify fulfillment
 🎨 **Design**: Custom design inquiries and suggestions
 📞 **Contact**: Reach out for personalized assistance
 

@@ -1,5 +1,5 @@
 -- migrations/002_orders_payment_fields.sql
--- Add payment tracking fields to orders table for Stripe integration
+-- Add payment tracking fields to orders table for PayPal integration
 -- Run this migration once before deploying payment flow
 
 ALTER TABLE orders ADD COLUMN IF NOT EXISTS paid BOOLEAN DEFAULT FALSE;

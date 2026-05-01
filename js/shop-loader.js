@@ -10,78 +10,15 @@ class NLBLShopLoader {
     this.cart = [];
     this.currentFilter = "all";
     this.currentPaypalProduct = null;
-    this.stripe = null;
-    this.stripeKey = null;
 
     this.init();
   }
 
   async init() {
     await this.loadProducts();
-    await this.loadStripeKey(); // Load Stripe key early
     this.renderCategoryOptions();
     this.renderProducts(this.currentFilter);
     this.setupEventListeners();
-  }
-
-  async loadStripeKey() {
-    try {
-      const response = await fetch("/api/payments", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "stripe-public-key" })
-      });
-      if (response.ok) {
-        const data = await response.json();
-        this.stripeKey = data.publishableKey;
-        if (this.stripeKey) {
-          this.stripe = Stripe(this.stripeKey);
-        }
-      }
-    } catch (error) {
-      console.error("Failed to load Stripe key:", error);
-    }
-  }
-
-  normalizeProduct(raw) {
-    // Handle both Printify API format and local fallback format
-    const id = raw.id;
-    const name = raw.name || raw.title || "Untitled Product";
-    const description = raw.description || "Premium NLBL Collection";
-    
-    // Handle price - from direct price field or first variant's price
-    let price = Number(raw.price);
-    if (!Number.isFinite(price) && raw.variants && raw.variants.length > 0) {
-      price = Number(raw.variants[0].price);
-    }
-    if (!Number.isFinite(price)) price = 0;
-    
-    // Handle image - from image_url, images array, or direct image field
-    let imageUrl = raw.image_url || raw.image || "";
-    if (!imageUrl && raw.images && raw.images.length > 0) {
-      imageUrl = raw.images[0].src || raw.images[0];
-    }
-    if (!imageUrl) imageUrl = "/placeholder-product.png";
-    
-    // Handle tags
-    const tags = Array.isArray(raw.tags) ? raw.tags : [];
-    
-    // Handle category
-    const category = raw.category || "General";
-    
-    // Handle active status (visible field from Printify)
-    const active = raw.active !== false && raw.visible !== false;
-
-    return {
-      id,
-      name,
-      description,
-      category,
-      price,
-      image_url: imageUrl,
-      tags,
-      active
-    };
   }
 
   async loadProducts() {
@@ -139,27 +76,26 @@ class NLBLShopLoader {
           .join("")}</div>`
       : "";
 
-    return `
-      <div class="product-card quantum-card fade-in" data-product-id="${product.id}">
-        <div class="product-image">
-          <img src="${imageUrl}" alt="${product.name}" onerror="this.src='/placeholder-product.png'">
-          <div class="product-overlay">
-            <button class="quick-view" data-id="${product.id}">Quick View</button>
-          </div>
-        </div>
+     return `
+       <div class="product-card quantum-card fade-in" data-product-id="${product.id}">
+         <div class="product-image">
+           <img src="${imageUrl}" alt="${product.name}" onerror="this.src='/placeholder-product.png'">
+           <div class="product-overlay">
+             <button class="quick-view" data-id="${product.id}">Quick View</button>
+           </div>
+         </div>
 
-        <div class="product-info">
-          ${tagsHtml}
-          <h3 class="product-name">${product.name}</h3>
-          <p class="product-category">${product.category}</p>
-          <p class="product-description">${product.description}</p>
-          <div class="product-price">${priceDisplay}</div>
-          <div class="product-actions">
-            <button class="btn-primary buy-now-btn" data-id="${product.id}">Stripe Now</button>
-            <button class="paypal-buy-now-btn" data-id="${product.id}">PayPal</button>
-          </div>
-        </div>
-      </div>
+         <div class="product-info">
+           ${tagsHtml}
+           <h3 class="product-name">${product.name}</h3>
+           <p class="product-category">${product.category}</p>
+           <p class="product-description">${product.description}</p>
+           <div class="product-price">${priceDisplay}</div>
+           <div class="product-actions">
+             <button class="paypal-buy-now-btn" data-id="${product.id}">PayPal</button>
+           </div>
+         </div>
+       </div>
     `;
    }
    
@@ -200,13 +136,6 @@ class NLBLShopLoader {
   }
 
   attachCardListeners() {
-    document.querySelectorAll(".buy-now-btn").forEach((button) => {
-      button.addEventListener("click", (event) => {
-        event.preventDefault();
-        this.buyNow(button.dataset.id);
-      });
-    });
-
     document.querySelectorAll(".paypal-buy-now-btn").forEach((button) => {
       button.addEventListener("click", (event) => {
         event.preventDefault();
@@ -262,51 +191,7 @@ class NLBLShopLoader {
     this.updateProductCount(filtered.length);
   }
 
-  async buyNow(productId) {
-    const product = this.products.find((item) => String(item.id) === String(productId));
-    if (!product) return;
-
-    // Ensure Stripe is initialized
-    if (!this.stripe) {
-      this.showError("Payment system not ready. Please refresh and try again.");
-      return;
-    }
-
-    try {
-      const response = await fetch("/api/payments", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          action: "stripe-checkout-session",
-          product: {
-            id: product.id,
-            name: product.name,
-            price: Math.round(product.price * 100),
-            quantity: 1,
-            image: this.getImageUrl(product.image_url),
-          },
-        }),
-      });
-
-      const session = await response.json();
-      if (!session.sessionId) {
-        this.showError(session.error || "Checkout failed");
-        return;
-      }
-
-      const result = await this.stripe.redirectToCheckout({
-        sessionId: session.sessionId,
-      });
-      if (result.error) {
-        this.showError(result.error.message);
-      }
-    } catch (error) {
-      console.error("Checkout error:", error);
-      this.showError("Failed to initiate checkout");
-    }
-  }
-
-  async paypalBuyNow(productId) {
+   showQuickView(productId) {
     const product = this.products.find((item) => String(item.id) === String(productId));
     if (!product) return;
 

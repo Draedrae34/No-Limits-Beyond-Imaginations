@@ -1,7 +1,5 @@
 {
-    "scripts": [
-        "https://js.stripe.com/v3/"
-    ],
+    "scripts": [],
     "styles": [],
     "layout": "splitLeft",
     "showConsole": true,

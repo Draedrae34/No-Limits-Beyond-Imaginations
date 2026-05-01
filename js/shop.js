@@ -234,7 +234,7 @@ function handleAddToCart(card, product) {
   void floatingCartBtn.offsetWidth;
   floatingCartBtn.classList.add("cart-pulse");
 
-  // Hook into your real cart/Stripe/PayPal later
+  // Hook into your real cart/payment processor later
 }
 
 /* Modal */

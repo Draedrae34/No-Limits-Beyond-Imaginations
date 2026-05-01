@@ -72,7 +72,7 @@ export function ensureProductsSchema(pool) {
       `);
       await pool.query(`CREATE INDEX IF NOT EXISTS idx_optimization_logs_created ON optimization_logs(created_at DESC)`);
 
-      // Extend orders table for Stripe payments (only once)
+      // Extend orders table for PayPal payments (only once)
       await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS paid BOOLEAN DEFAULT FALSE`);
       await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_intent_id TEXT`);
       await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS status TEXT DEFAULT 'pending'`);
