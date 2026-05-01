@@ -1,6 +1,6 @@
 // api/agent.js - Lil Mystic's brain with intent parser + sequence runner + auth + logging
 import { runCatalogSync, cleanupGibberish, generateNewProducts, runSiteAudit, testEndpoints, featureRecentProducts, setFeatured, applyMargin, runOnDemandRoutine } from './workshop-routines.js';
-import { analyzeAndOptimize, applyAutoTuning } from './adaptive-engine.js';
+import { analyzeAndOptimize, getAutoTuningStatus } from './adaptive-engine.js';
 import { generatePredictions, getOptimizationSuggestions } from './predictive-alerts.js';
 import { getRoutineCostStats, getSystemHealthScore } from './resource-tracker.js';
 import pool from '../src/utils/db.js';
@@ -14,7 +14,7 @@ const INTENTS = [
   { keys: ['feature', 'highlight', 'showcase'], name: 'Feature recent products', fn: () => featureRecentProducts(3) },
   { keys: ['margin', 'price', 'reprice'], name: 'Apply margin markup', fn: () => applyMargin(20) },
   { keys: ['routine', 'sweep', 'full system', 'nightly'], name: 'Run full system routine', fn: runOnDemandRoutine },
-  { keys: ['optimize', 'tuning', 'self-tune'], name: 'Analyze system optimization', fn: analyzeAndOptimize },
+  { keys: ['optimize', 'tuning', 'self-tune', 'auto-tune'], name: 'Analyze system optimization', fn: analyzeAndOptimize },
   { keys: ['predict', 'forecast', 'future'], name: 'Predict issues', fn: generatePredictions },
   { keys: ['cost', 'expense', 'spend'], name: 'Show cost analytics', fn: () => getRoutineCostStats(30) },
   { keys: ['performance', 'metrics', 'stats'], name: 'System performance score', fn: getSystemHealthScore },

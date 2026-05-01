@@ -1,0 +1,22 @@
+{
+  "name": "adaptive-schedule",
+  "version": "1.0.0",
+  "description": "Dynamic schedule adjustments by NLBL adaptive engine",
+  "schedule": {
+    "hourly": {
+      "enabled": true,
+      "cron": "0 * * * *",
+      "original": "0 * * * *",
+      "lastAdjusted": null,
+      "adjustmentReason": null
+    },
+    "nightly": {
+      "enabled": true,
+      "cron": "0 2 * * *",
+      "original": "0 2 * * *",
+      "lastAdjusted": null,
+      "adjustmentReason": null
+    }
+  },
+  "history": []
+}

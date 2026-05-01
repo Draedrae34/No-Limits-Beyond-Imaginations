@@ -43,7 +43,7 @@ export function ensureProductsSchema(pool) {
       await pool.query(`CREATE INDEX IF NOT EXISTS idx_action_logs_user ON action_logs(user_email)`);
       await pool.query(`CREATE INDEX IF NOT EXISTS idx_action_logs_created ON action_logs(created_at DESC)`);
 
-      // Routine logs for scheduled runs with performance tracking
+      // Routine logs for scheduled runs
       await pool.query(`
         CREATE TABLE IF NOT EXISTS routine_logs (
           id SERIAL PRIMARY KEY,
@@ -71,6 +71,30 @@ export function ensureProductsSchema(pool) {
         )
       `);
       await pool.query(`CREATE INDEX IF NOT EXISTS idx_optimization_logs_created ON optimization_logs(created_at DESC)`);
+
+      // Extend orders table for Stripe payments
+      await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS paid BOOLEAN DEFAULT FALSE`);
+      await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_intent_id TEXT`);
+      await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS status TEXT DEFAULT 'pending'`);
+      await pool.query(`CREATE INDEX IF NOT EXISTS idx_orders_payment_intent ON orders(payment_intent_id)`);
+
+      // Extend orders table for Stripe payments
+      await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS paid BOOLEAN DEFAULT FALSE`);
+      await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_intent_id TEXT`);
+      await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS status TEXT DEFAULT 'pending'`);
+      await pool.query(`CREATE INDEX IF NOT EXISTS idx_orders_payment_intent ON orders(payment_intent_id)`);
+
+      // Extend orders table for Stripe payments
+      await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS paid BOOLEAN DEFAULT FALSE`);
+      await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_intent_id TEXT`);
+      await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS status TEXT DEFAULT 'pending'`);
+      await pool.query(`CREATE INDEX IF NOT EXISTS idx_orders_payment_intent ON orders(payment_intent_id)`);
+
+      // Extend orders table for Stripe payments
+      await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS paid BOOLEAN DEFAULT FALSE`);
+      await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_intent_id TEXT`);
+      await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS status TEXT DEFAULT 'pending'`);
+      await pool.query(`CREATE INDEX IF NOT EXISTS idx_orders_payment_intent ON orders(payment_intent_id)`);
     })();
   }
 

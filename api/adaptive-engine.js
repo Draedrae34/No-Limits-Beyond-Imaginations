@@ -1,8 +1,8 @@
-// api/adaptive-engine.js - NLBL Adaptive Optimization Engine
-// Self-tuning logic with safety thresholds and full audit trail
+// api/adaptive-engine.js - NLBL Adaptive Optimization Engine (Auto-Tuning)
 import pool from '../src/utils/db.js';
 import { ensureProductsSchema } from '../src/utils/products.js';
-import config from '../adaptive-config.json' with { type: 'json' };
+import { applyBatchSizeAdjustment, applyScheduleAdjustment, applyCacheModeToggle, getCurrentOptimizationState } from './auto-tuner.js';
+import { runBatchOptimization } from './ai-optimizer.js';
 
 const CONFIG = {
   autoFixEscalatePerHour: 10,
@@ -13,10 +13,15 @@ const CONFIG = {
   batchSizeMin: 1,
   batchSizeMax: 10,
   scheduleShiftMaxHours: 2,
-  ...config
+  cacheLatencyThresholdMs: 800,
+  cacheRecoveryLatencyMs: 300,
+  cacheConsecutiveChecks: 3,
+  routineDurationThresholdMs: 30000,
+  aiOptimizationPerRun: 5,
+  maxAutoPriceAdjustmentPercent: 20
 };
 
-export async function getRecentMetrics(hoursBack = 24) {
+async function getRecentMetrics(hoursBack = 24) {
   await ensureProductsSchema(pool);
   const since = new Date(Date.now() - hoursBack * 60 * 60 * 1000).toISOString();
   const result = await pool.query(
@@ -26,28 +31,23 @@ export async function getRecentMetrics(hoursBack = 24) {
   return result.rows;
 }
 
-function predictTrend(values, window = 5) {
-  if (values.length < window) return { direction: 'unknown', confidence: 0 };
-  const recent = values.slice(0, window);
-  const older = values.slice(window, window * 2);
-  if (!older.length) return { direction: 'unknown', confidence: 0 };
-
-  const recentAvg = recent.reduce((a, b) => a + b, 0) / recent.length;
-  const olderAvg = older.reduce((a, b) => a + b, 0) / older.length;
-  const change = ((recentAvg - olderAvg) / olderAvg) * 100;
-  const confidence = Math.min(Math.abs(change) / 10, 1);
-
-  return {
-    direction: change > 0 ? 'increasing' : 'decreasing',
-    percentChange: change,
-    confidence
-  };
+async function getRecentLatencies(hours = 1) {
+  const metrics = await getRecentMetrics(hours);
+  const latencies = [];
+  metrics.forEach(m => {
+    const lines = (m.report || '').split('\n');
+    lines.forEach(line => {
+      const match = line.match(/(\w+):.*?(\d+)ms/);
+      if (match) latencies.push(parseInt(match[2]));
+    });
+  });
+  return latencies;
 }
 
-export async function analyzeAndOptimize() {
+async function analyzeAndOptimize() {
   await ensureProductsSchema(pool);
   const metrics = await getRecentMetrics(24);
-  const decisions = [];
+  const applied = [];
   const escalations = [];
 
   // 1. Auto-fix storm detection
@@ -59,104 +59,111 @@ export async function analyzeAndOptimize() {
       severity: 'high',
       message: `Auto-fixes: ${recentAutoFixes} in last hour (threshold: ${CONFIG.autoFixEscalatePerHour})`
     });
-  } else if (recentAutoFixes > CONFIG.autoFixEscalatePerHour * 0.7) {
-    decisions.push({
-      type: 'increase_monitoring',
-      reason: `Auto-fix rate elevated (${recentAutoFixes}/hr)`,
-      action: 'increase_audit_frequency_temporary'
-    });
   }
 
-  // 2. Routine duration trend
+  // 2. Batch size auto-tuning
   const hourlyDurations = metrics
     .filter(m => m.routine_type === 'hourly' && m.duration_ms)
     .map(m => m.duration_ms);
-  const durationTrend = predictTrend(hourlyDurations);
-  if (durationTrend.direction === 'increasing' && durationTrend.confidence > 0.6) {
-    const increasePct = durationTrend.percentChange;
-    if (increasePct > CONFIG.routineDurationIncreasePercent) {
-      escalations.push({
-        type: 'routine_degradation',
-        severity: 'medium',
-        message: `Hourly routine duration increased ${increasePct.toFixed(1)}% — optimization or schedule adjustment recommended`
-      });
-    } else {
-      decisions.push({
-        type: 'schedule_adjustment',
-        reason: `Routine slowing (${increasePct.toFixed(1)}%)`,
-        action: 'consider_reducing_frequency_or_batch_size'
-      });
+  if (hourlyDurations.length >= 3) {
+    const avgDuration = hourlyDurations.reduce((a, b) => a + b, 0) / hourlyDurations.length;
+    const state = await getCurrentOptimizationState();
+    const currentBatchSize = state?.config?.safeRanges?.batchSize?.default || 5;
+
+    if (avgDuration > CONFIG.routineDurationThresholdMs && currentBatchSize > CONFIG.batchSizeMin) {
+      const newSize = Math.max(CONFIG.batchSizeMin, currentBatchSize - 1);
+      const result = await applyBatchSizeAdjustment(newSize);
+      if (result.ok) {
+        applied.push(`Batch size ${currentBatchSize} → ${newSize} (avg ${Math.round(avgDuration)}ms)`);
+      }
+    } else if (avgDuration < 10000 && currentBatchSize < CONFIG.batchSizeMax) {
+      const newSize = Math.min(CONFIG.batchSizeMax, currentBatchSize + 1);
+      const result = await applyBatchSizeAdjustment(newSize);
+      if (result.ok) {
+        applied.push(`Batch size ${currentBatchSize} → ${newSize} (avg ${(avgDuration/1000).toFixed(1)}s)`);
+      }
     }
   }
 
-  // 3. Latency trend from endpoint data (parsed from report if available)
-  // For now, we rely on heartbeat alerts; full integration when last_audit stores structured latency
+  // 3. Cache mode auto-toggle
+  const recentLatencies = await getRecentLatencies(1);
+  if (recentLatencies.length >= CONFIG.cacheConsecutiveChecks) {
+    const avgLatency = recentLatencies.slice(0, CONFIG.cacheConsecutiveChecks).reduce((a, b) => a + b, 0) / CONFIG.cacheConsecutiveChecks;
+    const state = await getCurrentOptimizationState();
+    const cacheEnabled = state?.cacheMode === 'enabled';
 
-  // 4. Cost trend analysis
-  // We'll estimate cost from duration_ms: cost = durationMs * CONFIG.vercelRatePerMs
-  const recentCosts = metrics.map(m => ({
-    cost: (m.duration_ms || 0) * CONFIG.vercelRatePerMs,
-    created_at: m.created_at
-  }));
-  if (recentCosts.length >= 10) {
-    const last10 = recentCosts.slice(0, 10);
-    const prev10 = recentCosts.slice(10, 20);
-    const avgLast = last10.reduce((a, b) => a + b.cost, 0) / last10.length;
-    const avgPrev = prev10.reduce((a, b) => a + b.cost, 0) / prev10.length;
-    const costIncrease = ((avgLast - avgPrev) / avgPrev) * 100;
-    if (costIncrease > CONFIG.costSpikePercentage) {
-      escalations.push({
-        type: 'cost_spike',
-        severity: 'high',
-        message: `Routine costs increased ${costIncrease.toFixed(1)}% ($${avgLast.toFixed(5)}/run avg)`
-      });
+    if (avgLatency > CONFIG.cacheLatencyThresholdMs && !cacheEnabled) {
+      const result = await applyCacheModeToggle(true);
+      if (result.ok) {
+        applied.push('Cache mode ENABLED due to high latency');
+      }
+    } else if (avgLatency < CONFIG.cacheRecoveryLatencyMs && cacheEnabled) {
+      const result = await applyCacheModeToggle(false);
+      if (result.ok) {
+        applied.push('Cache mode DISABLED — latency recovered');
+      }
     }
   }
 
-  // Log decisions
-  if (decisions.length || escalations.length) {
+  // 4. Schedule adjustment
+  const hourlyCount = metrics.filter(m => m.routine_type === 'hourly').length;
+  if (hourlyCount >= 6) {
+    const avgHourlyDuration = metrics
+      .filter(m => m.routine_type === 'hourly')
+      .slice(0, 6)
+      .reduce((a, b) => a + b.duration_ms, 0) / 6;
+    if (avgHourlyDuration > CONFIG.routineDurationThresholdMs * 1.5) {
+      const schedule = await (await import('./auto-tuner.js')).getCurrentOptimizationState();
+      if (schedule?.schedule?.hourly?.cron === '0 * * * *') {
+        const result = await applyScheduleAdjustment('hourly', '0 */2 * * *', `Duration ${Math.round(avgHourlyDuration)}ms exceeds threshold`);
+        if (result.ok) {
+          applied.push('Hourly schedule adjusted: every 2 hours');
+        }
+      }
+    }
+  }
+
+  // 5. AI product optimization (safe subset)
+  try {
+    const aiResult = await runBatchOptimization(CONFIG.aiOptimizationPerRun);
+    if (aiResult.ok && aiResult.optimized > 0) {
+      applied.push(`AI optimized ${aiResult.optimized} products (descriptions, categories, pricing)`);
+    }
+  } catch (err) {
+    console.error('AI optimization failed:', err.message);
+  }
+
+  // Log
+  if (applied.length || escalations.length) {
     try {
       await pool.query(
         `INSERT INTO optimization_logs (decision_type, reason, action, severity, created_at)
          VALUES ($1, $2, $3, $4, NOW())`,
         [
-          decisions.map(d => d.type).join(', '),
-          decisions.map(d => d.reason).join('; '),
-          decisions.map(d => d.action).join('; '),
+          'auto_tuning',
+          `Auto-tuning cycle: ${applied.length} actions, ${escalations.length} escalations`,
+          applied.join('; '),
           escalations.length ? 'escalated' : 'auto'
         ]
       );
     } catch (err) {
-      console.error('Failed to log optimization decision:', err);
+      console.error('Failed to log optimization:', err.message);
     }
   }
 
   return {
     ok: true,
-    summary: `Analysis complete: ${decisions.length} decisions, ${escalations.length} escalations`,
-    decisions,
+    summary: `Auto-tuning: ${applied.length} optimizations applied${escalations.length ? `, ${escalations.length} escalations` : ''}`,
+    applied,
     escalations
   };
 }
 
-// Apply safe auto-tuning actions (non-breaking, reversible)
-export async function applyAutoTuning() {
-  const tuning = [];
-  const metrics = await getRecentMetrics(6);
-  const hourlyDurations = metrics.filter(m => m.routine_type === 'hourly' && m.duration_ms).map(m => m.duration_ms);
-
-  if (hourlyDurations.length >= 3) {
-    const avg = hourlyDurations.reduce((a, b) => a + b, 0) / hourlyDurations.length;
-    if (avg > CONFIG.safeRanges.routineDurationThresholdMs) {
-      // If routines consistently slow, we could suggest reducing batch size in config
-      tuning.push({
-        parameter: 'batch_size',
-        current: CONFIG.safeRanges.batchSize.default,
-        suggested: Math.max(CONFIG.batchSizeMin, Math.min(CONFIG.batchSizeMax, Math.floor(avg / 5000))),
-        reason: `Avg routine duration ${Math.round(avg)}ms exceeds threshold`
-      });
-    }
-  }
-
-  return { ok: true, tuning };
+export async function getAutoTuningStatus() {
+  const state = await getCurrentOptimizationState();
+  return {
+    ok: true,
+    state,
+    lastRun: new Date().toISOString()
+  };
 }
