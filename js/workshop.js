@@ -27,4 +27,8 @@ async function loadWorkshopProducts() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', loadWorkshopProducts);
+document.addEventListener('DOMContentLoaded', () => {
+  loadWorkshopProducts();
+  window.NLBL = window.NLBL || {};
+  window.NLBL.loadWorkshopProducts = loadWorkshopProducts;
+});

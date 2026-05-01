@@ -4,6 +4,8 @@ import printify from './printify.js';
 import pool from '../src/utils/db.js';
 import { ensureProductsSchema } from '../src/utils/products.js';
 import { loadLogos } from '../utils/logo-loader.js';
+import fs from 'fs/promises';
+import path from 'path';
 
 // Helper: classify product type for price/margin logic
 function classifyProduct(title) {
@@ -137,37 +139,65 @@ export async function generateNewProducts() {
   }
 }
 
-// ⭐ 4. runSiteAudit() – checks all major endpoints and env
+// ⭐ 4. runSiteAudit() – deeper audit: env, DB counts, filesystem, Printify, logo dir
 export async function runSiteAudit() {
-  const checks = {};
+  const report = {};
 
-  checks['PRINTIFY_API_KEY'] = process.env.PRINTIFY_API_KEY ? 'SET' : 'MISSING';
-  checks['PRINTIFY_SHOP_ID'] = process.env.PRINTIFY_SHOP_ID ? 'SET' : 'MISSING';
-  checks['DATABASE_URL'] = process.env.DATABASE_URL ? 'SET' : 'MISSING';
+  // Env checks
+  report.env = {
+    PRINTIFY_API_KEY: process.env.PRINTIFY_API_KEY ? 'SET' : 'MISSING',
+    PRINTIFY_SHOP_ID: process.env.PRINTIFY_SHOP_ID ? 'SET' : 'MISSING',
+    DATABASE_URL: process.env.DATABASE_URL ? 'SET' : 'MISSING',
+  };
 
+  // DB table counts
   try {
-    await pool.query('SELECT 1');
-    checks['PostgreSQL'] = 'CONNECTED';
-  } catch (e) {
-    checks['PostgreSQL'] = `ERROR: ${e.message}`;
+    await ensureProductsSchema(pool);
+    const [{ count: products }] = await pool.query('SELECT COUNT(*)::int AS count FROM products');
+    const [{ count: messages }] = await pool.query('SELECT COUNT(*)::int AS count FROM messages');
+    const [{ count: orders }] = await pool.query('SELECT COUNT(*)::int AS count FROM orders');
+    const [{ count: gallery }] = await pool.query('SELECT COUNT(*)::int AS count FROM gallery');
+    report.db = { products, messages, orders, gallery };
+  } catch (err) {
+    report.db = `ERROR: ${err.message}`;
   }
 
+  // Printify status
   try {
-    const res = await fetch('/api/printify?action=status');
-    checks['Printify API'] = res.ok ? 'OK' : `HTTP ${res.status}`;
-  } catch (e) {
-    checks['Printify API'] = `FAIL: ${e.message}`;
+    const status = await printify('status');
+    report.printify = {
+      status: status?.status || 'unknown',
+      shopId: process.env.PRINTIFY_SHOP_ID || 'unset',
+      timestamp: status?.timestamp || 'n/a'
+    };
+  } catch (err) {
+    report.printify = `ERROR: ${err.message}`;
   }
 
+  // Filesystem checks (logo dir)
   try {
-    const logos = loadLogos();
-    checks['Logo Files'] = `${logos.length} loaded`;
-  } catch (e) {
-    checks['Logo Files'] = `ERROR: ${e.message}`;
+    const logoDir = path.join(process.cwd(), 'Logo_N_Galaxy_Fill_Space');
+    const stats = await fs.stat(logoDir);
+    const files = await fs.readdir(logoDir);
+    report.filesystem = {
+      logoDir: 'EXISTS',
+      fileCount: files.length,
+      sizeKB: Math.round((files.reduce((acc, f) => acc + stats.size, 0)) / 1024)
+    };
+  } catch (err) {
+    report.filesystem = `ERROR: ${err.message}`;
   }
 
-  const passed = Object.values(checks).filter(v => v === 'SET' || v === 'CONNECTED' || v === 'OK' || v.includes('loaded')).length;
-  return { ok: true, summary: `Audit: ${passed}/${Object.keys(checks).length} checks passed\n` + Object.entries(checks).map(([k, v]) => `  ${k}: ${v}`).join('\n') };
+  const envOk = Object.values(report.env).filter(v => v === 'SET').length;
+  const dbOk = typeof report.db === 'object' ? 1 : 0;
+  const printOk = typeof report.printify === 'object' ? 1 : 0;
+  const fsOk = typeof report.filesystem === 'object' ? 1 : 0;
+
+  return {
+    ok: true,
+    summary: `Audit complete: env ${envOk}/3 | db ${dbOk}/1 | printify ${printOk}/1 | fs ${fsOk}/1\n` +
+             JSON.stringify(report, null, 2)
+  };
 }
 
 // ⭐ 5. testEndpoints() – pings all API routes

@@ -41,12 +41,29 @@ async function sendToLilMystic(message, toolHint = null) {
       } else {
         appendMysticMessage('I acted, but the void returned no words.', 'ai');
       }
+
+      // UI sync: refresh products panel after relevant tools
+      if (data.actionsRun && Array.isArray(data.actionsRun)) {
+        maybeRefreshUI(data.actionsRun);
+      }
     }
   } catch (err) {
     appendMysticMessage(`⚠️ Connection failed: ${err.message}`, 'ai');
   } finally {
     mysticStatus.textContent = 'Idle · Awaiting your command';
     mysticOrb.style.animationDuration = '2.4s';
+  }
+}
+
+function maybeRefreshUI(actionsRun) {
+  if (!window.NLBL || typeof window.NLBL.loadWorkshopProducts !== 'function') return;
+  const refreshTriggers = [
+    'Sync Printify catalog',
+    'Generate new cosmic products',
+    'Clean gibberish products'
+  ];
+  if (actionsRun.some(a => refreshTriggers.some(t => a.includes(t)))) {
+    window.NLBL.loadWorkshopProducts();
   }
 }
 
