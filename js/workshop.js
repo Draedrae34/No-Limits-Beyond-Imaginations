@@ -8,6 +8,9 @@ const auditBtn = document.getElementById('audit-run-btn');
 const routinePanel = document.getElementById('routine-panel');
 const routineLogs = document.getElementById('routine-logs');
 const routineRunBtn = document.getElementById('routine-run-btn');
+const performancePanel = document.getElementById('performance-panel');
+const perfStats = document.getElementById('perf-stats');
+const perfRefreshBtn = document.getElementById('perf-refresh-btn');
 
 function setHealth(status) {
   if (!healthDot || !healthText) return;
@@ -23,6 +26,13 @@ function setHealth(status) {
     healthDot.classList.add('red');
     healthText.textContent = 'System Error';
   }
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
 }
 
 function syntaxHighlight(json) {
@@ -104,6 +114,81 @@ async function loadRoutineLogs() {
   }
 }
 
+async function loadPerformanceMetrics() {
+  try {
+    const res = await fetch('/api/routine-logs?limit=50');
+    if (!res.ok) throw new Error('Failed to fetch logs');
+    const data = await res.json();
+    const logs = data.logs || [];
+
+    if (!perfStats) return;
+
+    if (!logs.length) {
+      perfStats.innerHTML = '<div style="color:#888;">No performance data yet. Routines will populate this.</div>';
+      return;
+    }
+
+    // Separate by type
+    const hourly = logs.filter(l => l.routine_type === 'hourly');
+    const nightly = logs.filter(l => l.routine_type === 'nightly');
+
+    // Calculate averages
+    const avg = (arr, field) => {
+      if (!arr.length) return 'N/A';
+      const sum = arr.reduce((acc, l) => acc + (Number(l[field]) || 0), 0);
+      return Math.round(sum / arr.length);
+    };
+
+    const avgHourlyDur = avg(hourly, 'duration_ms');
+    const avgNightlyDur = avg(nightly, 'duration_ms');
+    const totalAutoFixes = logs.reduce((acc, l) => acc + (Number(l.auto_fixes) || 0), 0);
+
+    // Trend: compare last 5 vs previous 5 hourly runs
+    const recentHourly = hourly.slice(0, 5);
+    const prevHourly = hourly.slice(5, 10);
+    const recentAvg = avg(recentHourly, 'duration_ms');
+    const prevAvg = avg(prevHourly, 'duration_ms');
+    let trendMsg = '';
+    if (recentAvg !== 'N/A' && prevAvg !== 'N/A' && recentAvg > prevAvg * 1.2) {
+      trendMsg = `<div style="color:#f1c40f;margin-top:0.5rem;">⚠️ Hourly routine slowing down: ${prevAvg}ms → ${recentAvg}ms</div>`;
+    } else if (recentAvg !== 'N/A' && prevAvg !== 'N/A' && recentAvg < prevAvg * 0.8) {
+      trendMsg = `<div style="color:#2ecc71;margin-top:0.5rem;">✅ Hourly routine improved: ${prevAvg}ms → ${recentAvg}ms</div>`;
+    }
+
+    perfStats.innerHTML = `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;font-size:0.85rem;">
+        <div>
+          <span style="color:#888;">Avg Hourly</span><br>
+          <span style="color:#ff9cfb;font-weight:700;font-size:1.2rem;">${avgHourlyDur === 'N/A' ? '—' : (avgHourlyDur / 1000).toFixed(1)}s</span>
+        </div>
+        <div>
+          <span style="color:#888;">Avg Nightly</span><br>
+          <span style="color:#7f5dff;font-weight:700;font-size:1.2rem;">${avgNightlyDur === 'N/A' ? '—' : (avgNightlyDur / 1000).toFixed(1)}s</span>
+        </div>
+        <div>
+          <span style="color:#888;">Total Auto-Fixes</span><br>
+          <span style="color:#e74c3c;font-weight:700;">${totalAutoFixes}</span>
+        </div>
+        <div>
+          <span style="color:#888;">Runs Tracked</span><br>
+          <span style="color:#a7d5ff;font-weight:700;">${logs.length}</span>
+        </div>
+      </div>
+      <div style="margin-top:0.75rem;font-size:0.8rem;color:#c9d0ff;">
+        <div style="margin-bottom:0.25rem;"><strong>Slowest Routines (avg):</strong></div>
+        ${hourly.length ? `<div>Hourly: ${(avgHourlyDur / 1000).toFixed(1)}s</div>` : ''}
+        ${nightly.length ? `<div>Nightly: ${(avgNightlyDur / 1000).toFixed(1)}s</div>` : ''}
+      </div>
+      ${trendMsg}
+      <div style="margin-top:0.75rem;font-size:0.75rem;color:#666;">
+        Auto-fix count since tracking began: ${totalAutoFixes}
+      </div>
+    `;
+  } catch (err) {
+    if (perfStats) perfStats.innerHTML = `Error: ${err.message}`;
+  }
+}
+
 async function loadWorkshopProducts() {
   try {
     const res = await fetch('/api/printify?action=catalog');
@@ -134,6 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadWorkshopProducts();
   loadAudit();
   loadRoutineLogs();
+  loadPerformanceMetrics();
   window.NLBL = window.NLBL || {};
   window.NLBL.loadWorkshopProducts = loadWorkshopProducts;
 
@@ -155,17 +241,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         const data = await res.json();
         if (data.messages && Array.isArray(data.messages)) {
-          // Show last message in chat (already handled by lil-mystic)
           console.log('Routine result:', data.messages[data.messages.length - 1]);
         }
-        // Refresh logs after delay
-        setTimeout(loadRoutineLogs, 2000);
+        setTimeout(() => {
+          loadRoutineLogs();
+          loadPerformanceMetrics();
+        }, 2000);
       } catch (err) {
         console.error('Routine trigger failed:', err);
       } finally {
         routineRunBtn.textContent = 'Run Full Routine Now';
         routineRunBtn.disabled = false;
       }
+    });
+  }
+
+  if (perfRefreshBtn) {
+    perfRefreshBtn.addEventListener('click', () => {
+      loadPerformanceMetrics();
     });
   }
 

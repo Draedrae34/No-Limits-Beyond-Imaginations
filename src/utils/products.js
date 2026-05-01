@@ -49,6 +49,10 @@ export function ensureProductsSchema(pool) {
           id SERIAL PRIMARY KEY,
           routine_type TEXT NOT NULL,
           report TEXT NOT NULL,
+          duration_ms INTEGER,
+          step_durations JSONB,
+          slowest_step TEXT,
+          auto_fixes INTEGER DEFAULT 0,
           created_at TIMESTAMPTZ DEFAULT NOW()
         )
       `);

@@ -1,5 +1,5 @@
 // api/workshop-routines.js
-// Autonomous routines: hourly + nightly
+// Autonomous routines with performance intelligence
 import {
   runCatalogSync,
   cleanupGibberish,
@@ -14,113 +14,148 @@ import printify from './printify.js';
 import pool from '../src/utils/db.js';
 import { ensureProductsSchema } from '../src/utils/products.js';
 
-// Helper: post notification to Workshop chat (requires user session, so mostly for logging)
-async function postAgentNote(message) {
-  // In a real implementation, this could:
-  // - Insert into a notifications table
-  // - Trigger a push/WebSocket
-  // - Email admin
-  // For now, just log
-  console.log(`[Lil Mystic Routine] ${message}`);
-  return message;
+async function timed(stepName, fn, autoFix = false) {
+  const start = Date.now();
+  let result;
+  try {
+    result = await fn();
+    const duration = Date.now() - start;
+    return {
+      step: stepName,
+      duration,
+      success: result?.ok !== false,
+      autoFix: autoFix ? 1 : 0,
+      summary: result?.summary || 'Done'
+    };
+  } catch (err) {
+    const duration = Date.now() - start;
+    return {
+      step: stepName,
+      duration,
+      success: false,
+      autoFix: 0,
+      error: err.message
+    };
+  }
 }
 
 export async function runHourlyRoutine() {
-  const results = [];
-  results.push(await postAgentNote('=== Hourly Routine Start ==='));
+  const routineStart = Date.now();
+  const stepResults = [];
+  const autoFixes = [];
 
-  // Light audit
-  const audit = await runSiteAudit();
-  results.push(audit.summary);
+  // Step 1: Audit
+  stepResults.push(await timed('audit', runSiteAudit));
 
-  // Catalog freshness check
-  try {
+  // Step 2: Catalog check + auto-sync if empty
+  const catalogResult = await timed('catalog_check', async () => {
     const catalog = await printify('catalog');
     const count = catalog?.catalog?.length || 0;
     if (count === 0) {
-      results.push('⚠️ Catalog empty — initiating sync');
       const sync = await runCatalogSync();
-      results.push(sync.summary);
-    } else {
-      results.push(`✅ Catalog healthy (${count} items)`);
+      return { ok: true, summary: `Catalog was empty, synced: ${sync.summary}` };
     }
-  } catch (err) {
-    results.push(`❌ Catalog check failed: ${err.message}`);
-  }
+    return { ok: true, summary: `Catalog healthy (${count} items)` };
+  });
+  stepResults.push(catalogResult);
 
-  // DB count check
-  try {
+  // Step 3: DB check
+  stepResults.push(await timed('db_check', async () => {
     await ensureProductsSchema(pool);
     const counts = await getDBCounts();
-    results.push(`📊 DB: ${JSON.stringify(counts)}`);
+    return { ok: true, summary: `DB counts: ${JSON.stringify(counts)}` };
+  }));
+
+  const totalDuration = Date.now() - routineStart;
+  const slowest = stepResults.reduce((a, b) => (a.duration > b.duration ? a : b), stepResults[0]);
+  const autoFixCount = autoFixes.length;
+
+  // Persist performance log
+  try {
+    await pool.query(
+      `INSERT INTO routine_logs (routine_type, report, duration_ms, step_durations, slowest_step, auto_fixes, created_at) 
+       VALUES ($1, $2, $3, $4, $5, $6, NOW())`,
+      [
+        'hourly',
+        stepResults.map(r => `[${r.success ? '✅' : '❌'}] ${r.step}: ${r.summary || r.error}`).join('\n'),
+        totalDuration,
+        JSON.stringify(stepResults.map(({ step, duration }) => ({ step, duration }))),
+        slowest.step,
+        autoFixCount
+      ]
+    );
   } catch (err) {
-    results.push(`❌ DB check failed: ${err.message}`);
+    console.error('Failed to save hourly perf log:', err);
   }
 
-  results.push(await postAgentNote('=== Hourly Routine Complete ==='));
-  return { ok: true, summary: results.join('\n') };
+  return {
+    ok: true,
+    summary: `Hourly routine completed in ${(totalDuration / 1000).toFixed(1)}s. Slowest: ${slowest.step} (${slowest.duration}ms). Auto-fixes: ${autoFixCount}.`,
+    performance: { totalDuration, stepResults, slowest: slowest.step, autoFixes: autoFixCount }
+  };
 }
 
 export async function runNightlyRoutine(options = { rotateFeatured: true, applyMargin: false, generateProducts: false }) {
-  const results = [];
-  results.push(await postAgentNote('=== Nightly Routine Start ==='));
+  const routineStart = Date.now();
+  const stepResults = [];
+  const autoFixes = [];
 
-  // Full audit
-  const audit = await runSiteAudit();
-  results.push(audit.summary);
+  stepResults.push(await timed('audit', runSiteAudit));
 
-  // Catalog sync
-  const sync = await runCatalogSync();
-  results.push(sync.summary);
+  stepResults.push(await timed('catalog_sync', runCatalogSync));
 
-  // Cleanup gibberish
-  const cleanup = await cleanupGibberish();
-  results.push(cleanup.summary);
+  stepResults.push(await timed('gibberish_cleanup', cleanupGibberish));
 
-  // Test endpoints
-  const tests = await testEndpoints();
-  results.push(tests.summary);
+  stepResults.push(await timed('endpoint_tests', testEndpoints));
 
-  // Optional: rotate featured (top 3 newest)
   if (options.rotateFeatured) {
-    const featured = await featureRecentProducts(3);
-    results.push(featured.summary);
+    stepResults.push(await timed('feature_rotation', () => featureRecentProducts(3)));
   }
 
-  // Optional: apply standard margin (only if needed)
   if (options.applyMargin) {
-    const margin = await applyMargin(20);
-    results.push(margin.summary);
+    stepResults.push(await timed('margin_apply', () => applyMargin(20)));
   }
 
-  // Optional: generate new products (light batch)
   if (options.generateProducts) {
-    const gen = await generateNewProducts();
-    results.push(gen.summary);
+    stepResults.push(await timed('product_generation', generateNewProducts));
   }
 
-  results.push(await postAgentNote('=== Nightly Routine Complete ==='));
+  const totalDuration = Date.now() - routineStart;
+  const slowest = stepResults.reduce((a, b) => (a.duration > b.duration ? a : b), stepResults[0]);
+  const autoFixCount = stepResults.filter(r => !r.success).length;
 
-  const fullReport = results.join('\n');
+  const fullReport = stepResults.map(r => `[${r.success ? '✅' : '❌'}] ${r.step}: ${r.summary || r.error}`).join('\n');
 
-  // Persist report for UI retrieval
+  // Persist performance log
   try {
     await pool.query(
-      `INSERT INTO routine_logs (routine_type, report, created_at) VALUES ($1, $2, NOW())`,
-      ['nightly', fullReport]
+      `INSERT INTO routine_logs (routine_type, report, duration_ms, step_durations, slowest_step, auto_fixes, created_at) 
+       VALUES ($1, $2, $3, $4, $5, $6, NOW())`,
+      [
+        'nightly',
+        fullReport,
+        totalDuration,
+        JSON.stringify(stepResults.map(({ step, duration }) => ({ step, duration }))),
+        slowest.step,
+        autoFixCount
+      ]
     );
   } catch (err) {
-    console.error('Failed to save nightly report:', err);
+    console.error('Failed to save nightly perf log:', err);
   }
 
-  return { ok: true, summary: fullReport, report: fullReport };
+  return {
+    ok: true,
+    summary: `Nightly routine completed in ${(totalDuration / 1000).toFixed(1)}s. Slowest: ${slowest.step} (${slowest.duration}ms). Issues: ${autoFixCount}.`,
+    report: fullReport,
+    performance: { totalDuration, stepResults, slowest: slowest.step, autoFixes: autoFixCount }
+  };
 }
 
 export async function runOnDemandRoutine() {
-  // Same as nightly, but with all optional steps enabled
   return runNightlyRoutine({
     rotateFeatured: true,
-    applyMargin: false, // safe default
-    generateProducts: false // don't auto-generate on demand unless explicitly asked
+    applyMargin: false,
+    generateProducts: false
   });
 }
