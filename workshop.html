@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="css/shop.css" />
   <link rel="stylesheet" href="css/animations.css" />
   <style>
-    body.nlbl-body { display: flex; min-height: 100vh; background: radial-gradient(circle at top, #0b1020, #02030a); }
+    body.nlbl-body { display: flex; flex-direction: column; min-height: 100vh; background: radial-gradient(circle at top, #0b1020, #02030a); }
     .workshop-shell { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 1.5rem; width: 100%; max-width: 1400px; margin: 2rem auto; padding: 1.5rem; color: #f5f5ff; }
     .workshop-panel { background: rgba(5, 8, 20, 0.9); border-radius: 18px; border: 1px solid rgba(120, 120, 255, 0.35); box-shadow: 0 0 40px rgba(80, 80, 255, 0.25); padding: 1.25rem 1.5rem; backdrop-filter: blur(18px); }
     .workshop-panel h2 { font-size: 1.1rem; letter-spacing: 0.08em; text-transform: uppercase; color: #a7b3ff; margin-bottom: 0.75rem; }
@@ -33,9 +33,31 @@
     .mystic-input-row input { flex: 1; border-radius: 999px; border: 1px solid rgba(140, 140, 255, 0.6); padding: 0.55rem 0.8rem; background: rgba(5, 8, 20, 0.9); color: #f5f5ff; font-size: 0.85rem; }
     .mystic-input-row button { border-radius: 999px; border: none; padding: 0.55rem 0.9rem; background: linear-gradient(135deg, #ff9cfb, #7f5dff); color: #050814; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
     @keyframes pulse-orb { 0%, 100% { transform: scale(1); box-shadow: 0 0 14px rgba(255, 160, 255, 0.7); } 50% { transform: scale(1.08); box-shadow: 0 0 26px rgba(255, 200, 255, 1); } }
+
+    /* Status Strip */
+    .status-strip { width: 100%; padding: 0.5rem 1.5rem; display: flex; align-items: center; gap: 1rem; font-size: 0.85rem; background: rgba(5, 8, 20, 0.95); border-bottom: 1px solid rgba(120, 120, 255, 0.2); }
+    .status-dot { width: 10px; height: 10px; border-radius: 50%; background: #666; box-shadow: 0 0 8px #666; }
+    .status-dot.green { background: #2ecc71; box-shadow: 0 0 8px #2ecc71; }
+    .status-dot.yellow { background: #f1c40f; box-shadow: 0 0 8px #f1c40f; }
+    .status-dot.red { background: #e74c3c; box-shadow: 0 0 8px #e74c3c; }
+    .status-text { color: #a7b3ff; font-family: 'Space Grotesk', monospace; }
+
+    /* Audit panel */
+    .audit-panel { display: none; margin-top: 1rem; padding: 0.75rem; border-radius: 10px; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(120, 120, 255, 0.15); font-size: 0.8rem; overflow: auto; max-height: 200px; }
+    .audit-panel.visible { display: block; }
+    .audit-json { white-space: pre-wrap; color: #a7d5ff; font-family: 'Space Grotesk', monospace; line-height: 1.4; }
+    .audit-json .key { color: #ff9cfb; }
+    .audit-json .string { color: #a7d5ff; }
+    .audit-json .number { color: #f1c40f; }
+    .audit-json .boolean { color: #2ecc71; }
   </style>
 </head>
 <body class="nlbl-body">
+  <div class="status-strip">
+    <div class="status-dot" id="health-dot"></div>
+    <span class="status-text" id="health-text">Initializing…</span>
+  </div>
+
   <script>
     (async () => {
       const res = await fetch("/api/auth?action=verify");
@@ -62,6 +84,13 @@
         <button class="workshop-tool-btn" data-tool="test-endpoints">Test API Endpoints</button>
       </div>
     </section>
+
+    <!-- Audit Panel (collapsible) -->
+    <div class="audit-panel" id="audit-panel">
+      <div class="workshop-section-title">System Audit</div>
+      <pre id="audit-output" class="audit-json">{}</pre>
+      <button id="audit-run-btn" style="margin-top:0.75rem;padding:0.4rem 0.7rem;border-radius:999px;border:1px solid rgba(140,140,255,0.5);background:rgba(120,120,255,0.2);color:#f5f5ff;font-size:0.75rem;cursor:pointer;">Refresh Audit</button>
+    </div>
 
     <!-- Right: Lil Mystic -->
     <section class="workshop-panel" id="lil-mystic-panel">

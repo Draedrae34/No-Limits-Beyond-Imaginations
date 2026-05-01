@@ -126,6 +126,25 @@ export async function generateNewProducts() {
 
         await printify('create', { productData: payload });
         createdCount++;
+
+        // Also insert into local products DB for featured/management
+        try {
+          const printifyProductId = String(blueprint.id) + '_' + Date.now();
+          await pool.query(
+            `INSERT INTO products (printify_id, name, description, price, category, image_url, active, featured) 
+             VALUES ($1, $2, $3, $4, $5, $6, true, false)`,
+            [
+              printifyProductId,
+              payload.title,
+              payload.description,
+              basePrice / 100,
+              type,
+              selectedLogo.publicUrl
+            ]
+          );
+        } catch (dbErr) {
+          console.warn('Failed to insert product into local DB:', dbErr.message);
+        }
       } catch (e) {
         errors.push(e.message);
       }
@@ -200,31 +219,70 @@ export async function runSiteAudit() {
   };
 }
 
-// ⭐ 5. testEndpoints() – pings all API routes
-export async function testEndpoints() {
-  const endpoints = [
-    '/api/printify?action=status',
-    '/api/printify?action=catalog',
-    '/api/printify?action=list',
-    '/api/printify?action=sync',
-    '/api/printify?action=import',
-    '/api/orders',
-    '/api/messages',
-    '/api/gallery',
-    '/api/products-list',
-  ];
+// ⭐ 5. Monetary + shop integration tools
 
-  const results = {};
+// Toggle featured status on recent products
+export async function featureRecentProducts(count = 3) {
+  try {
+    const result = await pool.query(
+      `UPDATE products SET featured = false WHERE featured = true`
+    );
+    const resetCount = result.rowCount || 0;
 
-  for (const url of endpoints) {
-    try {
-      const res = await fetch(url);
-      results[url] = res.ok ? 'OK' : `ERROR ${res.status}`;
-    } catch (err) {
-      results[url] = `FAIL: ${err.message}`;
+    const recent = await pool.query(
+      `SELECT id FROM products WHERE active = true ORDER BY created_at DESC LIMIT $1`,
+      [parseInt(count)]
+    );
+    const ids = recent.rows.map(r => r.id);
+
+    if (ids.length) {
+      await pool.query(
+        `UPDATE products SET featured = true WHERE id = ANY($1)`,
+        [ids]
+      );
     }
-  }
 
-  const passed = Object.values(results).filter(v => v === 'OK').length;
-  return { ok: true, summary: `Endpoint test: ${passed}/${endpoints.length} OK\n` + Object.entries(results).map(([k, v]) => `  ${k}: ${v}`).join('\n') };
+    return { 
+      ok: true, 
+      summary: `Featured ${ids.length} new products (reset ${resetCount} previous).` 
+    };
+  } catch (err) {
+    console.error('featureRecentProducts error:', err);
+    return { ok: false, summary: `Feature toggle failed: ${err.message}` };
+  }
+}
+
+// Set specific product as featured by ID
+export async function setFeatured(productId, isFeatured = true) {
+  try {
+    await pool.query(
+      `UPDATE products SET featured = $1 WHERE id = $2`,
+      [isFeatured, productId]
+    );
+    return { 
+      ok: true, 
+      summary: `Product ${productId} featured = ${isFeatured}` 
+    };
+  } catch (err) {
+    return { ok: false, summary: `Set featured failed: ${err.message}` };
+  }
+}
+
+// Re-price products with margin logic
+export async function applyMargin(markupPercent = 20) {
+  try {
+    const products = await pool.query('SELECT id, price FROM products WHERE active = true');
+    const updated = [];
+    for (const p of products.rows) {
+      const newPrice = Math.round(p.price * (1 + markupPercent / 100) * 100) / 100;
+      await pool.query('UPDATE products SET price = $1 WHERE id = $2', [newPrice, p.id]);
+      updated.push(p.id);
+    }
+    return { 
+      ok: true, 
+      summary: `Applied ${markupPercent}% margin to ${updated.length} products.` 
+    };
+  } catch (err) {
+    return { ok: false, summary: `Margin apply failed: ${err.message}` };
+  }
 }

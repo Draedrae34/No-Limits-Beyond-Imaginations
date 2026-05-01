@@ -6,6 +6,7 @@ export function ensureProductsSchema(pool) {
       await pool.query(`
         CREATE TABLE IF NOT EXISTS products (
           id SERIAL PRIMARY KEY,
+          printify_id TEXT,
           name TEXT NOT NULL,
           description TEXT DEFAULT '',
           price NUMERIC NOT NULL,
@@ -13,18 +14,39 @@ export function ensureProductsSchema(pool) {
           image_filename TEXT,
           image_url TEXT,
           active BOOLEAN DEFAULT TRUE,
+          featured BOOLEAN DEFAULT FALSE,
           created_at TIMESTAMPTZ DEFAULT NOW()
         )
       `);
 
+      await pool.query(`ALTER TABLE products ADD COLUMN IF NOT EXISTS printify_id TEXT`);
       await pool.query(`ALTER TABLE products ADD COLUMN IF NOT EXISTS description TEXT DEFAULT ''`);
       await pool.query(`ALTER TABLE products ADD COLUMN IF NOT EXISTS category TEXT`);
       await pool.query(`ALTER TABLE products ADD COLUMN IF NOT EXISTS image_filename TEXT`);
       await pool.query(`ALTER TABLE products ADD COLUMN IF NOT EXISTS image_url TEXT`);
       await pool.query(`ALTER TABLE products ADD COLUMN IF NOT EXISTS active BOOLEAN DEFAULT TRUE`);
       await pool.query(`ALTER TABLE products ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ DEFAULT NOW()`);
+      await pool.query(`ALTER TABLE products ADD COLUMN IF NOT EXISTS featured BOOLEAN DEFAULT FALSE`);
+
+      // Action logs for Lil Mystic tool usage
+      await pool.query(`
+        CREATE TABLE IF NOT EXISTS action_logs (
+          id SERIAL PRIMARY KEY,
+          user_email TEXT NOT NULL,
+          action TEXT NOT NULL,
+          outcome TEXT NOT NULL,
+          ip TEXT,
+          user_agent TEXT,
+          created_at TIMESTAMPTZ DEFAULT NOW()
+        )
+      `);
+      await pool.query(`CREATE INDEX IF NOT EXISTS idx_action_logs_user ON action_logs(user_email)`);
+      await pool.query(`CREATE INDEX IF NOT EXISTS idx_action_logs_created ON action_logs(created_at DESC)`);
     })();
   }
+
+  return schemaReadyPromise;
+}
 
   return schemaReadyPromise;
 }

@@ -22,7 +22,7 @@ export default async function handler(req, res) {
   if (req.method === "PUT") {
     try {
       const body = req.body || {};
-      const { name, description, price, category } = body;
+      const { name, description, price, category, featured } = body;
       const active =
         typeof body.active === "boolean" ? body.active : null;
       const { imageUrl } = pickIncomingImageUrl(body);
@@ -35,8 +35,9 @@ export default async function handler(req, res) {
              category = COALESCE($4, category),
              image_url = COALESCE($5, image_url, image_filename),
              image_filename = COALESCE($5, image_filename, image_url),
-             active = COALESCE($6, active)
-         WHERE id = $7
+             active = COALESCE($6, active),
+             featured = COALESCE($7, featured)
+         WHERE id = $8
          RETURNING *`,
         [
           name ?? null,
@@ -45,6 +46,7 @@ export default async function handler(req, res) {
           category ?? null,
           imageUrl ?? null,
           active,
+          featured,
           id,
         ]
       );
