@@ -11,6 +11,8 @@ const routineRunBtn = document.getElementById('routine-run-btn');
 const performancePanel = document.getElementById('performance-panel');
 const perfStats = document.getElementById('perf-stats');
 const perfRefreshBtn = document.getElementById('perf-refresh-btn');
+const routineMetricsEl = document.getElementById('routine-metrics');
+const latencyMetricsEl = document.getElementById('latency-metrics');
 
 function setHealth(status) {
   if (!healthDot || !healthText) return;
@@ -26,6 +28,20 @@ function setHealth(status) {
     healthDot.classList.add('red');
     healthText.textContent = 'System Error';
   }
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
 }
 
 function escapeHtml(str) {
@@ -189,6 +205,64 @@ async function loadPerformanceMetrics() {
   }
 }
 
+async function loadRoutineMetrics() {
+  try {
+    const res = await fetch('/api/routine-logs?limit=20');
+    if (!res.ok) return;
+    const data = await res.json();
+    const logs = data.logs || [];
+    if (!routineMetricsEl) return;
+
+    routineMetricsEl.innerHTML = '';
+    if (!logs.length) {
+      routineMetricsEl.textContent = 'No routine data yet.';
+      return;
+    }
+
+    logs.forEach(log => {
+      const row = document.createElement('div');
+      row.className = 'workshop-product-row';
+      row.innerHTML = `
+        <span>${log.routine_type} · ${new Date(log.created_at).toLocaleString()}</span>
+        <span style="opacity:0.7;">${log.duration_ms}ms · slowest: ${log.slowest_step || '—'} · auto-fixes: ${log.auto_fixes || 0}</span>
+      `;
+      routineMetricsEl.appendChild(row);
+    });
+  } catch (err) {
+    if (routineMetricsEl) routineMetricsEl.textContent = `Error: ${err.message}`;
+  }
+}
+
+async function loadLatencyMetrics() {
+  try {
+    const res = await fetch('/api/last-audit');
+    if (!res.ok) return;
+    const data = await res.json();
+    const endpoints = data.endpoints || {};
+    if (!latencyMetricsEl) return;
+
+    latencyMetricsEl.innerHTML = '';
+
+    if (!Object.keys(endpoints).length) {
+      latencyMetricsEl.textContent = 'No latency data available yet.';
+      return;
+    }
+
+    Object.entries(endpoints).forEach(([name, info]) => {
+      const row = document.createElement('div');
+      row.className = 'workshop-product-row';
+      const color = (info.latency || 0) > 500 ? '#ff6b6b' : (info.latency || 0) > 250 ? '#ffd166' : '#4ade80';
+      row.innerHTML = `
+        <span>${name}</span>
+        <span style="color:${color};">${info.latency}ms · ${info.status}</span>
+      `;
+      latencyMetricsEl.appendChild(row);
+    });
+  } catch (err) {
+    if (latencyMetricsEl) latencyMetricsEl.textContent = `Error: ${err.message}`;
+  }
+}
+
 async function loadWorkshopProducts() {
   try {
     const res = await fetch('/api/printify?action=catalog');
@@ -220,8 +294,12 @@ document.addEventListener('DOMContentLoaded', () => {
   loadAudit();
   loadRoutineLogs();
   loadPerformanceMetrics();
+  loadRoutineMetrics();
+  loadLatencyMetrics();
   window.NLBL = window.NLBL || {};
   window.NLBL.loadWorkshopProducts = loadWorkshopProducts;
+  window.NLBL.loadRoutineMetrics = loadRoutineMetrics;
+  window.NLBL.loadLatencyMetrics = loadLatencyMetrics;
 
   if (auditBtn) {
     auditBtn.addEventListener('click', () => {
@@ -246,6 +324,8 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
           loadRoutineLogs();
           loadPerformanceMetrics();
+          loadRoutineMetrics();
+          loadLatencyMetrics();
         }, 2000);
       } catch (err) {
         console.error('Routine trigger failed:', err);
@@ -259,6 +339,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (perfRefreshBtn) {
     perfRefreshBtn.addEventListener('click', () => {
       loadPerformanceMetrics();
+      loadRoutineMetrics();
+      loadLatencyMetrics();
     });
   }
 

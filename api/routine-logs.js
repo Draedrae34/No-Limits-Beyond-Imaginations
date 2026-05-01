@@ -18,7 +18,10 @@ export default async function handler(req, res) {
     await ensureProductsSchema(pool);
     const limit = parseInt(req.query.limit) || 10;
     const result = await pool.query(
-      `SELECT id, routine_type, created_at, LEFT(report, 500) as report_preview 
+      `SELECT 
+         id, routine_type, created_at, 
+         duration_ms, slowest_step, auto_fixes,
+         LEFT(report, 600) as report_preview 
        FROM routine_logs 
        ORDER BY created_at DESC 
        LIMIT $1`,

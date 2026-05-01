@@ -6,6 +6,8 @@ import { ensureProductsSchema } from '../src/utils/products.js';
 import { loadLogos } from '../utils/logo-loader.js';
 import fs from 'fs/promises';
 import path from 'path';
+import fs from 'fs/promises';
+import path from 'path';
 
 // Helper: classify product type for price/margin logic
 function classifyProduct(title) {
@@ -158,12 +160,41 @@ export async function generateNewProducts() {
   }
 }
 
-// ⭐ 4. runSiteAudit() – deeper audit: env, DB counts, filesystem, Printify, logo dir
+// Helper: timed fetch for latency tracking
+async function timedFetch(name, url, resultsObj) {
+  const start = Date.now();
+  try {
+    const res = await fetch(url);
+    const latency = Date.now() - start;
+    resultsObj[name] = {
+      status: res.ok ? 'OK' : `ERROR ${res.status}`,
+      latency,
+      timestamp: new Date().toISOString()
+    };
+  } catch (err) {
+    const latency = Date.now() - start;
+    resultsObj[name] = {
+      status: `FAIL: ${err.message}`,
+      latency,
+      timestamp: new Date().toISOString()
+    };
+  }
+}
+
+// ⭐ 4. runSiteAudit() – deeper audit with endpoint latency tracking
 export async function runSiteAudit() {
-  const report = {};
+  const results = { endpoints: {} };
+
+  // Endpoint latency checks
+  await timedFetch('shop', '/api/shop', results.endpoints);
+  await timedFetch('printify-status', '/api/printify?action=status', results.endpoints);
+  await timedFetch('products-list', '/api/products-list', results.endpoints);
+  await timedFetch('messages', '/api/messages', results.endpoints);
+  await timedFetch('orders', '/api/orders', results.endpoints);
+  await timedFetch('gallery', '/api/gallery', results.endpoints);
 
   // Env checks
-  report.env = {
+  results.env = {
     PRINTIFY_API_KEY: process.env.PRINTIFY_API_KEY ? 'SET' : 'MISSING',
     PRINTIFY_SHOP_ID: process.env.PRINTIFY_SHOP_ID ? 'SET' : 'MISSING',
     DATABASE_URL: process.env.DATABASE_URL ? 'SET' : 'MISSING',
@@ -176,21 +207,21 @@ export async function runSiteAudit() {
     const [{ count: messages }] = await pool.query('SELECT COUNT(*)::int AS count FROM messages');
     const [{ count: orders }] = await pool.query('SELECT COUNT(*)::int AS count FROM orders');
     const [{ count: gallery }] = await pool.query('SELECT COUNT(*)::int AS count FROM gallery');
-    report.db = { products, messages, orders, gallery };
+    results.db = { products, messages, orders, gallery };
   } catch (err) {
-    report.db = `ERROR: ${err.message}`;
+    results.db = `ERROR: ${err.message}`;
   }
 
   // Printify status
   try {
     const status = await printify('status');
-    report.printify = {
+    results.printify = {
       status: status?.status || 'unknown',
       shopId: process.env.PRINTIFY_SHOP_ID || 'unset',
       timestamp: status?.timestamp || 'n/a'
     };
   } catch (err) {
-    report.printify = `ERROR: ${err.message}`;
+    results.printify = `ERROR: ${err.message}`;
   }
 
   // Filesystem checks (logo dir)
@@ -198,25 +229,25 @@ export async function runSiteAudit() {
     const logoDir = path.join(process.cwd(), 'Logo_N_Galaxy_Fill_Space');
     const stats = await fs.stat(logoDir);
     const files = await fs.readdir(logoDir);
-    report.filesystem = {
+    results.filesystem = {
       logoDir: 'EXISTS',
       fileCount: files.length,
       sizeKB: Math.round((files.reduce((acc, f) => acc + stats.size, 0)) / 1024)
     };
   } catch (err) {
-    report.filesystem = `ERROR: ${err.message}`;
+    results.filesystem = `ERROR: ${err.message}`;
   }
 
-  const envOk = Object.values(report.env).filter(v => v === 'SET').length;
-  const dbOk = typeof report.db === 'object' ? 1 : 0;
-  const printOk = typeof report.printify === 'object' ? 1 : 0;
-  const fsOk = typeof report.filesystem === 'object' ? 1 : 0;
+  // Summary text (dashboard-friendly)
+  const endpointStatuses = Object.entries(results.endpoints).map(([k, v]) => `${k}:${v.status}(${v.latency}ms)`).join(' | ');
+  const envOk = Object.values(results.env).filter(v => v === 'SET').length;
+  const dbOk = typeof results.db === 'object' ? 1 : 0;
+  const printOk = typeof results.printify === 'object' ? 1 : 0;
+  const fsOk = typeof results.filesystem === 'object' ? 1 : 0;
 
-  return {
-    ok: true,
-    summary: `Audit complete: env ${envOk}/3 | db ${dbOk}/1 | printify ${printOk}/1 | fs ${fsOk}/1\n` +
-             JSON.stringify(report, null, 2)
-  };
+  const summary = `Audit: env ${envOk}/3 | db ${dbOk}/1 | printify ${printOk}/1 | fs ${fsOk}/1 | endpoints: ${endpointStatuses}`;
+
+  return { ok: true, summary, raw: results };
 }
 
 // ⭐ 5. Monetary + shop integration tools

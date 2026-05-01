@@ -43,7 +43,7 @@ export function ensureProductsSchema(pool) {
       await pool.query(`CREATE INDEX IF NOT EXISTS idx_action_logs_user ON action_logs(user_email)`);
       await pool.query(`CREATE INDEX IF NOT EXISTS idx_action_logs_created ON action_logs(created_at DESC)`);
 
-      // Routine logs for scheduled runs
+      // Routine logs for scheduled runs with performance tracking
       await pool.query(`
         CREATE TABLE IF NOT EXISTS routine_logs (
           id SERIAL PRIMARY KEY,
