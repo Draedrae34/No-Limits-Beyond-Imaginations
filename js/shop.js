@@ -1,4 +1,4 @@
-const API_URL = "/api/printify?action=catalog";
+const API_URL = "/api/shop";
 
 let fullCatalog = [];
 let filteredCatalog = [];
@@ -40,8 +40,8 @@ async function loadCatalog() {
     const res = await fetch(API_URL);
     const data = await res.json();
 
-    // Expecting { catalog: [...] }
-    fullCatalog = Array.isArray(data.catalog) ? data.catalog : [];
+    // Unified shop returns { products: [...] }
+    fullCatalog = Array.isArray(data.products) ? data.products : [];
     filteredCatalog = [...fullCatalog];
 
     buildCategoryFilters();
@@ -130,8 +130,13 @@ function createProductCard(product) {
 
   const primaryTag = Array.isArray(product.tags) && product.tags.length ? product.tags[0] : "Featured";
 
+  const featuredBadge = product.featured
+    ? `<div class="featured-badge" style="position:absolute;top:10px;left:10px;background:#ff9cfb;color:#050814;padding:4px 10px;border-radius:999px;font-size:0.75rem;font-weight:700;box-shadow:0 0 10px rgba(255,156,251,0.6);">FEATURED</div>`
+    : '';
+
   card.innerHTML = `
     <div class="product-image-wrap">
+      ${featuredBadge}
       <img src="${imageSrc}" alt="${escapeHtml(product.title || "")}" loading="lazy" />
     </div>
     <div class="product-meta-row">
@@ -172,6 +177,10 @@ function createProductCard(product) {
 }
 
 function getMinPrice(product) {
+  // Use overridden displayPrice if set
+  if (product.displayPrice) {
+    return `$${Number(product.displayPrice).toFixed(2)}`;
+  }
   if (!Array.isArray(product.variants) || !product.variants.length) return "$—";
   const enabled = product.variants.filter(v => v.is_enabled);
   const list = enabled.length ? enabled : product.variants;

@@ -42,7 +42,6 @@ async function sendToLilMystic(message, toolHint = null) {
         appendMysticMessage('I acted, but the void returned no words.', 'ai');
       }
 
-      // UI sync: refresh products panel after relevant tools
       if (data.actionsRun && Array.isArray(data.actionsRun)) {
         maybeRefreshUI(data.actionsRun);
       }
@@ -54,6 +53,12 @@ async function sendToLilMystic(message, toolHint = null) {
     mysticOrb.style.animationDuration = '2.4s';
   }
 }
+
+// Expose notification hook globally
+window.NLBL = window.NLBL || {};
+window.NLBL.lilMysticNotify = function(msg) {
+  appendMysticMessage(msg, 'ai');
+};
 
 function maybeRefreshUI(actionsRun) {
   if (!window.NLBL || typeof window.NLBL.loadWorkshopProducts !== 'function') return;

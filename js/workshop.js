@@ -106,4 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
       loadAudit();
     });
   }
+
+  // Start Workshop Intelligence Layer heartbeat
+  if (typeof startHeartbeat === 'function') {
+    startHeartbeat(45000); // every 45 seconds
+  }
 });
