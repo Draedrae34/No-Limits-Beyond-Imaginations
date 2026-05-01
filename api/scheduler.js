@@ -1,35 +1,32 @@
-// api/scheduler.js - Dynamic Adaptive Scheduler
-// Reads schedule from adaptive-schedule.json and auto-adjusts when file changes
+// api/scheduler.js - Dynamic Adaptive Scheduler (DB-backed, Vercel-compatible)
+// Reads schedule from adaptive_schedule DB table and auto-adjusts when changed
 import cron from 'node-cron';
 import { runHourlyRoutine, runNightlyRoutine } from './workshop-routines.js';
-import fs from 'fs/promises';
-import path from 'path';
-
-const SCHEDULE_PATH = path.join(process.cwd(), 'adaptive-schedule.json');
+import pool from '../src/utils/db.js';
+import { ensureProductsSchema } from '../src/utils/products.js';
 
 let scheduleState = null;
 let hourlyJob = null;
 let nightlyJob = null;
 
 async function loadSchedule() {
-  try {
-    const raw = await fs.readFile(SCHEDULE_PATH, 'utf-8');
-    return JSON.parse(raw);
-  } catch (err) {
-    console.error('Failed to load adaptive schedule:', err);
+  await ensureProductsSchema(pool);
+  const res = await pool.query(`SELECT schedule FROM adaptive_schedule WHERE id = 1`);
+  if (res.rows.length === 0) {
     return null;
   }
+  const raw = res.rows[0].schedule;
+  const schedule = typeof raw === 'string' ? JSON.parse(raw) : raw;
+  return schedule;
 }
 
 function scheduleJob(name, cronExpression, fn) {
-  // Clear existing
   if (name === 'hourly' && hourlyJob) {
     hourlyJob.destroy();
   } else if (name === 'nightly' && nightlyJob) {
     nightlyJob.destroy();
   }
 
-  // Create new job
   const job = cron.schedule(cronExpression, async () => {
     console.log(`[${new Date().toISOString()}] Running ${name} routine...`);
     try {
@@ -65,22 +62,22 @@ function applySchedule(schedule) {
 
 async function init() {
   console.log('🤖 Lil Mystic Adaptive Scheduler starting...');
+  await ensureProductsSchema(pool);
 
-  // Load initial schedule
   scheduleState = await loadSchedule();
   if (!scheduleState) {
-    // Fallback to defaults
     scheduleState = {
       schedule: {
         hourly: { cron: '0 * * * *' },
         nightly: { cron: '0 2 * * *' }
-      }
+      },
+      history: []
     };
   }
 
   applySchedule(scheduleState);
 
-  // Watch for schedule changes (poll every 30 seconds)
+  // Poll for schedule changes every 30 seconds
   setInterval(async () => {
     try {
       const newSchedule = await loadSchedule();

@@ -35,6 +35,19 @@ function deleteLegacyLocalFile(filename) {
 }
 
 export default async function handler(req, res) {
+  // CORS
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') return res.status(200).end();
+
+  // Auth for write operations
+  if (req.method === 'POST' || req.method === 'DELETE') {
+    const cookies = req.headers.cookie || '';
+    const isAuth = cookies.split(';').some(c => c.trim() === 'nlbl_auth=authenticated');
+    if (!isAuth) return res.status(401).json({ error: 'Authentication required' });
+  }
+
   if (req.method === "GET") {
     try {
       const result = await pool.query(

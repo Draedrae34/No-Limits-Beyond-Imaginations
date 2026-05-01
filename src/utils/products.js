@@ -72,29 +72,112 @@ export function ensureProductsSchema(pool) {
       `);
       await pool.query(`CREATE INDEX IF NOT EXISTS idx_optimization_logs_created ON optimization_logs(created_at DESC)`);
 
-      // Extend orders table for Stripe payments
+      // Extend orders table for Stripe payments (only once)
       await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS paid BOOLEAN DEFAULT FALSE`);
       await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_intent_id TEXT`);
       await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS status TEXT DEFAULT 'pending'`);
       await pool.query(`CREATE INDEX IF NOT EXISTS idx_orders_payment_intent ON orders(payment_intent_id)`);
 
-      // Extend orders table for Stripe payments
-      await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS paid BOOLEAN DEFAULT FALSE`);
-      await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_intent_id TEXT`);
-      await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS status TEXT DEFAULT 'pending'`);
-      await pool.query(`CREATE INDEX IF NOT EXISTS idx_orders_payment_intent ON orders(payment_intent_id)`);
+      // Adaptive config table (single row, id=1)
+      await pool.query(`
+        CREATE TABLE IF NOT EXISTS adaptive_config (
+          id SERIAL PRIMARY KEY CHECK (id = 1),
+          config JSONB NOT NULL,
+          cache_mode_enabled BOOLEAN DEFAULT FALSE,
+          created_at TIMESTAMPTZ DEFAULT NOW(),
+          updated_at TIMESTAMPTZ DEFAULT NOW()
+        )
+      `);
+      await pool.query(`CREATE INDEX IF NOT EXISTS idx_adaptive_config_id ON adaptive_config(id)`);
 
-      // Extend orders table for Stripe payments
-      await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS paid BOOLEAN DEFAULT FALSE`);
-      await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_intent_id TEXT`);
-      await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS status TEXT DEFAULT 'pending'`);
-      await pool.query(`CREATE INDEX IF NOT EXISTS idx_orders_payment_intent ON orders(payment_intent_id)`);
+      // Default config and schedule objects
+      const defaultConfig = {
+        name: "adaptive-config",
+        version: "1.0.0",
+        description: "NLBL Adaptive Optimization Layer configuration",
+        thresholds: {
+          autoFixEscalatePerHour: 10,
+          costSpikePercentage: 50,
+          predictionConfidence: 0.8,
+          routineDurationIncreasePercent: 30,
+          latencyIncreasePercent: 50
+        },
+        safeRanges: {
+          batchSize: { min: 1, max: 10, default: 5 },
+          scheduleShiftHours: { max: 2 },
+          catalogThrottleThresholdMs: 5000,
+          routineDurationThresholdMs: 30000
+        },
+        optimization: {
+          enableAutoTuning: true,
+          enablePredictiveAlerts: true,
+          enableAdaptiveScheduling: true,
+          enableResourceTracking: true,
+          enableAIProductOptimization: true
+        },
+        cost: {
+          vercelRatePerMs: 0.0000002,
+          monthlyBudgetAlertUSD: 10.00
+        }
+      };
 
-      // Extend orders table for Stripe payments
-      await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS paid BOOLEAN DEFAULT FALSE`);
-      await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_intent_id TEXT`);
-      await pool.query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS status TEXT DEFAULT 'pending'`);
-      await pool.query(`CREATE INDEX IF NOT EXISTS idx_orders_payment_intent ON orders(payment_intent_id)`);
+      // Insert default config if none exists (safe for concurrent initialization)
+      await pool.query(
+        `INSERT INTO adaptive_config (id, config, cache_mode_enabled) VALUES (1, $1, false)
+         ON CONFLICT (id) DO NOTHING`,
+        [JSON.stringify(defaultConfig)]
+      );
+
+      // Adaptive schedule table (single row, id=1)
+      await pool.query(`
+        CREATE TABLE IF NOT EXISTS adaptive_schedule (
+          id SERIAL PRIMARY KEY CHECK (id = 1),
+          schedule JSONB NOT NULL,
+          updated_at TIMESTAMPTZ DEFAULT NOW()
+        )
+      `);
+      await pool.query(`CREATE INDEX IF NOT EXISTS idx_adaptive_schedule_id ON adaptive_schedule(id)`);
+
+      // Default schedule object
+      const defaultSchedule = {
+        name: "adaptive-schedule",
+        version: "1.0.0",
+        description: "Dynamic schedule adjustments by NLBL adaptive engine",
+        schedule: {
+          hourly: {
+            enabled: true,
+            cron: "0 * * * *",
+            original: "0 * * * *",
+            lastAdjusted: null,
+            adjustmentReason: null
+          },
+          nightly: {
+            enabled: true,
+            cron: "0 2 * * *",
+            original: "0 2 * * *",
+            lastAdjusted: null,
+            adjustmentReason: null
+          }
+        },
+        history: []
+      };
+
+      // Insert default schedule if none exists (safe for concurrent initialization)
+      await pool.query(
+        `INSERT INTO adaptive_schedule (id, schedule) VALUES (1, $1)
+         ON CONFLICT (id) DO NOTHING`,
+        [JSON.stringify(defaultSchedule)]
+      );
+
+      // Cached catalog table (single row, id=1)
+      await pool.query(`
+        CREATE TABLE IF NOT EXISTS cached_catalog (
+          id SERIAL PRIMARY KEY CHECK (id = 1),
+          catalog JSONB,
+          cached_at TIMESTAMPTZ DEFAULT NOW()
+        )
+      `);
+      await pool.query(`CREATE INDEX IF NOT EXISTS idx_cached_catalog_id ON cached_catalog(id)`);
     })();
   }
 

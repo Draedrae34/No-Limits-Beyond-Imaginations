@@ -8,6 +8,11 @@ export default async function(req, res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
+  // Auth check (admin only)
+  const cookies = req.headers.cookie || '';
+  const isAuth = cookies.split(';').some(c => c.trim() === 'nlbl_auth=authenticated');
+  if (!isAuth) return res.status(401).json({ error: 'Authentication required' });
+
   // Parse body if it's a string (Vercel wraps body in JSON string)
   let body = req.body || {};
   if (typeof body === 'string') {

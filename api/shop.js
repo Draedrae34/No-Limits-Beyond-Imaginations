@@ -37,81 +37,121 @@ async function loadCatalogCache() {
   }
 }
 
+async function getMergedCatalog(cacheMode) {
+  let printifyProducts;
+  if (cacheMode) {
+    const cached = await loadCatalogCache();
+    if (cached && cached.length) {
+      printifyProducts = cached;
+    } else {
+      const data = await printify('catalog');
+      printifyProducts = data?.catalog || [];
+      await saveCatalogCache(printifyProducts);
+    }
+  } else {
+    const data = await printify('catalog');
+    printifyProducts = data?.catalog || [];
+    await saveCatalogCache(printifyProducts);
+  }
+
+  const dbResult = await pool.query(`
+    SELECT printify_id, featured, price AS local_price, active AS local_active
+    FROM products
+    WHERE active = true OR featured = true
+  `);
+
+  const dbOverrides = {};
+  dbResult.rows.forEach(row => {
+    if (row.printify_id) {
+      dbOverrides[row.printify_id] = {
+        featured: row.featured,
+        localPrice: row.local_price,
+        active: row.local_active
+      };
+    }
+  });
+
+  const merged = printifyProducts.map(p => {
+    const override = dbOverrides[p.id] || {};
+    return {
+      ...p,
+      featured: !!override.featured,
+      localPrice: override.localPrice || null,
+      displayPrice: override.localPrice || p.price,
+    };
+  });
+
+  return merged.sort((a, b) => {
+    if (a.featured && !b.featured) return -1;
+    if (!a.featured && b.featured) return 1;
+    return (a.title || '').localeCompare(b.title || '');
+  });
+}
+
+const actions = {
+  list: async (req, res, cacheMode) => {
+    const products = await getMergedCatalog(cacheMode);
+    return res.status(200).json({
+      success: true,
+      products,
+      total: products.length,
+      featuredCount: products.filter(p => p.featured).length,
+      cacheMode
+    });
+  },
+
+  get: async (req, res, cacheMode) => {
+    const { id } = req.query;
+    const products = await getMergedCatalog(cacheMode);
+    const product = products.find(p => p.id === id);
+    if (!product) return res.status(404).json({ error: 'Product not found in cosmic stream' });
+    return res.status(200).json({ success: true, product });
+  },
+
+  featured: async (req, res, cacheMode) => {
+    const products = await getMergedCatalog(cacheMode);
+    const featured = products.filter(p => p.featured);
+    return res.status(200).json({ success: true, products: featured });
+  },
+
+  search: async (req, res, cacheMode) => {
+    const { q } = req.query;
+    const products = await getMergedCatalog(cacheMode);
+    const filtered = products.filter(p => 
+      p.title?.toLowerCase().includes(q?.toLowerCase()) || 
+      p.description?.toLowerCase().includes(q?.toLowerCase())
+    );
+    return res.status(200).json({ success: true, products: filtered });
+  },
+
+  syncCatalog: async (req, res) => {
+    console.log('🌌 [NLBL Shop] Force-syncing cosmic catalog...');
+    const data = await printify('catalog');
+    const products = data?.catalog || [];
+    await saveCatalogCache(products);
+    return res.status(200).json({ success: true, message: 'Catalog synced with the void' });
+  }
+};
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();
-  if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
 
+  const { action = 'list' } = req.query;
   const cacheMode = await isCacheEnabled();
 
   try {
-    let printifyProducts;
-
-    if (cacheMode) {
-      // Try cache first
-      const cached = await loadCatalogCache();
-      if (cached && cached.length) {
-        printifyProducts = cached;
-      } else {
-        // Cache miss but in cache mode → still fetch live (graceful degradation)
-        const data = await printify('catalog');
-        printifyProducts = data?.catalog || [];
-        await saveCatalogCache(printifyProducts);
-      }
-    } else {
-      // Live mode — fetch fresh
-      const data = await printify('catalog');
-      printifyProducts = data?.catalog || [];
-      // Also update cache for future use
-      await saveCatalogCache(printifyProducts);
+    if (actions[action]) {
+      console.log(`✨ [NLBL Engine] Action triggered: ${action}`);
+      return await actionsaction;
     }
-
-    // Fetch local DB overrides
-    const dbResult = await pool.query(`
-      SELECT printify_id, featured, price AS local_price, active AS local_active
-      FROM products
-      WHERE active = true OR featured = true
-    `);
-    const dbOverrides = {};
-    dbResult.rows.forEach(row => {
-      if (row.printify_id) {
-        dbOverrides[row.printify_id] = {
-          featured: row.featured,
-          localPrice: row.local_price,
-          active: row.local_active
-        };
-      }
-    });
-
-    // Merge
-    const merged = printifyProducts.map(p => {
-      const override = dbOverrides[p.id] || {};
-      return {
-        ...p,
-        featured: !!override.featured,
-        localPrice: override.localPrice || null,
-        displayPrice: override.localPrice || p.price,
-      };
-    });
-
-    // Sort: featured first, then title
-    merged.sort((a, b) => {
-      if (a.featured && !b.featured) return -1;
-      if (!a.featured && b.featured) return 1;
-      return (a.title || '').localeCompare(b.title || '');
-    });
-
-    return res.status(200).json({
-      products: merged,
-      total: merged.length,
-      featuredCount: merged.filter(p => p.featured).length,
-      timestamp: new Date().toISOString(),
-      cacheMode
-    });
+    return res
+      .status(400)
+      .json({ error: `Action '${action}' is unknown in this dimension` });
   } catch (err) {
-    console.error('Shop merge error:', err);
+    console.error('🌌 [NLBL Engine] Cosmic Shop error:', err);
     return res.status(500).json({ error: err.message });
   }
 }

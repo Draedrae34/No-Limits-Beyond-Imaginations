@@ -11,6 +11,11 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed." });
   }
 
+  // Auth check
+  const cookies = req.headers.cookie || "";
+  const isAuth = cookies.split(';').some(c => c.trim() === 'nlbl_auth=authenticated');
+  if (!isAuth) return res.status(401).json({ error: 'Authentication required' });
+
   var apiKey = process.env.PRINTIFY_API_KEY;
   var shopId = process.env.PRINTIFY_SHOP_ID;
 
