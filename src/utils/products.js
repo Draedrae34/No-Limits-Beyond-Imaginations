@@ -42,6 +42,18 @@ export function ensureProductsSchema(pool) {
       `);
       await pool.query(`CREATE INDEX IF NOT EXISTS idx_action_logs_user ON action_logs(user_email)`);
       await pool.query(`CREATE INDEX IF NOT EXISTS idx_action_logs_created ON action_logs(created_at DESC)`);
+
+      // Routine logs for scheduled runs
+      await pool.query(`
+        CREATE TABLE IF NOT EXISTS routine_logs (
+          id SERIAL PRIMARY KEY,
+          routine_type TEXT NOT NULL,
+          report TEXT NOT NULL,
+          created_at TIMESTAMPTZ DEFAULT NOW()
+        )
+      `);
+      await pool.query(`CREATE INDEX IF NOT EXISTS idx_routine_logs_type ON routine_logs(routine_type)`);
+      await pool.query(`CREATE INDEX IF NOT EXISTS idx_routine_logs_created ON routine_logs(created_at DESC)`);
     })();
   }
 

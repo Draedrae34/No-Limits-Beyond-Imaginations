@@ -1,5 +1,6 @@
 // api/agent.js - Lil Mystic's brain with intent parser + sequence runner + auth + logging
 import { runCatalogSync, cleanupGibberish, generateNewProducts, runSiteAudit, testEndpoints, featureRecentProducts, setFeatured, applyMargin } from './workshop-product-tools.js';
+import { runOnDemandRoutine } from './workshop-routines.js';
 import pool from '../src/utils/db.js';
 
 const INTENTS = [
@@ -10,6 +11,7 @@ const INTENTS = [
   { keys: ['test', 'endpoint', 'ping', 'api'], name: 'Test API endpoints', fn: testEndpoints },
   { keys: ['feature', 'highlight', 'showcase'], name: 'Feature recent products', fn: () => featureRecentProducts(3) },
   { keys: ['margin', 'price', 'reprice'], name: 'Apply margin markup', fn: () => applyMargin(20) },
+  { keys: ['routine', 'sweep', 'full system', 'nightly'], name: 'Run full system routine', fn: runOnDemandRoutine },
 ];
 
 async function getCurrentUser(req) {

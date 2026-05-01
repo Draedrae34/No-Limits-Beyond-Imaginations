@@ -5,6 +5,9 @@ const healthText = document.getElementById('health-text');
 const auditPanel = document.getElementById('audit-panel');
 const auditOutput = document.getElementById('audit-output');
 const auditBtn = document.getElementById('audit-run-btn');
+const routinePanel = document.getElementById('routine-panel');
+const routineLogs = document.getElementById('routine-logs');
+const routineRunBtn = document.getElementById('routine-run-btn');
 
 function setHealth(status) {
   if (!healthDot || !healthText) return;
@@ -69,6 +72,38 @@ async function loadAudit() {
   }
 }
 
+async function loadRoutineLogs() {
+  try {
+    const res = await fetch('/api/routine-logs?limit=10');
+    if (!res.ok) return;
+    const data = await res.json();
+    const logs = data.logs || [];
+    if (!routineLogs) return;
+
+    routineLogs.innerHTML = '';
+    if (!logs.length) {
+      routineLogs.textContent = 'No routine logs yet.';
+      return;
+    }
+
+    logs.forEach(log => {
+      const div = document.createElement('div');
+      div.style.cssText = 'margin-bottom:0.75rem;padding:0.5rem;background:rgba(0,0,0,0.3);border-radius:8px;border-left:3px solid #ff9cfb;';
+      div.innerHTML = `
+        <div style="font-size:0.75rem;color:#a7b3ff;margin-bottom:0.25rem;">
+          ${log.routine_type} — ${new Date(log.created_at).toLocaleString()}
+        </div>
+        <div style="font-size:0.8rem;color:#c9d0ff;white-space:pre-wrap;word-break:break-word;">
+          ${escapeHtml(String(log.report_preview || '').slice(0, 300))}
+        </div>
+      `;
+      routineLogs.appendChild(div);
+    });
+  } catch (err) {
+    if (routineLogs) routineLogs.textContent = `Error loading logs: ${err.message}`;
+  }
+}
+
 async function loadWorkshopProducts() {
   try {
     const res = await fetch('/api/printify?action=catalog');
@@ -98,12 +133,39 @@ async function loadWorkshopProducts() {
 document.addEventListener('DOMContentLoaded', () => {
   loadWorkshopProducts();
   loadAudit();
+  loadRoutineLogs();
   window.NLBL = window.NLBL || {};
   window.NLBL.loadWorkshopProducts = loadWorkshopProducts;
 
   if (auditBtn) {
     auditBtn.addEventListener('click', () => {
       loadAudit();
+    });
+  }
+
+  if (routineRunBtn) {
+    routineRunBtn.addEventListener('click', async () => {
+      routineRunBtn.textContent = 'Running…';
+      routineRunBtn.disabled = true;
+      try {
+        const res = await fetch('/api/agent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: 'run full system routine', toolHint: null })
+        });
+        const data = await res.json();
+        if (data.messages && Array.isArray(data.messages)) {
+          // Show last message in chat (already handled by lil-mystic)
+          console.log('Routine result:', data.messages[data.messages.length - 1]);
+        }
+        // Refresh logs after delay
+        setTimeout(loadRoutineLogs, 2000);
+      } catch (err) {
+        console.error('Routine trigger failed:', err);
+      } finally {
+        routineRunBtn.textContent = 'Run Full Routine Now';
+        routineRunBtn.disabled = false;
+      }
     });
   }
 
