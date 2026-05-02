@@ -44,6 +44,8 @@ async function loadCatalog() {
     console.log("🛒 shop.js: API response status:", res.status);
     const data = await res.json();
     console.log("🛒 shop.js: API response data:", data);
+    console.log("🛒 shop.js: Data keys:", Object.keys(data));
+    console.log("🛒 shop.js: data.products type:", typeof data.products, "length:", Array.isArray(data.products) ? data.products.length : 'not array');
 
     // Unified shop returns { products: [...] }
     fullCatalog = Array.isArray(data.products) ? data.products : [];
