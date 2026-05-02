@@ -6,8 +6,6 @@ import { ensureProductsSchema } from '../src/utils/products.js';
 import { loadLogos } from '../utils/logo-loader.js';
 import fs from 'fs/promises';
 import path from 'path';
-import fs from 'fs/promises';
-import path from 'path';
 
 // Helper: classify product type for price/margin logic
 function classifyProduct(title) {
