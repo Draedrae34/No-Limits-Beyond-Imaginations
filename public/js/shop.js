@@ -138,8 +138,12 @@ function createProductCard(product) {
   card.className = "product-card fade-in-up";
   card.dataset.productId = product.id;
 
-  const defaultImage = (product.images || []).find(img => img.is_default) || product.images?.[0];
-  const imageSrc = defaultImage?.src || "";
+  // Handle both image formats: array of strings OR array of objects with src
+  let imageSrc = "";
+  if (Array.isArray(product.images) && product.images.length > 0) {
+    const firstImage = product.images[0];
+    imageSrc = typeof firstImage === 'string' ? firstImage : (firstImage.src || "");
+  }
 
   const minPrice = getMinPrice(product);
 
@@ -256,8 +260,11 @@ function handleAddToCart(card, product) {
 
 function openModal(product) {
   modalProduct = product;
-  const defaultImage = (product.images || []).find(img => img.is_default) || product.images?.[0];
-  const imageSrc = defaultImage?.src || "";
+  let imageSrc = "";
+  if (Array.isArray(product.images) && product.images.length > 0) {
+    const firstImage = product.images[0];
+    imageSrc = typeof firstImage === 'string' ? firstImage : (firstImage.src || "");
+  }
 
   modalImageEl.src = imageSrc;
   modalImageEl.alt = product.title || "";
