@@ -8,7 +8,7 @@ import {
 } from './workshop-routines.js';
 import { analyzeAndOptimize, getAutoTuningStatus } from './adaptive-engine.js';
 import { generatePredictions } from './predictive-alerts.js';
-import { getRoutineCostStats, getSystemHealthScore, getCurrentResourceUsage } from './resource-tracker.js';
+import { getRoutineCostStats, getSystemHealthScore, getCurrentResourceUsage } from '../utils/resource-tracker.js';
 import { sendDiscordAlert } from '../utils/discord-alerts.js';
 import pool from '../src/utils/db.js';
 import { ensureProductsSchema } from '../src/utils/products.js';

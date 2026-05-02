@@ -1,4 +1,5 @@
-// api/resource-tracker.js - Execution time, memory, and cost analytics
+// utils/resource-tracker.js - Resource tracking functions (library, not an endpoint)
+// Used by api/agent.js for GET /resource metrics
 import pool from '../src/utils/db.js';
 import { ensureProductsSchema } from '../src/utils/products.js';
 
@@ -39,7 +40,7 @@ export async function getRoutineCostStats(days = 30) {
     stats[type] = {
       runs: durations.length,
       avgDurationMs: Math.round(avgMs),
-      costPerRun: costPerRun,
+      costPerRun,
       estimatedMonthlyUSD: estimatedMonthly
     };
   }
@@ -61,15 +62,18 @@ export async function getSystemHealthScore() {
 
   let score = 100;
 
-  // Deduct for failed routines
-  const failedRuns = metrics.filter(m => !m.report?.startsWith?.(['✅', '▶'])).length;
+  // Deduct for failed routines (reports not starting with ✅ or ▶)
+  const failedRuns = metrics.filter(m => {
+    const report = m.report || '';
+    return !report.startsWith('✅') && !report.startsWith('▶');
+  }).length;
   score -= failedRuns * 5;
 
   // Deduct for high auto-fix rate
   const totalAutoFixes = metrics.reduce((sum, m) => sum + (m.auto_fixes || 0), 0);
   score -= Math.min(totalAutoFixes * 2, 20);
 
-  // Deduct for slow routines
+  // Deduct for slow routines (>30s)
   const slowRuns = metrics.filter(m => m.duration_ms > 30000).length;
   score -= Math.min(slowRuns * 3, 30);
 
@@ -80,7 +84,6 @@ export async function getSystemHealthScore() {
 }
 
 async function getRecentMetrics(hours) {
-  // Reuse from adaptive-engine if available, else stub
   await ensureProductsSchema(pool);
   const since = new Date(Date.now() - hours * 60 * 60 * 1000).toISOString();
   const result = await pool.query(
@@ -88,37 +91,4 @@ async function getRecentMetrics(hours) {
     [since]
   );
   return result.rows;
-}
-
-export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  if (req.method === 'OPTIONS') return res.status(200).end();
-  if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
-
-  // Auth
-  const cookies = req.headers.cookie || '';
-  const isAuth = cookies.split(';').some(c => c.trim() === 'nlbl_auth=authenticated');
-  if (!isAuth) return res.status(401).json({ error: 'Authentication required' });
-
-  const { action } = req.query;
-
-  if (action === 'cost') {
-    const days = parseInt(req.query.days) || 30;
-    const costStats = await getRoutineCostStats(days);
-    return res.status(200).json(costStats);
-  }
-
-  if (action === 'health') {
-    const health = await getSystemHealthScore();
-    return res.status(200).json(health);
-  }
-
-  if (action === 'resources') {
-    const usage = getCurrentResourceUsage();
-    return res.status(200).json(usage);
-  }
-
-  return res.status(400).json({ error: 'Specify action=cost|health|resources' });
 }
