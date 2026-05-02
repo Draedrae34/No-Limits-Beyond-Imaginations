@@ -7,6 +7,22 @@ import { loadLogos } from '../utils/logo-loader.js';
 import fs from 'fs/promises';
 import path from 'path';
 
+// Helper: get DB table counts for health monitoring
+export async function getDBCounts() {
+  const [products, messages, orders, routines] = await Promise.all([
+    pool.query('SELECT COUNT(*)::int AS count FROM products'),
+    pool.query('SELECT COUNT(*)::int AS count FROM messages'),
+    pool.query('SELECT COUNT(*)::int AS count FROM orders'),
+    pool.query('SELECT COUNT(*)::int AS count FROM routine_logs')
+  ]);
+  return {
+    products: products.rows[0].count,
+    messages: messages.rows[0].count,
+    orders: orders.rows[0].count,
+    routines: routines.rows[0].count,
+  };
+}
+
 // Helper: classify product type for price/margin logic
 function classifyProduct(title) {
   const t = title.toLowerCase();
