@@ -203,6 +203,77 @@ body::after {
   font-size: 1.05rem;
 }
 
+/* Cosmic Tribute Poem */
+.tribute-poem {
+  position: relative;
+  max-width: 900px;
+  margin: 80px auto;
+  padding: 60px 40px;
+  text-align: center;
+  background: rgba(10, 5, 20, 0.4);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+  box-shadow:
+    0 0 30px rgba(255, 215, 0, 0.1),
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+.tribute-poem::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.06), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(167, 139, 250, 0.06), transparent 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.tribute-poem::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ffd700, transparent);
+  opacity: 0.6;
+}
+
+.tribute-poem .poem-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  color: #ffd700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.tribute-poem .poem-lines {
+  font-family: 'Courier New', monospace;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: rgba(240, 230, 255, 0.9);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+  position: relative;
+  z-index: 1;
+  white-space: pre-line;
+}
+
+.tribute-poem .poem-line {
+  display: block;
+  margin-bottom: 6px;
+  opacity: 0;
+  animation: fadeInLine 0.8s ease forwards;
+}
+
+@keyframes fadeInLine {
+  to { opacity: 1; }
+}
+
 /* Section spacing */
 .song-section,
 .standstill-section,
