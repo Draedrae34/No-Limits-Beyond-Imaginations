@@ -1,5 +1,7 @@
 const API_URL = "/api/shop";
 
+console.log("🛒 shop.js: Script loaded, API_URL:", API_URL);
+
 let fullCatalog = [];
 let filteredCatalog = [];
 let cartCount = 0;
@@ -37,18 +39,23 @@ document.querySelectorAll("[data-scroll-target]").forEach(btn => {
 // Fetch catalog
 async function loadCatalog() {
   try {
+    console.log("🛒 shop.js: Starting catalog load...");
     const res = await fetch(API_URL);
+    console.log("🛒 shop.js: API response status:", res.status);
     const data = await res.json();
+    console.log("🛒 shop.js: API response data:", data);
 
     // Unified shop returns { products: [...] }
     fullCatalog = Array.isArray(data.products) ? data.products : [];
+    console.log("🛒 shop.js: Catalog loaded, count:", fullCatalog.length);
+
     filteredCatalog = [...fullCatalog];
 
     buildCategoryFilters();
     renderGrid();
     setupScrollAnimations();
   } catch (err) {
-    console.error("Error loading catalog:", err);
+    console.error("❌ shop.js: Error loading catalog:", err);
     gridEl.innerHTML = `<p style="color:#f97373;">Unable to load products. Please try again later.</p>`;
   }
 }
@@ -105,10 +112,16 @@ searchInputEl.addEventListener("input", () => {
 });
 
 function renderGrid() {
+  console.log("🛒 shop.js: renderGrid called, filteredCatalog length:", filteredCatalog.length);
   gridEl.innerHTML = "";
 
-  if (!filteredCatalog.length) {
-    gridEl.innerHTML = `<p style="color:#9ca3af;">No products found in this part of the cosmos.</p>`;
+  if (filteredCatalog.length === 0) {
+    gridEl.innerHTML = `
+      <div class="shop-empty-state" style="grid-column: 1/-1; text-align: center; padding: 60px 20px;">
+        <p style="font-size: 1.2rem; color: #a78bfa; margin-bottom: 10px;">No products found in this part of the cosmos.</p>
+        <p style="color: #6b7280;">Try adjusting your search or filters.</p>
+      </div>
+    `;
     return;
   }
 
