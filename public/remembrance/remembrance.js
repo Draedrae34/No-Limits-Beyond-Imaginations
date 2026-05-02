@@ -14,7 +14,20 @@ const ZOOM_PEAK = 1.08;       // emotional swell
 
 let currentIndex = 0;
 const slideshow = document.getElementById("slideshow");
-const replayBtn = document.getElementById("replay-button");
+const replayBtn = document.getElementById("replaySong");
+
+// Handle opening overlay click — start tribute song
+const overlay = document.getElementById("opening-overlay");
+if (overlay) {
+    overlay.addEventListener("click", () => {
+        overlay.style.opacity = "0";
+        const audio = document.getElementById("tributeAudio");
+        if (audio && audio.src) {
+            audio.play().catch(e => console.log("Audio play failed:", e));
+        }
+        setTimeout(() => overlay.remove(), 1500);
+    });
+}
 
 function showImage(index) {
     // Galaxy-themed transition: cosmic fade with particle burst
@@ -73,6 +86,58 @@ window.addEventListener("load", async () => {
         }
         startSlideshow();
     }, 1500);
+
+    // Load tribute song from JSON
+    try {
+        const songRes = await fetch("dedicated_song.json");
+        if (songRes.ok) {
+            const songData = await songRes.json();
+            const audio = document.getElementById("tributeAudio");
+            if (audio) {
+                audio.src = songData.src;
+                audio.title = songData.title || "";
+                const replayBtn = document.getElementById("replaySong");
+                if (replayBtn) {
+                    replayBtn.onclick = () => {
+                        audio.currentTime = 0;
+                        audio.play().catch(e => console.log("Audio play failed:", e));
+                    };
+                }
+            }
+        }
+    } catch (err) {
+        console.error("Error loading tribute song:", err);
+    }
+
+    // Load stand‑still photos from JSON
+    try {
+        const photoRes = await fetch("ss_photos.json");
+        if (photoRes.ok) {
+            const photoData = await photoRes.json();
+            const items = photoData.items || [];
+            const grid = document.getElementById("standStillGrid");
+            if (grid) {
+                grid.innerHTML = "";
+                items.forEach(p => {
+                    const img = document.createElement("img");
+                    img.src = p.src;
+                    img.alt = p.alt || p.caption || "";
+                    img.className = "standstill-photo";
+                    grid.appendChild(img);
+
+                    // Optional caption
+                    if (p.caption) {
+                        const caption = document.createElement("div");
+                        caption.className = "photo-caption";
+                        caption.textContent = p.caption;
+                        grid.appendChild(caption);
+                    }
+                });
+            }
+        }
+    } catch (err) {
+        console.error("Error loading stand‑still photos:", err);
+    }
 });
 
 // GALAXY PARTICLE VISUALIZER
