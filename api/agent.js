@@ -1,6 +1,7 @@
-// api/agent.js - Unified Lil Mystic Agent Core (intents + heartbeat + cosmic logging)
+// api/agent.js - Unified Lil Mystic Agent Core (intents + heartbeat + Discord alerts)
 // POST actions: intent (chat), heartbeat
 // GET actions: status, cost, health, resources
+// Merged: agent + agent-heartbeat + resource-tracker endpoints
 import {
   runCatalogSync, cleanupGibberish, generateNewProducts, runSiteAudit,
   testEndpoints, featureRecentProducts, setFeatured, applyMargin, runOnDemandRoutine
@@ -8,9 +9,9 @@ import {
 import { analyzeAndOptimize, getAutoTuningStatus } from './adaptive-engine.js';
 import { generatePredictions } from './predictive-alerts.js';
 import { getRoutineCostStats, getSystemHealthScore, getCurrentResourceUsage } from './resource-tracker.js';
+import { sendDiscordAlert } from '../utils/discord-alerts.js';
+import pool from '../src/utils/db.js';
 import { ensureProductsSchema } from '../src/utils/products.js';
-import pool from '../src/utils/db.js';
-import pool from '../src/utils/db.js';
 
 const INTENTS = [
   { keys: ['sync', 'catalog'], name: 'Sync Printify catalog', fn: runCatalogSync },
@@ -99,6 +100,12 @@ async function handleIntent(req, res, body) {
       console.error(`Tool [${step.name}] error:`, err);
       messages.push(`❌ ${step.name} failed: ${err.message}`);
       await logAction('admin', step.key, `error:${err.message}`, req);
+      
+      // Discord alert on tool failure
+      await sendDiscordAlert('error', `Agent Tool Failed: ${step.name}`, [
+        { name: 'Tool', value: step.name, inline: true },
+        { name: 'Error', value: err.message.slice(0,200), inline: false }
+      ]);
     }
   }
 
@@ -145,6 +152,14 @@ async function handleHeartbeat(req, res) {
 
   const errorCount = alerts.filter(a => a.type === 'error').length;
   const health = errorCount ? 'critical' : alerts.length ? 'degraded' : 'healthy';
+
+  // Discord alert if critical
+  if (health === 'critical' && errors.length > 0) {
+    await sendDiscordAlert('error', 'NLBL System Critical — Endpoints Down', 
+      errors.map(e => ({ name: e.url, value: `Status ${e.status || 'ERR'}`, inline: true })),
+      `Multiple endpoints are failing. Immediate investigation required.`
+    );
+  }
 
   console.log(`🌌 [Lil Mystic Heartbeat] Health: ${health}, Alerts: ${alerts.length}`);
   return res.json({ health, alerts, timestamp: new Date().toISOString() });
@@ -202,6 +217,14 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   } catch (err) {
     console.error('🌌 [Lil Mystic] Handler error:', err);
+    
+    // Discord alert for unhandled exceptions
+    await sendDiscordAlert('error', 'Lil Mystic Unhandled Exception', [
+      { name: 'Endpoint', value: req.url || 'unknown', inline: true },
+      { name: 'Method', value: req.method, inline: true },
+      { name: 'Error', value: err.message.slice(0,300), inline: false }
+    ], `An unhandled exception occurred in the agent. Check logs for full stack trace.`);
+    
     return res.status(500).json({ error: err.message });
   }
 }

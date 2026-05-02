@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NLBL Launch Monitor</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Courier New', monospace; background: #0a0a0a; color: #00ff88; padding: 20px; }
+    h1 { color: #00ffff; margin-bottom: 20px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; }
+    .panel { background: #111; border: 1px solid #333; border-radius: 8px; padding: 15px; }
+    .panel h2 { color: #ff9cfb; font-size: 1rem; margin-bottom: 10px; border-bottom: 1px solid #333; padding-bottom: 5px; }
+    .status { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-right: 5px; }
+    .status.ok { background: #00ff88; color: #000; }
+    .status.warn { background: #ffaa00; color: #000; }
+    .status.err { background: #ff4444; color: #fff; }
+    pre { white-space: pre-wrap; word-break: break-all; font-size: 0.85rem; line-height: 1.4; }
+    .timestamp { color: #666; font-size: 0.75rem; }
+    button { background: #00ffff; color: #000; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; margin: 5px; }
+    button:hover { background: #00cccc; }
+    input { background: #222; border: 1px solid #444; color: #00ffff; padding: 8px; border-radius: 4px; width: 300px; }
+    .log-entry { margin: 5px 0; padding: 5px; background: #1a1a1a; border-left: 3px solid #333; }
+    .log-entry.error { border-color: #ff4444; }
+    .log-entry.warn { border-color: #ffaa00; }
+    .log-entry.info { border-color: #00ffff; }
+  </style>
+</head>
+<body>
+  <h1>🌌 NLBL Launch Monitor</h1>
+  
+  <div style="margin-bottom: 20px;">
+    <button onclick="refreshAll()">🔄 Refresh All</button>
+    <button onclick="startAutoRefresh()">▶ Auto-Refresh (10s)</button>
+    <button onclick="stopAutoRefresh()">⏸ Stop</button>
+    <input type="text" id="domain" placeholder="Domain (e.g., localhost:3001)" value="localhost:3001">
+  </div>
+
+  <div class="grid">
+    <div class="panel">
+      <h2>🌌 Lil Mystic Agent</h2>
+      <div id="agent-status"></div>
+      <pre id="agent-data"></pre>
+    </div>
+
+    <div class="panel">
+      <h2>🛒 Shop Engine</h2>
+      <div id="shop-status"></div>
+      <pre id="shop-data"></pre>
+    </div>
+
+    <div class="panel">
+      <h2>🕯️ Remembrance</h2>
+      <div id="messages-status"></div>
+      <pre id="messages-data"></pre>
+    </div>
+
+    <div class="panel">
+      <h2>⚙️ Recent Routines</h2>
+      <pre id="routine-logs"></pre>
+    </div>
+
+    <div class="panel">
+      <h2>💾 Resources</h2>
+      <div id="resource-status"></div>
+      <pre id="resource-data"></pre>
+    </div>
+
+    <div class="panel">
+      <h2>💳 PayPal Flow Test</h2>
+      <button onclick="testPayPalClientId()">1. Get Client ID</button>
+      <button onclick="testCreateOrder()">2. Create Order</button>
+      <pre id="paypal-test-log"></pre>
+    </div>
+  </div>
+
+  <script>
+    let autoRefresh;
+
+    function getBase() {
+      const d = document.getElementById('domain').value;
+      return d.startsWith('http') ? d : `http://${d}`;
+    }
+
+    async function fetchJSON(url, options = {}) {
+      try {
+        const res = await fetch(url, options);
+        return { ok: res.ok, data: await res.json(), status: res.status };
+      } catch (e) {
+        return { ok: false, data: { error: e.message }, status: 0 };
+      }
+    }
+
+    function setStatus(elId, ok) {
+      const el = document.getElementById(elId);
+      el.innerHTML = `<span class="status ${ok ? 'ok' : 'err'}">${ok ? 'OK' : 'FAIL'}</span>`;
+    }
+
+    async function refreshAll() {
+      const base = getBase();
+
+      const agent = await fetchJSON(`${base}/api/agent?action=heartbeat`);
+      setStatus('agent-status', agent.ok);
+      document.getElementById('agent-data').textContent = JSON.stringify(agent.data, null, 2);
+
+      const shop = await fetchJSON(`${base}/api/shop?action=list`);
+      setStatus('shop-status', shop.ok);
+      document.getElementById('shop-data').textContent = `Products: ${shop.data?.products?.length || 0}\n` + JSON.stringify(shop.data, null, 2);
+
+      const msgs = await fetchJSON(`${base}/api/messages?action=list`);
+      setStatus('messages-status', msgs.ok);
+      document.getElementById('messages-data').textContent = `Messages: ${msgs.data?.messages?.length || 0}`;
+    }
+
+    function startAutoRefresh() {
+      if (autoRefresh) clearInterval(autoRefresh);
+      autoRefresh = setInterval(refreshAll, 10000);
+      console.log("Auto-refresh started");
+    }
+
+    function stopAutoRefresh() {
+      clearInterval(autoRefresh);
+      console.log("Auto-refresh stopped");
+    }
+
+    async function testPayPalClientId() {
+      const log = document.getElementById('paypal-test-log');
+      log.textContent = 'Testing PayPal client ID...';
+      const res = await fetchJSON(getBase() + '/api/payments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'paypal-client-id' })
+      });
+      log.textContent = JSON.stringify(res.data, null, 2);
+    }
+
+    async function testCreateOrder() {
+      const log = document.getElementById('paypal-test-log');
+      log.textContent = 'Creating Printify order (mock)...';
+      const res = await fetchJSON(getBase() + '/api/payments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'create-printify-order',
+          blueprint_id: 'TEST',
+          quantity: 1,
+          address: { first_name: 'Test', last_name: 'User', address1: '123 Test', city: 'SLC', region: 'UT', zip: '84101', country: 'US' }
+        })
+      });
+      log.textContent = JSON.stringify(res.data, null, 2);
+    }
+
+    refreshAll();
+  </script>
+</body>
+</html>

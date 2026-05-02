@@ -1,31 +1,58 @@
-// api/shop.js - Unified Shop Catalog + Product Detail (DB-backed, cosmic theme)
-// Actions: list, get, featured, search, syncCatalog, detail (alias for get)
+// api/shop.js - Unified shop catalog (Printify + local featured + price overrides) with cache mode
 import printify from './printify.js';
 import pool from '../src/utils/db.js';
-import { ensureProductsSchema } from '../src/utils/products.js';
-import { getCatalogCache, setCatalogCache } from './auto-tuner.js';
+import fs from 'fs/promises';
+import path from 'path';
+
+const CACHE_FLAG_PATH = path.join(process.cwd(), '.cache-mode-enabled');
+const CACHE_FILE_PATH = path.join(process.cwd(), 'shop-catalog-cache.json');
 
 async function isCacheEnabled() {
-  await ensureProductsSchema(pool);
-  const res = await pool.query(`SELECT cache_mode_enabled FROM adaptive_config WHERE id = 1`);
-  return res.rows[0]?.cache_mode_enabled || false;
+  try {
+    await fs.access(CACHE_FLAG_PATH);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function saveCatalogCache(catalog) {
+  try {
+    await fs.writeFile(CACHE_FILE_PATH, JSON.stringify({
+      catalog,
+      cached_at: new Date().toISOString()
+    }));
+  } catch (err) {
+    console.error('Failed to save catalog cache:', err.message);
+  }
+}
+
+async function loadCatalogCache() {
+  try {
+    const raw = await fs.readFile(CACHE_FILE_PATH, 'utf-8');
+    const data = JSON.parse(raw);
+    return data.catalog || [];
+  } catch {
+    return null;
+  }
 }
 
 async function getMergedCatalog(cacheMode) {
   let printifyProducts;
+
   if (cacheMode) {
-    const cached = await getCatalogCache();
-    if (cached && cached.length) {
+    const cached = await loadCatalogCache();
+    if (cached?.length) {
       printifyProducts = cached;
     } else {
       const data = await printify('catalog');
       printifyProducts = data?.catalog || [];
-      await setCatalogCache(printifyProducts);
+      await saveCatalogCache(printifyProducts);
     }
   } else {
     const data = await printify('catalog');
     printifyProducts = data?.catalog || [];
-    await setCatalogCache(printifyProducts);
+    await saveCatalogCache(printifyProducts);
   }
 
   const dbResult = await pool.query(`
@@ -34,24 +61,22 @@ async function getMergedCatalog(cacheMode) {
     WHERE active = true OR featured = true
   `);
 
-  const dbOverrides = {};
+  const overrides = {};
   dbResult.rows.forEach(row => {
-    if (row.printify_id) {
-      dbOverrides[row.printify_id] = {
-        featured: row.featured,
-        localPrice: row.local_price,
-        active: row.local_active
-      };
-    }
+    overrides[row.printify_id] = {
+      featured: row.featured,
+      localPrice: row.local_price,
+      active: row.local_active
+    };
   });
 
   const merged = printifyProducts.map(p => {
-    const override = dbOverrides[p.id] || {};
+    const o = overrides[p.id] || {};
     return {
       ...p,
-      featured: !!override.featured,
-      localPrice: override.localPrice || null,
-      displayPrice: override.localPrice || p.price,
+      featured: !!o.featured,
+      localPrice: o.localPrice || null,
+      displayPrice: o.localPrice || p.price
     };
   });
 
@@ -78,23 +103,16 @@ const actions = {
     const { id } = req.query;
     const products = await getMergedCatalog(cacheMode);
     const product = products.find(p => p.id === id);
-    if (!product) return res.status(404).json({ error: 'Product not found in cosmic stream' });
-    return res.status(200).json({ success: true, product });
-  },
-
-  // Alias for get (product-detail compatibility)
-  detail: async (req, res, cacheMode) => {
-    const { id } = req.query;
-    const products = await getMergedCatalog(cacheMode);
-    const product = products.find(p => p.id === id);
-    if (!product) return res.status(404).json({ error: 'Product not found in cosmic stream' });
+    if (!product) return res.status(404).json({ error: 'Product not found' });
     return res.status(200).json({ success: true, product });
   },
 
   featured: async (req, res, cacheMode) => {
     const products = await getMergedCatalog(cacheMode);
-    const featured = products.filter(p => p.featured);
-    return res.status(200).json({ success: true, products: featured });
+    return res.status(200).json({
+      success: true,
+      products: products.filter(p => p.featured)
+    });
   },
 
   search: async (req, res, cacheMode) => {
@@ -108,11 +126,23 @@ const actions = {
   },
 
   syncCatalog: async (req, res) => {
-    console.log('🌌 [NLBL Shop Engine] Force-syncing cosmic catalog...');
+    console.log('✨ [NLBL Shop Engine] Syncing catalog...');
     const data = await printify('catalog');
     const products = data?.catalog || [];
-    await setCatalogCache(products);
-    return res.status(200).json({ success: true, message: 'Catalog synced with the void' });
+    await saveCatalogCache(products);
+    return res.status(200).json({ success: true, message: 'Catalog synced' });
+  },
+
+  // ⭐ MERGED PRODUCT DETAIL
+  detail: async (req, res, cacheMode) => {
+    const { id } = req.query;
+    const products = await getMergedCatalog(cacheMode);
+    const product = products.find(p => p.id === id);
+
+    if (!product)
+      return res.status(404).json({ error: 'Product not found' });
+
+    return res.status(200).json({ success: true, product });
   }
 };
 
@@ -128,11 +158,11 @@ export default async function handler(req, res) {
   try {
     if (actions[action]) {
       console.log(`✨ [NLBL Shop Engine] Action: ${action}`);
-      return await actions[action](req, res, cacheMode);
+      return await actionsaction;
     }
-    return res.status(400).json({ error: `Action '${action}' unknown in shop engine` });
+    return res.status(400).json({ error: `Unknown action '${action}'` });
   } catch (err) {
-    console.error('🌌 [NLBL Shop Engine] Error:', err);
+    console.error('✨ [NLBL Shop Engine] Error:', err);
     return res.status(500).json({ error: err.message });
   }
 }

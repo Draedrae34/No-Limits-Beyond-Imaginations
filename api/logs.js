@@ -2,7 +2,7 @@
 // Actions: optimization, routine, audit
 import pool from '../src/utils/db.js';
 import { ensureProductsSchema } from '../src/utils/products.js';
-import { ensureProductsSchema } from '../src/utils/products.js';
+import { sendDiscordAlert } from '../utils/discord-alerts.js';
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -44,6 +44,17 @@ export default async function handler(req, res) {
          LIMIT $1`,
         [limitVal]
       );
+
+      // Check for recent failures and alert to Discord
+      const failures = result.rows.filter(r => r.auto_fixes > 0 || r.duration_ms > 30000);
+      if (failures.length > 0) {
+        await sendDiscordAlert('warning', 'Routine Logs Report — Issues Detected', [
+          { name: 'Routines Reviewed', value: String(result.rows.length), inline: true },
+          { name: 'Issues Found', value: String(failures.length), inline: true },
+          { name: 'Most Recent', value: failures[0].routine_type, inline: true }
+        ], `Recent routine runs show ${failures.length} issue(s) with auto-fixes or slow steps. Review logs.`);
+      }
+
       console.log(`🌌 [NLBL Logs] Routine: ${result.rows.length} entries`);
       return res.status(200).json({ logs: result.rows });
     }
@@ -73,6 +84,14 @@ export default async function handler(req, res) {
         }
       });
 
+      const failures = Object.entries(endpoints).filter(([k, v]) => v.status !== 'OK');
+      if (failures.length > 0) {
+        await sendDiscordAlert('warning', 'Audit Endpoint Failures',
+          failures.map(([k, v]) => ({ name: k, value: `${v.status} (${v.latency}ms)`, inline: true })),
+          `Endpoint health check found ${failures.length} failing endpoints.`
+        );
+      }
+
       console.log(`🌌 [NLBL Logs] Audit: ${Object.keys(endpoints).length} endpoints checked`);
       return res.status(200).json({ endpoints, last_run: result.rows[0].created_at });
     }
@@ -83,6 +102,12 @@ export default async function handler(req, res) {
     });
   } catch (err) {
     console.error('🌌 [NLBL Logs] Error:', err);
+    
+    await sendDiscordAlert('error', 'Logs Endpoint Failure', [
+      { name: 'Action', value: action || 'none', inline: true },
+      { name: 'Error', value: err.message.slice(0,200), inline: false }
+    ], `Failed to fetch logs. Database or schema may have issues.`);
+    
     return res.status(500).json({ error: err.message });
   }
 }

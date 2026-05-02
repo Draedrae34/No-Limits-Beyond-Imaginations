@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NLBL System Status</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; max-width: 900px; margin: 40px auto; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%); }
+    .header { text-align: center; margin-bottom: 40px; }
+    .header h1 { color: #1a1a2e; font-size: 2.2rem; margin-bottom: 8px; }
+    .header p { color: #666; font-size: 1rem; }
+    .component { background: white; padding: 20px; margin: 15px 0; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); display: flex; justify-content: space-between; align-items: center; }
+    .component-info h3 { margin: 0 0 5px 0; font-size: 1.1rem; color: #333; }
+    .component-info p { margin: 0; color: #888; font-size: 0.9rem; }
+    .status { padding: 8px 18px; border-radius: 20px; font-weight: bold; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .operational { background: #00c853; color: white; }
+    .degraded { background: #ff9800; color: white; }
+    .outage { background: #f44336; color: white; }
+    .checking { background: #2196f3; color: white; }
+    .footer { text-align: center; margin-top: 30px; color: #666; font-size: 0.85rem; }
+    .refresh-btn { background: #1a1a2e; color: white; border: none; padding: 10px 24px; border-radius: 6px; cursor: pointer; margin-top: 20px; font-size: 1rem; }
+    #last-updated { margin-top: 15px; color: #666; }
+    .incident { background: #fff3e0; border-left: 4px solid #ff9800; padding: 12px; margin: 15px 0; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🌌 No Limits Beyond Limitations</h1>
+    <p>Real-time system status for the NLBL platform</p>
+    <button class="refresh-btn" onclick="checkAll()">🔄 Refresh Status</button>
+    <div id="last-updated"></div>
+  </div>
+
+  <div class="component">
+    <div class="component-info">
+      <h3>🛒 E-Commerce Platform</h3>
+      <p>Shop, product catalog, checkout flow</p>
+    </div>
+    <span class="status checking" id="shop-status">Checking...</span>
+  </div>
+
+  <div class="component">
+    <div class="component-info">
+      <h3>💳 PayPal Payments</h3>
+      <p>Payment processing, order creation</p>
+    </div>
+    <span class="status checking" id="paypal-status">Checking...</span>
+  </div>
+
+  <div class="component">
+    <div class="component-info">
+      <h3>🎨 Printify Fulfillment</h3>
+      <p>Order production, shipping integration</p>
+    </div>
+    <span class="status checking" id="printify-status">Checking...</span>
+  </div>
+
+  <div class="component">
+    <div class="component-info">
+      <h3>🤖 Autonomous Engine</h3>
+      <p>Lil Mystic AI, routines, optimization</p>
+    </div>
+    <span class="status checking" id="agent-status">Checking...</span>
+  </div>
+
+  <div class="component">
+    <div class="component-info">
+      <h3>📦 Order Management</h3>
+      <p>Database, order history, fulfillment status</p>
+    </div>
+    <span class="status checking" id="orders-status">Checking...</span>
+  </div>
+
+  <div id="incidents"></div>
+
+  <div class="footer">
+    <p>NLBL Status Page • Updates every 60 seconds</p>
+    <p>Questions? Contact: <a href="mailto:support@nlbeyondlimits.com">support@nlbeyondlimits.com</a></p>
+  </div>
+
+  <script>
+    const domain = window.location.origin;
+
+    async function checkEndpoint(path, expectedKey) {
+      try {
+        const res = await fetch(`${domain}${path}`);
+        const data = await res.json();
+        const ok = res.ok && (expectedKey ? data[expectedKey] !== undefined : true);
+        return { ok, status: res.status, data };
+      } catch (e) {
+        return { ok: false, status: 0, error: e.message };
+      }
+    }
+
+    async function checkAll() {
+      const checks = {
+        shop: checkEndpoint('/api/shop?action=list', 'products'),
+        paypal: checkEndpoint('/api/payments', 'clientId').then(r => r.ok = r.ok && !r.error),
+        printify: checkEndpoint('/api/printify?action=status', 'status'),
+        agent: checkEndpoint('/api/agent?action=heartbeat', 'health'),
+        orders: checkEndpoint('/api/orders', 'orders')
+      };
+
+      const results = await Promise.allSettled(Object.values(checks));
+      const keys = Object.keys(checks);
+
+      keys.forEach((key, i) => {
+        const el = document.getElementById(`${key}-status`);
+        if (results[i].status === 'fulfilled') {
+          const r = results[i].value;
+          el.textContent = r.ok ? '✅ Operational' : '⚠️ Degraded';
+          el.className = 'status ' + (r.ok ? 'operational' : 'degraded');
+        } else {
+          el.textContent = '❌ Error';
+          el.className = 'status outage';
+        }
+      });
+
+      document.getElementById('last-updated').textContent = `Last updated: ${new Date().toLocaleString()}`;
+    }
+
+    // Initial check + auto-refresh every 60s
+    checkAll();
+    setInterval(checkAll, 60000);
+  </script>
+</body>
+</html>
