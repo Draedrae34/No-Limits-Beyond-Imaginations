@@ -22,7 +22,12 @@
 </head>
 <body class="epic-remembrance">
 
-  <!-- Opening Overlay -->
+    <!-- Cosmic Background -->
+    <div class="cosmic-bg">
+        <canvas id="star-canvas"></canvas>
+    </div>
+
+    <!-- Opening Overlay -->
   <div id="opening-overlay">
     <div class="overlay-content">
       <h1>In Loving Memory</h1>
@@ -59,7 +64,7 @@
     <!-- Stand‑Still Photos Section -->
     <section class="standstill-section" style="margin-bottom: 80px;">
         <h2 style="text-align: center; color: #ffd700; font-family: 'Orbitron'; margin-bottom: 40px;">Captured Moments</h2>
-        <div id="standStillGrid" class="photo-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;"></div>
+        <div id="standStillGrid" class="photo-grid"></div>
     </section>
 
     <!-- Tribute Paragraphs -->
@@ -81,6 +86,45 @@
 
   <!-- Scripts -->
   <script src="remembrance.js"></script>
+
+  <!-- Star canvas background animation -->
+  <script>
+    if (document.getElementById('star-canvas')) {
+      (function() {
+        const canvas = document.getElementById('star-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const stars = [];
+        const starCount = 200;
+        for (let i = 0; i < starCount; i++) {
+          stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 2,
+            speed: Math.random() * 0.5 + 0.1,
+            opacity: Math.random() * 0.5 + 0.3,
+          });
+        }
+        function animateStars() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          for (let star of stars) {
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255,255,255,${star.opacity})`;
+            ctx.fill();
+            star.y -= star.speed;
+            if (star.y < 0) {
+              star.y = canvas.height;
+              star.x = Math.random() * canvas.width;
+            }
+          }
+          requestAnimationFrame(animateStars);
+        }
+        animateStars();
+      })();
+    }
+  </script>
 
 </body>
 </html>

@@ -3,102 +3,142 @@
     {
       "src": "Stand_Still_photos/Alisia_RJ_SS.JPG",
       "caption": "Alisia & RJ - Stand Still Memory",
-      "alt": "Alisia & RJ"
+      "alt": "Alisia & RJ",
+      "group": "RJ",
+      "person": "RJ"
     },
     {
       "src": "Stand_Still_photos/Alisia_RJ_SS2.JPG",
       "caption": "Alisia & RJ - Second Stand Still",
-      "alt": "Alisia & RJ"
+      "alt": "Alisia & RJ",
+      "group": "RJ",
+      "person": "RJ"
     },
     {
       "src": "Stand_Still_photos/Alisia_RJ_SS3.JPG",
       "caption": "Alisia & RJ - Third Stand Still",
-      "alt": "Alisia & RJ"
+      "alt": "Alisia & RJ",
+      "group": "RJ",
+      "person": "RJ"
     },
     {
       "src": "Stand_Still_photos/Alisia_TMainney_SS.JPG",
       "caption": "Alisia & T-Mainney - Stand Still Memory",
-      "alt": "Alisia & T-Mainney"
+      "alt": "Alisia & T-Mainney",
+      "group": "TM",
+      "person": "TM"
     },
     {
       "src": "Stand_Still_photos/Alisia_TMainney_SS2.JPG",
       "caption": "Alisia & T-Mainney - Second Stand Still",
-      "alt": "Alisia & T-Mainney"
+      "alt": "Alisia & T-Mainney",
+      "group": "TM",
+      "person": "TM"
     },
     {
       "src": "Stand_Still_photos/Alisia_TMainney_SS3.jpg",
       "caption": "Alisia & T-Mainney - Third Stand Still",
-      "alt": "Alisia & T-Mainney"
+      "alt": "Alisia & T-Mainney",
+      "group": "TM",
+      "person": "TM"
     },
     {
       "src": "Stand_Still_photos/Kari_RJ_SS.JPG",
       "caption": "Kari & RJ - Stand Still Memory",
-      "alt": "Kari & RJ"
+      "alt": "Kari & RJ",
+      "group": "RJ",
+      "person": "RJ"
     },
     {
       "src": "Stand_Still_photos/Kari_RJ_SS2.JPG",
       "caption": "Kari & RJ - Second Stand Still",
-      "alt": "Kari & RJ"
+      "alt": "Kari & RJ",
+      "group": "RJ",
+      "person": "RJ"
     },
     {
       "src": "Stand_Still_photos/Kari_RJ_SS3.JPG",
       "caption": "Kari & RJ - Third Stand Still",
-      "alt": "Kari & RJ"
+      "alt": "Kari & RJ",
+      "group": "RJ",
+      "person": "RJ"
     },
     {
       "src": "Stand_Still_photos/Kari_TMainney_SS.JPG",
       "caption": "Kari & T-Mainney - Stand Still Memory",
-      "alt": "Kari & T-Mainney"
+      "alt": "Kari & T-Mainney",
+      "group": "TM",
+      "person": "TM"
     },
     {
       "src": "Stand_Still_photos/Kari_TMainney_SS2.JPG",
       "caption": "Kari & T-Mainney - Second Stand Still",
-      "alt": "Kari & T-Mainney"
+      "alt": "Kari & T-Mainney",
+      "group": "TM",
+      "person": "TM"
     },
     {
       "src": "Stand_Still_photos/Kari_TMainney_SS3.JPG",
       "caption": "Kari & T-Mainney - Third Stand Still",
-      "alt": "Kari & T-Mainney"
+      "alt": "Kari & T-Mainney",
+      "group": "TM",
+      "person": "TM"
     },
     {
       "src": "Stand_Still_photos/Parents_Picture_SS.jpg",
       "caption": "Parents - Beautiful Stand Still Photo",
-      "alt": "Parents"
+      "alt": "Parents",
+      "group": "Family",
+      "person": "Family"
     },
     {
       "src": "Stand_Still_photos/Parents_With_RJ_SS.jpg",
       "caption": "Parents With RJ - Family Stand Still",
-      "alt": "Parents With RJ"
+      "alt": "Parents With RJ",
+      "group": "RJ",
+      "person": "RJ"
     },
     {
       "src": "Stand_Still_photos/RJ_Last_Image_SS.jpg",
       "caption": "RJ - Last Stand Still Image",
-      "alt": "RJ"
+      "alt": "RJ",
+      "group": "RJ",
+      "person": "RJ"
     },
     {
       "src": "Stand_Still_photos/RJ_Dedicated_Picture_SS.jpg",
       "caption": "RJ - Dedicated Stand Still Picture",
-      "alt": "RJ"
+      "alt": "RJ",
+      "group": "RJ",
+      "person": "RJ"
     },
     {
       "src": "Stand_Still_photos/RJ_First_Image_SS.jpg",
       "caption": "RJ - First Stand Still Image",
-      "alt": "RJ"
+      "alt": "RJ",
+      "group": "RJ",
+      "person": "RJ"
     },
     {
       "src": "Stand_Still_photos/RJ_TMainney_SS.JPG",
       "caption": "RJ & T-Mainney - Brothers Stand Still",
-      "alt": "RJ & T-Mainney"
+      "alt": "RJ & T-Mainney",
+      "group": "Both",
+      "person": "Both"
     },
     {
       "src": "Stand_Still_photos/T-Mainneys_First_Image_SS.jpg",
       "caption": "T-Mainney - First Stand Still Image",
-      "alt": "T-Mainney"
+      "alt": "T-Mainney",
+      "group": "TM",
+      "person": "TM"
     },
     {
       "src": "Stand_Still_photos/T-Mainneys_Last_Image_SS.jpg",
       "caption": "T-Mainney - Last Stand Still Image",
-      "alt": "T-Mainney"
+      "alt": "T-Mainney",
+      "group": "TM",
+      "person": "TM"
     }
   ]
 }

@@ -122,6 +122,66 @@ body::after {
   background: rgba(255,255,255,0.18);
 }
 
+/* Stand‑still photos: prevent cropping */
+.standstill-photo {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.25);
+  margin-bottom: 12px;
+}
+
+.photo-caption {
+  text-align: center;
+  color: #a78bfa;
+  font-size: 0.9rem;
+  margin-top: 6px;
+  margin-bottom: 16px;
+}
+
+/* Stand‑still groups */
+#standStillGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  margin-bottom: 80px;
+}
+
+.standstill-group .group-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.standstill-group .group-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.8rem;
+  color: #ffd700;
+  margin-bottom: 12px;
+  text-align: center;
+  text-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+}
+
+.standstill-group .group-paragraph {
+  max-width: 700px;
+  margin: 0 auto 24px;
+  text-align: center;
+  line-height: 1.7;
+  color: #e2e8f0;
+  font-size: 1.05rem;
+}
+
+/* Section spacing */
+.song-section,
+.standstill-section,
+.tribute-section {
+  margin-bottom: 80px;
+  padding-top: 40px;
+}
+
 /* Ensure scrolling is always enabled */
 body {
   overflow-y: auto;

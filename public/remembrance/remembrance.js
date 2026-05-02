@@ -109,7 +109,7 @@ window.addEventListener("load", async () => {
         console.error("Error loading tribute song:", err);
     }
 
-    // Load stand‑still photos from JSON
+    // Load stand‑still photos from JSON (grouped by person with tribute paragraphs)
     try {
         const photoRes = await fetch("ss_photos.json");
         if (photoRes.ok) {
@@ -118,20 +118,93 @@ window.addEventListener("load", async () => {
             const grid = document.getElementById("standStillGrid");
             if (grid) {
                 grid.innerHTML = "";
-                items.forEach(p => {
-                    const img = document.createElement("img");
-                    img.src = p.src;
-                    img.alt = p.alt || p.caption || "";
-                    img.className = "standstill-photo";
-                    grid.appendChild(img);
 
-                    // Optional caption
-                    if (p.caption) {
-                        const caption = document.createElement("div");
-                        caption.className = "photo-caption";
-                        caption.textContent = p.caption;
-                        grid.appendChild(caption);
+                // Tribute paragraphs per person/group
+                const paragraphs = {
+                    "RJ": {
+                        title: "R.J. — The Eternal Spark",
+                        text: "R.J. believed imagination had no limits. His energy, his laughter, his drive — all of it pushed the people around him to dream bigger. His spark lives on in every step forward."
+                    },
+                    "TM": {
+                        title: "T‑Mainney — The Heart's Anchor",
+                        text: "T‑Mainney rode for the ones he loved. His loyalty, his strength, his presence grounded everyone around him. His memory remains an anchor in the storm."
+                    },
+                    "Both": {
+                        title: "R.J. & T‑Mainney — Brothers Forever",
+                        text: "Together they rode, together they lit the way. Their bond unbroken, their memories intertwined. R.J.'s spark and T‑Mainney's anchor remain with us always."
+                    },
+                    "Family": {
+                        title: "Family & Loved Ones",
+                        text: "The ones we love never truly leave us. They live on in every memory, every ride, every moment we carry forward."
+                    },
+                    "AlisiaRJ": {
+                        title: "Alisia & R.J.",
+                        text: "A bond that transcends time. Alisia's heart carries R.J.'s spark forward, keeping his light alive in every smile."
+                    },
+                    "AlisiaTM": {
+                        title: "Alisia & T‑Mainney",
+                        text: "A steady hand, a loving heart. Alisia and T‑Mainney's connection remains an unbreakable tether across dimensions."
+                    },
+                    "KariRJ": {
+                        title: "Kari & R.J.",
+                        text: "Kari's love holds R.J.'s memory close. Their story continues in every memory that glimmers like stars in the night."
+                    },
+                    "KariTM": {
+                        title: "Kari & T‑Mainney",
+                        text: "Kari's heart beats with T‑Mainney's strength. Their love story rides on, eternal and unyielding."
                     }
+                };
+
+                // Group items by group field
+                const groups = {};
+                items.forEach(item => {
+                    const g = item.group || 'Other';
+                    if (!groups[g]) groups[g] = [];
+                    groups[g].push(item);
+                });
+
+                // Render each group
+                Object.keys(groups).forEach(groupId => {
+                    const groupItems = groups[groupId];
+                    const info = paragraphs[groupId] || { title: groupId, text: "" };
+
+                    // Group section
+                    const section = document.createElement("section");
+                    section.className = "standstill-group";
+
+                    // Group title
+                    const titleEl = document.createElement("h3");
+                    titleEl.className = "group-title";
+                    titleEl.textContent = info.title;
+                    section.appendChild(titleEl);
+
+                    // Group paragraph
+                    if (info.text) {
+                        const paraEl = document.createElement("p");
+                        paraEl.className = "group-paragraph";
+                        paraEl.textContent = info.text;
+                        section.appendChild(paraEl);
+                    }
+
+                    // Photo grid within group
+                    const groupGrid = document.createElement("div");
+                    groupGrid.className = "group-grid";
+                    groupItems.forEach(p => {
+                        const img = document.createElement("img");
+                        img.src = p.src;
+                        img.alt = p.alt || p.caption || "";
+                        img.className = "standstill-photo";
+                        groupGrid.appendChild(img);
+
+                        if (p.caption) {
+                            const caption = document.createElement("div");
+                            caption.className = "photo-caption";
+                            caption.textContent = p.caption;
+                            groupGrid.appendChild(caption);
+                        }
+                    });
+                    section.appendChild(groupGrid);
+                    grid.appendChild(section);
                 });
             }
         }
