@@ -1,0 +1,1 @@
+{'data-id=': {'src=': {'alt=': {}, 'class="cosmic-caption': {'}</div>\n        </div>\n      `).join(': ''}, 'error': ", err);\n      document.body.classList.add('gallery-error", 'class="paragraph-item': 'h3>${msg.name'}, 'error': ", err));\n\n  // Initialize slideshow if present\n  const slideshow = document.getElementById('slideshow", 'once': True}}
