@@ -59,6 +59,7 @@ async function fetchPrintifyCatalog() {
 
   const data = await resp.json();
   const items = (data.data || data || []);
+  console.log(`🌌 [NLBL Shop] Fetched ${items.length} products from Printify`);
 
   return items.map(p => {
     const { type, basePrice } = classifyProduct(p.title);
@@ -137,6 +138,8 @@ async function getMergedCatalog(cacheMode) {
     };
   });
 
+  console.log(`🌌 [NLBL Shop] Merged catalog: ${merged.length} products (Printify: ${printifyProducts.length}, DB overrides: ${dbResult.rows.length})`);
+
   return merged.sort((a, b) => {
     if (a.featured && !b.featured) return -1;
     if (!a.featured && b.featured) return 1;
@@ -148,6 +151,7 @@ const actions = {
   list: async (req, res, cacheMode) => {
     try {
       const products = await getMergedCatalog(cacheMode);
+      console.log(`🌌 [NLBL Shop] Action list: returning ${products.length} products`);
       return res.status(200).json({
         success: true,
         products,
