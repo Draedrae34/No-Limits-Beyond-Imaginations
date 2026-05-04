@@ -1,8 +1,13 @@
 {
   "version": 2,
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "nodejs20.x",
+      "maxDuration": 30
+    }
+  },
   "routes": [
-    { "src": "/workshop", "dest": "/workshop.html" },
-    { "src": "/brothers-remembrance", "dest": "/brothers-remembrance.html" },
-    { "src": "/shop", "dest": "/shop.html" }
+    { "src": "/api/(.*)", "dest": "/api/$1.js" },
+    { "src": "/(.*)", "dest": "/public/$1" }
   ]
 }
