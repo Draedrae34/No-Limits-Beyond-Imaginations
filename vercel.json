@@ -1,9 +1,9 @@
 {
   "version": 2,
   "routes": [
+    { "src": "/api/(.*)", "dest": "/api/$1.js" },
     { "src": "/workshop", "dest": "/workshop.html" },
     { "src": "/brothers-remembrance", "dest": "/brothers-remembrance.html" },
-    { "src": "/shop", "dest": "/shop.html" },
-    { "src": "/(.*)", "dest": "/public/$1" }
+    { "src": "/shop", "dest": "/shop.html" }
   ]
 }
