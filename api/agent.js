@@ -6,8 +6,7 @@ import {
   runCatalogSync, cleanupGibberish, generateNewProducts, runSiteAudit,
   testEndpoints, featureRecentProducts, setFeatured, applyMargin, runOnDemandRoutine
 } from './workshop-routines.js';
-import { analyzeAndOptimize, getAutoTuningStatus } from './adaptive-engine.js';
-import { generatePredictions } from './predictive-alerts.js';
+import { analyzeAndOptimize, getAutoTuningStatus, generatePredictions } from './auto-tuner.js';
 import { getRoutineCostStats, getSystemHealthScore, getCurrentResourceUsage } from '../utils/resource-tracker.js';
 import { sendDiscordAlert } from '../utils/discord-alerts.js';
 import pool from '../src/utils/db.js';
