@@ -1,8 +1,21 @@
 {
   "version": 2,
   "routes": [
+    { "src": "/api/shop", "dest": "/api/shop.js" },
+    { "src": "/api/agent", "dest": "/api/agent.js" },
+    { "src": "/api/auto-tuner", "dest": "/api/auto-tuner.js" },
+    { "src": "/api/auth", "dest": "/api/auth.js" },
+    { "src": "/api/logs", "dest": "/api/logs.js" },
+    { "src": "/api/messages", "dest": "/api/messages.js" },
+    { "src": "/api/orders", "dest": "/api/orders.js" },
+    { "src": "/api/payments", "dest": "/api/payments.js" },
+    { "src": "/api/run-routine", "dest": "/api/run-routine.js" },
+    { "src": "/api/scheduler", "dest": "/api/scheduler.js" },
+    { "src": "/api/workshop-product-tools", "dest": "/api/workshop-product-tools.js" },
+    { "src": "/api/workshop-routines", "dest": "/api/workshop-routines.js" },
     { "src": "/workshop", "dest": "/workshop.html" },
     { "src": "/brothers-remembrance", "dest": "/brothers-remembrance.html" },
-    { "src": "/shop", "dest": "/shop.html" }
+    { "src": "/shop", "dest": "/shop.html" },
+    { "src": "/(.*)", "dest": "/$1" }
   ]
 }
