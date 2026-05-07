@@ -37,7 +37,7 @@ class NLBLShopLoader {
       this.products = apiData.products.map((product) => this.normalizeProduct(product));
       return this.products;
     } catch (apiError) {
-      console.warn("Printify API failed, falling back to static:", apiError);
+      console.warn("API load failed, falling back to static source:", apiError);
     }
 
     // Fallback to static JSON
@@ -58,6 +58,19 @@ class NLBLShopLoader {
       this.showError("Failed to load products. Please refresh the page.");
       return [];
     }
+  }
+
+  normalizeProduct(product) {
+    return {
+      id: String(product.id || ""),
+      name: product.name || product.title || "Unnamed Product",
+      description: product.description || "No description available.",
+      price: Number(product.price || (product.variants?.[0]?.price / 100) || 0),
+      image_url: product.image_url || product.images?.[0]?.src || "/placeholder-product.png",
+      category: product.category || "General",
+      tags: Array.isArray(product.tags) ? product.tags : [],
+      active: product.active !== false
+    };
   }
 
   updateProductCount(count) {
@@ -99,13 +112,6 @@ class NLBLShopLoader {
     `;
    }
    
-   getImageUrl(imagePath) {
-     if (!imagePath) return "/placeholder-product.png";
-     if (imagePath.startsWith("http")) return imagePath;
-     if (imagePath.startsWith("/")) return imagePath;
-     return `/${imagePath}`;
-   }
-
   renderProducts(filter = "all") {
     const container = document.querySelector(".products-grid") || document.querySelector("#products-container");
     if (!container) return;
@@ -139,34 +145,16 @@ class NLBLShopLoader {
     document.querySelectorAll(".paypal-buy-now-btn").forEach((button) => {
       button.addEventListener("click", (event) => {
         event.preventDefault();
-        this.paypalBuyNow(button.dataset.id);
+        this.initiatePaypalCheckout(button.dataset.id);
       });
     });
 
     document.querySelectorAll(".quick-view").forEach((button) => {
       button.addEventListener("click", (event) => {
         event.preventDefault();
-        const card = button.closest(".product-card");
-        this.showQuickView(card?.dataset.productId);
+        this.showQuickView(button.dataset.id);
       });
     });
-  }
-
-  setupEventListeners() {
-    const categorySelect = document.getElementById("category-select");
-    if (categorySelect) {
-      categorySelect.addEventListener("change", (event) => {
-        this.currentFilter = event.target.value || "all";
-        this.renderProducts(this.currentFilter);
-      });
-    }
-
-    const searchInput = document.getElementById("product-search");
-    if (searchInput) {
-      searchInput.addEventListener("input", (event) => {
-        this.searchProducts(event.target.value);
-      });
-    }
   }
 
   searchProducts(query) {
@@ -191,7 +179,28 @@ class NLBLShopLoader {
     this.updateProductCount(filtered.length);
   }
 
-   showQuickView(productId) {
+  setupEventListeners() {
+    const categorySelect = document.getElementById("category-select");
+    if (categorySelect) {
+      categorySelect.addEventListener("change", (event) => {
+        this.currentFilter = event.target.value || "all";
+        this.renderProducts(this.currentFilter);
+      });
+    }
+
+    const searchInput = document.getElementById("product-search");
+    if (searchInput) {
+      searchInput.addEventListener("input", (event) => {
+        this.searchProducts(event.target.value);
+      });
+    }
+  }
+
+  async initiatePaypalCheckout(productId) {
+    await this.showQuickView(productId);
+  }
+
+  async showQuickView(productId) {
     const product = this.products.find((item) => String(item.id) === String(productId));
     if (!product) return;
 
@@ -335,35 +344,6 @@ class NLBLShopLoader {
         },
       })
       .render("#paypal-button-container");
-  }
-
-  showQuickView(productId) {
-    const product = this.products.find((item) => String(item.id) === String(productId));
-    if (!product) return;
-
-    const modal = document.createElement("div");
-    modal.className = "quick-view-modal";
-    modal.innerHTML = `
-      <div class="modal-content">
-        <button class="close-modal" aria-label="Close quick view">&times;</button>
-        <div class="modal-body">
-          <img src="${this.getImageUrl(product.image_url)}" alt="${product.name}">
-          <div class="modal-info">
-            <h2>${product.name}</h2>
-            <p>${product.description}</p>
-            <p class="modal-price">${this.formatPrice(product.price)}</p>
-            <button class="btn-primary quick-buy-btn" data-id="${product.id}">Buy Now</button>
-          </div>
-        </div>
-      </div>
-    `;
-
-    document.body.appendChild(modal);
-    modal.querySelector(".close-modal")?.addEventListener("click", () => modal.remove());
-    modal.querySelector(".quick-buy-btn")?.addEventListener("click", () => {
-      modal.remove();
-      this.buyNow(product.id);
-    });
   }
 
   showNotification(message) {
