@@ -2,7 +2,15 @@
 import { neon } from '@neondatabase/serverless';
 import { sendDiscordAlert } from '../utils/discord-alerts.js';
 
-const sql = neon(process.env.DATABASE_URL);
+let sqlClient;
+function getSql() {
+  if (!process.env.DATABASE_URL) {
+    throw new Error('DATABASE_URL is not configured');
+  }
+  sqlClient ||= neon(process.env.DATABASE_URL);
+  return sqlClient;
+}
+const sql = (...args) => getSql()(...args);
 
 export default async function handler(req, res) {
   // Handle CORS preflight

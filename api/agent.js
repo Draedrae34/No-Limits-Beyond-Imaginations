@@ -4,8 +4,9 @@
 // Merged: agent + agent-heartbeat + resource-tracker endpoints
 import {
   runCatalogSync, cleanupGibberish, generateNewProducts, runSiteAudit,
-  testEndpoints, featureRecentProducts, setFeatured, applyMargin, runOnDemandRoutine
-} from './workshop-routines.js';
+  testEndpoints, featureRecentProducts, setFeatured, applyMargin
+} from './workshop-product-tools.js';
+import { runOnDemandRoutine } from './workshop-routines.js';
 import { analyzeAndOptimize, getAutoTuningStatus, generatePredictions } from './auto-tuner.js';
 import { getRoutineCostStats, getSystemHealthScore, getCurrentResourceUsage } from '../utils/resource-tracker.js';
 import { sendDiscordAlert } from '../utils/discord-alerts.js';
@@ -170,6 +171,14 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   if (req.method === 'OPTIONS') return res.status(200).end();
+
+  if (req.method === 'GET' && req.query?.action === 'heartbeat') {
+    return res.status(200).json({
+      status: 'ok',
+      service: 'Lil Mystic Agent',
+      timestamp: new Date().toISOString()
+    });
+  }
 
   // Auth check
   const user = await getCurrentUser(req);

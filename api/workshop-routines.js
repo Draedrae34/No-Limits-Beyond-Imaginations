@@ -10,7 +10,7 @@ import {
   applyMargin,
   getDBCounts
 } from './workshop-product-tools.js';
-import printify from './printify.js';
+import printify from '../utils/printify-actions.js';
 import pool from '../src/utils/db.js';
 import { ensureProductsSchema } from '../src/utils/products.js';
 

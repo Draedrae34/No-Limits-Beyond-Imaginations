@@ -18,6 +18,26 @@ async function loadCatalogCache() {
   try { const data = JSON.parse(await fs.readFile(CACHE_FILE_PATH, 'utf-8')); return data.catalog || []; } catch { return null; }
 }
 
+async function loadLocalCatalog() {
+  const raw = await fs.readFile(path.join(process.cwd(), 'shop-products.json'), 'utf-8');
+  const items = JSON.parse(raw);
+  return items.filter(p => p.active !== false).map(p => ({
+    id: String(p.id),
+    title: p.title || p.name,
+    description: p.description || '',
+    category: p.category || 'Shop',
+    price: Number(p.price || 0).toFixed(2),
+    priceCents: Math.round(Number(p.price || 0) * 100),
+    image: p.image_url || p.image || null,
+    images: [p.image_url || p.image].filter(Boolean),
+    tags: p.tags || [],
+    inStock: true,
+    featured: !!p.featured,
+    localPrice: null,
+    displayPrice: Number(p.price || 0).toFixed(2),
+  }));
+}
+
 function classifyProduct(title) {
   const t = title.toLowerCase();
   if (t.includes('hoodie') || t.includes('sweatpant')) return { type: 'hoodie', basePrice: 4999 };
@@ -67,15 +87,26 @@ async function printifyFetch(endpoint, method = 'GET', body = null) {
 
 async function getMergedCatalog(cacheMode) {
   let printifyProducts;
-  if (cacheMode) {
-    const cached = await loadCatalogCache();
-    if (cached?.length) { printifyProducts = cached; } else { printifyProducts = await fetchPrintifyCatalog(); await saveCatalogCache(printifyProducts); }
-  } else {
-    printifyProducts = await fetchPrintifyCatalog();
-    await saveCatalogCache(printifyProducts);
+  try {
+    if (cacheMode) {
+      const cached = await loadCatalogCache();
+      if (cached?.length) { printifyProducts = cached; } else { printifyProducts = await fetchPrintifyCatalog(); await saveCatalogCache(printifyProducts); }
+    } else {
+      printifyProducts = await fetchPrintifyCatalog();
+      await saveCatalogCache(printifyProducts);
+    }
+  } catch (err) {
+    console.warn('Printify catalog unavailable, using local catalog:', err.message);
+    printifyProducts = await loadLocalCatalog();
   }
-  await ensureProductsSchema(pool);
-  const dbResult = await pool.query(`SELECT printify_id, featured, price AS local_price, active AS local_active FROM products WHERE active = true OR featured = true`);
+
+  let dbResult = { rows: [] };
+  try {
+    await ensureProductsSchema(pool);
+    dbResult = await pool.query(`SELECT printify_id, featured, price AS local_price, active AS local_active FROM products WHERE active = true OR featured = true`);
+  } catch (err) {
+    console.warn('Product overrides unavailable, serving catalog without DB overrides:', err.message);
+  }
   const overrides = {};
   dbResult.rows.forEach(row => { overrides[row.printify_id] = { featured: row.featured, localPrice: row.local_price, active: row.local_active }; });
   const merged = printifyProducts.map(p => {

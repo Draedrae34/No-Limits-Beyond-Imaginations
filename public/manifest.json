@@ -1,0 +1,19 @@
+{
+  "name": "No Limits Beyond Limitations",
+  "short_name": "NLBL",
+  "description": "Silent Spirits Legacy and No Limits Beyond Limitations.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0c0c0c",
+  "theme_color": "#00ffff",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

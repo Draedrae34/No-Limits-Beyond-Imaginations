@@ -1,6 +1,6 @@
 // api/workshop-product-tools.js
 // Real tool implementations using your existing Printify API v4
-import printify from './printify.js';
+import printify from '../utils/printify-actions.js';
 import pool from '../src/utils/db.js';
 import { ensureProductsSchema } from '../src/utils/products.js';
 import { loadLogos } from '../utils/logo-loader.js';
@@ -262,6 +262,15 @@ export async function runSiteAudit() {
   const summary = `Audit: env ${envOk}/3 | db ${dbOk}/1 | printify ${printOk}/1 | fs ${fsOk}/1 | endpoints: ${endpointStatuses}`;
 
   return { ok: true, summary, raw: results };
+}
+
+export async function testEndpoints() {
+  const audit = await runSiteAudit();
+  return {
+    ok: audit.ok,
+    summary: audit.summary,
+    endpoints: audit.raw?.endpoints || {},
+  };
 }
 
 // ⭐ 5. Monetary + shop integration tools

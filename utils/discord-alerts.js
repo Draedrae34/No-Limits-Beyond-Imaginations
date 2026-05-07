@@ -41,8 +41,9 @@ export async function sendDiscordAlert(type, title, fields = [], embedDescriptio
       inline: f.inline ?? false
     })),
     footer: {
-      text: 'NLBL Autonomous System •
-    icon_url: 'https://cdn.cosmic/icon.png' // Placeholder
+      text: 'NLBL Autonomous System',
+      icon_url: 'https://cdn.cosmic/icon.png' // Placeholder
+    }
   };
 
   try {
