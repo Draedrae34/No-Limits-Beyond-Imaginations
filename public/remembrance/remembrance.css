@@ -170,6 +170,15 @@ body::after {
   margin-bottom: 16px;
 }
 
+.photo-paragraph {
+  color: #e2e8f0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 12px 0 24px 0;
+  padding: 0 8px;
+  text-align: left;
+}
+
 /* Stand‑still groups */
 #standStillGrid {
   display: flex;

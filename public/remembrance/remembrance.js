@@ -186,6 +186,13 @@ window.addEventListener("load", async () => {
                             caption.textContent = p.caption;
                             groupGrid.appendChild(caption);
                         }
+
+                        if (p.paragraph) {
+                            const para = document.createElement("p");
+                            para.className = "photo-paragraph";
+                            para.textContent = p.paragraph;
+                            groupGrid.appendChild(para);
+                        }
                     });
                     section.appendChild(groupGrid);
                     grid.appendChild(section);
