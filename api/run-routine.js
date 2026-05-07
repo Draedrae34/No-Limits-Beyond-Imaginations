@@ -1,6 +1,6 @@
 // api/run-routine.js
 // Vercel Cron endpoint — triggers scheduled routines on demand
-import { runHourlyRoutine, runNightlyRoutine } from './workshop-routines.js';
+import { runHourlyRoutine, runNightlyRoutine } from '../src/workshop-routines.js';
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');

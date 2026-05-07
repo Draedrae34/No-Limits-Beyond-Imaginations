@@ -5,8 +5,8 @@
 import {
   runCatalogSync, cleanupGibberish, generateNewProducts, runSiteAudit,
   testEndpoints, featureRecentProducts, setFeatured, applyMargin
-} from './workshop-product-tools.js';
-import { runOnDemandRoutine } from './workshop-routines.js';
+} from '../src/workshop-product-tools.js';
+import { runOnDemandRoutine } from '../src/workshop-routines.js';
 import { analyzeAndOptimize, getAutoTuningStatus, generatePredictions } from './auto-tuner.js';
 import { getRoutineCostStats, getSystemHealthScore, getCurrentResourceUsage } from '../utils/resource-tracker.js';
 import { sendDiscordAlert } from '../utils/discord-alerts.js';
