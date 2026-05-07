@@ -123,35 +123,19 @@ window.addEventListener("load", async () => {
                 const paragraphs = {
                     "RJ": {
                         title: "R.J. — The Eternal Spark",
-                        text: "R.J. believed imagination had no limits. His energy, his laughter, his drive — all of it pushed the people around him to dream bigger. His spark lives on in every step forward."
+                        text: "R.J. believed imagination had no limits. His energy, his laughter, his drive — all of it pushed the people around him to dream bigger. From his first photo to his last, his spark lives on in every step forward. His journey from innocence to legend is captured in these frames, each one a testament to a life fully lived and a legacy that will never fade."
                     },
                     "TM": {
                         title: "T‑Mainney — The Heart's Anchor",
-                        text: "T‑Mainney rode for the ones he loved. His loyalty, his strength, his presence grounded everyone around him. His memory remains an anchor in the storm."
+                        text: "T‑Mainney rode for the ones he loved. His loyalty, his strength, his presence grounded everyone around him. From his first standstill to his last, his memory remains an anchor in the storm. These photos capture the beautiful evolution of a man who stood strong for his family, his partner, and his brothers — a legacy of love that transcends time."
                     },
                     "Both": {
                         title: "R.J. & T‑Mainney — Brothers Forever",
-                        text: "Together they rode, together they lit the way. Their bond unbroken, their memories intertwined. R.J.'s spark and T‑Mainney's anchor remain with us always."
+                        text: "Together they rode, together they lit the way. Their bond unbroken, their memories intertwined. R.J.'s spark and T‑Mainney's anchor remain with us always. In every photo together, we see the perfect balance of fire and foundation — two souls who rode as one, loved as brothers, and left a legacy that neither time nor death can dim."
                     },
                     "Family": {
                         title: "Family & Loved Ones",
-                        text: "The ones we love never truly leave us. They live on in every memory, every ride, every moment we carry forward."
-                    },
-                    "AlisiaRJ": {
-                        title: "Alisia & R.J.",
-                        text: "A bond that transcends time. Alisia's heart carries R.J.'s spark forward, keeping his light alive in every smile."
-                    },
-                    "AlisiaTM": {
-                        title: "Alisia & T‑Mainney",
-                        text: "A steady hand, a loving heart. Alisia and T‑Mainney's connection remains an unbreakable tether across dimensions."
-                    },
-                    "KariRJ": {
-                        title: "Kari & R.J.",
-                        text: "Kari's love holds R.J.'s memory close. Their story continues in every memory that glimmers like stars in the night."
-                    },
-                    "KariTM": {
-                        title: "Kari & T‑Mainney",
-                        text: "Kari's heart beats with T‑Mainney's strength. Their love story rides on, eternal and unyielding."
+                        text: "The ones we love never truly leave us. They live on in every memory, every ride, every moment we carry forward. These photos capture the foundation — parents, siblings, partners — the tapestry of love that raised R.J., supported T-Mainney, and continues to bind them all together across dimensions. Family is the heartbeat of every legacy."
                     }
                 };
 
