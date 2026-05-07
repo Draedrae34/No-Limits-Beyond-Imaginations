@@ -49,6 +49,17 @@ async function logAction(user, action, outcome, req) {
   }
 }
 
+function getQueryParams(req) {
+  if (req.query && Object.keys(req.query).length > 0) {
+    return req.query;
+  }
+  try {
+    return Object.fromEntries(new URL(req.url, 'http://localhost').searchParams.entries());
+  } catch (err) {
+    return {};
+  }
+}
+
 function parseIntent(message, toolHint) {
   const steps = [];
   if (toolHint) {
@@ -172,7 +183,8 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
-  if (req.method === 'GET' && req.query?.action === 'heartbeat') {
+  const query = getQueryParams(req);
+  if (req.method === 'GET' && query.action === 'heartbeat') {
     return res.status(200).json({
       status: 'ok',
       service: 'Lil Mystic Agent',
@@ -202,13 +214,13 @@ export default async function handler(req, res) {
     }
 
     if (req.method === 'GET') {
-      const { action } = req.query;
+      const { action } = query;
       if (action === 'status') {
         const status = await getAutoTuningStatus();
         return res.json(status);
       }
       if (action === 'cost') {
-        const days = parseInt(req.query.days) || 30;
+        const days = parseInt(query.days) || 30;
         const stats = await getRoutineCostStats(days);
         return res.json(stats);
       }
