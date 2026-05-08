@@ -63,6 +63,7 @@ class NLBLShopLoader {
   normalizeProduct(product) {
     return {
       id: String(product.id || ""),
+      variant_id: product.variants?.[0]?.id || product.variant_id || "",
       name: product.name || product.title || "Unnamed Product",
       description: product.description || "No description available.",
       price: Number(product.price || (product.variants?.[0]?.price / 100) || 0),
@@ -321,6 +322,7 @@ class NLBLShopLoader {
               action: "paypal-log-order",
               orderID: order.id,
               productID: product.id,
+              variantID: product.variant_id,
               amount: product.price,
             }),
           });
@@ -328,7 +330,7 @@ class NLBLShopLoader {
           const result = await response.json();
           if (result.success) {
             status.textContent = "Payment successful! Thank you.";
-            this.showNotification(`PayPal payment completed for ${product.name}.`);
+            this.showNotification(`Success: ${product.name} ordered.`);
           } else {
             status.textContent = "Payment capture failed. Please try again.";
             this.showError(result.error || "PayPal payment failed");
