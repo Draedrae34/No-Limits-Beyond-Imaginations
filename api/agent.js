@@ -186,6 +186,7 @@ export default async function handler(req, res) {
   const query = getQueryParams(req);
   if (req.method === 'GET' && query.action === 'heartbeat') {
     return res.status(200).json({
+      success: true,
       status: 'ok',
       service: 'Lil Mystic Agent',
       timestamp: new Date().toISOString()

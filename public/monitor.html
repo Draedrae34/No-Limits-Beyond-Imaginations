@@ -32,7 +32,7 @@
     <button onclick="refreshAll()">🔄 Refresh All</button>
     <button onclick="startAutoRefresh()">▶ Auto-Refresh (10s)</button>
     <button onclick="stopAutoRefresh()">⏸ Stop</button>
-    <input type="text" id="domain" placeholder="Domain (e.g., localhost:3001)" value="localhost:3001">
+    <input type="text" id="domain" placeholder="Domain (defaults to this site)" value="">
   </div>
 
   <div class="grid">
@@ -76,17 +76,34 @@
   <script>
     let autoRefresh;
 
+    const domainInput = document.getElementById('domain');
+    domainInput.value = window.location.origin;
+
     function getBase() {
-      const d = document.getElementById('domain').value;
-      return d.startsWith('http') ? d : `http://${d}`;
+      const d = domainInput.value.trim();
+      if (!d || d === window.location.origin || d === window.location.host) return '';
+      if (d.startsWith('http')) return d.replace(/\/$/, '');
+      const protocol = window.location.protocol === 'https:' ? 'https://' : 'http://';
+      return `${protocol}${d}`.replace(/\/$/, '');
     }
 
-    async function fetchJSON(url, options = {}) {
+    async function fetchJSON(url, options = {}, timeoutMs = 8000) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), timeoutMs);
       try {
-        const res = await fetch(url, options);
-        return { ok: res.ok, data: await res.json(), status: res.status };
+        const res = await fetch(url, { ...options, signal: controller.signal });
+        const text = await res.text();
+        let data;
+        try {
+          data = text ? JSON.parse(text) : {};
+        } catch {
+          data = { raw: text.slice(0, 500) };
+        }
+        return { ok: res.ok, data, status: res.status };
       } catch (e) {
         return { ok: false, data: { error: e.message }, status: 0 };
+      } finally {
+        clearTimeout(timeout);
       }
     }
 
@@ -98,17 +115,35 @@
     async function refreshAll() {
       const base = getBase();
 
-      const agent = await fetchJSON(`${base}/api/agent?action=heartbeat`);
+      setStatus('agent-status', false);
+      setStatus('shop-status', false);
+      setStatus('messages-status', false);
+      document.getElementById('agent-data').textContent = 'Loading...';
+      document.getElementById('shop-data').textContent = 'Loading...';
+      document.getElementById('messages-data').textContent = 'Loading...';
+
+      const [agent, shop, msgs] = await Promise.all([
+        fetchJSON(`${base}/api/agent?action=heartbeat`),
+        fetchJSON(`${base}/api/shop?action=list`),
+        fetchJSON(`${base}/api/messages?action=list`)
+      ]);
+
       setStatus('agent-status', agent.ok);
       document.getElementById('agent-data').textContent = JSON.stringify(agent.data, null, 2);
 
-      const shop = await fetchJSON(`${base}/api/shop?action=list`);
+      const products = Array.isArray(shop.data?.products) ? shop.data.products : [];
       setStatus('shop-status', shop.ok);
-      document.getElementById('shop-data').textContent = `Products: ${shop.data?.products?.length || 0}\n` + JSON.stringify(shop.data, null, 2);
+      document.getElementById('shop-data').textContent =
+        `Products: ${products.length}\n` +
+        JSON.stringify({
+          success: shop.data?.success,
+          total: shop.data?.total || products.length,
+          sample: products.slice(0, 3).map(p => ({ id: p.id, title: p.title, price: p.displayPrice || p.price }))
+        }, null, 2);
 
-      const msgs = await fetchJSON(`${base}/api/messages?action=list`);
       setStatus('messages-status', msgs.ok);
-      document.getElementById('messages-data').textContent = `Messages: ${msgs.data?.messages?.length || 0}`;
+      document.getElementById('messages-data').textContent =
+        `Messages: ${msgs.data?.messages?.length || 0}\n` + JSON.stringify(msgs.data, null, 2);
     }
 
     function startAutoRefresh() {

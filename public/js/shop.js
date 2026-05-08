@@ -6,6 +6,7 @@ let fullCatalog = [];
 let filteredCatalog = [];
 let cartCount = 0;
 let activeCategory = "All";
+let currentPaypalProduct = null;
 
 const gridEl = document.getElementById("shop-grid");
 const categoryFiltersEl = document.getElementById("category-filters");
@@ -24,6 +25,11 @@ const modalDescriptionEl = document.getElementById("modal-description");
 const modalTagsEl = document.getElementById("modal-tags");
 const modalPriceEl = document.getElementById("modal-price");
 const modalAddBtn = document.getElementById("modal-add-to-cart");
+const paypalPanel = document.getElementById("paypal-checkout-panel");
+const paypalCloseBtn = document.getElementById("paypal-close");
+const paypalTitleEl = document.getElementById("paypal-product-title");
+const paypalStatusEl = document.getElementById("paypal-checkout-status");
+const paypalButtonContainer = document.getElementById("paypal-button-container");
 
 let modalProduct = null;
 
@@ -171,21 +177,21 @@ function createProductCard(product) {
           .map(tag => `<span class="product-tag-chip">${escapeHtml(tag)}</span>`)
           .join("")}
       </div>
-      <button class="product-add-btn" type="button">Add to Cart</button>
+      <button class="product-add-btn paypal-buy-now-btn" type="button">PayPal</button>
     </div>
   `;
 
-  // Card click → open modal (except Add to Cart button)
+  // Card click -> open modal (except PayPal button)
   card.addEventListener("click", e => {
     if (e.target.closest(".product-add-btn")) return;
     openModal(product);
   });
 
-  // Add to cart button
+  // PayPal button
   const addBtn = card.querySelector(".product-add-btn");
   addBtn.addEventListener("click", e => {
     e.stopPropagation();
-    handleAddToCart(card, product);
+    initiatePaypalCheckout(product);
   });
 
   // 3D tilt
@@ -239,21 +245,162 @@ function resetTilt(card) {
   card.style.transform = "translateY(-6px) scale(1.02)";
 }
 
-/* Add to Cart */
+/* PayPal checkout */
 
-function handleAddToCart(card, product) {
+function pulseProduct(card) {
   cartCount += 1;
   cartCountEl.textContent = cartCount.toString();
 
-  card.classList.remove("card-pulse");
-  void card.offsetWidth;
-  card.classList.add("card-pulse");
+  if (card) {
+    card.classList.remove("card-pulse");
+    void card.offsetWidth;
+    card.classList.add("card-pulse");
+  }
 
   floatingCartBtn.classList.remove("cart-pulse");
   void floatingCartBtn.offsetWidth;
   floatingCartBtn.classList.add("cart-pulse");
+}
 
-  // Hook into your real cart/payment processor later
+function getProductAmount(product) {
+  if (product.displayPrice) return Number(product.displayPrice).toFixed(2);
+  if (!Array.isArray(product.variants) || !product.variants.length) return "0.00";
+  const enabled = product.variants.filter(v => v.is_enabled);
+  const list = enabled.length ? enabled : product.variants;
+  const min = list.reduce((acc, v) => (v.price < acc.price ? v : acc), list[0]);
+  return (Number(min.price || 0) / 100).toFixed(2);
+}
+
+function getVariantId(product) {
+  if (!Array.isArray(product.variants) || !product.variants.length) return "";
+  const enabled = product.variants.find(v => v.is_enabled);
+  return String((enabled || product.variants[0]).id || "");
+}
+
+async function initiatePaypalCheckout(product) {
+  currentPaypalProduct = product;
+  pulseProduct(document.querySelector(`.product-card[data-product-id="${product.id}"]`));
+  showPaypalPanel(product);
+
+  try {
+    await loadPaypalSdk();
+    renderPaypalButton(product);
+  } catch (error) {
+    console.error("PayPal checkout setup failed:", error);
+    paypalStatusEl.textContent = "Unable to load PayPal checkout. Please try again later.";
+  }
+}
+
+function showPaypalPanel(product) {
+  if (!paypalPanel || !paypalStatusEl || !paypalButtonContainer) return;
+  paypalTitleEl.textContent = product.title || "PayPal Checkout";
+  paypalStatusEl.textContent = `Preparing checkout for ${product.title || "this product"}...`;
+  paypalButtonContainer.innerHTML = "";
+  paypalPanel.classList.remove("hidden");
+}
+
+async function loadPaypalSdk() {
+  if (window.paypal?.Buttons) return;
+
+  const response = await fetch("/api/payments", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ action: "paypal-client-id" })
+  });
+  const data = await response.json();
+  if (!response.ok || !data.clientId) {
+    throw new Error(data.error || "Missing PayPal client ID");
+  }
+
+  await new Promise((resolve, reject) => {
+    const existing = document.querySelector("script[data-paypal-sdk]");
+    if (existing) {
+      if (window.paypal?.Buttons) {
+        resolve();
+        return;
+      }
+      existing.addEventListener("load", resolve, { once: true });
+      existing.addEventListener("error", reject, { once: true });
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.dataset.paypalSdk = "true";
+    script.src = `https://www.paypal.com/sdk/js?client-id=${encodeURIComponent(data.clientId)}&currency=USD`;
+    script.onload = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+
+  await waitForPaypalButtons();
+}
+
+function waitForPaypalButtons() {
+  return new Promise((resolve, reject) => {
+    const startedAt = Date.now();
+    const interval = setInterval(() => {
+      if (window.paypal?.Buttons) {
+        clearInterval(interval);
+        resolve();
+        return;
+      }
+
+      if (Date.now() - startedAt > 10000) {
+        clearInterval(interval);
+        reject(new Error("PayPal SDK did not finish initializing"));
+      }
+    }, 100);
+  });
+}
+
+function renderPaypalButton(product) {
+  if (!window.paypal?.Buttons || !paypalButtonContainer) return;
+  const amount = getProductAmount(product);
+  paypalButtonContainer.innerHTML = "";
+  paypalStatusEl.textContent = `Paying ${amount} for ${product.title || "this product"}.`;
+
+  window.paypal.Buttons({
+    commit: true,
+    style: {
+      layout: "vertical",
+      color: "blue",
+      shape: "rect",
+      label: "pay"
+    },
+    createOrder: (data, actions) => actions.order.create({
+      purchase_units: [{
+        amount: { value: amount },
+        description: product.title || "NLBL product",
+        custom_id: String(product.id)
+      }]
+    }),
+    onApprove: async (data, actions) => {
+      paypalStatusEl.textContent = "Capturing payment...";
+      const order = await actions.order.capture();
+      const response = await fetch("/api/payments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "paypal-log-order",
+          orderID: order.id,
+          productID: product.id,
+          variantID: getVariantId(product),
+          amount
+        })
+      });
+      const result = await response.json();
+      paypalStatusEl.textContent = result.success
+        ? "Payment successful. Thank you."
+        : (result.error || "Payment capture failed. Please try again.");
+    },
+    onCancel: () => {
+      paypalStatusEl.textContent = "Payment cancelled. You can try again anytime.";
+    },
+    onError: error => {
+      console.error("PayPal error:", error);
+      paypalStatusEl.textContent = "PayPal checkout failed. Please try again later.";
+    }
+  }).render("#paypal-button-container");
 }
 
 /* Modal */
@@ -295,8 +442,17 @@ modalBackdrop.addEventListener("click", e => {
 
 modalAddBtn.addEventListener("click", () => {
   if (!modalProduct) return;
-  handleAddToCart(document.querySelector(`.product-card[data-product-id="${modalProduct.id}"]`) || modalBackdrop, modalProduct);
+  initiatePaypalCheckout(modalProduct);
 });
+
+if (paypalCloseBtn) {
+  paypalCloseBtn.addEventListener("click", () => {
+    paypalPanel.classList.add("hidden");
+    paypalStatusEl.textContent = "";
+    paypalButtonContainer.innerHTML = "";
+    currentPaypalProduct = null;
+  });
+}
 
 /* Memorial Mode */
 

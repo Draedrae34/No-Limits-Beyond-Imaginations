@@ -93,10 +93,19 @@
               <span class="modal-price" id="modal-price"></span>
             </div>
             <button class="btn-primary" id="modal-add-to-cart">
-              Add to Cart
+              PayPal Checkout
             </button>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div id="paypal-checkout-panel" class="paypal-panel hidden" aria-live="polite">
+      <div class="paypal-panel-inner">
+        <button class="paypal-close" id="paypal-close" type="button" aria-label="Close PayPal checkout">&times;</button>
+        <h2 id="paypal-product-title">PayPal Checkout</h2>
+        <p id="paypal-checkout-status"></p>
+        <div id="paypal-button-container"></div>
       </div>
     </div>
 
