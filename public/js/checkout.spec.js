@@ -2,8 +2,8 @@ import { test, expect } from '@playwright/test';
 
 test.describe('PayPal Checkout UI Verification', () => {
   test.beforeEach(async ({ page }) => {
-    // Adjust URL if your dev server runs on a different port
-    await page.goto('http://localhost:3000/shop.html');
+    // Adjust URL to deployed site
+    await page.goto('https://silent-spirits-legacy.vercel.app/shop.html');
   });
 
   test('should trigger PayPal panel and load SDK on click', async ({ page }) => {

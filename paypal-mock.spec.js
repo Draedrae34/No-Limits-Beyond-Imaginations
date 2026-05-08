@@ -78,7 +78,7 @@ test.describe('PayPal Checkout Simulation', () => {
     });
 
     // Navigate to the shop page where PayPal checkout is initiated
-    await page.goto('http://localhost:3000/shop.html');
+    await page.goto('https://silent-spirits-legacy.vercel.app/shop.html');
   });
 
   test('should simulate a successful PayPal payment and verify UI updates', async ({ page }) => {
