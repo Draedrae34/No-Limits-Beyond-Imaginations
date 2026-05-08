@@ -44,13 +44,19 @@
       ]
     }
   ],
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1.js" },
-    {
-      "src": "/private.html",
-      "has": [{ "type": "cookie", "key": "nlbl_auth", "value": "authenticated" }],
-      "dest": "/public/private.html"
-    },
+   "routes": [
+     { "src": "/api/(.*)", "dest": "/api/$1.js" },
+     { "src": "/workshop", "dest": "/workshop.html" },
+     {
+       "src": "/workshop.html",
+       "has": [{ "type": "cookie", "key": "nlbl_auth", "value": "authenticated" }],
+       "dest": "/public/workshop.html"
+     },
+     {
+       "src": "/workshop.html",
+       "status": 302,
+       "headers": { "Location": "/workshop-login.html", "X-Robots-Tag": "noindex, nofollow, noarchive" }
+     },
     {
       "src": "/private.html",
       "status": 302,
