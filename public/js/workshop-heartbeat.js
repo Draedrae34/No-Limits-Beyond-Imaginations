@@ -44,7 +44,7 @@ function highlightWorkshopAlert() {
 
 async function runHeartbeat() {
   try {
-    const res = await fetch('/api/agent-heartbeat');
+    const res = await fetch('/api/agent?action=heartbeat');
     if (!res.ok) return;
 
     const data = await res.json();
@@ -67,25 +67,25 @@ async function runHeartbeat() {
       highlightWorkshopAlert();
 
       // Auto-refresh audit to show latest state
-      if (typeof loadAudit === 'function') {
-        loadAudit();
+      if (window.NLBL && typeof window.NLBL.loadLogs === 'function') {
+        window.NLBL.loadLogs();
       }
     }
 
     lastAlerts = currentAlerts;
-    setHealthDot(data.health || 'unknown');
+    setHealthDot(data.health || (data.status === 'ok' ? 'healthy' : 'unknown'));
   } catch (err) {
     console.warn('Heartbeat cycle failed:', err);
   }
 }
 
-export function startHeartbeat(intervalMs = 45000) {
+function startHeartbeat(intervalMs = 45000) {
   if (heartbeatInterval) clearInterval(heartbeatInterval);
   runHeartbeat(); // immediate first run
   heartbeatInterval = setInterval(runHeartbeat, intervalMs);
 }
 
-export function stopHeartbeat() {
+function stopHeartbeat() {
   if (heartbeatInterval) clearInterval(heartbeatInterval);
   heartbeatInterval = null;
 }
