@@ -54,8 +54,7 @@ class VoiceControlSystem {
     this.commands.set('go to brothers', () => this.navigate('remembrance.html'));
     this.commands.set('go to about', () => this.navigate('about.html'));
 
-    // Private realm commands (owner only)
-    this.commands.set('open private', () => this.navigate('private.html'));
+    // Owner-only commands are intentionally not exposed in the public voice map.
     this.commands.set('open admin', () => this.navigate('admin.html'));
     this.commands.set('open orders', () => this.navigate('orders.html'));
     this.commands.set('open music', () => this.navigate('album.html'));

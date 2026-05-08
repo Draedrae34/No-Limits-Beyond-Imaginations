@@ -232,7 +232,7 @@ async function showBiometricLogin() {
         const result = await window.webAuthn.authenticateWithBiometric();
 
         if (result.success) {
-            window.location.href = 'private.html';
+            window.location.href = '/workshop-login.html';
         } else {
             alert(result.error || 'Authentication failed');
             button.disabled = false;

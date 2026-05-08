@@ -1,7 +1,92 @@
 {
   "version": 2,
+  "headers": [
+    {
+      "source": "/private.html",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" },
+        { "key": "Cache-Control", "value": "private, no-store" }
+      ]
+    },
+    {
+      "source": "/workshop.html",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" },
+        { "key": "Cache-Control", "value": "private, no-store" }
+      ]
+    },
+    {
+      "source": "/monitor.html",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" },
+        { "key": "Cache-Control", "value": "private, no-store" }
+      ]
+    },
+    {
+      "source": "/workshop-login.html",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" },
+        { "key": "Cache-Control", "value": "private, no-store" }
+      ]
+    },
+    {
+      "source": "/js/(workshop|workshop-heartbeat|lil-mystic).js",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" },
+        { "key": "Cache-Control", "value": "private, no-store" }
+      ]
+    },
+    {
+      "source": "/css/workshop.css",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" },
+        { "key": "Cache-Control", "value": "private, no-store" }
+      ]
+    }
+  ],
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/$1.js" },
+    {
+      "src": "/private.html",
+      "has": [{ "type": "cookie", "key": "nlbl_auth", "value": "authenticated" }],
+      "dest": "/public/private.html"
+    },
+    {
+      "src": "/private.html",
+      "status": 302,
+      "headers": { "Location": "/workshop-login.html", "X-Robots-Tag": "noindex, nofollow, noarchive" }
+    },
+    {
+      "src": "/workshop.html",
+      "has": [{ "type": "cookie", "key": "nlbl_auth", "value": "authenticated" }],
+      "dest": "/public/workshop.html"
+    },
+    {
+      "src": "/workshop.html",
+      "status": 302,
+      "headers": { "Location": "/workshop-login.html", "X-Robots-Tag": "noindex, nofollow, noarchive" }
+    },
+    {
+      "src": "/monitor.html",
+      "has": [{ "type": "cookie", "key": "nlbl_auth", "value": "authenticated" }],
+      "dest": "/public/monitor.html"
+    },
+    {
+      "src": "/monitor.html",
+      "status": 302,
+      "headers": { "Location": "/workshop-login.html", "X-Robots-Tag": "noindex, nofollow, noarchive" }
+    },
+    {
+      "src": "/(css/workshop\\.css|js/(workshop|workshop-heartbeat|lil-mystic)\\.js)",
+      "has": [{ "type": "cookie", "key": "nlbl_auth", "value": "authenticated" }],
+      "dest": "/public/$1"
+    },
+    {
+      "src": "/(css/workshop\\.css|js/(workshop|workshop-heartbeat|lil-mystic)\\.js)",
+      "status": 404,
+      "dest": "/public/private-not-found.txt",
+      "headers": { "X-Robots-Tag": "noindex, nofollow, noarchive" }
+    },
     { "src": "/(.*)", "dest": "/public/$1" }
   ]
 }

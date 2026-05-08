@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /private.html
+Disallow: /workshop.html
+Disallow: /monitor.html
+Disallow: /workshop-login.html
+Disallow: /css/workshop.css
+Disallow: /js/workshop.js
+Disallow: /js/workshop-heartbeat.js
+Disallow: /js/lil-mystic.js
