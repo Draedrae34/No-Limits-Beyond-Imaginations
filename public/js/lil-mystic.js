@@ -1,4 +1,4 @@
-// js/lil-mystic.js
+// js/lil-mystic.js - Enhanced with 3D hologram integration
 const mysticInput = document.getElementById('mystic-input');
 const mysticSend = document.getElementById('mystic-send');
 const mysticLog = document.getElementById('mystic-chat-log');
@@ -14,8 +14,8 @@ function appendMysticMessage(text, who = 'ai') {
 }
 
 async function sendToLilMystic(message, toolHint = null) {
-  mysticStatus.textContent = 'Thinking across the cosmos…';
-  mysticOrb.style.animationDuration = '1.4s';
+  mysticStatus.textContent = 'Consulting the cosmos…';
+  if (window.lilMystic3D) window.lilMystic3D.setMood('thinking');
 
   appendMysticMessage(message, 'user');
 
@@ -28,16 +28,21 @@ async function sendToLilMystic(message, toolHint = null) {
         toolHint,
         context: { source: 'workshop', ts: Date.now() }
       })
-    });
+    );
 
     const data = await res.json();
     if (data.error) {
       appendMysticMessage(`⚠️ ${data.error}`, 'ai');
+      if (window.lilMystic3D) window.lilMystic3D.setMood('error');
     } else {
       if (data.messages && Array.isArray(data.messages)) {
-        data.messages.forEach(m => appendMysticMessage(m, 'ai'));
+        data.messages.forEach(m => {
+          appendMysticMessage(m, 'ai');
+          if (window.lilMystic3D) window.lilMystic3D.speak(m);
+        });
       } else if (data.reply) {
         appendMysticMessage(data.reply, 'ai');
+        if (window.lilMystic3D) window.lilMystic3D.speak(data.reply);
       } else {
         appendMysticMessage('I acted, but the void returned no words.', 'ai');
       }
@@ -45,12 +50,14 @@ async function sendToLilMystic(message, toolHint = null) {
       if (data.actionsRun && Array.isArray(data.actionsRun)) {
         maybeRefreshUI(data.actionsRun);
       }
+      if (window.lilMystic3D) window.lilMystic3D.setMood('happy');
     }
   } catch (err) {
     appendMysticMessage(`⚠️ Connection failed: ${err.message}`, 'ai');
+    if (window.lilMystic3D) window.lilMystic3D.setMood('error');
   } finally {
     mysticStatus.textContent = 'Idle · Awaiting your command';
-    mysticOrb.style.animationDuration = '2.4s';
+    if (window.lilMystic3D) window.lilMystic3D.setMood('idle');
   }
 }
 
@@ -58,6 +65,7 @@ async function sendToLilMystic(message, toolHint = null) {
 window.NLBL = window.NLBL || {};
 window.NLBL.lilMysticNotify = function(msg) {
   appendMysticMessage(msg, 'ai');
+  if (window.lilMystic3D) window.lilMystic3D.speak(msg);
 };
 
 function maybeRefreshUI(actionsRun) {

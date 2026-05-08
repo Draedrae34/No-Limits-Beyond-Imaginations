@@ -5,15 +5,10 @@
 
 import { neon } from '@neondatabase/serverless';
 
-const PAYPAL_ENV = (process.env.PAYPAL_ENV || 'sandbox').toLowerCase();
-const configuredPayPalClientId = process.env.PAYPAL_CLIENT_ID || '';
-const hasPlaceholderClientId = !configuredPayPalClientId || /\.{3}|placeholder|your_/i.test(configuredPayPalClientId);
-const PAYPAL_CLIENT_ID = hasPlaceholderClientId && PAYPAL_ENV !== 'live' && PAYPAL_ENV !== 'production'
-  ? 'sb'
-  : configuredPayPalClientId;
-const PAYPAL_CLIENT_SECRET = process.env.PAYPAL_CLIENT_SECRET || process.env.PAYPAL_SECRET;
-const sql = process.env.DATABASE_URL ? neon(process.env.DATABASE_URL) : null;
-const PAYPAL_API_BASE = PAYPAL_ENV === 'live' || PAYPAL_ENV === 'production'
+const PAYPAL_CLIENT_ID = process.env.PAYPAL_CLIENT_ID;
+const PAYPAL_CLIENT_SECRET = process.env.PAYPAL_CLIENT_SECRET;
+const sql = neon(process.env.DATABASE_URL);
+const PAYPAL_API_BASE = process.env.NODE_ENV === 'production'
   ? 'https://api-m.paypal.com'
   : 'https://api-m.sandbox.paypal.com';
 
@@ -91,17 +86,10 @@ export default async function handler(req, res) {
 
   try {
     if (action === 'paypal-client-id') {
-      if (!PAYPAL_CLIENT_ID) {
-        return res.status(503).json({ success: false, error: 'PayPal client ID is not configured.' });
-      }
       return res.status(200).json({ clientId: PAYPAL_CLIENT_ID });
     }
 
     if (action === 'paypal-log-order') {
-      if (!PAYPAL_CLIENT_ID || !PAYPAL_CLIENT_SECRET || !sql) {
-        return res.status(503).json({ success: false, error: 'PayPal or database configuration is incomplete.' });
-      }
-
       // 1. Verify order details via PayPal REST API
       const paypalOrder = await verifyPayPalOrder(orderID);
       const capturedAmount = paypalOrder.purchase_units[0].amount.value;
