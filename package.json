@@ -6,12 +6,16 @@
   "engines": {
     "node": ">=20.x"
   },
-   "dependencies": {
-     "@neondatabase/serverless": "^0.10.4",
-     "@vercel/blob": "^1.1.1",
-     "bcryptjs": "^2.4.3",
-     "dotenv": "^17.4.2",
-     "node-cron": "^3.0.3",
-     "pg": "^8.11.2"
-   }
- }
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4",
+    "@vercel/blob": "^1.1.1",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^17.4.2",
+    "node-cron": "^3.0.3",
+    "pg": "^8.11.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "http-server": "^14.1.1"
+  }
+}
