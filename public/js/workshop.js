@@ -244,7 +244,119 @@
       .replace(/"/g, "&quot;");
   }
 
-  async function init() {
+  // --- PHASE 1: COSMIC ENVIRONMENT ---
+
+  function initStarfield() {
+    const canvas = document.getElementById("starfield");
+    if (!canvas) return;
+    // starfield.js already handles this; but we ensure it's initialized
+    // The existing starfield.js script will run automatically on load.
+  }
+
+  function initParallaxLayers() {
+    const nebula = document.querySelector(".nebula-layer");
+    const fog = document.querySelector(".fog-layer");
+    if (!nebula || !fog) return;
+
+    document.addEventListener("pointermove", (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 12;
+      const y = (e.clientY / window.innerHeight - 0.5) * 10;
+      nebula.style.transform = `translate3d(${x}px, ${y}px, 0) scale(1.06)`;
+      fog.style.transform = `translate3d(${-x * 0.6}px, ${-y * 0.6}px, 0) scale(1.04)`;
+    });
+  }
+
+  function initAmbience() {
+    const audio = document.getElementById("cosmic-ambience");
+    if (!audio) return;
+    audio.volume = 0.35;
+  }
+
+  // --- PHASE 5: SYSTEM INTELLIGENCE (HUD + BRAIN) ---
+
+  async function heartbeat() {
+    const statusEl = document.getElementById("system-status");
+    const telemetry = document.getElementById("telemetry-strip");
+    try {
+      const res = await fetch("/api/agent?action=heartbeat");
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+
+      if (statusEl) {
+        statusEl.textContent = "SYSTEMS NOMINAL";
+        statusEl.style.borderColor = "rgba(79, 255, 176, 0.7)";
+        statusEl.style.color = "#4fffb0";
+      }
+
+      if (telemetry) {
+        telemetry.textContent =
+          `ENGINE: ONLINE • DB: ${data.db || "UNKNOWN"} • PRINTIFY: ${data.printify || "UNKNOWN"} • DISCORD: ${data.discord || "UNKNOWN"}`;
+      }
+
+      terminalLog?.("Heartbeat OK. Systems nominal.", "system");
+    } catch (err) {
+      if (statusEl) {
+        statusEl.textContent = "ENGINE FAULT";
+        statusEl.style.borderColor = "rgba(255, 79, 122, 0.8)";
+        statusEl.style.color = "#ff4f7a";
+      }
+      if (telemetry) {
+        telemetry.textContent = "ENGINE: FAULT • DB: UNKNOWN • PRINTIFY: UNKNOWN • DISCORD: UNKNOWN";
+      }
+      terminalLog?.(`Heartbeat failed: ${err.message}`, "error");
+      // Optional: trigger mood shift on fault
+      triggerMoodPulse?.("remembrance");
+    }
+  }
+
+  async function initPipelineAutoRefresh() {
+    await refreshPipeline?.();
+    setInterval(() => {
+      refreshPipeline?.();
+    }, 30000);
+  }
+
+  async function runRoutineCommand(cmd) {
+    try {
+      const res = await fetch(`/api/agent`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: cmd }),
+      });
+      const data = await res.json();
+      if (data.reply) {
+        terminalLog?.(`Mystic: ${data.reply}`, "mystic");
+      }
+    } catch (err) {
+      terminalLog?.(`Routine error: ${err.message}`, "error");
+    }
+  }
+
+  // --- BOOTSTRAP FUSION ---
+
+  async function bootWorkshop() {
+    // Start cosmic environment
+    initStarfield();
+    initParallaxLayers();
+    initAmbience();
+
+    // Call existing initialization (if defined)
+    if (typeof initializeWorkshop === "function") {
+      await initializeWorkshop();
+    }
+
+    // Bring up system systems
+    initTerminal?.();
+    initPipelineAutoRefresh();
+    heartbeat();
+    setInterval(heartbeat, 45000);
+
+    terminalLog?.("Creation Studio, Hologram, and Heart fused with System Intelligence.", "system");
+  }
+
+  // --- EXISTING CODE BASE (renamed init -> initializeWorkshop) ---
+
+  async function initializeWorkshop() {
     const hasPrivateShell = $(".workshop-shell");
     if (!hasPrivateShell) return;
 
@@ -265,5 +377,5 @@
     window.NLBL.lilMysticNotify = (message) => appendAgentMessage(message);
   }
 
-  document.addEventListener("DOMContentLoaded", init);
+  document.addEventListener("DOMContentLoaded", bootWorkshop);
 })();
