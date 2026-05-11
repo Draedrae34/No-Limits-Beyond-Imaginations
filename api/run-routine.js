@@ -9,8 +9,8 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  // Auth for cron endpoint (use secret header)
-  const secret = req.headers['x-cron-secret'];
+  // Auth for cron endpoint (Vercel sends secret in x-vercel-cron-secret)
+  const secret = req.headers['x-vercel-cron-secret'] || req.headers['x-cron-secret'];
   if (secret !== process.env.CRON_SECRET) {
     return res.status(403).json({ error: 'Invalid cron secret' });
   }
