@@ -1,6 +1,15 @@
 const state = {
   orders: [],
   activeOrderId: null,
+  studio: {
+    isGenerating: false,
+    terminalHistory: [],
+    activeDraft: null
+  },
+  heart: {
+    currentMood: "neutral",
+    pulseInterval: null
+  }
 };
 
 const messagesState = {
@@ -33,6 +42,12 @@ tabs.forEach((btn) => {
       loadGallery();
       loadGalleryAdmin();
     }
+    
+    // Phase 3 & 4 Panels
+    if (panelId === "music-studio") initMusicStudio();
+    if (panelId === "design-lab") initDesignLab();
+    if (panelId === "terminal") initTerminal();
+    if (panelId === "tribute") initEmotionalExperience();
   });
 });
 
@@ -40,6 +55,118 @@ function formatCurrency(value) {
   const number = Number(value);
   if (Number.isNaN(number)) return "$0.00";
   return `$${number.toFixed(2)}`;
+}
+
+// --- 🔥 PHASE 3: CREATION STUDIO ENGINE ---
+
+function initMusicStudio() {
+  const container = document.getElementById("music-studio-container");
+  if (!container) return;
+  container.innerHTML = `
+    <div class="studio-grid">
+      <div class="synth-panel">
+        <h3>Ambient Frequencies</h3>
+        <div class="fader-group"><label>Nebula Resonance</label><input type="range" min="0" max="100" value="50"></div>
+        <button class="action-btn" id="start-stream">Initiate Stream</button>
+      </div>
+      <div class="visualizer-box"><div class="vis-bar"></div><div class="vis-bar"></div></div>
+    </div>`;
+}
+
+function initDesignLab() {
+  const container = document.getElementById("design-lab-container");
+  if (!container) return;
+  container.innerHTML = `
+    <div class="design-interface">
+      <textarea id="design-prompt" placeholder="Describe the cosmic vision..."></textarea>
+      <button class="quantum-btn" onclick="terminalLog('Manifesting vision...')">Manifest Vision</button>
+      <div id="design-preview" class="preview-grid"></div>
+    </div>`;
+}
+
+function initTerminal() {
+  const output = document.getElementById("terminal-output");
+  const input = document.getElementById("terminal-input");
+  if (!output || !input) return;
+  input.addEventListener("keydown", async (e) => {
+    if (e.key === "Enter") {
+      const cmd = input.value.trim();
+      input.value = "";
+      terminalLog(`> ${cmd}`, 'user');
+      await executeTerminalCommand(cmd);
+    }
+  });
+  terminalLog("Lil Mystic Terminal Online. Awaiting orders, Aundrae.");
+}
+
+function terminalLog(msg, type = 'system') {
+  const output = document.getElementById("terminal-output");
+  if (!output) return;
+  const line = document.createElement("div");
+  line.className = `terminal-line ${type}`;
+  line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+  output.appendChild(line);
+  output.scrollTop = output.scrollHeight;
+}
+
+async function executeTerminalCommand(message) {
+  try {
+    const response = await fetch("/api/agent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message })
+    });
+    const data = await response.json();
+    if (data.reply) terminalLog(`Mystic: ${data.reply}`, 'mystic');
+  } catch (err) {
+    terminalLog(`Terminal Error: ${err.message}`, 'error');
+  }
+}
+
+// --- 🔥 PHASE 4: THE EMOTIONAL EXPERIENCE (THE HEART) ---
+
+async function initEmotionalExperience() {
+  const container = document.getElementById("tribute-container");
+  if (!container) return;
+  container.innerHTML = `
+    <div class="heart-interface">
+      <div class="tribute-header">
+        <h2>Eternal Reflections</h2>
+        <p class="spiritual-subtitle">No Limits Beyond Limitations</p>
+      </div>
+      <div id="sacred-gallery" class="reflection-grid"></div>
+      <div class="emotional-controls">
+        <button class="action-btn" onclick="triggerMoodPulse('remembrance')">Initiate Pulse</button>
+      </div>
+    </div>`;
+  await loadTributeElements();
+}
+
+async function loadTributeElements() {
+  try {
+    const res = await fetch("/api/gallery");
+    const data = await res.json();
+    const items = data.items || [];
+    const tributeItems = items.filter(item => 
+      item.category === "tribute" || 
+      item.cosmic_text?.toLowerCase().includes("rj") || 
+      item.cosmic_text?.toLowerCase().includes("mainney")
+    );
+    const gallery = document.getElementById("sacred-gallery");
+    if (gallery) {
+      gallery.innerHTML = tributeItems.map(item => `
+        <div class="reflection-card quantum-card">
+          <img src="${resolveGalleryImageUrl(item)}" alt="Legacy">
+          <div class="reflection-overlay"><p>${item.cosmic_text || ""}</p></div>
+        </div>`).join("");
+    }
+  } catch (err) { terminalLog("Failed to sync sacred archives.", "error"); }
+}
+
+function triggerMoodPulse(mood) {
+  state.heart.currentMood = mood;
+  document.body.setAttribute("data-mood", mood);
+  terminalLog(`Emotional frequency set to: ${mood.toUpperCase()}`);
 }
 
 function formatDate(value) {
@@ -641,6 +768,7 @@ async function initializeWorkshop() {
   uploadGalleryFile();
   initMessagesSection();
   await Promise.all([loadOrders(), loadMessages(), loadGallery(), loadGalleryAdmin()]);
+  terminalLog("Creation Studio & Emotional Engine Online.");
 }
 
 initializeWorkshop();

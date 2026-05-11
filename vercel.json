@@ -1,98 +1,49 @@
 {
   "version": 2,
-  "headers": [
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/$1.js" },
+    
+    // Private pages — require auth
     {
-      "source": "/private.html",
-      "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" },
-        { "key": "Cache-Control", "value": "private, no-store" }
-      ]
-    },
-    {
-      "source": "/workshop.html",
-      "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" },
-        { "key": "Cache-Control", "value": "private, no-store" }
-      ]
-    },
-    {
-      "source": "/monitor.html",
-      "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" },
-        { "key": "Cache-Control", "value": "private, no-store" }
-      ]
-    },
-    {
-      "source": "/workshop-login.html",
-      "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" },
-        { "key": "Cache-Control", "value": "private, no-store" }
-      ]
-    },
-    {
-      "source": "/js/(workshop|workshop-heartbeat|lil-mystic).js",
-      "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" },
-        { "key": "Cache-Control", "value": "private, no-store" }
-      ]
-    },
-    {
-      "source": "/css/workshop.css",
-      "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" },
-        { "key": "Cache-Control", "value": "private, no-store" }
-      ]
-    }
-  ],
-   "routes": [
-     { "src": "/api/(.*)", "dest": "/api/$1.js" },
-     { "src": "/workshop", "dest": "/workshop.html" },
-     {
-       "src": "/workshop.html",
-       "has": [{ "type": "cookie", "key": "nlbl_auth", "value": "authenticated" }],
-       "dest": "/public/workshop.html"
-     },
-     {
-       "src": "/workshop.html",
-       "status": 302,
-       "headers": { "Location": "/workshop-login.html", "X-Robots-Tag": "noindex, nofollow, noarchive" }
-     },
-    {
-      "src": "/private.html",
-      "status": 302,
-      "headers": { "Location": "/workshop-login.html", "X-Robots-Tag": "noindex, nofollow, noarchive" }
-    },
-    {
-      "src": "/workshop.html",
+      "src": "/workshop",
       "has": [{ "type": "cookie", "key": "nlbl_auth", "value": "authenticated" }],
       "dest": "/public/workshop.html"
     },
     {
-      "src": "/workshop.html",
+      "src": "/workshop",
       "status": 302,
-      "headers": { "Location": "/workshop-login.html", "X-Robots-Tag": "noindex, nofollow, noarchive" }
+      "headers": { "Location": "/workshop-login.html" }
     },
     {
-      "src": "/monitor.html",
+      "src": "/private",
+      "has": [{ "type": "cookie", "key": "nlbl_auth", "value": "authenticated" }],
+      "dest": "/public/private.html"
+    },
+    {
+      "src": "/private",
+      "status": 302,
+      "headers": { "Location": "/workshop-login.html" }
+    },
+    {
+      "src": "/monitor",
       "has": [{ "type": "cookie", "key": "nlbl_auth", "value": "authenticated" }],
       "dest": "/public/monitor.html"
     },
     {
-      "src": "/monitor.html",
+      "src": "/monitor",
       "status": 302,
-      "headers": { "Location": "/workshop-login.html", "X-Robots-Tag": "noindex, nofollow, noarchive" }
+      "headers": { "Location": "/workshop-login.html" }
     },
-    {
-      "src": "/(css/workshop\\.css|js/(workshop|workshop-heartbeat|lil-mystic)\\.js)",
-      "has": [{ "type": "cookie", "key": "nlbl_auth", "value": "authenticated" }],
-      "dest": "/public/$1"
-    },
-    {
-      "src": "/(css/workshop\\.css|js/(workshop|workshop-heartbeat|lil-mystic)\\.js)",
-      "status": 404,
-      "dest": "/public/private-not-found.txt",
-      "headers": { "X-Robots-Tag": "noindex, nofollow, noarchive" }
-    },
+
+    // Public pages — no auth required
+    { "src": "/", "dest": "/public/index.html" },
+    { "src": "/shop", "dest": "/public/shop.html" },
+    { "src": "/remembrance", "dest": "/public/remembrance/remembrance.html" },
+    { "src": "/message-wall", "dest": "/public/message-wall.html" },
+    { "src": "/brothers-remembrance", "dest": "/public/brothers-remembrance.html" },
+
+    // Static assets & Fallback
+    { "src": "/(css/.*|js/.*|img/.*|audio/.*)", "dest": "/public/$1" },
     { "src": "/(.*)", "dest": "/public/$1" }
   ]
 }
