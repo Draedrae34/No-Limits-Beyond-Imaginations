@@ -1,101 +1,452 @@
-// js/lil-mystic.js - Enhanced with 3D hologram integration
-const mysticInput = document.getElementById('mystic-input');
-const mysticSend = document.getElementById('mystic-send');
-const mysticLog = document.getElementById('mystic-chat-log');
-const mysticStatus = document.getElementById('mystic-status');
-const mysticOrb = document.getElementById('mystic-orb');
+/**
+ * Phase 2: Lil Mystic Core Engine
+ * 3D Hologram, Particle Field, Orbiting Rings, Reactive Lighting, Mood + Voice Reactivity
+ */
 
-function appendMysticMessage(text, who = 'ai') {
-  const div = document.createElement('div');
-  div.className = `mystic-msg mystic-msg-${who}`;
-  div.textContent = text;
-  mysticLog.appendChild(div);
-  mysticLog.scrollTop = mysticLog.scrollHeight;
-}
+class LilMystic {
+  constructor(containerId) {
+    this.container = document.getElementById(containerId);
+    if (!this.container) return;
 
-async function sendToLilMystic(message, toolHint = null) {
-  mysticStatus.textContent = 'Consulting the cosmos…';
-  if (window.lilMystic3D) window.lilMystic3D.setMood('thinking');
-
-  appendMysticMessage(message, 'user');
-
-  try {
-    const res = await fetch('/api/agent', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        message,
-        toolHint,
-        context: { source: 'workshop', ts: Date.now() }
-      })
+    this.scene = new THREE.Scene();
+    this.camera = new THREE.PerspectiveCamera(
+      75,
+      this.container.clientWidth / this.container.clientHeight,
+      0.1,
+      1000
     );
+    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 
-    const data = await res.json();
-    if (data.error) {
-      appendMysticMessage(`⚠️ ${data.error}`, 'ai');
-      if (window.lilMystic3D) window.lilMystic3D.setMood('error');
-    } else {
-      if (data.messages && Array.isArray(data.messages)) {
-        data.messages.forEach(m => {
-          appendMysticMessage(m, 'ai');
-          if (window.lilMystic3D) window.lilMystic3D.speak(m);
-        });
-      } else if (data.reply) {
-        appendMysticMessage(data.reply, 'ai');
-        if (window.lilMystic3D) window.lilMystic3D.speak(data.reply);
-      } else {
-        appendMysticMessage('I acted, but the void returned no words.', 'ai');
-      }
+    this.particles = null;
+    this.rings = [];
+    this.avatar = null;
+    this.clock = new THREE.Clock();
+    this.mixer = null;
 
-      if (data.actionsRun && Array.isArray(data.actionsRun)) {
-        maybeRefreshUI(data.actionsRun);
-      }
-      if (window.lilMystic3D) window.lilMystic3D.setMood('happy');
+    this.state = {
+      intensity: 0,
+      mood: "neutral",
+      colors: {
+        neutral: 0x00f2ff,
+        remembrance: 0x7000ff,
+        talking: 0xff00d4,
+      },
+    };
+
+    // bind resize so we can remove it later
+    this._onResize = this.onWindowResize.bind(this);
+
+    this.init();
+  }
+
+  init() {
+    // Renderer
+    this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
+    this.renderer.setPixelRatio(window.devicePixelRatio);
+    this.renderer.toneMapping = THREE.ReinhardToneMapping;
+    this.renderer.toneMappingExposure = 2.0;
+    this.container.appendChild(this.renderer.domElement);
+
+    // Lighting
+    const ambientLight = new THREE.AmbientLight(0x404040, 2);
+    this.scene.add(ambientLight);
+
+    this.reactiveLight = new THREE.PointLight(
+      this.state.colors.neutral,
+      5,
+      50
+    );
+    this.reactiveLight.position.set(0, 2, 2);
+    this.scene.add(this.reactiveLight);
+
+    // Core elements
+    this.createParticleField();
+    this.createOrbitingRings();
+    this.createHologramCore();
+
+    this.camera.position.z = 5;
+
+    this.animate();
+    window.addEventListener("resize", this._onResize);
+  }
+
+  createParticleField() {
+    const geometry = new THREE.BufferGeometry();
+    const vertices = [];
+    for (let i = 0; i < 5000; i++) {
+      vertices.push(
+        THREE.MathUtils.randFloatSpread(20),
+        THREE.MathUtils.randFloatSpread(20),
+        THREE.MathUtils.randFloatSpread(20)
+      );
     }
-  } catch (err) {
-    appendMysticMessage(`⚠️ Connection failed: ${err.message}`, 'ai');
-    if (window.lilMystic3D) window.lilMystic3D.setMood('error');
-  } finally {
-    mysticStatus.textContent = 'Idle · Awaiting your command';
-    if (window.lilMystic3D) window.lilMystic3D.setMood('idle');
+    geometry.setAttribute(
+      "position",
+      new THREE.Float32BufferAttribute(vertices, 3)
+    );
+    const material = new THREE.PointsMaterial({
+      color: 0x8888ff,
+      size: 0.05,
+      transparent: true,
+      opacity: 0.5,
+      blending: THREE.AdditiveBlending,
+    });
+    this.particles = new THREE.Points(geometry, material);
+    this.scene.add(this.particles);
+  }
+
+  createOrbitingRings() {
+    const ringConfigs = [
+      { radius: 2, color: 0x00f2ff, speed: 0.5 },
+      { radius: 2.5, color: 0x7000ff, speed: -0.3 },
+      { radius: 3, color: 0xff00d4, speed: 0.2 },
+    ];
+
+    ringConfigs.forEach((config) => {
+      const geometry = new THREE.TorusGeometry(config.radius, 0.02, 16, 100);
+      const material = new THREE.MeshBasicMaterial({
+        color: config.color,
+        transparent: true,
+        opacity: 0.4,
+        blending: THREE.AdditiveBlending,
+      });
+      const ring = new THREE.Mesh(geometry, material);
+      ring.rotation.x = Math.random() * Math.PI;
+      ring.rotation.y = Math.random() * Math.PI;
+
+      this.scene.add(ring);
+      this.rings.push({ mesh: ring, speed: config.speed });
+    });
+  }
+
+  createHologramCore() {
+    const geometry = new THREE.IcosahedronGeometry(1, 15);
+    const material = new THREE.MeshStandardMaterial({
+      color: this.state.colors.neutral,
+      emissive: this.state.colors.neutral,
+      emissiveIntensity: 0.5,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.4,
+      blending: THREE.AdditiveBlending,
+    });
+    this.avatar = new THREE.Mesh(geometry, material);
+    this.scene.add(this.avatar);
+  }
+
+  /**
+   * Mood control: 'neutral', 'remembrance', etc.
+   */
+  setMood(mood) {
+    if (!this.state.colors[mood]) return;
+    this.state.mood = mood;
+    const targetColor = this.state.colors[mood];
+    this.applyColorToAvatar(targetColor);
+    this.reactiveLight.color.setHex(targetColor);
+  }
+
+  applyColorToAvatar(hex) {
+    if (!this.avatar) return;
+
+    // If avatar is a Mesh
+    if (this.avatar.isMesh && this.avatar.material) {
+      this.avatar.material.color.setHex(hex);
+      if (this.avatar.material.emissive) {
+        this.avatar.material.emissive.setHex(hex);
+      }
+      return;
+    }
+
+    // If avatar is a Group (GLTF)
+    this.avatar.traverse((node) => {
+      if (node.isMesh && node.material) {
+        node.material.color.setHex(hex);
+        if (node.material.emissive) node.material.emissive.setHex(hex);
+      }
+    });
+  }
+
+  // Voice hooks
+  onSpeak(intensity) {
+    this.state.intensity = intensity;
+
+    const scale = 1 + intensity * 0.5;
+    if (this.avatar) this.avatar.scale.set(scale, scale, scale);
+
+    this.reactiveLight.intensity = 5 + intensity * 10;
+    this.reactiveLight.color.setHex(this.state.colors.talking);
+  }
+
+  onListen() {
+    this.state.intensity = 0;
+    const baseColor =
+      this.state.colors[this.state.mood] || this.state.colors.neutral;
+    this.reactiveLight.color.setHex(baseColor);
+    this.applyColorToAvatar(baseColor);
+  }
+
+  animate() {
+    requestAnimationFrame(() => this.animate());
+    const delta = this.clock.getDelta();
+    const elapsed = this.clock.getElapsedTime();
+
+    // Particles
+    if (this.particles) {
+      const speed = 0.05 + this.state.intensity * 0.15;
+      this.particles.rotation.y += delta * speed;
+      this.particles.rotation.x += delta * (speed / 2);
+      this.particles.material.size =
+        0.05 +
+        Math.sin(elapsed * 2) * 0.01 +
+        this.state.intensity * 0.05;
+    }
+
+    // Rings
+    this.rings.forEach((ringObj) => {
+      ringObj.mesh.rotation.z += delta * ringObj.speed;
+      ringObj.mesh.rotation.x += delta * (ringObj.speed / 2);
+    });
+
+    // Core breathing
+    if (this.avatar) {
+      const breathe = 1 + Math.sin(elapsed * 2) * 0.05;
+      this.avatar.scale.set(
+        breathe + this.state.intensity * 0.2,
+        breathe + this.state.intensity * 0.2,
+        breathe + this.state.intensity * 0.2
+      );
+      this.avatar.rotation.y += delta * 0.5;
+    }
+
+    // GLTF animations
+    if (this.mixer) this.mixer.update(delta);
+
+    this.renderer.render(this.scene, this.camera);
+  }
+
+  onWindowResize() {
+    if (!this.container) return;
+    this.camera.aspect =
+      this.container.clientWidth / this.container.clientHeight;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setSize(
+      this.container.clientWidth,
+      this.container.clientHeight
+    );
+  }
+
+  /**
+   * Load a GLTF avatar model
+   */
+  loadAvatarModel(modelPath) {
+    const loader =
+      typeof THREE.GLTFLoader !== "undefined"
+        ? new THREE.GLTFLoader()
+        : typeof GLTFLoader !== "undefined"
+        ? new GLTFLoader()
+        : null;
+
+    if (!loader) {
+      console.error(
+        "LilMystic: GLTFLoader not found. Make sure it's loaded before lil-mystic.js."
+      );
+      return;
+    }
+
+    loader.load(modelPath, (gltf) => {
+      if (this.avatar) this.scene.remove(this.avatar);
+      this.avatar = gltf.scene;
+
+      // Animation
+      if (gltf.animations && gltf.animations.length) {
+        this.mixer = new THREE.AnimationMixer(this.avatar);
+        const action = this.mixer.clipAction(gltf.animations[0]);
+        action.play();
+      }
+
+      // Hologram material
+      this.avatar.traverse((node) => {
+        if (node.isMesh) {
+          node.material = new THREE.MeshStandardMaterial({
+            color: this.state.colors.neutral,
+            emissive: this.state.colors.neutral,
+            emissiveIntensity: 0.6,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.4,
+            blending: THREE.AdditiveBlending,
+          });
+        }
+      });
+
+      this.scene.add(this.avatar);
+    });
+  }
+
+  /**
+   * Signature gestures for Lil Mystic
+   * type: 'greet' | 'affirm' | 'focus' | 'resonate'
+   */
+  performGesture(type = "greet") {
+    if (!this.avatar) return;
+
+    if (type === "greet") {
+      // quick “what’s good” nod
+      this.avatar.rotation.x = -0.15;
+      setTimeout(() => {
+        if (this.avatar) this.avatar.rotation.x = 0;
+      }, 600);
+    }
+
+    if (type === "affirm") {
+      // small “I got you” tilt
+      this.avatar.rotation.z = 0.15;
+      setTimeout(() => {
+        if (this.avatar) this.avatar.rotation.z = 0;
+      }, 500);
+    }
+
+    if (type === "focus") {
+      // tighten in, like she’s locking in with you
+      this.onSpeak(0.25);
+      setTimeout(() => this.onListen(), 800);
+    }
+
+    if (type === "resonate") {
+      // slow, deep resonance pulse
+      const originalIntensity = this.state.intensity;
+      this.onSpeak(0.6);
+      setTimeout(() => {
+        this.state.intensity = originalIntensity;
+        this.onListen();
+      }, 2000);
+    }
+  }
+
+  /**
+   * Deep Work mode (she locks in with you)
+   */
+  enterDeepWork() {
+    // Calm, focused cyan
+    this.setMood("neutral");
+    this.state.intensity = 0.05;
+
+    // Slow particles, tight orbit
+    if (this.particles) {
+      this.particles.rotation.x = 0;
+      this.particles.rotation.y = 0;
+    }
+    this.rings.forEach((r) => (r.speed = 0.02));
+
+    // Slight forward lean = “I’m locked in with you”
+    if (this.avatar) {
+      this.avatar.rotation.x = 0.15;
+    }
+  }
+
+  exitDeepWork() {
+    this.state.intensity = 0;
+    this.onListen(); // reset to current mood
+    if (this.avatar) {
+      this.avatar.rotation.x = 0;
+    }
+  }
+
+  /**
+   * Guardian mode (she watches your pipeline)
+   */
+  setGuardianStatus(status = "ok") {
+    if (status === "ok") {
+      this.setMood("neutral");
+      this.state.intensity = 0.02;
+    } else if (status === "warning") {
+      this.setMood("talking");
+      this.state.intensity = 0.2;
+    } else if (status === "error") {
+      this.setMood("talking");
+      this.state.intensity = 0.4;
+      if (this.avatar) {
+        // Alert tilt
+        this.avatar.rotation.z = 0.2;
+        setTimeout(() => {
+          if (this.avatar) this.avatar.rotation.z = 0;
+        }, 2000);
+      }
+    }
+  }
+
+  /**
+   * Diagnostic Scan - Physical light sweep
+   */
+  triggerScan() {
+    if (!this.reactiveLight) return;
+    const originalPos = this.reactiveLight.position.clone();
+    const originalIntensity = this.reactiveLight.intensity;
+    
+    this.reactiveLight.intensity = 15;
+    this.reactiveLight.position.y = -5;
+
+    setTimeout(() => {
+      this.reactiveLight.position.copy(originalPos);
+      this.reactiveLight.intensity = originalIntensity;
+    }, 1000);
+  }
+
+  /**
+   * Glitch effect for system errors
+   */
+  triggerGlitch() {
+    if (!this.avatar) return;
+    const originalPos = this.avatar.position.clone();
+    const glitchInterval = setInterval(() => {
+      this.avatar.position.x = originalPos.x + (Math.random() - 0.5) * 0.3;
+      this.avatar.position.y = originalPos.y + (Math.random() - 0.5) * 0.3;
+    }, 40);
+    setTimeout(() => {
+      clearInterval(glitchInterval);
+      this.avatar.position.copy(originalPos);
+    }, 800);
+  }
+
+  /**
+   * Visual recovery pulse when systems are restored
+   */
+  triggerRecoveryPulse() {
+    if (!this.avatar) return;
+    const originalScale = this.avatar.scale.clone();
+
+    let t = 0;
+    const pulse = setInterval(() => {
+      t += 0.1;
+      const s = 1 + Math.sin(t * 10) * 0.1;
+      this.avatar.scale.set(s, s, s);
+    }, 40);
+
+    setTimeout(() => {
+      clearInterval(pulse);
+      if (this.avatar) this.avatar.scale.copy(originalScale);
+    }, 600);
+  }
+
+  /**
+   * Cleanup
+   */
+  dispose() {
+    if (this.mixer) this.mixer.stopAllAction();
+    this.renderer.dispose();
+    this.scene.traverse((object) => {
+      if (object.geometry) object.geometry.dispose();
+      if (object.material) {
+        if (Array.isArray(object.material)) {
+          object.material.forEach((m) => m.dispose());
+        } else {
+          object.material.dispose();
+        }
+      }
+    });
+    if (this.container && this.renderer.domElement.parentNode === this.container) {
+      this.container.removeChild(this.renderer.domElement);
+    }
+    window.removeEventListener("resize", this._onResize);
   }
 }
-
-// Expose notification hook globally
-window.NLBL = window.NLBL || {};
-window.NLBL.lilMysticNotify = function(msg) {
-  appendMysticMessage(msg, 'ai');
-  if (window.lilMystic3D) window.lilMystic3D.speak(msg);
-};
-
-function maybeRefreshUI(actionsRun) {
-  if (!window.NLBL || typeof window.NLBL.loadWorkshopProducts !== 'function') return;
-  const refreshTriggers = [
-    'Sync Printify catalog',
-    'Generate new cosmic products',
-    'Clean gibberish products'
-  ];
-  if (actionsRun.some(a => refreshTriggers.some(t => a.includes(t)))) {
-    window.NLBL.loadWorkshopProducts();
-  }
-}
-
-mysticSend.addEventListener('click', () => {
-  const value = mysticInput.value.trim();
-  if (!value) return;
-  mysticInput.value = '';
-  sendToLilMystic(value);
-});
-
-mysticInput.addEventListener('keydown', e => {
-  if (e.key === 'Enter') mysticSend.click();
-});
-
-// Hook tools to Lil Mystic
-document.querySelectorAll('.workshop-tool-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const tool = btn.dataset.tool;
-    const label = btn.textContent.trim();
-    sendToLilMystic(`Run tool: ${label}`, tool);
-  });
-});

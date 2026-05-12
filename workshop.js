@@ -1,6 +1,10 @@
+// This file is the unified workshop.js, combining root and public/js/workshop.js
+
 const state = {
   orders: [],
   activeOrderId: null,
+  products: [], // From public/js/workshop.js
+  activePanel: "overview", // From public/js/workshop.js
   studio: {
     isGenerating: false,
     terminalHistory: [],
@@ -12,12 +16,39 @@ const state = {
   }
 };
 
+window.lilMystic = null;
+
+// --- Utility Functions (from public/js/workshop.js, improved escapeHTML) ---
+async function fetchJSON(url, options = {}) {
+  const response = await fetch(url, options);
+  const text = await response.text();
+  let data = {};
+  try {
+    data = text ? JSON.parse(text) : {};
+  } catch {
+    data = { raw: text };
+  }
+
+  if (!response.ok) {
+    throw new Error(data.error || data.message || `Request failed: ${response.status}`);
+  }
+  return data;
+}
+
+function initLilMysticPanel() {
+  if (!window.lilMystic) {
+    window.lilMystic = new LilMystic("lil-mystic-container");
+    terminalLog("Lil Mystic hologram online.");
+    window.lilMystic?.performGesture("greet");
+  }
+}
+
 const messagesState = {
   list: [],
   selected: null,
 };
 
-function escapeHtml(text) {
+function escapeHTML(text) {
   const div = document.createElement("div");
   div.textContent = text;
   return div.innerHTML;
@@ -34,6 +65,10 @@ tabs.forEach((btn) => {
     btn.classList.add("active");
     const panelId = btn.dataset.tab;
     document.getElementById(panelId)?.classList.add("active");
+
+    if (panelId === "mystic" || panelId === "core") {
+      initLilMysticPanel();
+    }
 
     if (panelId === "products") loadProducts();
     if (panelId === "orders") loadOrders();
@@ -111,14 +146,77 @@ function terminalLog(msg, type = 'system') {
 
 async function executeTerminalCommand(message) {
   try {
+    const cmd = message.toLowerCase().trim();
+
+    // Local Mind-Body Directives
+    if (cmd === "focus" || cmd === "deep work") {
+      enterDeepWorkMode();
+      terminalLog("Lil Mystic is now locked in.", "mystic");
+      return;
+    }
+    if (cmd === "relax" || cmd === "exit focus") {
+      exitDeepWorkMode();
+      return;
+    }
+    if (cmd === "recover" || cmd === "fix") {
+      terminalLog("Initiating system recovery...", "mystic");
+      attemptAutoRecovery();
+      return;
+    }
+    if (cmd === "spellbook" || cmd === "help") {
+      terminalLog("MYSTIC SPELLBOOK:", "system");
+      terminalLog("summon - Call the spirit forward", "mystic");
+      terminalLog("cleanse - Stabilize harmonics", "mystic");
+      terminalLog("resonate - Sync with eternal frequencies", "mystic");
+      terminalLog("focus - Enter deep work mode", "mystic");
+      terminalLog("relax - Return to neutral state", "mystic");
+      terminalLog("recover - Initiate auto-repair", "mystic");
+      terminalLog("diagnostics - Run physical scan", "mystic");
+      return;
+    }
+    if (cmd === "summon") {
+      window.lilMystic?.performGesture("greet");
+      window.lilMystic?.onSpeak(0.3);
+      terminalLog("Lil Mystic has been summoned to the foreground.", "mystic");
+      return;
+    }
+    if (cmd === "cleanse" || cmd === "stabilize") {
+      window.lilMystic?.triggerRecoveryPulse();
+      triggerMoodPulse('neutral');
+      terminalLog("Spiritual harmonics stabilized.", "system");
+      return;
+    }
+    if (cmd === "resonate") {
+      window.lilMystic?.performGesture("focus");
+      triggerMoodPulse('remembrance');
+      terminalLog("Resonating with eternal frequencies...", "mystic");
+      return;
+    }
+    if (cmd === "diagnostics" || cmd === "scan") {
+      terminalLog("Running physical diagnostics...", "system");
+      window.lilMystic?.triggerScan();
+      return;
+    }
+
+    terminalLog("Mystic is thinking...");
+    window.lilMystic?.onSpeak(0.1); // Thinking pulse
+
     const response = await fetch("/api/agent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message })
     });
     const data = await response.json();
-    if (data.reply) terminalLog(`Mystic: ${data.reply}`, 'mystic');
+    window.lilMystic?.onListen();
+
+    if (data.reply) {
+      terminalLog(`Mystic: ${data.reply}`, 'mystic');
+      window.lilMystic?.onSpeak(0.4); // Speaking pulse
+      window.lilMystic?.performGesture("affirm");
+      setTimeout(() => window.lilMystic?.onListen(), 2500);
+    }
   } catch (err) {
+    window.lilMystic?.onListen();
     terminalLog(`Terminal Error: ${err.message}`, 'error');
   }
 }
@@ -140,6 +238,33 @@ async function initEmotionalExperience() {
       </div>
     </div>`;
   await loadTributeElements();
+  enterTributeResonance();
+}
+
+function enterTributeResonance() {
+  document.body.setAttribute("data-mood", "remembrance");
+  terminalLog("Entering Tribute Resonance Mode...");
+
+  if (!window.lilMystic) return;
+
+  // Mood + color
+  window.lilMystic.setMood("remembrance");
+
+  // Soft “spirit is here” pulse
+  window.lilMystic.onSpeak(0.15);
+  setTimeout(() => window.lilMystic.onListen(), 3000);
+
+  // Slow sacred rotation of rings
+  window.lilMystic.rings.forEach(r => {
+    r.speed = 0.05;
+  });
+
+  // Subtle bow of the avatar (respect)
+  if (window.lilMystic.avatar) {
+    window.lilMystic.avatar.rotation.x = -0.25;
+  }
+
+  terminalLog("Eternal Reflections online.");
 }
 
 async function loadTributeElements() {
@@ -167,6 +292,93 @@ function triggerMoodPulse(mood) {
   state.heart.currentMood = mood;
   document.body.setAttribute("data-mood", mood);
   terminalLog(`Emotional frequency set to: ${mood.toUpperCase()}`);
+  updateWorkshopLighting(mood);
+  if (window.lilMystic) {
+    window.lilMystic.setMood(mood);
+  }
+}
+
+function updateWorkshopLighting(mood) {
+  const root = document.documentElement;
+  const colors = {
+    neutral: { primary: "#00f2ff", secondary: "rgba(0, 242, 255, 0.1)" },
+    remembrance: { primary: "#7000ff", secondary: "rgba(112, 0, 255, 0.15)" },
+    talking: { primary: "#ff00d4", secondary: "rgba(255, 0, 212, 0.1)" },
+    build: { primary: "#00ff88", secondary: "rgba(0, 255, 136, 0.1)" },
+    storm: { primary: "#ff3b3b", secondary: "rgba(255, 59, 59, 0.15)" },
+    recovery: { primary: "#4fffb0", secondary: "rgba(79, 255, 176, 0.15)" }
+  };
+  const theme = colors[mood] || colors.neutral;
+  root.style.setProperty('--mystic-primary', theme.primary);
+  root.style.setProperty('--mystic-glow', theme.secondary);
+
+  // Update HUD values
+  const moodVal = document.getElementById("hud-mood-value");
+  if (moodVal) moodVal.textContent = mood.toUpperCase();
+}
+
+/**
+ * Cosmic HUD - Persistent system overlay
+ */
+function createCosmicHUD() {
+  if (document.getElementById("cosmic-hud")) return;
+  const hud = document.createElement("div");
+  hud.id = "cosmic-hud";
+  hud.className = "floating-hud fade-in";
+  hud.innerHTML = `
+    <div class="hud-item"><small>MOOD</small><span id="hud-mood-value">NEUTRAL</span></div>
+    <div class="hud-item"><small>RESONANCE</small><div class="hud-meter"><div id="hud-resonance-fill" class="hud-fill" style="width: 40%"></div></div></div>
+    <div class="hud-item"><small>INTEGRITY</small><div class="hud-meter"><div id="hud-integrity-fill" class="hud-fill" style="width: 100%"></div></div></div>
+    <div class="hud-item"><small>PULSE</small><span id="hud-pulse-value">STABLE</span></div>
+    <div class="hud-item"><small>SPIRIT</small><span>ONLINE</span></div>
+  `;
+  document.body.appendChild(hud);
+
+  // Ambient pulse for HUD
+  setInterval(() => {
+    const pulse = document.getElementById("hud-pulse-value");
+    if (pulse) pulse.style.opacity = pulse.style.opacity === "0.5" ? "1" : "0.5";
+  }, 1500);
+}
+
+async function attemptAutoRecovery() {
+  terminalLog("Attempting auto-recovery...", "system");
+  updateWorkshopLighting("recovery");
+
+  window.lilMystic?.setGuardianStatus("warning");
+  window.lilMystic?.performGesture("focus");
+
+  try {
+    const response = await fetch("/api/agent?action=heartbeat");
+    const data = await response.json();
+
+    terminalLog("Auto-recovery successful. Systems restored.", "system");
+    updateWorkshopLighting("neutral");
+
+    window.lilMystic?.setGuardianStatus("ok");
+    window.lilMystic?.triggerRecoveryPulse();
+    window.lilMystic?.onSpeak(0.2);
+    setTimeout(() => window.lilMystic?.onListen(), 1500);
+    return true;
+  } catch (err) {
+    terminalLog("Auto-recovery failed. Manual intervention required.", "error");
+    updateWorkshopLighting("storm");
+    document.getElementById("hud-integrity-fill").style.width = "20%";
+    window.lilMystic?.triggerGlitch();
+    return false;
+  }
+}
+
+function enterDeepWorkMode() {
+  terminalLog("Entering Deep Work Mode...");
+  document.body.setAttribute("data-mood", "build");
+  window.lilMystic?.enterDeepWork();
+}
+
+function exitDeepWorkMode() {
+  terminalLog("Exiting Deep Work Mode.");
+  document.body.setAttribute("data-mood", "neutral");
+  window.lilMystic?.exitDeepWork();
 }
 
 function formatDate(value) {
@@ -367,8 +579,8 @@ function renderMessagesTable() {
     const preview = msg.message.length > 40 ? msg.message.slice(0, 40) + "…" : msg.message;
     const tr = document.createElement("tr");
     tr.innerHTML = `
-      <td>${escapeHtml(msg.name || "Anonymous")}</td>
-      <td>${escapeHtml(preview)}</td>
+      <td>${escapeHTML(msg.name || "Anonymous")}</td>
+      <td>${escapeHTML(preview)}</td>
       <td>${msg.approved ? "Yes" : "No"}</td>
       <td>${msg.hidden ? "Yes" : "No"}</td>
       <td>${formatDate(msg.created_at)}</td>
@@ -771,4 +983,27 @@ async function initializeWorkshop() {
   terminalLog("Creation Studio & Emotional Engine Online.");
 }
 
-initializeWorkshop();
+async function hideCosmicIntro() {
+  const intro = document.getElementById("cosmic-intro");
+  if (!intro) return;
+
+  terminalLog("Initializing Heart & Subsystems...", "system");
+  await new Promise(r => setTimeout(r, 600));
+  
+  terminalLog("Synchronizing holographic sub-systems...", "system");
+  window.lilMystic?.onSpeak(0.2); // Pulse her to show she's loading
+  await new Promise(r => setTimeout(r, 800));
+
+  terminalLog("Silent Spirits Legacy — Online.", "system");
+  window.lilMystic?.performGesture("greet");
+  
+  intro.classList.add("hidden");
+  setTimeout(() => {
+    intro.remove();
+    createCosmicHUD();
+  }, 900);
+}
+
+initializeWorkshop().then(() => {
+  hideCosmicIntro();
+});
