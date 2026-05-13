@@ -148,53 +148,55 @@ async function executeTerminalCommand(message) {
   try {
     const cmd = message.toLowerCase().trim();
 
-    // Local Mind-Body Directives
-    if (cmd === "focus" || cmd === "deep work") {
-      enterDeepWorkMode();
-      terminalLog("Lil Mystic is now locked in.", "mystic");
-      return;
-    }
-    if (cmd === "relax" || cmd === "exit focus") {
-      exitDeepWorkMode();
-      return;
-    }
-    if (cmd === "recover" || cmd === "fix") {
-      terminalLog("Initiating system recovery...", "mystic");
-      attemptAutoRecovery();
-      return;
-    }
-    if (cmd === "spellbook" || cmd === "help") {
-      terminalLog("MYSTIC SPELLBOOK:", "system");
-      terminalLog("summon - Call the spirit forward", "mystic");
-      terminalLog("cleanse - Stabilize harmonics", "mystic");
-      terminalLog("resonate - Sync with eternal frequencies", "mystic");
-      terminalLog("focus - Enter deep work mode", "mystic");
-      terminalLog("relax - Return to neutral state", "mystic");
-      terminalLog("recover - Initiate auto-repair", "mystic");
-      terminalLog("diagnostics - Run physical scan", "mystic");
-      return;
-    }
-    if (cmd === "summon") {
-      window.lilMystic?.performGesture("greet");
-      window.lilMystic?.onSpeak(0.3);
-      terminalLog("Lil Mystic has been summoned to the foreground.", "mystic");
-      return;
-    }
-    if (cmd === "cleanse" || cmd === "stabilize") {
-      window.lilMystic?.triggerRecoveryPulse();
-      triggerMoodPulse('neutral');
-      terminalLog("Spiritual harmonics stabilized.", "system");
-      return;
-    }
-    if (cmd === "resonate") {
-      window.lilMystic?.performGesture("focus");
-      triggerMoodPulse('remembrance');
-      terminalLog("Resonating with eternal frequencies...", "mystic");
-      return;
-    }
-    if (cmd === "diagnostics" || cmd === "scan") {
-      terminalLog("Running physical diagnostics...", "system");
-      window.lilMystic?.triggerScan();
+    const localCommands = {
+      focus: () => {
+        enterDeepWorkMode();
+        terminalLog("Lil Mystic is now locked in.", "mystic");
+      },
+      "deep work": () => localCommands.focus(),
+      relax: () => exitDeepWorkMode(),
+      "exit focus": () => exitDeepWorkMode(),
+      recover: () => {
+        terminalLog("Initiating system recovery...", "mystic");
+        attemptAutoRecovery();
+      },
+      fix: () => localCommands.recover(),
+      summon: () => {
+        window.lilMystic?.performGesture("greet");
+        window.lilMystic?.onSpeak(0.3);
+        terminalLog("Lil Mystic has been summoned to the foreground.", "mystic");
+      },
+      cleanse: () => {
+        window.lilMystic?.triggerRecoveryPulse();
+        triggerMoodPulse('neutral');
+        terminalLog("Spiritual harmonics stabilized.", "system");
+      },
+      stabilize: () => localCommands.cleanse(),
+      resonate: () => {
+        window.lilMystic?.performGesture("focus");
+        triggerMoodPulse('remembrance');
+        terminalLog("Resonating with eternal frequencies...", "mystic");
+      },
+      diagnostics: () => {
+        terminalLog("Running physical diagnostics...", "system");
+        window.lilMystic?.triggerScan();
+      },
+      scan: () => localCommands.diagnostics(),
+      spellbook: () => {
+        terminalLog("MYSTIC SPELLBOOK:", "system");
+        terminalLog("summon - Call the spirit forward", "mystic");
+        terminalLog("cleanse - Stabilize harmonics", "mystic");
+        terminalLog("resonate - Sync with eternal frequencies", "mystic");
+        terminalLog("focus - Enter deep work mode", "mystic");
+        terminalLog("relax - Return to neutral state", "mystic");
+        terminalLog("recover - Initiate auto-repair", "mystic");
+        terminalLog("diagnostics - Run physical scan", "mystic");
+      },
+      help: () => localCommands.spellbook()
+    };
+
+    if (localCommands[cmd]) {
+      localCommands[cmd]();
       return;
     }
 
@@ -281,11 +283,11 @@ async function loadTributeElements() {
     if (gallery) {
       gallery.innerHTML = tributeItems.map(item => `
         <div class="reflection-card quantum-card">
-          <img src="${resolveGalleryImageUrl(item)}" alt="Legacy">
-          <div class="reflection-overlay"><p>${item.cosmic_text || ""}</p></div>
+          <img src="${escapeHTML(resolveGalleryImageUrl(item))}" alt="Legacy">
+          <div class="reflection-overlay"><p>${escapeHTML(item.cosmic_text || "")}</p></div>
         </div>`).join("");
     }
-  } catch (err) { terminalLog("Failed to sync sacred archives.", "error"); }
+  } catch (err) { terminalLog(`Sacred Archive Sync Error: ${err.message}`, "error"); }
 }
 
 function triggerMoodPulse(mood) {
@@ -429,12 +431,12 @@ async function loadOrders() {
       const toggleLabel = nextStatus === "fulfilled" ? "Mark Fulfilled" : "Mark Pending";
       const row = document.createElement("tr");
       row.innerHTML = `
-        <td>${order.id}</td>
-        <td>${order.product_id || "N/A"}</td>
+        <td>${escapeHTML(String(order.id))}</td>
+        <td>${escapeHTML(order.product_id || "N/A")}</td>
         <td>${formatCurrency(order.amount)}</td>
-        <td>${order.buyer_name || "Unknown"}</td>
-        <td>${order.buyer_email || "Unknown"}</td>
-        <td>${status}</td>
+        <td>${escapeHTML(order.buyer_name || "Unknown")}</td>
+        <td>${escapeHTML(order.buyer_email || "Unknown")}</td>
+        <td>${escapeHTML(status)}</td>
         <td>${formatDate(order.created_at)}</td>
         <td>
           <button class="action-btn order-detail-btn" data-id="${order.id}">Details</button>
@@ -837,8 +839,8 @@ async function loadProducts() {
     data.products.forEach((product) => {
       const tr = document.createElement("tr");
       tr.innerHTML = `
-        <td>${product.id}</td>
-        <td>${product.name}</td>
+        <td>${escapeHTML(String(product.id))}</td>
+        <td>${escapeHTML(product.name)}</td>
         <td>${formatCurrency(product.price)}</td>
         <td>${product.active ? "Yes" : "No"}</td>
         <td>
@@ -977,9 +979,26 @@ function wireUiEvents() {
 
 async function initializeWorkshop() {
   wireUiEvents();
+  initLilMysticPanel(); // Bridge the gap: Wake up the hologram for the intro sequence
   uploadGalleryFile();
   initMessagesSection();
-  await Promise.all([loadOrders(), loadMessages(), loadGallery(), loadGalleryAdmin()]);
+  
+  // Load components individually to prevent one failure from stopping the OS boot
+  const tasks = [
+    { name: "Orders", fn: loadOrders },
+    { name: "Messages", fn: loadMessages },
+    { name: "Gallery", fn: loadGallery },
+    { name: "Gallery Admin", fn: loadGalleryAdmin }
+  ];
+
+  for (const task of tasks) {
+    try {
+      await task.fn();
+    } catch (e) {
+      terminalLog(`Module Load Alert: ${task.name} offline.`, "error");
+    }
+  }
+
   terminalLog("Creation Studio & Emotional Engine Online.");
 }
 

@@ -1,13 +1,19 @@
 :root {
-  --workshop-bg: #050711;
-  --workshop-panel: rgba(9, 13, 30, 0.9);
-  --workshop-panel-strong: rgba(13, 18, 40, 0.96);
-  --workshop-border: rgba(138, 158, 255, 0.26);
-  --workshop-text: #eef2ff;
-  --workshop-muted: #aab3d8;
-  --workshop-accent: #7dd3fc;
-  --workshop-pink: #f0abfc;
-  --workshop-danger: #f87171;
+  --bg-deep: #05010a;
+  --bg-mid: #1a0b2e;
+  --accent-primary: #b37cff;
+  --accent-secondary: #ff4fd8;
+  --accent-soft: #7b3cff;
+  --text-main: #f5e9ff;
+  --text-muted: #a79bbf;
+  --danger: #ff4f7a;
+  --success: #4fffb0;
+  --glass-bg: rgba(10, 4, 24, 0.78);
+  --glass-border: rgba(179, 124, 255, 0.35);
+  
+  --workshop-panel: var(--glass-bg);
+  --workshop-border: var(--glass-border);
+  --workshop-text: var(--text-main);
 }
 
 * {
@@ -15,14 +21,12 @@
 }
 
 body {
-  min-height: 100vh;
   margin: 0;
-  color: var(--workshop-text);
-  background:
-    radial-gradient(circle at 15% 10%, rgba(125, 211, 252, 0.16), transparent 32rem),
-    radial-gradient(circle at 82% 18%, rgba(240, 171, 252, 0.13), transparent 28rem),
-    var(--workshop-bg);
-  font-family: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  padding: 0;
+  overflow: hidden;
+  background: radial-gradient(circle at top, #2b1b4b 0, var(--bg-deep) 55%, #000 100%);
+  color: var(--text-main);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
 }
 
 .cosmic-bg,
@@ -276,28 +280,6 @@ body {
  }
 
 /* === PHASE 1: COSMIC ENVIRONMENT === */
-:root {
-  --bg-deep: #05010a;
-  --bg-mid: #1a0b2e;
-  --accent-primary: #b37cff;
-  --accent-secondary: #ff4fd8;
-  --accent-soft: #7b3cff;
-  --text-main: #f5e9ff;
-  --text-muted: #a79bbf;
-  --danger: #ff4f7a;
-  --success: #4fffb0;
-  --glass-bg: rgba(10, 4, 24, 0.78);
-  --glass-border: rgba(179, 124, 255, 0.35);
-}
-
-body.workshop-body {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background: radial-gradient(circle at top, #2b1b4b 0, var(--bg-deep) 55%, #000 100%);
-  color: var(--text-main);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-}
 
 /* Mood-based variants (Phase 4 hook) */
 body[data-mood="remembrance"] {
