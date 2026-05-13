@@ -168,13 +168,13 @@ async function executeTerminalCommand(message) {
       },
       cleanse: () => {
         window.lilMystic?.triggerRecoveryPulse();
-        triggerMoodPulse('neutral');
+        triggerMoodPulse("neutral");
         terminalLog("Spiritual harmonics stabilized.", "system");
       },
       stabilize: () => localCommands.cleanse(),
       resonate: () => {
         window.lilMystic?.performGesture("focus");
-        triggerMoodPulse('remembrance');
+        triggerMoodPulse("remembrance");
         terminalLog("Resonating with eternal frequencies...", "mystic");
       },
       diagnostics: () => {
@@ -192,7 +192,7 @@ async function executeTerminalCommand(message) {
         terminalLog("recover - Initiate auto-repair", "mystic");
         terminalLog("diagnostics - Run physical scan", "mystic");
       },
-      help: () => localCommands.spellbook()
+      help: () => localCommands.spellbook(),
     };
 
     if (localCommands[cmd]) {

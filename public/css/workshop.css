@@ -1,32 +1,26 @@
 :root {
-  --bg-deep: #05010a;
-  --bg-mid: #1a0b2e;
-  --accent-primary: #b37cff;
-  --accent-secondary: #ff4fd8;
-  --accent-soft: #7b3cff;
-  --text-main: #f5e9ff;
-  --text-muted: #a79bbf;
-  --danger: #ff4f7a;
-  --success: #4fffb0;
-  --glass-bg: rgba(10, 4, 24, 0.78);
-  --glass-border: rgba(179, 124, 255, 0.35);
-  
-  --workshop-panel: var(--glass-bg);
-  --workshop-border: var(--glass-border);
-  --workshop-text: var(--text-main);
-}
+    --bg-deep: #05010a;
+    --bg-mid: #1a0b2e;
+    --accent-primary: #b37cff;
+    --accent-secondary: #ff4fd8;
+    --accent-soft: #7b3cff;
+    --text-main: #f5e9ff;
+    --text-muted: #a79bbf;
+    --danger: #ff4f7a;
+    --success: #4fffb0;
+    --glass-bg: rgba(10, 4, 24, 0.78);
+    --glass-border: rgba(179, 124, 255, 0.35);
 
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background: radial-gradient(circle at top, #2b1b4b 0, var(--bg-deep) 55%, #000 100%);
-  color: var(--text-main);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+    --workshop-panel: var(--glass-bg);
+    --workshop-border: var(--glass-border);
+    --workshop-text: var(--text-main);
+    --workshop-muted: var(--text-muted);
+    --workshop-accent: var(--accent-primary);
+    --workshop-pink: var(--accent-secondary);
+    --workshop-danger: var(--danger);
+    
+    --mystic-primary: var(--accent-primary);
+    --mystic-glow: rgba(179, 124, 255, 0.1);
 }
 
 .cosmic-bg,
