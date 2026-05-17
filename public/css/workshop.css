@@ -442,6 +442,7 @@ body[data-mood="remembrance"] .fog-layer { opacity: 0.24; }
   margin-bottom: 2px;
 }
 .terminal-line.user { color: var(--accent-primary); }
+.terminal-line.system { color: var(--text-muted); font-style: italic; }
 .terminal-line.mystic { color: var(--accent-secondary); }
 .terminal-line.error { color: var(--danger); }
 
@@ -510,4 +511,145 @@ body[data-mood="remembrance"] .fog-layer { opacity: 0.24; }
 .action-btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 0 18px rgba(179, 124, 255, 0.7);
+}
+
+/* Phase 1 - Remembrance Styles */
+.remembrance-hero {
+  max-width: 800px;
+  margin: 2rem auto;
+  text-align: center;
+  color: #f5e9ff;
+}
+.remembrance-hero h1 {
+  font-size: 2.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e5ddff;
+}
+.remembrance-hero p.remembrance-subtitle {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  color: #a79bbf;
+  line-height: 1.6;
+}
+.remembrance-slideshow {
+  position: relative;
+  max-width: 900px;
+  margin: 2rem auto;
+  border-radius: 18px;
+  overflow: hidden;
+  background: radial-gradient(circle at top, rgba(124, 58, 237, 0.25), rgba(15, 23, 42, 0.95));
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.9);
+  aspect-ratio: 16 / 9;
+}
+.remembrance-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.remembrance-slide.active {
+  opacity: 1;
+}
+.remembrance-slide img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* Phase 2 - Honor Wall Styles */
+.honor-wall {
+  max-width: 1100px;
+  margin: 1rem auto 4rem;
+  padding: 0 1.5rem;
+  color: #f5e9ff;
+}
+.honor-intro {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+.honor-intro h1 {
+  font-size: 2.4rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #e5ddff;
+}
+.honor-poem {
+  margin-top: 1rem;
+  font-size: 1.05rem;
+  color: #a79bbf;
+  line-height: 1.7;
+}
+.tribute-composer {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+.composer-controls h2,
+.honor-grid-section h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #c4b5fd;
+}
+.composer-controls label {
+  display: block;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: #cbd5f5;
+}
+.composer-controls textarea,
+.composer-controls select,
+.composer-controls input[type="color"],
+.composer-controls input[type="file"] {
+  width: 100%;
+  margin-top: 0.35rem;
+  padding: 0.6rem 0.7rem;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 255, 0.35);
+  background: rgba(15, 23, 42, 0.9);
+  color: #e5e7ff;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+.tribute-preview-card {
+  min-height: 180px;
+  border-radius: 18px;
+  padding: 1.5rem;
+  background: radial-gradient(circle at top, rgba(124, 58, 237, 0.35), rgba(15, 23, 42, 0.95));
+  border: 1px solid rgba(148, 163, 255, 0.45);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.honor-grid {
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.4rem;
+}
+.honor-card {
+  border-radius: 16px;
+  padding: 1rem;
+  background: radial-gradient(circle at top, rgba(56, 189, 248, 0.18), rgba(15, 23, 42, 0.96));
+  border: 1px solid rgba(148, 163, 255, 0.35);
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.9);
+  color: #e5e7ff;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.honor-card img {
+  max-width: 100%;
+  border-radius: 12px;
+  margin-top: 0.75rem;
 }

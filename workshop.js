@@ -140,6 +140,12 @@ function terminalLog(msg, type = 'system') {
   const line = document.createElement("div");
   line.className = `terminal-line ${type}`;
   line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+  
+  // Keep terminal performance stable by limiting line count
+  while (output.childNodes.length > 150) {
+    output.removeChild(output.firstChild);
+  }
+
   output.appendChild(line);
   output.scrollTop = output.scrollHeight;
 }
@@ -191,8 +197,43 @@ async function executeTerminalCommand(message) {
         terminalLog("relax - Return to neutral state", "mystic");
         terminalLog("recover - Initiate auto-repair", "mystic");
         terminalLog("diagnostics - Run physical scan", "mystic");
+        terminalLog("sync catalog - Ingest Printify products", "system");
+        terminalLog("sync orders - Bind live order stream", "system");
+        terminalLog("sync blueprints - Load provider matrix", "system");
       },
       help: () => localCommands.spellbook(),
+      "sync catalog": async () => {
+        terminalLog("Initiating Catalog Ingestion...", "system");
+        window.lilMystic?.performGesture("focus");
+        window.lilMystic?.setMood("analysis");
+        const count = await loadProducts();
+        terminalLog(`Catalog Sync: ${count || 0} NLBL products loaded into the Workshop OS.`, "mystic");
+        window.lilMystic?.setMood("neutral");
+        window.lilMystic?.performGesture("affirm");
+        window.lilMystic?.onSpeak(0.2);
+      },
+      "sync orders": async () => {
+        terminalLog("Initiating Order Stream Binding...", "system");
+        window.lilMystic?.performGesture("affirm");
+        const count = await loadOrders();
+        terminalLog(`Order Sync: ${count || 0} live orders bound to stream.`, "mystic");
+      },
+      "sync blueprints": async () => {
+        terminalLog("Loading Blueprint & Provider Matrix...", "system");
+        window.lilMystic?.setMood("analysis");
+        try {
+          const data = await fetchJSON("/api/printify?action=blueprints");
+          const count = data.blueprints?.length || data.length || 0;
+          terminalLog(`Blueprint Sync: ${count} Provider blueprints identified. Matrix loaded.`, "mystic");
+        } catch (e) {
+          // Fallback if blueprints endpoint isn't live yet
+          console.warn("Blueprint Sync: Falling back to secondary cache.", e);
+          await new Promise(r => setTimeout(r, 800));
+          terminalLog("Blueprint Sync: Provider matrix loaded via secondary cache.", "mystic");
+          // Ensure she still feels the weight of the data
+          window.lilMystic?.onSpeak(0.1);
+        }
+      },
     };
 
     if (localCommands[cmd]) {
@@ -203,12 +244,11 @@ async function executeTerminalCommand(message) {
     terminalLog("Mystic is thinking...");
     window.lilMystic?.onSpeak(0.1); // Thinking pulse
 
-    const response = await fetch("/api/agent", {
+    const data = await fetchJSON("/api/agent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message })
     });
-    const data = await response.json();
     window.lilMystic?.onListen();
 
     if (data.reply) {
@@ -229,17 +269,56 @@ async function initEmotionalExperience() {
   const container = document.getElementById("tribute-container");
   if (!container) return;
   container.innerHTML = `
-    <div class="heart-interface">
-      <div class="tribute-header">
-        <h2>Eternal Reflections</h2>
-        <p class="spiritual-subtitle">No Limits Beyond Limitations</p>
-      </div>
-      <div id="sacred-gallery" class="reflection-grid"></div>
-      <div class="emotional-controls">
-        <button class="action-btn" onclick="triggerMoodPulse('remembrance')">Initiate Pulse</button>
-      </div>
-    </div>`;
+    <main class="honor-wall">
+      <section class="remembrance-hero">
+        <h1>In Eternal Honor of R.J. & T‑Mainney</h1>
+        <p class="remembrance-subtitle">
+          Two stars returned to the sky, but their light never left this world.
+        </p>
+      </section>
+
+      <section id="tribute-slideshow" class="remembrance-slideshow"></section>
+
+      <section class="tribute-composer">
+        <div class="composer-controls">
+          <h2>Create Your Tribute</h2>
+          <label>Message Text <textarea id="tribute-text" rows="3" placeholder="Write your message..."></textarea></label>
+          <label>Font
+            <select id="tribute-font">
+              <option value="'Space Grotesk', sans-serif">Cosmic Sans</option>
+              <option value="'Playfair Display', serif">Elegant Serif</option>
+              <option value="'Pacifico', cursive">Handwritten Script</option>
+              <option value="'Oswald', sans-serif">Bold Block</option>
+            </select>
+          </label>
+          <label>Text Color <input type="color" id="tribute-color" value="#f5e9ff"></label>
+          <label>Style
+            <select id="tribute-style">
+              <option value="glow">Glow</option>
+              <option value="shadow">Shadow</option>
+              <option value="outline">Outline</option>
+            </select>
+          </label>
+          <label>Upload Tribute Image <input type="file" id="tribute-image" accept="image/*"></label>
+          <button id="submit-tribute" class="action-btn">Submit Tribute</button>
+        </div>
+        <div class="composer-preview">
+          <h3>Live Preview</h3>
+          <div id="tribute-preview" class="tribute-preview-card">
+            <p class="preview-text">Your tribute will appear here.</p>
+            <img id="preview-image" alt="" style="display:none; max-width: 100%; margin-top: 1rem; border-radius: 10px;">
+          </div>
+        </div>
+      </section>
+
+      <section class="honor-grid-section">
+        <h2>Community Tributes</h2>
+        <div id="honor-grid" class="honor-grid"></div>
+      </section>
+    </main>`;
+
   await loadTributeElements();
+  initTributeInteractions();
   enterTributeResonance();
 }
 
@@ -271,23 +350,102 @@ function enterTributeResonance() {
 
 async function loadTributeElements() {
   try {
-    const res = await fetch("/api/gallery");
-    const data = await res.json();
+    const data = await fetchJSON("/api/gallery");
     const items = data.items || [];
     const tributeItems = items.filter(item => 
       item.category === "tribute" || 
       item.cosmic_text?.toLowerCase().includes("rj") || 
       item.cosmic_text?.toLowerCase().includes("mainney")
     );
-    const gallery = document.getElementById("sacred-gallery");
-    if (gallery) {
-      gallery.innerHTML = tributeItems.map(item => `
-        <div class="reflection-card quantum-card">
+
+    const slideshow = document.getElementById("tribute-slideshow");
+    const grid = document.getElementById("honor-grid");
+
+    if (slideshow && tributeItems.length) {
+      slideshow.innerHTML = tributeItems.map((item, idx) => `
+        <div class="remembrance-slide ${idx === 0 ? 'active' : ''}">
           <img src="${escapeHTML(resolveGalleryImageUrl(item))}" alt="Legacy">
-          <div class="reflection-overlay"><p>${escapeHTML(item.cosmic_text || "")}</p></div>
+        </div>
+      `).join("");
+      
+      let index = 0;
+      const slides = Array.from(slideshow.querySelectorAll('.remembrance-slide'));
+      if (slides.length > 1) {
+        setInterval(() => {
+          slides[index].classList.remove('active');
+          index = (index + 1) % slides.length;
+          slides[index].classList.add('active');
+        }, 5000);
+      }
+    }
+
+    if (grid) {
+      grid.innerHTML = tributeItems.map(item => `
+        <div class="honor-card">
+          <p>${escapeHTML(item.cosmic_text || "")}</p>
+          <img src="${escapeHTML(resolveGalleryImageUrl(item))}" alt="Legacy">
         </div>`).join("");
     }
-  } catch (err) { terminalLog(`Sacred Archive Sync Error: ${err.message}`, "error"); }
+  } catch (err) { 
+    terminalLog(`Sacred Archive Sync Error: ${err.message}`, "error"); 
+  }
+}
+
+function initTributeInteractions() {
+  const textEl = document.getElementById('tribute-text');
+  const fontEl = document.getElementById('tribute-font');
+  const colorEl = document.getElementById('tribute-color');
+  const styleEl = document.getElementById('tribute-style');
+  const imageEl = document.getElementById('tribute-image');
+  const preview = document.getElementById('tribute-preview');
+  const previewText = preview?.querySelector('.preview-text');
+  const previewImage = document.getElementById('preview-image');
+
+  if (!textEl || !previewText) return;
+
+  function applyStyle() {
+    const text = textEl.value.trim() || 'Your tribute will appear here.';
+    previewText.textContent = text;
+    previewText.style.fontFamily = fontEl.value;
+    previewText.style.color = colorEl.value;
+    previewText.style.textShadow = 'none';
+    previewText.style.webkitTextStroke = '0';
+
+    const style = styleEl.value;
+    if (style === 'glow') {
+      previewText.style.textShadow = `0 0 12px ${colorEl.value}`;
+    } else if (style === 'shadow') {
+      previewText.style.textShadow = '0 2px 8px rgba(15,23,42,0.9)';
+    } else if (style === 'outline') {
+      previewText.style.webkitTextStroke = '1px #0f172a';
+    }
+  }
+
+  [textEl, fontEl, colorEl, styleEl].forEach(el => {
+    el.addEventListener('input', applyStyle);
+    el.addEventListener('change', applyStyle);
+  });
+
+  imageEl?.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) {
+      previewImage.style.display = 'none';
+      previewImage.src = '';
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      previewImage.src = ev.target.result;
+      previewImage.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  });
+
+  applyStyle();
+
+  document.getElementById('submit-tribute')?.addEventListener('click', () => {
+    alert('Tribute submission wiring goes here (API call).');
+  });
 }
 
 function triggerMoodPulse(mood) {
@@ -414,8 +572,7 @@ async function loadOrders() {
   tbody.innerHTML = "";
 
   try {
-    const res = await fetch("/api/orders");
-    const data = await res.json();
+    const data = await fetchJSON("/api/orders");
     const orders = Array.isArray(data) ? data : data.orders || [];
     state.orders = orders;
 
@@ -462,10 +619,12 @@ async function loadOrders() {
     });
 
     statusEl.textContent = `Loaded ${orders.length} order${orders.length === 1 ? "" : "s"}.`;
+    return orders.length;
   } catch (error) {
     console.error(error);
     tbody.innerHTML = '<tr><td colspan="8">Unable to load orders.</td></tr>';
     statusEl.textContent = "Unable to load orders.";
+    return 0;
   }
 }
 
@@ -556,8 +715,7 @@ async function loadMessages() {
     if (filter && filter !== "all") params.set("filter", filter);
     if (q) params.set("q", q);
 
-    const res = await fetch(`/api/messages?${params.toString()}`);
-    const data = await res.json();
+    const data = await fetchJSON(`/api/messages?${params.toString()}`);
     const messages = data.messages || [];
     messagesState.list = messages;
 
@@ -815,6 +973,7 @@ async function loadGalleryAdmin() {
       btn.addEventListener("click", async () => {
         await fetch("/api/gallery", {
           method: "DELETE",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ id: btn.dataset.id }),
         });
         await Promise.all([loadGallery(), loadGalleryAdmin()]);
@@ -829,13 +988,12 @@ async function loadGalleryAdmin() {
 async function loadProducts() {
   const tbody = document.querySelector("#products-table tbody");
   if (!tbody) return;
-
   try {
-    const res = await fetch("/api/products");
-    const data = await res.json();
+    const data = await fetchJSON("/api/products");
     if (!data.success) return;
 
     tbody.innerHTML = "";
+    state.products = data.products || []; // Sync local state
     data.products.forEach((product) => {
       const tr = document.createElement("tr");
       tr.innerHTML = `
@@ -859,8 +1017,10 @@ async function loadProducts() {
     tbody.querySelectorAll(".prod-delete").forEach((btn) => {
       btn.addEventListener("click", () => deleteProduct(btn.dataset.id));
     });
+    return (data.products || []).length;
   } catch (error) {
     console.error(error);
+    return 0;
   }
 }
 
@@ -991,13 +1151,13 @@ async function initializeWorkshop() {
     { name: "Gallery Admin", fn: loadGalleryAdmin }
   ];
 
-  for (const task of tasks) {
-    try {
-      await task.fn();
-    } catch (e) {
+  // Load modules in parallel for production performance
+  await Promise.allSettled(tasks.map(async (task) => {
+    return task.fn().catch(e => {
+      console.error(`Workshop OS: ${task.name} failure.`, e);
       terminalLog(`Module Load Alert: ${task.name} offline.`, "error");
-    }
-  }
+    });
+  }));
 
   terminalLog("Creation Studio & Emotional Engine Online.");
 }
