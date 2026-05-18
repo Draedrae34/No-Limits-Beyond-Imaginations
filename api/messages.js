@@ -21,7 +21,7 @@ const actions = {
 
     if (filter === 'approved') where.push(`approved = TRUE AND hidden = FALSE`);
     else if (filter === 'hidden') where.push(`hidden = TRUE`);
-    else if (filter === 'unapproved') where.push(`approved = FALSE`);
+    else if (filter === 'unapproved' || filter === 'pending') where.push(`approved = FALSE`);
 
     if (q) {
       where.push(`(name ILIKE $${i} OR message ILIKE $${i})`);

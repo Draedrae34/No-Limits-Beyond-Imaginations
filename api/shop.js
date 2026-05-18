@@ -195,7 +195,7 @@ const actions = {
     if (!isAdminAuth(req.headers.cookie || '')) return res.status(401).json({ error: 'Authentication required' });
     let body = req.body || {};
     if (typeof body === 'string') { try { body = JSON.parse(body); } catch { body = {}; } }
-    const action = (req.query && req.query.action) || (body && body.action) || 'status';
+    const action = (req.query && (req.query.printifyAction || req.query.action)) || (body && body.action) || 'status';
 
     try {
       switch (action) {
@@ -258,8 +258,18 @@ const actions = {
           console.log(`🌌 [NLBL Printify] Admin list: page=${page}, limit=${limit}, total=${data.total || products.length}`);
           return res.status(200).json({ success: true, products, total: data.total || products.length, page, limit });
         }
+        case 'blueprints': {
+          const data = await printifyFetch('catalog/blueprints.json');
+          const blueprints = data.data || data || [];
+          return res.status(200).json({
+            success: true,
+            count: blueprints.length,
+            blueprints,
+            timestamp: new Date().toISOString()
+          });
+        }
         default:
-          return res.status(400).json({ error: `Unknown action: ${action}`, availableActions: ['status', 'catalog', 'list', 'sync', 'import', 'adminList'] });
+          return res.status(400).json({ error: `Unknown action: ${action}`, availableActions: ['status', 'catalog', 'list', 'sync', 'import', 'adminList', 'blueprints'] });
       }
     } catch (err) {
       console.error('Printify API Error:', err.message);

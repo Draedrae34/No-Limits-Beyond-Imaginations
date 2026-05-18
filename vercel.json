@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/products/:id",
+      "destination": "/api/products?id=:id"
+    },
+    {
+      "source": "/api/product-upload",
+      "destination": "/api/gallery?action=productUpload"
+    }
+  ]
+}
