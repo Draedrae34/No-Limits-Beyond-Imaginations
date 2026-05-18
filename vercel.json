@@ -7,6 +7,22 @@
     {
       "source": "/api/product-upload",
       "destination": "/api/gallery?action=productUpload"
+    },
+    {
+      "source": "/api/auth/:path*",
+      "destination": "/api/auth?action=:path*"
+    },
+    {
+      "source": "/api/system/:path*",
+      "destination": "/api/system?action=:path*"
+    },
+    {
+      "source": "/api/tribute/:path*",
+      "destination": "/api/gallery?category=tribute"
+    },
+    {
+      "source": "/api/orders/:id",
+      "destination": "/api/orders?id=:id"
     }
   ]
 }
