@@ -26,6 +26,8 @@ const INTENTS = [
   { keys: ['predict', 'forecast', 'future'], name: 'Predict issues', fn: generatePredictions },
   { keys: ['cost', 'expense', 'spend'], name: 'Show cost analytics', fn: () => getRoutineCostStats(30) },
   { keys: ['performance', 'metrics', 'stats'], name: 'System performance score', fn: getSystemHealthScore },
+  { keys: ['memorize', 'photographic', 'remember'], name: 'Neural Memory Ingestion', fn: analyzeAndOptimize },
+  { keys: ['copycat', 'mimic', 'upgrade'], name: 'Neural Mimicry Protocol', fn: analyzeAndOptimize },
 ];
 
 async function getCurrentUser(req) {

@@ -98,13 +98,32 @@ function initMusicStudio() {
   const container = document.getElementById("music-studio-container");
   if (!container) return;
   container.innerHTML = `
-    <div class="studio-grid">
-      <div class="synth-panel">
-        <h3>Ambient Frequencies</h3>
-        <div class="fader-group"><label>Nebula Resonance</label><input type="range" min="0" max="100" value="50"></div>
-        <button class="action-btn" id="start-stream">Initiate Stream</button>
-      </div>
-      <div class="visualizer-box"><div class="vis-bar"></div><div class="vis-bar"></div></div>
+    <div class="music-production-grid">
+        <div class="studio-header">
+            <h3>Sacred Frequency Producer</h3>
+            <p class="panel-note">Aligning the soul with the sound of the legacy.</p>
+        </div>
+        <div class="mixer-strips">
+            <div class="mixer-strip">
+                <label>BASS</label>
+                <input type="range" class="vertical-slider" orient="vertical">
+                <button class="mute-toggle">M</button>
+            </div>
+            <div class="mixer-strip">
+                <label>STARS</label>
+                <input type="range" class="vertical-slider" orient="vertical">
+                <button class="mute-toggle">M</button>
+            </div>
+            <div class="mixer-strip">
+                <label>VOICE</label>
+                <input type="range" class="vertical-slider" orient="vertical">
+                <button class="mute-toggle">M</button>
+            </div>
+        </div>
+        <div class="studio-actions">
+            <button class="action-btn" onclick="window.lilMystic.onSpeak(0.5)">Test Harmonic</button>
+            <button class="action-btn" id="start-stream">Master Track</button>
+        </div>
     </div>`;
 }
 
@@ -113,8 +132,15 @@ function initDesignLab() {
   if (!container) return;
   container.innerHTML = `
     <div class="design-interface">
-      <textarea id="design-prompt" placeholder="Describe the cosmic vision..."></textarea>
-      <button class="quantum-btn" onclick="terminalLog('Manifesting vision...')">Manifest Vision</button>
+      <div class="design-header">
+        <h3>Cosmic Manifestation Lab</h3>
+        <p class="panel-note">Generating Galaxy-Theme All-Over Prints (Infant to Adult)</p>
+      </div>
+      <textarea id="design-lab-prompt" placeholder="Describe the galaxy pattern & logo placement..."></textarea>
+      <div class="design-controls">
+        <button class="quantum-btn" onclick="terminalLog('Manifesting Galaxy AOP across all size variants...')">Manifest Vision</button>
+        <button class="action-btn" onclick="terminalLog('Logo Overlay: ACTIVE')">Apply Legacy Logo</button>
+      </div>
       <div id="design-preview" class="preview-grid"></div>
     </div>`;
 }
@@ -187,6 +213,16 @@ async function executeTerminalCommand(message) {
         terminalLog("Running physical diagnostics...", "system");
         window.lilMystic?.triggerScan();
       },
+      memorize: () => {
+        terminalLog("Photographic Buffer Active: Memorizing Workspace State...", "mystic");
+        window.lilMystic?.triggerNeuralIngestion();
+        terminalLog("Eternal Copycat: Environment scanned and process-locked.", "system");
+      },
+      copycat: () => {
+        terminalLog("Initiating Neural Mimicry...", "mystic");
+        window.lilMystic?.triggerNeuralIngestion();
+        terminalLog("Self-Upgrade Complete: System patterns synthesized flawlessly.", "system");
+      },
       scan: () => localCommands.diagnostics(),
       spellbook: () => {
         terminalLog("MYSTIC SPELLBOOK:", "system");
@@ -197,6 +233,8 @@ async function executeTerminalCommand(message) {
         terminalLog("relax - Return to neutral state", "mystic");
         terminalLog("recover - Initiate auto-repair", "mystic");
         terminalLog("diagnostics - Run physical scan", "mystic");
+        terminalLog("memorize - Photographic ingestion of state", "mystic");
+        terminalLog("copycat - Flawless neural mimicry & upgrade", "mystic");
         terminalLog("sync catalog - Ingest Printify products", "system");
         terminalLog("sync orders - Bind live order stream", "system");
         terminalLog("sync blueprints - Load provider matrix", "system");

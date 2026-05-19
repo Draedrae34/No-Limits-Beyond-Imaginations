@@ -13,10 +13,15 @@ class LilMystic {
         this.camera = null;
         this.renderer = null;
         this.rings = [];
+        this.core = null;
+        this.particles = null;
         this.glowElement = null;
         this.clock = new THREE.Clock();
         this.targetZ = 5;
         this.time = 0;
+        this.isScanning = false;
+        this.isGlitching = false;
+        this.isPulseActive = false;
         this.avatar = {
             rotation: { x: 0, y: 0, z: 0 },
             scale: 1,
@@ -41,6 +46,22 @@ class LilMystic {
         this.container.appendChild(this.renderer.domElement);
 
         this.glowElement = this.container.querySelector('.mystic-glow');
+
+        // 1. Crystal Core (The Heart)
+        const coreGeo = new THREE.IcosahedronGeometry(0.4, 1);
+        const coreMat = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: 0.8 });
+        this.core = new THREE.Mesh(coreGeo, coreMat);
+        this.scene.add(this.core);
+
+        // 2. Soul (Particle Field)
+        const partCount = 200;
+        const partGeo = new THREE.BufferGeometry();
+        const pos = new Float32Array(partCount * 3);
+        for(let i=0; i < partCount * 3; i++) pos[i] = (Math.random() - 0.5) * 6;
+        partGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+        const partMat = new THREE.PointsMaterial({ color: 0x7000ff, size: 0.05, transparent: true, opacity: 0.5 });
+        this.particles = new THREE.Points(partGeo, partMat);
+        this.scene.add(this.particles);
 
         // Create Sacred Geometry Rings
         const ringConfigs = [
@@ -76,19 +97,38 @@ class LilMystic {
     startRenderLoop() {
         const update = () => {
             const delta = this.clock.getDelta();
-            this.time += delta * 1.5; // Controlled oscillation speed
+            this.time += delta * (this.isPulseActive ? 5 : 1.5); 
             
             // Smooth camera transition
             const lerpFactor = 0.05;
             this.camera.position.z += (this.targetZ - this.camera.position.z) * lerpFactor;
 
             // Idle breathing effect
-            const breathing = Math.sin(this.time * 0.5) * 0.05;
+            const breathing = this.isGlitching ? (Math.random() * 0.2) : Math.sin(this.time * 0.5) * 0.05;
             const currentIntensity = this.avatar.intensity + breathing;
 
+            // Animate Heart & Soul
+            if (this.core) {
+                this.core.rotation.x += delta * 0.5;
+                this.core.rotation.y += delta * 0.8;
+                const pulse = 1 + Math.sin(this.time * 2) * 0.1;
+                this.core.scale.set(pulse, pulse, pulse);
+            }
+            if (this.particles) {
+                this.particles.rotation.y += delta * 0.1;
+                this.particles.material.opacity = (currentIntensity / 2);
+            }
+
             this.rings.forEach(ring => {
-                ring.rotation.x += ring.customSpeed * delta * 60;
-                ring.rotation.y += ring.customSpeed * 1.5 * delta * 60;
+                let speedMult = this.isScanning ? 10 : (this.isPulseActive ? 20 : 1);
+                if (this.isGlitching) {
+                    ring.rotation.x += (Math.random() - 0.5) * 0.5;
+                    ring.position.x = (Math.random() - 0.5) * 0.1;
+                } else {
+                    ring.rotation.x += ring.customSpeed * delta * 60 * speedMult;
+                    ring.rotation.y += ring.customSpeed * 1.5 * delta * 60 * speedMult;
+                    ring.position.x = 0;
+                }
                 
                 // Modulate material opacity based on avatar intensity
                 if (ring.material) {
@@ -122,6 +162,15 @@ class LilMystic {
                     r.position.y += 0.15;
                     setTimeout(() => r.position.y = originalY, 300);
                 });
+                break;
+            case "memorize":
+                // High-speed inward collapse for data ingestion
+                this.targetZ = 3.5;
+                this.rings.forEach(r => {
+                    r.customSpeed *= 8;
+                    r.scale.set(0.5, 0.5, 0.5);
+                });
+                setTimeout(() => this.setMood("neutral"), 2000);
                 break;
         }
     }
@@ -173,19 +222,54 @@ class LilMystic {
     }
 
     triggerRecoveryPulse() {
-        console.log("[Lil Mystic] Harmonic Recovery Pulse Initiated.");
-        this.performGesture("focus");
-        // Visual burst logic
+        this.isPulseActive = true;
+        this.avatar.intensity = 2.0;
+        this.rings.forEach(r => r.scale.set(2, 2, 2));
+        
+        setTimeout(() => {
+            this.isPulseActive = false;
+            this.avatar.intensity = 0.8;
+            this.rings.forEach(r => r.scale.set(1, 1, 1));
+            terminalLog("Harmonic Recovery Pulse Complete.", "mystic");
+        }, 1500);
     }
 
     triggerScan() {
-        console.log("[Lil Mystic] Diagnostic Grid Active.");
-        // Grid overlay reveal
+        this.isScanning = true;
+        this.setMood("analysis");
+        terminalLog("Lil Mystic is scanning local subspace...", "system");
+        
+        setTimeout(() => {
+            this.isScanning = false;
+            this.setMood("neutral");
+            terminalLog("Scan complete: All spiritual anchors stable.", "mystic");
+        }, 3000);
     }
 
     triggerGlitch() {
-        console.log("[Lil Mystic] Critical Alert: Signal Jitter.");
-        // Trigger RGB shift effect
+        this.isGlitching = true;
+        setTimeout(() => {
+            this.isGlitching = false;
+        }, 500);
+    }
+
+    triggerNeuralIngestion() {
+        console.log("[Lil Mystic] Photographic Buffer: ACTIVE.");
+        this.isScanning = true;
+        this.avatar.intensity = 2.5;
+        
+        // Rapid inward collapse to "ingest" data
+        this.targetZ = 3;
+        this.rings.forEach((r, i) => {
+            r.scale.set(0.5, 0.5, 0.5);
+            r.customSpeed *= (5 + i);
+        });
+
+        setTimeout(() => {
+            this.isScanning = false;
+            this.setMood("neutral");
+            this.avatar.intensity = 0.8;
+        }, 2000);
     }
 
     enterDeepWork() {
