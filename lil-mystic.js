@@ -172,6 +172,14 @@ class LilMystic {
                 });
                 setTimeout(() => this.setMood("neutral"), 2000);
                 break;
+            case "spiritGaze":
+                // Position high up and tilt down
+                this.targetZ = 6;
+                this.camera.position.y = 4;
+                this.camera.lookAt(0, 0, 0);
+                this.avatar.intensity = 1.5;
+                setTimeout(() => { this.camera.position.y = 0; }, 4000);
+                break;
         }
     }
 
