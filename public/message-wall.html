@@ -1,1034 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Honor Wall | No Limits Beyond Limitations</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Pacifico&family=Sacramento&family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="epic-theme.css">
+    <title>Silent Spirits Legacy | Honor Wall</title>
+    <link rel="stylesheet" href="css/workshop.css">
     <link rel="stylesheet" href="honor-wall-upgrade.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #0c0c0c;
-            color: white;
-            font-family: 'Rajdhani', sans-serif;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* Cosmic Background */
-        .cosmos {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            background:
-                radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%),
-                radial-gradient(circle at 20% 80%, rgba(138, 43, 226, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(255, 0, 150, 0.05) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle 3s infinite ease-in-out;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-
-        /* Header */
-        header {
-            position: relative;
-            z-index: 100;
-            padding: 30px 20px;
-            text-align: center;
-            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, transparent 100%);
-        }
-
-        h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3rem;
-            background: linear-gradient(90deg, #FFD700, #FF69B4, #00FFFF);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.7);
-            font-weight: 300;
-        }
-
-        /* Navigation */
-        nav {
-            position: relative;
-            z-index: 100;
-            padding: 15px;
-            text-align: center;
-        }
-
-        nav a {
-            color: #00ffff;
-            text-decoration: none;
-            margin: 0 20px;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-
-        nav a:hover {
-            color: #ff69b4;
-            text-shadow: 0 0 15px #ff69b4;
-        }
-
-        /* Main Content */
-        main {
-            position: relative;
-            z-index: 10;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* Message Form */
-        .message-form-container {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 20px;
-            padding: 40px;
-            margin-bottom: 50px;
-            backdrop-filter: blur(10px);
-            position: relative;
-            z-index: 100;
-        }
-
-        .message-form-container h2 {
-            font-family: 'Orbitron', sans-serif;
-            color: #FFD700;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #00ffff;
-            font-size: 1.1rem;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            border-radius: 10px;
-            color: white;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #FFD700;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-        }
-
-        .form-group textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        /* Font Style Options */
-        .font-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .font-option {
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 20px;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
-
-        .font-option:hover {
-            background: rgba(255, 215, 0, 0.2);
-        }
-
-        .font-option.selected {
-            background: linear-gradient(45deg, #FF69B4, #FFD700);
-            color: black;
-            border-color: #FFD700;
-        }
-
-        .font-option[data-font="Rajdhani"] { font-family: 'Rajdhani', sans-serif; }
-        .font-option[data-font="Dancing Script"] { font-family: 'Dancing Script', cursive; }
-        .font-option[data-font="Great Vibes"] { font-family: 'Great Vibes', cursive; }
-        .font-option[data-font="Pacifico"] { font-family: 'Pacifico', cursive; }
-        .font-option[data-font="Sacramento"] { font-family: 'Sacramento', cursive; }
-        .font-option[data-font="Tangerine"] { font-family: 'Tangerine', cursive; }
-        .font-option[data-font="Orbitron"] { font-family: 'Orbitron', sans-serif; }
-
-        /* Color Options */
-        .color-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .color-option {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            border: 2px solid transparent;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .color-option:hover {
-            transform: scale(1.2);
-        }
-
-        .color-option.selected {
-            border-color: white;
-            box-shadow: 0 0 15px currentColor;
-        }
-
-        .submit-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 18px 40px;
-            background: linear-gradient(45deg, #FF69B4, #FFD700);
-            border: none;
-            border-radius: 50px;
-            color: #000;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            margin-top: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .submit-btn .btn-text {
-            display: inline-block;
-            transition: transform 0.2s ease, opacity 0.2s ease;
-        }
-
-        .submit-btn .btn-spinner {
-            width: 18px;
-            height: 18px;
-            border: 3px solid rgba(0, 0, 0, 0.25);
-            border-top-color: rgba(0, 0, 0, 0.8);
-            border-radius: 50%;
-            margin-left: 12px;
-            opacity: 0;
-            transform: scale(0.8);
-            transition: opacity 0.2s ease, transform 0.2s ease;
-            animation: spin 0.75s linear infinite;
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg) scale(0.8); }
-            to { transform: rotate(360deg) scale(0.8); }
-        }
-
-        .submit-btn.loading {
-            cursor: progress;
-            transform: scale(1.0);
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.35);
-        }
-
-        .submit-btn.loading .btn-text {
-            transform: translateX(-6px);
-        }
-
-        .submit-btn.loading .btn-spinner {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .submit-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(255, 105, 180, 0.5);
-        }
-
-        /* Messages Wall Container */
-        .wall-section {
-            position: relative;
-            min-height: 1500px;
-            margin-top: 50px;
-            margin-bottom: 100px;
-        }
-
-        .wall-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            text-align: center;
-            margin: 40px 0 30px;
-            color: #FFD700;
-            position: relative;
-            z-index: 50;
-        }
-
-        .wall-subtitle {
-            text-align: center;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 30px;
-            position: relative;
-            z-index: 50;
-        }
-
-        /* Messages Wall - Scattered */
-        .messages-wall {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            min-height: 1500px;
-            pointer-events: none;
-        }
-
-        .wall-message {
-            position: absolute;
-            max-width: 350px;
-            min-width: 200px;
-            padding: 20px;
-            border-radius: 15px;
-            pointer-events: auto;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            animation: messageAppear 0.8s ease forwards;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
-        }
-
-        .wall-message:hover {
-            transform: scale(1.05) rotate(0deg) !important;
-            z-index: 1000;
-            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.8);
-        }
-
-        @keyframes messageAppear {
-            from {
-                opacity: 0;
-                transform: scale(0.5);
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        .wall-message::before {
-            content: '💜';
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 24px;
-        }
-
-        .wall-message .name {
-            font-weight: bold;
-            margin-bottom: 8px;
-            font-size: 1.1rem;
-        }
-
-        .wall-message .text, .wall-message .tribute-text {
-            font-size: 1rem;
-            line-height: 1.5;
-            margin-bottom: 10px;
-        }
-
-        /* New Emotional Message Wall Styles */
-        .message-wall {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        .mw-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3rem;
-            background: linear-gradient(90deg, #FFD700, #FF69B4, #00FFFF);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .mw-subtitle {
-            text-align: center;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 40px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        #message-wall {
-            min-height: 200px;
-            margin: 40px 0;
-        }
-
-        .mw-divider {
-            text-align: center;
-            color: rgba(255, 215, 0, 0.7);
-            font-style: italic;
-            margin: 40px 0;
-            padding: 20px;
-            border-top: 1px solid rgba(255, 215, 0, 0.3);
-            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
-        }
-
-        .mw-form {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 20px;
-            padding: 40px;
-            margin-top: 50px;
-            backdrop-filter: blur(10px);
-        }
-
-        .mw-form input[type="text"],
-        .mw-form textarea {
-            width: 100%;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            border-radius: 10px;
-            color: white;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .mw-form input[type="text"]:focus,
-        .mw-form textarea:focus {
-            outline: none;
-            border-color: #FFD700;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-        }
-
-        .mw-form textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .mw-submit {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 18px 40px;
-            background: linear-gradient(45deg, #FF69B4, #FFD700);
-            border: none;
-            border-radius: 50px;
-            color: #000;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            margin-top: 10px;
-        }
-
-        .mw-submit:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(255, 105, 180, 0.5);
-        }
-
-        .mw-note {
-            text-align: center;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.9rem;
-            margin-top: 15px;
-        }
-
-        .message-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-            backdrop-filter: blur(5px);
-            animation: messageAppear 0.8s ease forwards;
-        }
-
-        .message-card h3 {
-            color: #FFD700;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
-
-        .message-card p {
-            color: rgba(255, 255, 255, 0.9);
-            line-height: 1.6;
-            margin-bottom: 10px;
-        }
-
-        .message-card small {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.8rem;
-        }
-
-        /* Cosmic Tribute Styling */
-        .wall-message.pinned.tribute-text {
-            position: relative !important;
-            max-width: 800px;
-            margin: 0 auto 40px;
-            padding: 30px;
-            border: 2px solid rgba(255, 215, 0, 0.4);
-            border-radius: 20px;
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(139, 92, 246, 0.05));
-            box-shadow:
-                0 0 40px rgba(255, 215, 0, 0.15),
-                0 0 80px rgba(139, 92, 246, 0.1),
-                inset 0 0 60px rgba(255, 215, 0, 0.05);
-            animation: tributeGlow 4s ease-in-out infinite alternate;
-        }
-
-        /* New Cosmic Sacred CSS */
-        .pinned-tribute {
-            padding: 40px 20px;
-            margin-bottom: 40px;
-            background: radial-gradient(circle at top, rgba(255,255,255,0.08), rgba(0,0,0,0));
-            border-radius: 12px;
-            text-align: center;
-            animation: tributeFade 1.8s ease-out forwards;
-        }
-
-        .tribute-title {
-            font-size: 2.2rem;
-            font-weight: 700;
-            background: linear-gradient(90deg, #ffffff, #b38bff, #6a4cff);
-            -webkit-background-clip: text;
-            color: transparent;
-            margin-bottom: 10px;
-        }
-
-        .tribute-subtitle {
-            font-size: 1.1rem;
-            color: #dcdcdc;
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
-
-        .tribute-text {
-            font-size: 1.15rem;
-            color: #f0f0f0;
-            line-height: 1.8;
-            white-space: pre-line;
-            margin-bottom: 30px;
-        }
-
-        .tribute-divider {
-            margin-top: 20px;
-            font-size: 0.95rem;
-            color: #c9b8ff;
-            opacity: 0.8;
-        }
-
-        @keyframes tributeFade {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes tributeGlow {
-            0% {
-                box-shadow:
-                    0 0 40px rgba(255, 215, 0, 0.15),
-                    0 0 80px rgba(139, 92, 246, 0.1),
-                    inset 0 0 60px rgba(255, 215, 0, 0.05);
-            }
-            100% {
-                box-shadow:
-                    0 0 60px rgba(255, 215, 0, 0.25),
-                    0 0 100px rgba(139, 92, 246, 0.15),
-                    inset 0 0 80px rgba(255, 215, 0, 0.08);
-            }
-        }
-
-        .wall-message.pinned .tribute-text {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.9);
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-        }
-
-        .wall-message.pinned .tribute-text p {
-            margin-bottom: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .wall-message.pinned .tribute-text p:hover {
-            color: #FFD700;
-            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-        }
-
-        .wall-message.pinned .name {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem !important;
-            text-align: center;
-            margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-            letter-spacing: 2px;
-        }
-
-        .wall-message.pinned .date {
-            text-align: center;
-            margin-top: 20px;
-            font-style: italic;
-            color: rgba(255, 215, 0, 0.7);
-            font-size: 1.1rem;
-        }
-
-        .wall-message .date {
-            font-size: 0.75rem;
-            opacity: 0.7;
-        }
-
-        /* Empty State */
-        .empty-wall {
-            text-align: center;
-            padding: 60px 20px;
-            color: rgba(255, 255, 255, 0.5);
-            position: relative;
-            z-index: 50;
-        }
-
-        .empty-wall p {
-            font-size: 1.3rem;
-        }
-
-        /* Floating hearts animation */
-        .floating-hearts {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 5;
-        }
-
-        .heart {
-            position: absolute;
-            font-size: 20px;
-            opacity: 0;
-            animation: floatUp 4s ease-out forwards;
-        }
-
-        @keyframes floatUp {
-            0% {
-                opacity: 0;
-                transform: translateY(100vh) scale(0);
-            }
-            10% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-100px) scale(1);
-            }
-        }
-
-        /* Footer */
-        footer {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            padding: 40px 20px;
-            margin-top: 60px;
-            border-top: 1px solid rgba(255, 215, 0, 0.2);
-        }
-
-        footer a {
-            color: #00ffff;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            color: #FF69B4;
-        }
-
-        /* Mobile */
-        @media (max-width: 768px) {
-            h1 { font-size: 2rem; }
-            .message-form-container { padding: 20px; }
-            .wall-message {
-                max-width: 90%;
-                min-width: 150px;
-            }
-        }
-    </style>
-    <link rel="stylesheet" href="cinematic-transitions.css" />
-    <link rel="stylesheet" href="message-wall-3d.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&family=Space+Grotesk:wght@300;700&family=Pacifico&family=Oswald:wght@700&family=Cinzel:wght@700&family=JetBrains+Mono&display=swap" rel="stylesheet">
 </head>
+<body class="remembrance-body">
 
-<body class="epic-wall">
+    <!-- God Tier Cosmic Environment -->
     <div class="cosmos"></div>
-    <div class="stars" id="stars"></div>
-    <div class="floating-hearts" id="hearts"></div>
-    <div class="memorial-roses" id="roses"></div>
-    
-    <!-- Silent Loading Sequence -->
-    <div class="silent-moment" id="silentMoment">
-        <p class="silent-text">A Moment of Silence</p>
+    <div class="memorial-roses" id="roses-container"></div>
+
+    <div class="silent-moment" id="loading-screen">
+        <div class="silent-text">Connecting to the Legacy...</div>
     </div>
 
-    <header>
-        <h1>Honor Wall</h1>
-        <p class="subtitle">This is sacred ground. Every word left here stays forever. Every message becomes part of the sky they now ride. This is not just a wall. This is where they live on, through us.</p>
-    </header>
-    
-    <div class="dog-tags-tribute">
-        <div class="dog-tag">
-            <div class="dog-tag-name">R.J.</div>
-            <div class="dog-tag-years">Forever Riding</div>
+    <nav class="workshop-header" style="max-width: 1200px; margin: 20px auto;">
+        <div class="brand-mark" onclick="window.location.href='/'" style="cursor:pointer;">
+            <span class="brand-orbit"></span>
+            <span class="brand-text">Silent Spirits Legacy</span>
         </div>
-        <div class="dog-tag">
-            <div class="dog-tag-name">T-MAINNEY</div>
-            <div class="dog-tag-years">Forever Free</div>
-        </div>
-    </div>
-
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="remembrance/remembrance.html">Brothers</a>
-        <a href="shop.html">Shop</a>
+        <div class="status-pill">Public Resonance: Active</div>
     </nav>
 
-    <main>
-        <section class="message-wall">
-            <h1 class="mw-title">Speak to Them</h1>
-            <p class="mw-subtitle">
-                This wall is a place where their energy still moves.
-                Your words don't disappear — they land where they're meant to.
-                Say what's on your heart. They're listening.
+    <main class="honor-wall">
+        <!-- The Sacred Poem Section -->
+        <section class="remembrance-hero">
+            <h1>In Eternal Honor of R.J. & T‑Mainney</h1>
+            <p class="remembrance-subtitle public-tribute-poem">
+                Two stars returned to the sky, but their light never left this world.
             </p>
+        </section>
 
-            <div id="tribute-typewriter-container" style="position:relative;z-index:200;">
-                <div id="tribute-particles"></div>
-                <div class="wall-message pinned tribute-text pinned-tribute tribute-typewriter" style="position:relative;left:0;top:0;border-color:#FFD700;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(139,92,246,0.1));">
-                    <div class="name tribute-title" id="tribute-title" style="color:#FFD700;font-size:1.5rem;">R.J. N T-Mainney — I Did This For You</div>
-                    <div class="tribute-subtitle" id="tribute-subtitle" style="font-size:1.1rem;color:#dcdcdc;margin-bottom:25px;line-height:1.6;"></div>
-                    <div class="tribute-text" id="tribute-text" style="font-style:italic;line-height:1.8;font-size:1.15rem;color:#f0f0f0;white-space:pre-line;">I still look for you in the quiet,
-in the static between heartbeats,
-in the places where the world goes soft and the sky feels thin.
+        <!-- Dog Tags Tribute -->
+        <section class="dog-tags-tribute">
+            <div class="dog-tag">
+                <div class="dog-tag-name">R.J.</div>
+                <div class="dog-tag-years">Legacy</div>
+            </div>
+            <div class="dog-tag">
+                <div class="dog-tag-name">T-Mainney</div>
+                <div class="dog-tag-years">Legacy</div>
+            </div>
+        </section>
 
-Some nights I swear I hear your laughter
-riding the thunder,
-see your shadows dancing in the neon rain.
-I built this wall because I couldn't hold you here—
-so I made a place where the world could.
+        <!-- The Interactive Tribute Composer -->
+        <section class="tribute-composer">
+            <div class="composer-controls">
+                <h2>Create Your Tribute</h2>
+                <label>Message Text 
+                    <textarea id="tribute-text" rows="3" placeholder="Compose a memory, a poem, or a message..."></textarea>
+                </label>
+                <label>Choose a Sacred Font
+                    <select id="tribute-font">
+                        <option value="'Space Grotesk', sans-serif">Cosmic Sans</option>
+                        <option value="'Playfair Display', serif">Elegant Serif</option>
+                        <option value="'Pacifico', cursive">Handwritten Script</option>
+                        <option value="'Oswald', sans-serif">Bold Block</option>
+                        <option value="'JetBrains Mono', monospace">Terminal Code</option>
+                        <option value="'Cinzel', serif">Ancient Stone</option>
+                    </select>
+                </label>
+                <label>Text Color 
+                    <input type="color" id="tribute-color" value="#f5e9ff">
+                </label>
+                <label>Style
+                    <select id="tribute-style">
+                        <option value="glow">Spiritual Glow</option>
+                        <option value="shadow">Deep Shadow</option>
+                        <option value="outline">Cosmic Outline</option>
+                    </select>
+                </label>
+                <label>Upload Tribute Image (Optional)
+                    <input type="file" id="tribute-image" accept="image/*">
+                </label>
+                <button id="submit-tribute" class="action-btn" style="width: 100%; padding: 15px; font-weight: bold;">Send to the Stars</button>
+            </div>
 
-If love could bend time,
-I'd trade every tomorrow for one more yesterday.
-But you taught me:
-grief is just love with nowhere to go,
-and memory is the only way to keep you close.
-
-So I write your names in starlight,
-I speak to you in the dark,
-I promise—
-as long as I breathe,
-you will not be lost.
-
-This is my forever.
-This is my surrender.
-This is my way of saying
-I'll see you again—
-but until then,
-I'll keep building you a home in the stars.</div>
+            <div class="composer-preview">
+                <h3>Live Preview</h3>
+                <div id="tribute-preview" class="tribute-preview-card">
+                    <p class="preview-text">Your tribute will appear here.</p>
+                    <img id="preview-image" alt="" style="display:none; max-width: 100%; margin-top: 1rem; border-radius: 10px;">
                 </div>
             </div>
+        </section>
 
-            <!-- Dynamic messages will be inserted here -->
+        <!-- Community Grid -->
+        <section class="honor-grid-section">
+            <h2>Community Tributes</h2>
+            <div id="honor-grid" class="honor-grid">
+                <!-- Populated by workshop.js loadTributeElements -->
             </div>
-
-            <div class="mw-divider">
-                Their bodies left — their presence didn't.
-                Every message keeps the connection alive.
-            </div>
-
-            <form id="message-form" class="mw-form">
-                <input
-                    type="text"
-                    id="message-name"
-                    placeholder="Your name (or leave it — they'll know who you are)"
-                />
-
-                <textarea
-                    id="message-text"
-                    placeholder="Say what you'd say if they were standing right in front of you…"
-                ></textarea>
-
-                <button type="submit" class="mw-submit">Send It to Them</button>
-
-                <p class="mw-note">
-                    Every message is reviewed to keep this space safe, sacred, and full of love.
-                </p>
-            </form>
         </section>
     </main>
 
-    <footer>
-        <p>No Limits. No Boundaries. Beyond Limitations.</p>
-        <p><a href="index.html">Return Home</a></p>
-    </footer>
-
+    <script src="js/workshop.js"></script>
     <script>
-        // Create stars
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            for (let i = 0; i < 200; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.width = Math.random() * 3 + 1 + 'px';
-                star.style.height = star.style.width;
-                star.style.animationDelay = Math.random() * 3 + 's';
-                starsContainer.appendChild(star);
-            }
-        }
+        // Initialize the public experience
+        window.addEventListener('DOMContentLoaded', () => {
+            // Fade out loading screen
+            setTimeout(() => {
+                document.getElementById('loading-screen')?.classList.add('fade-out');
+            }, 1200);
 
-        // Create memorial roses
-        function createRose() {
-            const rosesContainer = document.getElementById('roses');
-            const rose = document.createElement('div');
-
+            // Generate Floating Roses
+            const rosesContainer = document.getElementById('roses-container');
             const colors = ['purple', 'pink', 'red', 'lavender', 'blue', 'black'];
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-
-            rose.className = 'rose ' + randomColor;
-            rose.innerHTML = '🥀';
-            rose.style.left = Math.random() * 100 + '%';
-            rose.style.animationDuration = (Math.random() * 40 + 90) + 's';
-            rose.style.animationDelay = Math.random() * 15 + 's';
-            rosesContainer.appendChild(rose);
-            setTimeout(() => rose.remove(), 110000);
-        }
-
-        // Start rose generation
-        function startRoseSystem() {
-            for (let i = 0; i < 6; i++) {
-                setTimeout(createRose, i * 4000);
-            }
-            setInterval(createRose, 6500);
-        }
-
-        // Create floating hearts
-        function createHeart() {
-            const heartsContainer = document.getElementById('hearts');
-            const heart = document.createElement('div');
-            heart.className = 'heart';
-            heart.innerHTML = ['💜', '💖', '💘', '❤️', '🫶'][Math.floor(Math.random() * 5)];
-            heart.style.left = Math.random() * 100 + '%';
-            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
-            heartsContainer.appendChild(heart);
-
-            setTimeout(() => heart.remove(), 5000);
-        }
-
-        // Format date
-        function formatDate(dateStr) {
-            const date = new Date(dateStr);
-            return date.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-        }
-
-        // Escape HTML
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        // Render a single message card
-        function renderMessage(msg) {
-            return `
-                <div class="message-card">
-                    <h3>${escapeHtml(msg.name || "Someone who remembers")}</h3>
-                    <p>${escapeHtml(msg.message)}</p>
-                    <small>Shared on ${new Date(msg.created_at).toLocaleString()} — carried forward in their light.</small>
-                </div>
-            `;
-        }
-
-        // Load messages from API and render
-        async function loadMessages() {
-            const wall = document.getElementById('message-wall');
-            if (!wall) return;
-
-            try {
-                const res = await fetch('/api/messages?filter=approved');
-                if (!res.ok) throw new Error('Failed to load messages');
-                const data = await res.json();
-                const messages = data.messages || [];
-
-                // Remove existing dynamic message cards (keep pinned tribute)
-                wall.querySelectorAll('.message-card').forEach(card => card.remove());
-
-                if (!messages.length) {
-                    const emptyNote = document.createElement('p');
-                    emptyNote.className = 'mw-note';
-                    emptyNote.style.textAlign = 'center';
-                    emptyNote.style.marginTop = '20px';
-                    emptyNote.textContent = 'No messages yet. Be the first to speak to them.';
-                    wall.appendChild(emptyNote);
-                    return;
-                }
-
-                // Append each message card
-                messages.forEach(msg => {
-                    const div = document.createElement('div');
-                    div.innerHTML = renderMessage(msg);
-                    wall.appendChild(div.firstElementChild);
-                });
-            } catch (err) {
-                console.error('Error loading messages:', err);
-                const wall = document.getElementById('message-wall');
-                if (wall) {
-                    const errorNote = document.createElement('p');
-                    errorNote.className = 'mw-note';
-                    errorNote.style.textAlign = 'center';
-                    errorNote.style.color = 'rgba(255,255,255,0.5)';
-                    errorNote.textContent = 'Unable to load messages right now.';
-                    wall.appendChild(errorNote);
+            if (rosesContainer) {
+                for (let i = 0; i < 24; i++) {
+                    const rose = document.createElement('div');
+                    rose.className = `rose ${colors[Math.floor(Math.random() * colors.length)]}`;
+                    rose.innerHTML = '🌹';
+                    rose.style.left = `${Math.random() * 100}%`;
+                    rose.style.animationDelay = `${Math.random() * 80}s`;
+                    rose.style.fontSize = `${Math.random() * 10 + 10}px`;
+                    rosesContainer.appendChild(rose);
                 }
             }
-        }
 
-        // Save a new message
-        async function saveMessage(name, message) {
-            try {
-                const res = await fetch('/api/messages', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        name,
-                        message,
-                        font: 'Rajdhani',
-                        color: '#FFD700'
-                    })
-                });
-                const data = await res.json();
-                return res.ok && data.success;
-            } catch (err) {
-                console.error('Error saving message:', err);
-                return false;
+            if (typeof initTributeInteractions === 'function') {
+                initTributeInteractions();
+                loadTributeElements();
             }
-        }
-
-        // Form submission
-        document.getElementById('message-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const nameInput = document.getElementById('message-name');
-            const messageInput = document.getElementById('message-text');
-            const name = nameInput.value.trim();
-            const message = messageInput.value.trim();
-
-            if (!message) {
-                alert('Please write a message before sending.');
-                return;
-            }
-
-            const submitButton = this.querySelector('.mw-submit');
-            const originalText = submitButton.textContent;
-
-            submitButton.disabled = true;
-            submitButton.textContent = 'Sending...';
-
-            const saved = await saveMessage(name, message);
-            if (saved) {
-                nameInput.value = '';
-                messageInput.value = '';
-                await loadMessages();
-                document.getElementById('message-wall').scrollIntoView({ behavior: 'smooth' });
-            } else {
-                alert('Unable to send your message right now. Please try again.');
-            }
-
-            submitButton.disabled = false;
-            submitButton.textContent = originalText;
         });
-
-        // Initialize
-        createStars();
-        loadMessages();
-        startRoseSystem();
-
-        // Silent moment fade out
-        setTimeout(() => {
-            const silentMoment = document.getElementById('silentMoment');
-            if (silentMoment) {
-                silentMoment.classList.add('fade-out');
-                setTimeout(() => silentMoment.remove(), 3000);
-            }
-        }, 3500);
-
-        setInterval(createHeart, 3500);
     </script>
-    <script defer src="cinematic-transitions.js"></script>
-    <script defer src="message-wall-3d.js"></script>
 </body>
-
 </html>
