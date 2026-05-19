@@ -284,11 +284,14 @@ async function initEmotionalExperience() {
           <h2>Create Your Tribute</h2>
           <label>Message Text <textarea id="tribute-text" rows="3" placeholder="Write your message..."></textarea></label>
           <label>Font
+          <label>Choose a Sacred Font
             <select id="tribute-font">
               <option value="'Space Grotesk', sans-serif">Cosmic Sans</option>
               <option value="'Playfair Display', serif">Elegant Serif</option>
               <option value="'Pacifico', cursive">Handwritten Script</option>
               <option value="'Oswald', sans-serif">Bold Block</option>
+              <option value="'JetBrains Mono', monospace">Terminal Code</option>
+              <option value="'Cinzel', serif">Ancient Stone</option>
             </select>
           </label>
           <label>Text Color <input type="color" id="tribute-color" value="#f5e9ff"></label>
@@ -327,13 +330,20 @@ function enterTributeResonance() {
   terminalLog("Entering Tribute Resonance Mode...");
 
   if (!window.lilMystic) return;
+  if (!window.lilMystic) {
+    initLilMysticPanel();
+  }
 
   // Mood + color
   window.lilMystic.setMood("remembrance");
+  window.lilMystic?.setMood("remembrance");
+  window.lilMystic?.performGesture("focus");
 
   // Soft “spirit is here” pulse
   window.lilMystic.onSpeak(0.15);
   setTimeout(() => window.lilMystic.onListen(), 3000);
+  window.lilMystic?.onSpeak(0.15);
+  setTimeout(() => window.lilMystic?.onListen(), 3000);
 
   // Slow sacred rotation of rings
   window.lilMystic.rings.forEach(r => {
@@ -445,6 +455,12 @@ function initTributeInteractions() {
 
   document.getElementById('submit-tribute')?.addEventListener('click', () => {
     alert('Tribute submission wiring goes here (API call).');
+    terminalLog("Manifesting tribute into the eternal grid...", "mystic");
+    window.lilMystic?.performGesture("affirm");
+    // Placeholder for actual API call
+    setTimeout(() => {
+      alert('Your tribute has been sent to the stars. (Awaiting backend sync)');
+    }, 500);
   });
 }
 
