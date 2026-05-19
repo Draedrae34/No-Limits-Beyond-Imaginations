@@ -527,10 +527,13 @@ body[data-mood="remembrance"] .fog-layer { opacity: 0.24; }
   color: #e5ddff;
 }
 .remembrance-hero p.remembrance-subtitle {
-  margin-top: 1rem;
-  font-size: 1.1rem;
-  color: #a79bbf;
-  line-height: 1.6;
+  margin: 1.5rem auto;
+  font-size: 1.4rem;
+  color: #f0abfc; /* Radiant Magenta Glow */
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  line-height: 1.8;
+  text-shadow: 0 0 15px rgba(240, 171, 252, 0.4);
 }
 .remembrance-slideshow {
   position: relative;
@@ -631,6 +634,7 @@ body[data-mood="remembrance"] .fog-layer { opacity: 0.24; }
   align-items: center;
   justify-content: center;
   text-align: center;
+  box-shadow: 0 0 30px rgba(179, 124, 255, 0.2);
 }
 .honor-grid {
   margin-top: 1.5rem;

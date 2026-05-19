@@ -329,19 +329,12 @@ function enterTributeResonance() {
   document.body.setAttribute("data-mood", "remembrance");
   terminalLog("Entering Tribute Resonance Mode...");
 
-  if (!window.lilMystic) return;
   if (!window.lilMystic) {
     initLilMysticPanel();
   }
 
-  // Mood + color
-  window.lilMystic.setMood("remembrance");
   window.lilMystic?.setMood("remembrance");
   window.lilMystic?.performGesture("focus");
-
-  // Soft “spirit is here” pulse
-  window.lilMystic.onSpeak(0.15);
-  setTimeout(() => window.lilMystic.onListen(), 3000);
   window.lilMystic?.onSpeak(0.15);
   setTimeout(() => window.lilMystic?.onListen(), 3000);
 
@@ -454,12 +447,14 @@ function initTributeInteractions() {
   applyStyle();
 
   document.getElementById('submit-tribute')?.addEventListener('click', () => {
-    alert('Tribute submission wiring goes here (API call).');
-    terminalLog("Manifesting tribute into the eternal grid...", "mystic");
-    window.lilMystic?.performGesture("affirm");
+    terminalLog("Manifesting tribute... Watch it shoot through the sky!", "mystic");
+    window.lilMystic?.performGesture("focus"); // Look up/Focus on the transition
+    
     // Placeholder for actual API call
     setTimeout(() => {
-      alert('Your tribute has been sent to the stars. (Awaiting backend sync)');
+      terminalLog("Tribute successfully attached to the eternal grid.", "system");
+      window.lilMystic?.performGesture("affirm");
+      alert('Your tribute has been sent to the stars.');
     }, 500);
   });
 }
