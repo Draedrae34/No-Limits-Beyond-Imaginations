@@ -553,6 +553,7 @@ function createCosmicHUD() {
 async function attemptAutoRecovery() {
   terminalLog("Attempting auto-recovery...", "system");
   updateWorkshopLighting("recovery");
+  window.lilMystic?.setMood("analysis");
 
   window.lilMystic?.setGuardianStatus("warning");
   window.lilMystic?.performGesture("focus");

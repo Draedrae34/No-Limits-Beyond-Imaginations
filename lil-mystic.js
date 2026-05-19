@@ -289,6 +289,17 @@ class LilMystic {
     setGuardianStatus(status) {
         this.guardianStatus = status;
         const hudIntegrity = document.getElementById("hud-integrity-fill");
+        
+        // Physical color shift based on security status
+        if (status !== "ok") {
+            this.rings.forEach(r => r.material.color.setHex(0xff3b3b)); // Threat Red
+            this.triggerGlitch();
+        } else {
+            // Restore sacred colors
+            const colors = [0x00f2ff, 0x7000ff, 0x00ff88];
+            this.rings.forEach((r, i) => r.material.color.setHex(colors[i]));
+        }
+
         if (hudIntegrity) {
             hudIntegrity.style.width = status === "ok" ? "100%" : "20%";
             hudIntegrity.style.backgroundColor = status === "ok" ? "var(--mystic-primary)" : "#ff3b3b";
