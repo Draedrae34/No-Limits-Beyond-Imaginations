@@ -1,7 +1,7 @@
 /* Sacred Honor Wall - Emotional Rewrite */
 /* This is the heart of NLBL. This is not just a page. This is a sacred space. */
 
-body {
+body.remembrance-body { /* Target specifically the remembrance body */
     margin: 0;
     padding: 0;
     min-height: 100vh;
@@ -120,11 +120,38 @@ h1 {
     line-height: 1.6;
 }
 
+/* Sacred Poem Section */
+.remembrance-hero {
+    max-width: 800px;
+    margin: 2rem auto;
+    text-align: center;
+    color: #f5e9ff;
+}
+.remembrance-hero h1 {
+    font-size: 2.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #e5ddff;
+    text-shadow: 0 0 20px rgba(179, 124, 255, 0.5);
+}
+.remembrance-hero p.remembrance-subtitle {
+    margin: 1.5rem auto;
+    font-size: 1.6rem;
+    color: #ff3fb1 !important; /* High-Intensity Radiant Magenta */
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    line-height: 1.8;
+    text-shadow: 0 0 25px rgba(255, 63, 177, 0.8);
+    opacity: 1 !important;
+    animation: none !important;
+}
+
 /* Dog Tags Tribute */
 .dog-tags-tribute {
     position: relative;
     z-index: 10;
     display: flex;
+    justify-content: center;
     gap: 60px;
     justify-content: center;
     margin: 40px auto;
@@ -141,6 +168,8 @@ h1 {
     transform-style: preserve-3d;
     transition: all 0.8s ease;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(255, 215, 0, 0.05);
+    animation: dogTagBreathe 4s ease-in-out infinite; /* ONLY the dog tags breathe */
+    opacity: 0.3; /* Start subtle */
 }
 
 .dog-tag:hover {
@@ -184,12 +213,19 @@ h1 {
 }
 
 /* Message Form */
-.message-form-container {
+.tribute-composer { /* Renamed to match HTML structure */
     background: rgba(0, 0, 0, 0.6);
     border: 1px solid rgba(255, 215, 0, 0.2);
     border-radius: 0;
     padding: 50px;
     margin: 60px auto;
+    display: grid; /* Ensure grid layout for composer */
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+    opacity: 1 !important; /* SOLID, NO FADING */
+    animation: none !important; /* NO FADING */
+
     max-width: 800px;
     backdrop-filter: blur(15px);
     position: relative;
@@ -206,7 +242,7 @@ h1 {
     background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.6), transparent);
 }
 
-.message-form-container h2 {
+.tribute-composer h2 {
     font-family: 'Orbitron', sans-serif;
     color: #FFD700;
     margin-bottom: 35px;
@@ -215,11 +251,11 @@ h1 {
     letter-spacing: 2px;
 }
 
-.form-group {
+.composer-controls label { /* Target labels within composer */
     margin-bottom: 25px;
 }
 
-.form-group label {
+.composer-controls label {
     display: block;
     margin-bottom: 10px;
     color: rgba(255, 215, 0, 0.8);
@@ -228,8 +264,7 @@ h1 {
     text-transform: uppercase;
 }
 
-.form-group input,
-.form-group textarea {
+.composer-controls textarea, .composer-controls select, .composer-controls input[type="color"], .composer-controls input[type="file"] {
     width: 100%;
     padding: 18px;
     background: rgba(0, 0, 0, 0.7);
@@ -241,15 +276,14 @@ h1 {
     transition: all 0.4s ease;
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
+.composer-controls textarea:focus, .composer-controls select:focus, .composer-controls input[type="color"]:focus, .composer-controls input[type="file"]:focus {
     outline: none;
     border-color: rgba(255, 215, 0, 0.6);
     box-shadow: 0 0 30px rgba(255, 215, 0, 0.1);
     background: rgba(0, 0, 0, 0.85);
 }
 
-.form-group textarea {
+.composer-controls textarea {
     min-height: 140px;
     resize: none;
     line-height: 1.6;
@@ -293,6 +327,27 @@ h1 {
     box-shadow: 0 0 40px rgba(255, 215, 0, 0.2);
     letter-spacing: 4px;
 }
+
+/* Live Preview Card */
+.tribute-preview-card {
+    min-height: 180px;
+    border-radius: 18px;
+    padding: 1.5rem;
+    background: #0a0418 !important; /* Solid Dark Background */
+    border: 3px solid var(--accent-primary) !important; /* Solid persistent border */
+    opacity: 1 !important;
+    animation: none !important; /* Ensuring no fading animation is applied */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(179, 124, 255, 0.4);
+}
+.tribute-preview-card .preview-text {
+    color: var(--text-main); /* Ensure text color is visible */
+}
+
 
 /* Wall Section */
 .wall-section {
@@ -444,17 +499,39 @@ footer a:hover {
     .dog-tag-name { font-size: 0.9rem; }
 }
 
-/* Ambient Breathing Effect */
-body::after {
-    content: '';
+/* Firework Animation */
+.firework-launch {
+    animation: fireworkUp 1.5s cubic-bezier(0.45, 0, 0.55, 1) forwards;
     position: fixed;
-    inset: 0;
-    background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 100%);
-    z-index: 999;
+    z-index: 9999;
     pointer-events: none;
-    animation: ambientBreathe 8s infinite ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+@keyframes fireworkUp {
+    0% { transform: scale(1) translateY(0); opacity: 1; filter: blur(0); }
+    70% { transform: scale(0.15) translateY(-85vh); opacity: 1; filter: blur(1px); }
+    100% { transform: scale(5) translateY(-90vh); opacity: 0; filter: blur(30px); }
 }
 
+/* Spirit Presence */
+.spirit-presence {
+    position: fixed;
+    top: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 300px;
+    z-index: 5;
+    filter: drop-shadow(0 0 30px var(--accent-secondary));
+    opacity: 0;
+    transition: opacity 3s ease;
+    pointer-events: none;
+}
+
+/* Ambient Breathing Effect */
 @keyframes ambientBreathe {
     0%, 100% { opacity: 0.3; }
     50% { opacity: 0; }

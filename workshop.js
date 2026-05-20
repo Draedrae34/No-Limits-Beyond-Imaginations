@@ -513,7 +513,7 @@ function initTributeInteractions() {
     
     document.body.appendChild(vessel);
 
-    window.lilMystic?.performGesture("spiritGaze"); // Look up and tilt
+    window.lilMystic?.performGesture("spiritGaze"); // Lil Mystic looks up and tilts, representing the spirits' gaze
     
     // 2. Explosion & Spirit Presence
     setTimeout(() => {
