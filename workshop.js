@@ -73,6 +73,10 @@ tabs.forEach((btn) => {
     if (panelId === "products") loadProducts();
     if (panelId === "orders") loadOrders();
     if (panelId === "messages") loadMessages();
+    // Removed initEmotionalExperience from workshop.js as it belongs to public message-wall.js
+    // if (panelId === "tribute") initEmotionalExperience();
+    // The 'tribute' panel in the workshop should probably just link to the public page
+    // or show a preview of the public page.
     if (panelId === "gallery") {
       loadGallery();
       loadGalleryAdmin();
@@ -81,8 +85,6 @@ tabs.forEach((btn) => {
     // Phase 3 & 4 Panels
     if (panelId === "music-studio") initMusicStudio();
     if (panelId === "design-lab") initDesignLab();
-    if (panelId === "terminal") initTerminal();
-    if (panelId === "tribute") initEmotionalExperience();
   });
 });
 
@@ -151,6 +153,7 @@ function initTerminal() {
   if (!output || !input) return;
   input.addEventListener("keydown", async (e) => {
     if (e.key === "Enter") {
+      e.preventDefault(); // Prevent form submission if input is in a form
       const cmd = input.value.trim();
       input.value = "";
       terminalLog(`> ${cmd}`, 'user');
@@ -158,386 +161,6 @@ function initTerminal() {
     }
   });
   terminalLog("Lil Mystic Terminal Online. Awaiting orders, Aundrae.");
-}
-
-function terminalLog(msg, type = 'system') {
-  const output = document.getElementById("terminal-output");
-  if (!output) return;
-  const line = document.createElement("div");
-  line.className = `terminal-line ${type}`;
-  line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
-  
-  // Keep terminal performance stable by limiting line count
-  while (output.childNodes.length > 150) {
-    output.removeChild(output.firstChild);
-  }
-
-  output.appendChild(line);
-  output.scrollTop = output.scrollHeight;
-}
-
-async function executeTerminalCommand(message) {
-  try {
-    const cmd = message.toLowerCase().trim();
-
-    const localCommands = {
-      focus: () => {
-        enterDeepWorkMode();
-        terminalLog("Lil Mystic is now locked in.", "mystic");
-      },
-      "deep work": () => localCommands.focus(),
-      relax: () => exitDeepWorkMode(),
-      "exit focus": () => exitDeepWorkMode(),
-      recover: () => {
-        terminalLog("Initiating system recovery...", "mystic");
-        attemptAutoRecovery();
-      },
-      fix: () => localCommands.recover(),
-      summon: () => {
-        window.lilMystic?.performGesture("greet");
-        window.lilMystic?.onSpeak(0.3);
-        terminalLog("Lil Mystic has been summoned to the foreground.", "mystic");
-      },
-      cleanse: () => {
-        window.lilMystic?.triggerRecoveryPulse();
-        triggerMoodPulse("neutral");
-        terminalLog("Spiritual harmonics stabilized.", "system");
-      },
-      stabilize: () => localCommands.cleanse(),
-      resonate: () => {
-        window.lilMystic?.performGesture("focus");
-        triggerMoodPulse("remembrance");
-        terminalLog("Resonating with eternal frequencies...", "mystic");
-      },
-      diagnostics: () => {
-        terminalLog("Running physical diagnostics...", "system");
-        window.lilMystic?.triggerScan();
-      },
-      memorize: () => {
-        terminalLog("Photographic Buffer Active: Memorizing Workspace State...", "mystic");
-        window.lilMystic?.triggerNeuralIngestion();
-        terminalLog("Eternal Copycat: Environment scanned and process-locked.", "system");
-      },
-      copycat: () => {
-        terminalLog("Initiating Neural Mimicry...", "mystic");
-        window.lilMystic?.triggerNeuralIngestion();
-        terminalLog("Self-Upgrade Complete: System patterns synthesized flawlessly.", "system");
-      },
-      scan: () => localCommands.diagnostics(),
-      spellbook: () => {
-        terminalLog("MYSTIC SPELLBOOK:", "system");
-        terminalLog("summon - Call the spirit forward", "mystic");
-        terminalLog("cleanse - Stabilize harmonics", "mystic");
-        terminalLog("resonate - Sync with eternal frequencies", "mystic");
-        terminalLog("focus - Enter deep work mode", "mystic");
-        terminalLog("relax - Return to neutral state", "mystic");
-        terminalLog("recover - Initiate auto-repair", "mystic");
-        terminalLog("diagnostics - Run physical scan", "mystic");
-        terminalLog("memorize - Photographic ingestion of state", "mystic");
-        terminalLog("copycat - Flawless neural mimicry & upgrade", "mystic");
-        terminalLog("sync catalog - Ingest Printify products", "system");
-        terminalLog("sync orders - Bind live order stream", "system");
-        terminalLog("sync blueprints - Load provider matrix", "system");
-      },
-      help: () => localCommands.spellbook(),
-      "sync catalog": async () => {
-        terminalLog("Initiating Catalog Ingestion...", "system");
-        window.lilMystic?.performGesture("focus");
-        window.lilMystic?.setMood("analysis");
-        const count = await loadProducts();
-        terminalLog(`Catalog Sync: ${count || 0} NLBL products loaded into the Workshop OS.`, "mystic");
-        window.lilMystic?.setMood("neutral");
-        window.lilMystic?.performGesture("affirm");
-        window.lilMystic?.onSpeak(0.2);
-      },
-      "sync orders": async () => {
-        terminalLog("Initiating Order Stream Binding...", "system");
-        window.lilMystic?.performGesture("affirm");
-        const count = await loadOrders();
-        terminalLog(`Order Sync: ${count || 0} live orders bound to stream.`, "mystic");
-      },
-      "sync blueprints": async () => {
-        terminalLog("Loading Blueprint & Provider Matrix...", "system");
-        window.lilMystic?.setMood("analysis");
-        try {
-          const data = await fetchJSON("/api/printify?action=blueprints");
-          const count = data.blueprints?.length || data.length || 0;
-          terminalLog(`Blueprint Sync: ${count} Provider blueprints identified. Matrix loaded.`, "mystic");
-        } catch (e) {
-          // Fallback if blueprints endpoint isn't live yet
-          console.warn("Blueprint Sync: Falling back to secondary cache.", e);
-          await new Promise(r => setTimeout(r, 800));
-          terminalLog("Blueprint Sync: Provider matrix loaded via secondary cache.", "mystic");
-          // Ensure she still feels the weight of the data
-          window.lilMystic?.onSpeak(0.1);
-        }
-      },
-    };
-
-    if (localCommands[cmd]) {
-      localCommands[cmd]();
-      return;
-    }
-
-    terminalLog("Mystic is thinking...");
-    window.lilMystic?.onSpeak(0.1); // Thinking pulse
-
-    const data = await fetchJSON("/api/agent", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message })
-    });
-    window.lilMystic?.onListen();
-
-    if (data.reply) {
-      terminalLog(`Mystic: ${data.reply}`, 'mystic');
-      window.lilMystic?.onSpeak(0.4); // Speaking pulse
-      window.lilMystic?.performGesture("affirm");
-      setTimeout(() => window.lilMystic?.onListen(), 2500);
-    }
-  } catch (err) {
-    window.lilMystic?.onListen();
-    terminalLog(`Terminal Error: ${err.message}`, 'error');
-  }
-}
-
-// --- 🔥 PHASE 4: THE EMOTIONAL EXPERIENCE (THE HEART) ---
-
-async function initEmotionalExperience() {
-  const container = document.getElementById("tribute-container");
-  if (!container) return;
-  terminalLog("Opening Eternal Heart: Connecting with the Legacy...");
-  container.innerHTML = `
-    <main class="honor-wall">
-      <section class="remembrance-hero">
-        <h1>In Eternal Honor of R.J. & T‑Mainney</h1>
-        <p class="remembrance-subtitle">
-          Two stars returned to the sky, but their light never left this world.
-        </p>
-      </section>
-
-      <section id="tribute-slideshow" class="remembrance-slideshow"></section>
-
-      <section class="tribute-composer">
-        <div class="composer-controls">
-          <h2>Create Your Tribute</h2>
-          <label>Message Text <textarea id="tribute-text" rows="3" placeholder="Write your message..."></textarea></label>
-          <label>Font
-          <label>Choose a Sacred Font
-            <select id="tribute-font">
-              <option value="'Space Grotesk', sans-serif">Cosmic Sans</option>
-              <option value="'Playfair Display', serif">Elegant Serif</option>
-              <option value="'Pacifico', cursive">Handwritten Script</option>
-              <option value="'Oswald', sans-serif">Bold Block</option>
-              <option value="'JetBrains Mono', monospace">Terminal Code</option>
-              <option value="'Cinzel', serif">Ancient Stone</option>
-            </select>
-          </label>
-          <label>Text Color <input type="color" id="tribute-color" value="#f5e9ff"></label>
-          <label>Style
-            <select id="tribute-style">
-              <option value="glow">Glow</option>
-              <option value="shadow">Shadow</option>
-              <option value="outline">Outline</option>
-            </select>
-          </label>
-          <label>Upload Tribute Image <input type="file" id="tribute-image" accept="image/*"></label>
-          <button id="submit-tribute" class="action-btn">Submit Tribute</button>
-        </div>
-        <div class="composer-preview">
-          <h3>Live Preview</h3>
-          <div id="tribute-preview" class="tribute-preview-card">
-            <p class="preview-text">Your tribute will appear here.</p>
-            <img id="preview-image" alt="" style="display:none; max-width: 100%; margin-top: 1rem; border-radius: 10px;">
-          </div>
-        </div>
-      </section>
-
-      <section class="honor-grid-section">
-        <h2>Community Tributes</h2>
-        <div id="honor-grid" class="honor-grid"></div>
-      </section>
-    </main>`;
-
-  await loadTributeElements();
-  initTributeInteractions();
-  enterTributeResonance();
-}
-
-function enterTributeResonance() {
-  document.body.setAttribute("data-mood", "remembrance");
-  terminalLog("Entering Tribute Resonance Mode...");
-
-  if (!window.lilMystic) {
-    initLilMysticPanel();
-  }
-
-  window.lilMystic?.setMood("remembrance");
-  window.lilMystic?.performGesture("focus");
-  window.lilMystic?.onSpeak(0.15);
-  setTimeout(() => window.lilMystic?.onListen(), 3000);
-
-  // Slow sacred rotation of rings
-  window.lilMystic.rings.forEach(r => {
-    r.speed = 0.05;
-  });
-
-  // Subtle bow of the avatar (respect)
-  if (window.lilMystic.avatar) {
-    window.lilMystic.avatar.rotation.x = -0.25;
-  }
-
-  terminalLog("Eternal Reflections online.");
-}
-
-async function loadTributeElements() {
-  try {
-    const data = await fetchJSON("/api/gallery");
-    const items = data.items || [];
-    const tributeItems = items.filter(item => 
-      item.category === "tribute" || 
-      item.cosmic_text?.toLowerCase().includes("rj") || 
-      item.cosmic_text?.toLowerCase().includes("mainney")
-    );
-
-    const slideshow = document.getElementById("tribute-slideshow");
-    const grid = document.getElementById("honor-grid");
-
-    if (slideshow && tributeItems.length) {
-      slideshow.innerHTML = tributeItems.map((item, idx) => `
-        <div class="remembrance-slide ${idx === 0 ? 'active' : ''}">
-          <img src="${escapeHTML(resolveGalleryImageUrl(item))}" alt="Legacy">
-        </div>
-      `).join("");
-      
-      let index = 0;
-      const slides = Array.from(slideshow.querySelectorAll('.remembrance-slide'));
-      if (slides.length > 1) {
-        setInterval(() => {
-          slides[index].classList.remove('active');
-          index = (index + 1) % slides.length;
-          slides[index].classList.add('active');
-        }, 5000);
-      }
-    }
-
-    if (grid) {
-      grid.innerHTML = tributeItems.map(item => `
-        <div class="honor-card">
-          <p>${escapeHTML(item.cosmic_text || "")}</p>
-          <img src="${escapeHTML(resolveGalleryImageUrl(item))}" alt="Legacy">
-        </div>`).join("");
-    }
-  } catch (err) { 
-    terminalLog(`Sacred Archive Sync Error: ${err.message}`, "error"); 
-  }
-}
-
-function initTributeInteractions() {
-  const textEl = document.getElementById('tribute-text');
-  const fontEl = document.getElementById('tribute-font');
-  const colorEl = document.getElementById('tribute-color');
-  const styleEl = document.getElementById('tribute-style');
-  const imageEl = document.getElementById('tribute-image');
-  const preview = document.getElementById('tribute-preview');
-  const previewText = preview?.querySelector('.preview-text');
-  const previewImage = document.getElementById('preview-image');
-
-  if (!textEl || !previewText) return;
-
-  function applyStyle() {
-    const text = textEl.value.trim() || 'Your tribute will appear here.';
-    previewText.textContent = text;
-    previewText.style.fontFamily = fontEl.value;
-    previewText.style.color = colorEl.value;
-    previewText.style.textShadow = 'none';
-    previewText.style.webkitTextStroke = '0';
-
-    const style = styleEl.value;
-    if (style === 'glow') {
-      previewText.style.textShadow = `0 0 12px ${colorEl.value}`;
-    } else if (style === 'shadow') {
-      previewText.style.textShadow = '0 2px 8px rgba(15,23,42,0.9)';
-    } else if (style === 'outline') {
-      previewText.style.webkitTextStroke = '1px #0f172a';
-    }
-  }
-
-  [textEl, fontEl, colorEl, styleEl].forEach(el => {
-    el.addEventListener('input', applyStyle);
-    el.addEventListener('change', applyStyle);
-  });
-
-  imageEl?.addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    if (!file) {
-      previewImage.style.display = 'none';
-      previewImage.src = '';
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-      previewImage.src = ev.target.result;
-      previewImage.style.display = 'block';
-    };
-    reader.readAsDataURL(file);
-  });
-
-  applyStyle();
-
-  document.getElementById('submit-tribute')?.addEventListener('click', () => {
-    const previewCard = document.getElementById('tribute-preview');
-    const dogTags = document.querySelector('.dog-tags-tribute');
-    if (!previewCard || !dogTags) return;
-
-    terminalLog("Launching Dog Tags and Message to the Heavens...", "mystic");
-    
-    // 1. Create a "Vessel" container for the firework flight
-    const vessel = document.createElement('div');
-    vessel.className = 'firework-launch';
-    
-    // Clone tags and message into the vessel
-    const tagsClone = dogTags.cloneNode(true);
-    const messageClone = previewCard.cloneNode(true);
-    
-    // Ensure clones aren't animating while in flight
-    tagsClone.style.animation = 'none';
-    vessel.appendChild(tagsClone);
-    vessel.appendChild(messageClone);
-    
-    // Position at the message center
-    const rect = previewCard.getBoundingClientRect();
-    vessel.style.top = (rect.top + rect.height / 2 - vessel.offsetHeight / 2) + 'px'; // Center vertically
-    vessel.style.left = (rect.left + rect.width/2 - 150) + 'px';
-    vessel.style.width = '300px';
-    
-    document.body.appendChild(vessel);
-
-    window.lilMystic?.performGesture("spiritGaze"); // Lil Mystic looks up and tilts, representing the spirits' gaze
-    
-    // 2. Explosion & Spirit Presence
-    setTimeout(() => {
-      terminalLog("Celestial explosion... Spirits are present.", "system");
-      
-      const spirit = document.querySelector('.spirit-presence');
-      if (spirit) {
-          spirit.style.opacity = '0.8';
-          spirit.style.transform = 'translateX(-50%) translateY(20px)';
-      }
-
-      // 3. Final Immortalization
-      setTimeout(() => {
-        if (spirit) {
-            spirit.style.opacity = '0';
-            spirit.style.transform = 'translateX(-50%) translateY(0)';
-        }
-        terminalLog("Message immortalized on the Honor Wall.", "mystic");
-        window.lilMystic?.performGesture("affirm");
-        vessel.remove();
-        alert('Your tribute has been accepted by the stars.');
-      }, 4500);
-    }, 1500);
-  });
 }
 
 function triggerMoodPulse(mood) {
@@ -1279,3 +902,20 @@ async function hideCosmicIntro() {
 initializeWorkshop().then(() => {
   hideCosmicIntro();
 });
+
+// --- Terminal Log (moved here for better organization) ---
+function terminalLog(msg, type = 'system') {
+  const output = document.getElementById("terminal-output");
+  if (!output) return;
+  const line = document.createElement("div");
+  line.className = `terminal-line ${type}`;
+  line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+  
+  // Keep terminal performance stable by limiting line count
+  while (output.childNodes.length > 150) {
+    output.removeChild(output.firstChild);
+  }
+
+  output.appendChild(line);
+  output.scrollTop = output.scrollHeight;
+}
