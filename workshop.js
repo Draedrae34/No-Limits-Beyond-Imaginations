@@ -485,15 +485,40 @@ function initTributeInteractions() {
   applyStyle();
 
   document.getElementById('submit-tribute')?.addEventListener('click', () => {
-    terminalLog("Manifesting tribute... Watch it shoot through the sky!", "mystic");
-    window.lilMystic?.performGesture("focus"); // Look up/Focus on the transition
+    const previewCard = document.getElementById('tribute-preview');
+    if (!previewCard) return;
+
+    terminalLog("Launching tribute as a celestial firework...", "mystic");
     
-    // Placeholder for actual API call
+    // 1. Firework Launch
+    const clone = previewCard.cloneNode(true);
+    clone.classList.add('firework-launch');
+    const rect = previewCard.getBoundingClientRect();
+    clone.style.top = rect.top + 'px';
+    clone.style.left = rect.left + 'px';
+    clone.style.width = rect.width + 'px';
+    document.body.appendChild(clone);
+
+    window.lilMystic?.performGesture("focus"); // Look up at the flight
+    
+    // 2. Explosion & Spirit Gaze
     setTimeout(() => {
-      terminalLog("Tribute successfully attached to the eternal grid.", "system");
-      window.lilMystic?.performGesture("affirm");
-      alert('Your tribute has been sent to the stars.');
-    }, 500);
+      terminalLog("Explosion confirmed. The spirits are reading your message...", "system");
+      window.lilMystic?.setMood("remembrance");
+      
+      // Special Spirit Outline Element (if exists in DOM)
+      const spirit = document.querySelector('.spirit-presence');
+      if (spirit) spirit.style.opacity = '0.6';
+
+      // 3. Final Stick to Wall
+      setTimeout(() => {
+        if (spirit) spirit.style.opacity = '0';
+        terminalLog("Message immortalized on the Honor Wall.", "mystic");
+        window.lilMystic?.performGesture("affirm");
+        clone.remove();
+        alert('Immortalized. Look down at the wall.');
+      }, 3500);
+    }, 1200);
   });
 }
 
