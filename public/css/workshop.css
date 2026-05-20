@@ -667,14 +667,16 @@ body[data-mood="remembrance"] .fog-layer { opacity: 0.24; }
   min-height: 180px;
   border-radius: 18px;
   padding: 1.5rem;
-  background: radial-gradient(circle at top, rgba(124, 58, 237, 0.35), rgba(15, 23, 42, 0.95));
-  border: 1px solid rgba(148, 163, 255, 0.45);
+  background: radial-gradient(circle at top, rgba(30, 10, 60, 1), rgba(5, 1, 10, 1));
+  border: 3px solid var(--accent-primary) !important; /* Solid, thick border */
+  opacity: 1 !important;
+  animation: none !important; /* Ensuring no fading animation is applied */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  box-shadow: 0 0 30px rgba(179, 124, 255, 0.2);
+  box-shadow: 0 0 50px rgba(179, 124, 255, 0.6), inset 0 0 30px rgba(179, 124, 255, 0.2);
 }
 .honor-grid {
   margin-top: 1.5rem;
@@ -700,28 +702,31 @@ body[data-mood="remembrance"] .fog-layer { opacity: 0.24; }
 
 /* Firework Animation */
 .firework-launch {
-    animation: fireworkUp 1.2s cubic-bezier(0.45, 0, 0.55, 1) forwards;
+    animation: fireworkUp 1.5s cubic-bezier(0.45, 0, 0.55, 1) forwards;
     position: fixed;
     z-index: 9999;
     pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 @keyframes fireworkUp {
     0% { transform: scale(1) translateY(0); opacity: 1; filter: blur(0); }
-    80% { transform: scale(0.2) translateY(-100vh); opacity: 1; filter: blur(2px); }
-    100% { transform: scale(4) translateY(-100vh); opacity: 0; filter: blur(20px); }
+    70% { transform: scale(0.15) translateY(-85vh); opacity: 1; filter: blur(1px); }
+    100% { transform: scale(5) translateY(-90vh); opacity: 0; filter: blur(30px); }
 }
 
 .spirit-presence {
     position: fixed;
-    top: 5%;
+    top: 2%;
     left: 50%;
     transform: translateX(-50%);
-    width: 300px;
-    height: 150px;
-    background: url('/img/brothers-outline.png') no-repeat center;
-    background-size: contain;
-    filter: drop-shadow(0 0 20px var(--accent-primary));
+    width: 600px;
+    height: 300px;
+    z-index: 5;
+    filter: drop-shadow(0 0 30px var(--accent-secondary));
     opacity: 0;
-    transition: opacity 2s ease;
+    transition: opacity 3s ease;
     pointer-events: none;
 }

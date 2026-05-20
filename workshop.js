@@ -486,39 +486,54 @@ function initTributeInteractions() {
 
   document.getElementById('submit-tribute')?.addEventListener('click', () => {
     const previewCard = document.getElementById('tribute-preview');
-    if (!previewCard) return;
+    const dogTags = document.querySelector('.dog-tags-tribute');
+    if (!previewCard || !dogTags) return;
 
-    terminalLog("Launching tribute as a celestial firework...", "mystic");
+    terminalLog("Launching Dog Tags and Message to the Heavens...", "mystic");
     
-    // 1. Firework Launch
-    const clone = previewCard.cloneNode(true);
-    clone.classList.add('firework-launch');
+    // 1. Create a "Vessel" container for the firework flight
+    const vessel = document.createElement('div');
+    vessel.className = 'firework-launch';
+    
+    // Clone tags and message into the vessel
+    const tagsClone = dogTags.cloneNode(true);
+    const messageClone = previewCard.cloneNode(true);
+    
+    vessel.appendChild(tagsClone);
+    vessel.appendChild(messageClone);
+    
+    // Position at the message center
     const rect = previewCard.getBoundingClientRect();
-    clone.style.top = rect.top + 'px';
-    clone.style.left = rect.left + 'px';
-    clone.style.width = rect.width + 'px';
-    document.body.appendChild(clone);
-
-    window.lilMystic?.performGesture("focus"); // Look up at the flight
+    vessel.style.top = rect.top + 'px';
+    vessel.style.left = (rect.left + rect.width/2 - 150) + 'px';
+    vessel.style.width = '300px';
     
-    // 2. Explosion & Spirit Gaze
-    setTimeout(() => {
-      terminalLog("Explosion confirmed. The spirits are reading your message...", "system");
-      window.lilMystic?.setMood("remembrance");
-      
-      // Special Spirit Outline Element (if exists in DOM)
-      const spirit = document.querySelector('.spirit-presence');
-      if (spirit) spirit.style.opacity = '0.6';
+    document.body.appendChild(vessel);
 
-      // 3. Final Stick to Wall
+    window.lilMystic?.performGesture("spiritGaze"); // Look up and tilt
+    
+    // 2. Explosion & Spirit Presence
+    setTimeout(() => {
+      terminalLog("Celestial explosion... Spirits are present.", "system");
+      
+      const spirit = document.querySelector('.spirit-presence');
+      if (spirit) {
+          spirit.style.opacity = '0.8';
+          spirit.style.transform = 'translateX(-50%) translateY(20px)';
+      }
+
+      // 3. Final Immortalization
       setTimeout(() => {
-        if (spirit) spirit.style.opacity = '0';
+        if (spirit) {
+            spirit.style.opacity = '0';
+            spirit.style.transform = 'translateX(-50%) translateY(0)';
+        }
         terminalLog("Message immortalized on the Honor Wall.", "mystic");
         window.lilMystic?.performGesture("affirm");
-        clone.remove();
-        alert('Immortalized. Look down at the wall.');
-      }, 3500);
-    }, 1200);
+        vessel.remove();
+        alert('Your tribute has been accepted by the stars.');
+      }, 4500);
+    }, 1500);
   });
 }
 
