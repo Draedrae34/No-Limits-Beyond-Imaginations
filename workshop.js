@@ -507,7 +507,7 @@ function initTributeInteractions() {
     
     // Position at the message center
     const rect = previewCard.getBoundingClientRect();
-    vessel.style.top = rect.top + 'px';
+    vessel.style.top = (rect.top + rect.height / 2 - vessel.offsetHeight / 2) + 'px'; // Center vertically
     vessel.style.left = (rect.left + rect.width/2 - 150) + 'px';
     vessel.style.width = '300px';
     
