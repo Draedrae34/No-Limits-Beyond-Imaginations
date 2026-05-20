@@ -306,6 +306,7 @@ async function executeTerminalCommand(message) {
 async function initEmotionalExperience() {
   const container = document.getElementById("tribute-container");
   if (!container) return;
+  terminalLog("Opening Eternal Heart: Connecting with the Legacy...");
   container.innerHTML = `
     <main class="honor-wall">
       <section class="remembrance-hero">
@@ -499,6 +500,8 @@ function initTributeInteractions() {
     const tagsClone = dogTags.cloneNode(true);
     const messageClone = previewCard.cloneNode(true);
     
+    // Ensure clones aren't animating while in flight
+    tagsClone.style.animation = 'none';
     vessel.appendChild(tagsClone);
     vessel.appendChild(messageClone);
     

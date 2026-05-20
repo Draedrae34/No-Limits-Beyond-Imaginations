@@ -565,15 +565,18 @@ body[data-mood="remembrance"] .fog-layer { opacity: 0.24; }
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #e5ddff;
+  text-shadow: 0 0 20px rgba(179, 124, 255, 0.5);
 }
 .remembrance-hero p.remembrance-subtitle {
   margin: 1.5rem auto;
-  font-size: 1.4rem;
-  color: #f0abfc; /* Radiant Magenta Glow */
+  font-size: 1.6rem;
+  color: #ff3fb1 !important; /* High-Intensity Radiant Magenta */
   font-family: 'Playfair Display', serif;
   font-style: italic;
   line-height: 1.8;
-  text-shadow: 0 0 15px rgba(240, 171, 252, 0.4);
+  text-shadow: 0 0 25px rgba(255, 63, 177, 0.8);
+  opacity: 1 !important;
+  animation: none !important;
 }
 .remembrance-slideshow {
   position: relative;
