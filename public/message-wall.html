@@ -4,97 +4,132 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Silent Spirits Legacy | Honor Wall</title>
-    <link rel="stylesheet" href="css/message-wall.css"> <!-- Dedicated CSS for public Honor Wall -->
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;700&family=Playfair+Display:ital,wght@1,700&family=Pacifico&family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/workshop.css">
+    <link rel="stylesheet" href="css/message-wall.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&family=Space+Grotesk:wght@300;700&family=Pacifico&family=Oswald:wght@700&family=Cinzel:wght@700&family=JetBrains+Mono&display=swap" rel="stylesheet">
 </head>
+<body class="remembrance-body">
 
-<body class="honor-wall-body">
+    <!-- God Tier Cosmic Environment -->
+    <div class="cosmos"></div>
+    <div class="memorial-roses" id="roses-container"></div>
 
-    <!-- Cosmic Background -->
-    <div id="cosmic-bg">
-        <canvas id="starfield"></canvas>
-        <div class="nebula-layer"></div>
-        <div class="fog-layer"></div>
+    <div class="silent-moment" id="loading-screen">
+        <div class="silent-text">Connecting to the Legacy...</div>
     </div>
 
-    <!-- HONOR WALL INTRO (GUARANTEED VERSION) -->
-    <section class="honor-intro">
-
-        <!-- DOG TAGS (GUARANTEED TO SHOW) -->
-        <img src="images/dogtags.png" class="dogtag-fade honor-dogtags" alt="Dog Tags">
-
-        <!-- TITLE -->
-        <h1>Honor Wall</h1>
-
-        <!-- TRIBUTE POEM (GUARANTEED TO SHOW) -->
-        <p class="honor-poem">
-            Every message left here becomes a star in their sky.<br>
-            Your words, your art, your memories — all part of the legacy.
-        </p>
-
-    </section>
-
-    <!-- Tribute Composer -->
-    <section class="tribute-composer">
-        <div class="composer-controls">
-            <h2>Create Your Tribute</h2>
-
-            <label>
-                Message Text
-                <textarea id="tribute-text" rows="3" placeholder="Write your message, poem, or tribute..."></textarea>
-            </label>
-
-            <label>
-                Font
-                <select id="tribute-font">
-                    <option value="'Space Grotesk', system-ui">Cosmic Sans</option>
-                    <option value="'Playfair Display', serif">Elegant Serif</option>
-                    <option value="'Pacifico', cursive">Handwritten Script</option>
-                    <option value="'Oswald', sans-serif">Bold Block</option>
-                </select>
-            </label>
-
-            <label>
-                Text Color
-                <input type="color" id="tribute-color" value="#f5e9ff">
-            </label>
-
-            <label>
-                Style
-                <select id="tribute-style">
-                    <option value="glow">Glow</option>
-                    <option value="shadow">Shadow</option>
-                    <option value="outline">Outline</option>
-                </select>
-            </label>
-
-            <label>
-                Upload Tribute Image (optional)
-                <input type="file" id="tribute-image" accept="image/*">
-            </label>
-
-            <button id="submit-tribute">Submit Tribute</button>
+    <nav class="workshop-header" style="max-width: 1200px; margin: 20px auto;">
+        <div class="brand-mark" onclick="window.location.href='/'" style="cursor:pointer;">
+            <span class="brand-orbit"></span>
+            <span class="brand-text">Silent Spirits Legacy</span>
         </div>
+        <div class="status-pill">Public Resonance: Active</div>
+    </nav>
 
-        <div class="composer-preview">
-            <h3>Live Preview</h3>
-            <div id="tribute-preview" class="tribute-preview-card">
-                <p class="preview-text">Your tribute will appear here.</p>
-                <img id="preview-image" alt="" style="display:none;">
+    <main class="honor-wall">
+        <!-- The Sacred Poem Section -->
+        <section class="remembrance-hero">
+            <h1>In Eternal Honor of R.J. & T‑Mainney</h1>
+            <p class="remembrance-subtitle public-tribute-poem">
+                Two stars returned to the sky, but their light never left this world.
+            </p>
+        </section>
+
+        <!-- Dog Tags Tribute -->
+        <section class="dog-tags-tribute">
+            <div class="honor-dogtags">
+                <div class="dog-tag">
+                    <div class="dog-tag-name">R.J.</div>
+                    <div class="dog-tag-years">Legacy</div>
+                </div>
+                <div class="dog-tag">
+                    <div class="dog-tag-name">T-Mainney</div>
+                    <div class="dog-tag-years">Legacy</div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Honor Wall Grid -->
-    <section class="honor-grid-section">
-        <h2>Community Tributes</h2>
-        <div id="honor-grid" class="honor-grid">
-            <!-- API tributes will render here -->
-        </div>
-    </section>
+        <!-- The Interactive Tribute Composer -->
+        <section class="tribute-composer">
+            <div class="composer-controls">
+                <h2>Create Your Tribute</h2>
+                <label>Message Text 
+                    <textarea id="tribute-text" rows="3" placeholder="Compose a memory, a poem, or a message..."></textarea>
+                </label>
+                <label>Choose a Sacred Font
+                    <select id="tribute-font">
+                        <option value="'Space Grotesk', sans-serif">Cosmic Sans</option>
+                        <option value="'Playfair Display', serif">Elegant Serif</option>
+                        <option value="'Pacifico', cursive">Handwritten Script</option>
+                        <option value="'Oswald', sans-serif">Bold Block</option>
+                        <option value="'JetBrains Mono', monospace">Terminal Code</option>
+                        <option value="'Cinzel', serif">Ancient Stone</option>
+                    </select>
+                </label>
+                <label>Text Color 
+                    <input type="color" id="tribute-color" value="#f5e9ff">
+                </label>
+                <label>Style
+                    <select id="tribute-style">
+                        <option value="glow">Spiritual Glow</option>
+                        <option value="shadow">Deep Shadow</option>
+                        <option value="outline">Cosmic Outline</option>
+                    </select>
+                </label>
+                <label>Upload Tribute Image (Optional)
+                    <input type="file" id="tribute-image" accept="image/*">
+                </label>
+                <button id="submit-tribute" class="action-btn" style="width: 100%; padding: 15px; font-weight: bold;">Send to the Stars</button>
+            </div>
 
-    <script src="js/starfield.js"></script> <!-- Assuming starfield.js exists and initializes itself or has an init function -->
-    <script src="js/message-wall.js"></script> <!-- Dedicated JS for public Honor Wall logic -->
+            <div class="composer-preview">
+                <h3>Live Preview</h3>
+                <div id="tribute-preview" class="tribute-preview-card">
+                    <p class="preview-text">Your tribute will appear here.</p>
+                    <img id="preview-image" alt="" style="display:none; max-width: 100%; margin-top: 1rem; border-radius: 10px;">
+                </div>
+            </div>
+        </section>
 
+        <!-- Community Grid -->
+        <section class="honor-grid-section">
+            <h2>Community Tributes</h2>
+            <div id="honor-grid" class="honor-grid">
+                <!-- Populated by workshop.js loadTributeElements -->
+            </div>
+        </section>
+    </main>
+
+    <script src="js/workshop.js"></script>
+    <script src="js/message-wall.js"></script>
+    <script>
+        // Initialize the public experience
+        window.addEventListener('DOMContentLoaded', () => {
+            // Fade out loading screen
+            setTimeout(() => {
+                document.getElementById('loading-screen')?.classList.add('fade-out');
+            }, 1200);
+
+            // Generate Floating Roses
+            const rosesContainer = document.getElementById('roses-container');
+            const colors = ['purple', 'pink', 'red', 'lavender', 'blue', 'black'];
+            if (rosesContainer) {
+                for (let i = 0; i < 24; i++) {
+                    const rose = document.createElement('div');
+                    rose.className = `rose ${colors[Math.floor(Math.random() * colors.length)]}`;
+                    rose.innerHTML = '🌹';
+                    rose.style.left = `${Math.random() * 100}%`;
+                    rose.style.animationDelay = `${Math.random() * 80}s`;
+                    rose.style.fontSize = `${Math.random() * 10 + 10}px`;
+                    rosesContainer.appendChild(rose);
+                }
+            }
+
+            if (typeof initTributeInteractions === 'function') {
+                initTributeInteractions();
+                loadTributeElements();
+            }
+        });
+    </script>
 </body>
 </html>

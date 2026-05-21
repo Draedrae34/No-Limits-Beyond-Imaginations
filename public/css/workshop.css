@@ -18,7 +18,7 @@
     --workshop-accent: var(--accent-primary);
     --workshop-pink: var(--accent-secondary);
     --workshop-danger: var(--danger);
-    
+
     --mystic-primary: var(--accent-primary);
     --mystic-glow: rgba(179, 124, 255, 0.1);
 }
@@ -271,7 +271,7 @@
    .agent-input-row {
      grid-template-columns: 1fr;
    }
- }
+}
 
 /* === PHASE 1: COSMIC ENVIRONMENT === */
 
@@ -387,7 +387,7 @@ body[data-mood="remembrance"] .fog-layer { opacity: 0.24; }
   height: 18px;
   border-radius: 999px;
   border: 2px solid var(--accent-primary);
-  box-shadow: 0 0 12px rgba(179, 124, 255, 0.9), 0 0 24px rgba(255, 79, 216, 0.7);
+  box-shadow: 0 0 12px rgba(179,124,255,0.9), 0 0 24px rgba(255,79,216,0.7);
   animation: pulse-orbit 2.4s ease-in-out infinite;
 }
 @keyframes pulse-orbit {
@@ -409,7 +409,6 @@ body[data-mood="remembrance"] .fog-layer { opacity: 0.24; }
   border: 1px solid rgba(255, 255, 255, 0.18);
   color: var(--text-main);
 }
-
 .workshop-footer {
   display: flex;
   align-items: center;
@@ -515,42 +514,42 @@ body[data-mood="remembrance"] .fog-layer { opacity: 0.24; }
 
 /* Music Production Studio Styles */
 .music-production-grid {
-    background: rgba(10, 4, 24, 0.6);
-    border: 1px solid var(--glass-border);
-    border-radius: 16px;
-    padding: 2rem;
-    display: grid;
-    gap: 2rem;
+  background: rgba(10, 4, 24, 0.6);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 2rem;
+  display: grid;
+  gap: 2rem;
 }
 .mixer-strips {
-    display: flex;
-    justify-content: space-around;
-    height: 300px;
+  display: flex;
+  justify-content: space-around;
+  height: 300px;
 }
 .mixer-strip {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 .mixer-strip label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--accent-primary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--accent-primary);
 }
 .vertical-slider {
-    appearance: slider-vertical;
-    -webkit-appearance: slider-vertical;
-    width: 20px;
-    height: 200px;
-    background: var(--bg-mid);
-    cursor: pointer;
+  appearance: slider-vertical;
+  -webkit-appearance: slider-vertical;
+  width: 20px;
+  height: 200px;
+  background: var(--bg-mid);
+  cursor: pointer;
 }
 .mute-toggle {
-    background: var(--bg-deep);
-    border: 1px solid var(--glass-border);
-    color: white;
-    border-radius: 4px;
+  background: var(--bg-deep);
+  border: 1px solid var(--glass-border);
+  color: white;
+  border-radius: 4px;
 }
 
 /* Phase 1 - Remembrance Styles */
