@@ -11,15 +11,40 @@ function getSql() {
 }
 const sql = (...args) => getSql()(...args);
 
+async function ensureMessagesSchema() {
+  await sql(`
+    CREATE TABLE IF NOT EXISTS messages (
+      id SERIAL PRIMARY KEY,
+      name TEXT NOT NULL,
+      message TEXT NOT NULL,
+      font TEXT DEFAULT 'Space Grotesk',
+      color TEXT DEFAULT '#f5e9ff',
+      approved BOOLEAN DEFAULT FALSE,
+      hidden BOOLEAN DEFAULT FALSE,
+      admin_notes TEXT DEFAULT '',
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `);
+  await sql(`ALTER TABLE messages ADD COLUMN IF NOT EXISTS font TEXT DEFAULT 'Space Grotesk'`);
+  await sql(`ALTER TABLE messages ADD COLUMN IF NOT EXISTS color TEXT DEFAULT '#f5e9ff'`);
+  await sql(`ALTER TABLE messages ADD COLUMN IF NOT EXISTS approved BOOLEAN DEFAULT FALSE`);
+  await sql(`ALTER TABLE messages ADD COLUMN IF NOT EXISTS hidden BOOLEAN DEFAULT FALSE`);
+  await sql(`ALTER TABLE messages ADD COLUMN IF NOT EXISTS admin_notes TEXT DEFAULT ''`);
+  await sql(`ALTER TABLE messages ADD COLUMN IF NOT EXISTS created_at TIMESTAMPTZ DEFAULT NOW()`);
+}
+
 const actions = {
   // 🕯️ LIST MESSAGES
   list: async (req, res) => {
+    await ensureMessagesSchema();
     const { filter, q } = req.query;
+    const isAdmin = await verifyAdmin(req);
     let where = [];
     let params = [];
     let i = 1;
 
-    if (filter === 'approved') where.push(`approved = TRUE AND hidden = FALSE`);
+    if (!isAdmin) where.push(`approved = TRUE AND hidden = FALSE`);
+    else if (filter === 'approved') where.push(`approved = TRUE AND hidden = FALSE`);
     else if (filter === 'hidden') where.push(`hidden = TRUE`);
     else if (filter === 'unapproved' || filter === 'pending') where.push(`approved = FALSE`);
 
@@ -43,6 +68,7 @@ const actions = {
 
   // 🕯️ ADD MESSAGE
   add: async (req, res) => {
+    await ensureMessagesSchema();
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
     const { name, message, font, color } = body;
 
@@ -50,8 +76,8 @@ const actions = {
       return res.status(400).json({ success: false, error: 'Missing fields' });
 
     const rows = await sql(
-      `INSERT INTO messages (name, message, font, color)
-       VALUES ($1, $2, $3, $4)
+      `INSERT INTO messages (name, message, font, color, approved, hidden)
+       VALUES ($1, $2, $3, $4, FALSE, FALSE)
        RETURNING *`,
       [name, message, font || 'Rajdhani', color || '#FFD700']
     );

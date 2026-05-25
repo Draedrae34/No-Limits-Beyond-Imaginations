@@ -1,123 +1,176 @@
 (function () {
-    const textEl = document.getElementById('tribute-text');
-    const fontEl = document.getElementById('tribute-font');
-    const colorEl = document.getElementById('tribute-color');
-    const styleEl = document.getElementById('tribute-style');
-    const imageEl = document.getElementById('tribute-image');
-    const preview = document.getElementById('tribute-preview');
-    const previewText = preview.querySelector('.preview-text');
-    const previewImage = document.getElementById('preview-image');
-    const submitBtn = document.getElementById('submit-tribute');
+  const textEl = document.getElementById("tribute-text");
+  const fontEl = document.getElementById("tribute-font");
+  const colorEl = document.getElementById("tribute-color");
+  const styleEl = document.getElementById("tribute-style");
+  const imageEl = document.getElementById("tribute-image");
+  const preview = document.getElementById("tribute-preview");
+  const previewText = preview?.querySelector(".preview-text");
+  const previewImage = document.getElementById("preview-image");
+  const submitBtn = document.getElementById("submit-tribute");
+  const honorGrid = document.getElementById("honor-grid");
 
-    // Function to apply styles to the live preview
-    function applyStyle() {
-        const text = textEl.value.trim() || 'Your tribute will appear here.';
-        previewText.textContent = text;
-        previewText.style.fontFamily = fontEl.value;
-        previewText.style.color = colorEl.value;
+  async function fetchJSON(url, options = {}) {
+    const response = await fetch(url, options);
+    const text = await response.text();
+    let data = {};
+    try {
+      data = text ? JSON.parse(text) : {};
+    } catch {
+      data = { raw: text };
+    }
+    if (!response.ok) {
+      throw new Error(data.error || data.message || `Request failed: ${response.status}`);
+    }
+    return data;
+  }
 
-        // Reset styles before applying new ones
-        previewText.style.textShadow = 'none';
-        previewText.style.webkitTextStroke = '0';
+  function escapeHTML(value) {
+    const div = document.createElement("div");
+    div.textContent = value == null ? "" : String(value);
+    return div.innerHTML;
+  }
 
-        const style = styleEl.value;
-        if (style === 'glow') {
-            previewText.style.textShadow = `0 0 12px ${colorEl.value}`;
-        } else if (style === 'shadow') {
-            previewText.style.textShadow = '0 2px 8px rgba(15,23,42,0.9)';
-        } else if (style === 'outline') {
-            previewText.style.webkitTextStroke = `1px ${colorEl.value}`; // Use selected color for outline
-        }
+  function applyStyle() {
+    if (!textEl || !fontEl || !colorEl || !styleEl || !previewText) return;
+
+    const text = textEl.value.trim() || "Your tribute will appear here.";
+    previewText.textContent = text;
+    previewText.style.fontFamily = fontEl.value;
+    previewText.style.color = colorEl.value;
+    previewText.style.textShadow = "none";
+    previewText.style.webkitTextStroke = "0";
+
+    if (styleEl.value === "glow") {
+      previewText.style.textShadow = `0 0 14px ${colorEl.value}`;
+    } else if (styleEl.value === "shadow") {
+      previewText.style.textShadow = "0 2px 12px rgba(0,0,0,0.95)";
+    } else if (styleEl.value === "outline") {
+      previewText.style.webkitTextStroke = `1px ${colorEl.value}`;
+      previewText.style.color = "transparent";
+    }
+  }
+
+  function renderMessages(messages) {
+    if (!honorGrid) return;
+
+    if (!messages.length) {
+      honorGrid.innerHTML = `
+        <div class="honor-card honor-card-empty">
+          <p>No public tributes are showing yet. Be the first to leave a message.</p>
+        </div>
+      `;
+      return;
     }
 
-    // Event listeners for live preview updates
-    textEl.addEventListener('input', applyStyle);
-    fontEl.addEventListener('change', applyStyle);
-    colorEl.addEventListener('input', applyStyle);
-    styleEl.addEventListener('change', applyStyle);
+    honorGrid.innerHTML = messages.map((msg) => {
+      const font = msg.font || "'Space Grotesk', sans-serif";
+      const color = msg.color || "#f5e9ff";
+      return `
+        <article class="honor-card">
+          <p style="font-family:${escapeHTML(font)}; color:${escapeHTML(color)};">${escapeHTML(msg.message)}</p>
+          <small>${escapeHTML(msg.name || "Anonymous")} • ${new Date(msg.created_at).toLocaleDateString()}</small>
+        </article>
+      `;
+    }).join("");
+  }
 
-    // Event listener for image upload preview
-    imageEl.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (!file) {
-            previewImage.style.display = 'none';
-            previewImage.src = '';
-            return;
-        }
-        const reader = new FileReader();
-        reader.onload = (ev) => {
-            previewImage.src = ev.target.result;
-            previewImage.style.display = 'block';
-        };
-        reader.readAsDataURL(file);
+  async function loadTributes() {
+    if (!honorGrid) return;
+
+    honorGrid.innerHTML = `
+      <div class="honor-card honor-card-empty">
+        <p>Loading community tributes...</p>
+      </div>
+    `;
+
+    try {
+      const data = await fetchJSON("/api/messages?action=list&filter=approved");
+      renderMessages(data.messages || []);
+    } catch (err) {
+      console.error("Unable to load tributes:", err);
+      honorGrid.innerHTML = `
+        <div class="honor-card honor-card-empty">
+          <p>The tribute wall could not load right now. Please refresh in a moment.</p>
+        </div>
+      `;
+    }
+  }
+
+  function wirePreview() {
+    if (!textEl || !fontEl || !colorEl || !styleEl || !previewText) return;
+
+    [textEl, fontEl, colorEl, styleEl].forEach((el) => {
+      el.addEventListener("input", applyStyle);
+      el.addEventListener("change", applyStyle);
     });
 
-    // Initial style application on load
-    applyStyle();
+    imageEl?.addEventListener("change", (event) => {
+      const file = event.target.files?.[0];
+      if (!file || !previewImage) {
+        if (previewImage) {
+          previewImage.style.display = "none";
+          previewImage.src = "";
+        }
+        return;
+      }
 
-    // --- Tribute Submission Logic (Placeholder for API interaction) ---
-    submitBtn.addEventListener('click', async () => {
-        const tributeData = {
-            message: textEl.value.trim(),
+      const reader = new FileReader();
+      reader.onload = (loadEvent) => {
+        previewImage.src = loadEvent.target.result;
+        previewImage.style.display = "block";
+      };
+      reader.readAsDataURL(file);
+    });
+
+    applyStyle();
+  }
+
+  function wireSubmit() {
+    if (!submitBtn || !textEl || !fontEl || !colorEl) return;
+
+    submitBtn.addEventListener("click", async () => {
+      const message = textEl.value.trim();
+      if (!message) {
+        alert("Please write a message for your tribute.");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending...";
+
+      try {
+        await fetchJSON("/api/messages?action=add", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: "Legacy Visitor",
+            message,
             font: fontEl.value,
             color: colorEl.value,
-            style: styleEl.value,
-            // image: imageEl.files[0] // This would require FormData and a backend upload endpoint
-        };
+          }),
+        });
 
-        if (!tributeData.message) {
-            alert('Please write a message for your tribute.');
-            return;
+        textEl.value = "";
+        if (previewImage) {
+          previewImage.style.display = "none";
+          previewImage.src = "";
         }
-
-        try {
-            submitBtn.disabled = true;
-            submitBtn.textContent = "Ascending...";
-
-            // Real API call to save the tribute
-            const response = await fetchJSON("/api/gallery", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    action: "submit-tribute",
-                    cosmic_text: tributeData.message,
-                    font_style: tributeData.font,
-                    color: tributeData.color,
-                    vibe: tributeData.style,
-                    category: "tribute"
-                })
-            });
-
-            if (!response.ok && !response.success) throw new Error("Connection lost to the void.");
-            
-            console.log("Tribute accepted by the database.");
-        } catch (err) {
-            console.error("Submission failed:", err);
-            alert("The stars are unreachable right now. Please try again.");
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Submit Tribute";
-            return;
-        }
-
-        // --- Firework Animation Sequence ---
-        console.log("Launching Dog Tags and Message to the Heavens...");
+        applyStyle();
+        alert("Your tribute was received. It will appear after approval.");
+      } catch (err) {
+        console.error("Tribute submission failed:", err);
+        alert("The tribute could not be sent right now. Please try again.");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Send to the Stars";
+      }
     });
+  }
 
-    // --- Cosmic Environment Initialization (from previous message-wall.html) ---
-    window.addEventListener('DOMContentLoaded', () => {
-        // Generate Floating Roses (if you want them on this page)
-        const rosesContainer = document.getElementById('roses-container');
-        const colors = ['purple', 'pink', 'red', 'lavender', 'blue', 'black'];
-        if (rosesContainer) {
-            for (let i = 0; i < 24; i++) {
-                const rose = document.createElement('div');
-                rose.className = `rose ${colors[Math.floor(Math.random() * colors.length)]}`;
-                rose.innerHTML = '🌹';
-                rose.style.left = `${Math.random() * 100}%`;
-                rose.style.animationDelay = `${Math.random() * 80}s`;
-                rose.style.fontSize = `${Math.random() * 10 + 10}px`;
-                rosesContainer.appendChild(rose);
-            }
-        }
-    });
+  window.addEventListener("DOMContentLoaded", () => {
+    wirePreview();
+    wireSubmit();
+    loadTributes();
+  });
 })();

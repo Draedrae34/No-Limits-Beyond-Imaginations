@@ -23,6 +23,21 @@
     --mystic-glow: rgba(179, 124, 255, 0.1);
 }
 
+html,
+body {
+  min-height: 100%;
+}
+
+.workshop-body {
+  margin: 0;
+  color: var(--workshop-text);
+  background:
+    radial-gradient(circle at 82% 18%, rgba(255, 79, 216, 0.2), transparent 34%),
+    radial-gradient(circle at 20% 12%, rgba(0, 242, 255, 0.14), transparent 28%),
+    linear-gradient(135deg, #05010a 0%, #0b1020 46%, #14051f 100%);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
 .cosmic-bg,
 #starfield {
   position: fixed;
@@ -40,6 +55,7 @@
   display: grid;
   grid-template-columns: 280px minmax(0, 1fr);
   min-height: 100vh;
+  background: linear-gradient(90deg, rgba(5, 1, 10, 0.76), rgba(5, 1, 10, 0.24));
 }
 
 .workshop-sidebar {
@@ -47,7 +63,7 @@
   flex-direction: column;
   gap: 1.5rem;
   padding: 1.5rem;
-  background: rgba(4, 7, 18, 0.86);
+  background: rgba(4, 7, 18, 0.92);
   border-right: 1px solid var(--workshop-border);
   backdrop-filter: blur(18px);
 }
@@ -103,11 +119,15 @@
 .workshop-main {
   padding: 1.75rem;
   overflow: auto;
+  background:
+    radial-gradient(circle at 70% 72%, rgba(255, 79, 216, 0.14), transparent 35%),
+    radial-gradient(circle at 12% 8%, rgba(179, 124, 255, 0.12), transparent 28%);
 }
 
 .panel {
   display: none;
   max-width: 1180px;
+  min-height: calc(100vh - 3.5rem);
 }
 
 .panel.active {
@@ -117,6 +137,66 @@
 .panel h2 {
   margin: 0 0 1rem;
   font-size: 1.25rem;
+  color: var(--workshop-text);
+  text-shadow: 0 0 18px rgba(179, 124, 255, 0.28);
+}
+
+#cosmic-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  display: grid;
+  place-content: center;
+  gap: 0.75rem;
+  text-align: center;
+  color: var(--workshop-text);
+  background: radial-gradient(circle at center, rgba(54, 18, 94, 0.94), rgba(5, 1, 10, 0.98) 65%);
+  transition: opacity 0.45s ease, visibility 0.45s ease;
+}
+
+#cosmic-intro.hidden,
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+#lil-mystic-container {
+  position: relative;
+  min-height: 620px;
+  height: min(72vh, 720px);
+  overflow: hidden;
+  border: 1px solid rgba(179, 124, 255, 0.55);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at center, rgba(0, 242, 255, 0.12), transparent 24%),
+    radial-gradient(circle at 50% 50%, rgba(179, 124, 255, 0.24), rgba(2, 6, 23, 0.92) 68%),
+    linear-gradient(135deg, rgba(5, 1, 10, 0.94), rgba(10, 4, 24, 0.84));
+  box-shadow: 0 24px 90px rgba(0, 0, 0, 0.45), inset 0 0 80px rgba(179, 124, 255, 0.16);
+}
+
+#lil-mystic-container canvas {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.mystic-glow {
+  position: absolute;
+  inset: 18%;
+  z-index: 1;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(255, 79, 216, 0.38), rgba(0, 242, 255, 0.14) 36%, transparent 68%);
+  filter: blur(18px);
+  pointer-events: none;
+  animation: mystic-stage-pulse 4.8s ease-in-out infinite;
+}
+
+@keyframes mystic-stage-pulse {
+  0%, 100% { opacity: 0.58; transform: scale(0.94); }
+  50% { opacity: 0.92; transform: scale(1.04); }
 }
 
 .panel-note {

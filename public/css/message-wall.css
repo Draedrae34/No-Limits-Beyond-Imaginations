@@ -23,6 +23,178 @@ body {
     position: relative;
 }
 
+.cosmos {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background:
+        radial-gradient(circle at 20% 15%, rgba(179, 124, 255, 0.24), transparent 30%),
+        radial-gradient(circle at 82% 30%, rgba(255, 79, 216, 0.18), transparent 28%),
+        radial-gradient(circle at 50% 90%, rgba(56, 189, 248, 0.14), transparent 36%),
+        linear-gradient(135deg, #05010a 0%, #0b1020 48%, #16051f 100%);
+}
+
+.cosmos::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px),
+        radial-gradient(circle, rgba(179,124,255,0.35) 1px, transparent 1px);
+    background-size: 96px 96px, 137px 137px;
+    opacity: 0.24;
+}
+
+.silent-moment {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    background: rgba(5, 1, 10, 0.96);
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.silent-moment.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.silent-text {
+    color: var(--text-main);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-shadow: 0 0 24px var(--accent-primary);
+}
+
+.memorial-roses {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.workshop-header {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(10, 4, 24, 0.82), rgba(40, 16, 80, 0.72));
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(16px);
+}
+
+.brand-mark {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-orbit {
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    border: 2px solid var(--accent-primary);
+    box-shadow: 0 0 14px rgba(179, 124, 255, 0.9), 0 0 28px rgba(255, 79, 216, 0.65);
+}
+
+.brand-text {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-main);
+}
+
+.status-pill {
+    padding: 5px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.honor-wall {
+    width: min(1120px, calc(100% - 32px));
+    margin: 0 auto 5rem;
+}
+
+.remembrance-hero {
+    max-width: 900px;
+    margin: 2.5rem auto 1.25rem;
+    text-align: center;
+}
+
+.remembrance-hero h1 {
+    margin: 0;
+    color: var(--text-main);
+    font-size: clamp(2rem, 5vw, 4.5rem);
+    line-height: 1.02;
+    letter-spacing: 0.03em;
+    text-shadow: 0 0 26px rgba(179, 124, 255, 0.5);
+}
+
+.remembrance-subtitle {
+    max-width: 760px;
+    margin: 1.2rem auto 0;
+    color: var(--text-muted);
+    font-size: clamp(1rem, 2vw, 1.35rem);
+    line-height: 1.65;
+}
+
+.dog-tags-tribute {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0 2rem;
+}
+
+.honor-dogtags {
+    display: flex !important;
+    width: auto;
+    gap: 0.9rem;
+    margin: 0 auto;
+}
+
+.dog-tag {
+    min-width: 118px;
+    padding: 0.95rem 0.85rem;
+    border-radius: 12px;
+    border: 1px solid rgba(179, 124, 255, 0.48);
+    background: linear-gradient(145deg, rgba(229, 221, 255, 0.13), rgba(10, 4, 24, 0.74));
+    color: var(--text-main);
+    text-align: center;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.34);
+}
+
+.dog-tag-name {
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.dog-tag-years {
+    margin-top: 0.25rem;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+}
+
+.rose {
+    position: absolute;
+    bottom: -40px;
+    opacity: 0.32;
+    animation: roseDrift 80s linear infinite;
+    filter: drop-shadow(0 0 12px rgba(255, 79, 216, 0.35));
+}
+
+@keyframes roseDrift {
+    from { transform: translate3d(0, 0, 0) rotate(0deg); }
+    to { transform: translate3d(24px, -115vh, 0) rotate(360deg); }
+}
+
 /* Cosmic Background */
 #cosmic-bg {
   position: fixed;
@@ -268,6 +440,14 @@ body {
 .honor-card p {
     margin: 0;
 }
+.honor-card small {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+}
+.honor-card-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+}
 .honor-card img {
     max-width: 100%;
     height: auto;
@@ -288,5 +468,26 @@ body {
     }
     .honor-grid-section h2 {
         font-size: 1.4rem;
+    }
+}
+
+/* Final public-wall overrides after legacy rules. */
+.honor-dogtags {
+    display: flex !important;
+    width: auto !important;
+    gap: 0.9rem;
+    margin: 0 auto 1rem;
+}
+
+@media (max-width: 560px) {
+    .workshop-header {
+        align-items: flex-start;
+        border-radius: 16px;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .honor-dogtags {
+        flex-direction: column;
     }
 }

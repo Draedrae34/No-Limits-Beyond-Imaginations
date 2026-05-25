@@ -36,11 +36,18 @@ async function fetchJSON(url, options = {}) {
 }
 
 function initLilMysticPanel() {
+  const container = document.getElementById("lil-mystic-container");
+  if (!container) return;
+
   if (!window.lilMystic) {
     window.lilMystic = new LilMystic("lil-mystic-container");
     terminalLog("Lil Mystic hologram online.");
     window.lilMystic?.performGesture("greet");
+  } else {
+    window.lilMystic.onWindowResize?.();
   }
+
+  requestAnimationFrame(() => window.lilMystic?.onWindowResize?.());
 }
 
 const messagesState = {
@@ -1020,7 +1027,6 @@ function wireUiEvents() {
 
 async function initializeWorkshop() {
   wireUiEvents();
-  initLilMysticPanel(); // Bridge the gap: Wake up the hologram for the intro sequence
   uploadGalleryFile();
   initMessagesSection();
   
@@ -1051,11 +1057,9 @@ async function hideCosmicIntro() {
   await new Promise(r => setTimeout(r, 600));
   
   terminalLog("Synchronizing holographic sub-systems...", "system");
-  window.lilMystic?.onSpeak(0.2); // Pulse her to show she's loading
   await new Promise(r => setTimeout(r, 800));
 
   terminalLog("Silent Spirits Legacy — Online.", "system");
-  window.lilMystic?.performGesture("greet");
   
   intro.classList.add("hidden");
   setTimeout(() => {

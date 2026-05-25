@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Silent Spirits Legacy | Honor Wall</title>
-    <link rel="stylesheet" href="css/workshop.css">
     <link rel="stylesheet" href="css/message-wall.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&family=Space+Grotesk:wght@300;700&family=Pacifico&family=Oswald:wght@700&family=Cinzel:wght@700&family=JetBrains+Mono&display=swap" rel="stylesheet">
 </head>
@@ -95,12 +94,11 @@
         <section class="honor-grid-section">
             <h2>Community Tributes</h2>
             <div id="honor-grid" class="honor-grid">
-                <!-- Populated by workshop.js loadTributeElements -->
+                <!-- Populated by message-wall.js -->
             </div>
         </section>
     </main>
 
-    <script src="js/workshop.js"></script>
     <script src="js/message-wall.js"></script>
     <script>
         // Initialize the public experience
@@ -123,11 +121,6 @@
                     rose.style.fontSize = `${Math.random() * 10 + 10}px`;
                     rosesContainer.appendChild(rose);
                 }
-            }
-
-            if (typeof initTributeInteractions === 'function') {
-                initTributeInteractions();
-                loadTributeElements();
             }
         });
     </script>
