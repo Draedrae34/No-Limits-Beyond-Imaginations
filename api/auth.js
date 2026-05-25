@@ -15,9 +15,9 @@ export default function handler(req, res) {
 
   if (req.method === "POST") {
     const body = req.body || {};
-    const password = body.password || "";
+    const password = (body.password || "").trim();
     const email = body.email || "";
-    const adminPass = process.env.QUANTUM_ADMIN_PASS || "";
+    const adminPass = (process.env.QUANTUM_ADMIN_PASS || "").trim();
     const isProd = process.env.NODE_ENV === 'production';
 
     if (!password) {
