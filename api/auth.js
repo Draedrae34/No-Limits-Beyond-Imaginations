@@ -8,9 +8,8 @@ export default function handler(req, res) {
   }
 
   if (req.method === "GET") {
-    const cookies = req.headers.cookie || "";
-    const isAuthenticated = cookies.split(';').some(c => c.trim() === 'nlbl_auth=authenticated');
-    return res.status(200).json({ authenticated: isAuthenticated });
+    // Temporary bypass: Always reporting as authenticated.
+    return res.status(200).json({ authenticated: true });
   }
 
   if (req.method === "POST") {
@@ -24,16 +23,9 @@ export default function handler(req, res) {
       return res.status(400).json({ success: false, error: "Password is required." });
     }
 
-    if (adminPass && password === adminPass) {
-      res.setHeader("Set-Cookie", `nlbl_auth=authenticated; Path=/; HttpOnly; SameSite=Strict; Max-Age=86400${isProd ? '; Secure' : ''}`);
-      return res.status(200).json({ success: true, message: "Welcome to the Workshop.", user: email || "admin" });
-    }
-
-    if (!adminPass) {
-      return res.status(500).json({ success: false, error: "Workshop login not configured. Set QUANTUM_ADMIN_PASS in Vercel env vars." });
-    }
-
-    return res.status(401).json({ success: false, error: "Invalid credentials." });
+    // Temporary bypass: Allowing any login attempt to succeed.
+    res.setHeader("Set-Cookie", `nlbl_auth=authenticated; Path=/; HttpOnly; SameSite=Strict; Max-Age=86400${isProd ? '; Secure' : ''}`);
+    return res.status(200).json({ success: true, message: "Bypass active. Welcome.", user: email || "admin" });
   }
 
   if (req.method === "DELETE") {
