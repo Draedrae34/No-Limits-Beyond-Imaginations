@@ -2,9 +2,9 @@
 /Workshop.html
 /workshop.js
 /lil-mystic.js
-cinematic-transitions.js
-monitor.js
-monitor-errors.js
-server.js
-syncProducts.js
-paypal-mock.spec.js
+/cinematic-transitions.js
+/monitor.js
+/monitor-errors.js
+/server.js
+/syncProducts.js
+/paypal-mock.spec.js
