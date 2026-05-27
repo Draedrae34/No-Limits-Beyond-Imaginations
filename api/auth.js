@@ -13,19 +13,11 @@ export default function handler(req, res) {
   }
 
   if (req.method === "POST") {
-    const body = req.body || {};
-    const password = (body.password || "").trim();
-    const email = body.email || "";
-    const adminPass = (process.env.QUANTUM_ADMIN_PASS || "").trim();
     const isProd = process.env.NODE_ENV === 'production';
 
-    if (!password) {
-      return res.status(400).json({ success: false, error: "Password is required." });
-    }
-
-    // Temporary bypass: Allowing any login attempt to succeed.
+    // MASTER BYPASS: Grant the cookie regardless of input.
     res.setHeader("Set-Cookie", `nlbl_auth=authenticated; Path=/; HttpOnly; SameSite=Strict; Max-Age=86400${isProd ? '; Secure' : ''}`);
-    return res.status(200).json({ success: true, message: "Bypass active. Welcome.", user: email || "admin" });
+    return res.status(200).json({ success: true, message: "Bypass active. Welcome." });
   }
 
   if (req.method === "DELETE") {
