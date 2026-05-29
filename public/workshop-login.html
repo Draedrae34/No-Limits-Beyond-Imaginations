@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workshop Access | Silent Spirits Legacy</title>
-    <link rel="stylesheet" href="css/workshop.css">
+    <link rel="stylesheet" href="/css/workshop.css">
 </head>
 <body class="workshop-body">
-    <div id="cosmic-intro" style="opacity: 1; visibility: visible;">
+    <div id="cosmic-intro" style="opacity: 1; visibility: visible; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
         <h2>ASCENSION KEY PRIVATE WORKSHOP ACCESS</h2>
         <p>Engage Portal – Subsystems Ready</p>
-        <button id="login-btn" class="action-btn" style="margin-top: 2rem; padding: 1rem 2rem; font-size: 1.2rem; cursor: pointer;">Engage Portal</button>
+        <button id="login-btn" class="action-btn" style="margin-top: 2rem; padding: 1.5rem 3rem; font-size: 1.5rem; cursor: pointer; background: var(--workshop-accent); color: white; border: none; border-radius: 8px; box-shadow: 0 0 20px var(--workshop-accent);">ENGAGE PORTAL</button>
     </div>
 
     <script>
@@ -20,11 +20,11 @@
                 const response = await fetch('/api/auth', { method: 'POST' });
                 if (response.ok) {
                     // Redirect to the actual workshop dashboard
-                    window.location.href = 'workshop.html';
+                    window.location.href = '/workshop.html';
                 }
             } catch (err) {
                 console.error("Portal error:", err);
-                window.location.href = 'workshop.html';
+                window.location.href = '/workshop.html';
             }
         });
     </script>
