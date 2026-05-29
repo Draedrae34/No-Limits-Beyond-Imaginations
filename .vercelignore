@@ -6,5 +6,6 @@
 
 # Keep everything inside /public/ safe
 !/public/workshop.html
+!/public/workshop-login.html
 !/public/js/workshop.js
 !/public/js/lil-mystic.js

@@ -3,101 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workshop Login | Silent Spirits Legacy</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            background: #03010a;
-            color: #e2e8f0;
-            font-family: 'Raleway', sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            overflow: hidden;
-        }
-        .login-card {
-            background: rgba(26, 10, 46, 0.8);
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid #8b5cf6;
-            box-shadow: 0 0 50px rgba(139, 92, 246, 0.3);
-            text-align: center;
-            backdrop-filter: blur(10px);
-            width: 320px;
-        }
-        h1 { font-family: 'Orbitron', sans-serif; color: #ffd700; font-size: 1.2rem; letter-spacing: 2px; }
-        input {
-            width: 100%;
-            padding: 12px;
-            margin: 20px 0;
-            background: rgba(0,0,0,0.5);
-            border: 1px solid #a78bfa;
-            color: white;
-            border-radius: 8px;
-            box-sizing: border-box;
-        }
-        button {
-            background: linear-gradient(45deg, #7c3aed, #8b5cf6);
-            border: none;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-family: 'Orbitron', sans-serif;
-            width: 100%;
-            transition: 0.3s;
-        }
-        button:hover { transform: scale(1.02); box-shadow: 0 0 20px #8b5cf6; }
-        #status { margin-top: 15px; font-size: 0.8rem; color: #ff0d99; }
-    </style>
+    <title>Workshop Access | Silent Spirits Legacy</title>
+    <link rel="stylesheet" href="css/workshop.css">
 </head>
-<body>
-    <div class="login-card">
-        <h1>ASCENSION KEY</h1>
-        <p style="font-size: 0.7rem; color: #a78bfa;">PRIVATE WORKSHOP ACCESS</p>
-        <input type="password" id="pass" placeholder="Enter Admin Password">
-        <button onclick="attemptLogin()">Engage Portal</button>
-        <div id="status"></div>
+<body class="workshop-body">
+    <div id="cosmic-intro" style="opacity: 1; visibility: visible;">
+        <h2>ASCENSION KEY PRIVATE WORKSHOP ACCESS</h2>
+        <p>Engage Portal – Subsystems Ready</p>
+        <button id="login-btn" class="action-btn" style="margin-top: 2rem; padding: 1rem 2rem; font-size: 1.2rem; cursor: pointer;">Engage Portal</button>
     </div>
 
     <script>
-        // Allow Enter key to trigger login
-        document.getElementById('pass').addEventListener('keyup', (e) => {
-            if (e.key === 'Enter') attemptLogin();
-        });
-
-        async function attemptLogin() {
-            const password = document.getElementById('pass').value;
-            const status = document.getElementById('status');
-            const btn = document.querySelector('button');
-
-            btn.disabled = true;
-            btn.textContent = 'Engaging...';
-            
+        document.getElementById('login-btn').addEventListener('click', async () => {
             try {
-                const res = await fetch('/api/auth', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ password })
-                });
-                const data = await res.json();
-                
-                if (data.success) {
-                    status.style.color = "#00ffff";
-                    status.textContent = "Access Granted. Syncing...";
-                    window.location.href = "private.html";
-                } else {
-                    status.textContent = data.error || "Invalid Credentials";
+                // Trigger the master bypass cookie from /api/auth.js
+                const response = await fetch('/api/auth', { method: 'POST' });
+                if (response.ok) {
+                    // Redirect to the actual workshop dashboard
+                    window.location.href = 'workshop.html';
                 }
             } catch (err) {
-                status.textContent = "Engine Error. Check Connection.";
-            } finally {
-                btn.disabled = false;
-                btn.textContent = 'Engage Portal';
+                console.error("Portal error:", err);
+                window.location.href = 'workshop.html';
             }
-        }
+        });
     </script>
 </body>
 </html>
