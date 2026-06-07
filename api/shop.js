@@ -3,6 +3,7 @@ import pool from '../src/utils/db.js';
 import fs from 'fs/promises';
 import path from 'path';
 import { sendDiscordAlert } from '../utils/discord-alerts.js';
+import { verifyAdmin } from '../src/utils/auth.js';
 import { ensureProductsSchema, mapProductRow, pickIncomingImageUrl } from '../src/utils/products.js';
 
 const CACHE_FLAG_PATH = path.join(process.cwd(), '.cache-mode-enabled');
@@ -117,10 +118,6 @@ async function getMergedCatalog(cacheMode) {
   return merged.sort((a, b) => { if (a.featured && !b.featured) return -1; if (!a.featured && b.featured) return 1; return (a.title || '').localeCompare(b.title || ''); });
 }
 
-function isAdminAuth(cookies) {
-  return cookies.split(';').some(c => c.trim() === 'nlbl_auth=authenticated');
-}
-
 const actions = {
   // Public actions
   list: async (req, res, cacheMode) => {
@@ -145,6 +142,7 @@ const actions = {
     return res.status(200).json({ success: true, products: filtered });
   },
   syncCatalog: async (req, res) => {
+    if (!(await verifyAdmin(req))) return res.status(401).json({ error: 'Authentication required' });
     const products = await fetchPrintifyCatalog();
     await saveCatalogCache(products);
     return res.status(200).json({ success: true, message: 'Catalog synced', count: products.length });
@@ -161,7 +159,7 @@ const actions = {
   // Admin: Local product CRUD (merged from products/[id].js)
   adminProduct: async (req, res) => {
     const { id } = req.query;
-    if (!isAdminAuth(req.headers.cookie || '')) return res.status(401).json({ error: 'Authentication required' });
+    if (!(await verifyAdmin(req))) return res.status(401).json({ error: 'Authentication required' });
 
     if (req.method === 'GET') {
       const result = await pool.query('SELECT * FROM products WHERE id = $1', [id]);
@@ -192,7 +190,7 @@ const actions = {
 
   // Admin: Printify API proxy (merged from printify.js)
   printifyAdmin: async (req, res) => {
-    if (!isAdminAuth(req.headers.cookie || '')) return res.status(401).json({ error: 'Authentication required' });
+    if (!(await verifyAdmin(req))) return res.status(401).json({ error: 'Authentication required' });
     let body = req.body || {};
     if (typeof body === 'string') { try { body = JSON.parse(body); } catch { body = {}; } }
     const action = (req.query && (req.query.printifyAction || req.query.action)) || (body && body.action) || 'status';

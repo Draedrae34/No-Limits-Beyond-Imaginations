@@ -1,6 +1,7 @@
 // api/orders.js - Order management + Printify webhook handling
 import { neon } from '@neondatabase/serverless';
 import { sendDiscordAlert } from '../utils/discord-alerts.js';
+import { verifyAdmin } from '../src/utils/auth.js';
 
 let sqlClient;
 function getSql() {
@@ -19,16 +20,12 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Printify-Signature');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
-  // Auth check for admin actions
-  const cookies = req.headers.cookie || '';
-  const isAuth = cookies.split(';').some(c => c.trim() === 'nlbl_auth=authenticated');
-
   try {
     // ---------------------------------------------------------
     // 📖 GET: Fetch orders (auth required)
     // ---------------------------------------------------------
     if (req.method === 'GET') {
-      if (!isAuth) return res.status(401).json({ error: 'Authentication required' });
+      if (!(await verifyAdmin(req))) return res.status(401).json({ error: 'Authentication required' });
       const { id } = req.query;
       if (id) {
         const rows = await sql`SELECT * FROM orders WHERE id = ${id}`;
@@ -43,7 +40,7 @@ export default async function handler(req, res) {
     // ✏️ PUT: Update order fulfillment (auth required)
     // ---------------------------------------------------------
     if (req.method === 'PUT') {
-      if (!isAuth) return res.status(401).json({ error: 'Authentication required' });
+      if (!(await verifyAdmin(req))) return res.status(401).json({ error: 'Authentication required' });
       const { id, fulfillment_status, fulfillment_notes } = req.body;
       if (!id) return res.status(400).json({ success: false, error: 'Missing order ID' });
       const fulfilledAt = fulfillment_status === 'fulfilled' ? new Date() : null;

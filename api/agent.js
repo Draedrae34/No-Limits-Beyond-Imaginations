@@ -12,6 +12,7 @@ import { getRoutineCostStats, getSystemHealthScore, getCurrentResourceUsage } fr
 import { sendDiscordAlert } from '../utils/discord-alerts.js';
 import pool from '../src/utils/db.js';
 import { ensureProductsSchema } from '../src/utils/products.js';
+import { verifyAdmin } from '../src/utils/auth.js';
 
 const INTENTS = [
   { keys: ['sync', 'catalog'], name: 'Sync Printify catalog', fn: runCatalogSync },
@@ -31,11 +32,11 @@ const INTENTS = [
 ];
 
 async function getCurrentUser(req) {
-  const cookies = req.headers.cookie || '';
-  const match = cookies.match(/nlbl_auth=([^;]+)/);
-  if (match && match[1] === 'authenticated') return 'admin';
   const authHeader = req.headers.authorization || '';
-  if (authHeader.startsWith('Bearer ')) return 'api-user';
+  if (await verifyAdmin(req)) {
+    if (authHeader.startsWith('Bearer ')) return 'api-user';
+    return 'admin';
+  }
   return null;
 }
 
@@ -62,6 +63,9 @@ function getQueryParams(req) {
   }
 }
 
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY || '';
+const OPENAI_MODEL = process.env.OPENAI_MODEL || 'gpt-4o-mini';
+
 function parseIntent(message, toolHint) {
   const steps = [];
   if (toolHint) {
@@ -82,16 +86,75 @@ function parseIntent(message, toolHint) {
   return steps;
 }
 
+async function callOpenAIChat(message) {
+  if (!OPENAI_API_KEY) return null;
+  try {
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${OPENAI_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: OPENAI_MODEL,
+        messages: [
+          { role: 'system', content: 'You are Lil Mystic, a private workshop AI guiding creative music, design, product, and operational decisions for a premium legacy brand.' },
+          { role: 'user', content: message }
+        ],
+        max_tokens: 320,
+        temperature: 0.85,
+        top_p: 0.9,
+        frequency_penalty: 0.2,
+        presence_penalty: 0.25,
+      }),
+    });
+
+    if (!response.ok) {
+      const text = await response.text();
+      console.error('OpenAI chat request failed:', response.status, text);
+      return null;
+    }
+
+    const data = await response.json();
+    return data?.choices?.[0]?.message?.content?.trim() || null;
+  } catch (err) {
+    console.error('OpenAI chat error:', err);
+    return null;
+  }
+}
+
+function fallbackChatReply(message) {
+  const lower = message.toLowerCase();
+  if (lower.includes('beat') || lower.includes('music')) {
+    return 'Create a cinematic, bass-forward beat with shimmering synths, hard-hitting drums, and a hypnotic groove for the studio.';
+  }
+  if (lower.includes('lyrics') || lower.includes('song')) {
+    return 'Write lyrics that speak to resilience, legacy, and the energy of the studio. Keep it vivid, powerful, and melodic.';
+  }
+  if (lower.includes('design') || lower.includes('visual')) {
+    return 'Visualize a high-contrast streetwear line with cosmic embroidery, bold fonts, and a polished, futuristic edge.';
+  }
+  return `Lil Mystic is ready. Ask me to generate beats, lyrics, designs, or to sync orders.`;
+}
+
+async function runAgentChat(message) {
+  if (!message || !message.trim()) {
+    return 'Ask me anything about creative workflow, music, products, or the private workshop.';
+  }
+
+  const aiResponse = await callOpenAIChat(message);
+  return aiResponse || fallbackChatReply(message);
+}
+
 // --- Intent Handler ---
-async function handleIntent(req, res, body) {
-  const { message = '', toolHint, context } = body;
+async function handleIntent(req, res, body, user) {
+  const { action, message = '', toolHint, context } = body;
   const steps = parseIntent(message, toolHint);
 
-  if (!steps.length) {
-    await logAction('guest', `chat:${message.slice(0,50)}`, 'no_match', req);
-    return res.json({
-      reply: `I heard: "${message}". I can sync catalog, clean gibberish, generate products, audit the site, and test endpoints. Try: "Sync catalog, generate new products, then audit."`
-    });
+  if (action === 'chat' || !steps.length) {
+    const reply = await runAgentChat(message);
+    await logAction(user, `chat:${message.slice(0,50)}`, 'chat', req);
+    return res.json({ reply });
   }
 
   const messages = [];
@@ -213,7 +276,7 @@ export default async function handler(req, res) {
       }
 
       // Default: handle intent (chat)
-      return await handleIntent(req, res, body);
+      return await handleIntent(req, res, body, user);
     }
 
     if (req.method === 'GET') {

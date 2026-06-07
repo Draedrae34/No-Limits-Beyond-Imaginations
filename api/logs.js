@@ -3,6 +3,7 @@
 import pool from '../src/utils/db.js';
 import { ensureProductsSchema } from '../src/utils/products.js';
 import { sendDiscordAlert } from '../utils/discord-alerts.js';
+import { verifyAdmin } from '../src/utils/auth.js';
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -12,9 +13,7 @@ export default async function handler(req, res) {
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
 
   // Auth
-  const cookies = req.headers.cookie || '';
-  const isAuth = cookies.split(';').some(c => c.trim() === 'nlbl_auth=authenticated');
-  if (!isAuth) return res.status(401).json({ error: 'Authentication required' });
+  if (!(await verifyAdmin(req))) return res.status(401).json({ error: 'Authentication required' });
 
   const { action, limit } = req.query;
   const limitVal = parseInt(limit) || 10;

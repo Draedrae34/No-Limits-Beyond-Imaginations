@@ -7,6 +7,26 @@
     <link rel="stylesheet" href="/css/workshop.css">
 </head>
 <body class="workshop-body">
+    <script>
+        async function checkWorkshopAuth() {
+            try {
+                const response = await fetch('/api/auth', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+                if (!response.ok) throw new Error('Auth check failed');
+
+                const data = await response.json();
+                if (!data.authenticated) {
+                    window.location.href = '/workshop-login.html';
+                }
+            } catch (err) {
+                console.error('Workshop auth check failed:', err);
+                window.location.href = '/workshop-login.html';
+            }
+        }
+        checkWorkshopAuth();
+    </script>
 
     <div id="cosmic-bg">
         <!-- Canvas for starfield if needed by starfield.js -->
@@ -16,8 +36,8 @@
     </div>
 
     <div id="cosmic-intro">
-        <h2>INITIALIZING WORKSHOP OS</h2>
-        <p>Awaiting spiritual synchronization...</p>
+        <h2>LAUNCHING PRIVATE WORKSHOP</h2>
+        <p>Booting your secure creative studio and loading premium subsystems...</p>
     </div>
 
     <div class="workshop-shell">
@@ -39,7 +59,7 @@
                 <button class="nav-item tab-btn" data-tab="messages">Messages</button>
                 <button class="nav-item tab-btn" data-tab="gallery">Gallery</button>
             </nav>
-            <button class="logout-btn" onclick="window.location.href='/'">Return to Public</button>
+<button id="logout-btn" class="logout-btn">Logout & Return</button>
         </aside>
 
         <main class="workshop-main">
@@ -227,6 +247,11 @@
     
     <!-- 2. The Workshop Brain (OS Logic) -->
     <script src="/js/workshop.js"></script>
+
+    <!-- 3. Authentication + AI -->
+    <script src="/js/auth.js"></script>
+    <script src="/js/ai-assistant.js"></script>
+    <script src="/js/voice-control.js"></script>
 
 </body>
 </html>

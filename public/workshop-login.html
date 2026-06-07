@@ -7,26 +7,21 @@
     <link rel="stylesheet" href="/css/workshop.css">
 </head>
 <body class="workshop-body">
-    <div id="cosmic-intro" style="opacity: 1; visibility: visible; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
-        <h2>ASCENSION KEY PRIVATE WORKSHOP ACCESS</h2>
-        <p>Engage Portal – Subsystems Ready</p>
-        <button id="login-btn" class="action-btn" style="margin-top: 2rem; padding: 1.5rem 3rem; font-size: 1.5rem; cursor: pointer; background: var(--workshop-accent); color: white; border: none; border-radius: 8px; box-shadow: 0 0 20px var(--workshop-accent);">ENGAGE PORTAL</button>
+    <div id="cosmic-intro" class="auth-shell">
+        <div class="auth-card">
+            <h2>PRIVATE WORKSHOP ACCESS</h2>
+            <p>Unlock Lil Mystic and enter your production workshop.</p>
+            <form id="login-form" class="auth-form">
+                <label for="password">Passcode</label>
+                <input id="password" name="password" type="password" placeholder="Enter private passcode" autocomplete="current-password">
+                <div class="auth-actions">
+                    <button type="submit" class="action-btn">Enter Workshop</button>
+                </div>
+                <p id="error-message" class="error-text"></p>
+            </form>
+        </div>
     </div>
 
-    <script>
-        document.getElementById('login-btn').addEventListener('click', async () => {
-            try {
-                // Trigger the master bypass cookie from /api/auth.js
-                const response = await fetch('/api/auth', { method: 'POST' });
-                if (response.ok) {
-                    // Redirect to the actual workshop dashboard
-                    window.location.href = '/workshop.html';
-                }
-            } catch (err) {
-                console.error("Portal error:", err);
-                window.location.href = '/workshop.html';
-            }
-        });
-    </script>
+    <script src="/js/auth.js"></script>
 </body>
 </html>

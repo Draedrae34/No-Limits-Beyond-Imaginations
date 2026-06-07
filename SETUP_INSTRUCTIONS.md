@@ -64,6 +64,9 @@ CREATE TABLE IF NOT EXISTS routine_logs (
 | `PAYPAL_CLIENT_SECRET` | `E_your_sandbox_secret` | PayPal Sandbox Secret |
 | `PRINTIFY_SHOP_ID` | `12345678` | Your Printify Shop ID |
 | `PRINTIFY_API_KEY` | `shpat_your_api_key` | Your Printify API Key |
+| `OPENAI_API_KEY` | `sk-...` | Optional. Enables Lil Mystic chat and creative generation via OpenAI. |
+| `OPENAI_MODEL` | `gpt-4o-mini` | Optional. Set a chat model if using OpenAI; defaults to `gpt-4o-mini`. |
+| `WORKSHOP_PASSWORD` | `your-secret-code` | Required for private workshop access. Set this to protect `/workshop.html`. |
 | `DISCORD_WEBHOOK_URL` | `https://discord.com/api/webhooks/...` | Your Discord Webhook URL |
 
 3. **Important**: After adding env vars, **redeploy** your project (Vercel → Deployments → Latest → Redeploy)
