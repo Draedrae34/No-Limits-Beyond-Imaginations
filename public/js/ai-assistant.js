@@ -8,6 +8,7 @@ class NLBLAIAssistant {
     this.pipeline = null;
     this.isReady = false;
     this.initialized = false;
+    this.failed = false;
   }
 
   async initialize() {
@@ -30,6 +31,9 @@ class NLBLAIAssistant {
       window.dispatchEvent(new CustomEvent('ai-assistant-ready'));
     } catch (error) {
       console.error('[AI Assistant] Initialization failed:', error);
+      this.failed = true;
+      this.isReady = false;
+      window.dispatchEvent(new CustomEvent('ai-assistant-ready'));
     }
   }
 
@@ -39,17 +43,33 @@ class NLBLAIAssistant {
     }
 
     try {
-      const result = await this.pipeline(prompt, {
+      const generationPromise = this.pipeline(prompt, {
         max_new_tokens: maxLength,
         temperature: 0.7,
         top_p: 0.9,
         repetition_penalty: 1.2,
       });
 
-      return result[0].generated_text;
+      const result = await this._promiseTimeout(generationPromise, 18000, 'AI generation timed out');
+      return result[0]?.generated_text || null;
     } catch (error) {
       console.error('[AI Assistant] Generation error:', error);
+      this.failed = true;
+      window.dispatchEvent(new CustomEvent('ai-assistant-ready'));
       return null;
+    }
+  }
+
+  async _promiseTimeout(promise, ms, errorMessage) {
+    let timeoutId;
+    const timeoutPromise = new Promise((_, reject) => {
+      timeoutId = setTimeout(() => reject(new Error(errorMessage)), ms);
+    });
+
+    try {
+      return await Promise.race([promise, timeoutPromise]);
+    } finally {
+      clearTimeout(timeoutId);
     }
   }
 

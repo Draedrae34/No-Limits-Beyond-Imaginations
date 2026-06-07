@@ -17,5 +17,9 @@
   "devDependencies": {
     "@playwright/test": "^1.59.1",
     "http-server": "^14.1.1"
+  },
+  "scripts": {
+    "test:playwright": "npx playwright test",
+    "test:workshop": "node scripts/test-workshop-flow.cjs"
   }
 }
