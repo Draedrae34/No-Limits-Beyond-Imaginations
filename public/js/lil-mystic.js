@@ -33,6 +33,10 @@ class LilMystic {
       },
     };
 
+    // fallback size if the container has not measured yet
+    this.minWidth = 640;
+    this.minHeight = 480;
+
     // bind resize so we can remove it later
     this._onResize = this.onWindowResize.bind(this);
 
@@ -41,7 +45,12 @@ class LilMystic {
 
   init() {
     // Renderer
-    this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
+    const width = Math.max(this.container.clientWidth, this.minWidth);
+    const height = Math.max(this.container.clientHeight, this.minHeight);
+    this.renderer.setSize(width, height);
+    this.renderer.domElement.style.display = 'block';
+    this.renderer.domElement.style.width = '100%';
+    this.renderer.domElement.style.height = '100%';
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.toneMapping = THREE.ReinhardToneMapping;
     this.renderer.toneMappingExposure = 2.0;
@@ -124,11 +133,13 @@ class LilMystic {
     const material = new THREE.MeshStandardMaterial({
       color: this.state.colors.neutral,
       emissive: this.state.colors.neutral,
-      emissiveIntensity: 0.5,
-      wireframe: true,
+      emissiveIntensity: 1.0,
+      metalness: 0.25,
+      roughness: 0.15,
       transparent: true,
-      opacity: 0.4,
+      opacity: 0.65,
       blending: THREE.AdditiveBlending,
+      side: THREE.DoubleSide,
     });
     this.avatar = new THREE.Mesh(geometry, material);
     this.scene.add(this.avatar);
@@ -226,13 +237,11 @@ class LilMystic {
 
   onWindowResize() {
     if (!this.container) return;
-    this.camera.aspect =
-      this.container.clientWidth / this.container.clientHeight;
+    const width = Math.max(this.container.clientWidth, this.minWidth);
+    const height = Math.max(this.container.clientHeight, this.minHeight);
+    this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
-    this.renderer.setSize(
-      this.container.clientWidth,
-      this.container.clientHeight
-    );
+    this.renderer.setSize(width, height);
   }
 
   /**

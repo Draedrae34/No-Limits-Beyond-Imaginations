@@ -50,7 +50,6 @@
             <nav class="workshop-nav">
                 <button class="nav-item tab-btn active" data-tab="overview">Overview</button>
                 <button class="nav-item tab-btn" data-tab="mystic">Lil Mystic</button>
-                <button class="nav-item tab-btn" data-tab="terminal">Terminal</button>
                 <button class="nav-item tab-btn" data-tab="music-studio">Music Studio</button>
                 <button class="nav-item tab-btn" data-tab="design-lab">Design Lab</button>
                 <button class="nav-item tab-btn" data-tab="tribute">Eternal Heart</button>
@@ -73,8 +72,8 @@
                 </div>
             </div>
 
-            <div id="mystic" class="panel">
-                <h2>Mystic Presence</h2>
+            <div id="mystic" class="mystic-persistent">
+                <h2>Frontline Presence</h2>
                 <div id="lil-mystic-container">
                     <div class="mystic-glow"></div>
                 </div>
@@ -109,16 +108,6 @@
                     </thead>
                     <tbody></tbody>
                 </table>
-            </div>
-
-            <div id="terminal" class="panel">
-                <h2>Terminal Interface</h2>
-                <div class="agent-shell">
-                    <div id="terminal-output" class="agent-output logs-list"></div>
-                    <div class="agent-input-row">
-                        <input type="text" id="terminal-input" placeholder="Type a spell or command..." autocomplete="off">
-                    </div>
-                </div>
             </div>
 
             <div id="music-studio" class="panel">

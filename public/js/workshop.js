@@ -70,8 +70,9 @@ function initLilMysticPanel() {
 
   if (!window.lilMystic) {
     window.lilMystic = new LilMystic("mystic-holo");
-    terminalLog("Lil Mystic hologram online.");
+    logWorkshopEvent("Lil Mystic hologram online.");
     window.lilMystic?.performGesture("greet");
+    setTimeout(() => window.lilMystic?.onWindowResize?.(), 100);
   } else {
     window.lilMystic.onWindowResize?.();
   }
@@ -245,9 +246,18 @@ tabs.forEach((btn) => {
     // Phase 3 & 4 Panels
     if (panelId === "music-studio") initMusicStudio();
     if (panelId === "design-lab") initDesignLab();
-    if (panelId === "terminal") initTerminal();
     if (panelId === "tribute") initEmotionalExperience();
   });
+});
+
+// Start Lil Mystic immediately in the workspace as the permanent AI presence.
+initLilMysticPanel();
+
+window.addEventListener('ai-activate', () => {
+  document.querySelector('.tab-btn[data-tab="mystic"]')?.click();
+  window.lilMystic?.performGesture('greet');
+  window.lilMystic?.onSpeak(0.35);
+  logWorkshopEvent('AI Assistant activated and focused on Lil Mystic.', 'system');
 });
 
 function formatCurrency(value) {
@@ -463,152 +473,13 @@ async function generateDesignIdeas() {
   }
 }
 
-function initTerminal() {
-  const output = document.getElementById("terminal-output");
-  const input = document.getElementById("terminal-input");
-  if (!output || !input) return;
-  input.addEventListener("keydown", async (e) => {
-    if (e.key === "Enter") {
-      const cmd = input.value.trim();
-      input.value = "";
-      terminalLog(`> ${cmd}`, 'user');
-      await executeTerminalCommand(cmd);
-    }
-  });
-  terminalLog("Lil Mystic Terminal Online. Awaiting orders, Aundrae.");
-}
-
-window.addEventListener('ai-activate', () => {
-  document.querySelector('.tab-btn[data-tab="terminal"]')?.click();
-  terminalLog('AI Assistant activated. Use Ctrl+Shift+V or type a command.', 'system');
-});
-
-function terminalLog(msg, type = 'system') {
-  const output = document.getElementById("terminal-output");
-  if (!output) return;
-  const line = document.createElement("div");
-  line.className = `terminal-line ${type}`;
-  line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
-  
-  // Keep terminal performance stable by limiting line count
-  while (output.childNodes.length > 150) {
-    output.removeChild(output.firstChild);
-  }
-
-  output.appendChild(line);
-  output.scrollTop = output.scrollHeight;
-}
-
-async function executeTerminalCommand(message) {
-  try {
-    const cmd = message.toLowerCase().trim();
-
-    const localCommands = {
-      focus: () => {
-        enterDeepWorkMode();
-        terminalLog("Lil Mystic is now locked in.", "mystic");
-      },
-      "deep work": () => localCommands.focus(),
-      relax: () => exitDeepWorkMode(),
-      "exit focus": () => exitDeepWorkMode(),
-      recover: () => {
-        terminalLog("Initiating system recovery...", "mystic");
-        attemptAutoRecovery();
-      },
-      fix: () => localCommands.recover(),
-      summon: () => {
-        window.lilMystic?.performGesture("greet");
-        window.lilMystic?.onSpeak(0.3);
-        terminalLog("Lil Mystic has been summoned to the foreground.", "mystic");
-      },
-      cleanse: () => {
-        window.lilMystic?.triggerRecoveryPulse();
-        triggerMoodPulse("neutral");
-        terminalLog("Spiritual harmonics stabilized.", "system");
-      },
-      stabilize: () => localCommands.cleanse(),
-      resonate: () => {
-        window.lilMystic?.performGesture("focus");
-        triggerMoodPulse("remembrance");
-        terminalLog("Resonating with eternal frequencies...", "mystic");
-      },
-      diagnostics: () => {
-        terminalLog("Running physical diagnostics...", "system");
-        window.lilMystic?.triggerScan();
-      },
-      scan: () => localCommands.diagnostics(),
-      spellbook: () => {
-        terminalLog("MYSTIC SPELLBOOK:", "system");
-        terminalLog("summon - Call the spirit forward", "mystic");
-        terminalLog("cleanse - Stabilize harmonics", "mystic");
-        terminalLog("resonate - Sync with eternal frequencies", "mystic");
-        terminalLog("focus - Enter deep work mode", "mystic");
-        terminalLog("relax - Return to neutral state", "mystic");
-        terminalLog("recover - Initiate auto-repair", "mystic");
-        terminalLog("diagnostics - Run physical scan", "mystic");
-        terminalLog("sync catalog - Ingest Printify products", "system");
-        terminalLog("sync orders - Bind live order stream", "system");
-        terminalLog("sync blueprints - Load provider matrix", "system");
-      },
-      help: () => localCommands.spellbook(),
-      "sync catalog": async () => {
-        terminalLog("Initiating Catalog Ingestion...", "system");
-        window.lilMystic?.performGesture("focus");
-        window.lilMystic?.setMood("analysis");
-        const count = await loadProducts();
-        terminalLog(`Catalog Sync: ${count || 0} NLBL products loaded into the Workshop OS.`, "mystic");
-        window.lilMystic?.setMood("neutral");
-        window.lilMystic?.performGesture("affirm");
-        window.lilMystic?.onSpeak(0.2);
-      },
-      "sync orders": async () => {
-        terminalLog("Initiating Order Stream Binding...", "system");
-        window.lilMystic?.performGesture("affirm");
-        const count = await loadOrders();
-        terminalLog(`Order Sync: ${count || 0} live orders bound to stream.`, "mystic");
-      },
-      "sync blueprints": async () => {
-        terminalLog("Loading Blueprint & Provider Matrix...", "system");
-        window.lilMystic?.setMood("analysis");
-        try {
-          const data = await fetchJSON("/api/printify?action=blueprints");
-          const count = data.blueprints?.length || data.length || 0;
-          terminalLog(`Blueprint Sync: ${count} Provider blueprints identified. Matrix loaded.`, "mystic");
-        } catch (e) {
-          // Fallback if blueprints endpoint isn't live yet
-          console.warn("Blueprint Sync: Falling back to secondary cache.", e);
-          await new Promise(r => setTimeout(r, 800));
-          terminalLog("Blueprint Sync: Provider matrix loaded via secondary cache.", "mystic");
-          // Ensure she still feels the weight of the data
-          window.lilMystic?.onSpeak(0.1);
-        }
-      },
-    };
-
-    if (localCommands[cmd]) {
-      localCommands[cmd]();
-      return;
-    }
-
-    terminalLog("Mystic is thinking...");
-    window.lilMystic?.onSpeak(0.1); // Thinking pulse
-
-    const data = await fetchJSON("/api/agent", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message })
-    });
-    window.lilMystic?.onListen();
-
-    if (data.reply) {
-      terminalLog(`Mystic: ${data.reply}`, 'mystic');
-      window.lilMystic?.onSpeak(0.4); // Speaking pulse
-      window.lilMystic?.performGesture("affirm");
-      setTimeout(() => window.lilMystic?.onListen(), 2500);
-    }
-  } catch (err) {
-    window.lilMystic?.onListen();
-    terminalLog(`Terminal Error: ${err.message}`, 'error');
+function logWorkshopEvent(msg, type = 'system') {
+  const sender = type === 'user' ? 'user' : type === 'mystic' ? 'ai' : 'system';
+  const message = `[${new Date().toLocaleTimeString()}] ${msg}`;
+  if (document.getElementById('mystic-chat-log')) {
+    addMysticMessage(message, sender);
+  } else {
+    console.log(`[Lil Mystic] ${message}`);
   }
 }
 
@@ -634,7 +505,7 @@ async function initEmotionalExperience() {
 
 function enterTributeResonance() {
   document.body.setAttribute("data-mood", "remembrance");
-  terminalLog("Entering Tribute Resonance Mode...");
+  logWorkshopEvent("Entering Tribute Resonance Mode...");
 
   if (!window.lilMystic) return;
 
@@ -655,7 +526,7 @@ function enterTributeResonance() {
     window.lilMystic.avatar.rotation.x = -0.25;
   }
 
-  terminalLog("Eternal Reflections online.");
+  logWorkshopEvent("Eternal Reflections online.");
 }
 
 async function loadTributeElements() {
@@ -675,13 +546,13 @@ async function loadTributeElements() {
           <div class="reflection-overlay"><p>${escapeHTML(item.cosmic_text || "")}</p></div>
         </div>`).join("");
     }
-  } catch (err) { terminalLog(`Sacred Archive Sync Error: ${err.message}`, "error"); }
+  } catch (err) { logWorkshopEvent(`Sacred Archive Sync Error: ${err.message}`, "error"); }
 }
 
 function triggerMoodPulse(mood) {
   state.heart.currentMood = mood;
   document.body.setAttribute("data-mood", mood);
-  terminalLog(`Emotional frequency set to: ${mood.toUpperCase()}`);
+  logWorkshopEvent(`Emotional frequency set to: ${mood.toUpperCase()}`);
   updateWorkshopLighting(mood);
   if (window.lilMystic) {
     window.lilMystic.setMood(mood);
@@ -732,7 +603,7 @@ function createCosmicHUD() {
 }
 
 async function attemptAutoRecovery() {
-  terminalLog("Attempting auto-recovery...", "system");
+  logWorkshopEvent("Attempting auto-recovery...", "system");
   updateWorkshopLighting("recovery");
 
   window.lilMystic?.setGuardianStatus("warning");
@@ -746,7 +617,7 @@ async function attemptAutoRecovery() {
     }
     const data = await response.json();
 
-    terminalLog("Auto-recovery successful. Systems restored.", "system");
+    logWorkshopEvent("Auto-recovery successful. Systems restored.", "system");
     updateWorkshopLighting("neutral");
 
     window.lilMystic?.setGuardianStatus("ok");
@@ -755,7 +626,7 @@ async function attemptAutoRecovery() {
     setTimeout(() => window.lilMystic?.onListen(), 1500);
     return true;
   } catch (err) {
-    terminalLog("Auto-recovery failed. Manual intervention required.", "error");
+    logWorkshopEvent("Auto-recovery failed. Manual intervention required.", "error");
     updateWorkshopLighting("storm");
     document.getElementById("hud-integrity-fill").style.width = "20%";
     window.lilMystic?.triggerGlitch();
@@ -764,13 +635,13 @@ async function attemptAutoRecovery() {
 }
 
 function enterDeepWorkMode() {
-  terminalLog("Entering Deep Work Mode...");
+  logWorkshopEvent("Entering Deep Work Mode...");
   document.body.setAttribute("data-mood", "build");
   window.lilMystic?.enterDeepWork();
 }
 
 function exitDeepWorkMode() {
-  terminalLog("Exiting Deep Work Mode.");
+  logWorkshopEvent("Exiting Deep Work Mode.");
   document.body.setAttribute("data-mood", "neutral");
   window.lilMystic?.exitDeepWork();
 }
@@ -1394,24 +1265,24 @@ async function initializeWorkshop() {
     try {
       await task.fn();
     } catch (e) {
-      terminalLog(`Module Load Alert: ${task.name} offline.`, "error");
+      logWorkshopEvent(`Module Load Alert: ${task.name} offline.`, "error");
     }
   }
 
-  terminalLog("Creation Studio & Emotional Engine Online.");
+  logWorkshopEvent("Creation Studio & Emotional Engine Online.");
 }
 
 async function hideCosmicIntro() {
   const intro = document.getElementById("cosmic-intro");
   if (!intro) return;
 
-  terminalLog("Initializing Heart & Subsystems...", "system");
+  logWorkshopEvent("Initializing Heart & Subsystems...", "system");
   await new Promise(r => setTimeout(r, 600));
   
-  terminalLog("Synchronizing holographic sub-systems...", "system");
+  logWorkshopEvent("Synchronizing holographic sub-systems...", "system");
   await new Promise(r => setTimeout(r, 800));
 
-  terminalLog("Silent Spirits Legacy — Online.", "system");
+  logWorkshopEvent("Silent Spirits Legacy — Online.", "system");
   
   intro.classList.add("hidden");
   setTimeout(() => {
