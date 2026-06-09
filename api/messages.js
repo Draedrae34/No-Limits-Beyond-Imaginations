@@ -77,7 +77,7 @@ const actions = {
 
     const rows = await sql(
       `INSERT INTO messages (name, message, font, color, approved, hidden)
-       VALUES ($1, $2, $3, $4, FALSE, FALSE)
+       VALUES ($1, $2, $3, $4, TRUE, FALSE)
        RETURNING *`,
       [name, message, font || 'Rajdhani', color || '#FFD700']
     );

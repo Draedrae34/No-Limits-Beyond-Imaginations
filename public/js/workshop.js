@@ -58,9 +58,33 @@ function initLilMysticPanel() {
             <h3>Lil Mystic</h3>
             <p class="panel-note">Your private creative AI.</p>
           </div>
-          <span id="mystic-status" class="status-chip">Initializing AI…</span>
+          <div class="mystic-header-chips">
+            <span id="mystic-status" class="status-chip">Initializing AI…</span>
+            <span id="mystic-memory-count" class="status-chip">Memory: 0</span>
+          </div>
         </div>
         <div id="mystic-chat-log" class="mystic-chat-log"></div>
+        <div id="mystic-memory-panel" class="mystic-memory-panel">
+          <div class="mystic-memory-header">
+            <div>
+              <h4>Memory Status</h4>
+              <p class="panel-note">Runtime snapshots Lil Mystic has captured.</p>
+            </div>
+            <button id="mystic-memory-clear" class="ghost-btn">Clear Memory</button>
+          </div>
+          <div class="mystic-memory-controls">
+            <input id="mystic-memory-search" type="search" placeholder="Search memory..." autocomplete="off">
+            <select id="mystic-memory-sort" aria-label="Memory timeline order">
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+            </select>
+          </div>
+          <div id="mystic-memory-summary" class="mystic-memory-summary">Timeline ready.</div>
+          <div id="mystic-memory-list" class="mystic-memory-list">No snapshots yet.</div>
+          <div class="mystic-memory-actions">
+            <button id="mystic-memory-recall-latest" class="action-btn small">Recall latest</button>
+          </div>
+        </div>
         <div class="mystic-chat-actions">
           <input id="mystic-chat-input" type="text" placeholder="Ask Lil Mystic anything..." autocomplete="off">
           <button id="mystic-chat-send" class="action-btn">Send</button>
@@ -78,7 +102,9 @@ function initLilMysticPanel() {
   }
 
   bindMysticChat();
+  bindMysticMemoryActions();
   renderMysticStatus();
+  updateMysticMemoryPanel();
   requestAnimationFrame(() => window.lilMystic?.onWindowResize?.());
 }
 
@@ -137,19 +163,132 @@ function addMysticMessage(text, sender = 'system') {
   return line;
 }
 
+function parseMysticMemoryCommand(message) {
+  const lower = message.toLowerCase().trim();
+  if (/^(remember|memorize|store)\b/.test(lower)) {
+    const payload = message.replace(/^(remember|memorize|store)\s*/i, '').trim();
+    const [label, ...rest] = payload.split(':');
+    return {
+      type: 'remember',
+      label: label.trim() || `memory-${Date.now()}`,
+      content: rest.length ? rest.join(':').trim() : payload,
+    };
+  }
+
+  if (/^(recall|remember what|what do you remember|show me)\b/.test(lower)) {
+    const payload = message.replace(/^(recall|remember what|what do you remember|show me)\s*/i, '').trim();
+    return {
+      type: 'recall',
+      label: payload || null,
+    };
+  }
+
+  if (/^(search memory|find memory|memory search)\b/.test(lower)) {
+    const payload = message.replace(/^(search memory|find memory|memory search)\s*/i, '').trim();
+    return {
+      type: 'search',
+      label: payload || null,
+    };
+  }
+
+  if (/^(clear memory|forget everything|forget all|erase memory)\b/.test(lower)) {
+    return { type: 'clear' };
+  }
+
+  if (/^(copy\b|copy this\b)|\bcopycat\b/.test(lower)) {
+    return {
+      type: 'copy',
+      label: `copy-${Date.now()}`,
+      content: message,
+    };
+  }
+
+  return null;
+}
+
 async function askLilMystic(message) {
   addMysticMessage(`You: ${message}`, 'user');
   const placeholder = addMysticMessage('Lil Mystic is connecting to the studio...', 'system');
+
+  const memoryCommand = parseMysticMemoryCommand(message);
+  if (memoryCommand && window.lilMystic) {
+    if (memoryCommand.type === 'remember') {
+      window.lilMystic.rememberSnapshot(memoryCommand.label, memoryCommand.content);
+      placeholder.textContent = `Lil Mystic: Memory captured as “${memoryCommand.label}”. I will remember it without needing a storage department.`;
+      window.lilMystic.performGesture('affirm');
+      window.lilMystic.onSpeak(0.2);
+      updateMysticMemoryPanel();
+      return;
+    }
+
+    if (memoryCommand.type === 'clear') {
+      window.lilMystic.clearMemory();
+      placeholder.textContent = 'Lil Mystic: Memory cleared. The workshop still remembers the mission, but the runtime snapshots are gone.';
+      window.lilMystic.performGesture('affirm');
+      window.lilMystic.onSpeak(0.2);
+      updateMysticMemoryPanel();
+      return;
+    }
+
+    if (memoryCommand.type === 'recall') {
+      const memory = memoryCommand.label
+        ? window.lilMystic.recallSnapshot(memoryCommand.label)
+        : null;
+      if (memory) {
+        placeholder.textContent = `Lil Mystic: I recall “${memory.label}”: ${memory.content}`;
+      } else if (!memoryCommand.label) {
+        const keys = window.lilMystic.listMemoryKeys();
+        placeholder.textContent = `Lil Mystic: I remember ${keys.length} things. Snaps: ${keys.join(', ')}`;
+      } else {
+        placeholder.textContent = `Lil Mystic: I do not have a direct snapshot for “${memoryCommand.label}”, but I still remember the studio clearly.`;
+      }
+      window.lilMystic.performGesture('affirm');
+      window.lilMystic.onSpeak(0.15);
+      return;
+    }
+
+    if (memoryCommand.type === 'search') {
+      const results = memoryCommand.label
+        ? window.lilMystic.searchMemory(memoryCommand.label, 5)
+        : window.lilMystic.getMemoryEntries({ limit: 5 });
+      if (!results.length) {
+        placeholder.textContent = `Lil Mystic: I searched memory and did not find a match for "${memoryCommand.label || 'latest snapshots'}".`;
+      } else {
+        const summary = results
+          .map((item) => `${item.label}: ${item.content.slice(0, 80)}${item.content.length > 80 ? '...' : ''}`)
+          .join(' | ');
+        placeholder.textContent = `Lil Mystic: Memory search found ${results.length} snapshot${results.length === 1 ? '' : 's'}: ${summary}`;
+      }
+      window.lilMystic.performGesture('scan');
+      window.lilMystic.onSpeak(0.15);
+      return;
+    }
+
+    if (memoryCommand.type === 'copy') {
+      window.lilMystic.copyToMemory(memoryCommand.label, memoryCommand.content);
+      placeholder.textContent = `Lil Mystic: Copycat memory stored as “${memoryCommand.label}”. I can recreate it and evolve from it anytime.`;
+      window.lilMystic.performGesture('affirm');
+      window.lilMystic.onSpeak(0.2);
+      updateMysticMemoryPanel();
+      return;
+    }
+  }
 
   if (window.nlblAI && !window.nlblAI.isReady) {
     await window.nlblAI.initialize();
     renderMysticStatus();
   }
 
+  const memorySummary = window.lilMystic?.summarizeMemory?.() || 'No memory snapshots yet.';
+
   let reply = null;
   try {
     if (window.nlblAI && window.nlblAI.isReady) {
-      reply = await window.nlblAI.generateText(`You are Lil Mystic, a private AI assistant. Respond with creative production guidance for this request: ${message}`, 150);
+      reply = await window.nlblAI.generateText(`You are Lil Mystic, a private AI assistant with photographic memory and code-copy mastery. Keep the following memory summary in mind while answering:
+
+${memorySummary}
+
+Request: ${message}`, 150);
     }
     if (!reply) {
       reply = await fetchMysticResponse(message);
@@ -207,6 +346,109 @@ async function fetchMysticResponse(message) {
 }
 
 window.addEventListener('ai-assistant-ready', renderMysticStatus);
+
+function updateMysticMemoryPanel() {
+  const list = document.getElementById('mystic-memory-list');
+  const count = document.getElementById('mystic-memory-count');
+  const search = document.getElementById('mystic-memory-search');
+  const sort = document.getElementById('mystic-memory-sort');
+  const summary = document.getElementById('mystic-memory-summary');
+  if (!window.lilMystic || !list || !count) return;
+
+  const keys = window.lilMystic.listMemoryKeys();
+  const query = search?.value || '';
+  const sortOrder = sort?.value || 'newest';
+  const entries = window.lilMystic.getMemoryEntries({ query, sort: sortOrder, limit: 50 });
+  const copyHint = window.lilMystic.memory.lastCopied ? `Last copied: ${window.lilMystic.memory.lastCopied}` : '';
+
+  count.textContent = `Memory: ${keys.length}`;
+  if (summary) {
+    const queryText = query.trim() ? ` matching "${query.trim()}"` : '';
+    const orderText = sortOrder === 'oldest' ? 'oldest to newest' : 'newest to oldest';
+    summary.textContent = `${entries.length} of ${keys.length} snapshot${keys.length === 1 ? '' : 's'} shown${queryText} - ${orderText}.`;
+  }
+
+  if (!keys.length) {
+    list.textContent = 'No snapshots yet. Tell Lil Mystic to remember something.';
+    return;
+  }
+
+  if (!entries.length) {
+    list.textContent = 'No matching snapshots. Clear the search to see the full timeline.';
+    return;
+  }
+
+  list.innerHTML = entries
+    .map((item, index) => {
+      const timestamp = item.timestamp ? new Date(item.timestamp).toLocaleString() : 'No timestamp';
+      const preview = item.content.length > 115 ? `${item.content.slice(0, 115)}...` : item.content;
+      return `
+        <button class="mystic-memory-item" type="button" data-memory-label="${escapeHTML(item.label)}">
+          <span class="memory-index">${index + 1}</span>
+          <span class="memory-body">
+            <span class="memory-label">${escapeHTML(item.label)}</span>
+            <span class="memory-preview">${escapeHTML(preview)}</span>
+            <span class="memory-time">${escapeHTML(timestamp)}</span>
+          </span>
+        </button>
+      `;
+    })
+    .join('');
+
+  if (copyHint) {
+    const hint = document.createElement('div');
+    hint.className = 'mystic-memory-hint';
+    hint.textContent = copyHint;
+    list.appendChild(hint);
+  }
+}
+
+function bindMysticMemoryActions() {
+  const panel = document.getElementById('mystic-memory-panel');
+  const clearBtn = document.getElementById('mystic-memory-clear');
+  const recallBtn = document.getElementById('mystic-memory-recall-latest');
+  const search = document.getElementById('mystic-memory-search');
+  const sort = document.getElementById('mystic-memory-sort');
+  const list = document.getElementById('mystic-memory-list');
+  if (panel?.dataset.memoryBound === 'true') return;
+
+  if (clearBtn) {
+    clearBtn.addEventListener('click', async () => {
+      if (!window.lilMystic) return;
+      window.lilMystic.clearMemory();
+      updateMysticMemoryPanel();
+      addMysticMessage('Lil Mystic: Memory cleared manually.', 'system');
+    });
+  }
+  if (recallBtn) {
+    recallBtn.addEventListener('click', async () => {
+      if (!window.lilMystic) return;
+      const keys = window.lilMystic.listMemoryKeys();
+      const latest = keys.slice(-1)[0];
+      if (!latest) {
+        addMysticMessage('Lil Mystic: No memory snapshots available to recall.', 'system');
+        return;
+      }
+      const memory = window.lilMystic.recallSnapshot(latest);
+      addMysticMessage(`Lil Mystic: Recalling latest snapshot “${memory.label}”: ${memory.content}`, 'system');
+    });
+  }
+
+  search?.addEventListener('input', updateMysticMemoryPanel);
+  sort?.addEventListener('change', updateMysticMemoryPanel);
+  list?.addEventListener('click', (event) => {
+    const item = event.target.closest('.mystic-memory-item');
+    if (!item || !window.lilMystic) return;
+    const label = item.dataset.memoryLabel;
+    const memory = window.lilMystic.recallSnapshot(label);
+    if (!memory) return;
+    addMysticMessage(`Lil Mystic: Timeline recall "${memory.label}": ${memory.content}`, 'system');
+    window.lilMystic.performGesture('affirm');
+    window.lilMystic.onSpeak(0.15);
+  });
+
+  if (panel) panel.dataset.memoryBound = 'true';
+}
 
 const messagesState = {
   list: [],

@@ -1,3 +1,10 @@
+import fs from 'fs';
+import path from 'path';
+import dotenv from 'dotenv';
+
+dotenv.config({ path: path.join(process.cwd(), '.env.local') });
+dotenv.config();
+
 function parseBody(req) {
   if (!req.body) return {};
   if (typeof req.body === 'string') {
@@ -28,6 +35,37 @@ function clearAuthCookie(res) {
   res.setHeader('Set-Cookie', 'nlbl_auth=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0');
 }
 
+function getConfiguredPassword() {
+  return process.env.WORKSHOP_OVERRIDE_PASSWORD || process.env.WORKSHOP_PASSWORD || '';
+}
+
+function getResetCode() {
+  return process.env.WORKSHOP_RESET_CODE || '';
+}
+
+function persistWorkshopPassword(password) {
+  try {
+    const envPath = path.join(process.cwd(), '.env.local');
+    if (!fs.existsSync(envPath)) return;
+
+    const lines = fs.readFileSync(envPath, 'utf8').split(/\r?\n/);
+    const updated = lines.map((line) => {
+      if (line.startsWith('WORKSHOP_PASSWORD=')) {
+        return `WORKSHOP_PASSWORD=${password}`;
+      }
+      return line;
+    });
+
+    if (!updated.some((line) => line.startsWith('WORKSHOP_PASSWORD='))) {
+      updated.push(`WORKSHOP_PASSWORD=${password}`);
+    }
+
+    fs.writeFileSync(envPath, updated.join('\n'));
+  } catch {
+    // Ignore persistence failures; runtime override still allows the reset.
+  }
+}
+
 export default function handler(req, res) {
   const origin = req.headers.origin;
   if (origin) {
@@ -53,8 +91,31 @@ export default function handler(req, res) {
   if (req.method === 'POST') {
     const body = parseBody(req);
     const password = body.password || '';
-    const configuredPassword = process.env.WORKSHOP_PASSWORD || '';
+    const configuredPassword = getConfiguredPassword();
     const loginAction = action === 'login' || body.action === 'login' || !action;
+
+    if (action === 'reset' || body.action === 'reset') {
+      const resetCode = body.resetCode || req.headers['x-workshop-reset-code'] || '';
+      const configuredResetCode = getResetCode();
+
+      if (!configuredResetCode) {
+        return res.status(500).json({ success: false, message: 'Password reset is not configured. Set WORKSHOP_RESET_CODE.' });
+      }
+
+      if (resetCode !== configuredResetCode) {
+        return res.status(403).json({ success: false, message: 'Invalid reset code.' });
+      }
+
+      const newPassword = body.newPassword || '';
+      if (!newPassword || newPassword.length < 6) {
+        return res.status(400).json({ success: false, message: 'New workshop password must be at least 6 characters.' });
+      }
+
+      process.env.WORKSHOP_OVERRIDE_PASSWORD = newPassword;
+      persistWorkshopPassword(newPassword);
+
+      return res.status(200).json({ success: true, message: 'Workshop password reset for this runtime.' });
+    }
 
     if (action === 'logout' || action === 'signout' || body.action === 'logout') {
       clearAuthCookie(res);

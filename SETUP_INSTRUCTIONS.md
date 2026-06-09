@@ -67,9 +67,14 @@ CREATE TABLE IF NOT EXISTS routine_logs (
 | `OPENAI_API_KEY` | `sk-...` | Optional. Enables Lil Mystic chat and creative generation via OpenAI. |
 | `OPENAI_MODEL` | `gpt-4o-mini` | Optional. Set a chat model if using OpenAI; defaults to `gpt-4o-mini`. |
 | `WORKSHOP_PASSWORD` | `your-secret-code` | Required for private workshop access. Set this to protect `/workshop.html`. |
+| `WORKSHOP_RESET_CODE` | `your_hidden_reset_code` | Optional hidden reset secret for `/api/auth?action=reset` and `/workshop-reset.html`. Keep this secret. |
 | `DISCORD_WEBHOOK_URL` | `https://discord.com/api/webhooks/...` | Your Discord Webhook URL |
 
 3. **Important**: After adding env vars, **redeploy** your project (Vercel → Deployments → Latest → Redeploy)
+
+> Optional hidden reset page: if you know the secret URL `/workshop-reset.html`, you can reset the workshop password using your hidden reset code. This page is intentionally not linked from the public UI.
+
+> Optional hidden reset endpoint: `POST /api/auth?action=reset` with JSON body `{ "resetCode": "<WORKSHOP_RESET_CODE>", "newPassword": "<new-password>" }`. This endpoint is not linked from the public UI and should only be used by you.
 
 ## PayPal Sandbox Setup
 

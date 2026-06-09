@@ -33,6 +33,13 @@ class LilMystic {
       },
     };
 
+    this.memory = {
+      snapshots: {},
+      keys: [],
+      lastCopied: null,
+      isUpgraded: false,
+    };
+
     // fallback size if the container has not measured yet
     this.minWidth = 640;
     this.minHeight = 480;
@@ -175,6 +182,108 @@ class LilMystic {
         if (node.material.emissive) node.material.emissive.setHex(hex);
       }
     });
+  }
+
+  // Photographic memory and copycat capabilities
+  rememberSnapshot(label, content) {
+    if (!label || !content) return null;
+    const key = label.toString().trim().toLowerCase();
+    if (!key) return null;
+
+    this.memory.snapshots[key] = {
+      label: label.toString().trim(),
+      content: content.toString(),
+      timestamp: new Date().toISOString(),
+    };
+
+    if (!this.memory.keys.includes(key)) {
+      this.memory.keys.push(key);
+    }
+
+    return this.memory.snapshots[key];
+  }
+
+  recallSnapshot(label) {
+    if (!label) return null;
+    const key = label.toString().trim().toLowerCase();
+    return this.memory.snapshots[key] || null;
+  }
+
+  listMemoryKeys(limit = 25) {
+    return this.memory.keys.slice(-limit).map((key) => this.memory.snapshots[key].label);
+  }
+
+  getMemoryEntries(options = {}) {
+    const {
+      query = '',
+      sort = 'newest',
+      limit = 50,
+    } = options;
+    const normalizedQuery = query.toString().trim().toLowerCase();
+
+    let entries = this.memory.keys
+      .map((key) => ({ key, ...this.memory.snapshots[key] }))
+      .filter((item) => item && item.label && item.content);
+
+    if (normalizedQuery) {
+      entries = entries.filter((item) => {
+        const haystack = `${item.label} ${item.content} ${item.timestamp}`.toLowerCase();
+        return haystack.includes(normalizedQuery);
+      });
+    }
+
+    entries.sort((a, b) => {
+      const aTime = new Date(a.timestamp).getTime();
+      const bTime = new Date(b.timestamp).getTime();
+      return sort === 'oldest' ? aTime - bTime : bTime - aTime;
+    });
+
+    return entries.slice(0, limit);
+  }
+
+  searchMemory(query, limit = 25) {
+    return this.getMemoryEntries({ query, limit });
+  }
+
+  summarizeMemory(limit = 5) {
+    return this.memory.keys
+      .slice(-limit)
+      .map((key) => {
+        const item = this.memory.snapshots[key];
+        return `${item.label}: ${item.content.slice(0, 120)}${item.content.length > 120 ? '...' : ''}`;
+      })
+      .join('\n');
+  }
+
+  copyToMemory(label, content) {
+    const snapshot = this.rememberSnapshot(label, content);
+    if (snapshot) {
+      this.memory.lastCopied = label.toString().trim().toLowerCase();
+    }
+    return snapshot;
+  }
+
+  forgetSnapshot(label) {
+    const key = label?.toString().trim().toLowerCase();
+    if (!key) return false;
+    delete this.memory.snapshots[key];
+    this.memory.keys = this.memory.keys.filter((k) => k !== key);
+    return true;
+  }
+
+  clearMemory() {
+    this.memory.snapshots = {};
+    this.memory.keys = [];
+    this.memory.lastCopied = null;
+  }
+
+  selfUpgrade(level = 'adaptive core') {
+    this.state.mood = 'analysis';
+    this.setMood('neutral');
+    this.reactiveLight.intensity = Math.min(14, this.reactiveLight.intensity + 2);
+    this.memory.isUpgraded = true;
+    this.memory.lastUpgrade = { level, timestamp: new Date().toISOString() };
+    return this.memory.lastUpgrade;
   }
 
   // Voice hooks

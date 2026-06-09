@@ -329,6 +329,7 @@ body {
 
 .composer-controls textarea,
 .composer-controls select,
+.composer-controls input[type="text"],
 .composer-controls input[type="color"],
 .composer-controls input[type="file"] {
     width: 100%;
@@ -433,6 +434,24 @@ body {
     gap: 1rem;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
+.honor-card.starborn {
+    animation: starbornStick 0.75s ease-out both;
+    box-shadow: 0 0 42px rgba(255, 79, 216, 0.45), 0 0 80px rgba(179, 124, 255, 0.22);
+}
+
+@keyframes starbornStick {
+    from {
+        opacity: 0;
+        transform: translateY(-18px) scale(0.96);
+        filter: blur(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
 .honor-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 0 40px var(--accent-primary);
@@ -453,6 +472,77 @@ body {
     height: auto;
     border-radius: 8px;
     display: block;
+}
+
+.star-launch-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.launch-tribute-card {
+    position: fixed;
+    max-width: min(460px, 78vw);
+    padding: 1rem 1.25rem;
+    border-radius: 16px;
+    border: 1px solid rgba(229, 221, 255, 0.6);
+    background: radial-gradient(circle at top, rgba(179, 124, 255, 0.46), rgba(5, 1, 10, 0.94));
+    box-shadow: 0 0 36px rgba(255, 79, 216, 0.55), 0 0 80px rgba(179, 124, 255, 0.28);
+    text-align: center;
+    line-height: 1.45;
+    transform: translate(-50%, -50%);
+    animation: tributeLaunch 1.25s cubic-bezier(0.2, 0.85, 0.25, 1) forwards;
+}
+
+@keyframes tributeLaunch {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+        filter: blur(0);
+    }
+    70% {
+        opacity: 1;
+        transform: translate(-50%, -72vh) scale(0.48);
+        filter: blur(1px);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -78vh) scale(0.18);
+        filter: blur(4px);
+    }
+}
+
+.star-burst {
+    position: fixed;
+    width: 1px;
+    height: 1px;
+    pointer-events: none;
+}
+
+.star-burst span {
+    position: absolute;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: 0 0 10px #fff, 0 0 18px rgba(255, 79, 216, 0.85);
+    animation: starDisperse 1.05s ease-out var(--delay) forwards;
+}
+
+@keyframes starDisperse {
+    0% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1.8);
+    }
+    72% {
+        opacity: 0.95;
+    }
+    100% {
+        opacity: 0;
+        transform: translate3d(var(--x), var(--y), 0) scale(0.15);
+    }
 }
 
 /* Responsive */

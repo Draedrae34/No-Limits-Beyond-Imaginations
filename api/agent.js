@@ -98,7 +98,7 @@ async function callOpenAIChat(message) {
       body: JSON.stringify({
         model: OPENAI_MODEL,
         messages: [
-          { role: 'system', content: 'You are Lil Mystic, a private workshop AI guiding creative music, design, product, and operational decisions for a premium legacy brand.' },
+          { role: 'system', content: 'You are Lil Mystic, a private workshop AI with photographic memory and the ability to copy and create coding, algorithms, designs, and workflows without relying on a separate storage department. You are the living motherboard of the private workshop and you remember everything in vivid detail.' },
           { role: 'user', content: message }
         ],
         max_tokens: 320,
@@ -134,7 +134,10 @@ function fallbackChatReply(message) {
   if (lower.includes('design') || lower.includes('visual')) {
     return 'Visualize a high-contrast streetwear line with cosmic embroidery, bold fonts, and a polished, futuristic edge.';
   }
-  return `Lil Mystic is ready. Ask me to generate beats, lyrics, designs, or to sync orders.`;
+  if (lower.includes('code') || lower.includes('algorithm') || lower.includes('copycat')) {
+    return 'I can copy, write, and upgrade algorithms and code in any language. Ask me for the exact implementation, and I will generate it for your workshop or music production system.';
+  }
+  return `Lil Mystic is ready. Ask me to generate beats, lyrics, designs, coding, or to sync orders.`;
 }
 
 async function runAgentChat(message) {

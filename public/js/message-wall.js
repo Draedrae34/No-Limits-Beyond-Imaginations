@@ -1,4 +1,5 @@
 (function () {
+  const nameEl = document.getElementById("tribute-name");
   const textEl = document.getElementById("tribute-text");
   const fontEl = document.getElementById("tribute-font");
   const colorEl = document.getElementById("tribute-color");
@@ -51,6 +52,18 @@
     }
   }
 
+  function cardMarkup(msg, extraClass = "") {
+    const font = msg.font || "'Space Grotesk', sans-serif";
+    const color = msg.color || "#f5e9ff";
+    const created = msg.created_at ? new Date(msg.created_at) : new Date();
+    return `
+      <article class="honor-card ${extraClass}">
+        <p style="font-family:${escapeHTML(font)}; color:${escapeHTML(color)};">${escapeHTML(msg.message)}</p>
+        <small>${escapeHTML(msg.name || "Anonymous")} • ${created.toLocaleDateString()}</small>
+      </article>
+    `;
+  }
+
   function renderMessages(messages) {
     if (!honorGrid) return;
 
@@ -63,16 +76,14 @@
       return;
     }
 
-    honorGrid.innerHTML = messages.map((msg) => {
-      const font = msg.font || "'Space Grotesk', sans-serif";
-      const color = msg.color || "#f5e9ff";
-      return `
-        <article class="honor-card">
-          <p style="font-family:${escapeHTML(font)}; color:${escapeHTML(color)};">${escapeHTML(msg.message)}</p>
-          <small>${escapeHTML(msg.name || "Anonymous")} • ${new Date(msg.created_at).toLocaleDateString()}</small>
-        </article>
-      `;
-    }).join("");
+    honorGrid.innerHTML = messages.map((msg) => cardMarkup(msg)).join("");
+  }
+
+  function prependPermanentMessage(msg) {
+    if (!honorGrid) return;
+    const empty = honorGrid.querySelector(".honor-card-empty");
+    if (empty) honorGrid.innerHTML = "";
+    honorGrid.insertAdjacentHTML("afterbegin", cardMarkup(msg, "starborn"));
   }
 
   async function loadTributes() {
@@ -95,6 +106,53 @@
         </div>
       `;
     }
+  }
+
+  function launchToStars(message, font, color) {
+    return new Promise((resolve) => {
+      const overlay = document.createElement("div");
+      overlay.className = "star-launch-overlay";
+
+      const card = document.createElement("div");
+      card.className = "launch-tribute-card";
+      card.textContent = message;
+      card.style.fontFamily = font;
+      card.style.color = color;
+
+      const origin = preview?.getBoundingClientRect();
+      if (origin) {
+        card.style.left = `${origin.left + origin.width / 2}px`;
+        card.style.top = `${origin.top + origin.height / 2}px`;
+      }
+
+      overlay.appendChild(card);
+      document.body.appendChild(overlay);
+
+      card.addEventListener("animationend", () => {
+        const burst = document.createElement("div");
+        burst.className = "star-burst";
+        burst.style.left = card.style.left || "50vw";
+        burst.style.top = "16vh";
+
+        for (let i = 0; i < 90; i += 1) {
+          const star = document.createElement("span");
+          const angle = Math.random() * Math.PI * 2;
+          const distance = 80 + Math.random() * 260;
+          star.style.setProperty("--x", `${Math.cos(angle) * distance}px`);
+          star.style.setProperty("--y", `${Math.sin(angle) * distance}px`);
+          star.style.setProperty("--delay", `${Math.random() * 0.16}s`);
+          star.style.setProperty("--size", `${2 + Math.random() * 4}px`);
+          burst.appendChild(star);
+        }
+
+        overlay.appendChild(burst);
+        card.remove();
+        setTimeout(() => {
+          overlay.remove();
+          resolve();
+        }, 1250);
+      }, { once: true });
+    });
   }
 
   function wirePreview() {
@@ -131,33 +189,41 @@
 
     submitBtn.addEventListener("click", async () => {
       const message = textEl.value.trim();
+      const name = nameEl?.value.trim() || "Anonymous";
+      const font = fontEl.value;
+      const color = colorEl.value;
+
       if (!message) {
         alert("Please write a message for your tribute.");
         return;
       }
 
       submitBtn.disabled = true;
-      submitBtn.textContent = "Sending...";
+      submitBtn.textContent = "Launching...";
 
       try {
-        await fetchJSON("/api/messages?action=add", {
+        const data = await fetchJSON("/api/messages?action=add", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: "Legacy Visitor",
-            message,
-            font: fontEl.value,
-            color: colorEl.value,
-          }),
+          body: JSON.stringify({ name, message, font, color }),
+        });
+
+        await launchToStars(message, font, color);
+        prependPermanentMessage(data.message || {
+          name,
+          message,
+          font,
+          color,
+          created_at: new Date().toISOString(),
         });
 
         textEl.value = "";
+        if (nameEl) nameEl.value = "";
         if (previewImage) {
           previewImage.style.display = "none";
           previewImage.src = "";
         }
         applyStyle();
-        alert("Your tribute was received. It will appear after approval.");
       } catch (err) {
         console.error("Tribute submission failed:", err);
         alert("The tribute could not be sent right now. Please try again.");
