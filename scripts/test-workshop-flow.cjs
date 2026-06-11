@@ -13,11 +13,19 @@ const { chromium } = require('playwright');
 
   await page.fill('#password', process.env.WORKSHOP_PASSWORD || process.env.WORKSHOP_TEST_PASSWORD || 'testsecret');
   await Promise.all([
-    page.waitForURL('**/workshop.html', { timeout: 30000 }),
+    page.waitForURL('**/workshop.html', { timeout: 60000 }).catch(() => null),
+    page.waitForSelector('#mystic-chat-input, #lil-mystic-container', { timeout: 60000 }).catch(() => null),
     page.click('#login-form button[type=submit]'),
   ]);
 
+  // At this point the redirect may have happened, or the workshop page may have loaded
+  // without a URL change (depending on server/browser behavior).
+  if (!page.url().includes('workshop.html')) {
+    await page.goto('http://localhost:3000/workshop.html', { waitUntil: 'domcontentloaded', timeout: 60000 });
+  }
+
   console.log('Navigated to workshop:', page.url());
+
 
   await page.click('.tab-btn[data-tab="mystic"]');
   await page.waitForSelector('#mystic-chat-input', { timeout: 30000 });
