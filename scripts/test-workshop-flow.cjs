@@ -1,4 +1,19 @@
 const { chromium } = require('playwright');
+const fs = require('fs');
+const path = require('path');
+
+function loadLocalEnv() {
+  const envPath = path.join(process.cwd(), '.env.local');
+  if (!fs.existsSync(envPath)) return;
+
+  for (const line of fs.readFileSync(envPath, 'utf8').split(/\r?\n/)) {
+    const match = line.match(/^\s*([A-Za-z_][A-Za-z0-9_]*)=(.*)\s*$/);
+    if (!match || process.env[match[1]]) continue;
+    process.env[match[1]] = match[2].replace(/^["']|["']$/g, '');
+  }
+}
+
+loadLocalEnv();
 
 (async () => {
   const browser = await chromium.launch();

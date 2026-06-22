@@ -97,7 +97,8 @@ const server = http.createServer(async (req, res) => {
     }
 
     // Static files
-    let filePath = path.join(PUBLIC_DIR, req.url === '/' ? 'index.html' : req.url);
+    const requestPath = decodeURIComponent((req.url || '/').split('?')[0]);
+    let filePath = path.join(PUBLIC_DIR, requestPath === '/' ? 'index.html' : requestPath);
 
     if (!filePath.startsWith(PUBLIC_DIR)) {
       return send(res, 403, 'Forbidden', { 'Content-Type': 'text/plain' });

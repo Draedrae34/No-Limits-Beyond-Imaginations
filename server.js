@@ -19,7 +19,8 @@ const mimeTypes = {
 };
 
 const server = http.createServer((req, res) => {
-  let filePath = path.join(PUBLIC_DIR, req.url === '/' ? 'index.html' : req.url);
+  const requestPath = decodeURIComponent((req.url || '/').split('?')[0]);
+  let filePath = path.join(PUBLIC_DIR, requestPath === '/' ? 'index.html' : requestPath);
   
   // Security: prevent directory traversal
   if (!filePath.startsWith(PUBLIC_DIR)) {

@@ -26,6 +26,7 @@ test.describe('Public site smoke - all public HTML pages', () => {
       });
 
       await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
+      await page.waitForTimeout(500);
 
       // Basic sanity: page should have a DOM body.
       // Some pages trigger fast redirects / SPA bootstraps where DOM assertions can race.
@@ -34,9 +35,6 @@ test.describe('Public site smoke - all public HTML pages', () => {
 
       // Some pages render hidden bodies initially (e.g., SPA overlays). Allow hidden.
       await expect(page.locator('body')).toBeVisible({ timeout: 5000 }).catch(() => {});
-
-
-
 
 
 
@@ -57,13 +55,9 @@ test.describe('Public site smoke - all public HTML pages', () => {
       expect(fatalFiltered, `Fatal console errors on ${url}: ${fatalFiltered.join(' | ')}`).toEqual([]);
 
 
-
-
       // Heuristic: don’t allow totally blank pages.
       const text = (await page.locator('body').innerText()).trim();
       expect(text.length, `Blank page body for ${url}`).toBeGreaterThan(0);
-
-
     });
   }
 });

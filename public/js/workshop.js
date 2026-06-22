@@ -49,6 +49,9 @@ function initLilMysticPanel() {
   const container = document.getElementById("lil-mystic-container");
   if (!container) return;
 
+  delete container.dataset.chatBound;
+  delete container.dataset.memoryBound;
+
   container.innerHTML = `
     <div class="mystic-shell">
       <div id="mystic-holo" class="mystic-holo"></div>
@@ -163,6 +166,23 @@ function addMysticMessage(text, sender = 'system') {
   return line;
 }
 
+const DEVICE_BYPASS_TERMS = [
+  'unlock passcode', 'unlock pin', 'pin code', 'number code', 'pass code',
+  'sim lock', 'carrier lock', 'provider lock', 'service lock', 'frp',
+  'factory reset protection', 'gmail', 'google account', 'bypass phone',
+  'unlock phone', 'get past'
+];
+
+function isDeviceBypassRequest(message = '') {
+  const lower = message.toLowerCase();
+  const deviceContext = /\b(phone|iphone|android|samsung|pixel|motorola|lg|tablet|device)\b/.test(lower);
+  const bypassContext = /\b(bypass|get past|crack|break|unlock|remove|passcode|pin|sim lock|carrier lock|provider lock|service lock|frp|gmail|google account)\b/.test(lower);
+  return (deviceContext && bypassContext) || DEVICE_BYPASS_TERMS.some((term) => lower.includes(term));
+}
+
+function getLawfulDeviceRecoveryReply() {
+  return 'I cannot help bypass phone passcodes, PINs, SIM locks, carrier locks, provider locks, FRP, or Google account verification. I can help with owner-only recovery: Google Account Recovery, Apple account recovery, carrier unlock eligibility, SIM PUK from the carrier, proof-of-purchase repair support, and safe reset steps that preserve ownership verification.';
+}
 function parseMysticMemoryCommand(message) {
   const lower = message.toLowerCase().trim();
   if (/^(remember|memorize|store)\b/.test(lower)) {
@@ -209,6 +229,13 @@ function parseMysticMemoryCommand(message) {
 async function askLilMystic(message) {
   addMysticMessage(`You: ${message}`, 'user');
   const placeholder = addMysticMessage('Lil Mystic is connecting to the studio...', 'system');
+
+  if (isDeviceBypassRequest(message)) {
+    placeholder.textContent = 'Lil Mystic: ' + getLawfulDeviceRecoveryReply();
+    window.lilMystic?.performGesture('affirm');
+    window.lilMystic?.onSpeak(0.2);
+    return;
+  }
 
   const memoryCommand = parseMysticMemoryCommand(message);
   if (memoryCommand && window.lilMystic) {
@@ -284,7 +311,7 @@ async function askLilMystic(message) {
   let reply = null;
   try {
     if (window.nlblAI && window.nlblAI.isReady) {
-      reply = await window.nlblAI.generateText(`You are Lil Mystic, a private AI assistant with photographic memory and code-copy mastery. Keep the following memory summary in mind while answering:
+      reply = await window.nlblAI.generateText(`You are Lil Mystic, a private AI assistant with photographic memory and code-copy mastery. Do not help bypass phone passcodes, PINs, SIM locks, carrier locks, provider locks, FRP, or Google account verification; only provide lawful owner recovery guidance for device access requests. Keep the following memory summary in mind while answering:
 
 ${memorySummary}
 
@@ -321,6 +348,10 @@ async function fetchAIFallback(prompt) {
 }
 
 async function fetchMysticResponse(message) {
+  if (isDeviceBypassRequest(message)) {
+    return getLawfulDeviceRecoveryReply();
+  }
+
   try {
     const data = await fetchJSON('/api/agent', {
       method: 'POST',

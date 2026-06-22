@@ -48,7 +48,8 @@ class NLBLShopLoader {
       }
 
       const feed = await response.json();
-      this.products = (feed.products || [])
+      const products = Array.isArray(feed) ? feed : (feed.products || []);
+      this.products = products
         .map((product) => this.normalizeProduct(product))
         .filter((product) => product.active);
       return this.products;
@@ -72,6 +73,31 @@ class NLBLShopLoader {
       tags: Array.isArray(product.tags) ? product.tags : [],
       active: product.active !== false
     };
+  }
+
+  renderCategoryOptions() {
+    const container = document.getElementById("category-filters");
+    if (!container) return;
+
+    const categories = [...new Set(this.products.map((product) => product.category).filter(Boolean))].sort();
+    const options = ["all", ...categories];
+
+    container.innerHTML = options
+      .map((category) => {
+        const label = category === "all" ? "All" : category;
+        const active = category === this.currentFilter ? " active" : "";
+        return `<button class="filter-pill${active}" type="button" data-category="${category}">${label}</button>`;
+      })
+      .join("");
+
+    container.querySelectorAll("[data-category]").forEach((button) => {
+      button.addEventListener("click", () => {
+        this.currentFilter = button.dataset.category || "all";
+        container.querySelectorAll(".filter-pill").forEach((pill) => pill.classList.remove("active"));
+        button.classList.add("active");
+        this.renderProducts(this.currentFilter);
+      });
+    });
   }
 
   updateProductCount(count) {
@@ -114,7 +140,10 @@ class NLBLShopLoader {
    }
    
   renderProducts(filter = "all") {
-    const container = document.querySelector(".products-grid") || document.querySelector("#products-container");
+    const container =
+      document.querySelector("#shop-grid") ||
+      document.querySelector(".products-grid") ||
+      document.querySelector("#products-container");
     if (!container) return;
 
     const filtered = filter === "all" 
@@ -169,7 +198,9 @@ class NLBLShopLoader {
     });
 
     const container =
-      document.querySelector(".products-grid") || document.querySelector("#products-container");
+      document.querySelector("#shop-grid") ||
+      document.querySelector(".products-grid") ||
+      document.querySelector("#products-container");
     if (!container) return;
 
     container.innerHTML =
