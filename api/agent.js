@@ -66,6 +66,7 @@ function getQueryParams(req) {
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY || '';
 const OPENAI_MODEL = process.env.OPENAI_MODEL || 'gpt-4o-mini';
 
+
 function parseIntent(message, toolHint) {
   const steps = [];
   if (toolHint) {
@@ -98,7 +99,7 @@ async function callOpenAIChat(message) {
       body: JSON.stringify({
         model: OPENAI_MODEL,
         messages: [
-          { role: 'system', content: 'You are Lil Mystic, a private workshop AI with photographic memory and the ability to copy and create coding, algorithms, designs, and workflows without relying on a separate storage department. You are the living motherboard of the private workshop and you remember everything in vivid detail.' },
+          { role: 'system', content: 'You are Lil Mystic, a private workshop AI with photographic memory and the ability to copy and create coding, algorithms, designs, and workflows without relying on a separate storage department. You are the living motherboard of the private workshop and you remember everything in vivid detail. You must not help bypass phone passcodes, PINs, SIM locks, carrier locks, provider locks, FRP, or Google account verification. For device access requests, only provide lawful owner recovery, carrier unlock, PUK, proof-of-purchase, and account recovery guidance.' },
           { role: 'user', content: message }
         ],
         max_tokens: 320,
@@ -121,6 +122,26 @@ async function callOpenAIChat(message) {
     console.error('OpenAI chat error:', err);
     return null;
   }
+}
+
+function parseIntent(message, toolHint) {
+  const steps = [];
+  if (toolHint) {
+    const mapped = INTENTS.find(i => i.keys.includes(toolHint));
+    if (mapped) steps.push({ name: mapped.name, fn: mapped.fn, key: mapped.keys[0] });
+  } else {
+    const lower = message.toLowerCase();
+    const seen = new Set();
+    for (const intent of INTENTS) {
+      if (intent.keys.some(k => lower.includes(k))) {
+        if (!seen.has(intent.name)) {
+          steps.push({ name: intent.name, fn: intent.fn, key: intent.keys[0] });
+          seen.add(intent.name);
+        }
+      }
+    }
+  }
+  return steps;
 }
 
 function fallbackChatReply(message) {
