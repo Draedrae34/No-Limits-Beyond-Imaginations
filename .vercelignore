@@ -9,3 +9,7 @@
 !/public/workshop-login.html
 !/public/js/workshop.js
 !/public/js/lil-mystic.js
+# Test and automation files are not part of the customer-facing deployment
+*.spec.js
+playwright.config.js
+test-results/

@@ -81,9 +81,9 @@
   <script>
     const domain = window.location.origin;
 
-    async function checkEndpoint(path, expectedKey) {
+    async function checkEndpoint(path, expectedKey, options = {}) {
       try {
-        const res = await fetch(`${domain}${path}`);
+        const res = await fetch(`${domain}${path}`, options);
         const data = await res.json();
         const ok = res.ok && (expectedKey ? data[expectedKey] !== undefined : true);
         return { ok, status: res.status, data };
@@ -95,7 +95,11 @@
     async function checkAll() {
       const checks = {
         shop: checkEndpoint('/api/shop?action=list', 'products'),
-        paypal: checkEndpoint('/api/payments', 'clientId').then(r => r.ok = r.ok && !r.error),
+        paypal: checkEndpoint('/api/payments', 'clientId', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'paypal-client-id' })
+        }),
         printify: checkEndpoint('/api/printify?action=status', 'status'),
         agent: checkEndpoint('/api/agent?action=heartbeat', 'health'),
         orders: checkEndpoint('/api/orders', 'orders')
@@ -125,3 +129,4 @@
   </script>
 </body>
 </html>
+

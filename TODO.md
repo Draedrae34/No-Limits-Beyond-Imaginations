@@ -5,7 +5,7 @@
 - Prove: critical flows (auth/workshop chat + PayPal checkout) via Playwright E2E specs.
 
 ## Step 1 — Add baseline smoke test for all public HTML pages
-- Create `public-pages.smoke.spec.js` (Playwright).
+- [x] Create `public-pages.smoke.spec.js` (Playwright).
 - For each `public/*.html` page:
   - goto page
   - wait for `domcontentloaded`
@@ -13,17 +13,18 @@
   - assert `document.title` exists and that at least one key container exists (e.g., body not empty)
 
 ## Step 2 — Start server for E2E runs (if needed)
-- Add script `test:server` or ensure Playwright config uses correct `BASE_URL`.
+- [x] Add script `test:server` or ensure Playwright config uses correct `BASE_URL`.
 - If the site is server-rendered, run `server.js` (or relevant) before tests.
 
 ## Step 3 — Expand feature coverage (next PR/iteration)
-- Add route-level checks for:
-  - shop page + add-to-cart button existence
-  - message wall + message rendering container
-  - monitor/status pages container
-  - portal transition overlay existence
+- [x] Add route-level checks for:
+  - [x] shop page + add-to-cart button existence
+  - [x] message wall + message rendering container
+  - [x] monitor/status pages container
+  - [x] portal/private workshop overlay existence
 
 ## Step 4 — Run full suite until 100% pass
-- `npx playwright test`
+- [x] `npx playwright test`
 - Commit changes once green.
+
 
