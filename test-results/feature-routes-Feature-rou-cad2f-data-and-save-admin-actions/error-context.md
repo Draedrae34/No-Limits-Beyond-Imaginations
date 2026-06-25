@@ -35,7 +35,7 @@ Call log:
       - <div id="order-modal" aria-hidden="false" class="panel active">…</div> intercepts pointer events
     - retrying click action
       - waiting 100ms
-    118 × waiting for element to be visible, enabled and stable
+    114 × waiting for element to be visible, enabled and stable
         - element is visible, enabled and stable
         - scrolling into view if needed
         - done scrolling
@@ -43,9 +43,6 @@ Call log:
       - retrying click action
         - waiting 500ms
     - waiting for element to be visible, enabled and stable
-    - element is visible, enabled and stable
-    - scrolling into view if needed
-    - done scrolling
 
 ```
 
@@ -81,11 +78,11 @@ Call log:
               - generic [ref=e32]: AI READY
               - generic [ref=e33]: "Memory: 0"
           - generic [ref=e34]:
-            - generic [ref=e35]: "[1:46:12 PM] Lil Mystic hologram online."
-            - generic [ref=e36]: "[1:46:13 PM] Creation Studio & Emotional Engine Online."
-            - generic [ref=e37]: "[1:46:13 PM] Initializing Heart & Subsystems..."
-            - generic [ref=e38]: "[1:46:13 PM] Synchronizing holographic sub-systems..."
-            - generic [ref=e39]: "[1:46:14 PM] Silent Spirits Legacy — Online."
+            - generic [ref=e35]: "[1:59:01 AM] Lil Mystic hologram online."
+            - generic [ref=e36]: "[1:59:02 AM] Creation Studio & Emotional Engine Online."
+            - generic [ref=e37]: "[1:59:02 AM] Initializing Heart & Subsystems..."
+            - generic [ref=e38]: "[1:59:02 AM] Synchronizing holographic sub-systems..."
+            - generic [ref=e39]: "[1:59:03 AM] Silent Spirits Legacy — Online."
           - generic [ref=e40]:
             - generic [ref=e41]:
               - generic [ref=e42]:

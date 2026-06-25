@@ -1070,10 +1070,7 @@ async function updateOrderFulfillment(orderId, fulfillmentStatus, fulfillmentNot
 
     if (modalStatus) modalStatus.textContent = "Saved.";
     await loadOrders();
-
-    if (state.activeOrderId === Number(orderId)) {
-      openOrderModal(orderId);
-    }
+    closeOrderModal();
   } catch (error) {
     console.error(error);
     if (statusEl) statusEl.textContent = error.message || "Unable to update fulfillment.";
