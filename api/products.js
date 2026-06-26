@@ -19,17 +19,14 @@ function parseBody(req) {
 }
 
 async function listProducts(req, res) {
-  if (!(await verifyAdmin(req))) {
-    return res.status(401).json({ error: "Authentication required" });
-  }
-
-  await ensureProductsSchema(pool);
-  const result = await pool.query("SELECT * FROM products ORDER BY created_at DESC, id DESC");
-  return res.status(200).json({
-    success: true,
-    products: result.rows.map(mapProductRow),
-  });
-}
+   // MASTER BYPASS: No auth required for public product list
+   await ensureProductsSchema(pool);
+   const result = await pool.query("SELECT * FROM products ORDER BY created_at DESC, id DESC");
+   return res.status(200).json({
+     success: true,
+     products: result.rows.map(mapProductRow),
+   });
+ }
 
 async function createProduct(req, res) {
   if (!(await verifyAdmin(req))) {
