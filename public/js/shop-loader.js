@@ -23,21 +23,21 @@ class NLBLShopLoader {
 
   async loadProducts() {
     try {
-      // Load from Printify API via unified printify endpoint (adminList)
-      const apiResponse = await fetch("/api/printify?action=adminList");
+      // Prefer the unified shop endpoint so Printify catalog and local product data are merged.
+      const apiResponse = await fetch("/api/shop?action=list");
       if (!apiResponse.ok) {
-        throw new Error("Printify API unavailable");
+        throw new Error("Shop API unavailable");
       }
 
       const apiData = await apiResponse.json();
       if (!apiData.products || !Array.isArray(apiData.products)) {
-        throw new Error("Invalid Printify product payload");
+        throw new Error("Invalid shop product payload");
       }
 
       this.products = apiData.products.map((product) => this.normalizeProduct(product));
       return this.products;
     } catch (apiError) {
-      console.warn("API load failed, falling back to static source:", apiError);
+      console.warn("Shop API load failed, falling back to static source:", apiError);
     }
 
     // Fallback to static JSON

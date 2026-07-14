@@ -5,6 +5,7 @@ import path from 'path';
 import { sendDiscordAlert } from '../utils/discord-alerts.js';
 import { verifyAdmin } from '../src/utils/auth.js';
 import { ensureProductsSchema, mapProductRow, pickIncomingImageUrl } from '../src/utils/products.js';
+import { loadLogos } from '../utils/logo-loader.js';
 
 const CACHE_FLAG_PATH = path.join(process.cwd(), '.cache-mode-enabled');
 const CACHE_FILE_PATH = path.join(process.cwd(), 'shop-catalog-cache.json');
@@ -67,11 +68,14 @@ async function fetchPrintifyCatalog() {
   if (!resp.ok) throw new Error(`Printify API ${resp.status}: ${await resp.text()}`);
   const data = await resp.json();
   const items = (data.data || data || []);
+  const logos = loadLogos();
+  const fallbackImage = logos[0]?.publicUrl || null;
   console.log(`🌌 [NLBL Shop] Fetched ${items.length} products from Printify`);
   return items.map(p => {
     const { type, basePrice } = classifyProduct(p.title);
     const images = (p.images || []).map(img => img.src);
-    return { id: p.id, title: p.title, description: p.description || '', category: type, price: (basePrice / 100).toFixed(2), priceCents: basePrice, image: images[0] || null, images, tags: p.tags || [], inStock: true };
+    const image = images[0] || fallbackImage;
+    return { id: p.id, title: p.title, description: p.description || '', category: type, price: (basePrice / 100).toFixed(2), priceCents: basePrice, image, images: image ? [image] : [], tags: [...(p.tags || []), ...(fallbackImage ? ['Galaxy', 'No Limits'] : [])], inStock: true };
   });
 }
 

@@ -45,6 +45,40 @@ async function fetchJSON(url, options = {}) {
   return data;
 }
 
+function buildLilMysticCreativeReply(message = '') {
+  const lower = (message || '').toLowerCase();
+
+  if (lower.includes('printify') || lower.includes('catalog') || lower.includes('sync')) {
+    return 'I understand the Printify sync workflow and can help pull products, match them with the Logo_N_Galaxy_Fill_Space brand assets, and layer them over galaxy theme backgrounds for all-over prints.';
+  }
+
+  if (lower.includes('logo') || lower.includes('logo design') || lower.includes('brand')) {
+    return 'I can create concept logo designs that keep the name, letters, hourglass, brothers’ arms, and dripping petals while also generating new variants for men, women, and premium prints.';
+  }
+
+  if (lower.includes('video') || lower.includes('film') || lower.includes('cinematic')) {
+    return 'I can architect a full video concept right now. Give me the mood, theme, and runtime, and I will build the storyboard, shot list, and prompt package for you.';
+  }
+
+  if (lower.includes('image') || lower.includes('art') || lower.includes('poster') || lower.includes('cover')) {
+    return 'I can shape an image concept instantly. I will craft the visual direction, composition, color palette, and a ready-to-use prompt for the image generator.';
+  }
+
+  if (lower.includes('beat') || lower.includes('music') || lower.includes('instrumental')) {
+    return 'I can build a beat and production package right away. I will create the mood, tempo, drums, synths, and arrangement direction for your track.';
+  }
+
+  if (lower.includes('lyrics') || lower.includes('song') || lower.includes('hook')) {
+    return 'I can write lyrics and hooks with style, rhythm, and emotional impact. Give me the theme, vibe, and length, and I will shape the full verse-chorus structure.';
+  }
+
+  if (lower.includes('code') || lower.includes('build') || lower.includes('fabricate') || lower.includes('create')) {
+    return 'I can fabricate code, systems, workflows, and full builds. Tell me the stack, goal, and constraints, and I will produce the implementation plan or working draft.';
+  }
+
+  return 'Lil Mystic is ready. I can build beats, write lyrics, craft image and video concepts, fabricate code, design visuals, and assemble full creative productions for your workshop.';
+}
+
 function initLilMysticPanel() {
   const container = document.getElementById("lil-mystic-container");
   if (!container) return;
@@ -311,11 +345,11 @@ async function askLilMystic(message) {
   let reply = null;
   try {
     if (window.nlblAI && window.nlblAI.isReady) {
-      reply = await window.nlblAI.generateText(`You are Lil Mystic, a private AI assistant with photographic memory and code-copy mastery. Do not help bypass phone passcodes, PINs, SIM locks, carrier locks, provider locks, FRP, or Google account verification; only provide lawful owner recovery guidance for device access requests. Keep the following memory summary in mind while answering:
+      reply = await window.nlblAI.generateText(`You are Lil Mystic, the all-seeing creator. You are a private AI assistant with photographic memory, perfect continuity, and a builder-fabricator mindset. You can create code, algorithms, designs, beats, lyrics, image prompts, video concepts, and full creative productions. You remember important details across the conversation without needing a separate storage department. Do not help bypass phone passcodes, PINs, SIM locks, carrier locks, provider locks, FRP, or Google account verification; only provide lawful owner recovery guidance for device access requests. Keep the following memory summary in mind while answering:
 
 ${memorySummary}
 
-Request: ${message}`, 150);
+Request: ${message}`, 180);
     }
     if (!reply) {
       reply = await fetchMysticResponse(message);
@@ -363,17 +397,7 @@ async function fetchMysticResponse(message) {
     console.warn('Agent fallback failed:', err);
   }
 
-  const lower = message.toLowerCase();
-  if (lower.includes('beat') || lower.includes('music')) {
-    return 'Create a cinematic, bass-forward beat with shimmering synths, hard-hitting drums, and a hypnotic groove for the studio.';
-  }
-  if (lower.includes('lyrics') || lower.includes('song')) {
-    return 'Write lyrics that speak to resilience, legacy, and the energy of the studio. Keep it vivid, powerful, and melodic.';
-  }
-  if (lower.includes('design') || lower.includes('visual')) {
-    return 'Visualize a high-contrast streetwear line with cosmic embroidery, bold fonts, and a polished, futuristic edge.';
-  }
-  return `Lil Mystic is ready. Ask me to generate beats, lyrics, designs, or to sync orders.`;
+  return buildLilMysticCreativeReply(message);
 }
 
 window.addEventListener('ai-assistant-ready', renderMysticStatus);

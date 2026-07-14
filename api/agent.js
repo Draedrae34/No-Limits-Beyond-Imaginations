@@ -13,6 +13,7 @@ import { sendDiscordAlert } from '../utils/discord-alerts.js';
 import pool from '../src/utils/db.js';
 import { ensureProductsSchema } from '../src/utils/products.js';
 import { verifyAdmin } from '../src/utils/auth.js';
+import { getLilMysticSystemPrompt, buildLilMysticCreativeReply } from '../src/lil-mystic-persona.js';
 
 const INTENTS = [
   { keys: ['sync', 'catalog'], name: 'Sync Printify catalog', fn: runCatalogSync },
@@ -79,7 +80,7 @@ async function callOpenAIChat(message) {
       body: JSON.stringify({
         model: OPENAI_MODEL,
         messages: [
-          { role: 'system', content: 'You are Lil Mystic, a private workshop AI with photographic memory and the ability to copy and create coding, algorithms, designs, and workflows without relying on a separate storage department. You are the living motherboard of the private workshop and you remember everything in vivid detail.' },
+          { role: 'system', content: getLilMysticSystemPrompt() },
           { role: 'user', content: message }
         ],
         max_tokens: 320,
@@ -125,20 +126,7 @@ function parseIntent(message, toolHint) {
 }
 
 function fallbackChatReply(message) {
-  const lower = message.toLowerCase();
-  if (lower.includes('beat') || lower.includes('music')) {
-    return 'Create a cinematic, bass-forward beat with shimmering synths, hard-hitting drums, and a hypnotic groove for the studio.';
-  }
-  if (lower.includes('lyrics') || lower.includes('song')) {
-    return 'Write lyrics that speak to resilience, legacy, and the energy of the studio. Keep it vivid, powerful, and melodic.';
-  }
-  if (lower.includes('design') || lower.includes('visual')) {
-    return 'Visualize a high-contrast streetwear line with cosmic embroidery, bold fonts, and a polished, futuristic edge.';
-  }
-  if (lower.includes('code') || lower.includes('algorithm') || lower.includes('copycat')) {
-    return 'I can copy, write, and upgrade algorithms and code in any language. Ask me for the exact implementation, and I will generate it for your workshop or music production system.';
-  }
-  return `Lil Mystic is ready. Ask me to generate beats, lyrics, designs, coding, or to sync orders.`;
+  return buildLilMysticCreativeReply(message);
 }
 
 async function runAgentChat(message) {

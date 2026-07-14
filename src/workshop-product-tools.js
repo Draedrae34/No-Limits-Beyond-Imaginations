@@ -3,7 +3,7 @@
 import printify from '../utils/printify-actions.js';
 import pool from '../src/utils/db.js';
 import { ensureProductsSchema } from '../src/utils/products.js';
-import { loadLogos } from '../utils/logo-loader.js';
+import { loadLogos, getThemeAssets } from '../utils/logo-loader.js';
 import fs from 'fs/promises';
 import path from 'path';
 
@@ -103,9 +103,15 @@ export async function generateNewProducts() {
 
     const selected = blueprints.sort(() => 0.5 - Math.random()).slice(0, 5);
 
-    const logos = loadLogos();
+    const allAssets = loadLogos();
+    const logos = allAssets.filter(asset => !asset.sourceDir.includes('galaxy-theme-assets'));
+    const themes = getThemeAssets();
     if (!logos.length) return { ok: false, summary: 'No logos found in Logo_N_Galaxy_Fill_Space' };
-    const selectedLogo = logos[Math.floor(Math.random() * logos.length)];
+    if (!themes.length) return { ok: false, summary: 'No galaxy theme assets found in public/galaxy-theme-assets' };
+
+    const maxLogoVariants = Number(process.env.MAX_LOGO_VARIATIONS || 12);
+    const selectedLogos = logos.slice(0, maxLogoVariants);
+    const selectedThemes = themes.slice(0, Math.max(1, Math.min(4, Number(process.env.MAX_THEME_VARIATIONS || 4))));
 
     let createdCount = 0;
     const errors = [];
@@ -122,51 +128,58 @@ export async function generateNewProducts() {
         if (!variants.length) continue;
 
         const { type, basePrice } = classifyProduct(blueprint.title);
-        const payload = {
-          title: `${selectedLogo.name} – ${blueprint.title}`,
-          description: `No Limits Beyond Limitations • Silent Spirits Legacy • ${blueprint.title} • ${selectedLogo.name}`,
-          blueprint_id: blueprint.id,
-          print_provider_id: provider.id,
-          variants: variants.map(v => ({ id: v.id, price: v.price || basePrice, is_enabled: true })),
-          print_areas: [{
-            variant_ids: variants.map(v => v.id),
-            placeholders: [{
-              position: 'front',
-              images: [{ src: selectedLogo.publicUrl, x: 0.5, y: 0.5, scale: 1, angle: 0 }],
+
+        for (const selectedLogo of selectedLogos) {
+          const selectedTheme = selectedThemes[Math.floor(Math.random() * selectedThemes.length)];
+          const payload = {
+            title: `${selectedLogo.name} – ${blueprint.title}`,
+            description: `No Limits Beyond Limitations • Silent Spirits Legacy • ${blueprint.title} • ${selectedLogo.name}`,
+            blueprint_id: blueprint.id,
+            print_provider_id: provider.id,
+            variants: variants.map(v => ({ id: v.id, price: v.price || basePrice, is_enabled: true })),
+            print_areas: [{
+              variant_ids: variants.map(v => v.id),
+              placeholders: [{
+                position: 'front',
+                images: [
+                  { src: selectedTheme.publicUrl, x: 0.5, y: 0.5, scale: 1, angle: 0 },
+                  { src: selectedLogo.publicUrl, x: 0.5, y: 0.5, scale: 0.75, angle: 0 },
+                ],
+              }],
             }],
-          }],
-          tags: ['No Limits', 'Galaxy', 'Memorial', 'Silent Spirits Legacy', type],
-          visible: true,
-          is_locked: false,
-        };
+            tags: ['No Limits', 'Galaxy', 'Memorial', 'Silent Spirits Legacy', type, selectedLogo.name, selectedTheme.name],
+            visible: true,
+            is_locked: false,
+          };
 
-        await printify('create', { productData: payload });
-        createdCount++;
+          await printify('create', { productData: payload });
+          createdCount++;
 
-        // Also insert into local products DB for featured/management
-        try {
-          const printifyProductId = String(blueprint.id) + '_' + Date.now();
-          await pool.query(
-            `INSERT INTO products (printify_id, name, description, price, category, image_url, active, featured) 
-             VALUES ($1, $2, $3, $4, $5, $6, true, false)`,
-            [
-              printifyProductId,
-              payload.title,
-              payload.description,
-              basePrice / 100,
-              type,
-              selectedLogo.publicUrl
-            ]
-          );
-        } catch (dbErr) {
-          console.warn('Failed to insert product into local DB:', dbErr.message);
+          // Also insert into local products DB for featured/management
+          try {
+            const printifyProductId = `${blueprint.id}_${selectedLogo.name.replace(/[^a-z0-9]+/gi, '_').toLowerCase()}_${Date.now()}`;
+            await pool.query(
+              `INSERT INTO products (printify_id, name, description, price, category, image_url, active, featured) 
+               VALUES ($1, $2, $3, $4, $5, $6, true, false)`,
+              [
+                printifyProductId,
+                payload.title,
+                payload.description,
+                basePrice / 100,
+                type,
+                `${selectedTheme.publicUrl} | ${selectedLogo.publicUrl}`
+              ]
+            );
+          } catch (dbErr) {
+            console.warn('Failed to insert product into local DB:', dbErr.message);
+          }
         }
       } catch (e) {
         errors.push(e.message);
       }
     }
 
-    const summary = `Generated ${createdCount} products from ${selected.length} blueprints`;
+    const summary = `Generated ${createdCount} products from ${selected.length} blueprints using ${selectedLogos.length} galaxy logo variants`;
     return { ok: true, summary: errors.length ? `${summary} (${errors.length} errors)` : summary };
   } catch (err) {
     console.error('generateNewProducts error:', err);
