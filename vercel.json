@@ -17,6 +17,14 @@
       "destination": "/api/system?action=:path*"
     },
     {
+      "source": "/workshop",
+      "destination": "/workshop.html"
+    },
+    {
+      "source": "/space",
+      "destination": "/workshop.html"
+    },
+    {
       "source": "/api/tribute/:path*",
       "destination": "/api/gallery?category=tribute"
     },
