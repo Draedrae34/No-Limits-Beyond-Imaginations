@@ -1,66 +1,32 @@
 import fs from 'fs';
 import path from 'path';
 
-const CANDIDATE_DIRS = [
-  path.join(process.cwd(), 'Logo_N_Galaxy_Fill_Space'),
-  path.join(process.cwd(), 'public', 'Logo_N_Galaxy_Fill_Space'),
-  path.join(process.cwd(), 'public', 'galaxy-theme-assets'),
-];
+const LOGO_MANIFEST_PATH = path.join(process.cwd(), 'public', 'logo-manifest.json');
 
-function resolveLogoDirectories() {
-  return CANDIDATE_DIRS.filter(dir => {
-    try { return fs.existsSync(dir); } catch { return false; }
-  });
-}
-
-function buildPublicUrl(file, sourceDir) {
-  const configured = process.env.BLOB_BASE_URL?.trim();
-  if (configured) {
-    return `${configured.replace(/\/$/, '')}/${encodeURIComponent(file)}`;
-  }
-
-  const relativeDir = path.relative(process.cwd(), sourceDir);
-  const publicPath = relativeDir.startsWith('public')
-    ? `/${relativeDir.replace(/\\/g, '/')}/${encodeURIComponent(file)}`
-    : `/${relativeDir.replace(/\\/g, '/')}/${encodeURIComponent(file)}`;
-
-  return publicPath;
-}
-
-export function loadLogos() {
+function loadManifest() {
   try {
-    const dirs = resolveLogoDirectories();
-    if (!dirs.length) return [];
-
-    const seen = new Set();
-    const logos = [];
-
-    dirs.forEach(dir => {
-      const files = fs.readdirSync(dir);
-      files
-        .filter(f => /\.(png|jpg|jpeg|gif|webp)$/i.test(f))
-        .forEach(file => {
-          if (seen.has(file)) return;
-          seen.add(file);
-          const name = path.basename(file, path.extname(file));
-          logos.push({
-            file,
-            name,
-            path: path.join(dir, file),
-            publicUrl: buildPublicUrl(file, dir),
-            sourceDir: dir,
-          });
-        });
-    });
-
-    return logos;
+    const raw = fs.readFileSync(LOGO_MANIFEST_PATH, 'utf8');
+    const manifest = JSON.parse(raw);
+    if (!Array.isArray(manifest)) return [];
+    return manifest.filter(item => item && item.file && item.publicUrl);
   } catch (err) {
-    console.error('Error reading logos:', err);
+    console.error('Logo manifest load failed:', err.message);
     return [];
   }
 }
 
-// Get logo by name (partial match)
+export function loadLogos() {
+  const logos = loadManifest();
+  const baseUrl = process.env.BLOB_BASE_URL?.trim();
+  if (!baseUrl) return logos;
+
+  const normalizedBase = baseUrl.replace(/\/$/, '');
+  return logos.map(logo => ({
+    ...logo,
+    publicUrl: `${normalizedBase}/${encodeURIComponent(path.basename(logo.file))}`,
+  }));
+}
+
 export function getLogoByName(name) {
   const logos = loadLogos();
   return logos.find(l => l.name.toLowerCase().includes(name.toLowerCase()));
@@ -71,7 +37,6 @@ export function getThemeAssets() {
   return logos.filter(asset => asset.sourceDir.includes('galaxy-theme-assets'));
 }
 
-// Get all logo names
 export function getLogoNames() {
   const logos = loadLogos();
   return logos.map(l => l.name);

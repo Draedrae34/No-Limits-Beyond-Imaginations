@@ -251,15 +251,14 @@ export async function runSiteAudit() {
     results.printify = `ERROR: ${err.message}`;
   }
 
-  // Filesystem checks (logo dir)
+  // Filesystem checks (logo manifest)
   try {
-    const logoDir = path.join(process.cwd(), 'Logo_N_Galaxy_Fill_Space');
-    const stats = await fs.stat(logoDir);
-    const files = await fs.readdir(logoDir);
+    const manifestPath = path.join(process.cwd(), 'public', 'logo-manifest.json');
+    const manifestData = JSON.parse(await fs.readFile(manifestPath, 'utf8'));
     results.filesystem = {
-      logoDir: 'EXISTS',
-      fileCount: files.length,
-      sizeKB: Math.round((files.reduce((acc, f) => acc + stats.size, 0)) / 1024)
+      logoManifest: 'EXISTS',
+      fileCount: Array.isArray(manifestData) ? manifestData.length : 0,
+      sampleUrl: Array.isArray(manifestData) && manifestData[0]?.publicUrl ? manifestData[0].publicUrl : null,
     };
   } catch (err) {
     results.filesystem = `ERROR: ${err.message}`;
