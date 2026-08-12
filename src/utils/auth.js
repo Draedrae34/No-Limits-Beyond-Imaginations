@@ -3,9 +3,14 @@ export function isAuthCookieValid(req) {
   return cookies.split(';').some((c) => c.trim() === 'nlbl_auth=authenticated');
 }
 
+export function isBearerTokenValid(req) {
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7).trim() : '';
+  const validTokens = [process.env.ADMIN_API_TOKEN, process.env.WORKSHOP_INTERNAL_TOKEN].filter(Boolean);
+  return Boolean(token && validTokens.includes(token));
+}
+
 export async function verifyAdmin(req) {
   if (isAuthCookieValid(req)) return true;
-  const authHeader = req.headers.authorization || '';
-  const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : '';
-  return Boolean(token && process.env.ADMIN_API_TOKEN && token === process.env.ADMIN_API_TOKEN);
+  return isBearerTokenValid(req);
 }

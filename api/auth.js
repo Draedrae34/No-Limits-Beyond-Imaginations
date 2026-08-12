@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import crypto from 'crypto';
 import dotenv from 'dotenv';
 
 dotenv.config({ path: path.join(process.cwd(), '.env.local') });
@@ -43,6 +44,17 @@ function getResetCode() {
   return process.env.WORKSHOP_RESET_CODE || '';
 }
 
+function safeCompare(a, b) {
+  if (typeof a !== 'string' || typeof b !== 'string') return false;
+  const bufA = Buffer.from(a);
+  const bufB = Buffer.from(b);
+  if (bufA.length !== bufB.length) {
+    crypto.timingSafeEqual(bufA, bufA);
+    return false;
+  }
+  return crypto.timingSafeEqual(bufA, bufB);
+}
+
 function persistWorkshopPassword(password) {
   try {
     const envPath = path.join(process.cwd(), '.env.local');
@@ -61,9 +73,52 @@ function persistWorkshopPassword(password) {
     }
 
     fs.writeFileSync(envPath, updated.join('\n'));
-  } catch {
-    // Ignore persistence failures; runtime override still allows the reset.
+  } catch (error) {
+    console.error('Failed to persist workshop password to .env.local:', error);
   }
+}
+
+function handleReset(req, res, body) {
+  const resetCode = body.resetCode || req.headers['x-workshop-reset-code'] || '';
+  const configuredResetCode = getResetCode();
+
+  if (!configuredResetCode) {
+    return res.status(500).json({ success: false, message: 'Password reset is not configured. Set WORKSHOP_RESET_CODE.' });
+  }
+
+  if (!safeCompare(resetCode, configuredResetCode)) {
+    return res.status(403).json({ success: false, message: 'Invalid reset code.' });
+  }
+
+  const newPassword = body.newPassword || '';
+  if (!newPassword || newPassword.length < 6) {
+    return res.status(400).json({ success: false, message: 'New workshop password must be at least 6 characters.' });
+  }
+
+  process.env.WORKSHOP_OVERRIDE_PASSWORD = newPassword;
+  persistWorkshopPassword(newPassword);
+
+  return res.status(200).json({ success: true, message: 'Workshop password reset for this runtime.' });
+}
+
+function handleLogout(res) {
+  clearAuthCookie(res);
+  return res.status(200).json({ success: true, message: 'Logged out.' });
+}
+
+function handleLogin(res, password) {
+  const configuredPassword = getConfiguredPassword();
+
+  if (!configuredPassword) {
+    return res.status(500).json({ success: false, message: 'Workshop password is not configured. Set WORKSHOP_PASSWORD.' });
+  }
+
+  if (!safeCompare(password, configuredPassword)) {
+    return res.status(401).json({ success: false, message: 'Invalid password.' });
+  }
+
+  setAuthCookie(res);
+  return res.status(200).json({ success: true, message: 'Authenticated.' });
 }
 
 export default function handler(req, res) {
@@ -91,56 +146,25 @@ export default function handler(req, res) {
   if (req.method === 'POST') {
     const body = parseBody(req);
     const password = body.password || '';
-    const configuredPassword = getConfiguredPassword();
     const loginAction = action === 'login' || body.action === 'login' || !action;
 
     if (action === 'reset' || body.action === 'reset') {
-      const resetCode = body.resetCode || req.headers['x-workshop-reset-code'] || '';
-      const configuredResetCode = getResetCode();
-
-      if (!configuredResetCode) {
-        return res.status(500).json({ success: false, message: 'Password reset is not configured. Set WORKSHOP_RESET_CODE.' });
-      }
-
-      if (resetCode !== configuredResetCode) {
-        return res.status(403).json({ success: false, message: 'Invalid reset code.' });
-      }
-
-      const newPassword = body.newPassword || '';
-      if (!newPassword || newPassword.length < 6) {
-        return res.status(400).json({ success: false, message: 'New workshop password must be at least 6 characters.' });
-      }
-
-      process.env.WORKSHOP_OVERRIDE_PASSWORD = newPassword;
-      persistWorkshopPassword(newPassword);
-
-      return res.status(200).json({ success: true, message: 'Workshop password reset for this runtime.' });
+      return handleReset(req, res, body);
     }
 
     if (action === 'logout' || action === 'signout' || body.action === 'logout') {
-      clearAuthCookie(res);
-      return res.status(200).json({ success: true, message: 'Logged out.' });
+      return handleLogout(res);
     }
 
     if (!loginAction) {
       return res.status(400).json({ success: false, message: 'Invalid auth action.' });
     }
 
-    if (!configuredPassword) {
-      return res.status(500).json({ success: false, message: 'Workshop password is not configured. Set WORKSHOP_PASSWORD.' });
-    }
-
-    if (password !== configuredPassword) {
-      return res.status(401).json({ success: false, message: 'Invalid password.' });
-    }
-
-    setAuthCookie(res);
-    return res.status(200).json({ success: true, message: 'Authenticated.' });
+    return handleLogin(res, password);
   }
 
   if (req.method === 'DELETE') {
-    clearAuthCookie(res);
-    return res.status(200).json({ success: true, message: 'Logged out.' });
+    return handleLogout(res);
   }
 
   return res.status(405).json({ error: 'Method not allowed.' });

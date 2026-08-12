@@ -85,9 +85,22 @@ async function printifyFetch(endpoint, method = 'GET', body = null) {
   if (!PRINTIFY_API_KEY) throw new Error('PRINTIFY_API_KEY not set');
   const opts = { method, headers: { 'Authorization': `Bearer ${PRINTIFY_API_KEY}`, 'Content-Type': 'application/json' } };
   if (body) opts.body = JSON.stringify(body);
+
   const resp = await fetch(`https://api.printify.com/v1/${endpoint}`, opts);
-  if (!resp.ok) throw new Error(`Printify API ${resp.status}: ${await resp.text()}`);
+  if (!resp.ok) {
+    const errText = await resp.text();
+    console.error(`Printify API ${endpoint} responded with ${resp.status}:`, errText);
+    throw new Error(`Printify API ${resp.status} error`);
+  }
   return resp.json();
+}
+
+async function requireAdmin(req, res) {
+  if (!(await verifyAdmin(req))) {
+    res.status(401).json({ success: false, error: 'Authentication required' });
+    return false;
+  }
+  return true;
 }
 
 async function getMergedCatalog(cacheMode) {
@@ -146,7 +159,7 @@ const actions = {
     return res.status(200).json({ success: true, products: filtered });
   },
   syncCatalog: async (req, res) => {
-     // MASTER BYPASS: No auth required
+     if (!(await requireAdmin(req, res))) return;
      const products = await fetchPrintifyCatalog();
      await saveCatalogCache(products);
      return res.status(200).json({ success: true, message: 'Catalog synced', count: products.length });
@@ -194,7 +207,7 @@ const actions = {
 
   // Admin: Printify API proxy (merged from printify.js)
   printifyAdmin: async (req, res) => {
-    if (!(await verifyAdmin(req))) return res.status(401).json({ error: 'Authentication required' });
+    if (!(await requireAdmin(req, res))) return;
     let body = req.body || {};
     if (typeof body === 'string') { try { body = JSON.parse(body); } catch { body = {}; } }
     const action = (req.query && (req.query.printifyAction || req.query.action)) || (body && body.action) || 'status';
@@ -211,7 +224,7 @@ const actions = {
               shopInfo = shops.find(s => String(s.id) === String(process.env.PRINTIFY_SHOP_ID)) || shops[0] || null;
             } catch (e) { shopInfo = { error: e.message }; }
           }
-          return res.status(200).json({ status: hasKey && hasShop ? 'connected' : 'not_configured', hasApiKey: hasKey, hasShopId: hasShop, shop: shopInfo, availableActions: ['status', 'catalog', 'list', 'sync', 'import', 'adminList'], timestamp: new Date().toISOString() });
+          return res.status(200).json({ status: hasKey && hasShop ? 'connected' : 'not_configured', hasApiKey: hasKey, hasShopId: hasShop, shop: shopInfo, availableActions: ['status', 'catalog', 'list', 'sync', 'import', 'publish', 'adminList'], timestamp: new Date().toISOString() });
         }
         case 'list': {
           if (!process.env.PRINTIFY_API_KEY || !process.env.PRINTIFY_SHOP_ID) return res.status(400).json({ error: 'Missing PRINTIFY_API_KEY or PRINTIFY_SHOP_ID' });
@@ -259,6 +272,14 @@ case 'adminList': {
           }));
           console.log(`🌌 [NLBL Printify] Admin list: page=${page}, limit=${limit}, total=${data.total || products.length}`);
           return res.status(200).json({ success: true, products, total: data.total || products.length, page, limit });
+        }
+        case 'publish': {
+          const productId = req.query.productId || body.productId;
+          if (!productId) {
+            return res.status(400).json({ success: false, error: 'Missing productId for publish action' });
+          }
+          const publishResult = await printifyFetch(`shops/${process.env.PRINTIFY_SHOP_ID}/products/${encodeURIComponent(productId)}/publish.json`, 'POST');
+          return res.status(200).json({ success: true, result: publishResult, timestamp: new Date().toISOString() });
         }
         case 'blueprints': {
           const data = await printifyFetch('catalog/blueprints.json');

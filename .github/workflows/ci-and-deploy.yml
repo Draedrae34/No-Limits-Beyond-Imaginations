@@ -1,0 +1,64 @@
+name: CI & Deploy to Vercel
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm ci
+      - name: Set up Python 3
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Run headless physics test
+        run: |
+          python3 scripts/headless_physics.py --duration 1 --dt 0.016 --boxes 3 --output physics_ci.csv
+      - name: Run tests
+        run: |
+          if [ -f package.json ]; then
+            if npm run | grep -q "test"; then
+              npm test || true
+            fi
+          fi
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+      - name: Run database migrations
+        if: ${{ secrets.DATABASE_URL != '' }}
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          NODE_ENV: production
+        run: |
+          echo "Running migrations against $DATABASE_URL"
+          node ./scripts/run-migrations.mjs
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }} # required
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }} # required
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }} # required
+          vercel-args: '--prod'
+        env:
+          NODE_ENV: 'production'

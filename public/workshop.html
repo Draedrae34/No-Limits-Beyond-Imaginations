@@ -97,7 +97,11 @@
                     <label style="display: flex; align-items: center; gap: 10px;">
                         <input type="checkbox" id="prod-active"> Active Listing
                     </label>
-                    <button id="prod-save" class="action-btn">Save Product</button>
+                    <div class="agent-input-row" style="gap: 1rem; flex-wrap: wrap; align-items: center;">
+                        <button id="prod-save" class="action-btn">Save Product</button>
+                        <button id="mystic-sync-catalog-btn" class="action-btn secondary">Sync Printify Catalog</button>
+                        <button id="mystic-publish-product-btn" class="action-btn secondary">Publish Selected</button>
+                    </div>
                 </div>
 
                 <table id="products-table">
@@ -232,10 +236,30 @@
     <script src="/js/starfield.js"></script>
 
     <!-- 1. The Hologram Body (Lil Mystic Engine) -->
-    <script src="/js/lil-mystic.js"></script>
+    <script>
+      // Lazy-load the Lil Mystic client bundle from the server only after auth.
+      (async function() {
+        try {
+          const resp = await fetch('/api/lil-mystic-client', { credentials: 'include' });
+          if (!resp.ok) return; // not authorized or not present
+          const js = await resp.text();
+          const s = document.createElement('script');
+          s.type = 'text/javascript';
+          s.text = js;
+          document.body.appendChild(s);
+          // If LilMystic class loaded, initialize hologram if needed
+          if (window.lilMystic && typeof window.lilMystic.onWindowResize === 'function') {
+            window.lilMystic.onWindowResize?.();
+          }
+        } catch (err) {
+          console.warn('Lil Mystic client not loaded:', err);
+        }
+      })();
+    </script>
     
     <!-- 2. The Workshop Brain (OS Logic) -->
     <script src="/js/workshop.js"></script>
+    <script src="/js/lil-mystic.js"></script>
 
     <!-- 3. Authentication + AI -->
     <script src="/js/auth.js"></script>

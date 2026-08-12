@@ -14,12 +14,31 @@ const state = {
     activeDraft: null,
     generatedBeat: '',
     generatedLyrics: '',
-    generatedDesignIdeas: []
+    generatedDesignIdeas: [],
+    composedSong: ''
   },
   heart: {
     currentMood: "neutral",
     pulseInterval: null
   }
+};
+
+function resolveUploadUrl(uploadData) {
+  if (!uploadData) return null;
+  // Common blob shapes: { blob: { url, publicUrl }, filename }
+  if (uploadData.blob) {
+    const b = uploadData.blob;
+    if (b.url) return b.url;
+    if (b.publicUrl) return b.publicUrl;
+    if (b.path) return b.path;
+    if (b.downloadUrl) return b.downloadUrl;
+  }
+  if (uploadData.image_url) return uploadData.image_url;
+  if (uploadData.url) return uploadData.url;
+  if (uploadData.filename && /^https?:\/\//i.test(uploadData.filename)) return uploadData.filename;
+  if (uploadData.filename) return `/uploads/${uploadData.filename}`;
+  return null;
+}
 };
 
 window.lilMystic = null;
@@ -44,6 +63,209 @@ async function fetchJSON(url, options = {}) {
   }
   return data;
 }
+
+const WorkshopUI = {
+  toastContainer: null,
+  consoleElem: null,
+
+  init() {
+    this.toastContainer = document.getElementById('workshop-toast-container');
+    if (!this.toastContainer) {
+      this.toastContainer = document.createElement('div');
+      this.toastContainer.id = 'workshop-toast-container';
+      this.toastContainer.setAttribute('style', `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-width: 380px;
+        pointer-events: none;
+      `);
+      document.body.appendChild(this.toastContainer);
+    }
+
+    this.consoleElem = document.getElementById('workshop-console-log');
+    if (!this.consoleElem) {
+      const consolePanel = document.createElement('div');
+      consolePanel.id = 'workshop-console-log';
+      consolePanel.className = 'workshop-console-panel';
+      consolePanel.innerHTML = `<div class="workshop-console-header">Workshop Console</div>`;
+      document.body.appendChild(consolePanel);
+      this.consoleElem = consolePanel;
+    }
+
+    if (!document.getElementById('workshop-ui-styles')) {
+      const style = document.createElement('style');
+      style.id = 'workshop-ui-styles';
+      style.textContent = `
+        @keyframes toastSlideIn {
+          from { transform: translateX(120%); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes toastFadeOut {
+          from { transform: translateX(0); opacity: 1; }
+          to { transform: translateX(120%); opacity: 0; }
+        }
+        .workshop-toast {
+          pointer-events: auto;
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          padding: 12px 16px;
+          border-radius: 8px;
+          background: #111318;
+          color: #f1f1f1;
+          border-left: 4px solid #6366f1;
+          box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+          font-family: system-ui, -apple-system, sans-serif;
+          font-size: 14px;
+          line-height: 1.4;
+          animation: toastSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .workshop-toast.success { border-left-color: #10b981; }
+        .workshop-toast.error { border-left-color: #ef4444; }
+        .workshop-toast.info { border-left-color: #3b82f6; }
+        .workshop-toast.warning { border-left-color: #f59e0b; }
+        .workshop-toast .toast-close {
+          background: none;
+          border: none;
+          color: #9ca3af;
+          cursor: pointer;
+          font-size: 16px;
+          margin-left: 12px;
+          padding: 0;
+          line-height: 1;
+        }
+        .workshop-btn-loading {
+          opacity: 0.7;
+          cursor: not-allowed !important;
+          pointer-events: none !important;
+        }
+        .workshop-console-panel {
+          position: fixed;
+          bottom: 20px;
+          left: 20px;
+          width: 360px;
+          max-height: 240px;
+          overflow-y: auto;
+          background: rgba(7, 14, 27, 0.92);
+          border: 1px solid rgba(148, 163, 184, 0.18);
+          border-radius: 14px;
+          padding: 12px;
+          color: #e2e8f0;
+          font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+          font-size: 12px;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+          z-index: 9998;
+          overflow-wrap: anywhere;
+        }
+        .workshop-console-header {
+          font-weight: 700;
+          margin-bottom: 8px;
+          color: #f8fafc;
+          font-size: 13px;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  },
+
+  notify(message, type = 'info', duration = 4000) {
+    if (!this.toastContainer || !this.consoleElem) this.init();
+
+    const toast = document.createElement('div');
+    toast.className = `workshop-toast ${type}`;
+
+    const icons = {
+      success: '✨',
+      error: '⚠️',
+      info: '🔮',
+      warning: '⚡'
+    };
+
+    toast.innerHTML = `
+      <div style="display: flex; gap: 10px; align-items: flex-start;">
+        <span style="font-size: 16px;">${icons[type] || '🔮'}</span>
+        <div>
+          <div style="font-weight: 600; margin-bottom: 2px;">Lil Mystic</div>
+          <div style="color: #d1d5db;">${message}</div>
+        </div>
+      </div>
+      <button class="toast-close" onclick="this.parentElement.remove()">×</button>
+    `;
+
+    this.toastContainer.appendChild(toast);
+
+    if (duration > 0) {
+      setTimeout(() => {
+        if (toast.parentNode) {
+          toast.style.animation = 'toastFadeOut 0.3s forwards';
+          setTimeout(() => toast.remove(), 300);
+        }
+      }, duration);
+    }
+
+    this.logConsole(`[${type.toUpperCase()}] ${message}`);
+  },
+
+  logConsole(text) {
+    if (!this.consoleElem) this.init();
+    if (!this.consoleElem) {
+      console.log('[WorkshopUI]', text);
+      return;
+    }
+
+    const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    const entry = document.createElement('div');
+    entry.style.padding = '2px 0';
+    entry.style.fontSize = '12px';
+    entry.style.lineHeight = '1.4';
+    entry.innerHTML = `<span style="color: #6b7280;">[${timestamp}]</span> ${text}`;
+
+    this.consoleElem.appendChild(entry);
+    this.consoleElem.scrollTop = this.consoleElem.scrollHeight;
+  },
+
+  async runAction(btn, asyncTask, loadingMsg = 'Executing task...', successMsg = 'Task completed!') {
+    let originalText = '';
+    if (btn) {
+      originalText = btn.innerHTML;
+      btn.classList.add('workshop-btn-loading');
+      btn.disabled = true;
+      btn.innerHTML = `<span>⏳ Processing...</span>`;
+    }
+
+    this.notify(loadingMsg, 'info', 2500);
+
+    try {
+      const result = await asyncTask();
+      this.notify(successMsg, 'success', 5000);
+      return result;
+    } catch (err) {
+      const errorDetail = err?.message || 'An unexpected error occurred.';
+      this.notify(`Action failed: ${errorDetail}`, 'error', 6000);
+      console.error('[LilMystic Workshop Error]:', err);
+      throw err;
+    } finally {
+      if (btn) {
+        btn.classList.remove('workshop-btn-loading');
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+      }
+    }
+  }
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => WorkshopUI.init());
+} else {
+  WorkshopUI.init();
+}
+
+window.WorkshopUI = WorkshopUI;
 
 function buildLilMysticCreativeReply(message = '') {
   const lower = (message || '').toLowerCase();
@@ -342,29 +564,100 @@ async function askLilMystic(message) {
 
   const memorySummary = window.lilMystic?.summarizeMemory?.() || 'No memory snapshots yet.';
 
-  let reply = null;
-  try {
-    if (window.nlblAI && window.nlblAI.isReady) {
-      reply = await window.nlblAI.generateText(`You are Lil Mystic, the all-seeing creator. You are a private AI assistant with photographic memory, perfect continuity, and a builder-fabricator mindset. You can create code, algorithms, designs, beats, lyrics, image prompts, video concepts, and full creative productions. You remember important details across the conversation without needing a separate storage department. Do not help bypass phone passcodes, PINs, SIM locks, carrier locks, provider locks, FRP, or Google account verification; only provide lawful owner recovery guidance for device access requests. Keep the following memory summary in mind while answering:
 
 ${memorySummary}
 
 Request: ${message}`, 180);
-    }
-    if (!reply) {
-      reply = await fetchMysticResponse(message);
-    }
+  // Try streaming AI response from server (SSE-style over fetch streaming). Falls back to agent API or canned reply.
+  let usedStream = false;
+  try {
+    await streamLilMystic(message, (token) => {
+      if (placeholder) {
+        // append tokens incrementally
+        if (!placeholder._text) placeholder._text = '';
+        placeholder._text += token;
+        placeholder.textContent = `Lil Mystic: ${placeholder._text}`;
+      }
+    }, () => {
+      window.lilMystic?.performGesture('affirm');
+      window.lilMystic?.onSpeak(0.25);
+    }, (err) => {
+      console.warn('Lil Mystic stream failed:', err);
+    });
+    usedStream = true;
   } catch (err) {
-    console.error('Lil Mystic chat error:', err);
+    console.warn('Stream attempt failed, falling back:', err);
   }
 
-  if (!reply) {
-    reply = `Lil Mystic is listening. Ask for beats, lyrics, design ideas, or shop and order help.`;
-  }
+  if (!usedStream) {
+    let reply = null;
+    try {
+      if (window.nlblAI && window.nlblAI.isReady) {
+        reply = await window.nlblAI.generateText(`You are Lil Mystic, the all-seeing creator. You are a private AI assistant with photographic memory, perfect continuity, and a builder-fabricator mindset. You can create code, algorithms, designs, beats, lyrics, image prompts, video concepts, and full creative productions. You remember important details across the conversation without needing a separate storage department. Do not help bypass phone passcodes, PINs, SIM locks, carrier locks, provider locks, FRP, or Google account verification; only provide lawful owner recovery guidance for device access requests. Keep the following memory summary in mind while answering:\n\n${memorySummary}\n\nRequest: ${message}`, 180);
+      }
+      if (!reply) {
+        reply = await fetchMysticResponse(message);
+      }
+    } catch (err) {
+      console.error('Lil Mystic chat error:', err);
+    }
 
-  if (placeholder) placeholder.textContent = `Lil Mystic: ${reply}`;
-  window.lilMystic?.performGesture('affirm');
-  window.lilMystic?.onSpeak(0.25);
+    if (!reply) {
+      reply = `Lil Mystic is listening. Ask for beats, lyrics, design ideas, or shop and order help.`;
+    }
+
+    if (placeholder) placeholder.textContent = `Lil Mystic: ${reply}`;
+    window.lilMystic?.performGesture('affirm');
+    window.lilMystic?.onSpeak(0.25);
+  }
+}
+
+// Stream helper: POST to /api/ai/stream with messages and parse SSE-style events
+async function streamLilMystic(message, onToken, onDone, onError) {
+  const body = JSON.stringify({ messages: [{ role: 'user', content: message }] });
+  const resp = await fetch('/api/ai/stream', {
+    method: 'POST',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body,
+  });
+  if (!resp.ok || !resp.body) throw new Error('Stream endpoint not available');
+
+  const reader = resp.body.getReader();
+  const decoder = new TextDecoder();
+  let buf = '';
+
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buf += decoder.decode(value, { stream: true });
+      let parts = buf.split('\n\n');
+      buf = parts.pop();
+      for (const part of parts) {
+        const lines = part.split('\n').map(l => l.trim());
+        let dataLine = lines.find(l => l.startsWith('data:')) || '';
+        if (!dataLine) continue;
+        dataLine = dataLine.replace(/^data:\s*/, '');
+        if (dataLine === '[DONE]') {
+          if (onDone) onDone();
+          return;
+        }
+        try {
+          const j = JSON.parse(dataLine);
+          const delta = j.choices?.[0]?.delta?.content || '';
+          if (delta) onToken(delta);
+        } catch (e) {
+          // try plain text token
+          onToken(dataLine);
+        }
+      }
+    }
+    if (onDone) onDone();
+  } catch (err) {
+    if (onError) onError(err);
+    throw err;
+  }
 }
 
 async function fetchAIFallback(prompt) {
@@ -573,19 +866,31 @@ function initMusicStudio() {
       <section class="studio-card">
         <h3>Beat Generator</h3>
         <p>Build a custom beat structure for your next session.</p>
+        <input id="ws-music-title" class="studio-input" placeholder="Track title" />
+        <div class="studio-meta-grid">
+          <input id="ws-music-genre" class="studio-input" placeholder="Genre" />
+          <input id="ws-music-bpm" class="studio-input" placeholder="BPM" type="number" />
+          <input id="ws-music-key" class="studio-input" placeholder="Key" />
+        </div>
         <button id="generate-beat-btn" class="action-btn">Generate Beat</button>
         <pre id="beat-output" class="studio-output">Ready to generate a custom beat blueprint.</pre>
       </section>
       <section class="studio-card">
         <h3>Lyrics Lab</h3>
-        <textarea id="lyrics-theme" placeholder="Mood, story, or theme..."></textarea>
+        <textarea id="ws-music-lyrics" class="studio-textarea" placeholder="Lyrics or theme..."></textarea>
         <button id="generate-lyrics-btn" class="action-btn">Generate Lyrics</button>
         <pre id="lyrics-output" class="studio-output">Your next verse will be generated here.</pre>
       </section>
       <section class="studio-card">
         <h3>Compose Song</h3>
         <button id="compose-song-btn" class="action-btn">Compose Song</button>
-        <pre id="song-output" class="studio-output">Combine your beat and lyrics into a complete production preview.</pre>
+        <pre id="ws-music-output" class="studio-output">Combine your beat and lyrics into a complete production preview.</pre>
+        <div id="song-export-status" class="studio-meta">Save or download your latest song preview.</div>
+        <div class="studio-actions" style="margin-top: 1rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <button id="ws-mystic-music-btn" class="action-btn secondary">Draft with Lil Mystic</button>
+          <button id="ws-music-save-btn" class="action-btn secondary">Save Composition</button>
+          <button id="ws-music-download-btn" class="action-btn tertiary">Download Composition</button>
+        </div>
       </section>
     </div>`;
 
@@ -596,6 +901,8 @@ async function bindMusicStudioEvents() {
   const beatBtn = document.getElementById('generate-beat-btn');
   const lyricsBtn = document.getElementById('generate-lyrics-btn');
   const composeBtn = document.getElementById('compose-song-btn');
+  const saveSongBtn = document.getElementById('ws-music-save-btn');
+  const downloadSongBtn = document.getElementById('ws-music-download-btn');
 
   if (beatBtn) {
     beatBtn.addEventListener('click', async () => {
@@ -614,16 +921,43 @@ async function bindMusicStudioEvents() {
       await composeWorkshopSong();
     });
   }
+
+  if (saveSongBtn) {
+    saveSongBtn.addEventListener('click', async () => {
+      await saveMusicComposition(saveSongBtn);
+    });
+  }
+
+  const mysticMusicBtn = document.getElementById('ws-mystic-music-btn');
+  if (mysticMusicBtn) {
+    mysticMusicBtn.addEventListener('click', async () => {
+      await WorkshopUI.runAction(
+        mysticMusicBtn,
+        () => window.LilMysticBridge?.draftTrack(),
+        'Drafting a new track with Lil Mystic...',
+        'Lil Mystic finished drafting your track!'
+      );
+    });
+  }
+
+  if (downloadSongBtn) {
+    downloadSongBtn.addEventListener('click', async () => {
+      await downloadMusicComposition();
+    });
+  }
 }
 
-async function generateWorkshopBeat() {
+async function generateWorkshopBeat(prompt = null) {
   const output = document.getElementById('beat-output');
-  if (!output || state.studio.isGenerating) return;
+  if (!output || state.studio.isGenerating) return '';
   state.studio.isGenerating = true;
   output.textContent = 'Generating a rhythm blueprint...';
 
   try {
-    const prompt = `Create a cinematic hip-hop beat structure with atmospheric synths, tight 808s, crisp percussion, and a moody arrangement that feels like a private studio session.`;
+    const promptText = prompt || `Create a cinematic hip-hop beat structure with atmospheric synths, tight 808s, crisp percussion, and a moody arrangement that feels like a private studio session.`;
+    if (prompt) {
+      document.getElementById('ws-music-title')?.setAttribute('data-lil-mystic-prompt', promptText);
+    }
     if (window.nlblAI && !window.nlblAI.isReady) {
       await window.nlblAI.initialize();
       renderMysticStatus();
@@ -631,10 +965,10 @@ async function generateWorkshopBeat() {
 
     let beat = '';
     if (window.nlblAI && window.nlblAI.isReady) {
-      beat = await window.nlblAI.generateText(prompt, 140);
+      beat = await window.nlblAI.generateText(promptText, 140);
     }
     if (!beat) {
-      beat = await fetchAIFallback(prompt) || '120 BPM, layered synth arpeggio, punchy kick, snappy hi-hats, low sub bass, and a spacious bridge for vocal performance.';
+      beat = await fetchAIFallback(promptText) || '120 BPM, layered synth arpeggio, punchy kick, snappy hi-hats, low sub bass, and a spacious bridge for vocal performance.';
     }
 
     state.studio.generatedBeat = beat;
@@ -649,15 +983,18 @@ async function generateWorkshopBeat() {
   }
 }
 
-async function generateWorkshopLyrics() {
-  const theme = document.getElementById('lyrics-theme')?.value.trim() || 'resilience and legacy';
+async function generateWorkshopLyrics(theme = null) {
   const output = document.getElementById('lyrics-output');
   if (!output || state.studio.isGenerating) return '';
   state.studio.isGenerating = true;
   output.textContent = 'Writing lyrics...';
 
   try {
-    const prompt = `Write powerful hip-hop lyrics about ${theme}. Keep it cinematic, motivational, and studio-ready.`;
+    const themeText = theme || document.getElementById('lyrics-theme')?.value.trim() || 'resilience and legacy';
+    if (theme && document.getElementById('lyrics-theme')) {
+      document.getElementById('lyrics-theme').value = themeText;
+    }
+    const prompt = `Write powerful hip-hop lyrics about ${themeText}. Keep it cinematic, motivational, and studio-ready.`;
     if (window.nlblAI && !window.nlblAI.isReady) {
       await window.nlblAI.initialize();
       renderMysticStatus();
@@ -686,6 +1023,7 @@ Built from grit, heart, and fight, I press my truth into the night.`;
 
 async function composeWorkshopSong() {
   const output = document.getElementById('song-output');
+  const exportStatus = document.getElementById('song-export-status');
   if (!output || state.studio.isGenerating) return;
   state.studio.isGenerating = true;
 
@@ -694,9 +1032,16 @@ async function composeWorkshopSong() {
     const lyrics = state.studio.generatedLyrics || await generateWorkshopLyrics();
     const summary = `Song Preview:\n\nBeat:\n${typeof beat === 'string' ? beat : ''}\n\nLyrics:\n${typeof lyrics === 'string' ? lyrics : ''}`;
     output.textContent = summary;
+    state.studio.composedSong = summary;
+    if (exportStatus) {
+      exportStatus.textContent = 'Ready to save or download your composition.';
+    }
   } catch (err) {
     console.error('Song composition failed:', err);
     output.textContent = 'Unable to compose the song preview.';
+    if (exportStatus) {
+      exportStatus.textContent = 'Composition failed. Try generating again.';
+    }
   } finally {
     state.studio.isGenerating = false;
   }
@@ -709,12 +1054,24 @@ function initDesignLab() {
     <div class="design-lab-shell">
       <section class="design-card">
         <h3>Design Vision</h3>
-        <textarea id="design-theme" placeholder="Describe your product, vibe, or concept..." rows="4"></textarea>
+        <input id="ws-design-prompt" class="studio-input" placeholder="Design prompt" />
+        <div class="studio-meta-grid">
+          <input id="ws-design-medium" class="studio-input" placeholder="Medium (print, apparel, poster)" />
+          <input id="ws-design-style" class="studio-input" placeholder="Style" />
+          <input id="ws-design-palette" class="studio-input" placeholder="Palette" />
+        </div>
         <button id="design-generate-btn" class="action-btn">Generate Design Concepts</button>
+        <button id="ws-mystic-design-btn" class="action-btn secondary">Generate with Lil Mystic</button>
       </section>
       <section class="design-card">
         <h3>Generated Concepts</h3>
-        <div id="design-ideas" class="design-ideas">Design concepts will appear here after generation.</div>
+        <div id="ws-design-output" class="design-ideas">Design concepts will appear here after generation.</div>
+        <div id="design-export-status" class="studio-meta">Save, publish, or download your latest design concepts.</div>
+        <div class="studio-actions" style="margin-top: 1rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <button id="ws-design-save-btn" class="action-btn secondary">Save Concept</button>
+          <button id="ws-mystic-publish-design-btn" class="action-btn accent">Publish Concept</button>
+          <button id="ws-design-download-btn" class="action-btn tertiary">Download Concept</button>
+        </div>
       </section>
     </div>`;
 
@@ -723,17 +1080,70 @@ function initDesignLab() {
 
 function bindDesignLabEvents() {
   const button = document.getElementById('design-generate-btn');
-  if (!button) return;
-  button.addEventListener('click', async () => {
-    await generateDesignIdeas();
-  });
+  const saveButton = document.getElementById('ws-design-save-btn');
+  const downloadButton = document.getElementById('ws-design-download-btn');
+
+  if (button) {
+    button.addEventListener('click', async () => {
+      await generateDesignIdeas();
+    });
+  }
+
+  const mysticDesignBtn = document.getElementById('ws-mystic-design-btn');
+  if (mysticDesignBtn) {
+    mysticDesignBtn.addEventListener('click', async () => {
+      await WorkshopUI.runAction(
+        mysticDesignBtn,
+        () => window.LilMysticBridge?.generateAndApplyDesign(),
+        'Generating design concepts with Lil Mystic...',
+        'Lil Mystic generated your design concepts successfully!'
+      );
+    });
+  }
+
+  if (saveButton) {
+    saveButton.addEventListener('click', async () => {
+      await saveDesignConcept(saveButton);
+    });
+  }
+
+  const publishButton = document.getElementById('ws-mystic-publish-design-btn');
+  if (publishButton) {
+    publishButton.addEventListener('click', async () => {
+      await WorkshopUI.runAction(
+        publishButton,
+        () => window.LilMysticBridge?.publishDesignToShop(),
+        'Publishing your design through Lil Mystic...',
+        'Design published and catalog refreshed successfully!'
+      );
+    });
+  }
+
+  if (downloadButton) {
+    downloadButton.addEventListener('click', async () => {
+      await downloadDesignConcept();
+    });
+  }
 }
 
-async function generateDesignIdeas() {
+async function generateDesignIdeas(prompt = null, opts = {}) {
   const output = document.getElementById('design-ideas');
-  const theme = document.getElementById('design-theme')?.value.trim() || 'cosmic streetwear with legacy vibes';
-  if (!output) return;
-  output.textContent = 'Crafting design concepts...';
+  const designPrompt = prompt || document.getElementById('ws-design-prompt')?.value.trim() || 'cosmic streetwear with legacy vibes';
+  const status = document.getElementById('design-export-status');
+  if (!output) return [];
+  status && (status.textContent = 'Crafting design concepts...');
+  if (prompt && document.getElementById('ws-design-prompt')) {
+    document.getElementById('ws-design-prompt').value = designPrompt;
+  }
+  if (opts.medium && document.getElementById('ws-design-medium')) {
+    document.getElementById('ws-design-medium').value = opts.medium;
+  }
+  if (opts.style && document.getElementById('ws-design-style')) {
+    document.getElementById('ws-design-style').value = opts.style;
+  }
+  if (opts.palette && document.getElementById('ws-design-palette')) {
+    document.getElementById('ws-design-palette').value = opts.palette;
+  }
 
   try {
     if (window.nlblAI && !window.nlblAI.isReady) {
@@ -764,10 +1174,144 @@ async function generateDesignIdeas() {
 
     state.studio.generatedDesignIdeas = ideas;
     output.innerHTML = ideas.map((idea) => `<div class="design-idea">${escapeHTML(idea)}</div>`).join('');
+    status && (status.textContent = 'Design concepts ready. Save or download them anytime.');
   } catch (err) {
     console.error('Design idea generation failed:', err);
     output.textContent = 'Unable to generate design ideas right now.';
+    status && (status.textContent = 'Design generation failed. Try again.');
   }
+}
+
+async function saveDesignConcept(btnElem) {
+  return WorkshopUI.runAction(
+    btnElem,
+    async () => {
+      if (!state.studio.generatedDesignIdeas?.length) {
+        throw new Error('No design concepts available to save. Generate them first.');
+      }
+
+      const prompt = document.getElementById('ws-design-prompt')?.value.trim() || 'Untitled Concept';
+      const medium = document.getElementById('ws-design-medium')?.value.trim() || 'apparel';
+      const style = document.getElementById('ws-design-style')?.value.trim() || 'cosmic';
+      const palette = document.getElementById('ws-design-palette')?.value.trim() || 'galaxy';
+      const outputHtml = state.studio.generatedDesignIdeas.join('\n\n');
+
+      WorkshopUI.logConsole(`🎨 [Design Lab] Saving design concept "${prompt}"...`);
+      return await saveStudioExport('design_lab', prompt, {
+        prompt,
+        medium,
+        style,
+        palette,
+        concepts: state.studio.generatedDesignIdeas,
+        output: outputHtml,
+        generatedAt: new Date().toISOString(),
+      });
+    },
+    'Saving design concept...',
+    'Design concept successfully saved to studio vault!'
+  );
+}
+
+async function downloadDesignConcept() {
+  if (!state.studio.generatedDesignIdeas?.length) {
+    WorkshopUI.notify('No generated design ideas to download.', 'warning');
+    return;
+  }
+
+  const payload = {
+    prompt: document.getElementById('ws-design-prompt')?.value.trim() || 'Untitled Concept',
+    medium: document.getElementById('ws-design-medium')?.value.trim() || 'apparel',
+    style: document.getElementById('ws-design-style')?.value.trim() || 'cosmic',
+    palette: document.getElementById('ws-design-palette')?.value.trim() || 'galaxy',
+    concepts: state.studio.generatedDesignIdeas,
+    downloadedAt: new Date().toISOString(),
+  };
+
+  downloadJsonFile(`design-concept-${Date.now()}.json`, payload);
+}
+
+async function saveMusicComposition(btnElem) {
+  return WorkshopUI.runAction(
+    btnElem,
+    async () => {
+      if (!state.studio.composedSong) {
+        throw new Error('Compose the song first before saving it.');
+      }
+
+      const title = document.getElementById('ws-music-title')?.value.trim() || 'Untitled Track';
+      const genre = document.getElementById('ws-music-genre')?.value.trim() || 'hip-hop';
+      const bpm = document.getElementById('ws-music-bpm')?.value.trim() || '120';
+      const key = document.getElementById('ws-music-key')?.value.trim() || 'C minor';
+      const lyrics = document.getElementById('ws-music-lyrics')?.value.trim() || state.studio.generatedLyrics || '';
+      const audioUrl = document.getElementById('ws-music-output')?.querySelector('audio')?.src || null;
+
+      WorkshopUI.logConsole(`🎵 [Music Studio] Saving composition "${title}"...`);
+      return await saveStudioExport('music_studio', title, {
+        title,
+        genre,
+        bpm,
+        key,
+        lyrics,
+        beat: state.studio.generatedBeat || '',
+        composition: state.studio.composedSong,
+        audioUrl,
+        savedAt: new Date().toISOString(),
+      });
+    },
+    'Saving composition...',
+    'Music composition successfully saved to studio vault!'
+  );
+}
+
+async function downloadMusicComposition() {
+  if (!state.studio.composedSong) {
+    WorkshopUI.notify('No composition available to download. Compose a song first.', 'warning');
+    return;
+  }
+
+  const payload = {
+    title: document.getElementById('ws-music-title')?.value.trim() || 'Untitled Track',
+    genre: document.getElementById('ws-music-genre')?.value.trim() || 'hip-hop',
+    bpm: document.getElementById('ws-music-bpm')?.value.trim() || '120',
+    key: document.getElementById('ws-music-key')?.value.trim() || 'C minor',
+    lyrics: document.getElementById('ws-music-lyrics')?.value.trim() || state.studio.generatedLyrics || '',
+    composition: state.studio.composedSong,
+    downloadedAt: new Date().toISOString(),
+  };
+
+  downloadJsonFile(`music-composition-${Date.now()}.json`, payload);
+}
+
+function downloadJsonFile(filename, data) {
+  const content = JSON.stringify(data, null, 2);
+  const blob = new Blob([content], { type: 'application/json;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement('a');
+  anchor.href = url;
+  anchor.download = filename;
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+  URL.revokeObjectURL(url);
+}
+
+async function saveStudioExport(type, title, payload) {
+  const token = localStorage.getItem('ADMIN_API_TOKEN') || '';
+  const headers = { 'Content-Type': 'application/json' };
+  if (token) headers.Authorization = `Bearer ${token}`;
+
+  const response = await fetchJSON('/api/studio', {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({ type, title, payload }),
+  });
+
+  if (!response.success) {
+    throw new Error(response.error || 'Failed to save export to database.');
+  }
+
+  WorkshopUI.notify('Studio export saved successfully.', 'success');
+  return response;
 }
 
 function logWorkshopEvent(msg, type = 'system') {
@@ -1481,13 +2025,23 @@ async function saveProduct() {
     const fd = new FormData();
     fd.append("file", fileInput.files[0]);
 
-    const uploadRes = await fetch("/api/product-upload", { method: "POST", credentials: 'include', body: fd });
-    const uploadData = await uploadRes.json();
-    if (!uploadData.success) {
-      statusEl.textContent = uploadData.error || "Image upload failed.";
+    const uploadRes = await fetch("/api/uploads", { method: "POST", credentials: 'include', body: fd });
+    let uploadData;
+    try {
+      uploadData = await uploadRes.json();
+    } catch (err) {
+      statusEl.textContent = "Image upload failed (invalid response).";
       return;
     }
-    imageUrl = uploadData.image_url || uploadData.url || uploadData.filename;
+    if (!uploadData || !uploadData.success) {
+      statusEl.textContent = (uploadData && (uploadData.error || uploadData.message)) || "Image upload failed.";
+      return;
+    }
+    imageUrl = resolveUploadUrl(uploadData) || uploadData.filename || null;
+    if (!imageUrl) {
+      statusEl.textContent = "Image uploaded but URL could not be resolved.";
+      return;
+    }
   }
 
   const payload = { name, description, price, category, active };

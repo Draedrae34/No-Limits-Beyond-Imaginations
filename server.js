@@ -18,22 +18,23 @@ const mimeTypes = {
   '.ico': 'image/x-icon'
 };
 
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
   const requestPath = decodeURIComponent((req.url || '/').split('?')[0]);
   let filePath = path.join(PUBLIC_DIR, requestPath === '/' ? 'index.html' : requestPath);
-  
+
   // Security: prevent directory traversal
-  if (!filePath.startsWith(PUBLIC_DIR)) {
+  const publicDirWithSep = PUBLIC_DIR.endsWith(path.sep) ? PUBLIC_DIR : PUBLIC_DIR + path.sep;
+  if (!filePath.startsWith(publicDirWithSep)) {
     res.writeHead(403);
     res.end('Forbidden');
     return;
   }
-  
+
   const ext = path.extname(filePath);
   const contentType = mimeTypes[ext] || 'application/octet-stream';
-    
+
   try {
-    const content = fs.readFileSync(filePath);
+    const content = await fs.promises.readFile(filePath);
     res.writeHead(200, { 'Content-Type': contentType });
     res.end(content);
   } catch (e) {
