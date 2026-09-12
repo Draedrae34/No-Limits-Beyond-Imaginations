@@ -1,0 +1,475 @@
+{
+  "pillar": "Pillar 2: AI Pattern Recognition in Ancient Texts",
+  "generated": "2026-08-28T14:03:46.774317Z",
+  "corpora_analyzed": 6,
+  "analyses": [
+    {
+      "name": "KJV Bible (sample)",
+      "total_segments": 100,
+      "total_words": 49888,
+      "unique_words": 2431,
+      "mean_ttr": 0.346,
+      "ttr_std": 0.0375,
+      "top_bursty_terms": [
+        {
+          "term": "duke",
+          "count": 46,
+          "burstiness": -0.0309
+        },
+        {
+          "term": "abimelech",
+          "count": 40,
+          "burstiness": -0.087
+        },
+        {
+          "term": "master",
+          "count": 37,
+          "burstiness": -0.087
+        },
+        {
+          "term": "abram",
+          "count": 76,
+          "burstiness": -0.0989
+        },
+        {
+          "term": "noah",
+          "count": 53,
+          "burstiness": -0.0989
+        },
+        {
+          "term": "lived",
+          "count": 46,
+          "burstiness": -0.0989
+        },
+        {
+          "term": "waters",
+          "count": 42,
+          "burstiness": -0.0989
+        },
+        {
+          "term": "dream",
+          "count": 40,
+          "burstiness": -0.1111
+        },
+        {
+          "term": "begat",
+          "count": 81,
+          "burstiness": -0.1236
+        },
+        {
+          "term": "king",
+          "count": 50,
+          "burstiness": -0.1494
+        }
+      ],
+      "cross_corpus_patterns": {
+        "Book of Enoch (sample)": {
+          "error": "Corpora not analyzed"
+        },
+        "Gospel of Thomas": {
+          "error": "Corpora not analyzed"
+        },
+        "Corpus Hermeticum (sample)": {
+          "error": "Corpora not analyzed"
+        },
+        "Dead Sea Scrolls (sample)": {
+          "error": "Corpora not analyzed"
+        },
+        "Nag Hammadi Library (sample)": {
+          "error": "Corpora not analyzed"
+        }
+      },
+      "historical_validations": []
+    },
+    {
+      "name": "Book of Enoch (sample)",
+      "total_segments": 100,
+      "total_words": 49853,
+      "unique_words": 3267,
+      "mean_ttr": 0.3889,
+      "ttr_std": 0.0612,
+      "top_bursty_terms": [
+        {
+          "term": "footnote",
+          "count": 34,
+          "burstiness": -0.0204
+        },
+        {
+          "term": "mountain",
+          "count": 34,
+          "burstiness": -0.087
+        },
+        {
+          "term": "sets",
+          "count": 39,
+          "burstiness": -0.0989
+        },
+        {
+          "term": "trees",
+          "count": 41,
+          "burstiness": -0.1111
+        },
+        {
+          "term": "rises",
+          "count": 51,
+          "burstiness": -0.1236
+        },
+        {
+          "term": "portal",
+          "count": 80,
+          "burstiness": -0.1628
+        },
+        {
+          "term": "waters",
+          "count": 34,
+          "burstiness": -0.1628
+        },
+        {
+          "term": "parable",
+          "count": 34,
+          "burstiness": -0.1628
+        },
+        {
+          "term": "winds",
+          "count": 34,
+          "burstiness": -0.1628
+        },
+        {
+          "term": "portals",
+          "count": 50,
+          "burstiness": -0.1905
+        }
+      ],
+      "cross_corpus_patterns": {
+        "KJV Bible (sample)": {
+          "error": "Corpora not analyzed"
+        },
+        "Gospel of Thomas": {
+          "error": "Corpora not analyzed"
+        },
+        "Corpus Hermeticum (sample)": {
+          "error": "Corpora not analyzed"
+        },
+        "Dead Sea Scrolls (sample)": {
+          "error": "Corpora not analyzed"
+        },
+        "Nag Hammadi Library (sample)": {
+          "error": "Corpora not analyzed"
+        }
+      },
+      "historical_validations": []
+    },
+    {
+      "name": "Gospel of Thomas",
+      "total_segments": 94,
+      "total_words": 45825,
+      "unique_words": 583,
+      "mean_ttr": 0.3857,
+      "ttr_std": 0.0178,
+      "top_bursty_terms": [
+        {
+          "term": "said",
+          "count": 1622,
+          "burstiness": 0.0
+        },
+        {
+          "term": "thomas",
+          "count": 1567,
+          "burstiness": 0.0
+        },
+        {
+          "term": "saying",
+          "count": 1567,
+          "burstiness": 0.0
+        },
+        {
+          "term": "jesus",
+          "count": 1268,
+          "burstiness": 0.0
+        },
+        {
+          "term": "will",
+          "count": 1044,
+          "burstiness": 0.0
+        },
+        {
+          "term": "that",
+          "count": 567,
+          "burstiness": 0.0
+        },
+        {
+          "term": "they",
+          "count": 507,
+          "burstiness": 0.0
+        },
+        {
+          "term": "from",
+          "count": 501,
+          "burstiness": 0.0
+        },
+        {
+          "term": "them",
+          "count": 358,
+          "burstiness": 0.0
+        },
+        {
+          "term": "when",
+          "count": 230,
+          "burstiness": 0.0
+        }
+      ],
+      "cross_corpus_patterns": {
+        "KJV Bible (sample)": {
+          "error": "Corpora not analyzed"
+        },
+        "Book of Enoch (sample)": {
+          "error": "Corpora not analyzed"
+        },
+        "Corpus Hermeticum (sample)": {
+          "error": "Corpora not analyzed"
+        },
+        "Dead Sea Scrolls (sample)": {
+          "error": "Corpora not analyzed"
+        },
+        "Nag Hammadi Library (sample)": {
+          "error": "Corpora not analyzed"
+        }
+      },
+      "historical_validations": []
+    },
+    {
+      "name": "Corpus Hermeticum (sample)",
+      "total_segments": 100,
+      "total_words": 49886,
+      "unique_words": 3263,
+      "mean_ttr": 0.4088,
+      "ttr_std": 0.0409,
+      "top_bursty_terms": [
+        {
+          "term": "that",
+          "count": 1068,
+          "burstiness": 0.0
+        },
+        {
+          "term": "souls",
+          "count": 40,
+          "burstiness": -0.2048
+        },
+        {
+          "term": "manifest",
+          "count": 64,
+          "burstiness": -0.2195
+        },
+        {
+          "term": "trismegistus",
+          "count": 39,
+          "burstiness": -0.2195
+        },
+        {
+          "term": "moved",
+          "count": 67,
+          "burstiness": -0.25
+        },
+        {
+          "term": "powers",
+          "count": 63,
+          "burstiness": -0.25
+        },
+        {
+          "term": "brought",
+          "count": 41,
+          "burstiness": -0.2658
+        },
+        {
+          "term": "asclepius",
+          "count": 41,
+          "burstiness": -0.2658
+        },
+        {
+          "term": "forth",
+          "count": 40,
+          "burstiness": -0.2821
+        },
+        {
+          "term": "gnosis",
+          "count": 39,
+          "burstiness": -0.2821
+        }
+      ],
+      "cross_corpus_patterns": {
+        "KJV Bible (sample)": {
+          "error": "Corpora not analyzed"
+        },
+        "Book of Enoch (sample)": {
+          "error": "Corpora not analyzed"
+        },
+        "Gospel of Thomas": {
+          "error": "Corpora not analyzed"
+        },
+        "Dead Sea Scrolls (sample)": {
+          "error": "Corpora not analyzed"
+        },
+        "Nag Hammadi Library (sample)": {
+          "error": "Corpora not analyzed"
+        }
+      },
+      "historical_validations": []
+    },
+    {
+      "name": "Dead Sea Scrolls (sample)",
+      "total_segments": 100,
+      "total_words": 49792,
+      "unique_words": 3475,
+      "mean_ttr": 0.3687,
+      "ttr_std": 0.1896,
+      "top_bursty_terms": [
+        {
+          "term": "quot",
+          "count": 256,
+          "burstiness": -0.0417
+        },
+        {
+          "term": "child",
+          "count": 35,
+          "burstiness": -0.0417
+        },
+        {
+          "term": "signed",
+          "count": 186,
+          "burstiness": -0.0753
+        },
+        {
+          "term": "script",
+          "count": 37,
+          "burstiness": -0.087
+        },
+        {
+          "term": "login",
+          "count": 147,
+          "burstiness": -0.0989
+        },
+        {
+          "term": "column",
+          "count": 65,
+          "burstiness": -0.0989
+        },
+        {
+          "term": "upload",
+          "count": 45,
+          "burstiness": -0.0989
+        },
+        {
+          "term": "hamburger",
+          "count": 40,
+          "burstiness": -0.0989
+        },
+        {
+          "term": "user",
+          "count": 38,
+          "burstiness": -0.0989
+        },
+        {
+          "term": "transition",
+          "count": 36,
+          "burstiness": -0.0989
+        }
+      ],
+      "cross_corpus_patterns": {
+        "KJV Bible (sample)": {
+          "error": "Corpora not analyzed"
+        },
+        "Book of Enoch (sample)": {
+          "error": "Corpora not analyzed"
+        },
+        "Gospel of Thomas": {
+          "error": "Corpora not analyzed"
+        },
+        "Corpus Hermeticum (sample)": {
+          "error": "Corpora not analyzed"
+        },
+        "Nag Hammadi Library (sample)": {
+          "error": "Corpora not analyzed"
+        }
+      },
+      "historical_validations": []
+    },
+    {
+      "name": "Nag Hammadi Library (sample)",
+      "total_segments": 100,
+      "total_words": 49733,
+      "unique_words": 2990,
+      "mean_ttr": 0.3464,
+      "ttr_std": 0.1631,
+      "top_bursty_terms": [
+        {
+          "term": "quot",
+          "count": 233,
+          "burstiness": -0.0417
+        },
+        {
+          "term": "desktop",
+          "count": 92,
+          "burstiness": -0.0753
+        },
+        {
+          "term": "signed",
+          "count": 199,
+          "burstiness": -0.087
+        },
+        {
+          "term": "login",
+          "count": 144,
+          "burstiness": -0.087
+        },
+        {
+          "term": "column",
+          "count": 61,
+          "burstiness": -0.087
+        },
+        {
+          "term": "hamburger",
+          "count": 44,
+          "burstiness": -0.0989
+        },
+        {
+          "term": "transition",
+          "count": 39,
+          "burstiness": -0.0989
+        },
+        {
+          "term": "grid",
+          "count": 146,
+          "burstiness": -0.1236
+        },
+        {
+          "term": "page",
+          "count": 65,
+          "burstiness": -0.1236
+        },
+        {
+          "term": "upload",
+          "count": 49,
+          "burstiness": -0.1236
+        }
+      ],
+      "cross_corpus_patterns": {
+        "KJV Bible (sample)": {
+          "error": "Corpora not analyzed"
+        },
+        "Book of Enoch (sample)": {
+          "error": "Corpora not analyzed"
+        },
+        "Gospel of Thomas": {
+          "error": "Corpora not analyzed"
+        },
+        "Corpus Hermeticum (sample)": {
+          "error": "Corpora not analyzed"
+        },
+        "Dead Sea Scrolls (sample)": {
+          "error": "Corpora not analyzed"
+        }
+      },
+      "historical_validations": []
+    }
+  ]
+}

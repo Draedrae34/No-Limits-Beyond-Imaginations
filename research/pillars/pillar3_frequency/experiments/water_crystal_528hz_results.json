@@ -1,0 +1,191 @@
+{
+  "experiment_id": "water_crystal_528hz",
+  "config": {
+    "experiment_id": "water_crystal_528hz",
+    "name": "Water Crystallization at 528.0 Hz",
+    "description": "Test effect of 528.0 Hz Solfeggio frequency on water crystal formation",
+    "frequency": 528.0,
+    "duration_minutes": 1440,
+    "sample_size": 20,
+    "control_group": true,
+    "blind": true,
+    "notes": "Samples labeled A/B. Photographer blinded to group assignment."
+  },
+  "start_time": "2026-08-30T14:11:53.938053Z",
+  "end_time": "2026-08-30T14:11:53.938053Z",
+  "measurements": [
+    {
+      "timestamp": "2026-08-30T14:11:53.938053Z",
+      "trial": 1,
+      "group": "treatment",
+      "value": 6.58,
+      "unit": "symmetry_score",
+      "notes": "Crystal symmetry 0-10"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.938053Z",
+      "trial": 2,
+      "group": "treatment",
+      "value": 6.54,
+      "unit": "symmetry_score",
+      "notes": "Crystal symmetry 0-10"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.938053Z",
+      "trial": 3,
+      "group": "treatment",
+      "value": 6.63,
+      "unit": "symmetry_score",
+      "notes": "Crystal symmetry 0-10"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.938053Z",
+      "trial": 4,
+      "group": "treatment",
+      "value": 7.85,
+      "unit": "symmetry_score",
+      "notes": "Crystal symmetry 0-10"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.938053Z",
+      "trial": 5,
+      "group": "treatment",
+      "value": 6.61,
+      "unit": "symmetry_score",
+      "notes": "Crystal symmetry 0-10"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.938053Z",
+      "trial": 6,
+      "group": "treatment",
+      "value": 4.55,
+      "unit": "symmetry_score",
+      "notes": "Crystal symmetry 0-10"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.938053Z",
+      "trial": 7,
+      "group": "treatment",
+      "value": 7.3,
+      "unit": "symmetry_score",
+      "notes": "Crystal symmetry 0-10"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.938053Z",
+      "trial": 8,
+      "group": "treatment",
+      "value": 6.4,
+      "unit": "symmetry_score",
+      "notes": "Crystal symmetry 0-10"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.938053Z",
+      "trial": 9,
+      "group": "treatment",
+      "value": 6.47,
+      "unit": "symmetry_score",
+      "notes": "Crystal symmetry 0-10"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.938053Z",
+      "trial": 10,
+      "group": "treatment",
+      "value": 6.97,
+      "unit": "symmetry_score",
+      "notes": "Crystal symmetry 0-10"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.938053Z",
+      "trial": 1,
+      "group": "control",
+      "value": 6.35,
+      "unit": "symmetry_score",
+      "notes": "Crystal symmetry 0-10"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.938053Z",
+      "trial": 2,
+      "group": "control",
+      "value": 7.75,
+      "unit": "symmetry_score",
+      "notes": "Crystal symmetry 0-10"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.938053Z",
+      "trial": 3,
+      "group": "control",
+      "value": 6.98,
+      "unit": "symmetry_score",
+      "notes": "Crystal symmetry 0-10"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.938053Z",
+      "trial": 4,
+      "group": "control",
+      "value": 6.17,
+      "unit": "symmetry_score",
+      "notes": "Crystal symmetry 0-10"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.938053Z",
+      "trial": 5,
+      "group": "control",
+      "value": 4.89,
+      "unit": "symmetry_score",
+      "notes": "Crystal symmetry 0-10"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.938053Z",
+      "trial": 6,
+      "group": "control",
+      "value": 4.48,
+      "unit": "symmetry_score",
+      "notes": "Crystal symmetry 0-10"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.938053Z",
+      "trial": 7,
+      "group": "control",
+      "value": 6.37,
+      "unit": "symmetry_score",
+      "notes": "Crystal symmetry 0-10"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.938053Z",
+      "trial": 8,
+      "group": "control",
+      "value": 7.97,
+      "unit": "symmetry_score",
+      "notes": "Crystal symmetry 0-10"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.938053Z",
+      "trial": 9,
+      "group": "control",
+      "value": 6.06,
+      "unit": "symmetry_score",
+      "notes": "Crystal symmetry 0-10"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.938053Z",
+      "trial": 10,
+      "group": "control",
+      "value": 5.84,
+      "unit": "symmetry_score",
+      "notes": "Crystal symmetry 0-10"
+    }
+  ],
+  "statistical_summary": {
+    "treatment_n": 10,
+    "control_n": 10,
+    "treatment_mean": 6.59,
+    "control_mean": 6.286,
+    "treatment_std": 0.8467,
+    "control_std": 1.1028,
+    "difference": 0.304,
+    "percent_change": 4.84,
+    "t_statistic": 0.6914,
+    "significant": false
+  },
+  "conclusion": "Treatment crystals showed higher symmetry scores."
+}

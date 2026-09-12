@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Forbidden Ideas Semantic Migration Graph</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body { background-color: #0b0d17; color: #f8fafc; font-family: sans-serif; margin: 0; overflow: hidden; }
+        #header { position: absolute; top: 20px; left: 20px; z-index: 10; }
+        h1 { margin: 0; font-size: 1.4rem; color: #38bdf8; }
+        p { margin-top: 4px; font-size: 0.85rem; color: #94a3b8; }
+        #filters { position: absolute; top: 20px; right: 20px; z-index: 10; background: rgba(11,13,23,0.9); padding: 10px; border-radius: 8px; border: 1px solid #334155; }
+        .filter-btn { display: block; margin: 5px 0; padding: 6px 12px; border: 1px solid #475569; background: #1e293b; color: #f8fafc; cursor: pointer; border-radius: 4px; font-size: 12px; }
+        .filter-btn:hover { background: #334155; }
+        .filter-btn.active { border-color: #38bdf8; background: #0c4a6e; }
+        svg { width: 100vw; height: 100vh; }
+        .link { stroke-opacity: 0.6; transition: stroke-opacity 0.3s; }
+        .link.hidden { stroke-opacity: 0.05; }
+        .node circle { fill: #6366f1; stroke: #38bdf8; stroke-width: 2px; transition: fill 0.3s; }
+        .node text { fill: #f8fafc; font-size: 12px; font-weight: bold; pointer-events: none; }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>Forbidden Ideas Migration Network</h1>
+        <p>Directed Semantic Overlap across Non-Canonical Corpora</p>
+    </div>
+    <div id="filters">
+        <strong style="color:#38bdf8;font-size:12px;">Filter by Concept:</strong>
+        <button class="filter-btn active" data-concept="all">All Concepts</button>
+        <button class="filter-btn" data-concept="Angelology & Watchers" style="border-color:#ef4444">Angelology & Watchers</button><button class="filter-btn" data-concept="Gnosis & Divine Light" style="border-color:#38bdf8">Gnosis & Divine Light</button><button class="filter-btn" data-concept="Archons & World Rulers" style="border-color:#a855f7">Archons & World Rulers</button><button class="filter-btn" data-concept="Radical Cosmic Dualism" style="border-color:#22c55e">Radical Cosmic Dualism</button><button class="filter-btn" data-concept="Ascent & Celestial Spheres" style="border-color:#f59e0b">Ascent & Celestial Spheres</button>
+    </div>
+    <svg></svg>
+    <script>
+        const data = {"nodes": [{"id": "KJV Bible (Canonical)"}, {"id": "Book of Enoch (Pseudepigrapha)"}, {"id": "Gospel of Thomas (Nag Hammadi)"}, {"id": "Corpus Hermeticum (Hermetica)"}, {"id": "Dead Sea Scrolls (Essene Dualism)"}, {"id": "Nag Hammadi Library (Gnostic)"}], "links": [{"source": "KJV Bible (Canonical)", "target": "Book of Enoch (Pseudepigrapha)", "weight": 0.941, "concepts": ["Angelology & Watchers", "Gnosis & Divine Light", "Archons & World Rulers", "Ascent & Celestial Spheres"]}, {"source": "KJV Bible (Canonical)", "target": "Gospel of Thomas (Nag Hammadi)", "weight": 0.61, "concepts": ["Gnosis & Divine Light"]}, {"source": "KJV Bible (Canonical)", "target": "Corpus Hermeticum (Hermetica)", "weight": 0.669, "concepts": ["Gnosis & Divine Light", "Archons & World Rulers", "Radical Cosmic Dualism"]}, {"source": "KJV Bible (Canonical)", "target": "Dead Sea Scrolls (Essene Dualism)", "weight": 0.892, "concepts": ["Angelology & Watchers", "Gnosis & Divine Light", "Archons & World Rulers", "Radical Cosmic Dualism", "Ascent & Celestial Spheres"]}, {"source": "KJV Bible (Canonical)", "target": "Nag Hammadi Library (Gnostic)", "weight": 0.732, "concepts": ["Angelology & Watchers", "Gnosis & Divine Light", "Archons & World Rulers", "Radical Cosmic Dualism", "Ascent & Celestial Spheres"]}, {"source": "Book of Enoch (Pseudepigrapha)", "target": "Gospel of Thomas (Nag Hammadi)", "weight": 0.767, "concepts": ["Gnosis & Divine Light"]}, {"source": "Book of Enoch (Pseudepigrapha)", "target": "Corpus Hermeticum (Hermetica)", "weight": 0.703, "concepts": ["Gnosis & Divine Light", "Archons & World Rulers"]}, {"source": "Book of Enoch (Pseudepigrapha)", "target": "Dead Sea Scrolls (Essene Dualism)", "weight": 0.936, "concepts": ["Angelology & Watchers", "Gnosis & Divine Light", "Archons & World Rulers", "Ascent & Celestial Spheres"]}, {"source": "Book of Enoch (Pseudepigrapha)", "target": "Nag Hammadi Library (Gnostic)", "weight": 0.809, "concepts": ["Angelology & Watchers", "Gnosis & Divine Light", "Archons & World Rulers", "Ascent & Celestial Spheres"]}, {"source": "Gospel of Thomas (Nag Hammadi)", "target": "Corpus Hermeticum (Hermetica)", "weight": 0.85, "concepts": ["Gnosis & Divine Light"]}, {"source": "Gospel of Thomas (Nag Hammadi)", "target": "Dead Sea Scrolls (Essene Dualism)", "weight": 0.851, "concepts": ["Gnosis & Divine Light"]}, {"source": "Gospel of Thomas (Nag Hammadi)", "target": "Nag Hammadi Library (Gnostic)", "weight": 0.942, "concepts": ["Gnosis & Divine Light"]}, {"source": "Corpus Hermeticum (Hermetica)", "target": "Dead Sea Scrolls (Essene Dualism)", "weight": 0.829, "concepts": ["Gnosis & Divine Light", "Archons & World Rulers", "Radical Cosmic Dualism"]}, {"source": "Corpus Hermeticum (Hermetica)", "target": "Nag Hammadi Library (Gnostic)", "weight": 0.971, "concepts": ["Gnosis & Divine Light", "Archons & World Rulers", "Radical Cosmic Dualism"]}, {"source": "Dead Sea Scrolls (Essene Dualism)", "target": "Nag Hammadi Library (Gnostic)", "weight": 0.907, "concepts": ["Angelology & Watchers", "Gnosis & Divine Light", "Archons & World Rulers", "Radical Cosmic Dualism", "Ascent & Celestial Spheres"]}], "link_concepts": {"KJV Bible (Canonical)__Book of Enoch (Pseudepigrapha)": ["Angelology & Watchers", "Gnosis & Divine Light", "Archons & World Rulers", "Ascent & Celestial Spheres"], "KJV Bible (Canonical)__Gospel of Thomas (Nag Hammadi)": ["Gnosis & Divine Light"], "KJV Bible (Canonical)__Corpus Hermeticum (Hermetica)": ["Gnosis & Divine Light", "Archons & World Rulers", "Radical Cosmic Dualism"], "KJV Bible (Canonical)__Dead Sea Scrolls (Essene Dualism)": ["Angelology & Watchers", "Gnosis & Divine Light", "Archons & World Rulers", "Radical Cosmic Dualism", "Ascent & Celestial Spheres"], "KJV Bible (Canonical)__Nag Hammadi Library (Gnostic)": ["Angelology & Watchers", "Gnosis & Divine Light", "Archons & World Rulers", "Radical Cosmic Dualism", "Ascent & Celestial Spheres"], "Book of Enoch (Pseudepigrapha)__Gospel of Thomas (Nag Hammadi)": ["Gnosis & Divine Light"], "Book of Enoch (Pseudepigrapha)__Corpus Hermeticum (Hermetica)": ["Gnosis & Divine Light", "Archons & World Rulers"], "Book of Enoch (Pseudepigrapha)__Dead Sea Scrolls (Essene Dualism)": ["Angelology & Watchers", "Gnosis & Divine Light", "Archons & World Rulers", "Ascent & Celestial Spheres"], "Book of Enoch (Pseudepigrapha)__Nag Hammadi Library (Gnostic)": ["Angelology & Watchers", "Gnosis & Divine Light", "Archons & World Rulers", "Ascent & Celestial Spheres"], "Gospel of Thomas (Nag Hammadi)__Corpus Hermeticum (Hermetica)": ["Gnosis & Divine Light"], "Gospel of Thomas (Nag Hammadi)__Dead Sea Scrolls (Essene Dualism)": ["Gnosis & Divine Light"], "Gospel of Thomas (Nag Hammadi)__Nag Hammadi Library (Gnostic)": ["Gnosis & Divine Light"], "Corpus Hermeticum (Hermetica)__Dead Sea Scrolls (Essene Dualism)": ["Gnosis & Divine Light", "Archons & World Rulers", "Radical Cosmic Dualism"], "Corpus Hermeticum (Hermetica)__Nag Hammadi Library (Gnostic)": ["Gnosis & Divine Light", "Archons & World Rulers", "Radical Cosmic Dualism"], "Dead Sea Scrolls (Essene Dualism)__Nag Hammadi Library (Gnostic)": ["Angelology & Watchers", "Gnosis & Divine Light", "Archons & World Rulers", "Radical Cosmic Dualism", "Ascent & Celestial Spheres"]}};
+        const conceptColors = {"Angelology & Watchers": "#ef4444", "Gnosis & Divine Light": "#38bdf8", "Archons & World Rulers": "#a855f7", "Radical Cosmic Dualism": "#22c55e", "Ascent & Celestial Spheres": "#f59e0b"};
+        const svg = d3.select("svg"),
+              width = window.innerWidth,
+              height = window.innerHeight;
+
+        const simulation = d3.forceSimulation(data.nodes)
+            .force("link", d3.forceLink(data.links).id(d => d.id).distance(220))
+            .force("charge", d3.forceManyBody().strength(-400))
+            .force("center", d3.forceCenter(width / 2, height / 2));
+
+        const link = svg.append("g")
+            .selectAll("line")
+            .data(data.links)
+            .enter().append("line")
+            .attr("class", "link")
+            .attr("stroke-width", d => d.weight * 8)
+            .attr("stroke", d => {
+                const concepts = d.concepts || [];
+                const primary = concepts[0] || "#38bdf8";
+                return conceptColors[primary] || "#38bdf8";
+            });
+
+        const node = svg.append("g")
+            .selectAll(".node")
+            .data(data.nodes)
+            .enter().append("g")
+            .attr("class", "node")
+            .call(d3.drag()
+                .on("start", dragstarted)
+                .on("drag", dragged)
+                .on("end", dragended));
+
+        node.append("circle")
+            .attr("r", 18);
+
+        node.append("text")
+            .attr("dx", 22)
+            .attr("dy", ".35em")
+            .text(d => d.id);
+
+        simulation.on("tick", () => {
+            link.attr("x1", d => d.source.x)
+                .attr("y1", d => d.source.y)
+                .attr("x2", d => d.target.x)
+                .attr("y2", d => d.target.y);
+
+            node.attr("transform", d => `translate(${d.x},${d.y})`);
+        });
+
+        function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x; d.fy = d.y;
+        }
+        function dragged(event, d) {
+            d.fx = event.x; d.fy = event.y;
+        }
+        function dragended(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null; d.fy = null;
+        }
+
+        // Concept filtering
+        d3.selectAll(".filter-btn").on("click", function() {
+            d3.selectAll(".filter-btn").classed("active", false);
+            d3.select(this).classed("active", true);
+            const concept = d3.select(this).attr("data-concept");
+            
+            link.classed("hidden", d => {
+                if (concept === "all") return false;
+                return !d.concepts || !d.concepts.includes(concept);
+            });
+            
+            // Adjust link opacity based on relevance
+            link.attr("stroke-opacity", d => {
+                if (concept === "all") return 0.6;
+                return d.concepts && d.concepts.includes(concept) ? 0.9 : 0.05;
+            });
+        });
+    </script>
+</body>
+</html>

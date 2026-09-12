@@ -1,0 +1,911 @@
+{
+  "pillar": "Pillar 4: The Simulation Signature (Fixed)",
+  "generated": "2026-08-29T02:37:02.706917Z",
+  "baselines_used": [
+    "shakespeare",
+    "moby_dick",
+    "pride_and_prejudice"
+  ],
+  "analyses": [
+    {
+      "name": "Gospel of Thomas",
+      "text_length": 14394,
+      "digital_root_test": {
+        "total_chars": 11713,
+        "distribution": {
+          "1": 1103,
+          "2": 2368,
+          "3": 1224,
+          "4": 817,
+          "5": 793,
+          "6": 1282,
+          "7": 1930,
+          "8": 1241,
+          "9": 955
+        },
+        "chi_squared": 1686.786,
+        "p_value": 0.0,
+        "significant": true,
+        "count_369": 3461,
+        "expected_369": 3904.3,
+        "ratio_369": 0.886,
+        "top_digits": [
+          [
+            2,
+            2368
+          ],
+          [
+            7,
+            1930
+          ],
+          [
+            6,
+            1282
+          ],
+          [
+            8,
+            1241
+          ],
+          [
+            3,
+            1224
+          ]
+        ]
+      },
+      "repetition_test": {
+        "repetition_ratio": 0.6214,
+        "baseline_ratio": 0.8776,
+        "deviation": -0.2562,
+        "interpretation": "lower repetition than baseline - more diverse vocabulary"
+      },
+      "frequency_test": {
+        "chi_squared": 0.0633,
+        "p_value": 0.961386,
+        "significant": false,
+        "top_letters": [
+          [
+            "e",
+            0.11735873485619162
+          ],
+          [
+            "s",
+            0.08674743364468696
+          ],
+          [
+            "t",
+            0.08397299546841765
+          ],
+          [
+            "a",
+            0.08388051419587533
+          ],
+          [
+            "o",
+            0.079903819476556
+          ],
+          [
+            "h",
+            0.07121057985757884
+          ],
+          [
+            "i",
+            0.07102561731249422
+          ],
+          [
+            "n",
+            0.06223989642097475
+          ],
+          [
+            "r",
+            0.04605567372607047
+          ],
+          [
+            "d",
+            0.0435586793674281
+          ]
+        ]
+      },
+      "composite_score": 0.6669
+    },
+    {
+      "name": "Dead Sea Scrolls (sample)",
+      "text_length": 200000,
+      "digital_root_test": {
+        "total_chars": 167217,
+        "distribution": {
+          "1": 14325,
+          "2": 32889,
+          "3": 18101,
+          "4": 11233,
+          "5": 10219,
+          "6": 21498,
+          "7": 21603,
+          "8": 19191,
+          "9": 18158
+        },
+        "chi_squared": 19654.3534,
+        "p_value": 0.0,
+        "significant": true,
+        "count_369": 57757,
+        "expected_369": 55739.0,
+        "ratio_369": 1.036,
+        "top_digits": [
+          [
+            2,
+            32889
+          ],
+          [
+            7,
+            21603
+          ],
+          [
+            6,
+            21498
+          ],
+          [
+            8,
+            19191
+          ],
+          [
+            9,
+            18158
+          ]
+        ]
+      },
+      "repetition_test": {
+        "repetition_ratio": 0.7606,
+        "baseline_ratio": 0.8776,
+        "deviation": -0.117,
+        "interpretation": "lower repetition than baseline - more diverse vocabulary"
+      },
+      "frequency_test": {
+        "chi_squared": 0.0531,
+        "p_value": 0.965258,
+        "significant": false,
+        "top_letters": [
+          [
+            "e",
+            0.12389745604557509
+          ],
+          [
+            "t",
+            0.09105195953246242
+          ],
+          [
+            "i",
+            0.07807353567102118
+          ],
+          [
+            "a",
+            0.07669187702583244
+          ],
+          [
+            "o",
+            0.0739678486068821
+          ],
+          [
+            "n",
+            0.06831679926660773
+          ],
+          [
+            "s",
+            0.06536358576433225
+          ],
+          [
+            "r",
+            0.06268539436204695
+          ],
+          [
+            "h",
+            0.05127852535769244
+          ],
+          [
+            "l",
+            0.04070981894378417
+          ]
+        ]
+      },
+      "composite_score": 0.5285
+    },
+    {
+      "name": "Book of Enoch (sample)",
+      "text_length": 200000,
+      "digital_root_test": {
+        "total_chars": 162683,
+        "distribution": {
+          "1": 15332,
+          "2": 36272,
+          "3": 16073,
+          "4": 8622,
+          "5": 13498,
+          "6": 18110,
+          "7": 21818,
+          "8": 19980,
+          "9": 12978
+        },
+        "chi_squared": 27472.5467,
+        "p_value": 0.0,
+        "significant": true,
+        "count_369": 47161,
+        "expected_369": 54227.7,
+        "ratio_369": 0.87,
+        "top_digits": [
+          [
+            2,
+            36272
+          ],
+          [
+            7,
+            21818
+          ],
+          [
+            8,
+            19980
+          ],
+          [
+            6,
+            18110
+          ],
+          [
+            3,
+            16073
+          ]
+        ]
+      },
+      "repetition_test": {
+        "repetition_ratio": 0.7872,
+        "baseline_ratio": 0.8776,
+        "deviation": -0.0904,
+        "interpretation": "similar repetition to baseline"
+      },
+      "frequency_test": {
+        "chi_squared": 0.0412,
+        "p_value": 0.973381,
+        "significant": false,
+        "top_letters": [
+          [
+            "e",
+            0.13390698335940834
+          ],
+          [
+            "t",
+            0.09797520073440995
+          ],
+          [
+            "a",
+            0.08052649952806402
+          ],
+          [
+            "h",
+            0.07993819578231469
+          ],
+          [
+            "n",
+            0.07286562108066873
+          ],
+          [
+            "o",
+            0.07225792270593863
+          ],
+          [
+            "s",
+            0.06409924878137081
+          ],
+          [
+            "i",
+            0.06208867224369998
+          ],
+          [
+            "r",
+            0.056341397189071774
+          ],
+          [
+            "d",
+            0.047374613723639464
+          ]
+        ]
+      },
+      "composite_score": 0.4841
+    },
+    {
+      "name": "Nag Hammadi Library (sample)",
+      "text_length": 200000,
+      "digital_root_test": {
+        "total_chars": 164538,
+        "distribution": {
+          "1": 14649,
+          "2": 33447,
+          "3": 17489,
+          "4": 10030,
+          "5": 12244,
+          "6": 20433,
+          "7": 21152,
+          "8": 19753,
+          "9": 15341
+        },
+        "chi_squared": 20349.7831,
+        "p_value": 0.0,
+        "significant": true,
+        "count_369": 53263,
+        "expected_369": 54846.0,
+        "ratio_369": 0.971,
+        "top_digits": [
+          [
+            2,
+            33447
+          ],
+          [
+            7,
+            21152
+          ],
+          [
+            6,
+            20433
+          ],
+          [
+            8,
+            19753
+          ],
+          [
+            3,
+            17489
+          ]
+        ]
+      },
+      "repetition_test": {
+        "repetition_ratio": 0.8287,
+        "baseline_ratio": 0.8776,
+        "deviation": -0.0489,
+        "interpretation": "similar repetition to baseline"
+      },
+      "frequency_test": {
+        "chi_squared": 0.0191,
+        "p_value": 0.979173,
+        "significant": false,
+        "top_letters": [
+          [
+            "e",
+            0.12679493318814244
+          ],
+          [
+            "t",
+            0.09103074591814646
+          ],
+          [
+            "o",
+            0.07940672907250579
+          ],
+          [
+            "i",
+            0.07649416503217596
+          ],
+          [
+            "a",
+            0.07162021214486726
+          ],
+          [
+            "h",
+            0.07119382326508925
+          ],
+          [
+            "n",
+            0.06644450712725412
+          ],
+          [
+            "s",
+            0.06382713538830907
+          ],
+          [
+            "r",
+            0.056880276562387255
+          ],
+          [
+            "d",
+            0.03822412311486916
+          ]
+        ]
+      },
+      "composite_score": 0.4149
+    },
+    {
+      "name": "Pride & Prejudice (control)",
+      "text_length": 200000,
+      "digital_root_test": {
+        "total_chars": 159309,
+        "distribution": {
+          "1": 13971,
+          "2": 33130,
+          "3": 15966,
+          "4": 9981,
+          "5": 11244,
+          "6": 19889,
+          "7": 21314,
+          "8": 19021,
+          "9": 14793
+        },
+        "chi_squared": 21711.1119,
+        "p_value": 0.0,
+        "significant": true,
+        "count_369": 50648,
+        "expected_369": 53103.0,
+        "ratio_369": 0.954,
+        "top_digits": [
+          [
+            2,
+            33130
+          ],
+          [
+            7,
+            21314
+          ],
+          [
+            6,
+            19889
+          ],
+          [
+            8,
+            19021
+          ],
+          [
+            3,
+            15966
+          ]
+        ]
+      },
+      "repetition_test": {
+        "repetition_ratio": 0.8358,
+        "baseline_ratio": 0.8776,
+        "deviation": -0.0418,
+        "interpretation": "similar repetition to baseline"
+      },
+      "frequency_test": {
+        "chi_squared": 0.0149,
+        "p_value": 0.982482,
+        "significant": false,
+        "top_letters": [
+          [
+            "e",
+            0.12729475475170637
+          ],
+          [
+            "t",
+            0.08745390629654885
+          ],
+          [
+            "a",
+            0.07794718340163256
+          ],
+          [
+            "i",
+            0.07402135702511073
+          ],
+          [
+            "o",
+            0.07269068063104514
+          ],
+          [
+            "n",
+            0.07134676367584458
+          ],
+          [
+            "s",
+            0.0631574766138589
+          ],
+          [
+            "h",
+            0.061383241421771456
+          ],
+          [
+            "r",
+            0.05945011949606424
+          ],
+          [
+            "d",
+            0.0411781451297906
+          ]
+        ]
+      },
+      "composite_score": 0.403
+    },
+    {
+      "name": "KJV Bible (sample)",
+      "text_length": 200000,
+      "digital_root_test": {
+        "total_chars": 160989,
+        "distribution": {
+          "1": 16350,
+          "2": 34798,
+          "3": 14486,
+          "4": 9876,
+          "5": 14727,
+          "6": 15870,
+          "7": 22685,
+          "8": 20691,
+          "9": 11506
+        },
+        "chi_squared": 25142.5458,
+        "p_value": 0.0,
+        "significant": true,
+        "count_369": 41862,
+        "expected_369": 53663.0,
+        "ratio_369": 0.78,
+        "top_digits": [
+          [
+            2,
+            34798
+          ],
+          [
+            7,
+            22685
+          ],
+          [
+            8,
+            20691
+          ],
+          [
+            1,
+            16350
+          ],
+          [
+            6,
+            15870
+          ]
+        ]
+      },
+      "repetition_test": {
+        "repetition_ratio": 0.836,
+        "baseline_ratio": 0.8776,
+        "deviation": -0.0416,
+        "interpretation": "similar repetition to baseline"
+      },
+      "frequency_test": {
+        "chi_squared": 0.059,
+        "p_value": 0.962713,
+        "significant": false,
+        "top_letters": [
+          [
+            "e",
+            0.1273193961295552
+          ],
+          [
+            "a",
+            0.10194197710155696
+          ],
+          [
+            "t",
+            0.0901617751359384
+          ],
+          [
+            "h",
+            0.08707487588233308
+          ],
+          [
+            "n",
+            0.07378837515620251
+          ],
+          [
+            "o",
+            0.06799284001486035
+          ],
+          [
+            "d",
+            0.060461346212300315
+          ],
+          [
+            "s",
+            0.057266371711304
+          ],
+          [
+            "i",
+            0.05454422641764328
+          ],
+          [
+            "r",
+            0.050322537066432506
+          ]
+        ]
+      },
+      "composite_score": 0.4029
+    },
+    {
+      "name": "Corpus Hermeticum (sample)",
+      "text_length": 200000,
+      "digital_root_test": {
+        "total_chars": 162717,
+        "distribution": {
+          "1": 16174,
+          "2": 32479,
+          "3": 17890,
+          "4": 8206,
+          "5": 11439,
+          "6": 19116,
+          "7": 22086,
+          "8": 21895,
+          "9": 13432
+        },
+        "chi_squared": 22449.4379,
+        "p_value": 0.0,
+        "significant": true,
+        "count_369": 50438,
+        "expected_369": 54239.0,
+        "ratio_369": 0.93,
+        "top_digits": [
+          [
+            2,
+            32479
+          ],
+          [
+            7,
+            22086
+          ],
+          [
+            8,
+            21895
+          ],
+          [
+            6,
+            19116
+          ],
+          [
+            3,
+            17890
+          ]
+        ]
+      },
+      "repetition_test": {
+        "repetition_ratio": 0.8369,
+        "baseline_ratio": 0.8776,
+        "deviation": -0.0407,
+        "interpretation": "similar repetition to baseline"
+      },
+      "frequency_test": {
+        "chi_squared": 0.0192,
+        "p_value": 0.978732,
+        "significant": false,
+        "top_letters": [
+          [
+            "e",
+            0.11925655851733664
+          ],
+          [
+            "t",
+            0.09728824510624831
+          ],
+          [
+            "o",
+            0.08693043587190864
+          ],
+          [
+            "n",
+            0.07375076645151081
+          ],
+          [
+            "a",
+            0.07368483513875244
+          ],
+          [
+            "i",
+            0.07044760768231656
+          ],
+          [
+            "s",
+            0.07021025495638644
+          ],
+          [
+            "h",
+            0.06949160364732022
+          ],
+          [
+            "r",
+            0.05354281909107092
+          ],
+          [
+            "d",
+            0.042479544810216714
+          ]
+        ]
+      },
+      "composite_score": 0.4012
+    },
+    {
+      "name": "Shakespeare (control)",
+      "text_length": 200000,
+      "digital_root_test": {
+        "total_chars": 158463,
+        "distribution": {
+          "1": 15470,
+          "2": 31517,
+          "3": 16401,
+          "4": 9756,
+          "5": 11047,
+          "6": 19283,
+          "7": 20116,
+          "8": 19782,
+          "9": 15091
+        },
+        "chi_squared": 18421.4258,
+        "p_value": 0.0,
+        "significant": true,
+        "count_369": 50775,
+        "expected_369": 52821.0,
+        "ratio_369": 0.961,
+        "top_digits": [
+          [
+            2,
+            31517
+          ],
+          [
+            7,
+            20116
+          ],
+          [
+            8,
+            19782
+          ],
+          [
+            6,
+            19283
+          ],
+          [
+            3,
+            16401
+          ]
+        ]
+      },
+      "repetition_test": {
+        "repetition_ratio": 0.8415,
+        "baseline_ratio": 0.8776,
+        "deviation": -0.0361,
+        "interpretation": "similar repetition to baseline"
+      },
+      "frequency_test": {
+        "chi_squared": 0.0018,
+        "p_value": 0.993476,
+        "significant": false,
+        "top_letters": [
+          [
+            "e",
+            0.12320983862675845
+          ],
+          [
+            "t",
+            0.09270448733784226
+          ],
+          [
+            "o",
+            0.08128751410430173
+          ],
+          [
+            "a",
+            0.07103226797171795
+          ],
+          [
+            "s",
+            0.067413554818163
+          ],
+          [
+            "h",
+            0.06599811720090534
+          ],
+          [
+            "i",
+            0.065617551426454
+          ],
+          [
+            "n",
+            0.0633742163349513
+          ],
+          [
+            "r",
+            0.06097731961516121
+          ],
+          [
+            "l",
+            0.04479993590471167
+          ]
+        ]
+      },
+      "composite_score": 0.3935
+    },
+    {
+      "name": "Moby Dick (control)",
+      "text_length": 200000,
+      "digital_root_test": {
+        "total_chars": 163324,
+        "distribution": {
+          "1": 14141,
+          "2": 33588,
+          "3": 16184,
+          "4": 10364,
+          "5": 11226,
+          "6": 18772,
+          "7": 22682,
+          "8": 20720,
+          "9": 15647
+        },
+        "chi_squared": 22076.7037,
+        "p_value": 0.0,
+        "significant": true,
+        "count_369": 50603,
+        "expected_369": 54441.3,
+        "ratio_369": 0.929,
+        "top_digits": [
+          [
+            2,
+            33588
+          ],
+          [
+            7,
+            22682
+          ],
+          [
+            8,
+            20720
+          ],
+          [
+            6,
+            18772
+          ],
+          [
+            3,
+            16184
+          ]
+        ]
+      },
+      "repetition_test": {
+        "repetition_ratio": 0.8433,
+        "baseline_ratio": 0.8776,
+        "deviation": -0.0343,
+        "interpretation": "similar repetition to baseline"
+      },
+      "frequency_test": {
+        "chi_squared": 0.0155,
+        "p_value": 0.982966,
+        "significant": false,
+        "top_letters": [
+          [
+            "e",
+            0.12187949414109105
+          ],
+          [
+            "t",
+            0.09126613054049
+          ],
+          [
+            "a",
+            0.08346929957501145
+          ],
+          [
+            "o",
+            0.07546610087512817
+          ],
+          [
+            "n",
+            0.06956527346949304
+          ],
+          [
+            "i",
+            0.06743710620844431
+          ],
+          [
+            "s",
+            0.06530893894739558
+          ],
+          [
+            "h",
+            0.06514126516319174
+          ],
+          [
+            "r",
+            0.054423040957546284
+          ],
+          [
+            "l",
+            0.043433959100494635
+          ]
+        ]
+      },
+      "composite_score": 0.3906
+    }
+  ]
+}

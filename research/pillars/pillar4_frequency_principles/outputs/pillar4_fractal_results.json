@@ -1,0 +1,1407 @@
+{
+  "pillar": "Pillar 4: Fractal Structure Analysis",
+  "generated": "2026-08-29T03:50:31.291261Z",
+  "analyses": [
+    {
+      "name": "Shakespeare (control)",
+      "text_length": 200000,
+      "digital_root_self_similarity": {
+        "scales_analyzed": 4,
+        "scale_distributions": {
+          "character": {
+            "1": 0.0976,
+            "2": 0.1989,
+            "3": 0.1035,
+            "4": 0.0616,
+            "5": 0.0697,
+            "6": 0.1217,
+            "7": 0.1269,
+            "8": 0.1248,
+            "9": 0.0952
+          },
+          "word": {
+            "1": 0.1094,
+            "2": 0.1103,
+            "3": 0.1145,
+            "4": 0.1149,
+            "5": 0.1033,
+            "6": 0.1128,
+            "7": 0.1104,
+            "8": 0.1139,
+            "9": 0.1106
+          },
+          "sentence": {
+            "1": 0.1121,
+            "2": 0.1181,
+            "3": 0.1185,
+            "4": 0.12,
+            "5": 0.1034,
+            "6": 0.1098,
+            "7": 0.1102,
+            "8": 0.1038,
+            "9": 0.1042
+          },
+          "paragraph": {
+            "1": 0.1075,
+            "2": 0.1288,
+            "3": 0.1055,
+            "4": 0.1187,
+            "5": 0.1045,
+            "6": 0.1075,
+            "7": 0.1116,
+            "8": 0.1166,
+            "9": 0.0994
+          }
+        },
+        "cross_scale_similarities": [
+          {
+            "scales": "character vs word",
+            "cosine_similarity": 0.947
+          },
+          {
+            "scales": "character vs sentence",
+            "cosine_similarity": 0.9485
+          },
+          {
+            "scales": "character vs paragraph",
+            "cosine_similarity": 0.9589
+          },
+          {
+            "scales": "word vs sentence",
+            "cosine_similarity": 0.9988
+          },
+          {
+            "scales": "word vs paragraph",
+            "cosine_similarity": 0.9973
+          },
+          {
+            "scales": "sentence vs paragraph",
+            "cosine_similarity": 0.9977
+          }
+        ],
+        "avg_self_similarity": 0.9747,
+        "interpretation": "very high self-similarity - strong fractal structure"
+      },
+      "word_length_fractal": {
+        "total_words": 36908,
+        "mean_word_length": 4.06,
+        "fractal_dimension": 1.0,
+        "hurst_exponent": 0.5907,
+        "scaling_exponent": 2.7133,
+        "interpretation": "low fractal dimension - more random structure"
+      },
+      "sentence_length_hurst": {
+        "total_sentences": 2650,
+        "mean_sentence_length": 13.68,
+        "overall_hurst": 0.8096,
+        "scale_hursts": [
+          {
+            "scale": 2,
+            "hurst": 0.8198,
+            "sample_size": 1325
+          },
+          {
+            "scale": 4,
+            "hurst": 0.8216,
+            "sample_size": 663
+          },
+          {
+            "scale": 8,
+            "hurst": 0.816,
+            "sample_size": 332
+          },
+          {
+            "scale": 16,
+            "hurst": 0.8008,
+            "sample_size": 166
+          }
+        ],
+        "persistent_scales": 4,
+        "total_scales_tested": 4,
+        "persistence_ratio": 1.0,
+        "interpretation": "strong long-range persistence - possible intentional structure"
+      },
+      "cross_scale_recurrence": {
+        "scales_analyzed": 4,
+        "recurrence_scores": [
+          {
+            "scales": "100 vs 500",
+            "similarity": 0.819
+          },
+          {
+            "scales": "100 vs 1000",
+            "similarity": 0.7541
+          },
+          {
+            "scales": "100 vs 5000",
+            "similarity": 0.6948
+          },
+          {
+            "scales": "500 vs 1000",
+            "similarity": 0.9944
+          },
+          {
+            "scales": "500 vs 5000",
+            "similarity": 0.9817
+          },
+          {
+            "scales": "1000 vs 5000",
+            "similarity": 0.9963
+          }
+        ],
+        "avg_recurrence": 0.8734,
+        "interpretation": "high recurrence - possible fractal structure"
+      },
+      "recursive_structure": {
+        "paragraphs_analyzed": 25,
+        "avg_paragraph_similarity": 0.952,
+        "nested_pattern_scores": {
+          "2": 0.9544,
+          "3": 0.966,
+          "5": 0.9294,
+          "7": 0.914
+        },
+        "max_nested_score": 0.966,
+        "interpretation": "strong recursive structure - nested self-similarity detected"
+      },
+      "composite_score": 0.7628
+    },
+    {
+      "name": "Pride & Prejudice (control)",
+      "text_length": 200000,
+      "digital_root_self_similarity": {
+        "scales_analyzed": 4,
+        "scale_distributions": {
+          "character": {
+            "1": 0.0877,
+            "2": 0.208,
+            "3": 0.1002,
+            "4": 0.0627,
+            "5": 0.0706,
+            "6": 0.1248,
+            "7": 0.1338,
+            "8": 0.1194,
+            "9": 0.0929
+          },
+          "word": {
+            "1": 0.1086,
+            "2": 0.1109,
+            "3": 0.1142,
+            "4": 0.112,
+            "5": 0.1059,
+            "6": 0.1152,
+            "7": 0.1104,
+            "8": 0.1139,
+            "9": 0.1089
+          },
+          "sentence": {
+            "1": 0.1051,
+            "2": 0.1145,
+            "3": 0.1101,
+            "4": 0.1145,
+            "5": 0.1135,
+            "6": 0.1106,
+            "7": 0.1081,
+            "8": 0.123,
+            "9": 0.1006
+          },
+          "paragraph": {
+            "1": 0.1211,
+            "2": 0.1318,
+            "3": 0.0998,
+            "4": 0.0974,
+            "5": 0.114,
+            "6": 0.0891,
+            "7": 0.1188,
+            "8": 0.1295,
+            "9": 0.0986
+          }
+        },
+        "cross_scale_similarities": [
+          {
+            "scales": "character vs word",
+            "cosine_similarity": 0.9402
+          },
+          {
+            "scales": "character vs sentence",
+            "cosine_similarity": 0.9404
+          },
+          {
+            "scales": "character vs paragraph",
+            "cosine_similarity": 0.9528
+          },
+          {
+            "scales": "word vs sentence",
+            "cosine_similarity": 0.9987
+          },
+          {
+            "scales": "word vs paragraph",
+            "cosine_similarity": 0.9903
+          },
+          {
+            "scales": "sentence vs paragraph",
+            "cosine_similarity": 0.993
+          }
+        ],
+        "avg_self_similarity": 0.9692,
+        "interpretation": "very high self-similarity - strong fractal structure"
+      },
+      "word_length_fractal": {
+        "total_words": 34422,
+        "mean_word_length": 4.39,
+        "fractal_dimension": 1.0,
+        "hurst_exponent": 0.61,
+        "scaling_exponent": 2.1515,
+        "interpretation": "low fractal dimension - more random structure"
+      },
+      "sentence_length_hurst": {
+        "total_sentences": 2017,
+        "mean_sentence_length": 17.17,
+        "overall_hurst": 0.6624,
+        "scale_hursts": [
+          {
+            "scale": 2,
+            "hurst": 0.6706,
+            "sample_size": 1009
+          },
+          {
+            "scale": 4,
+            "hurst": 0.6762,
+            "sample_size": 505
+          },
+          {
+            "scale": 8,
+            "hurst": 0.6672,
+            "sample_size": 253
+          },
+          {
+            "scale": 16,
+            "hurst": 0.653,
+            "sample_size": 127
+          }
+        ],
+        "persistent_scales": 4,
+        "total_scales_tested": 4,
+        "persistence_ratio": 1.0,
+        "interpretation": "strong long-range persistence - possible intentional structure"
+      },
+      "cross_scale_recurrence": {
+        "scales_analyzed": 4,
+        "recurrence_scores": [
+          {
+            "scales": "100 vs 500",
+            "similarity": 0.8194
+          },
+          {
+            "scales": "100 vs 1000",
+            "similarity": 0.7548
+          },
+          {
+            "scales": "100 vs 5000",
+            "similarity": 0.6957
+          },
+          {
+            "scales": "500 vs 1000",
+            "similarity": 0.9945
+          },
+          {
+            "scales": "500 vs 5000",
+            "similarity": 0.9818
+          },
+          {
+            "scales": "1000 vs 5000",
+            "similarity": 0.9963
+          }
+        ],
+        "avg_recurrence": 0.8737,
+        "interpretation": "high recurrence - possible fractal structure"
+      },
+      "recursive_structure": {
+        "paragraphs_analyzed": 25,
+        "avg_paragraph_similarity": 0.7193,
+        "nested_pattern_scores": {
+          "2": 0.9006,
+          "3": 0.8401,
+          "5": 0.8251,
+          "7": 0.6105
+        },
+        "max_nested_score": 0.9006,
+        "interpretation": "moderate recursive structure - some self-similarity"
+      },
+      "composite_score": 0.7487
+    },
+    {
+      "name": "Moby Dick (control)",
+      "text_length": 200000,
+      "digital_root_self_similarity": {
+        "scales_analyzed": 4,
+        "scale_distributions": {
+          "character": {
+            "1": 0.0866,
+            "2": 0.2057,
+            "3": 0.0991,
+            "4": 0.0635,
+            "5": 0.0687,
+            "6": 0.1149,
+            "7": 0.1389,
+            "8": 0.1269,
+            "9": 0.0958
+          },
+          "word": {
+            "1": 0.1057,
+            "2": 0.1101,
+            "3": 0.1176,
+            "4": 0.1096,
+            "5": 0.108,
+            "6": 0.1142,
+            "7": 0.1154,
+            "8": 0.1082,
+            "9": 0.1111
+          },
+          "sentence": {
+            "1": 0.1196,
+            "2": 0.1191,
+            "3": 0.1086,
+            "4": 0.1101,
+            "5": 0.1091,
+            "6": 0.1076,
+            "7": 0.1136,
+            "8": 0.1006,
+            "9": 0.1116
+          },
+          "paragraph": {
+            "1": 0.1211,
+            "2": 0.0947,
+            "3": 0.1228,
+            "4": 0.1175,
+            "5": 0.1018,
+            "6": 0.1123,
+            "7": 0.107,
+            "8": 0.1088,
+            "9": 0.114
+          }
+        },
+        "cross_scale_similarities": [
+          {
+            "scales": "character vs word",
+            "cosine_similarity": 0.9402
+          },
+          {
+            "scales": "character vs sentence",
+            "cosine_similarity": 0.9424
+          },
+          {
+            "scales": "character vs paragraph",
+            "cosine_similarity": 0.9187
+          },
+          {
+            "scales": "word vs sentence",
+            "cosine_similarity": 0.9979
+          },
+          {
+            "scales": "word vs paragraph",
+            "cosine_similarity": 0.9969
+          },
+          {
+            "scales": "sentence vs paragraph",
+            "cosine_similarity": 0.9953
+          }
+        ],
+        "avg_self_similarity": 0.9652,
+        "interpretation": "very high self-similarity - strong fractal structure"
+      },
+      "word_length_fractal": {
+        "total_words": 35994,
+        "mean_word_length": 4.31,
+        "fractal_dimension": 1.0,
+        "hurst_exponent": 0.6054,
+        "scaling_exponent": 2.6625,
+        "interpretation": "low fractal dimension - more random structure"
+      },
+      "sentence_length_hurst": {
+        "total_sentences": 2015,
+        "mean_sentence_length": 17.58,
+        "overall_hurst": 0.7733,
+        "scale_hursts": [
+          {
+            "scale": 2,
+            "hurst": 0.7842,
+            "sample_size": 1008
+          },
+          {
+            "scale": 4,
+            "hurst": 0.7911,
+            "sample_size": 504
+          },
+          {
+            "scale": 8,
+            "hurst": 0.7906,
+            "sample_size": 252
+          },
+          {
+            "scale": 16,
+            "hurst": 0.7857,
+            "sample_size": 126
+          }
+        ],
+        "persistent_scales": 4,
+        "total_scales_tested": 4,
+        "persistence_ratio": 1.0,
+        "interpretation": "strong long-range persistence - possible intentional structure"
+      },
+      "cross_scale_recurrence": {
+        "scales_analyzed": 4,
+        "recurrence_scores": [
+          {
+            "scales": "100 vs 500",
+            "similarity": 0.821
+          },
+          {
+            "scales": "100 vs 1000",
+            "similarity": 0.7569
+          },
+          {
+            "scales": "100 vs 5000",
+            "similarity": 0.6981
+          },
+          {
+            "scales": "500 vs 1000",
+            "similarity": 0.9945
+          },
+          {
+            "scales": "500 vs 5000",
+            "similarity": 0.9819
+          },
+          {
+            "scales": "1000 vs 5000",
+            "similarity": 0.9963
+          }
+        ],
+        "avg_recurrence": 0.8748,
+        "interpretation": "high recurrence - possible fractal structure"
+      },
+      "recursive_structure": {
+        "error": "insufficient paragraph data"
+      },
+      "composite_score": 0.71
+    },
+    {
+      "name": "Dead Sea Scrolls",
+      "text_length": 200000,
+      "digital_root_self_similarity": {
+        "scales_analyzed": 4,
+        "scale_distributions": {
+          "character": {
+            "1": 0.0857,
+            "2": 0.1967,
+            "3": 0.1082,
+            "4": 0.0672,
+            "5": 0.0611,
+            "6": 0.1286,
+            "7": 0.1292,
+            "8": 0.1148,
+            "9": 0.1086
+          },
+          "word": {
+            "1": 0.1065,
+            "2": 0.1101,
+            "3": 0.112,
+            "4": 0.113,
+            "5": 0.1089,
+            "6": 0.1161,
+            "7": 0.1141,
+            "8": 0.1085,
+            "9": 0.1107
+          },
+          "sentence": {
+            "1": 0.1166,
+            "2": 0.1027,
+            "3": 0.1166,
+            "4": 0.1118,
+            "5": 0.1065,
+            "6": 0.108,
+            "7": 0.1171,
+            "8": 0.1017,
+            "9": 0.119
+          },
+          "paragraph": {
+            "1": 0.0,
+            "2": 0.0,
+            "3": 0.0,
+            "4": 0.0,
+            "5": 0.0,
+            "6": 1.0,
+            "7": 0.0,
+            "8": 0.0,
+            "9": 0.0
+          }
+        },
+        "cross_scale_similarities": [
+          {
+            "scales": "character vs word",
+            "cosine_similarity": 0.9473
+          },
+          {
+            "scales": "character vs sentence",
+            "cosine_similarity": 0.9387
+          },
+          {
+            "scales": "character vs paragraph",
+            "cosine_similarity": 0.3648
+          },
+          {
+            "scales": "word vs sentence",
+            "cosine_similarity": 0.9983
+          },
+          {
+            "scales": "word vs paragraph",
+            "cosine_similarity": 0.3481
+          },
+          {
+            "scales": "sentence vs paragraph",
+            "cosine_similarity": 0.3233
+          }
+        ],
+        "avg_self_similarity": 0.6534,
+        "interpretation": "low self-similarity - no clear fractal structure"
+      },
+      "word_length_fractal": {
+        "total_words": 31705,
+        "mean_word_length": 4.84,
+        "fractal_dimension": 1.0,
+        "hurst_exponent": 0.6367,
+        "scaling_exponent": 2.7768,
+        "interpretation": "low fractal dimension - more random structure"
+      },
+      "sentence_length_hurst": {
+        "total_sentences": 2297,
+        "mean_sentence_length": 14.26,
+        "overall_hurst": 0.8411,
+        "scale_hursts": [
+          {
+            "scale": 2,
+            "hurst": 0.8487,
+            "sample_size": 1149
+          },
+          {
+            "scale": 4,
+            "hurst": 0.8493,
+            "sample_size": 575
+          },
+          {
+            "scale": 8,
+            "hurst": 0.8432,
+            "sample_size": 288
+          },
+          {
+            "scale": 16,
+            "hurst": 0.8345,
+            "sample_size": 144
+          }
+        ],
+        "persistent_scales": 4,
+        "total_scales_tested": 4,
+        "persistence_ratio": 1.0,
+        "interpretation": "strong long-range persistence - possible intentional structure"
+      },
+      "cross_scale_recurrence": {
+        "scales_analyzed": 4,
+        "recurrence_scores": [
+          {
+            "scales": "100 vs 500",
+            "similarity": 0.8199
+          },
+          {
+            "scales": "100 vs 1000",
+            "similarity": 0.7556
+          },
+          {
+            "scales": "100 vs 5000",
+            "similarity": 0.6966
+          },
+          {
+            "scales": "500 vs 1000",
+            "similarity": 0.9945
+          },
+          {
+            "scales": "500 vs 5000",
+            "similarity": 0.9819
+          },
+          {
+            "scales": "1000 vs 5000",
+            "similarity": 0.9963
+          }
+        ],
+        "avg_recurrence": 0.8741,
+        "interpretation": "high recurrence - possible fractal structure"
+      },
+      "recursive_structure": {
+        "error": "too few paragraphs for recursive analysis"
+      },
+      "composite_score": 0.6319
+    },
+    {
+      "name": "Nag Hammadi Library",
+      "text_length": 200000,
+      "digital_root_self_similarity": {
+        "scales_analyzed": 4,
+        "scale_distributions": {
+          "character": {
+            "1": 0.089,
+            "2": 0.2033,
+            "3": 0.1063,
+            "4": 0.061,
+            "5": 0.0744,
+            "6": 0.1242,
+            "7": 0.1286,
+            "8": 0.1201,
+            "9": 0.0932
+          },
+          "word": {
+            "1": 0.1065,
+            "2": 0.1106,
+            "3": 0.1149,
+            "4": 0.1123,
+            "5": 0.1039,
+            "6": 0.1128,
+            "7": 0.1134,
+            "8": 0.1124,
+            "9": 0.1131
+          },
+          "sentence": {
+            "1": 0.1046,
+            "2": 0.1158,
+            "3": 0.1142,
+            "4": 0.105,
+            "5": 0.105,
+            "6": 0.107,
+            "7": 0.1226,
+            "8": 0.1138,
+            "9": 0.1122
+          },
+          "paragraph": {
+            "1": 0.0,
+            "2": 0.0,
+            "3": 0.0,
+            "4": 0.0,
+            "5": 0.0,
+            "6": 1.0,
+            "7": 0.0,
+            "8": 0.0,
+            "9": 0.0
+          }
+        },
+        "cross_scale_similarities": [
+          {
+            "scales": "character vs word",
+            "cosine_similarity": 0.9453
+          },
+          {
+            "scales": "character vs sentence",
+            "cosine_similarity": 0.9526
+          },
+          {
+            "scales": "character vs paragraph",
+            "cosine_similarity": 0.3515
+          },
+          {
+            "scales": "word vs sentence",
+            "cosine_similarity": 0.9991
+          },
+          {
+            "scales": "word vs paragraph",
+            "cosine_similarity": 0.3384
+          },
+          {
+            "scales": "sentence vs paragraph",
+            "cosine_similarity": 0.3205
+          }
+        ],
+        "avg_self_similarity": 0.6512,
+        "interpretation": "low self-similarity - no clear fractal structure"
+      },
+      "word_length_fractal": {
+        "total_words": 34729,
+        "mean_word_length": 4.39,
+        "fractal_dimension": 1.0,
+        "hurst_exponent": 0.7541,
+        "scaling_exponent": 2.8749,
+        "interpretation": "low fractal dimension - more random structure"
+      },
+      "sentence_length_hurst": {
+        "total_sentences": 2726,
+        "mean_sentence_length": 13.01,
+        "overall_hurst": 0.8345,
+        "scale_hursts": [
+          {
+            "scale": 2,
+            "hurst": 0.8386,
+            "sample_size": 1363
+          },
+          {
+            "scale": 4,
+            "hurst": 0.8392,
+            "sample_size": 682
+          },
+          {
+            "scale": 8,
+            "hurst": 0.8401,
+            "sample_size": 341
+          },
+          {
+            "scale": 16,
+            "hurst": 0.8295,
+            "sample_size": 171
+          }
+        ],
+        "persistent_scales": 4,
+        "total_scales_tested": 4,
+        "persistence_ratio": 1.0,
+        "interpretation": "strong long-range persistence - possible intentional structure"
+      },
+      "cross_scale_recurrence": {
+        "scales_analyzed": 4,
+        "recurrence_scores": [
+          {
+            "scales": "100 vs 500",
+            "similarity": 0.8199
+          },
+          {
+            "scales": "100 vs 1000",
+            "similarity": 0.7556
+          },
+          {
+            "scales": "100 vs 5000",
+            "similarity": 0.6967
+          },
+          {
+            "scales": "500 vs 1000",
+            "similarity": 0.9945
+          },
+          {
+            "scales": "500 vs 5000",
+            "similarity": 0.9819
+          },
+          {
+            "scales": "1000 vs 5000",
+            "similarity": 0.9963
+          }
+        ],
+        "avg_recurrence": 0.8741,
+        "interpretation": "high recurrence - possible fractal structure"
+      },
+      "recursive_structure": {
+        "error": "too few paragraphs for recursive analysis"
+      },
+      "composite_score": 0.6313
+    },
+    {
+      "name": "KJV Bible",
+      "text_length": 200000,
+      "digital_root_self_similarity": {
+        "scales_analyzed": 4,
+        "scale_distributions": {
+          "character": {
+            "1": 0.1016,
+            "2": 0.2162,
+            "3": 0.09,
+            "4": 0.0613,
+            "5": 0.0915,
+            "6": 0.0986,
+            "7": 0.1409,
+            "8": 0.1285,
+            "9": 0.0715
+          },
+          "word": {
+            "1": 0.1143,
+            "2": 0.1065,
+            "3": 0.1114,
+            "4": 0.1081,
+            "5": 0.1084,
+            "6": 0.112,
+            "7": 0.1156,
+            "8": 0.1123,
+            "9": 0.1115
+          },
+          "sentence": {
+            "1": 0.1133,
+            "2": 0.121,
+            "3": 0.1112,
+            "4": 0.1056,
+            "5": 0.1034,
+            "6": 0.1013,
+            "7": 0.1217,
+            "8": 0.1049,
+            "9": 0.1175
+          },
+          "paragraph": {
+            "1": 1.0,
+            "2": 0.0,
+            "3": 0.0,
+            "4": 0.0,
+            "5": 0.0,
+            "6": 0.0,
+            "7": 0.0,
+            "8": 0.0,
+            "9": 0.0
+          }
+        },
+        "cross_scale_similarities": [
+          {
+            "scales": "character vs word",
+            "cosine_similarity": 0.9281
+          },
+          {
+            "scales": "character vs sentence",
+            "cosine_similarity": 0.9407
+          },
+          {
+            "scales": "character vs paragraph",
+            "cosine_similarity": 0.2834
+          },
+          {
+            "scales": "word vs sentence",
+            "cosine_similarity": 0.9978
+          },
+          {
+            "scales": "word vs paragraph",
+            "cosine_similarity": 0.3429
+          },
+          {
+            "scales": "sentence vs paragraph",
+            "cosine_similarity": 0.3392
+          }
+        ],
+        "avg_self_similarity": 0.6387,
+        "interpretation": "low self-similarity - no clear fractal structure"
+      },
+      "word_length_fractal": {
+        "total_words": 37530,
+        "mean_word_length": 3.94,
+        "fractal_dimension": 1.0,
+        "hurst_exponent": 0.578,
+        "scaling_exponent": 2.5546,
+        "interpretation": "low fractal dimension - more random structure"
+      },
+      "sentence_length_hurst": {
+        "total_sentences": 1421,
+        "mean_sentence_length": 27.46,
+        "overall_hurst": 0.5874,
+        "scale_hursts": [
+          {
+            "scale": 2,
+            "hurst": 0.5939,
+            "sample_size": 711
+          },
+          {
+            "scale": 4,
+            "hurst": 0.5977,
+            "sample_size": 356
+          },
+          {
+            "scale": 8,
+            "hurst": 0.5982,
+            "sample_size": 178
+          },
+          {
+            "scale": 16,
+            "hurst": 0.584,
+            "sample_size": 89
+          }
+        ],
+        "persistent_scales": 4,
+        "total_scales_tested": 4,
+        "persistence_ratio": 1.0,
+        "interpretation": "moderate persistence - some structured dependency"
+      },
+      "cross_scale_recurrence": {
+        "scales_analyzed": 4,
+        "recurrence_scores": [
+          {
+            "scales": "100 vs 500",
+            "similarity": 0.8199
+          },
+          {
+            "scales": "100 vs 1000",
+            "similarity": 0.7558
+          },
+          {
+            "scales": "100 vs 5000",
+            "similarity": 0.6973
+          },
+          {
+            "scales": "500 vs 1000",
+            "similarity": 0.9946
+          },
+          {
+            "scales": "500 vs 5000",
+            "similarity": 0.9821
+          },
+          {
+            "scales": "1000 vs 5000",
+            "similarity": 0.9964
+          }
+        ],
+        "avg_recurrence": 0.8744,
+        "interpretation": "high recurrence - possible fractal structure"
+      },
+      "recursive_structure": {
+        "error": "too few paragraphs for recursive analysis"
+      },
+      "composite_score": 0.6283
+    },
+    {
+      "name": "Book of Enoch",
+      "text_length": 200000,
+      "digital_root_self_similarity": {
+        "scales_analyzed": 4,
+        "scale_distributions": {
+          "character": {
+            "1": 0.0942,
+            "2": 0.223,
+            "3": 0.0988,
+            "4": 0.053,
+            "5": 0.083,
+            "6": 0.1113,
+            "7": 0.1341,
+            "8": 0.1228,
+            "9": 0.0798
+          },
+          "word": {
+            "1": 0.1125,
+            "2": 0.1047,
+            "3": 0.1122,
+            "4": 0.1085,
+            "5": 0.1084,
+            "6": 0.1164,
+            "7": 0.115,
+            "8": 0.1108,
+            "9": 0.1115
+          },
+          "sentence": {
+            "1": 0.1118,
+            "2": 0.1245,
+            "3": 0.1094,
+            "4": 0.1048,
+            "5": 0.1129,
+            "6": 0.1071,
+            "7": 0.1129,
+            "8": 0.106,
+            "9": 0.1106
+          },
+          "paragraph": {
+            "1": 0.0,
+            "2": 0.0,
+            "3": 0.0,
+            "4": 0.0,
+            "5": 0.0,
+            "6": 1.0,
+            "7": 0.0,
+            "8": 0.0,
+            "9": 0.0
+          }
+        },
+        "cross_scale_similarities": [
+          {
+            "scales": "character vs word",
+            "cosine_similarity": 0.9207
+          },
+          {
+            "scales": "character vs sentence",
+            "cosine_similarity": 0.9389
+          },
+          {
+            "scales": "character vs paragraph",
+            "cosine_similarity": 0.3089
+          },
+          {
+            "scales": "word vs sentence",
+            "cosine_similarity": 0.9975
+          },
+          {
+            "scales": "word vs paragraph",
+            "cosine_similarity": 0.3491
+          },
+          {
+            "scales": "sentence vs paragraph",
+            "cosine_similarity": 0.321
+          }
+        ],
+        "avg_self_similarity": 0.6393,
+        "interpretation": "low self-similarity - no clear fractal structure"
+      },
+      "word_length_fractal": {
+        "total_words": 36529,
+        "mean_word_length": 4.23,
+        "fractal_dimension": 1.0,
+        "hurst_exponent": 0.6745,
+        "scaling_exponent": 2.1938,
+        "interpretation": "low fractal dimension - more random structure"
+      },
+      "sentence_length_hurst": {
+        "total_sentences": 2543,
+        "mean_sentence_length": 14.75,
+        "overall_hurst": 0.6142,
+        "scale_hursts": [
+          {
+            "scale": 2,
+            "hurst": 0.6539,
+            "sample_size": 1272
+          },
+          {
+            "scale": 4,
+            "hurst": 0.6517,
+            "sample_size": 636
+          },
+          {
+            "scale": 8,
+            "hurst": 0.6487,
+            "sample_size": 318
+          },
+          {
+            "scale": 16,
+            "hurst": 0.642,
+            "sample_size": 159
+          }
+        ],
+        "persistent_scales": 4,
+        "total_scales_tested": 4,
+        "persistence_ratio": 1.0,
+        "interpretation": "strong long-range persistence - possible intentional structure"
+      },
+      "cross_scale_recurrence": {
+        "scales_analyzed": 4,
+        "recurrence_scores": [
+          {
+            "scales": "100 vs 500",
+            "similarity": 0.819
+          },
+          {
+            "scales": "100 vs 1000",
+            "similarity": 0.7544
+          },
+          {
+            "scales": "100 vs 5000",
+            "similarity": 0.6953
+          },
+          {
+            "scales": "500 vs 1000",
+            "similarity": 0.9945
+          },
+          {
+            "scales": "500 vs 5000",
+            "similarity": 0.9818
+          },
+          {
+            "scales": "1000 vs 5000",
+            "similarity": 0.9963
+          }
+        ],
+        "avg_recurrence": 0.8735,
+        "interpretation": "high recurrence - possible fractal structure"
+      },
+      "recursive_structure": {
+        "error": "too few paragraphs for recursive analysis"
+      },
+      "composite_score": 0.6282
+    },
+    {
+      "name": "Corpus Hermeticum",
+      "text_length": 200000,
+      "digital_root_self_similarity": {
+        "scales_analyzed": 4,
+        "scale_distributions": {
+          "character": {
+            "1": 0.0994,
+            "2": 0.1996,
+            "3": 0.1099,
+            "4": 0.0504,
+            "5": 0.0703,
+            "6": 0.1175,
+            "7": 0.1357,
+            "8": 0.1346,
+            "9": 0.0825
+          },
+          "word": {
+            "1": 0.1079,
+            "2": 0.108,
+            "3": 0.1208,
+            "4": 0.1128,
+            "5": 0.1076,
+            "6": 0.1141,
+            "7": 0.1093,
+            "8": 0.1093,
+            "9": 0.1102
+          },
+          "sentence": {
+            "1": 0.0972,
+            "2": 0.1045,
+            "3": 0.1138,
+            "4": 0.1201,
+            "5": 0.1107,
+            "6": 0.1154,
+            "7": 0.1206,
+            "8": 0.1071,
+            "9": 0.1107
+          },
+          "paragraph": {
+            "1": 0.0,
+            "2": 0.0,
+            "3": 0.0,
+            "4": 0.0,
+            "5": 0.0,
+            "6": 0.0,
+            "7": 0.0,
+            "8": 0.0,
+            "9": 1.0
+          }
+        },
+        "cross_scale_similarities": [
+          {
+            "scales": "character vs word",
+            "cosine_similarity": 0.9347
+          },
+          {
+            "scales": "character vs sentence",
+            "cosine_similarity": 0.929
+          },
+          {
+            "scales": "character vs paragraph",
+            "cosine_similarity": 0.2321
+          },
+          {
+            "scales": "word vs sentence",
+            "cosine_similarity": 0.9983
+          },
+          {
+            "scales": "word vs paragraph",
+            "cosine_similarity": 0.3305
+          },
+          {
+            "scales": "sentence vs paragraph",
+            "cosine_similarity": 0.3315
+          }
+        ],
+        "avg_self_similarity": 0.626,
+        "interpretation": "low self-similarity - no clear fractal structure"
+      },
+      "word_length_fractal": {
+        "total_words": 36602,
+        "mean_word_length": 4.15,
+        "fractal_dimension": 1.0,
+        "hurst_exponent": 0.6199,
+        "scaling_exponent": 2.2994,
+        "interpretation": "low fractal dimension - more random structure"
+      },
+      "sentence_length_hurst": {
+        "total_sentences": 2462,
+        "mean_sentence_length": 15.17,
+        "overall_hurst": 0.6932,
+        "scale_hursts": [
+          {
+            "scale": 2,
+            "hurst": 0.7208,
+            "sample_size": 1231
+          },
+          {
+            "scale": 4,
+            "hurst": 0.7358,
+            "sample_size": 616
+          },
+          {
+            "scale": 8,
+            "hurst": 0.7328,
+            "sample_size": 308
+          },
+          {
+            "scale": 16,
+            "hurst": 0.7372,
+            "sample_size": 154
+          }
+        ],
+        "persistent_scales": 4,
+        "total_scales_tested": 4,
+        "persistence_ratio": 1.0,
+        "interpretation": "strong long-range persistence - possible intentional structure"
+      },
+      "cross_scale_recurrence": {
+        "scales_analyzed": 4,
+        "recurrence_scores": [
+          {
+            "scales": "100 vs 500",
+            "similarity": 0.8194
+          },
+          {
+            "scales": "100 vs 1000",
+            "similarity": 0.7549
+          },
+          {
+            "scales": "100 vs 5000",
+            "similarity": 0.696
+          },
+          {
+            "scales": "500 vs 1000",
+            "similarity": 0.9945
+          },
+          {
+            "scales": "500 vs 5000",
+            "similarity": 0.9819
+          },
+          {
+            "scales": "1000 vs 5000",
+            "similarity": 0.9963
+          }
+        ],
+        "avg_recurrence": 0.8738,
+        "interpretation": "high recurrence - possible fractal structure"
+      },
+      "recursive_structure": {
+        "error": "too few paragraphs for recursive analysis"
+      },
+      "composite_score": 0.625
+    },
+    {
+      "name": "Gospel of Thomas",
+      "text_length": 14394,
+      "digital_root_self_similarity": {
+        "scales_analyzed": 4,
+        "scale_distributions": {
+          "character": {
+            "1": 0.0942,
+            "2": 0.2022,
+            "3": 0.1045,
+            "4": 0.0698,
+            "5": 0.0677,
+            "6": 0.1095,
+            "7": 0.1648,
+            "8": 0.106,
+            "9": 0.0815
+          },
+          "word": {
+            "1": 0.1006,
+            "2": 0.1052,
+            "3": 0.1157,
+            "4": 0.1056,
+            "5": 0.0983,
+            "6": 0.1268,
+            "7": 0.128,
+            "8": 0.1076,
+            "9": 0.1122
+          },
+          "sentence": {
+            "1": 0.0915,
+            "2": 0.098,
+            "3": 0.1111,
+            "4": 0.098,
+            "5": 0.1438,
+            "6": 0.0915,
+            "7": 0.1111,
+            "8": 0.1373,
+            "9": 0.1176
+          },
+          "paragraph": {
+            "1": 0.0,
+            "2": 0.0,
+            "3": 0.0,
+            "4": 0.0,
+            "5": 0.0,
+            "6": 1.0,
+            "7": 0.0,
+            "8": 0.0,
+            "9": 0.0
+          }
+        },
+        "cross_scale_similarities": [
+          {
+            "scales": "character vs word",
+            "cosine_similarity": 0.9417
+          },
+          {
+            "scales": "character vs sentence",
+            "cosine_similarity": 0.9061
+          },
+          {
+            "scales": "character vs paragraph",
+            "cosine_similarity": 0.307
+          },
+          {
+            "scales": "word vs sentence",
+            "cosine_similarity": 0.9791
+          },
+          {
+            "scales": "word vs paragraph",
+            "cosine_similarity": 0.379
+          },
+          {
+            "scales": "sentence vs paragraph",
+            "cosine_similarity": 0.271
+          }
+        ],
+        "avg_self_similarity": 0.6306,
+        "interpretation": "low self-similarity - no clear fractal structure"
+      },
+      "word_length_fractal": {
+        "total_words": 2594,
+        "mean_word_length": 4.19,
+        "fractal_dimension": 1.0,
+        "hurst_exponent": 0.5295,
+        "scaling_exponent": 1.9808,
+        "interpretation": "low fractal dimension - more random structure"
+      },
+      "sentence_length_hurst": {
+        "total_sentences": 154,
+        "mean_sentence_length": 17.84,
+        "overall_hurst": 0.6089,
+        "scale_hursts": [
+          {
+            "scale": 2,
+            "hurst": 0.6037,
+            "sample_size": 77
+          },
+          {
+            "scale": 4,
+            "hurst": 0.5999,
+            "sample_size": 39
+          },
+          {
+            "scale": 8,
+            "hurst": 0.6174,
+            "sample_size": 20
+          },
+          {
+            "scale": 16,
+            "hurst": 0.6052,
+            "sample_size": 10
+          }
+        ],
+        "persistent_scales": 4,
+        "total_scales_tested": 4,
+        "persistence_ratio": 1.0,
+        "interpretation": "strong long-range persistence - possible intentional structure"
+      },
+      "cross_scale_recurrence": {
+        "scales_analyzed": 3,
+        "recurrence_scores": [
+          {
+            "scales": "100 vs 500",
+            "similarity": 0.8195
+          },
+          {
+            "scales": "100 vs 1000",
+            "similarity": 0.7549
+          },
+          {
+            "scales": "500 vs 1000",
+            "similarity": 0.9945
+          }
+        ],
+        "avg_recurrence": 0.8563,
+        "interpretation": "high recurrence - possible fractal structure"
+      },
+      "recursive_structure": {
+        "error": "too few paragraphs for recursive analysis"
+      },
+      "composite_score": 0.6217
+    }
+  ]
+}

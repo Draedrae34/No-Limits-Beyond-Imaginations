@@ -1,0 +1,290 @@
+{
+  "pillar": "Pillar 4 Validation",
+  "generated": "2026-08-28T15:09:32.896965Z",
+  "control_results": {
+    "random_letters": {
+      "name": "random_letters",
+      "text_length": 50000,
+      "letter_entropy": 4.70004006724111,
+      "baseline_percentile": 38.0,
+      "significant_correlations": [
+        {
+          "constant": "pi",
+          "similarity": 0.972036,
+          "best_offset": 17,
+          "sequence_length": 48124,
+          "significant": true
+        },
+        {
+          "constant": "e",
+          "similarity": 0.923103,
+          "best_offset": 2,
+          "sequence_length": 48124,
+          "significant": true
+        },
+        {
+          "constant": "phi",
+          "similarity": 0.972896,
+          "best_offset": 19,
+          "sequence_length": 48124,
+          "significant": true
+        },
+        {
+          "constant": "sqrt2",
+          "similarity": 0.950741,
+          "best_offset": 12,
+          "sequence_length": 48124,
+          "significant": true
+        }
+      ],
+      "max_similarity": 0.972896,
+      "interpretation": "consistent with structured natural language"
+    },
+    "random_words": {
+      "name": "random_words",
+      "text_length": 40009,
+      "letter_entropy": 3.901189155265271,
+      "baseline_percentile": 0.0,
+      "significant_correlations": [],
+      "max_similarity": 0.0,
+      "interpretation": "much lower than random - expected for structured natural language"
+    },
+    "shakespeare": {
+      "name": "shakespeare",
+      "text_length": 58156,
+      "letter_entropy": 3.990663997676652,
+      "baseline_percentile": 0.0,
+      "significant_correlations": [],
+      "max_similarity": 0.0,
+      "interpretation": "much lower than random - expected for structured natural language"
+    },
+    "modern_english": {
+      "name": "modern_english",
+      "text_length": 50000,
+      "letter_entropy": 4.169722210420178,
+      "baseline_percentile": 0.0,
+      "significant_correlations": [
+        {
+          "constant": "phi",
+          "similarity": 0.854286,
+          "best_offset": 18,
+          "sequence_length": 41384,
+          "significant": true
+        }
+      ],
+      "max_similarity": 0.854286,
+      "interpretation": "much lower than random - expected for structured natural language"
+    },
+    "pi_digits": {
+      "name": "pi_digits",
+      "text_length": 50000,
+      "letter_entropy": 0.0,
+      "baseline_percentile": 0.0,
+      "significant_correlations": [
+        {
+          "constant": "pi",
+          "similarity": 0.97928,
+          "best_offset": 0,
+          "sequence_length": 50000,
+          "significant": true
+        },
+        {
+          "constant": "e",
+          "similarity": 0.946654,
+          "best_offset": 2,
+          "sequence_length": 50000,
+          "significant": true
+        },
+        {
+          "constant": "phi",
+          "similarity": 0.964922,
+          "best_offset": 0,
+          "sequence_length": 50000,
+          "significant": true
+        },
+        {
+          "constant": "sqrt2",
+          "similarity": 0.955613,
+          "best_offset": 0,
+          "sequence_length": 50000,
+          "significant": true
+        }
+      ],
+      "max_similarity": 0.97928,
+      "interpretation": "much lower than random - expected for structured natural language"
+    },
+    "e_digits": {
+      "name": "e_digits",
+      "text_length": 50000,
+      "letter_entropy": 0.0,
+      "baseline_percentile": 0.0,
+      "significant_correlations": [
+        {
+          "constant": "pi",
+          "similarity": 0.900098,
+          "best_offset": 0,
+          "sequence_length": 50000,
+          "significant": true
+        },
+        {
+          "constant": "e",
+          "similarity": 0.91706,
+          "best_offset": 17,
+          "sequence_length": 50000,
+          "significant": true
+        },
+        {
+          "constant": "phi",
+          "similarity": 0.884207,
+          "best_offset": 0,
+          "sequence_length": 50000,
+          "significant": true
+        },
+        {
+          "constant": "sqrt2",
+          "similarity": 0.892894,
+          "best_offset": 0,
+          "sequence_length": 50000,
+          "significant": true
+        }
+      ],
+      "max_similarity": 0.91706,
+      "interpretation": "much lower than random - expected for structured natural language"
+    }
+  },
+  "ancient_results": {
+    "KJV Bible": {
+      "name": "KJV Bible",
+      "text_length": 50000,
+      "letter_entropy": 4.07514186493203,
+      "baseline_percentile": 0.0,
+      "significant_correlations": [
+        {
+          "constant": "phi",
+          "similarity": 0.862709,
+          "best_offset": 13,
+          "sequence_length": 40291,
+          "significant": true
+        }
+      ],
+      "max_similarity": 0.862709,
+      "interpretation": "much lower than random - expected for structured natural language"
+    },
+    "Book of Enoch": {
+      "name": "Book of Enoch",
+      "text_length": 50000,
+      "letter_entropy": 4.171438955519077,
+      "baseline_percentile": 0.0,
+      "significant_correlations": [],
+      "max_similarity": 0.0,
+      "interpretation": "much lower than random - expected for structured natural language"
+    },
+    "Gospel of Thomas": {
+      "name": "Gospel of Thomas",
+      "text_length": 14394,
+      "letter_entropy": 4.151626130564646,
+      "baseline_percentile": 0.0,
+      "significant_correlations": [],
+      "max_similarity": 0.0,
+      "interpretation": "much lower than random - expected for structured natural language"
+    },
+    "Corpus Hermeticum": {
+      "name": "Corpus Hermeticum",
+      "text_length": 50000,
+      "letter_entropy": 4.1297983149220565,
+      "baseline_percentile": 0.0,
+      "significant_correlations": [],
+      "max_similarity": 0.0,
+      "interpretation": "much lower than random - expected for structured natural language"
+    },
+    "Dead Sea Scrolls": {
+      "name": "Dead Sea Scrolls",
+      "text_length": 50000,
+      "letter_entropy": 4.2919596549437165,
+      "baseline_percentile": 100.0,
+      "significant_correlations": [
+        {
+          "constant": "pi",
+          "similarity": 0.870868,
+          "best_offset": 19,
+          "sequence_length": 42347,
+          "significant": true
+        },
+        {
+          "constant": "e",
+          "similarity": 0.870076,
+          "best_offset": 2,
+          "sequence_length": 42347,
+          "significant": true
+        },
+        {
+          "constant": "phi",
+          "similarity": 0.868093,
+          "best_offset": 19,
+          "sequence_length": 42347,
+          "significant": true
+        },
+        {
+          "constant": "sqrt2",
+          "similarity": 0.851484,
+          "best_offset": 0,
+          "sequence_length": 42347,
+          "significant": true
+        }
+      ],
+      "max_similarity": 0.870868,
+      "interpretation": "much higher than random - may indicate compression or encoding"
+    },
+    "Nag Hammadi Library": {
+      "name": "Nag Hammadi Library",
+      "text_length": 50000,
+      "letter_entropy": 4.251398598184666,
+      "baseline_percentile": 100.0,
+      "significant_correlations": [
+        {
+          "constant": "pi",
+          "similarity": 0.859443,
+          "best_offset": 0,
+          "sequence_length": 42325,
+          "significant": true
+        },
+        {
+          "constant": "e",
+          "similarity": 0.864023,
+          "best_offset": 2,
+          "sequence_length": 42325,
+          "significant": true
+        },
+        {
+          "constant": "phi",
+          "similarity": 0.859005,
+          "best_offset": 19,
+          "sequence_length": 42325,
+          "significant": true
+        }
+      ],
+      "max_similarity": 0.864023,
+      "interpretation": "much higher than random - may indicate compression or encoding"
+    }
+  },
+  "validation": {
+    "summary": {
+      "total_controls_tested": 6,
+      "total_ancient_tested": 6,
+      "controls_with_sig_corr": 4,
+      "ancients_with_sig_corr": 3
+    },
+    "baseline_entropy": {
+      "control_mean_percentile": 6.333333333333333,
+      "ancient_mean_percentile": 33.333333333333336,
+      "interpretation": "No clear distinction between ancient and control texts"
+    },
+    "constant_correlation": {
+      "control_mean_sig_count": 2.1666666666666665,
+      "ancient_mean_sig_count": 1.3333333333333333,
+      "control_max_similarity": 0.97928,
+      "ancient_max_similarity": 0.870868
+    },
+    "conclusion": "NEGATIVE: No significant difference detected between ancient and control texts."
+  }
+}

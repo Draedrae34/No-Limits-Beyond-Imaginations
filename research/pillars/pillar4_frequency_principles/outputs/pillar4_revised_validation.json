@@ -1,0 +1,4297 @@
+{
+  "pillar": "Pillar 4: The Simulation Signature (Revised)",
+  "generated": "2026-08-28T18:51:46.971706Z",
+  "baseline_length": 200000,
+  "analyses": [
+    {
+      "name": "shakespeare",
+      "text_length": 56573,
+      "ngram_test": {
+        "chi_squared": 1230066.6367,
+        "top_deviations": [
+          {
+            "ngram": "igh",
+            "observed": 640,
+            "expected": 4.66,
+            "deviation": 136.422
+          },
+          {
+            "ngram": "ght",
+            "observed": 640,
+            "expected": 4.66,
+            "deviation": 136.422
+          },
+          {
+            "ngram": "sun",
+            "observed": 346,
+            "expected": 4.66,
+            "deviation": 73.294
+          },
+          {
+            "ngram": "whe",
+            "observed": 344,
+            "expected": 4.66,
+            "deviation": 72.864
+          },
+          {
+            "ngram": "ref",
+            "observed": 344,
+            "expected": 4.66,
+            "deviation": 72.864
+          },
+          {
+            "ngram": "ore",
+            "observed": 344,
+            "expected": 4.66,
+            "deviation": 72.864
+          },
+          {
+            "ngram": "uth",
+            "observed": 335,
+            "expected": 4.66,
+            "deviation": 70.932
+          },
+          {
+            "ngram": "dot",
+            "observed": 316,
+            "expected": 4.66,
+            "deviation": 66.852
+          },
+          {
+            "ngram": "nig",
+            "observed": 311,
+            "expected": 4.66,
+            "deviation": 65.778
+          },
+          {
+            "ngram": "thu",
+            "observed": 310,
+            "expected": 4.66,
+            "deviation": 65.564
+          },
+          {
+            "ngram": "hus",
+            "observed": 310,
+            "expected": 4.66,
+            "deviation": 65.564
+          },
+          {
+            "ngram": "eav",
+            "observed": 307,
+            "expected": 4.66,
+            "deviation": 64.919
+          },
+          {
+            "ngram": "moo",
+            "observed": 307,
+            "expected": 4.66,
+            "deviation": 64.919
+          },
+          {
+            "ngram": "oon",
+            "observed": 307,
+            "expected": 4.66,
+            "deviation": 64.919
+          },
+          {
+            "ngram": "ath",
+            "observed": 306,
+            "expected": 4.66,
+            "deviation": 64.705
+          },
+          {
+            "ngram": "thy",
+            "observed": 306,
+            "expected": 4.66,
+            "deviation": 64.705
+          },
+          {
+            "ngram": "eri",
+            "observed": 306,
+            "expected": 4.66,
+            "deviation": 64.705
+          },
+          {
+            "ngram": "ril",
+            "observed": 306,
+            "expected": 4.66,
+            "deviation": 64.705
+          },
+          {
+            "ngram": "ven",
+            "observed": 306,
+            "expected": 4.66,
+            "deviation": 64.705
+          },
+          {
+            "ngram": "oul",
+            "observed": 305,
+            "expected": 4.66,
+            "deviation": 64.49
+          }
+        ],
+        "n_grams_tested": 644,
+        "percentile": 90.0
+      },
+      "compression_test": {
+        "compression_ratio": 0.205045,
+        "baseline_ratio": 0.010335,
+        "deviation": 0.19471,
+        "interpretation": "much less compressible than baseline - may indicate random or encrypted content",
+        "percentile": 70.0
+      },
+      "position_test": {
+        "positions_tested": 10,
+        "significant_positions": 0,
+        "significant_ratio": 0.0,
+        "position_tests": [
+          {
+            "position": 0,
+            "chi_squared": 0.4848,
+            "p_value": 0.889254,
+            "significant": false,
+            "top_letters": [
+              [
+                "h",
+                0.1215113782739373
+              ],
+              [
+                "t",
+                0.11550021468441392
+              ],
+              [
+                "e",
+                0.1103477887505367
+              ],
+              [
+                "a",
+                0.08480034349506226
+              ],
+              [
+                "r",
+                0.07750107342206956
+              ]
+            ]
+          },
+          {
+            "position": 1,
+            "chi_squared": 0.4271,
+            "p_value": 0.89601,
+            "significant": false,
+            "top_letters": [
+              [
+                "t",
+                0.12172606268784886
+              ],
+              [
+                "e",
+                0.11872048089308716
+              ],
+              [
+                "h",
+                0.11270931730356376
+              ],
+              [
+                "a",
+                0.08115070845856591
+              ],
+              [
+                "s",
+                0.07835981107771575
+              ]
+            ]
+          },
+          {
+            "position": 2,
+            "chi_squared": 0.5058,
+            "p_value": 0.886892,
+            "significant": false,
+            "top_letters": [
+              [
+                "t",
+                0.1210820094461142
+              ],
+              [
+                "h",
+                0.11936453413482181
+              ],
+              [
+                "e",
+                0.11378273937312151
+              ],
+              [
+                "a",
+                0.08759124087591241
+              ],
+              [
+                "s",
+                0.07878917990553885
+              ]
+            ]
+          },
+          {
+            "position": 3,
+            "chi_squared": 0.4857,
+            "p_value": 0.889151,
+            "significant": false,
+            "top_letters": [
+              [
+                "h",
+                0.1215113782739373
+              ],
+              [
+                "t",
+                0.11378273937312151
+              ],
+              [
+                "e",
+                0.11142121082009446
+              ],
+              [
+                "a",
+                0.08716187204808931
+              ],
+              [
+                "s",
+                0.0781451266638042
+              ]
+            ]
+          },
+          {
+            "position": 4,
+            "chi_squared": 0.4662,
+            "p_value": 0.891381,
+            "significant": false,
+            "top_letters": [
+              [
+                "t",
+                0.12239639252737813
+              ],
+              [
+                "e",
+                0.12218166201417222
+              ],
+              [
+                "h",
+                0.11531028559158256
+              ],
+              [
+                "a",
+                0.08310070861069357
+              ],
+              [
+                "r",
+                0.07451148808245651
+              ]
+            ]
+          },
+          {
+            "position": 5,
+            "chi_squared": 0.4208,
+            "p_value": 0.896768,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.12497315868584925
+              ],
+              [
+                "h",
+                0.11488082456517071
+              ],
+              [
+                "t",
+                0.1116598668670818
+              ],
+              [
+                "a",
+                0.08524801374275284
+              ],
+              [
+                "r",
+                0.07987975091260469
+              ]
+            ]
+          },
+          {
+            "position": 6,
+            "chi_squared": 0.4716,
+            "p_value": 0.890754,
+            "significant": false,
+            "top_letters": [
+              [
+                "h",
+                0.11939016534249516
+              ],
+              [
+                "e",
+                0.11724286021043591
+              ],
+              [
+                "t",
+                0.11037148378784625
+              ],
+              [
+                "s",
+                0.08460382220313506
+              ],
+              [
+                "a",
+                0.08138286450504617
+              ]
+            ]
+          },
+          {
+            "position": 7,
+            "chi_squared": 0.4548,
+            "p_value": 0.892706,
+            "significant": false,
+            "top_letters": [
+              [
+                "h",
+                0.11896070431608331
+              ],
+              [
+                "t",
+                0.11681339918402404
+              ],
+              [
+                "e",
+                0.1108009448142581
+              ],
+              [
+                "a",
+                0.08159759501825209
+              ],
+              [
+                "s",
+                0.08073867296542839
+              ]
+            ]
+          },
+          {
+            "position": 8,
+            "chi_squared": 0.4295,
+            "p_value": 0.895717,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.12110800944814258
+              ],
+              [
+                "h",
+                0.11616920764440627
+              ],
+              [
+                "t",
+                0.11337771097272922
+              ],
+              [
+                "a",
+                0.0856774747691647
+              ],
+              [
+                "s",
+                0.0742967575692506
+              ]
+            ]
+          },
+          {
+            "position": 9,
+            "chi_squared": 0.4767,
+            "p_value": 0.890171,
+            "significant": false,
+            "top_letters": [
+              [
+                "t",
+                0.1196048958557011
+              ],
+              [
+                "e",
+                0.11831651277646553
+              ],
+              [
+                "h",
+                0.11573974661799441
+              ],
+              [
+                "a",
+                0.0792355593729869
+              ],
+              [
+                "s",
+                0.07773244578054542
+              ]
+            ]
+          }
+        ],
+        "interpretation": "consistent with baseline letter position distribution",
+        "percentile": 0.0
+      },
+      "overall_significant": false,
+      "score": 53.3333
+    },
+    {
+      "name": "random_words",
+      "text_length": 36019,
+      "ngram_test": {
+        "chi_squared": 742217.336,
+        "top_deviations": [
+          {
+            "ngram": "was",
+            "observed": 550,
+            "expected": 2.6,
+            "deviation": 210.392
+          },
+          {
+            "ngram": "had",
+            "observed": 459,
+            "expected": 2.6,
+            "deviation": 175.416
+          },
+          {
+            "ngram": "ist",
+            "observed": 305,
+            "expected": 2.6,
+            "deviation": 116.227
+          },
+          {
+            "ngram": "isi",
+            "observed": 245,
+            "expected": 2.6,
+            "deviation": 93.166
+          },
+          {
+            "ngram": "tth",
+            "observed": 216,
+            "expected": 2.6,
+            "deviation": 82.019
+          },
+          {
+            "ngram": "het",
+            "observed": 206,
+            "expected": 2.6,
+            "deviation": 78.176
+          },
+          {
+            "ngram": "att",
+            "observed": 197,
+            "expected": 2.6,
+            "deviation": 74.717
+          },
+          {
+            "ngram": "ash",
+            "observed": 179,
+            "expected": 2.6,
+            "deviation": 67.799
+          },
+          {
+            "ngram": "isw",
+            "observed": 172,
+            "expected": 2.6,
+            "deviation": 65.108
+          },
+          {
+            "ngram": "swa",
+            "observed": 164,
+            "expected": 2.6,
+            "deviation": 62.033
+          },
+          {
+            "ngram": "heh",
+            "observed": 160,
+            "expected": 2.6,
+            "deviation": 60.496
+          },
+          {
+            "ngram": "iso",
+            "observed": 158,
+            "expected": 2.6,
+            "deviation": 59.727
+          },
+          {
+            "ngram": "sat",
+            "observed": 152,
+            "expected": 2.6,
+            "deviation": 57.421
+          },
+          {
+            "ngram": "his",
+            "observed": 1038,
+            "expected": 17.79,
+            "deviation": 57.356
+          },
+          {
+            "ngram": "she",
+            "observed": 150,
+            "expected": 2.6,
+            "deviation": 56.652
+          },
+          {
+            "ngram": "asa",
+            "observed": 149,
+            "expected": 2.6,
+            "deviation": 56.268
+          },
+          {
+            "ngram": "swi",
+            "observed": 138,
+            "expected": 2.6,
+            "deviation": 52.04
+          },
+          {
+            "ngram": "isb",
+            "observed": 133,
+            "expected": 2.6,
+            "deviation": 50.118
+          },
+          {
+            "ngram": "ath",
+            "observed": 131,
+            "expected": 2.6,
+            "deviation": 49.35
+          },
+          {
+            "ngram": "sis",
+            "observed": 131,
+            "expected": 2.6,
+            "deviation": 49.35
+          }
+        ],
+        "n_grams_tested": 301,
+        "percentile": 80.0
+      },
+      "compression_test": {
+        "compression_ratio": 0.243705,
+        "baseline_ratio": 0.010335,
+        "deviation": 0.23337,
+        "interpretation": "much less compressible than baseline - may indicate random or encrypted content",
+        "percentile": 60.0
+      },
+      "position_test": {
+        "positions_tested": 10,
+        "significant_positions": 0,
+        "significant_ratio": 0.0,
+        "position_tests": [
+          {
+            "position": 0,
+            "chi_squared": 0.9282,
+            "p_value": 0.847208,
+            "significant": false,
+            "top_letters": [
+              [
+                "t",
+                0.15757109915449655
+              ],
+              [
+                "h",
+                0.13528055342044581
+              ],
+              [
+                "a",
+                0.12067640276710223
+              ],
+              [
+                "i",
+                0.11798616448885473
+              ],
+              [
+                "s",
+                0.09185242121445042
+              ]
+            ]
+          },
+          {
+            "position": 1,
+            "chi_squared": 0.8501,
+            "p_value": 0.853695,
+            "significant": false,
+            "top_letters": [
+              [
+                "t",
+                0.1460415065334358
+              ],
+              [
+                "h",
+                0.13335895465026903
+              ],
+              [
+                "a",
+                0.10914681014604151
+              ],
+              [
+                "i",
+                0.10914681014604151
+              ],
+              [
+                "s",
+                0.10030745580322828
+              ]
+            ]
+          },
+          {
+            "position": 2,
+            "chi_squared": 0.933,
+            "p_value": 0.846813,
+            "significant": false,
+            "top_letters": [
+              [
+                "t",
+                0.1425826287471176
+              ],
+              [
+                "h",
+                0.13566487317448117
+              ],
+              [
+                "i",
+                0.12797847809377402
+              ],
+              [
+                "a",
+                0.11568024596464259
+              ],
+              [
+                "s",
+                0.08993082244427364
+              ]
+            ]
+          },
+          {
+            "position": 3,
+            "chi_squared": 0.8761,
+            "p_value": 0.851502,
+            "significant": false,
+            "top_letters": [
+              [
+                "t",
+                0.15680245964642583
+              ],
+              [
+                "h",
+                0.13489623366641046
+              ],
+              [
+                "i",
+                0.11875480399692544
+              ],
+              [
+                "a",
+                0.11606456571867795
+              ],
+              [
+                "s",
+                0.1037663335895465
+              ]
+            ]
+          },
+          {
+            "position": 4,
+            "chi_squared": 0.9659,
+            "p_value": 0.844169,
+            "significant": false,
+            "top_letters": [
+              [
+                "t",
+                0.15680245964642583
+              ],
+              [
+                "h",
+                0.13643351268255188
+              ],
+              [
+                "i",
+                0.11760184473481937
+              ],
+              [
+                "a",
+                0.10953112990007687
+              ],
+              [
+                "s",
+                0.09992313604919292
+              ]
+            ]
+          },
+          {
+            "position": 5,
+            "chi_squared": 0.9234,
+            "p_value": 0.847595,
+            "significant": false,
+            "top_letters": [
+              [
+                "t",
+                0.14796310530361262
+              ],
+              [
+                "h",
+                0.13412759415833975
+              ],
+              [
+                "i",
+                0.1191391237509608
+              ],
+              [
+                "a",
+                0.10991544965411222
+              ],
+              [
+                "s",
+                0.0983858570330515
+              ]
+            ]
+          },
+          {
+            "position": 6,
+            "chi_squared": 0.8459,
+            "p_value": 0.854058,
+            "significant": false,
+            "top_letters": [
+              [
+                "t",
+                0.1660261337432744
+              ],
+              [
+                "a",
+                0.12375096079938509
+              ],
+              [
+                "h",
+                0.1218293620292083
+              ],
+              [
+                "i",
+                0.11452728670253651
+              ],
+              [
+                "s",
+                0.09415833973866257
+              ]
+            ]
+          },
+          {
+            "position": 7,
+            "chi_squared": 0.9731,
+            "p_value": 0.843602,
+            "significant": false,
+            "top_letters": [
+              [
+                "t",
+                0.15026902382782475
+              ],
+              [
+                "h",
+                0.1452728670253651
+              ],
+              [
+                "i",
+                0.1164488854727133
+              ],
+              [
+                "a",
+                0.10491929285165258
+              ],
+              [
+                "s",
+                0.09915449654112221
+              ]
+            ]
+          },
+          {
+            "position": 8,
+            "chi_squared": 0.8876,
+            "p_value": 0.850544,
+            "significant": false,
+            "top_letters": [
+              [
+                "t",
+                0.1571867794004612
+              ],
+              [
+                "h",
+                0.13143735588009223
+              ],
+              [
+                "i",
+                0.1299000768639508
+              ],
+              [
+                "a",
+                0.11875480399692544
+              ],
+              [
+                "s",
+                0.0930053804765565
+              ]
+            ]
+          },
+          {
+            "position": 9,
+            "chi_squared": 0.9334,
+            "p_value": 0.846781,
+            "significant": false,
+            "top_letters": [
+              [
+                "t",
+                0.15949269792467333
+              ],
+              [
+                "h",
+                0.13259031514219832
+              ],
+              [
+                "a",
+                0.11568024596464259
+              ],
+              [
+                "s",
+                0.10953112990007687
+              ],
+              [
+                "i",
+                0.1083781706379708
+              ]
+            ]
+          }
+        ],
+        "interpretation": "consistent with baseline letter position distribution",
+        "percentile": 0.0
+      },
+      "overall_significant": false,
+      "score": 46.6667
+    },
+    {
+      "name": "KJV Bible",
+      "text_length": 100000,
+      "ngram_test": {
+        "chi_squared": 325240.9457,
+        "top_deviations": [
+          {
+            "ngram": "ndt",
+            "observed": 476,
+            "expected": 7.42,
+            "deviation": 63.153
+          },
+          {
+            "ngram": "nto",
+            "observed": 364,
+            "expected": 7.42,
+            "deviation": 48.058
+          },
+          {
+            "ngram": "unt",
+            "observed": 305,
+            "expected": 7.42,
+            "deviation": 40.106
+          },
+          {
+            "ngram": "hes",
+            "observed": 277,
+            "expected": 7.42,
+            "deviation": 36.333
+          },
+          {
+            "ngram": "aid",
+            "observed": 242,
+            "expected": 7.42,
+            "deviation": 31.615
+          },
+          {
+            "ngram": "sai",
+            "observed": 229,
+            "expected": 7.42,
+            "deviation": 29.863
+          },
+          {
+            "ngram": "ndh",
+            "observed": 225,
+            "expected": 7.42,
+            "deviation": 29.324
+          },
+          {
+            "ngram": "tth",
+            "observed": 222,
+            "expected": 7.42,
+            "deviation": 28.92
+          },
+          {
+            "ngram": "hou",
+            "observed": 219,
+            "expected": 7.42,
+            "deviation": 28.516
+          },
+          {
+            "ngram": "abr",
+            "observed": 185,
+            "expected": 7.42,
+            "deviation": 23.933
+          },
+          {
+            "ngram": "bra",
+            "observed": 182,
+            "expected": 7.42,
+            "deviation": 23.529
+          },
+          {
+            "ngram": "rah",
+            "observed": 176,
+            "expected": 7.42,
+            "deviation": 22.72
+          },
+          {
+            "ngram": "eea",
+            "observed": 169,
+            "expected": 7.42,
+            "deviation": 21.777
+          },
+          {
+            "ngram": "him",
+            "observed": 164,
+            "expected": 7.42,
+            "deviation": 21.103
+          },
+          {
+            "ngram": "she",
+            "observed": 163,
+            "expected": 7.42,
+            "deviation": 20.968
+          },
+          {
+            "ngram": "ght",
+            "observed": 162,
+            "expected": 7.42,
+            "deviation": 20.833
+          },
+          {
+            "ngram": "was",
+            "observed": 158,
+            "expected": 7.42,
+            "deviation": 20.294
+          },
+          {
+            "ngram": "ath",
+            "observed": 148,
+            "expected": 7.42,
+            "deviation": 18.947
+          },
+          {
+            "ngram": "thy",
+            "observed": 148,
+            "expected": 7.42,
+            "deviation": 18.947
+          },
+          {
+            "ngram": "ven",
+            "observed": 147,
+            "expected": 7.42,
+            "deviation": 18.812
+          }
+        ],
+        "n_grams_tested": 2131,
+        "percentile": 70.0
+      },
+      "compression_test": {
+        "compression_ratio": 0.30096,
+        "baseline_ratio": 0.010335,
+        "deviation": 0.290625,
+        "interpretation": "much less compressible than baseline - may indicate random or encrypted content",
+        "percentile": 50.0
+      },
+      "position_test": {
+        "positions_tested": 10,
+        "significant_positions": 0,
+        "significant_ratio": 0.0,
+        "position_tests": [
+          {
+            "position": 0,
+            "chi_squared": 0.2103,
+            "p_value": 0.926929,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.13194070080862533
+              ],
+              [
+                "a",
+                0.10525606469002695
+              ],
+              [
+                "t",
+                0.09393530997304582
+              ],
+              [
+                "h",
+                0.08827493261455525
+              ],
+              [
+                "n",
+                0.07870619946091645
+              ]
+            ]
+          },
+          {
+            "position": 1,
+            "chi_squared": 0.2047,
+            "p_value": 0.927908,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.12506738544474394
+              ],
+              [
+                "a",
+                0.1018867924528302
+              ],
+              [
+                "t",
+                0.09137466307277628
+              ],
+              [
+                "h",
+                0.08611859838274932
+              ],
+              [
+                "n",
+                0.0738544474393531
+              ]
+            ]
+          },
+          {
+            "position": 2,
+            "chi_squared": 0.2019,
+            "p_value": 0.928392,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.127088948787062
+              ],
+              [
+                "a",
+                0.10431266846361185
+              ],
+              [
+                "t",
+                0.08881401617250674
+              ],
+              [
+                "h",
+                0.0862533692722372
+              ],
+              [
+                "o",
+                0.06940700808625337
+              ]
+            ]
+          },
+          {
+            "position": 3,
+            "chi_squared": 0.1857,
+            "p_value": 0.931324,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.12884097035040432
+              ],
+              [
+                "a",
+                0.10417789757412399
+              ],
+              [
+                "t",
+                0.09070080862533693
+              ],
+              [
+                "h",
+                0.08490566037735849
+              ],
+              [
+                "n",
+                0.07681940700808626
+              ]
+            ]
+          },
+          {
+            "position": 4,
+            "chi_squared": 0.1918,
+            "p_value": 0.930208,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.1234501347708895
+              ],
+              [
+                "a",
+                0.09878706199460917
+              ],
+              [
+                "t",
+                0.09339622641509433
+              ],
+              [
+                "h",
+                0.08584905660377358
+              ],
+              [
+                "n",
+                0.07587601078167115
+              ]
+            ]
+          },
+          {
+            "position": 5,
+            "chi_squared": 0.2055,
+            "p_value": 0.927766,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.13221024258760108
+              ],
+              [
+                "a",
+                0.09784366576819407
+              ],
+              [
+                "t",
+                0.09231805929919137
+              ],
+              [
+                "h",
+                0.08787061994609165
+              ],
+              [
+                "n",
+                0.07547169811320754
+              ]
+            ]
+          },
+          {
+            "position": 6,
+            "chi_squared": 0.1972,
+            "p_value": 0.929227,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.13827493261455526
+              ],
+              [
+                "a",
+                0.10512129380053908
+              ],
+              [
+                "t",
+                0.09582210242587601
+              ],
+              [
+                "h",
+                0.08450134770889488
+              ],
+              [
+                "n",
+                0.07048517520215633
+              ]
+            ]
+          },
+          {
+            "position": 7,
+            "chi_squared": 0.1979,
+            "p_value": 0.929099,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.12075471698113208
+              ],
+              [
+                "a",
+                0.10970350404312669
+              ],
+              [
+                "t",
+                0.09231805929919137
+              ],
+              [
+                "h",
+                0.08908355795148248
+              ],
+              [
+                "n",
+                0.0738544474393531
+              ]
+            ]
+          },
+          {
+            "position": 8,
+            "chi_squared": 0.1946,
+            "p_value": 0.929694,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.12196765498652291
+              ],
+              [
+                "a",
+                0.10822102425876011
+              ],
+              [
+                "t",
+                0.09043126684636119
+              ],
+              [
+                "h",
+                0.08247978436657682
+              ],
+              [
+                "n",
+                0.07708894878706199
+              ]
+            ]
+          },
+          {
+            "position": 9,
+            "chi_squared": 0.1997,
+            "p_value": 0.928776,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.12547169811320755
+              ],
+              [
+                "a",
+                0.1087601078167116
+              ],
+              [
+                "t",
+                0.09663072776280324
+              ],
+              [
+                "h",
+                0.08517520215633423
+              ],
+              [
+                "n",
+                0.07196765498652291
+              ]
+            ]
+          }
+        ],
+        "interpretation": "consistent with baseline letter position distribution",
+        "percentile": 0.0
+      },
+      "overall_significant": false,
+      "score": 40.0
+    },
+    {
+      "name": "Corpus Hermeticum",
+      "text_length": 100000,
+      "ngram_test": {
+        "chi_squared": 276505.0189,
+        "top_deviations": [
+          {
+            "ngram": "you",
+            "observed": 274,
+            "expected": 7.67,
+            "deviation": 34.744
+          },
+          {
+            "ngram": "ngs",
+            "observed": 271,
+            "expected": 7.67,
+            "deviation": 34.352
+          },
+          {
+            "ngram": "not",
+            "observed": 260,
+            "expected": 7.67,
+            "deviation": 32.917
+          },
+          {
+            "ngram": "god",
+            "observed": 256,
+            "expected": 7.67,
+            "deviation": 32.396
+          },
+          {
+            "ngram": "tth",
+            "observed": 246,
+            "expected": 7.67,
+            "deviation": 31.091
+          },
+          {
+            "ngram": "ght",
+            "observed": 237,
+            "expected": 7.67,
+            "deviation": 29.917
+          },
+          {
+            "ngram": "oul",
+            "observed": 223,
+            "expected": 7.67,
+            "deviation": 28.091
+          },
+          {
+            "ngram": "hes",
+            "observed": 214,
+            "expected": 7.67,
+            "deviation": 26.917
+          },
+          {
+            "ngram": "ath",
+            "observed": 213,
+            "expected": 7.67,
+            "deviation": 26.786
+          },
+          {
+            "ngram": "ndt",
+            "observed": 200,
+            "expected": 7.67,
+            "deviation": 25.09
+          },
+          {
+            "ngram": "but",
+            "observed": 177,
+            "expected": 7.67,
+            "deviation": 22.09
+          },
+          {
+            "ngram": "ist",
+            "observed": 176,
+            "expected": 7.67,
+            "deviation": 21.959
+          },
+          {
+            "ngram": "who",
+            "observed": 173,
+            "expected": 7.67,
+            "deviation": 21.568
+          },
+          {
+            "ngram": "hou",
+            "observed": 165,
+            "expected": 7.67,
+            "deviation": 20.524
+          },
+          {
+            "ngram": "its",
+            "observed": 159,
+            "expected": 7.67,
+            "deviation": 19.742
+          },
+          {
+            "ngram": "tis",
+            "observed": 158,
+            "expected": 7.67,
+            "deviation": 19.611
+          },
+          {
+            "ngram": "ood",
+            "observed": 157,
+            "expected": 7.67,
+            "deviation": 19.481
+          },
+          {
+            "ngram": "nto",
+            "observed": 149,
+            "expected": 7.67,
+            "deviation": 18.437
+          },
+          {
+            "ngram": "sel",
+            "observed": 148,
+            "expected": 7.67,
+            "deviation": 18.307
+          },
+          {
+            "ngram": "goo",
+            "observed": 143,
+            "expected": 7.67,
+            "deviation": 17.655
+          }
+        ],
+        "n_grams_tested": 2294,
+        "percentile": 60.0
+      },
+      "compression_test": {
+        "compression_ratio": 0.35991,
+        "baseline_ratio": 0.010335,
+        "deviation": 0.349575,
+        "interpretation": "much less compressible than baseline - may indicate random or encrypted content",
+        "percentile": 40.0
+      },
+      "position_test": {
+        "positions_tested": 10,
+        "significant_positions": 0,
+        "significant_ratio": 0.0,
+        "position_tests": [
+          {
+            "position": 0,
+            "chi_squared": 0.1106,
+            "p_value": 0.946978,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11466214453430733
+              ],
+              [
+                "t",
+                0.09705191755804853
+              ],
+              [
+                "o",
+                0.09013827289329507
+              ],
+              [
+                "a",
+                0.07891990607878946
+              ],
+              [
+                "s",
+                0.07526741455778764
+              ]
+            ]
+          },
+          {
+            "position": 1,
+            "chi_squared": 0.1228,
+            "p_value": 0.944132,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11505348291155752
+              ],
+              [
+                "t",
+                0.09913905557004957
+              ],
+              [
+                "o",
+                0.09157318027654579
+              ],
+              [
+                "s",
+                0.07344116879728672
+              ],
+              [
+                "n",
+                0.07278893816853639
+              ]
+            ]
+          },
+          {
+            "position": 2,
+            "chi_squared": 0.134,
+            "p_value": 0.941634,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.12953300286981476
+              ],
+              [
+                "t",
+                0.09809548656404905
+              ],
+              [
+                "o",
+                0.08622488912079311
+              ],
+              [
+                "h",
+                0.07291938429428646
+              ],
+              [
+                "s",
+                0.07291938429428646
+              ]
+            ]
+          },
+          {
+            "position": 3,
+            "chi_squared": 0.1217,
+            "p_value": 0.944387,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11531437516305766
+              ],
+              [
+                "t",
+                0.09496477954604748
+              ],
+              [
+                "o",
+                0.09235585703104618
+              ],
+              [
+                "s",
+                0.07474563005478738
+              ],
+              [
+                "n",
+                0.07213670753978607
+              ]
+            ]
+          },
+          {
+            "position": 4,
+            "chi_squared": 0.123,
+            "p_value": 0.944086,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.12274980433081137
+              ],
+              [
+                "t",
+                0.09809548656404905
+              ],
+              [
+                "o",
+                0.08792068875554396
+              ],
+              [
+                "s",
+                0.07422384555178711
+              ],
+              [
+                "n",
+                0.07213670753978607
+              ]
+            ]
+          },
+          {
+            "position": 5,
+            "chi_squared": 0.1201,
+            "p_value": 0.944753,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.1147925906600574
+              ],
+              [
+                "o",
+                0.09352987216279676
+              ],
+              [
+                "t",
+                0.0930080876597965
+              ],
+              [
+                "s",
+                0.07487607618053743
+              ],
+              [
+                "n",
+                0.07213670753978607
+              ]
+            ]
+          },
+          {
+            "position": 6,
+            "chi_squared": 0.1298,
+            "p_value": 0.94255,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11492303678580747
+              ],
+              [
+                "t",
+                0.10031307070180015
+              ],
+              [
+                "o",
+                0.08765979650404383
+              ],
+              [
+                "s",
+                0.07865901382728933
+              ],
+              [
+                "i",
+                0.07122358465953561
+              ]
+            ]
+          },
+          {
+            "position": 7,
+            "chi_squared": 0.1344,
+            "p_value": 0.941557,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11687972867205844
+              ],
+              [
+                "t",
+                0.09796504043829898
+              ],
+              [
+                "o",
+                0.08557265849204279
+              ],
+              [
+                "h",
+                0.07709366031828854
+              ],
+              [
+                "a",
+                0.07657187581528829
+              ]
+            ]
+          },
+          {
+            "position": 8,
+            "chi_squared": 0.1255,
+            "p_value": 0.943514,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11974954343855987
+              ],
+              [
+                "t",
+                0.09848682494129925
+              ],
+              [
+                "o",
+                0.08922515001304461
+              ],
+              [
+                "a",
+                0.07709366031828854
+              ],
+              [
+                "s",
+                0.07278893816853639
+              ]
+            ]
+          },
+          {
+            "position": 9,
+            "chi_squared": 0.1209,
+            "p_value": 0.944555,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.12211350293542074
+              ],
+              [
+                "t",
+                0.09067188519243313
+              ],
+              [
+                "o",
+                0.08480104370515329
+              ],
+              [
+                "s",
+                0.07840834964122635
+              ],
+              [
+                "a",
+                0.07501630789302022
+              ]
+            ]
+          }
+        ],
+        "interpretation": "consistent with baseline letter position distribution",
+        "percentile": 0.0
+      },
+      "overall_significant": false,
+      "score": 33.3333
+    },
+    {
+      "name": "random_letters",
+      "text_length": 50000,
+      "ngram_test": {
+        "chi_squared": 7144.0083,
+        "top_deviations": [
+          {
+            "ngram": "czn",
+            "observed": 11,
+            "expected": 4.82,
+            "deviation": 1.284
+          },
+          {
+            "ngram": "pup",
+            "observed": 11,
+            "expected": 4.82,
+            "deviation": 1.284
+          },
+          {
+            "ngram": "oxx",
+            "observed": 10,
+            "expected": 4.82,
+            "deviation": 1.076
+          },
+          {
+            "ngram": "lqh",
+            "observed": 10,
+            "expected": 4.82,
+            "deviation": 1.076
+          },
+          {
+            "ngram": "sjy",
+            "observed": 10,
+            "expected": 4.82,
+            "deviation": 1.076
+          },
+          {
+            "ngram": "pbd",
+            "observed": 10,
+            "expected": 4.82,
+            "deviation": 1.076
+          },
+          {
+            "ngram": "kwq",
+            "observed": 10,
+            "expected": 4.82,
+            "deviation": 1.076
+          },
+          {
+            "ngram": "zqs",
+            "observed": 10,
+            "expected": 4.82,
+            "deviation": 1.076
+          },
+          {
+            "ngram": "ion",
+            "observed": 5,
+            "expected": 556.08,
+            "deviation": -0.991
+          },
+          {
+            "ngram": "tin",
+            "observed": 5,
+            "expected": 196.43,
+            "deviation": -0.975
+          },
+          {
+            "ngram": "eco",
+            "observed": 5,
+            "expected": 164.06,
+            "deviation": -0.97
+          },
+          {
+            "ngram": "cre",
+            "observed": 5,
+            "expected": 164.06,
+            "deviation": -0.97
+          },
+          {
+            "ngram": "nge",
+            "observed": 6,
+            "expected": 196.71,
+            "deviation": -0.969
+          },
+          {
+            "ngram": "res",
+            "observed": 5,
+            "expected": 163.78,
+            "deviation": -0.969
+          },
+          {
+            "ngram": "sar",
+            "observed": 5,
+            "expected": 130.86,
+            "deviation": -0.962
+          },
+          {
+            "ngram": "lif",
+            "observed": 5,
+            "expected": 130.58,
+            "deviation": -0.962
+          },
+          {
+            "ngram": "nse",
+            "observed": 5,
+            "expected": 130.86,
+            "deviation": -0.962
+          },
+          {
+            "ngram": "uma",
+            "observed": 5,
+            "expected": 131.14,
+            "deviation": -0.962
+          },
+          {
+            "ngram": "nta",
+            "observed": 7,
+            "expected": 163.5,
+            "deviation": -0.957
+          },
+          {
+            "ngram": "cal",
+            "observed": 6,
+            "expected": 130.58,
+            "deviation": -0.954
+          }
+        ],
+        "n_grams_tested": 2491,
+        "percentile": 10.0
+      },
+      "compression_test": {
+        "compression_ratio": 0.63666,
+        "baseline_ratio": 0.010335,
+        "deviation": 0.626325,
+        "interpretation": "much less compressible than baseline - may indicate random or encrypted content",
+        "percentile": 80.0
+      },
+      "position_test": {
+        "positions_tested": 10,
+        "significant_positions": 0,
+        "significant_ratio": 0.0,
+        "position_tests": [
+          {
+            "position": 0,
+            "chi_squared": 4.4006,
+            "p_value": 0.674814,
+            "significant": false,
+            "top_letters": [
+              [
+                "t",
+                0.04276520656009965
+              ],
+              [
+                "z",
+                0.042557608470002076
+              ],
+              [
+                "v",
+                0.04172721610961179
+              ],
+              [
+                "i",
+                0.041312019929416646
+              ],
+              [
+                "p",
+                0.04089682374922151
+              ]
+            ]
+          },
+          {
+            "position": 1,
+            "chi_squared": 4.1103,
+            "p_value": 0.685127,
+            "significant": false,
+            "top_letters": [
+              [
+                "l",
+                0.0452563836412705
+              ],
+              [
+                "o",
+                0.04338800083039236
+              ],
+              [
+                "d",
+                0.04297280465019722
+              ],
+              [
+                "u",
+                0.04089682374922151
+              ],
+              [
+                "w",
+                0.04068922565912394
+              ]
+            ]
+          },
+          {
+            "position": 2,
+            "chi_squared": 4.2244,
+            "p_value": 0.681023,
+            "significant": false,
+            "top_letters": [
+              [
+                "h",
+                0.043803197010587505
+              ],
+              [
+                "a",
+                0.042350010379904504
+              ],
+              [
+                "g",
+                0.04172721610961179
+              ],
+              [
+                "q",
+                0.04151961801951422
+              ],
+              [
+                "b",
+                0.04110442183931908
+              ]
+            ]
+          },
+          {
+            "position": 3,
+            "chi_squared": 4.9258,
+            "p_value": 0.657127,
+            "significant": false,
+            "top_letters": [
+              [
+                "u",
+                0.04381229235880399
+              ],
+              [
+                "k",
+                0.0436046511627907
+              ],
+              [
+                "x",
+                0.042774086378737544
+              ],
+              [
+                "z",
+                0.04194352159468438
+              ],
+              [
+                "t",
+                0.04132059800664452
+              ]
+            ]
+          },
+          {
+            "position": 4,
+            "chi_squared": 4.056,
+            "p_value": 0.687104,
+            "significant": false,
+            "top_letters": [
+              [
+                "p",
+                0.04339700996677741
+              ],
+              [
+                "u",
+                0.0417358803986711
+              ],
+              [
+                "m",
+                0.04152823920265781
+              ],
+              [
+                "c",
+                0.04111295681063123
+              ],
+              [
+                "k",
+                0.04111295681063123
+              ]
+            ]
+          },
+          {
+            "position": 5,
+            "chi_squared": 4.2477,
+            "p_value": 0.680193,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.04754983388704319
+              ],
+              [
+                "n",
+                0.042566445182724254
+              ],
+              [
+                "w",
+                0.04194352159468438
+              ],
+              [
+                "l",
+                0.04111295681063123
+              ],
+              [
+                "c",
+                0.040697674418604654
+              ]
+            ]
+          },
+          {
+            "position": 6,
+            "chi_squared": 4.3673,
+            "p_value": 0.675975,
+            "significant": false,
+            "top_letters": [
+              [
+                "h",
+                0.04526578073089701
+              ],
+              [
+                "r",
+                0.04381229235880399
+              ],
+              [
+                "c",
+                0.04215116279069767
+              ],
+              [
+                "q",
+                0.0417358803986711
+              ],
+              [
+                "f",
+                0.04152823920265781
+              ]
+            ]
+          },
+          {
+            "position": 7,
+            "chi_squared": 3.5825,
+            "p_value": 0.705021,
+            "significant": false,
+            "top_letters": [
+              [
+                "p",
+                0.0454734219269103
+              ],
+              [
+                "n",
+                0.04298172757475083
+              ],
+              [
+                "f",
+                0.04215116279069767
+              ],
+              [
+                "l",
+                0.04111295681063123
+              ],
+              [
+                "t",
+                0.04111295681063123
+              ]
+            ]
+          },
+          {
+            "position": 8,
+            "chi_squared": 4.4164,
+            "p_value": 0.674264,
+            "significant": false,
+            "top_letters": [
+              [
+                "d",
+                0.04401993355481727
+              ],
+              [
+                "z",
+                0.042774086378737544
+              ],
+              [
+                "u",
+                0.042566445182724254
+              ],
+              [
+                "m",
+                0.042566445182724254
+              ],
+              [
+                "p",
+                0.04194352159468438
+              ]
+            ]
+          },
+          {
+            "position": 9,
+            "chi_squared": 4.6986,
+            "p_value": 0.664633,
+            "significant": false,
+            "top_letters": [
+              [
+                "b",
+                0.04401993355481727
+              ],
+              [
+                "r",
+                0.04318936877076412
+              ],
+              [
+                "z",
+                0.04318936877076412
+              ],
+              [
+                "j",
+                0.042566445182724254
+              ],
+              [
+                "c",
+                0.04132059800664452
+              ]
+            ]
+          }
+        ],
+        "interpretation": "consistent with baseline letter position distribution",
+        "percentile": 0.0
+      },
+      "overall_significant": false,
+      "score": 30.0
+    },
+    {
+      "name": "modern_english",
+      "text_length": 50000,
+      "ngram_test": {
+        "chi_squared": 1.9657,
+        "top_deviations": [
+          {
+            "ngram": "heq",
+            "observed": 30,
+            "expected": 29.25,
+            "deviation": 0.026
+          },
+          {
+            "ngram": "uic",
+            "observed": 30,
+            "expected": 29.25,
+            "deviation": 0.026
+          },
+          {
+            "ngram": "ick",
+            "observed": 30,
+            "expected": 29.25,
+            "deviation": 0.026
+          },
+          {
+            "ngram": "ckb",
+            "observed": 30,
+            "expected": 29.25,
+            "deviation": 0.026
+          },
+          {
+            "ngram": "kbr",
+            "observed": 30,
+            "expected": 29.25,
+            "deviation": 0.026
+          },
+          {
+            "ngram": "bro",
+            "observed": 30,
+            "expected": 29.25,
+            "deviation": 0.026
+          },
+          {
+            "ngram": "own",
+            "observed": 30,
+            "expected": 29.25,
+            "deviation": 0.026
+          },
+          {
+            "ngram": "wnf",
+            "observed": 30,
+            "expected": 29.25,
+            "deviation": 0.026
+          },
+          {
+            "ngram": "fox",
+            "observed": 30,
+            "expected": 29.25,
+            "deviation": 0.026
+          },
+          {
+            "ngram": "oxj",
+            "observed": 30,
+            "expected": 29.25,
+            "deviation": 0.026
+          },
+          {
+            "ngram": "xju",
+            "observed": 30,
+            "expected": 29.25,
+            "deviation": 0.026
+          },
+          {
+            "ngram": "jum",
+            "observed": 30,
+            "expected": 29.25,
+            "deviation": 0.026
+          },
+          {
+            "ngram": "ump",
+            "observed": 30,
+            "expected": 29.25,
+            "deviation": 0.026
+          },
+          {
+            "ngram": "mps",
+            "observed": 30,
+            "expected": 29.25,
+            "deviation": 0.026
+          },
+          {
+            "ngram": "pso",
+            "observed": 30,
+            "expected": 29.25,
+            "deviation": 0.026
+          },
+          {
+            "ngram": "sov",
+            "observed": 30,
+            "expected": 29.25,
+            "deviation": 0.026
+          },
+          {
+            "ngram": "ert",
+            "observed": 30,
+            "expected": 29.25,
+            "deviation": 0.026
+          },
+          {
+            "ngram": "rth",
+            "observed": 30,
+            "expected": 29.25,
+            "deviation": 0.026
+          },
+          {
+            "ngram": "hel",
+            "observed": 30,
+            "expected": 29.25,
+            "deviation": 0.026
+          },
+          {
+            "ngram": "ela",
+            "observed": 30,
+            "expected": 29.25,
+            "deviation": 0.026
+          }
+        ],
+        "n_grams_tested": 829,
+        "percentile": 0.0
+      },
+      "compression_test": {
+        "compression_ratio": 0.02458,
+        "baseline_ratio": 0.010335,
+        "deviation": 0.014245,
+        "interpretation": "similar compressibility to baseline",
+        "percentile": 90.0
+      },
+      "position_test": {
+        "positions_tested": 10,
+        "significant_positions": 0,
+        "significant_ratio": 0.0,
+        "position_tests": [
+          {
+            "position": 0,
+            "chi_squared": 0.0001,
+            "p_value": 0.998257,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11591493339565319
+              ],
+              [
+                "n",
+                0.09371348445898574
+              ],
+              [
+                "a",
+                0.08670250058424865
+              ],
+              [
+                "i",
+                0.0824959102594064
+              ],
+              [
+                "o",
+                0.07992521617200281
+              ]
+            ]
+          },
+          {
+            "position": 1,
+            "chi_squared": 0.0002,
+            "p_value": 0.997961,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11568123393316196
+              ],
+              [
+                "n",
+                0.09301238607151203
+              ],
+              [
+                "a",
+                0.08553400327179247
+              ],
+              [
+                "i",
+                0.08319700864688011
+              ],
+              [
+                "o",
+                0.08132741294695023
+              ]
+            ]
+          },
+          {
+            "position": 2,
+            "chi_squared": 0.0001,
+            "p_value": 0.998257,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11617578307620384
+              ],
+              [
+                "n",
+                0.09396914446002805
+              ],
+              [
+                "a",
+                0.08532024310425433
+              ],
+              [
+                "i",
+                0.08274894810659186
+              ],
+              [
+                "o",
+                0.08041140719962599
+              ]
+            ]
+          },
+          {
+            "position": 3,
+            "chi_squared": 0.0001,
+            "p_value": 0.998316,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11570827489481066
+              ],
+              [
+                "n",
+                0.09209911173445536
+              ],
+              [
+                "a",
+                0.08625525946704067
+              ],
+              [
+                "i",
+                0.0820476858345021
+              ],
+              [
+                "o",
+                0.08041140719962599
+              ]
+            ]
+          },
+          {
+            "position": 4,
+            "chi_squared": 0.0001,
+            "p_value": 0.998259,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11594202898550725
+              ],
+              [
+                "n",
+                0.09350163627863488
+              ],
+              [
+                "a",
+                0.08695652173913043
+              ],
+              [
+                "i",
+                0.08345021037868162
+              ],
+              [
+                "o",
+                0.08017765310892941
+              ]
+            ]
+          },
+          {
+            "position": 5,
+            "chi_squared": 0.0001,
+            "p_value": 0.998241,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11594202898550725
+              ],
+              [
+                "n",
+                0.09373539036933147
+              ],
+              [
+                "a",
+                0.08648901355773726
+              ],
+              [
+                "i",
+                0.08181393174380551
+              ],
+              [
+                "o",
+                0.07994389901823282
+              ]
+            ]
+          },
+          {
+            "position": 6,
+            "chi_squared": 0.0002,
+            "p_value": 0.997748,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11547452080411408
+              ],
+              [
+                "n",
+                0.09350163627863488
+              ],
+              [
+                "a",
+                0.08812529219261338
+              ],
+              [
+                "i",
+                0.08391771856007481
+              ],
+              [
+                "o",
+                0.0785413744740533
+              ]
+            ]
+          },
+          {
+            "position": 7,
+            "chi_squared": 0.0001,
+            "p_value": 0.998218,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11711079943899018
+              ],
+              [
+                "n",
+                0.09256661991584852
+              ],
+              [
+                "a",
+                0.08602150537634409
+              ],
+              [
+                "i",
+                0.0820476858345021
+              ],
+              [
+                "o",
+                0.07994389901823282
+              ]
+            ]
+          },
+          {
+            "position": 8,
+            "chi_squared": 0.0001,
+            "p_value": 0.998151,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11734455352968677
+              ],
+              [
+                "n",
+                0.0913978494623656
+              ],
+              [
+                "a",
+                0.08508648901355774
+              ],
+              [
+                "i",
+                0.08438522674146798
+              ],
+              [
+                "o",
+                0.08064516129032258
+              ]
+            ]
+          },
+          {
+            "position": 9,
+            "chi_squared": 0.0002,
+            "p_value": 0.99786,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11781206171107994
+              ],
+              [
+                "n",
+                0.09303412809724171
+              ],
+              [
+                "a",
+                0.08602150537634409
+              ],
+              [
+                "i",
+                0.08181393174380551
+              ],
+              [
+                "o",
+                0.08087891538101917
+              ]
+            ]
+          }
+        ],
+        "interpretation": "consistent with baseline letter position distribution",
+        "percentile": 0.0
+      },
+      "overall_significant": false,
+      "score": 30.0
+    },
+    {
+      "name": "Dead Sea Scrolls",
+      "text_length": 100000,
+      "ngram_test": {
+        "chi_squared": 153756.1187,
+        "top_deviations": [
+          {
+            "ngram": "hes",
+            "observed": 158,
+            "expected": 7.45,
+            "deviation": 20.215
+          },
+          {
+            "ngram": "ack",
+            "observed": 140,
+            "expected": 7.45,
+            "deviation": 17.799
+          },
+          {
+            "ngram": "ist",
+            "observed": 139,
+            "expected": 7.45,
+            "deviation": 17.664
+          },
+          {
+            "ngram": "out",
+            "observed": 139,
+            "expected": 7.45,
+            "deviation": 17.664
+          },
+          {
+            "ngram": "dis",
+            "observed": 134,
+            "expected": 7.45,
+            "deviation": 16.993
+          },
+          {
+            "ngram": "igh",
+            "observed": 131,
+            "expected": 7.45,
+            "deviation": 16.59
+          },
+          {
+            "ngram": "ayb",
+            "observed": 130,
+            "expected": 7.45,
+            "deviation": 16.456
+          },
+          {
+            "ngram": "bac",
+            "observed": 129,
+            "expected": 7.45,
+            "deviation": 16.321
+          },
+          {
+            "ngram": "ght",
+            "observed": 124,
+            "expected": 7.45,
+            "deviation": 15.65
+          },
+          {
+            "ngram": "eri",
+            "observed": 116,
+            "expected": 7.45,
+            "deviation": 14.576
+          },
+          {
+            "ngram": "hec",
+            "observed": 110,
+            "expected": 7.45,
+            "deviation": 13.77
+          },
+          {
+            "ngram": "dro",
+            "observed": 109,
+            "expected": 7.45,
+            "deviation": 13.636
+          },
+          {
+            "ngram": "ndt",
+            "observed": 108,
+            "expected": 7.45,
+            "deviation": 13.502
+          },
+          {
+            "ngram": "pla",
+            "observed": 107,
+            "expected": 7.45,
+            "deviation": 13.367
+          },
+          {
+            "ngram": "tor",
+            "observed": 107,
+            "expected": 7.45,
+            "deviation": 13.367
+          },
+          {
+            "ngram": "tth",
+            "observed": 105,
+            "expected": 7.45,
+            "deviation": 13.099
+          },
+          {
+            "ngram": "yba",
+            "observed": 104,
+            "expected": 7.45,
+            "deviation": 12.965
+          },
+          {
+            "ngram": "cks",
+            "observed": 104,
+            "expected": 7.45,
+            "deviation": 12.965
+          },
+          {
+            "ngram": "rol",
+            "observed": 103,
+            "expected": 7.45,
+            "deviation": 12.83
+          },
+          {
+            "ngram": "eli",
+            "observed": 98,
+            "expected": 7.45,
+            "deviation": 12.159
+          }
+        ],
+        "n_grams_tested": 2594,
+        "percentile": 30.0
+      },
+      "compression_test": {
+        "compression_ratio": 0.358766,
+        "baseline_ratio": 0.010335,
+        "deviation": 0.348431,
+        "interpretation": "much less compressible than baseline - may indicate random or encrypted content",
+        "percentile": 30.0
+      },
+      "position_test": {
+        "positions_tested": 10,
+        "significant_positions": 0,
+        "significant_ratio": 0.0,
+        "position_tests": [
+          {
+            "position": 0,
+            "chi_squared": 0.0726,
+            "p_value": 0.957014,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11237916219119226
+              ],
+              [
+                "t",
+                0.08552631578947369
+              ],
+              [
+                "a",
+                0.07975295381310418
+              ],
+              [
+                "i",
+                0.0776047261009667
+              ],
+              [
+                "o",
+                0.07277121374865736
+              ]
+            ]
+          },
+          {
+            "position": 1,
+            "chi_squared": 0.0601,
+            "p_value": 0.961644,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.12338882921589689
+              ],
+              [
+                "t",
+                0.08243823845327605
+              ],
+              [
+                "i",
+                0.079484425349087
+              ],
+              [
+                "a",
+                0.07438238453276047
+              ],
+              [
+                "o",
+                0.07035445757250268
+              ]
+            ]
+          },
+          {
+            "position": 2,
+            "chi_squared": 0.0468,
+            "p_value": 0.965497,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.12258324382384533
+              ],
+              [
+                "t",
+                0.0793501611170784
+              ],
+              [
+                "a",
+                0.07599355531686358
+              ],
+              [
+                "o",
+                0.07599355531686358
+              ],
+              [
+                "i",
+                0.0757250268528464
+              ]
+            ]
+          },
+          {
+            "position": 3,
+            "chi_squared": 0.0457,
+            "p_value": 0.965889,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11399033297529539
+              ],
+              [
+                "t",
+                0.08364661654135339
+              ],
+              [
+                "a",
+                0.08297529538131042
+              ],
+              [
+                "i",
+                0.08069280343716434
+              ],
+              [
+                "o",
+                0.07344253490870033
+              ]
+            ]
+          },
+          {
+            "position": 4,
+            "chi_squared": 0.0565,
+            "p_value": 0.962071,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.12110633727175081
+              ],
+              [
+                "i",
+                0.0833780880773362
+              ],
+              [
+                "t",
+                0.079484425349087
+              ],
+              [
+                "o",
+                0.07639634801288937
+              ],
+              [
+                "a",
+                0.07599355531686358
+              ]
+            ]
+          },
+          {
+            "position": 5,
+            "chi_squared": 0.0563,
+            "p_value": 0.962163,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11479591836734694
+              ],
+              [
+                "t",
+                0.08834586466165413
+              ],
+              [
+                "a",
+                0.08136412459720731
+              ],
+              [
+                "o",
+                0.07706766917293233
+              ],
+              [
+                "s",
+                0.06847475832438238
+              ]
+            ]
+          },
+          {
+            "position": 6,
+            "chi_squared": 0.0467,
+            "p_value": 0.965512,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11669128508124077
+              ],
+              [
+                "i",
+                0.08419497784342689
+              ],
+              [
+                "t",
+                0.08379213105948705
+              ],
+              [
+                "a",
+                0.07533234859675036
+              ],
+              [
+                "o",
+                0.0730495501544246
+              ]
+            ]
+          },
+          {
+            "position": 7,
+            "chi_squared": 0.0476,
+            "p_value": 0.965198,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11306566402578219
+              ],
+              [
+                "t",
+                0.0903719618638378
+              ],
+              [
+                "a",
+                0.08056935678796831
+              ],
+              [
+                "i",
+                0.07828655834564253
+              ],
+              [
+                "o",
+                0.07560091311937693
+              ]
+            ]
+          },
+          {
+            "position": 8,
+            "chi_squared": 0.0444,
+            "p_value": 0.966401,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11548274472942124
+              ],
+              [
+                "t",
+                0.08097220357190815
+              ],
+              [
+                "i",
+                0.07976366322008863
+              ],
+              [
+                "a",
+                0.0772123002551363
+              ],
+              [
+                "o",
+                0.07680945347119646
+              ]
+            ]
+          },
+          {
+            "position": 9,
+            "chi_squared": 0.0404,
+            "p_value": 0.967915,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.114408486638915
+              ],
+              [
+                "t",
+                0.08540351819524641
+              ],
+              [
+                "a",
+                0.07868940512958238
+              ],
+              [
+                "i",
+                0.07600375990331677
+              ],
+              [
+                "o",
+                0.07224385658654492
+              ]
+            ]
+          }
+        ],
+        "interpretation": "consistent with baseline letter position distribution",
+        "percentile": 0.0
+      },
+      "overall_significant": false,
+      "score": 20.0
+    },
+    {
+      "name": "Book of Enoch",
+      "text_length": 100000,
+      "ngram_test": {
+        "chi_squared": 235008.1165,
+        "top_deviations": [
+          {
+            "ngram": "ndt",
+            "observed": 351,
+            "expected": 7.75,
+            "deviation": 44.264
+          },
+          {
+            "ngram": "hes",
+            "observed": 276,
+            "expected": 7.75,
+            "deviation": 34.592
+          },
+          {
+            "ngram": "ght",
+            "observed": 202,
+            "expected": 7.75,
+            "deviation": 25.049
+          },
+          {
+            "ngram": "tth",
+            "observed": 197,
+            "expected": 7.75,
+            "deviation": 24.405
+          },
+          {
+            "ngram": "eno",
+            "observed": 174,
+            "expected": 7.75,
+            "deviation": 21.439
+          },
+          {
+            "ngram": "hey",
+            "observed": 169,
+            "expected": 7.75,
+            "deviation": 20.794
+          },
+          {
+            "ngram": "igh",
+            "observed": 167,
+            "expected": 7.75,
+            "deviation": 20.536
+          },
+          {
+            "ngram": "not",
+            "observed": 163,
+            "expected": 7.75,
+            "deviation": 20.02
+          },
+          {
+            "ngram": "eir",
+            "observed": 163,
+            "expected": 7.75,
+            "deviation": 20.02
+          },
+          {
+            "ngram": "whi",
+            "observed": 157,
+            "expected": 7.75,
+            "deviation": 19.246
+          },
+          {
+            "ngram": "who",
+            "observed": 156,
+            "expected": 7.75,
+            "deviation": 19.117
+          },
+          {
+            "ngram": "ich",
+            "observed": 152,
+            "expected": 7.75,
+            "deviation": 18.602
+          },
+          {
+            "ngram": "ven",
+            "observed": 152,
+            "expected": 7.75,
+            "deviation": 18.602
+          },
+          {
+            "ngram": "ous",
+            "observed": 149,
+            "expected": 7.75,
+            "deviation": 18.215
+          },
+          {
+            "ngram": "hic",
+            "observed": 148,
+            "expected": 7.75,
+            "deviation": 18.086
+          },
+          {
+            "ngram": "ist",
+            "observed": 139,
+            "expected": 7.75,
+            "deviation": 16.925
+          },
+          {
+            "ngram": "nto",
+            "observed": 139,
+            "expected": 7.75,
+            "deviation": 16.925
+          },
+          {
+            "ngram": "llt",
+            "observed": 139,
+            "expected": 7.75,
+            "deviation": 16.925
+          },
+          {
+            "ngram": "its",
+            "observed": 135,
+            "expected": 7.75,
+            "deviation": 16.409
+          },
+          {
+            "ngram": "ore",
+            "observed": 127,
+            "expected": 7.75,
+            "deviation": 15.378
+          }
+        ],
+        "n_grams_tested": 2322,
+        "percentile": 50.0
+      },
+      "compression_test": {
+        "compression_ratio": 0.338301,
+        "baseline_ratio": 0.010335,
+        "deviation": 0.327966,
+        "interpretation": "much less compressible than baseline - may indicate random or encrypted content",
+        "percentile": 0.0
+      },
+      "position_test": {
+        "positions_tested": 10,
+        "significant_positions": 0,
+        "significant_ratio": 0.0,
+        "position_tests": [
+          {
+            "position": 0,
+            "chi_squared": 0.132,
+            "p_value": 0.947106,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.129464861379755
+              ],
+              [
+                "t",
+                0.09722759509993553
+              ],
+              [
+                "o",
+                0.07956157317859446
+              ],
+              [
+                "a",
+                0.07672469374597034
+              ],
+              [
+                "h",
+                0.07453255963894262
+              ]
+            ]
+          },
+          {
+            "position": 1,
+            "chi_squared": 0.1209,
+            "p_value": 0.950204,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.13307543520309478
+              ],
+              [
+                "t",
+                0.0961960025789813
+              ],
+              [
+                "a",
+                0.07569310122501612
+              ],
+              [
+                "h",
+                0.07530625402965828
+              ],
+              [
+                "o",
+                0.07479045776918117
+              ]
+            ]
+          },
+          {
+            "position": 2,
+            "chi_squared": 0.1242,
+            "p_value": 0.94869,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.13397807865892972
+              ],
+              [
+                "t",
+                0.0950354609929078
+              ],
+              [
+                "a",
+                0.07685364281108963
+              ],
+              [
+                "h",
+                0.07375886524822695
+              ],
+              [
+                "i",
+                0.07014829142488717
+              ]
+            ]
+          },
+          {
+            "position": 3,
+            "chi_squared": 0.1148,
+            "p_value": 0.94984,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.12985170857511283
+              ],
+              [
+                "t",
+                0.1003223726627982
+              ],
+              [
+                "a",
+                0.07749838813668601
+              ],
+              [
+                "o",
+                0.07736943907156674
+              ],
+              [
+                "h",
+                0.07337201805286912
+              ]
+            ]
+          },
+          {
+            "position": 4,
+            "chi_squared": 0.1239,
+            "p_value": 0.948762,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.13836234687298518
+              ],
+              [
+                "t",
+                0.0915538362346873
+              ],
+              [
+                "h",
+                0.07749838813668601
+              ],
+              [
+                "a",
+                0.07749838813668601
+              ],
+              [
+                "o",
+                0.07620889748549323
+              ]
+            ]
+          },
+          {
+            "position": 5,
+            "chi_squared": 0.1237,
+            "p_value": 0.948804,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.13655705996131529
+              ],
+              [
+                "t",
+                0.09426176660219214
+              ],
+              [
+                "a",
+                0.07917472598323662
+              ],
+              [
+                "h",
+                0.07234042553191489
+              ],
+              [
+                "o",
+                0.07195357833655706
+              ]
+            ]
+          },
+          {
+            "position": 6,
+            "chi_squared": 0.1163,
+            "p_value": 0.949509,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.13681495809155383
+              ],
+              [
+                "t",
+                0.09929078014184398
+              ],
+              [
+                "a",
+                0.07659574468085106
+              ],
+              [
+                "o",
+                0.07646679561573179
+              ],
+              [
+                "n",
+                0.07272727272727272
+              ]
+            ]
+          },
+          {
+            "position": 7,
+            "chi_squared": 0.1231,
+            "p_value": 0.94806,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.1296105236007222
+              ],
+              [
+                "t",
+                0.09865875677069899
+              ],
+              [
+                "o",
+                0.07608976012380707
+              ],
+              [
+                "a",
+                0.07441320608718081
+              ],
+              [
+                "h",
+                0.07376837761155533
+              ]
+            ]
+          },
+          {
+            "position": 8,
+            "chi_squared": 0.1298,
+            "p_value": 0.945717,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.13631673974722724
+              ],
+              [
+                "t",
+                0.0949187516120712
+              ],
+              [
+                "a",
+                0.08021666236781017
+              ],
+              [
+                "h",
+                0.07660562290430746
+              ],
+              [
+                "o",
+                0.07441320608718081
+              ]
+            ]
+          },
+          {
+            "position": 9,
+            "chi_squared": 0.1293,
+            "p_value": 0.946758,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.13090018055197317
+              ],
+              [
+                "t",
+                0.0907918493680681
+              ],
+              [
+                "a",
+                0.07776631416043332
+              ],
+              [
+                "h",
+                0.07428424039205571
+              ],
+              [
+                "o",
+                0.07389734330668042
+              ]
+            ]
+          }
+        ],
+        "interpretation": "consistent with baseline letter position distribution",
+        "percentile": 0.0
+      },
+      "overall_significant": false,
+      "score": 16.6667
+    },
+    {
+      "name": "Nag Hammadi Library",
+      "text_length": 100000,
+      "ngram_test": {
+        "chi_squared": 192330.2228,
+        "top_deviations": [
+          {
+            "ngram": "you",
+            "observed": 283,
+            "expected": 7.45,
+            "deviation": 37.01
+          },
+          {
+            "ngram": "sti",
+            "observed": 219,
+            "expected": 7.45,
+            "deviation": 28.414
+          },
+          {
+            "ngram": "ist",
+            "observed": 187,
+            "expected": 7.45,
+            "deviation": 24.116
+          },
+          {
+            "ngram": "hes",
+            "observed": 184,
+            "expected": 7.45,
+            "deviation": 23.713
+          },
+          {
+            "ngram": "out",
+            "observed": 168,
+            "expected": 7.45,
+            "deviation": 21.564
+          },
+          {
+            "ngram": "dis",
+            "observed": 167,
+            "expected": 7.45,
+            "deviation": 21.43
+          },
+          {
+            "ngram": "ack",
+            "observed": 148,
+            "expected": 7.45,
+            "deviation": 18.878
+          },
+          {
+            "ngram": "ght",
+            "observed": 139,
+            "expected": 7.45,
+            "deviation": 17.669
+          },
+          {
+            "ngram": "tth",
+            "observed": 137,
+            "expected": 7.45,
+            "deviation": 17.401
+          },
+          {
+            "ngram": "not",
+            "observed": 136,
+            "expected": 7.45,
+            "deviation": 17.266
+          },
+          {
+            "ngram": "ayb",
+            "observed": 136,
+            "expected": 7.45,
+            "deviation": 17.266
+          },
+          {
+            "ngram": "bac",
+            "observed": 133,
+            "expected": 7.45,
+            "deviation": 16.863
+          },
+          {
+            "ngram": "gno",
+            "observed": 127,
+            "expected": 7.45,
+            "deviation": 16.058
+          },
+          {
+            "ngram": "nos",
+            "observed": 127,
+            "expected": 7.45,
+            "deviation": 16.058
+          },
+          {
+            "ngram": "pla",
+            "observed": 123,
+            "expected": 7.45,
+            "deviation": 15.52
+          },
+          {
+            "ngram": "igh",
+            "observed": 122,
+            "expected": 7.45,
+            "deviation": 15.386
+          },
+          {
+            "ngram": "isp",
+            "observed": 112,
+            "expected": 7.45,
+            "deviation": 14.043
+          },
+          {
+            "ngram": "who",
+            "observed": 112,
+            "expected": 7.45,
+            "deviation": 14.043
+          },
+          {
+            "ngram": "ome",
+            "observed": 111,
+            "expected": 7.45,
+            "deviation": 13.909
+          },
+          {
+            "ngram": "eri",
+            "observed": 110,
+            "expected": 7.45,
+            "deviation": 13.774
+          }
+        ],
+        "n_grams_tested": 2641,
+        "percentile": 40.0
+      },
+      "compression_test": {
+        "compression_ratio": 0.334937,
+        "baseline_ratio": 0.010335,
+        "deviation": 0.324602,
+        "interpretation": "much less compressible than baseline - may indicate random or encrypted content",
+        "percentile": 10.0
+      },
+      "position_test": {
+        "positions_tested": 10,
+        "significant_positions": 0,
+        "significant_ratio": 0.0,
+        "position_tests": [
+          {
+            "position": 0,
+            "chi_squared": 0.0631,
+            "p_value": 0.959939,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11804995970991136
+              ],
+              [
+                "t",
+                0.08729519204942252
+              ],
+              [
+                "a",
+                0.07923717432178351
+              ],
+              [
+                "o",
+                0.07749127048079506
+              ],
+              [
+                "i",
+                0.0770883695944131
+              ]
+            ]
+          },
+          {
+            "position": 1,
+            "chi_squared": 0.0749,
+            "p_value": 0.956361,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.12395917271017996
+              ],
+              [
+                "t",
+                0.08017727639000806
+              ],
+              [
+                "o",
+                0.07883427343540156
+              ],
+              [
+                "i",
+                0.07749127048079506
+              ],
+              [
+                "n",
+                0.07426806338973946
+              ]
+            ]
+          },
+          {
+            "position": 2,
+            "chi_squared": 0.0645,
+            "p_value": 0.959498,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11214074670964276
+              ],
+              [
+                "t",
+                0.08957829707225357
+              ],
+              [
+                "o",
+                0.08514638732205211
+              ],
+              [
+                "a",
+                0.0770883695944131
+              ],
+              [
+                "i",
+                0.07238785925329036
+              ]
+            ]
+          },
+          {
+            "position": 3,
+            "chi_squared": 0.0594,
+            "p_value": 0.961137,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11509535320977707
+              ],
+              [
+                "t",
+                0.08890679559495031
+              ],
+              [
+                "o",
+                0.08125167875369325
+              ],
+              [
+                "a",
+                0.0757453666398066
+              ],
+              [
+                "i",
+                0.07144775718506581
+              ]
+            ]
+          },
+          {
+            "position": 4,
+            "chi_squared": 0.0678,
+            "p_value": 0.958467,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11388665055063121
+              ],
+              [
+                "a",
+                0.08299758259468171
+              ],
+              [
+                "t",
+                0.08205748052645716
+              ],
+              [
+                "o",
+                0.07869997313994091
+              ],
+              [
+                "i",
+                0.0749395648670427
+              ]
+            ]
+          },
+          {
+            "position": 5,
+            "chi_squared": 0.0654,
+            "p_value": 0.959196,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.12476497448294387
+              ],
+              [
+                "t",
+                0.0840719849583669
+              ],
+              [
+                "o",
+                0.0744023636852001
+              ],
+              [
+                "i",
+                0.07279076013967231
+              ],
+              [
+                "a",
+                0.07211925866236905
+              ]
+            ]
+          },
+          {
+            "position": 6,
+            "chi_squared": 0.0555,
+            "p_value": 0.962411,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11927468099395568
+              ],
+              [
+                "t",
+                0.08327736736064473
+              ],
+              [
+                "o",
+                0.08045668233713901
+              ],
+              [
+                "a",
+                0.07750167897918066
+              ],
+              [
+                "i",
+                0.0770987239758227
+              ]
+            ]
+          },
+          {
+            "position": 7,
+            "chi_squared": 0.0766,
+            "p_value": 0.955845,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11524513096037609
+              ],
+              [
+                "t",
+                0.09012760241773002
+              ],
+              [
+                "o",
+                0.08300873069173942
+              ],
+              [
+                "a",
+                0.07615849563465413
+              ],
+              [
+                "i",
+                0.07051712558764271
+              ]
+            ]
+          },
+          {
+            "position": 8,
+            "chi_squared": 0.0659,
+            "p_value": 0.959847,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11282740094022835
+              ],
+              [
+                "t",
+                0.0844862323707186
+              ],
+              [
+                "o",
+                0.08300873069173942
+              ],
+              [
+                "i",
+                0.07897918065815984
+              ],
+              [
+                "a",
+                0.07360644728005372
+              ]
+            ]
+          },
+          {
+            "position": 9,
+            "chi_squared": 0.0734,
+            "p_value": 0.956798,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11443922095366017
+              ],
+              [
+                "o",
+                0.08368032236400269
+              ],
+              [
+                "t",
+                0.08085963734049698
+              ],
+              [
+                "i",
+                0.07884486232370719
+              ],
+              [
+                "a",
+                0.07790463398253862
+              ]
+            ]
+          }
+        ],
+        "interpretation": "consistent with baseline letter position distribution",
+        "percentile": 0.0
+      },
+      "overall_significant": false,
+      "score": 16.6667
+    },
+    {
+      "name": "Gospel of Thomas",
+      "text_length": 14394,
+      "ngram_test": {
+        "chi_squared": 153421.828,
+        "top_deviations": [
+          {
+            "ngram": "ssa",
+            "observed": 169,
+            "expected": 1.08,
+            "deviation": 155.322
+          },
+          {
+            "ngram": "say",
+            "observed": 97,
+            "expected": 1.08,
+            "deviation": 88.723
+          },
+          {
+            "ngram": "ass",
+            "observed": 96,
+            "expected": 1.08,
+            "deviation": 87.798
+          },
+          {
+            "ngram": "oma",
+            "observed": 93,
+            "expected": 1.08,
+            "deviation": 85.023
+          },
+          {
+            "ngram": "mas",
+            "observed": 91,
+            "expected": 1.08,
+            "deviation": 83.174
+          },
+          {
+            "ngram": "sai",
+            "observed": 91,
+            "expected": 1.08,
+            "deviation": 83.174
+          },
+          {
+            "ngram": "aid",
+            "observed": 91,
+            "expected": 1.08,
+            "deviation": 83.174
+          },
+          {
+            "ngram": "hom",
+            "observed": 90,
+            "expected": 1.08,
+            "deviation": 82.249
+          },
+          {
+            "ngram": "ayi",
+            "observed": 90,
+            "expected": 1.08,
+            "deviation": 82.249
+          },
+          {
+            "ngram": "you",
+            "observed": 90,
+            "expected": 1.08,
+            "deviation": 82.249
+          },
+          {
+            "ngram": "jes",
+            "observed": 70,
+            "expected": 1.08,
+            "deviation": 63.749
+          },
+          {
+            "ngram": "ngj",
+            "observed": 67,
+            "expected": 1.08,
+            "deviation": 60.974
+          },
+          {
+            "ngram": "gje",
+            "observed": 67,
+            "expected": 1.08,
+            "deviation": 60.974
+          },
+          {
+            "ngram": "uss",
+            "observed": 67,
+            "expected": 1.08,
+            "deviation": 60.974
+          },
+          {
+            "ngram": "wil",
+            "observed": 64,
+            "expected": 1.08,
+            "deviation": 58.199
+          },
+          {
+            "ngram": "hes",
+            "observed": 42,
+            "expected": 1.08,
+            "deviation": 37.849
+          },
+          {
+            "ngram": "who",
+            "observed": 42,
+            "expected": 1.08,
+            "deviation": 37.849
+          },
+          {
+            "ngram": "not",
+            "observed": 40,
+            "expected": 1.08,
+            "deviation": 35.999
+          },
+          {
+            "ngram": "dwh",
+            "observed": 34,
+            "expected": 1.08,
+            "deviation": 30.449
+          },
+          {
+            "ngram": "hey",
+            "observed": 34,
+            "expected": 1.08,
+            "deviation": 30.449
+          }
+        ],
+        "n_grams_tested": 537,
+        "percentile": 20.0
+      },
+      "compression_test": {
+        "compression_ratio": 0.341809,
+        "baseline_ratio": 0.010335,
+        "deviation": 0.331474,
+        "interpretation": "much less compressible than baseline - may indicate random or encrypted content",
+        "percentile": 20.0
+      },
+      "position_test": {
+        "positions_tested": 10,
+        "significant_positions": 0,
+        "significant_ratio": 0.0,
+        "position_tests": [
+          {
+            "position": 0,
+            "chi_squared": 0.2256,
+            "p_value": 0.924314,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.12939001848428835
+              ],
+              [
+                "t",
+                0.10166358595194085
+              ],
+              [
+                "s",
+                0.07763401109057301
+              ],
+              [
+                "a",
+                0.07301293900184842
+              ],
+              [
+                "i",
+                0.0711645101663586
+              ]
+            ]
+          },
+          {
+            "position": 1,
+            "chi_squared": 0.4456,
+            "p_value": 0.893789,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.10813308687615526
+              ],
+              [
+                "o",
+                0.08872458410351201
+              ],
+              [
+                "s",
+                0.08595194085027727
+              ],
+              [
+                "a",
+                0.08502772643253234
+              ],
+              [
+                "h",
+                0.07486136783733827
+              ]
+            ]
+          },
+          {
+            "position": 2,
+            "chi_squared": 0.2385,
+            "p_value": 0.922192,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11737523105360444
+              ],
+              [
+                "o",
+                0.10813308687615526
+              ],
+              [
+                "s",
+                0.08040665434380777
+              ],
+              [
+                "a",
+                0.0767097966728281
+              ],
+              [
+                "t",
+                0.07208872458410351
+              ]
+            ]
+          },
+          {
+            "position": 3,
+            "chi_squared": 0.2115,
+            "p_value": 0.926708,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11840888066604996
+              ],
+              [
+                "a",
+                0.09620721554116558
+              ],
+              [
+                "t",
+                0.09250693802035152
+              ],
+              [
+                "s",
+                0.09250693802035152
+              ],
+              [
+                "h",
+                0.07030527289546716
+              ]
+            ]
+          },
+          {
+            "position": 4,
+            "chi_squared": 0.2553,
+            "p_value": 0.91951,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.12395929694727105
+              ],
+              [
+                "s",
+                0.09898242368177614
+              ],
+              [
+                "i",
+                0.08325624421831637
+              ],
+              [
+                "h",
+                0.08325624421831637
+              ],
+              [
+                "a",
+                0.07678075855689177
+              ]
+            ]
+          },
+          {
+            "position": 5,
+            "chi_squared": 0.2918,
+            "p_value": 0.913972,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11100832562442182
+              ],
+              [
+                "s",
+                0.09620721554116558
+              ],
+              [
+                "t",
+                0.08695652173913043
+              ],
+              [
+                "i",
+                0.08233117483811286
+              ],
+              [
+                "o",
+                0.0786308973172988
+              ]
+            ]
+          },
+          {
+            "position": 6,
+            "chi_squared": 0.2393,
+            "p_value": 0.922065,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11193339500462535
+              ],
+              [
+                "o",
+                0.09158186864014801
+              ],
+              [
+                "s",
+                0.08695652173913043
+              ],
+              [
+                "h",
+                0.08233117483811286
+              ],
+              [
+                "a",
+                0.07955596669750231
+              ]
+            ]
+          },
+          {
+            "position": 7,
+            "chi_squared": 0.215,
+            "p_value": 0.926107,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11840888066604996
+              ],
+              [
+                "t",
+                0.09435707678075855
+              ],
+              [
+                "a",
+                0.09250693802035152
+              ],
+              [
+                "s",
+                0.08603145235892692
+              ],
+              [
+                "o",
+                0.08140610545790934
+              ]
+            ]
+          },
+          {
+            "position": 8,
+            "chi_squared": 0.2797,
+            "p_value": 0.915755,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11840888066604996
+              ],
+              [
+                "t",
+                0.09343200740055504
+              ],
+              [
+                "a",
+                0.08880666049953746
+              ],
+              [
+                "h",
+                0.08233117483811286
+              ],
+              [
+                "s",
+                0.07678075855689177
+              ]
+            ]
+          },
+          {
+            "position": 9,
+            "chi_squared": 0.1744,
+            "p_value": 0.933441,
+            "significant": false,
+            "top_letters": [
+              [
+                "e",
+                0.11655874190564293
+              ],
+              [
+                "a",
+                0.09343200740055504
+              ],
+              [
+                "s",
+                0.08603145235892692
+              ],
+              [
+                "o",
+                0.08325624421831637
+              ],
+              [
+                "n",
+                0.08048103607770583
+              ]
+            ]
+          }
+        ],
+        "interpretation": "consistent with baseline letter position distribution",
+        "percentile": 0.0
+      },
+      "overall_significant": false,
+      "score": 13.3333
+    }
+  ]
+}

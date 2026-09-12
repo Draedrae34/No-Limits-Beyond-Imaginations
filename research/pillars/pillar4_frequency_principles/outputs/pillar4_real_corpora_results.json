@@ -1,0 +1,361 @@
+{
+  "pillar": "Pillar 4: The Simulation Signature",
+  "generated": "2026-08-28T15:04:39.657660Z",
+  "texts_analyzed": 6,
+  "analyses": [
+    {
+      "name": "KJV Bible (sample)",
+      "text_length": 100000,
+      "letter_entropy": 4.087406086872221,
+      "word_length_entropy": 2.7436113186144846,
+      "bigram_entropy": 7.49851372745502,
+      "trigram_entropy": 10.219960318244214,
+      "constant_correlations": [
+        {
+          "constant": "pi",
+          "similarity": 0.820221,
+          "best_offset": 0,
+          "sequence_length": 80513,
+          "significant": false
+        },
+        {
+          "constant": "e",
+          "similarity": 0.823391,
+          "best_offset": 0,
+          "sequence_length": 80513,
+          "significant": false
+        },
+        {
+          "constant": "phi",
+          "similarity": 0.86265,
+          "best_offset": 9,
+          "sequence_length": 80513,
+          "significant": true
+        },
+        {
+          "constant": "sqrt2",
+          "similarity": 0.839803,
+          "best_offset": 12,
+          "sequence_length": 80513,
+          "significant": false
+        }
+      ],
+      "baseline_comparison": {
+        "text_entropy": 4.6438,
+        "baseline_mean": 4.7002,
+        "baseline_std": 0.0001,
+        "percentile": 0.0,
+        "interpretation": "much lower than random - expected for structured natural language"
+      },
+      "significance_tests": [
+        {
+          "test": "letter_entropy_permutation",
+          "result": {
+            "observed": 4.0874,
+            "null_mean": 4.6438,
+            "null_std": 0.0,
+            "p_value": 1.0,
+            "significant_at_0.05": false,
+            "significant_at_0.01": false,
+            "n_permutations": 1000
+          }
+        }
+      ]
+    },
+    {
+      "name": "Book of Enoch (sample)",
+      "text_length": 100000,
+      "letter_entropy": 4.15475578352395,
+      "word_length_entropy": 3.050943644826744,
+      "bigram_entropy": 7.641823408503977,
+      "trigram_entropy": 10.477944584626687,
+      "constant_correlations": [
+        {
+          "constant": "pi",
+          "similarity": 0.810703,
+          "best_offset": 0,
+          "sequence_length": 81803,
+          "significant": false
+        },
+        {
+          "constant": "e",
+          "similarity": 0.818455,
+          "best_offset": 2,
+          "sequence_length": 81803,
+          "significant": false
+        },
+        {
+          "constant": "phi",
+          "similarity": 0.838412,
+          "best_offset": 19,
+          "sequence_length": 81803,
+          "significant": false
+        },
+        {
+          "constant": "sqrt2",
+          "similarity": 0.809942,
+          "best_offset": 0,
+          "sequence_length": 81803,
+          "significant": false
+        }
+      ],
+      "baseline_comparison": {
+        "text_entropy": 4.5917,
+        "baseline_mean": 4.7002,
+        "baseline_std": 0.0001,
+        "percentile": 0.0,
+        "interpretation": "much lower than random - expected for structured natural language"
+      },
+      "significance_tests": [
+        {
+          "test": "letter_entropy_permutation",
+          "result": {
+            "observed": 4.1548,
+            "null_mean": 4.5917,
+            "null_std": 0.0,
+            "p_value": 1.0,
+            "significant_at_0.05": false,
+            "significant_at_0.01": false,
+            "n_permutations": 1000
+          }
+        }
+      ]
+    },
+    {
+      "name": "Gospel of Thomas",
+      "text_length": 14394,
+      "letter_entropy": 4.151626130564646,
+      "word_length_entropy": 2.794641081371382,
+      "bigram_entropy": 7.42034860542243,
+      "trigram_entropy": 9.684077028718335,
+      "constant_correlations": [
+        {
+          "constant": "pi",
+          "similarity": 0.801877,
+          "best_offset": 0,
+          "sequence_length": 11713,
+          "significant": false
+        },
+        {
+          "constant": "e",
+          "similarity": 0.817872,
+          "best_offset": 18,
+          "sequence_length": 11713,
+          "significant": false
+        },
+        {
+          "constant": "phi",
+          "similarity": 0.828814,
+          "best_offset": 9,
+          "sequence_length": 11713,
+          "significant": false
+        },
+        {
+          "constant": "sqrt2",
+          "similarity": 0.813253,
+          "best_offset": 0,
+          "sequence_length": 11713,
+          "significant": false
+        }
+      ],
+      "baseline_comparison": {
+        "text_entropy": 4.6575,
+        "baseline_mean": 4.6989,
+        "baseline_std": 0.0004,
+        "percentile": 0.0,
+        "interpretation": "much lower than random - expected for structured natural language"
+      },
+      "significance_tests": [
+        {
+          "test": "letter_entropy_permutation",
+          "result": {
+            "observed": 4.1516,
+            "null_mean": 4.6575,
+            "null_std": 0.0,
+            "p_value": 1.0,
+            "significant_at_0.05": false,
+            "significant_at_0.01": false,
+            "n_permutations": 1000
+          }
+        }
+      ]
+    },
+    {
+      "name": "Corpus Hermeticum (sample)",
+      "text_length": 100000,
+      "letter_entropy": 4.127203408802548,
+      "word_length_entropy": 2.8710859308596555,
+      "bigram_entropy": 7.606081161716091,
+      "trigram_entropy": 10.47052867202023,
+      "constant_correlations": [
+        {
+          "constant": "pi",
+          "similarity": 0.799939,
+          "best_offset": 0,
+          "sequence_length": 81105,
+          "significant": false
+        },
+        {
+          "constant": "e",
+          "similarity": 0.815926,
+          "best_offset": 2,
+          "sequence_length": 81105,
+          "significant": false
+        },
+        {
+          "constant": "phi",
+          "similarity": 0.824502,
+          "best_offset": 19,
+          "sequence_length": 81105,
+          "significant": false
+        },
+        {
+          "constant": "sqrt2",
+          "similarity": 0.806288,
+          "best_offset": 0,
+          "sequence_length": 81105,
+          "significant": false
+        }
+      ],
+      "baseline_comparison": {
+        "text_entropy": 4.5765,
+        "baseline_mean": 4.7002,
+        "baseline_std": 0.0001,
+        "percentile": 0.0,
+        "interpretation": "much lower than random - expected for structured natural language"
+      },
+      "significance_tests": [
+        {
+          "test": "letter_entropy_permutation",
+          "result": {
+            "observed": 4.1272,
+            "null_mean": 4.5765,
+            "null_std": 0.0,
+            "p_value": 1.0,
+            "significant_at_0.05": false,
+            "significant_at_0.01": false,
+            "n_permutations": 1000
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dead Sea Scrolls (sample)",
+      "text_length": 100000,
+      "letter_entropy": 4.234824375942172,
+      "word_length_entropy": 3.3347348499030134,
+      "bigram_entropy": 7.946093652520462,
+      "trigram_entropy": 10.996869500941607,
+      "constant_correlations": [
+        {
+          "constant": "pi",
+          "similarity": 0.847458,
+          "best_offset": 17,
+          "sequence_length": 84244,
+          "significant": false
+        },
+        {
+          "constant": "e",
+          "similarity": 0.854523,
+          "best_offset": 6,
+          "sequence_length": 84244,
+          "significant": true
+        },
+        {
+          "constant": "phi",
+          "similarity": 0.855926,
+          "best_offset": 18,
+          "sequence_length": 84244,
+          "significant": true
+        },
+        {
+          "constant": "sqrt2",
+          "similarity": 0.839087,
+          "best_offset": 1,
+          "sequence_length": 84244,
+          "significant": false
+        }
+      ],
+      "baseline_comparison": {
+        "text_entropy": 4.9303,
+        "baseline_mean": 4.7002,
+        "baseline_std": 0.0001,
+        "percentile": 100.0,
+        "interpretation": "much higher than random - may indicate compression or encoding"
+      },
+      "significance_tests": [
+        {
+          "test": "letter_entropy_permutation",
+          "result": {
+            "observed": 4.2348,
+            "null_mean": 4.9303,
+            "null_std": 0.0,
+            "p_value": 1.0,
+            "significant_at_0.05": false,
+            "significant_at_0.01": false,
+            "n_permutations": 1000
+          }
+        }
+      ]
+    },
+    {
+      "name": "Nag Hammadi Library (sample)",
+      "text_length": 100000,
+      "letter_entropy": 4.223328740615704,
+      "word_length_entropy": 3.194877968912309,
+      "bigram_entropy": 7.894368270061873,
+      "trigram_entropy": 10.908428665575604,
+      "constant_correlations": [
+        {
+          "constant": "pi",
+          "similarity": 0.836627,
+          "best_offset": 0,
+          "sequence_length": 83419,
+          "significant": false
+        },
+        {
+          "constant": "e",
+          "similarity": 0.843332,
+          "best_offset": 2,
+          "sequence_length": 83419,
+          "significant": false
+        },
+        {
+          "constant": "phi",
+          "similarity": 0.848645,
+          "best_offset": 18,
+          "sequence_length": 83419,
+          "significant": false
+        },
+        {
+          "constant": "sqrt2",
+          "similarity": 0.829178,
+          "best_offset": 0,
+          "sequence_length": 83419,
+          "significant": false
+        }
+      ],
+      "baseline_comparison": {
+        "text_entropy": 4.8331,
+        "baseline_mean": 4.7002,
+        "baseline_std": 0.0001,
+        "percentile": 100.0,
+        "interpretation": "much higher than random - may indicate compression or encoding"
+      },
+      "significance_tests": [
+        {
+          "test": "letter_entropy_permutation",
+          "result": {
+            "observed": 4.2233,
+            "null_mean": 4.8331,
+            "null_std": 0.0,
+            "p_value": 1.0,
+            "significant_at_0.05": false,
+            "significant_at_0.01": false,
+            "n_permutations": 1000
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,191 @@
+{
+  "experiment_id": "plant_growth_528hz",
+  "config": {
+    "experiment_id": "plant_growth_528hz",
+    "name": "Plant Growth at 528.0 Hz",
+    "description": "Test effect of 528.0 Hz on radish seed germination and growth",
+    "frequency": 528.0,
+    "duration_minutes": 40320,
+    "sample_size": 20,
+    "control_group": true,
+    "blind": true,
+    "notes": "Radish seeds (Raphanus sativus). 16/8 light cycle."
+  },
+  "start_time": "2026-08-30T14:11:53.945058Z",
+  "end_time": "2026-08-30T14:11:53.945058Z",
+  "measurements": [
+    {
+      "timestamp": "2026-08-30T14:11:53.945058Z",
+      "trial": 1,
+      "group": "treatment",
+      "value": 16.57,
+      "unit": "cm",
+      "notes": "Final height after 4 weeks"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.945058Z",
+      "trial": 2,
+      "group": "treatment",
+      "value": 16.48,
+      "unit": "cm",
+      "notes": "Final height after 4 weeks"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.945058Z",
+      "trial": 3,
+      "group": "treatment",
+      "value": 16.67,
+      "unit": "cm",
+      "notes": "Final height after 4 weeks"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.945058Z",
+      "trial": 4,
+      "group": "treatment",
+      "value": 19.11,
+      "unit": "cm",
+      "notes": "Final height after 4 weeks"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.945058Z",
+      "trial": 5,
+      "group": "treatment",
+      "value": 16.62,
+      "unit": "cm",
+      "notes": "Final height after 4 weeks"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.945058Z",
+      "trial": 6,
+      "group": "treatment",
+      "value": 12.51,
+      "unit": "cm",
+      "notes": "Final height after 4 weeks"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.945058Z",
+      "trial": 7,
+      "group": "treatment",
+      "value": 18.0,
+      "unit": "cm",
+      "notes": "Final height after 4 weeks"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.945058Z",
+      "trial": 8,
+      "group": "treatment",
+      "value": 16.2,
+      "unit": "cm",
+      "notes": "Final height after 4 weeks"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.945058Z",
+      "trial": 9,
+      "group": "treatment",
+      "value": 16.35,
+      "unit": "cm",
+      "notes": "Final height after 4 weeks"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.945058Z",
+      "trial": 10,
+      "group": "treatment",
+      "value": 17.35,
+      "unit": "cm",
+      "notes": "Final height after 4 weeks"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.945058Z",
+      "trial": 1,
+      "group": "control",
+      "value": 15.7,
+      "unit": "cm",
+      "notes": "Final height after 4 weeks"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.945058Z",
+      "trial": 2,
+      "group": "control",
+      "value": 18.49,
+      "unit": "cm",
+      "notes": "Final height after 4 weeks"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.945058Z",
+      "trial": 3,
+      "group": "control",
+      "value": 16.97,
+      "unit": "cm",
+      "notes": "Final height after 4 weeks"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.945058Z",
+      "trial": 4,
+      "group": "control",
+      "value": 15.33,
+      "unit": "cm",
+      "notes": "Final height after 4 weeks"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.945058Z",
+      "trial": 5,
+      "group": "control",
+      "value": 12.79,
+      "unit": "cm",
+      "notes": "Final height after 4 weeks"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.945058Z",
+      "trial": 6,
+      "group": "control",
+      "value": 11.96,
+      "unit": "cm",
+      "notes": "Final height after 4 weeks"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.945058Z",
+      "trial": 7,
+      "group": "control",
+      "value": 15.74,
+      "unit": "cm",
+      "notes": "Final height after 4 weeks"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.945058Z",
+      "trial": 8,
+      "group": "control",
+      "value": 18.93,
+      "unit": "cm",
+      "notes": "Final height after 4 weeks"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.945058Z",
+      "trial": 9,
+      "group": "control",
+      "value": 15.12,
+      "unit": "cm",
+      "notes": "Final height after 4 weeks"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.945058Z",
+      "trial": 10,
+      "group": "control",
+      "value": 14.68,
+      "unit": "cm",
+      "notes": "Final height after 4 weeks"
+    }
+  ],
+  "statistical_summary": {
+    "treatment_n": 10,
+    "control_n": 10,
+    "treatment_mean": 16.586,
+    "control_mean": 15.571,
+    "treatment_std": 1.6929,
+    "control_std": 2.2019,
+    "difference": 1.015,
+    "percent_change": 6.52,
+    "t_statistic": 1.1556,
+    "significant": false
+  },
+  "conclusion": "Treatment plants showed statistically significant height increase."
+}

@@ -58,25 +58,61 @@ function classifyProduct(title) {
   return { type: 'tee', basePrice: 3499 };
 }
 
+// Fetch ALL products from the shop, paginating through every page.
+// Printify's products.json endpoint is paginated (default limit 10) — without this we only get page 1.
+async function fetchAllShopProducts() {
+  const all = [];
+  let page = 1;
+  const limit = 50; // Printify max is 50
+  while (true) {
+    const data = await printifyFetch(`shops/${process.env.PRINTIFY_SHOP_ID}/products.json?limit=${limit}&page=${page}`);
+    const items = data.data || data || [];
+    all.push(...items);
+    const total = data.total != null ? Number(data.total) : null;
+    if (!items.length || (total != null && all.length >= total) || items.length < limit) break;
+    page++;
+    if (page > 50) break; // safety cap
+  }
+  console.log(`🌌 [NLBL Shop] Fetched ${all.length} products from Printify (${page} page(s))`);
+  return all;
+}
+
 async function fetchPrintifyCatalog() {
-  const PRINTIFY_API_KEY = process.env.PRINTIFY_API_KEY;
-  const PRINTIFY_SHOP_ID = process.env.PRINTIFY_SHOP_ID;
-  if (!PRINTIFY_API_KEY || !PRINTIFY_SHOP_ID) throw new Error('Missing PRINTIFY_API_KEY or PRINTIFY_SHOP_ID');
-  const resp = await fetch(`https://api.printify.com/v1/shops/${PRINTIFY_SHOP_ID}/products.json`, {
-    headers: { 'Authorization': `Bearer ${PRINTIFY_API_KEY}`, 'Content-Type': 'application/json' }
-  });
-  if (!resp.ok) throw new Error(`Printify API ${resp.status}: ${await resp.text()}`);
-  const data = await resp.json();
-  const items = (data.data || data || []);
+  if (!process.env.PRINTIFY_API_KEY || !process.env.PRINTIFY_SHOP_ID) throw new Error('Missing PRINTIFY_API_KEY or PRINTIFY_SHOP_ID');
+  const items = await fetchAllShopProducts();
   const logos = loadLogos();
   const fallbackImage = logos[0]?.publicUrl || null;
-  console.log(`🌌 [NLBL Shop] Fetched ${items.length} products from Printify`);
   return items.map(p => {
-    const { type, basePrice } = classifyProduct(p.title);
-    const images = (p.images || []).map(img => img.src);
-    const image = images[0] || fallbackImage;
-    return { id: p.id, title: p.title, description: p.description || '', category: type, price: (basePrice / 100).toFixed(2), priceCents: basePrice, image, images: image ? [image] : [], tags: [...(p.tags || []), ...(fallbackImage ? ['Galaxy', 'No Limits'] : [])], inStock: true };
+    const { type } = classifyProduct(p.title);
+    // Prefer an all-over-print / back / large placement image, fall back to first image
+    const imgs = (p.images || []);
+    const best = imgs.find(img => img.position === 'back') || imgs.find(img => img.position === 'front') || imgs[0];
+    const image = (best?.src) || imgs[0]?.src || fallbackImage;
+    // Real variant data: first enabled variant drives PayPal checkout (variant_id) and pricing
+    const variants = (p.variants || []).filter(v => v.is_enabled !== false);
+    const firstVariant = variants[0] || (p.variants || [])[0] || null;
+    const variantPriceCents = firstVariant?.price || null;
+    const priceCents = variantPriceCents || basePriceCents(p.title);
+    return {
+      id: p.id,
+      title: p.title,
+      description: p.description || '',
+      category: type,
+      price: (priceCents / 100).toFixed(2),
+      priceCents,
+      variant_id: firstVariant?.id || null,
+      variantCount: variants.length,
+      image,
+      images: imgs.map(i => i.src).filter(Boolean).length ? imgs.map(i => i.src) : (image ? [image] : []),
+      tags: [...(p.tags || []), ...(fallbackImage ? ['Galaxy', 'No Limits'] : [])],
+      inStock: true,
+    };
   });
+}
+
+// Fallback base price (cents) when a product has no variant pricing
+function basePriceCents(title) {
+  return classifyProduct(title).basePrice;
 }
 
 async function printifyFetch(endpoint, method = 'GET', body = null) {
@@ -228,14 +264,14 @@ const actions = {
         }
         case 'list': {
           if (!process.env.PRINTIFY_API_KEY || !process.env.PRINTIFY_SHOP_ID) return res.status(400).json({ error: 'Missing PRINTIFY_API_KEY or PRINTIFY_SHOP_ID' });
-          const products = await printifyFetch(`shops/${process.env.PRINTIFY_SHOP_ID}/products.json`);
-          const items = (products.data || products || []).map(p => ({ id: p.id, title: p.title, description: p.description, tags: p.tags, images: (p.images || []).map(img => img.src), variants: (p.variants || []).length, ...classifyProduct(p.title) }));
+          const products = await fetchAllShopProducts();
+          const items = products.map(p => ({ id: p.id, title: p.title, description: p.description, tags: p.tags, images: (p.images || []).map(img => img.src), variants: (p.variants || []).length, ...classifyProduct(p.title) }));
           return res.status(200).json({ count: items.length, products: items, timestamp: new Date().toISOString() });
         }
         case 'catalog': {
           if (!process.env.PRINTIFY_API_KEY || !process.env.PRINTIFY_SHOP_ID) return res.status(400).json({ error: 'Missing PRINTIFY_API_KEY or PRINTIFY_SHOP_ID' });
-          const products = await printifyFetch(`shops/${process.env.PRINTIFY_SHOP_ID}/products.json`);
-          const catalog = (products.data || products || []).map(p => {
+          const products = await fetchAllShopProducts();
+          const catalog = products.map(p => {
             const { type, basePrice } = classifyProduct(p.title);
             const images = (p.images || []).map(img => img.src);
             return { id: p.id, title: p.title, description: p.description || '', category: type, price: (basePrice / 100).toFixed(2), priceCents: basePrice, image: images[0] || null, images, tags: p.tags || [], inStock: true };
@@ -244,14 +280,12 @@ const actions = {
         }
         case 'sync': {
           const dryRun = (req.query && req.query.dryRun === 'true') || (body && body.dryRun === true);
-          const products = await printifyFetch(`shops/${process.env.PRINTIFY_SHOP_ID}/products.json`);
-          const items = (products.data || products || []);
+          const items = await fetchAllShopProducts();
           const results = items.map(p => { const { type, basePrice } = classifyProduct(p.title); return { id: p.id, title: p.title, category: type, price: (basePrice / 100).toFixed(2), images: (p.images || []).length, status: dryRun ? 'would_sync' : 'synced' }; });
           return res.status(200).json({ mode: dryRun ? 'dry_run' : 'live', total: results.length, results, message: dryRun ? `Dry run: ${results.length} products would sync.` : `${results.length} products synced.`, timestamp: new Date().toISOString() });
         }
         case 'import': {
-          const products = await printifyFetch(`shops/${process.env.PRINTIFY_SHOP_ID}/products.json`);
-          const items = (products.data || products || []);
+          const items = await fetchAllShopProducts();
           return res.status(200).json({ imported: items.length, products: items.map(p => ({ id: p.id, title: p.title, ...classifyProduct(p.title) })), message: `${items.length} products imported.`, timestamp: new Date().toISOString() });
         }
 case 'adminList': {
@@ -291,8 +325,24 @@ case 'adminList': {
             timestamp: new Date().toISOString()
           });
         }
+        case 'generate': {
+          // Bulk-generate products from the full blueprint catalog with logos + galaxy fills.
+          const { generateFullCatalog } = await import('../utils/catalog-engine-new.js');
+          const genOpts = {};
+          if (body.aopBlueprints != null) genOpts.aopBlueprints = Number(body.aopBlueprints);
+          if (body.regularBlueprints != null) genOpts.regularBlueprints = Number(body.regularBlueprints);
+          if (body.logosLimit != null) genOpts.logosLimit = Number(body.logosLimit);
+          if (body.maxProducts != null) genOpts.maxProducts = Number(body.maxProducts);
+          if (body.aopPriceCents != null) genOpts.aopPriceCents = Number(body.aopPriceCents);
+          if (body.regularPriceCents != null) genOpts.regularPriceCents = Number(body.regularPriceCents);
+          if (body.dryRun != null) genOpts.dryRun = !!body.dryRun;
+          if (body.publish != null) genOpts.publish = !!body.publish;
+          // API calls must stay responsive; default to a small first batch
+          const result = await generateFullCatalog({ maxProducts: 25, ...genOpts });
+          return res.status(200).json({ success: true, ...result, timestamp: new Date().toISOString() });
+        }
         default:
-          return res.status(400).json({ error: `Unknown action: ${action}`, availableActions: ['status', 'catalog', 'list', 'sync', 'import', 'adminList', 'blueprints'] });
+          return res.status(400).json({ error: `Unknown action: ${action}`, availableActions: ['status', 'catalog', 'list', 'sync', 'import', 'adminList', 'blueprints', 'generate'] });
       }
     } catch (err) {
       console.error('Printify API Error:', err.message);

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forbidden Frequency Protocol - Treasure Hunt</title>
+  <style>
+    :root {
+      --bg: #0a0c14;
+      --card: #121624;
+      --accent: #38bdf8;
+      --gold: #ffd700;
+      --text: #e0e6ed;
+      --dim: #8892b0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: var(--bg); color: var(--text); min-height: 100vh; padding: 20px; }
+
+    .container { max-width: 900px; margin: 0 auto; }
+
+    header { text-align: center; margin-bottom: 30px; padding-top: 20px; }
+    h1 { font-size: 2rem; color: var(--gold); text-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+    .subtitle { color: var(--dim); margin-top: 8px; font-size: 0.95rem; }
+
+    .card { background: var(--card); border-radius: 12px; padding: 24px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05); }
+    .card h2 { color: var(--accent); margin-bottom: 16px; font-size: 1.2rem; }
+
+    .input-group { margin-bottom: 16px; }
+    label { display: block; color: var(--dim); font-size: 0.85rem; margin-bottom: 6px; }
+    input, select, textarea { width: 100%; padding: 12px; background: #1e2436; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: var(--text); font-size: 0.95rem; }
+    textarea { min-height: 100px; resize: vertical; font-family: monospace; }
+
+    .btn { padding: 14px 28px; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .btn-primary { background: linear-gradient(135deg, var(--gold), #f59e0b); color: #000; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3); }
+    .btn-secondary { background: #1e2436; color: var(--text); }
+
+    .results { margin-top: 20px; }
+    .wallet-item { background: #1e2436; border-radius: 8px; padding: 16px; margin-bottom: 12px; border-left: 3px solid var(--accent); }
+    .wallet-item.active { border-left-color: var(--gold); background: rgba(255, 215, 0, 0.05); }
+    .wallet-address { font-family: monospace; font-size: 0.85rem; color: var(--accent); word-break: break-all; }
+    .wallet-item.active .wallet-address { color: var(--gold); }
+    .wallet-meta { font-size: 0.8rem; color: var(--dim); margin-top: 6px; }
+
+    .frequency-display { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 12px; }
+    .freq-dot { width: 20px; height: 20px; border-radius: 50%; display: inline-block; }
+
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+    .stat-box { background: #1e2436; border-radius: 8px; padding: 16px; text-align: center; }
+    .stat-value { font-size: 1.5rem; font-weight: 700; color: var(--gold); }
+    .stat-label { font-size: 0.75rem; color: var(--dim); margin-top: 4px; }
+
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>⛧ Forbidden Frequency Protocol</h1>
+      <p class="subtitle">Ancient Texts → Sacred Frequencies → Cryptocurrency Wallets</p>
+    </header>
+
+    <div class="stats">
+      <div class="stat-box">
+        <div class="stat-value" id="totalDerived">0</div>
+        <div class="stat-label">Wallets Derived</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value" id="totalScanned">0</div>
+        <div class="stat-label">Wallets Scanned</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value" id="totalFound">0</div>
+        <div class="stat-label">Treasures Found</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📜 Derive Wallet from Ancient Text</h2>
+      <div class="input-group">
+        <label>Select Ancient Text</label>
+        <select id="textSelect">
+          <option value="genesis">Genesis (KJV)</option>
+          <option value="enoch">Book of Enoch</option>
+          <option value="thomas">Gospel of Thomas</option>
+          <option value="hermetica">Corpus Hermeticum</option>
+          <option value="psalm23">Psalm 23</option>
+          <option value="custom">Custom Text</option>
+        </select>
+      </div>
+      <div class="input-group hidden" id="customTextGroup">
+        <label>Enter Custom Text</label>
+        <textarea id="customText" placeholder="Enter ancient text, scripture, or any passage..."></textarea>
+      </div>
+      <div class="input-group">
+        <label>Starting Position (character index)</label>
+        <input type="number" id="startPos" value="0" min="0">
+      </div>
+      <div class="input-group">
+        <label>Passage Length</label>
+        <input type="number" id="passageLength" value="100" min="10" max="1000">
+      </div>
+      <div class="input-group">
+        <label>Sacred Passphrase (optional)</label>
+        <input type="text" id="passphrase" placeholder="Enter a passphrase to strengthen the derivation...">
+      </div>
+      <button class="btn btn-primary" onclick="deriveWallet()">Derive Wallet</button>
+    </div>
+
+    <div class="card">
+      <h2>🗺️ Generate Treasure Map</h2>
+      <p style="color: var(--dim); font-size: 0.85rem; margin-bottom: 16px;">Derive multiple wallets from different positions in a text to create a treasure map.</p>
+      <div class="input-group">
+        <label>Number of Wallets to Generate</label>
+        <input type="number" id="numWallets" value="10" min="1" max="100">
+      </div>
+      <button class="btn btn-secondary" onclick="generateTreasureMap()">Generate Treasure Map</button>
+    </div>
+
+    <div class="card">
+      <h2>🔍 Scan Results</h2>
+      <div class="results" id="results">
+        <p style="color: var(--dim); text-align: center; padding: 20px;">No wallets derived yet. Start by deriving a wallet above.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Ancient text database
+    const ANCIENT_TEXTS = {
+      genesis: "In the beginning God created the heaven and the earth. And the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters. And God said, Let there be light: and there was light. And God saw the light, that it was good: and God divided the light from the darkness.",
+      enoch: "And it came to pass when the children of men had multiplied that in those days were born unto them beautiful and comely daughters. And the angels, the children of heaven, saw and lusted after them, and said to one another: Come, let us choose us wives from among the children of men and beget us children.",
+      thomas: "Jesus said, If those who lead you say to you, See, the kingdom is in the sky, then the birds of the sky will precede you. Rather, the kingdom is inside you, and it is outside you. When you come to know yourselves, then you will become known.",
+      hermetica: "I am Pymander, the Mind of the Supreme. I know what you wish and I am with you everywhere. The Mind, being luminous and eternal, brought forth by a Word the Craftsman or Demiurge, the god of fire and spirit.",
+      psalm23: "The LORD is my shepherd; I shall not want. He maketh me to lie down in green pastures: he leadeth me beside the still waters. He restoreth my soul: he leadeth me in the paths of righteousness for his name's sake."
+    };
+
+    // Solfeggio frequency mapping
+    const SOLFEGGIO = { 1: 396, 2: 417, 3: 528, 4: 639, 5: 741, 6: 852, 7: 963, 8: 174, 9: 285 };
+
+    let derivedWallets = [];
+    let totalScanned = 0;
+    let totalFound = 0;
+
+    function digitalRoot(n) {
+      if (n === 0) return 0;
+      return 1 + ((n - 1) % 9);
+    }
+
+    function textToFrequencies(text) {
+      return [...text].filter(c => c.trim()).map(c => SOLFEGGIO[digitalRoot(ord(c))] || 396);
+    }
+
+    function ord(c) { return c.charCodeAt(0); }
+
+    function frequenciesToSeed(frequencies, passphrase) {
+      const freqStr = frequencies.map(f => f.toFixed(1)).join(",");
+      const input = `${freqStr}:${passphrase}`;
+      // Simple hash for demo - in production use SHA-256
+      let hash = 0;
+      for (let i = 0; i < input.length; i++) {
+        const char = input.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash;
+      }
+      return Math.abs(hash).toString(16).padStart(64, '0');
+    }
+
+    function seedToAddress(seed) {
+      // Simplified address generation for demo
+      let addr = "bc1p";
+      for (let i = 0; i < 38; i++) {
+        const idx = (seed.charCodeAt(i % seed.length) + i) % 16;
+        addr += "0123456789abcdef"[idx];
+      }
+      return addr;
+    }
+
+    function deriveWallet() {
+      const textSelect = document.getElementById('textSelect').value;
+      const start = parseInt(document.getElementById('startPos').value) || 0;
+      const length = parseInt(document.getElementById('passageLength').value) || 100;
+      const passphrase = document.getElementById('passphrase').value;
+
+      let text = textSelect === 'custom' ? document.getElementById('customText').value : ANCIENT_TEXTS[textSelect];
+      if (!text || text.length === 0) {
+        alert("Please enter text or select an ancient text.");
+        return;
+      }
+
+      const passage = text.substring(start, start + length);
+      const frequencies = textToFrequencies(passage);
+      const seed = frequenciesToSeed(frequencies, passphrase);
+      const address = seedToAddress(seed);
+
+      const wallet = {
+        text: textSelect,
+        start: start,
+        length: length,
+        frequencies: frequencies.slice(0, 20),
+        seed: seed,
+        address: address,
+        active: Math.random() < 0.05 // 5% chance of being "active" for demo
+      };
+
+      derivedWallets.push(wallet);
+      totalScanned++;
+      if (wallet.active) totalFound++;
+
+      updateStats();
+      displayResults();
+    }
+
+    function generateTreasureMap() {
+      const num = parseInt(document.getElementById('numWallets').value) || 10;
+      const textSelect = document.getElementById('textSelect').value;
+      const passphrase = document.getElementById('passphrase').value;
+      const text = ANCIENT_TEXTS[textSelect] || ANCIENT_TEXTS.genesis;
+      const step = Math.max(1, Math.floor(text.length / num));
+
+      for (let i = 0; i < num; i++) {
+        const start = i * step;
+        const passage = text.substring(start, start + 100);
+        const frequencies = textToFrequencies(passage);
+        const seed = frequenciesToSeed(frequencies, passphrase);
+        const address = seedToAddress(seed);
+
+        const wallet = {
+          text: textSelect,
+          start: start,
+          length: 100,
+          frequencies: frequencies.slice(0, 10),
+          seed: seed,
+          address: address,
+          active: Math.random() < 0.05
+        };
+
+        derivedWallets.push(wallet);
+        totalScanned++;
+        if (wallet.active) totalFound++;
+      }
+
+      updateStats();
+      displayResults();
+    }
+
+    function updateStats() {
+      document.getElementById('totalDerived').textContent = derivedWallets.length;
+      document.getElementById('totalScanned').textContent = totalScanned;
+      document.getElementById('totalFound').textContent = totalFound;
+    }
+
+    function displayResults() {
+      const results = document.getElementById('results');
+      if (derivedWallets.length === 0) {
+        results.innerHTML = '<p style="color: var(--dim); text-align: center; padding: 20px;">No wallets derived yet.</p>';
+        return;
+      }
+
+      let html = '';
+      derivedWallets.slice().reverse().forEach((w, i) => {
+        const freqColors = w.frequencies.map(f => {
+          const hue = (f / 1000) * 360;
+          return `hsl(${hue}, 70%, 50%)`;
+        }).map(c => `<span class="freq-dot" style="background:${c}"></span>`).join('');
+
+        html += `
+          <div class="wallet-item ${w.active ? 'active' : ''}">
+            <div class="wallet-address">${w.address}</div>
+            <div class="wallet-meta">
+              Source: ${w.text} | Position: ${w.start} | ${w.active ? '⚡ ACTIVE TREASURE' : 'Dormant'}
+            </div>
+            <div class="frequency-display">${freqColors}</div>
+          </div>
+        `;
+      });
+      results.innerHTML = html;
+    }
+
+    // Show/hide custom text input
+    document.getElementById('textSelect').addEventListener('change', function() {
+      document.getElementById('customTextGroup').classList.toggle('hidden', this.value !== 'custom');
+    });
+  </script>
+</body>
+</html>

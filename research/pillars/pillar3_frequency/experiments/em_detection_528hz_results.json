@@ -1,0 +1,831 @@
+{
+  "experiment_id": "em_detection_528hz",
+  "config": {
+    "experiment_id": "em_detection_528hz",
+    "name": "EM Field Detection at 528.0 Hz",
+    "description": "Detect measurable EM field effects near 528.0 Hz emitter",
+    "frequency": 528.0,
+    "duration_minutes": 30,
+    "sample_size": 100,
+    "control_group": false,
+    "blind": false,
+    "notes": "Uses calibrated GQ-390 or similar detector. 10-minute baseline + 10-minute exposure."
+  },
+  "start_time": "2026-08-30T14:11:53.947056Z",
+  "end_time": "2026-08-30T14:11:53.948054Z",
+  "measurements": [
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 1,
+      "group": "treatment",
+      "value": 0.4856,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 2,
+      "group": "treatment",
+      "value": 0.4827,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 3,
+      "group": "treatment",
+      "value": 0.4889,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 4,
+      "group": "treatment",
+      "value": 0.5702,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 5,
+      "group": "treatment",
+      "value": 0.4872,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 6,
+      "group": "treatment",
+      "value": 0.3503,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 7,
+      "group": "treatment",
+      "value": 0.5332,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 8,
+      "group": "treatment",
+      "value": 0.4733,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 9,
+      "group": "treatment",
+      "value": 0.4783,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 10,
+      "group": "treatment",
+      "value": 0.5116,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 11,
+      "group": "treatment",
+      "value": 0.5232,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 12,
+      "group": "treatment",
+      "value": 0.6164,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 13,
+      "group": "treatment",
+      "value": 0.5657,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 14,
+      "group": "treatment",
+      "value": 0.5111,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 15,
+      "group": "treatment",
+      "value": 0.4262,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 16,
+      "group": "treatment",
+      "value": 0.3985,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 17,
+      "group": "treatment",
+      "value": 0.5246,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 18,
+      "group": "treatment",
+      "value": 0.6311,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 19,
+      "group": "treatment",
+      "value": 0.5042,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 20,
+      "group": "treatment",
+      "value": 0.4894,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 21,
+      "group": "treatment",
+      "value": 0.5532,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 22,
+      "group": "treatment",
+      "value": 0.3546,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 23,
+      "group": "treatment",
+      "value": 0.4688,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 24,
+      "group": "treatment",
+      "value": 0.549,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 25,
+      "group": "treatment",
+      "value": 0.5873,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 26,
+      "group": "treatment",
+      "value": 0.4759,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 27,
+      "group": "treatment",
+      "value": 0.5377,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 28,
+      "group": "treatment",
+      "value": 0.5248,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 29,
+      "group": "treatment",
+      "value": 0.5782,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 30,
+      "group": "treatment",
+      "value": 0.3887,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 31,
+      "group": "treatment",
+      "value": 0.5568,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 32,
+      "group": "treatment",
+      "value": 0.3485,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 33,
+      "group": "treatment",
+      "value": 0.238,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 34,
+      "group": "treatment",
+      "value": 0.4393,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 35,
+      "group": "treatment",
+      "value": 0.4084,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 36,
+      "group": "treatment",
+      "value": 0.5876,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 37,
+      "group": "treatment",
+      "value": 0.5664,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 38,
+      "group": "treatment",
+      "value": 0.3781,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 39,
+      "group": "treatment",
+      "value": 0.5847,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 40,
+      "group": "treatment",
+      "value": 0.3998,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 41,
+      "group": "treatment",
+      "value": 0.4914,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 42,
+      "group": "treatment",
+      "value": 0.4706,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 43,
+      "group": "treatment",
+      "value": 0.5114,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 44,
+      "group": "treatment",
+      "value": 0.5819,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 45,
+      "group": "treatment",
+      "value": 0.5638,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 46,
+      "group": "treatment",
+      "value": 0.535,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 47,
+      "group": "treatment",
+      "value": 0.565,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 48,
+      "group": "treatment",
+      "value": 0.5478,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 49,
+      "group": "treatment",
+      "value": 0.4373,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 50,
+      "group": "treatment",
+      "value": 0.4283,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 51,
+      "group": "treatment",
+      "value": 0.453,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 52,
+      "group": "treatment",
+      "value": 0.5499,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 53,
+      "group": "treatment",
+      "value": 0.475,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 54,
+      "group": "treatment",
+      "value": 0.7336,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 55,
+      "group": "treatment",
+      "value": 0.4181,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.947056Z",
+      "trial": 56,
+      "group": "treatment",
+      "value": 0.3901,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 57,
+      "group": "treatment",
+      "value": 0.5768,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 58,
+      "group": "treatment",
+      "value": 0.6422,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 59,
+      "group": "treatment",
+      "value": 0.5506,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 60,
+      "group": "treatment",
+      "value": 0.5836,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 61,
+      "group": "treatment",
+      "value": 0.6426,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 62,
+      "group": "treatment",
+      "value": 0.4906,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 63,
+      "group": "treatment",
+      "value": 0.3577,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 64,
+      "group": "treatment",
+      "value": 0.4468,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 65,
+      "group": "treatment",
+      "value": 0.5953,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 66,
+      "group": "treatment",
+      "value": 0.3556,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 67,
+      "group": "treatment",
+      "value": 0.5034,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 68,
+      "group": "treatment",
+      "value": 0.5253,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 69,
+      "group": "treatment",
+      "value": 0.4684,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 70,
+      "group": "treatment",
+      "value": 0.5724,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 71,
+      "group": "treatment",
+      "value": 0.5581,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 72,
+      "group": "treatment",
+      "value": 0.7321,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 73,
+      "group": "treatment",
+      "value": 0.562,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 74,
+      "group": "treatment",
+      "value": 0.4391,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 75,
+      "group": "treatment",
+      "value": 0.4438,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 76,
+      "group": "treatment",
+      "value": 0.4168,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 77,
+      "group": "treatment",
+      "value": 0.5952,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 78,
+      "group": "treatment",
+      "value": 0.4433,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 79,
+      "group": "treatment",
+      "value": 0.493,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 80,
+      "group": "treatment",
+      "value": 0.5749,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 81,
+      "group": "treatment",
+      "value": 0.4277,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 82,
+      "group": "treatment",
+      "value": 0.4706,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 83,
+      "group": "treatment",
+      "value": 0.3159,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 84,
+      "group": "treatment",
+      "value": 0.3918,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 85,
+      "group": "treatment",
+      "value": 0.4432,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 86,
+      "group": "treatment",
+      "value": 0.5416,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 87,
+      "group": "treatment",
+      "value": 0.6193,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 88,
+      "group": "treatment",
+      "value": 0.4982,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 89,
+      "group": "treatment",
+      "value": 0.5261,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 90,
+      "group": "treatment",
+      "value": 0.5168,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 91,
+      "group": "treatment",
+      "value": 0.6085,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 92,
+      "group": "treatment",
+      "value": 0.5893,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 93,
+      "group": "treatment",
+      "value": 0.5274,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 94,
+      "group": "treatment",
+      "value": 0.3989,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 95,
+      "group": "treatment",
+      "value": 0.5903,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 96,
+      "group": "treatment",
+      "value": 0.5381,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 97,
+      "group": "treatment",
+      "value": 0.6227,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 98,
+      "group": "treatment",
+      "value": 0.497,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 99,
+      "group": "treatment",
+      "value": 0.6953,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    },
+    {
+      "timestamp": "2026-08-30T14:11:53.948054Z",
+      "trial": 100,
+      "group": "treatment",
+      "value": 0.4641,
+      "unit": "mG",
+      "notes": "EM field reading during exposure"
+    }
+  ],
+  "statistical_summary": {
+    "treatment_n": 100,
+    "control_n": 0,
+    "treatment_mean": 0.5058,
+    "control_mean": 0,
+    "treatment_std": 0.0882,
+    "control_std": 0,
+    "difference": 0.5058,
+    "percent_change": 0,
+    "t_statistic": 0,
+    "significant": false
+  },
+  "conclusion": "Baseline EM field measured. Frequency-specific anomalies to be analyzed."
+}

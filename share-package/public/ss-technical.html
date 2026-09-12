@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Silent Spirits Legacy — Technical Archive & Runbook</title>
+  <style>
+    body{font-family:Consolas,monospace,monospace,system-ui;background:#0b1216;color:#d7eef7;padding:30px}
+    .wrap{max-width:980px;margin:0 auto}
+    a{color:#7be3ff}
+    .box{background:#071218;padding:16px;border-radius:10px;border:1px solid rgba(123,227,255,0.06)}
+    h1{color:#9ef;}
+    ul{margin:8px 0 0 18px}
+    pre{background:#051018;padding:12px;border-radius:8px;overflow:auto}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Technical Archive & Runbook</h1>
+    <div class="box">
+      <h3>Contents included in the archive ZIP</h3>
+      <ul>
+        <li>DISCOVERY_COMPLETE.md — full discovery narrative, methods, and timeline</li>
+        <li>master_manifest.json — authoritative mapping of generated outputs</li>
+        <li>outputs/ — snapshot of generated audio, visuals, and player assets</li>
+        <li>checksums.sha256 — SHA256 checksums for provenance</li>
+      </ul>
+
+      <p><strong>Download archive (already created):</strong> <a href="/discovery_archive_20260906.zip" target="_blank">discovery_archive_20260906.zip</a></p>
+
+      <h3>How to run locally (quick)</h3>
+      <pre>
+1) Open a terminal at repo root (D:\Projects\Silent-Spirits-Legacy)
+2) Activate the Python venv: .\.venv\Scripts\activate
+3) Start the local player server: .\.venv\Scripts\python.exe .\meditation-app\src\web\server.py
+4) Open: http://127.0.0.1:8888/src/web/player.html
+      </pre>
+
+      <h3>Key files & where to inspect</h3>
+      <ul>
+        <li>Engine (audio): meditation-app/src/engine/binaural_beats.py</li>
+        <li>Batch generator: meditation-app/src/engine/batch_generator.py</li>
+        <li>Visual generator: meditation-app/src/engine/visuals.py</li>
+        <li>Player + visuals: meditation-app/src/web/player.html</li>
+        <li>Local server: meditation-app/src/web/server.py</li>
+        <li>Manifest: meditation-app/outputs/master_manifest.json</li>
+      </ul>
+
+      <h3>Reproducible checks</h3>
+      <ol>
+        <li>Run: python scripts/audit_manifest.py — ensure manifest matches disk</li>
+        <li>Run: python scripts/verify_frontend_compat.py — confirm player keys & counts</li>
+        <li>Start server and verify /api/sessions returns JSON (manifest)</li>
+        <li>Open player, play an audio file, and observe the Flow Alignment meter moving</li>
+      </ol>
+
+      <p class="small">For peer review requests, include the zipped archive and the DISCOVERY_COMPLETE.md. Keep all raw corpora analysis notebooks if replicating the NLP pipeline; those are in the research folder when available.</p>
+    </div>
+
+    <footer style="margin-top:18px;color:#7aaebf">Questions? Contact the repo maintainer or open an issue in the repository.</footer>
+  </div>
+</body>
+</html>

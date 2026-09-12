@@ -62,13 +62,14 @@ class NLBLShopLoader {
   }
 
   normalizeProduct(product) {
+    const variantPrice = product.variants?.[0]?.price ? product.variants[0].price / 100 : null;
     return {
       id: String(product.id || ""),
-      variant_id: product.variants?.[0]?.id || product.variant_id || "",
+      variant_id: product.variant_id || product.variants?.[0]?.id || "",
       name: product.name || product.title || "Unnamed Product",
       description: product.description || "No description available.",
-      price: Number(product.price || (product.variants?.[0]?.price / 100) || 0),
-      image_url: product.image_url || product.images?.[0]?.src || "/placeholder-product.png",
+      price: Number(product.price || variantPrice || 0),
+      image_url: product.image_url || product.image || product.images?.[0]?.src || product.images?.[0] || "/placeholder-product.png",
       category: product.category || "General",
       tags: Array.isArray(product.tags) ? product.tags : [],
       active: product.active !== false
@@ -138,7 +139,7 @@ class NLBLShopLoader {
        </div>
     `;
    }
-   
+
   renderProducts(filter = "all") {
     const container =
       document.querySelector("#shop-grid") ||
@@ -146,14 +147,14 @@ class NLBLShopLoader {
       document.querySelector("#products-container");
     if (!container) return;
 
-    const filtered = filter === "all" 
-      ? this.products 
+    const filtered = filter === "all"
+      ? this.products
       : this.products.filter(p => (p.category || "").toLowerCase() === filter.toLowerCase());
 
-    container.innerHTML = filtered.length 
+    container.innerHTML = filtered.length
       ? filtered.map(p => this.createProductCard(p)).join("")
       : '<p class="no-products">No products found in this category.</p>';
-      
+
     this.attachCardListeners();
     this.updateProductCount(filtered.length);
   }

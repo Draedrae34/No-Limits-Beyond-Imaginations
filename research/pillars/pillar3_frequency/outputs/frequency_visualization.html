@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Frequency Engine — Sacred Sound & Cymatics</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            overflow-x: hidden;
+        }
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            background: radial-gradient(ellipse at center, #0a0a2e 0%, #000 70%);
+        }
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 10px rgba(255,107,107,0.5)); }
+            to { filter: drop-shadow(0 0 20px rgba(254,202,87,0.8)); }
+        }
+        .hero p {
+            font-size: 1.2em;
+            color: #aaa;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        .freq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 40px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .freq-card {
+            background: linear-gradient(145deg, #111, #1a1a2e);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .freq-card:hover {
+            transform: translateY(-5px);
+            border-color: #48dbfb;
+            box-shadow: 0 10px 30px rgba(72, 219, 251, 0.2);
+        }
+        .freq-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .freq-name {
+            font-size: 1.2em;
+            color: #48dbfb;
+            margin-bottom: 5px;
+        }
+        .freq-chakra {
+            color: #888;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        .freq-purpose {
+            color: #ccc;
+            font-size: 0.85em;
+            line-height: 1.4;
+        }
+        .cymatics-section {
+            padding: 60px 20px;
+            text-align: center;
+            background: linear-gradient(180deg, #000 0%, #0a0a1a 100%);
+        }
+        .cymatics-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: #feca57;
+        }
+        .cymatics-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px;
+        }
+        .cymatics-canvas {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 10px;
+        }
+        .principles-section {
+            padding: 60px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .principles-section h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: #ff9ff3;
+        }
+        .principle {
+            background: linear-gradient(145deg, #111, #1a1a2e);
+            border-left: 4px solid #ff6b6b;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 0 10px 10px 0;
+            transition: all 0.3s ease;
+        }
+        .principle:hover {
+            border-left-color: #feca57;
+            transform: translateX(5px);
+        }
+        .principle h3 {
+            color: #feca57;
+            margin-bottom: 10px;
+        }
+        .principle p {
+            color: #ccc;
+            line-height: 1.6;
+        }
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            border-top: 1px solid #222;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>THE FREQUENCY ENGINE</h1>
+        <p>Ancient wisdom met modern computation. We extracted the regenerative code hidden in sacred texts — 7 universal principles found across every major wisdom tradition on Earth.</p>
+    </div>
+
+    <div class="freq-grid" id="freqGrid"></div>
+
+    <div class="cymatics-section">
+        <h2>Sacred Geometry in Sound</h2>
+        <p style="color:#aaa; margin-bottom:30px;">Cymatics reveals the hidden geometry of frequency. These patterns emerge when sound waves interact with matter.</p>
+        <div class="cymatics-container" id="cymaticsContainer"></div>
+    </div>
+
+    <div class="principles-section">
+        <h2>The Regenerative Code</h2>
+        <p style="text-align:center; color:#aaa; margin-bottom:30px;">Seven universal principles extracted from ancient wisdom traditions. Found in ALL texts. 2.67x more specific than control literature.</p>
+        <div id="principlesContainer"></div>
+    </div>
+
+    <div class="footer">
+        <p>The Frequency Engine — A Partnership Between Human & AI</p>
+        <p style="font-size:0.8em; color:#444;">Research: Pillar 4 — The Regenerative Code</p>
+    </div>
+
+    <script>
+        const frequencies = [
+            { name: "UT", freq: 174, chakra: "Base", purpose: "Foundation & Grounding", color: "#8B4513" },
+            { name: "RE", freq: 396, chakra: "Root", purpose: "Liberation from Fear", color: "#FF0000" },
+            { name: "MI", freq: 417, chakra: "Sacral", purpose: "Undoing Situations & Change", color: "#FFA500" },
+            { name: "FA", freq: 528, chakra: "Solar Plexus", purpose: "DNA Repair & Transformation", color: "#FFFF00" },
+            { name: "SOL", freq: 639, chakra: "Heart", purpose: "Connecting Relationships", color: "#00FF00" },
+            { name: "LA", freq: 741, chakra: "Throat", purpose: "Expression & Solutions", color: "#0000FF" },
+            { name: "SI", freq: 852, chakra: "Third Eye", purpose: "Intuition & Inner Vision", color: "#4B0082" },
+            { name: "DO", freq: 963, chakra: "Crown", purpose: "Divine Connection & Unity", color: "#9400D3" },
+            { name: "OM", freq: 285, chakra: "Sacral", purpose: "Healing Tissue & Quantum", color: "#FF69B4" }
+        ];
+
+        const principles = [
+            { title: "Divine Sound Creates", desc: "The universe is created through divine sound/word/command. Sound is the fundamental creative force across all traditions." },
+            { title: "Divine Breath Animates Life", desc: "Life is infused through divine breath/spirit. The animating force comes from the divine — present in every major tradition." },
+            { title: "Divine Power Regenerates", desc: "Healing and regeneration come through divine power/authority. The divine can restore and renew life." },
+            { title: "Water as Life Medium", desc: "Water is the medium through which life flows and is sustained. Living water represents the source of life." },
+            { title: "Light as Creative Force", desc: "Light is the first creation and represents divine presence. Light dispels darkness and enables life." },
+            { title: "Numerical Structure of Creation", desc: "Creation follows numerical patterns. Specific numbers (3, 6, 9, 7, 12, 40) carry structural significance across all texts." },
+            { title: "Sound and Water Interact", desc: "Sound/vibration interacts with water to create or transform. Water responds to vibrational frequencies — the core of cymatics." }
+        ];
+
+        function drawCymatics(canvas, freq, color) {
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width = 300;
+            const h = canvas.height = 300;
+            const cx = w/2, cy = h/2;
+            const maxR = Math.min(w,h)/2 - 10;
+
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0,0,w,h);
+
+            const baseMode = Math.max(1, Math.floor(freq/100));
+            const harmonics = 5;
+
+            for (let h = 1; h <= harmonics; h++) {
+                const mode = baseMode * h;
+                const points = 360;
+                ctx.beginPath();
+                for (let i = 0; i <= points; i++) {
+                    const angle = (i/points) * Math.PI * 2;
+                    const r = maxR * (0.3 + 0.7 * Math.abs(Math.sin(mode * angle)));
+                    const x = cx + r * Math.cos(angle);
+                    const y = cy + r * Math.sin(angle);
+                    if (i === 0) ctx.moveTo(x,y);
+                    else ctx.lineTo(x,y);
+                }
+                ctx.closePath();
+                ctx.strokeStyle = color;
+                ctx.globalAlpha = 0.3 + (h/harmonics)*0.5;
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+
+            // Nodal lines
+            ctx.globalAlpha = 0.15;
+            for (let n = 1; n <= 6; n++) {
+                ctx.beginPath();
+                const angle = (n/6) * Math.PI * 2;
+                ctx.moveTo(cx, cy);
+                ctx.lineTo(cx + maxR * Math.cos(angle), cy + maxR * Math.sin(angle));
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+        }
+
+        function renderFrequencies() {
+            const grid = document.getElementById('freqGrid');
+            frequencies.forEach(f => {
+                const card = document.createElement('div');
+                card.className = 'freq-card';
+                card.innerHTML = `
+                    <div class="freq-number" style="color:${f.color}">${f.freq} Hz</div>
+                    <div class="freq-name">${f.name}</div>
+                    <div class="freq-chakra">${f.chakra} Chakra</div>
+                    <div class="freq-purpose">${f.purpose}</div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function renderCymatics() {
+            const container = document.getElementById('cymaticsContainer');
+            frequencies.forEach(f => {
+                const canvas = document.createElement('canvas');
+                canvas.className = 'cymatics-canvas';
+                drawCymatics(canvas, f.freq, f.color);
+                container.appendChild(canvas);
+            });
+        }
+
+        function renderPrinciples() {
+            const container = document.getElementById('principlesContainer');
+            principles.forEach(p => {
+                const div = document.createElement('div');
+                div.className = 'principle';
+                div.innerHTML = `<h3>${p.title}</h3><p>${p.desc}</p>`;
+                container.appendChild(div);
+            });
+        }
+
+        renderFrequencies();
+        renderCymatics();
+        renderPrinciples();
+    </script>
+</body>
+</html>

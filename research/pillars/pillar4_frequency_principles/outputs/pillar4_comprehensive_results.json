@@ -1,0 +1,3424 @@
+{
+  "pillar": "Pillar 4: The Simulation Signature (Comprehensive)",
+  "generated": "2026-08-29T03:12:25.800009Z",
+  "baselines_used": [
+    "shakespeare",
+    "moby_dick",
+    "pride_and_prejudice"
+  ],
+  "analyses": [
+    {
+      "name": "Gospel of Thomas",
+      "text_length": 14394,
+      "digital_root_test": {
+        "total_chars": 11713,
+        "distribution": {
+          "1": 1103,
+          "2": 2368,
+          "3": 1224,
+          "4": 817,
+          "5": 793,
+          "6": 1282,
+          "7": 1930,
+          "8": 1241,
+          "9": 955
+        },
+        "chi_squared": 1686.786,
+        "p_value": 0.0,
+        "significant": true,
+        "count_369": 3461,
+        "expected_369": 3904.3,
+        "ratio_369": 0.886,
+        "digit_deviations": {
+          "1": -0.152,
+          "2": 0.82,
+          "3": -0.06,
+          "4": -0.372,
+          "5": -0.391,
+          "6": -0.015,
+          "7": 0.483,
+          "8": -0.046,
+          "9": -0.266
+        },
+        "top_deviations": [
+          [
+            2,
+            0.82
+          ],
+          [
+            7,
+            0.483
+          ],
+          [
+            5,
+            -0.391
+          ]
+        ]
+      },
+      "gematria_test": {
+        "error": "No Greek characters found"
+      },
+      "word_position_test": {
+        "total_words": 2594,
+        "harmonic_positions_tested": 9,
+        "position_analysis": {
+          "position_3": {
+            "sample_size": 864,
+            "unique_words": 304,
+            "unique_ratio": 0.352,
+            "avg_word_length": 4.13,
+            "overall_avg_length": 4.19,
+            "length_deviation": -0.053,
+            "top_words": [
+              "and",
+              "the",
+              "said",
+              "thomas",
+              "to"
+            ]
+          },
+          "position_6": {
+            "sample_size": 432,
+            "unique_words": 186,
+            "unique_ratio": 0.431,
+            "avg_word_length": 4.17,
+            "overall_avg_length": 4.19,
+            "length_deviation": -0.015,
+            "top_words": [
+              "saying",
+              "thomas",
+              "and",
+              "the",
+              "said"
+            ]
+          },
+          "position_9": {
+            "sample_size": 288,
+            "unique_words": 152,
+            "unique_ratio": 0.528,
+            "avg_word_length": 4.15,
+            "overall_avg_length": 4.19,
+            "length_deviation": -0.033,
+            "top_words": [
+              "thomas",
+              "and",
+              "the",
+              "said",
+              "to"
+            ]
+          },
+          "position_12": {
+            "sample_size": 216,
+            "unique_words": 114,
+            "unique_ratio": 0.528,
+            "avg_word_length": 4.23,
+            "overall_avg_length": 4.19,
+            "length_deviation": 0.041,
+            "top_words": [
+              "said",
+              "jesus",
+              "thomas",
+              "saying",
+              "the"
+            ]
+          },
+          "position_18": {
+            "sample_size": 144,
+            "unique_words": 92,
+            "unique_ratio": 0.639,
+            "avg_word_length": 4.21,
+            "overall_avg_length": 4.19,
+            "length_deviation": 0.022,
+            "top_words": [
+              "thomas",
+              "and",
+              "you",
+              "will",
+              "saying"
+            ]
+          },
+          "position_27": {
+            "sample_size": 96,
+            "unique_words": 63,
+            "unique_ratio": 0.656,
+            "avg_word_length": 4.07,
+            "overall_avg_length": 4.19,
+            "length_deviation": -0.113,
+            "top_words": [
+              "said",
+              "and",
+              "the",
+              "will",
+              "to"
+            ]
+          },
+          "position_36": {
+            "sample_size": 72,
+            "unique_words": 56,
+            "unique_ratio": 0.778,
+            "avg_word_length": 4.17,
+            "overall_avg_length": 4.19,
+            "length_deviation": -0.02,
+            "top_words": [
+              "thomas",
+              "said",
+              "and",
+              "is",
+              "us"
+            ]
+          },
+          "position_72": {
+            "sample_size": 36,
+            "unique_words": 29,
+            "unique_ratio": 0.806,
+            "avg_word_length": 4.42,
+            "overall_avg_length": 4.19,
+            "length_deviation": 0.23,
+            "top_words": [
+              "thomas",
+              "is",
+              "in",
+              "said",
+              "and"
+            ]
+          },
+          "position_108": {
+            "sample_size": 24,
+            "unique_words": 20,
+            "unique_ratio": 0.833,
+            "avg_word_length": 4.12,
+            "overall_avg_length": 4.19,
+            "length_deviation": -0.061,
+            "top_words": [
+              "said",
+              "and",
+              "within",
+              "us",
+              "to"
+            ]
+          }
+        }
+      },
+      "letter_nth_test": {
+        "total_letters": 10813,
+        "positions_analyzed": 12,
+        "nth_analysis": {
+          "every_3th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "o"
+            ]
+          },
+          "every_6th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "s"
+            ]
+          },
+          "every_7th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "s"
+            ]
+          },
+          "every_9th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "y"
+            ]
+          },
+          "every_12th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "g"
+            ]
+          },
+          "every_18th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "s"
+            ]
+          },
+          "every_21th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "d"
+            ]
+          },
+          "every_27th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "e"
+            ]
+          },
+          "every_40th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "e"
+            ]
+          },
+          "every_49th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "t"
+            ]
+          },
+          "every_72th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "l"
+            ]
+          },
+          "every_108th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "h"
+            ]
+          }
+        }
+      },
+      "standing_wave_test": {
+        "total_words": 2594,
+        "total_letters": 10813,
+        "word_length_harmonics": {
+          "2:3": 3779,
+          "6:9": 3779,
+          "1:3": 1501,
+          "1:2": 3853,
+          "3:6": 3853,
+          "1:6": 193,
+          "1:9": 19
+        },
+        "sentence_length_harmonics": {
+          "2:3": 258,
+          "6:9": 258,
+          "1:2": 155,
+          "3:6": 155,
+          "1:3": 65,
+          "1:6": 18,
+          "1:9": 7
+        },
+        "section_analysis": {
+          "sections_100": {
+            "num_sections": 26,
+            "mean_entropy": 5.5356,
+            "entropy_std": 0.1636
+          },
+          "sections_200": {
+            "num_sections": 13,
+            "mean_entropy": 6.1685,
+            "entropy_std": 0.104
+          },
+          "sections_300": {
+            "num_sections": 9,
+            "mean_entropy": 6.4209,
+            "entropy_std": 0.1177
+          },
+          "sections_500": {
+            "num_sections": 6,
+            "mean_entropy": 6.5657,
+            "entropy_std": 0.5113
+          },
+          "sections_1000": {
+            "num_sections": 3,
+            "mean_entropy": 7.0774,
+            "entropy_std": 0.1657
+          },
+          "sections_2000": {
+            "num_sections": 2,
+            "mean_entropy": 7.1721,
+            "entropy_std": 0.3282
+          }
+        }
+      },
+      "cross_text_test": {
+        "status": "requires_text_pair"
+      },
+      "composite_score": 0.8317
+    },
+    {
+      "name": "Shakespeare (control)",
+      "text_length": 200000,
+      "digital_root_test": {
+        "total_chars": 158463,
+        "distribution": {
+          "1": 15470,
+          "2": 31517,
+          "3": 16401,
+          "4": 9756,
+          "5": 11047,
+          "6": 19283,
+          "7": 20116,
+          "8": 19782,
+          "9": 15091
+        },
+        "chi_squared": 18421.4258,
+        "p_value": 0.0,
+        "significant": true,
+        "count_369": 50775,
+        "expected_369": 52821.0,
+        "ratio_369": 0.961,
+        "digit_deviations": {
+          "1": -0.121,
+          "2": 0.79,
+          "3": -0.068,
+          "4": -0.446,
+          "5": -0.373,
+          "6": 0.095,
+          "7": 0.143,
+          "8": 0.124,
+          "9": -0.143
+        },
+        "top_deviations": [
+          [
+            2,
+            0.79
+          ],
+          [
+            4,
+            -0.446
+          ],
+          [
+            5,
+            -0.373
+          ]
+        ]
+      },
+      "gematria_test": {
+        "error": "No Greek characters found"
+      },
+      "word_position_test": {
+        "total_words": 36908,
+        "harmonic_positions_tested": 9,
+        "position_analysis": {
+          "position_3": {
+            "sample_size": 12302,
+            "unique_words": 2490,
+            "unique_ratio": 0.202,
+            "avg_word_length": 4.04,
+            "overall_avg_length": 4.06,
+            "length_deviation": -0.021,
+            "top_words": [
+              "the",
+              "and",
+              "to",
+              "i",
+              "of"
+            ]
+          },
+          "position_6": {
+            "sample_size": 6151,
+            "unique_words": 1610,
+            "unique_ratio": 0.262,
+            "avg_word_length": 4.03,
+            "overall_avg_length": 4.06,
+            "length_deviation": -0.026,
+            "top_words": [
+              "the",
+              "and",
+              "to",
+              "i",
+              "of"
+            ]
+          },
+          "position_9": {
+            "sample_size": 4100,
+            "unique_words": 1250,
+            "unique_ratio": 0.305,
+            "avg_word_length": 4.04,
+            "overall_avg_length": 4.06,
+            "length_deviation": -0.021,
+            "top_words": [
+              "and",
+              "the",
+              "i",
+              "of",
+              "to"
+            ]
+          },
+          "position_12": {
+            "sample_size": 3075,
+            "unique_words": 1013,
+            "unique_ratio": 0.329,
+            "avg_word_length": 3.99,
+            "overall_avg_length": 4.06,
+            "length_deviation": -0.072,
+            "top_words": [
+              "the",
+              "i",
+              "to",
+              "and",
+              "of"
+            ]
+          },
+          "position_18": {
+            "sample_size": 2050,
+            "unique_words": 765,
+            "unique_ratio": 0.373,
+            "avg_word_length": 3.99,
+            "overall_avg_length": 4.06,
+            "length_deviation": -0.066,
+            "top_words": [
+              "the",
+              "and",
+              "i",
+              "of",
+              "in"
+            ]
+          },
+          "position_27": {
+            "sample_size": 1366,
+            "unique_words": 593,
+            "unique_ratio": 0.434,
+            "avg_word_length": 3.95,
+            "overall_avg_length": 4.06,
+            "length_deviation": -0.108,
+            "top_words": [
+              "i",
+              "and",
+              "of",
+              "the",
+              "my"
+            ]
+          },
+          "position_36": {
+            "sample_size": 1025,
+            "unique_words": 479,
+            "unique_ratio": 0.467,
+            "avg_word_length": 3.98,
+            "overall_avg_length": 4.06,
+            "length_deviation": -0.075,
+            "top_words": [
+              "the",
+              "i",
+              "and",
+              "a",
+              "in"
+            ]
+          },
+          "position_72": {
+            "sample_size": 512,
+            "unique_words": 293,
+            "unique_ratio": 0.572,
+            "avg_word_length": 4.04,
+            "overall_avg_length": 4.06,
+            "length_deviation": -0.017,
+            "top_words": [
+              "the",
+              "i",
+              "that",
+              "and",
+              "a"
+            ]
+          },
+          "position_108": {
+            "sample_size": 341,
+            "unique_words": 215,
+            "unique_ratio": 0.63,
+            "avg_word_length": 3.94,
+            "overall_avg_length": 4.06,
+            "length_deviation": -0.123,
+            "top_words": [
+              "i",
+              "in",
+              "and",
+              "a",
+              "the"
+            ]
+          }
+        }
+      },
+      "letter_nth_test": {
+        "total_letters": 149777,
+        "positions_analyzed": 12,
+        "nth_analysis": {
+          "every_3th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "a"
+            ]
+          },
+          "every_6th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "o"
+            ]
+          },
+          "every_7th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "f"
+            ]
+          },
+          "every_9th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "h"
+            ]
+          },
+          "every_12th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "r"
+            ]
+          },
+          "every_18th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "g"
+            ]
+          },
+          "every_21th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "e"
+            ]
+          },
+          "every_27th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "e"
+            ]
+          },
+          "every_40th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "e"
+            ]
+          },
+          "every_49th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "f"
+            ]
+          },
+          "every_72th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "l"
+            ]
+          },
+          "every_108th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "l"
+            ]
+          }
+        }
+      },
+      "standing_wave_test": {
+        "total_words": 36908,
+        "total_letters": 149777,
+        "word_length_harmonics": {
+          "2:3": 46885,
+          "6:9": 46885,
+          "1:2": 54507,
+          "3:6": 54507,
+          "1:6": 3733,
+          "1:3": 21861,
+          "1:9": 1034
+        },
+        "sentence_length_harmonics": {
+          "2:3": 1570,
+          "6:9": 1570,
+          "1:3": 1836,
+          "1:2": 3058,
+          "3:6": 3058,
+          "1:6": 1154,
+          "1:9": 945
+        },
+        "section_analysis": {
+          "sections_100": {
+            "num_sections": 370,
+            "mean_entropy": 5.8017,
+            "entropy_std": 0.5052
+          },
+          "sections_200": {
+            "num_sections": 185,
+            "mean_entropy": 6.6106,
+            "entropy_std": 0.4361
+          },
+          "sections_300": {
+            "num_sections": 124,
+            "mean_entropy": 7.0097,
+            "entropy_std": 0.2732
+          },
+          "sections_500": {
+            "num_sections": 74,
+            "mean_entropy": 7.4423,
+            "entropy_std": 0.1453
+          },
+          "sections_1000": {
+            "num_sections": 37,
+            "mean_entropy": 7.9522,
+            "entropy_std": 0.1021
+          },
+          "sections_2000": {
+            "num_sections": 19,
+            "mean_entropy": 8.3375,
+            "entropy_std": 0.0984
+          }
+        }
+      },
+      "cross_text_test": {
+        "status": "requires_text_pair"
+      },
+      "composite_score": 0.8235
+    },
+    {
+      "name": "Dead Sea Scrolls (sample)",
+      "text_length": 200000,
+      "digital_root_test": {
+        "total_chars": 167217,
+        "distribution": {
+          "1": 14325,
+          "2": 32889,
+          "3": 18101,
+          "4": 11233,
+          "5": 10219,
+          "6": 21498,
+          "7": 21603,
+          "8": 19191,
+          "9": 18158
+        },
+        "chi_squared": 19654.3534,
+        "p_value": 0.0,
+        "significant": true,
+        "count_369": 57757,
+        "expected_369": 55739.0,
+        "ratio_369": 1.036,
+        "digit_deviations": {
+          "1": -0.229,
+          "2": 0.77,
+          "3": -0.026,
+          "4": -0.395,
+          "5": -0.45,
+          "6": 0.157,
+          "7": 0.163,
+          "8": 0.033,
+          "9": -0.023
+        },
+        "top_deviations": [
+          [
+            2,
+            0.77
+          ],
+          [
+            5,
+            -0.45
+          ],
+          [
+            4,
+            -0.395
+          ]
+        ]
+      },
+      "gematria_test": {
+        "error": "No Greek characters found"
+      },
+      "word_position_test": {
+        "total_words": 31705,
+        "harmonic_positions_tested": 9,
+        "position_analysis": {
+          "position_3": {
+            "sample_size": 10568,
+            "unique_words": 3015,
+            "unique_ratio": 0.285,
+            "avg_word_length": 4.83,
+            "overall_avg_length": 4.84,
+            "length_deviation": -0.01,
+            "top_words": [
+              "the",
+              "of",
+              "and",
+              "to",
+              "in"
+            ]
+          },
+          "position_6": {
+            "sample_size": 5284,
+            "unique_words": 1893,
+            "unique_ratio": 0.358,
+            "avg_word_length": 4.82,
+            "overall_avg_length": 4.84,
+            "length_deviation": -0.021,
+            "top_words": [
+              "the",
+              "of",
+              "and",
+              "to",
+              "in"
+            ]
+          },
+          "position_9": {
+            "sample_size": 3522,
+            "unique_words": 1416,
+            "unique_ratio": 0.402,
+            "avg_word_length": 4.79,
+            "overall_avg_length": 4.84,
+            "length_deviation": -0.057,
+            "top_words": [
+              "the",
+              "of",
+              "and",
+              "to",
+              "in"
+            ]
+          },
+          "position_12": {
+            "sample_size": 2642,
+            "unique_words": 1165,
+            "unique_ratio": 0.441,
+            "avg_word_length": 4.84,
+            "overall_avg_length": 4.84,
+            "length_deviation": -0.005,
+            "top_words": [
+              "the",
+              "of",
+              "and",
+              "to",
+              "in"
+            ]
+          },
+          "position_18": {
+            "sample_size": 1761,
+            "unique_words": 861,
+            "unique_ratio": 0.489,
+            "avg_word_length": 4.83,
+            "overall_avg_length": 4.84,
+            "length_deviation": -0.007,
+            "top_words": [
+              "the",
+              "of",
+              "and",
+              "to",
+              "in"
+            ]
+          },
+          "position_27": {
+            "sample_size": 1174,
+            "unique_words": 623,
+            "unique_ratio": 0.531,
+            "avg_word_length": 4.82,
+            "overall_avg_length": 4.84,
+            "length_deviation": -0.02,
+            "top_words": [
+              "the",
+              "of",
+              "and",
+              "in",
+              "a"
+            ]
+          },
+          "position_36": {
+            "sample_size": 880,
+            "unique_words": 504,
+            "unique_ratio": 0.573,
+            "avg_word_length": 4.92,
+            "overall_avg_length": 4.84,
+            "length_deviation": 0.082,
+            "top_words": [
+              "the",
+              "of",
+              "and",
+              "to",
+              "in"
+            ]
+          },
+          "position_72": {
+            "sample_size": 440,
+            "unique_words": 290,
+            "unique_ratio": 0.659,
+            "avg_word_length": 4.93,
+            "overall_avg_length": 4.84,
+            "length_deviation": 0.09,
+            "top_words": [
+              "the",
+              "and",
+              "of",
+              "to",
+              "in"
+            ]
+          },
+          "position_108": {
+            "sample_size": 293,
+            "unique_words": 200,
+            "unique_ratio": 0.683,
+            "avg_word_length": 5.0,
+            "overall_avg_length": 4.84,
+            "length_deviation": 0.154,
+            "top_words": [
+              "the",
+              "of",
+              "and",
+              "in",
+              "a"
+            ]
+          }
+        }
+      },
+      "letter_nth_test": {
+        "total_letters": 152715,
+        "positions_analyzed": 12,
+        "nth_analysis": {
+          "every_3th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "l"
+            ]
+          },
+          "every_6th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "e"
+            ]
+          },
+          "every_7th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "x"
+            ]
+          },
+          "every_9th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "o"
+            ]
+          },
+          "every_12th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "h"
+            ]
+          },
+          "every_18th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "s"
+            ]
+          },
+          "every_21th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "s"
+            ]
+          },
+          "every_27th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "s"
+            ]
+          },
+          "every_40th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "i"
+            ]
+          },
+          "every_49th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "a"
+            ]
+          },
+          "every_72th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "a"
+            ]
+          },
+          "every_108th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "i"
+            ]
+          }
+        }
+      },
+      "standing_wave_test": {
+        "total_words": 31705,
+        "total_letters": 152715,
+        "word_length_harmonics": {
+          "1:2": 37446,
+          "3:6": 37446,
+          "1:3": 25840,
+          "2:3": 45042,
+          "6:9": 45042,
+          "1:6": 5498,
+          "1:9": 1854
+        },
+        "sentence_length_harmonics": {
+          "1:3": 1915,
+          "2:3": 2134,
+          "6:9": 2134,
+          "1:2": 3376,
+          "3:6": 3376,
+          "1:6": 616,
+          "1:9": 538
+        },
+        "section_analysis": {
+          "sections_100": {
+            "num_sections": 318,
+            "mean_entropy": 5.3076,
+            "entropy_std": 0.3146
+          },
+          "sections_200": {
+            "num_sections": 159,
+            "mean_entropy": 5.5301,
+            "entropy_std": 0.5077
+          },
+          "sections_300": {
+            "num_sections": 106,
+            "mean_entropy": 5.6777,
+            "entropy_std": 0.4989
+          },
+          "sections_500": {
+            "num_sections": 64,
+            "mean_entropy": 6.4359,
+            "entropy_std": 0.6634
+          },
+          "sections_1000": {
+            "num_sections": 32,
+            "mean_entropy": 7.4873,
+            "entropy_std": 0.7079
+          },
+          "sections_2000": {
+            "num_sections": 16,
+            "mean_entropy": 8.0851,
+            "entropy_std": 0.4226
+          }
+        }
+      },
+      "cross_text_test": {
+        "status": "requires_text_pair"
+      },
+      "composite_score": 0.8119
+    },
+    {
+      "name": "Corpus Hermeticum (sample)",
+      "text_length": 200000,
+      "digital_root_test": {
+        "total_chars": 162717,
+        "distribution": {
+          "1": 16174,
+          "2": 32479,
+          "3": 17890,
+          "4": 8206,
+          "5": 11439,
+          "6": 19116,
+          "7": 22086,
+          "8": 21895,
+          "9": 13432
+        },
+        "chi_squared": 22449.4379,
+        "p_value": 0.0,
+        "significant": true,
+        "count_369": 50438,
+        "expected_369": 54239.0,
+        "ratio_369": 0.93,
+        "digit_deviations": {
+          "1": -0.105,
+          "2": 0.796,
+          "3": -0.01,
+          "4": -0.546,
+          "5": -0.367,
+          "6": 0.057,
+          "7": 0.222,
+          "8": 0.211,
+          "9": -0.257
+        },
+        "top_deviations": [
+          [
+            2,
+            0.796
+          ],
+          [
+            4,
+            -0.546
+          ],
+          [
+            5,
+            -0.367
+          ]
+        ]
+      },
+      "gematria_test": {
+        "error": "No Greek characters found"
+      },
+      "word_position_test": {
+        "total_words": 36602,
+        "harmonic_positions_tested": 9,
+        "position_analysis": {
+          "position_3": {
+            "sample_size": 12200,
+            "unique_words": 1860,
+            "unique_ratio": 0.152,
+            "avg_word_length": 4.18,
+            "overall_avg_length": 4.15,
+            "length_deviation": 0.024,
+            "top_words": [
+              "the",
+              "and",
+              "of",
+              "is",
+              "to"
+            ]
+          },
+          "position_6": {
+            "sample_size": 6100,
+            "unique_words": 1237,
+            "unique_ratio": 0.203,
+            "avg_word_length": 4.18,
+            "overall_avg_length": 4.15,
+            "length_deviation": 0.029,
+            "top_words": [
+              "the",
+              "and",
+              "of",
+              "is",
+              "to"
+            ]
+          },
+          "position_9": {
+            "sample_size": 4066,
+            "unique_words": 996,
+            "unique_ratio": 0.245,
+            "avg_word_length": 4.22,
+            "overall_avg_length": 4.15,
+            "length_deviation": 0.067,
+            "top_words": [
+              "the",
+              "and",
+              "of",
+              "is",
+              "to"
+            ]
+          },
+          "position_12": {
+            "sample_size": 3050,
+            "unique_words": 800,
+            "unique_ratio": 0.262,
+            "avg_word_length": 4.16,
+            "overall_avg_length": 4.15,
+            "length_deviation": 0.009,
+            "top_words": [
+              "the",
+              "and",
+              "of",
+              "is",
+              "that"
+            ]
+          },
+          "position_18": {
+            "sample_size": 2033,
+            "unique_words": 657,
+            "unique_ratio": 0.323,
+            "avg_word_length": 4.24,
+            "overall_avg_length": 4.15,
+            "length_deviation": 0.09,
+            "top_words": [
+              "the",
+              "and",
+              "is",
+              "of",
+              "in"
+            ]
+          },
+          "position_27": {
+            "sample_size": 1355,
+            "unique_words": 488,
+            "unique_ratio": 0.36,
+            "avg_word_length": 4.19,
+            "overall_avg_length": 4.15,
+            "length_deviation": 0.033,
+            "top_words": [
+              "the",
+              "of",
+              "and",
+              "is",
+              "to"
+            ]
+          },
+          "position_36": {
+            "sample_size": 1016,
+            "unique_words": 404,
+            "unique_ratio": 0.398,
+            "avg_word_length": 4.19,
+            "overall_avg_length": 4.15,
+            "length_deviation": 0.042,
+            "top_words": [
+              "the",
+              "and",
+              "is",
+              "of",
+              "in"
+            ]
+          },
+          "position_72": {
+            "sample_size": 508,
+            "unique_words": 249,
+            "unique_ratio": 0.49,
+            "avg_word_length": 4.18,
+            "overall_avg_length": 4.15,
+            "length_deviation": 0.027,
+            "top_words": [
+              "the",
+              "is",
+              "and",
+              "of",
+              "in"
+            ]
+          },
+          "position_108": {
+            "sample_size": 338,
+            "unique_words": 185,
+            "unique_ratio": 0.547,
+            "avg_word_length": 4.26,
+            "overall_avg_length": 4.15,
+            "length_deviation": 0.111,
+            "top_words": [
+              "the",
+              "is",
+              "and",
+              "that",
+              "of"
+            ]
+          }
+        }
+      },
+      "letter_nth_test": {
+        "total_letters": 151673,
+        "positions_analyzed": 12,
+        "nth_analysis": {
+          "every_3th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "e"
+            ]
+          },
+          "every_6th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "r"
+            ]
+          },
+          "every_7th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "p"
+            ]
+          },
+          "every_9th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "s"
+            ]
+          },
+          "every_12th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "r"
+            ]
+          },
+          "every_18th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "u"
+            ]
+          },
+          "every_21th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "h"
+            ]
+          },
+          "every_27th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "n"
+            ]
+          },
+          "every_40th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "h"
+            ]
+          },
+          "every_49th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "c"
+            ]
+          },
+          "every_72th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "o"
+            ]
+          },
+          "every_108th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "w"
+            ]
+          }
+        }
+      },
+      "standing_wave_test": {
+        "total_words": 36602,
+        "total_letters": 151673,
+        "word_length_harmonics": {
+          "1:2": 52238,
+          "3:6": 52238,
+          "1:3": 24801,
+          "2:3": 54753,
+          "6:9": 54753,
+          "1:6": 3180,
+          "1:9": 572
+        },
+        "sentence_length_harmonics": {
+          "1:2": 1964,
+          "3:6": 1964,
+          "2:3": 2034,
+          "6:9": 2034,
+          "1:3": 1440,
+          "1:6": 670,
+          "1:9": 762
+        },
+        "section_analysis": {
+          "sections_100": {
+            "num_sections": 367,
+            "mean_entropy": 5.9232,
+            "entropy_std": 0.1579
+          },
+          "sections_200": {
+            "num_sections": 184,
+            "mean_entropy": 6.4541,
+            "entropy_std": 0.1112
+          },
+          "sections_300": {
+            "num_sections": 123,
+            "mean_entropy": 6.7989,
+            "entropy_std": 0.1328
+          },
+          "sections_500": {
+            "num_sections": 74,
+            "mean_entropy": 6.984,
+            "entropy_std": 0.25
+          },
+          "sections_1000": {
+            "num_sections": 37,
+            "mean_entropy": 7.3799,
+            "entropy_std": 0.2287
+          },
+          "sections_2000": {
+            "num_sections": 19,
+            "mean_entropy": 7.7008,
+            "entropy_std": 0.1331
+          }
+        }
+      },
+      "cross_text_test": {
+        "status": "requires_text_pair"
+      },
+      "composite_score": 0.81
+    },
+    {
+      "name": "Book of Enoch (sample)",
+      "text_length": 200000,
+      "digital_root_test": {
+        "total_chars": 162683,
+        "distribution": {
+          "1": 15332,
+          "2": 36272,
+          "3": 16073,
+          "4": 8622,
+          "5": 13498,
+          "6": 18110,
+          "7": 21818,
+          "8": 19980,
+          "9": 12978
+        },
+        "chi_squared": 27472.5467,
+        "p_value": 0.0,
+        "significant": true,
+        "count_369": 47161,
+        "expected_369": 54227.7,
+        "ratio_369": 0.87,
+        "digit_deviations": {
+          "1": -0.152,
+          "2": 1.007,
+          "3": -0.111,
+          "4": -0.523,
+          "5": -0.253,
+          "6": 0.002,
+          "7": 0.207,
+          "8": 0.105,
+          "9": -0.282
+        },
+        "top_deviations": [
+          [
+            2,
+            1.007
+          ],
+          [
+            4,
+            -0.523
+          ],
+          [
+            9,
+            -0.282
+          ]
+        ]
+      },
+      "gematria_test": {
+        "error": "No Greek characters found"
+      },
+      "word_position_test": {
+        "total_words": 36529,
+        "harmonic_positions_tested": 9,
+        "position_analysis": {
+          "position_3": {
+            "sample_size": 12176,
+            "unique_words": 1935,
+            "unique_ratio": 0.159,
+            "avg_word_length": 4.22,
+            "overall_avg_length": 4.23,
+            "length_deviation": -0.005,
+            "top_words": [
+              "the",
+              "and",
+              "of",
+              "to",
+              "in"
+            ]
+          },
+          "position_6": {
+            "sample_size": 6088,
+            "unique_words": 1321,
+            "unique_ratio": 0.217,
+            "avg_word_length": 4.23,
+            "overall_avg_length": 4.23,
+            "length_deviation": 0.0,
+            "top_words": [
+              "the",
+              "and",
+              "of",
+              "to",
+              "in"
+            ]
+          },
+          "position_9": {
+            "sample_size": 4058,
+            "unique_words": 1067,
+            "unique_ratio": 0.263,
+            "avg_word_length": 4.24,
+            "overall_avg_length": 4.23,
+            "length_deviation": 0.016,
+            "top_words": [
+              "the",
+              "and",
+              "of",
+              "to",
+              "in"
+            ]
+          },
+          "position_12": {
+            "sample_size": 3044,
+            "unique_words": 847,
+            "unique_ratio": 0.278,
+            "avg_word_length": 4.17,
+            "overall_avg_length": 4.23,
+            "length_deviation": -0.054,
+            "top_words": [
+              "the",
+              "and",
+              "of",
+              "to",
+              "in"
+            ]
+          },
+          "position_18": {
+            "sample_size": 2029,
+            "unique_words": 677,
+            "unique_ratio": 0.334,
+            "avg_word_length": 4.29,
+            "overall_avg_length": 4.23,
+            "length_deviation": 0.061,
+            "top_words": [
+              "the",
+              "and",
+              "of",
+              "to",
+              "in"
+            ]
+          },
+          "position_27": {
+            "sample_size": 1352,
+            "unique_words": 538,
+            "unique_ratio": 0.398,
+            "avg_word_length": 4.31,
+            "overall_avg_length": 4.23,
+            "length_deviation": 0.086,
+            "top_words": [
+              "the",
+              "and",
+              "of",
+              "to",
+              "in"
+            ]
+          },
+          "position_36": {
+            "sample_size": 1014,
+            "unique_words": 415,
+            "unique_ratio": 0.409,
+            "avg_word_length": 4.27,
+            "overall_avg_length": 4.23,
+            "length_deviation": 0.037,
+            "top_words": [
+              "the",
+              "and",
+              "of",
+              "to",
+              "in"
+            ]
+          },
+          "position_72": {
+            "sample_size": 507,
+            "unique_words": 258,
+            "unique_ratio": 0.509,
+            "avg_word_length": 4.37,
+            "overall_avg_length": 4.23,
+            "length_deviation": 0.145,
+            "top_words": [
+              "the",
+              "and",
+              "of",
+              "to",
+              "is"
+            ]
+          },
+          "position_108": {
+            "sample_size": 338,
+            "unique_words": 179,
+            "unique_ratio": 0.53,
+            "avg_word_length": 4.21,
+            "overall_avg_length": 4.23,
+            "length_deviation": -0.015,
+            "top_words": [
+              "the",
+              "and",
+              "of",
+              "to",
+              "in"
+            ]
+          }
+        }
+      },
+      "letter_nth_test": {
+        "total_letters": 154682,
+        "positions_analyzed": 12,
+        "nth_analysis": {
+          "every_3th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "e"
+            ]
+          },
+          "every_6th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "o"
+            ]
+          },
+          "every_7th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "j"
+            ]
+          },
+          "every_9th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "c"
+            ]
+          },
+          "every_12th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "u"
+            ]
+          },
+          "every_18th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "r"
+            ]
+          },
+          "every_21th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "b"
+            ]
+          },
+          "every_27th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "t"
+            ]
+          },
+          "every_40th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "h"
+            ]
+          },
+          "every_49th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "k"
+            ]
+          },
+          "every_72th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "w"
+            ]
+          },
+          "every_108th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "r"
+            ]
+          }
+        }
+      },
+      "standing_wave_test": {
+        "total_words": 36529,
+        "total_letters": 154682,
+        "word_length_harmonics": {
+          "1:3": 22390,
+          "1:2": 41899,
+          "3:6": 41899,
+          "2:3": 49754,
+          "6:9": 49754,
+          "1:6": 2957,
+          "1:9": 907
+        },
+        "sentence_length_harmonics": {
+          "2:3": 1169,
+          "6:9": 1169,
+          "1:3": 769,
+          "1:2": 1890,
+          "3:6": 1890,
+          "1:6": 383,
+          "1:9": 565
+        },
+        "section_analysis": {
+          "sections_100": {
+            "num_sections": 366,
+            "mean_entropy": 5.7259,
+            "entropy_std": 0.194
+          },
+          "sections_200": {
+            "num_sections": 183,
+            "mean_entropy": 6.3367,
+            "entropy_std": 0.1791
+          },
+          "sections_300": {
+            "num_sections": 122,
+            "mean_entropy": 6.6258,
+            "entropy_std": 0.1172
+          },
+          "sections_500": {
+            "num_sections": 74,
+            "mean_entropy": 6.9812,
+            "entropy_std": 0.1196
+          },
+          "sections_1000": {
+            "num_sections": 37,
+            "mean_entropy": 7.3749,
+            "entropy_std": 0.1311
+          },
+          "sections_2000": {
+            "num_sections": 19,
+            "mean_entropy": 7.4785,
+            "entropy_std": 0.3141
+          }
+        }
+      },
+      "cross_text_test": {
+        "status": "requires_text_pair"
+      },
+      "composite_score": 0.8082
+    },
+    {
+      "name": "Nag Hammadi Library (sample)",
+      "text_length": 200000,
+      "digital_root_test": {
+        "total_chars": 164538,
+        "distribution": {
+          "1": 14649,
+          "2": 33447,
+          "3": 17489,
+          "4": 10030,
+          "5": 12244,
+          "6": 20433,
+          "7": 21152,
+          "8": 19753,
+          "9": 15341
+        },
+        "chi_squared": 20349.7831,
+        "p_value": 0.0,
+        "significant": true,
+        "count_369": 53263,
+        "expected_369": 54846.0,
+        "ratio_369": 0.971,
+        "digit_deviations": {
+          "1": -0.199,
+          "2": 0.83,
+          "3": -0.043,
+          "4": -0.451,
+          "5": -0.33,
+          "6": 0.118,
+          "7": 0.157,
+          "8": 0.08,
+          "9": -0.161
+        },
+        "top_deviations": [
+          [
+            2,
+            0.83
+          ],
+          [
+            4,
+            -0.451
+          ],
+          [
+            5,
+            -0.33
+          ]
+        ]
+      },
+      "gematria_test": {
+        "error": "No Greek characters found"
+      },
+      "word_position_test": {
+        "total_words": 34729,
+        "harmonic_positions_tested": 9,
+        "position_analysis": {
+          "position_3": {
+            "sample_size": 11576,
+            "unique_words": 2143,
+            "unique_ratio": 0.185,
+            "avg_word_length": 4.41,
+            "overall_avg_length": 4.39,
+            "length_deviation": 0.022,
+            "top_words": [
+              "the",
+              "of",
+              "and",
+              "is",
+              "to"
+            ]
+          },
+          "position_6": {
+            "sample_size": 5788,
+            "unique_words": 1402,
+            "unique_ratio": 0.242,
+            "avg_word_length": 4.37,
+            "overall_avg_length": 4.39,
+            "length_deviation": -0.024,
+            "top_words": [
+              "the",
+              "and",
+              "of",
+              "is",
+              "to"
+            ]
+          },
+          "position_9": {
+            "sample_size": 3858,
+            "unique_words": 1135,
+            "unique_ratio": 0.294,
+            "avg_word_length": 4.43,
+            "overall_avg_length": 4.39,
+            "length_deviation": 0.036,
+            "top_words": [
+              "the",
+              "of",
+              "and",
+              "is",
+              "to"
+            ]
+          },
+          "position_12": {
+            "sample_size": 2894,
+            "unique_words": 923,
+            "unique_ratio": 0.319,
+            "avg_word_length": 4.38,
+            "overall_avg_length": 4.39,
+            "length_deviation": -0.011,
+            "top_words": [
+              "the",
+              "of",
+              "and",
+              "is",
+              "to"
+            ]
+          },
+          "position_18": {
+            "sample_size": 1929,
+            "unique_words": 691,
+            "unique_ratio": 0.358,
+            "avg_word_length": 4.34,
+            "overall_avg_length": 4.39,
+            "length_deviation": -0.053,
+            "top_words": [
+              "the",
+              "of",
+              "and",
+              "to",
+              "is"
+            ]
+          },
+          "position_27": {
+            "sample_size": 1286,
+            "unique_words": 539,
+            "unique_ratio": 0.419,
+            "avg_word_length": 4.47,
+            "overall_avg_length": 4.39,
+            "length_deviation": 0.076,
+            "top_words": [
+              "the",
+              "of",
+              "and",
+              "is",
+              "to"
+            ]
+          },
+          "position_36": {
+            "sample_size": 964,
+            "unique_words": 424,
+            "unique_ratio": 0.44,
+            "avg_word_length": 4.37,
+            "overall_avg_length": 4.39,
+            "length_deviation": -0.023,
+            "top_words": [
+              "the",
+              "of",
+              "and",
+              "in",
+              "a"
+            ]
+          },
+          "position_72": {
+            "sample_size": 482,
+            "unique_words": 262,
+            "unique_ratio": 0.544,
+            "avg_word_length": 4.32,
+            "overall_avg_length": 4.39,
+            "length_deviation": -0.07,
+            "top_words": [
+              "the",
+              "of",
+              "and",
+              "a",
+              "it"
+            ]
+          },
+          "position_108": {
+            "sample_size": 321,
+            "unique_words": 184,
+            "unique_ratio": 0.573,
+            "avg_word_length": 4.47,
+            "overall_avg_length": 4.39,
+            "length_deviation": 0.08,
+            "top_words": [
+              "the",
+              "of",
+              "he",
+              "a",
+              "and"
+            ]
+          }
+        }
+      },
+      "letter_nth_test": {
+        "total_letters": 152443,
+        "positions_analyzed": 12,
+        "nth_analysis": {
+          "every_3th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "l"
+            ]
+          },
+          "every_6th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "e"
+            ]
+          },
+          "every_7th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "x"
+            ]
+          },
+          "every_9th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "o"
+            ]
+          },
+          "every_12th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "h"
+            ]
+          },
+          "every_18th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "a"
+            ]
+          },
+          "every_21th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "a"
+            ]
+          },
+          "every_27th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "r"
+            ]
+          },
+          "every_40th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "r"
+            ]
+          },
+          "every_49th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "a"
+            ]
+          },
+          "every_72th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "i"
+            ]
+          },
+          "every_108th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "i"
+            ]
+          }
+        }
+      },
+      "standing_wave_test": {
+        "total_words": 34729,
+        "total_letters": 152443,
+        "word_length_harmonics": {
+          "2:3": 51009,
+          "6:9": 51009,
+          "1:2": 43428,
+          "3:6": 43428,
+          "1:3": 23035,
+          "1:6": 3037,
+          "1:9": 870
+        },
+        "sentence_length_harmonics": {
+          "1:6": 724,
+          "2:3": 3077,
+          "6:9": 3077,
+          "1:2": 4089,
+          "3:6": 4089,
+          "1:3": 2300,
+          "1:9": 456
+        },
+        "section_analysis": {
+          "sections_100": {
+            "num_sections": 348,
+            "mean_entropy": 5.3069,
+            "entropy_std": 0.3187
+          },
+          "sections_200": {
+            "num_sections": 174,
+            "mean_entropy": 5.5264,
+            "entropy_std": 0.5046
+          },
+          "sections_300": {
+            "num_sections": 116,
+            "mean_entropy": 5.6768,
+            "entropy_std": 0.4962
+          },
+          "sections_500": {
+            "num_sections": 70,
+            "mean_entropy": 6.5448,
+            "entropy_std": 0.6815
+          },
+          "sections_1000": {
+            "num_sections": 35,
+            "mean_entropy": 7.4364,
+            "entropy_std": 0.6835
+          },
+          "sections_2000": {
+            "num_sections": 18,
+            "mean_entropy": 7.8159,
+            "entropy_std": 0.4262
+          }
+        }
+      },
+      "cross_text_test": {
+        "status": "requires_text_pair"
+      },
+      "composite_score": 0.8049
+    },
+    {
+      "name": "Pride & Prejudice (control)",
+      "text_length": 200000,
+      "digital_root_test": {
+        "total_chars": 159309,
+        "distribution": {
+          "1": 13971,
+          "2": 33130,
+          "3": 15966,
+          "4": 9981,
+          "5": 11244,
+          "6": 19889,
+          "7": 21314,
+          "8": 19021,
+          "9": 14793
+        },
+        "chi_squared": 21711.1119,
+        "p_value": 0.0,
+        "significant": true,
+        "count_369": 50648,
+        "expected_369": 53103.0,
+        "ratio_369": 0.954,
+        "digit_deviations": {
+          "1": -0.211,
+          "2": 0.872,
+          "3": -0.098,
+          "4": -0.436,
+          "5": -0.365,
+          "6": 0.124,
+          "7": 0.204,
+          "8": 0.075,
+          "9": -0.164
+        },
+        "top_deviations": [
+          [
+            2,
+            0.872
+          ],
+          [
+            4,
+            -0.436
+          ],
+          [
+            5,
+            -0.365
+          ]
+        ]
+      },
+      "gematria_test": {
+        "error": "No Greek characters found"
+      },
+      "word_position_test": {
+        "total_words": 34422,
+        "harmonic_positions_tested": 9,
+        "position_analysis": {
+          "position_3": {
+            "sample_size": 11474,
+            "unique_words": 2264,
+            "unique_ratio": 0.197,
+            "avg_word_length": 4.4,
+            "overall_avg_length": 4.39,
+            "length_deviation": 0.01,
+            "top_words": [
+              "the",
+              "to",
+              "and",
+              "of",
+              "a"
+            ]
+          },
+          "position_6": {
+            "sample_size": 5737,
+            "unique_words": 1477,
+            "unique_ratio": 0.257,
+            "avg_word_length": 4.41,
+            "overall_avg_length": 4.39,
+            "length_deviation": 0.027,
+            "top_words": [
+              "the",
+              "to",
+              "and",
+              "of",
+              "a"
+            ]
+          },
+          "position_9": {
+            "sample_size": 3824,
+            "unique_words": 1130,
+            "unique_ratio": 0.296,
+            "avg_word_length": 4.39,
+            "overall_avg_length": 4.39,
+            "length_deviation": 0.005,
+            "top_words": [
+              "the",
+              "and",
+              "to",
+              "of",
+              "in"
+            ]
+          },
+          "position_12": {
+            "sample_size": 2868,
+            "unique_words": 977,
+            "unique_ratio": 0.341,
+            "avg_word_length": 4.45,
+            "overall_avg_length": 4.39,
+            "length_deviation": 0.066,
+            "top_words": [
+              "the",
+              "to",
+              "of",
+              "and",
+              "i"
+            ]
+          },
+          "position_18": {
+            "sample_size": 1912,
+            "unique_words": 706,
+            "unique_ratio": 0.369,
+            "avg_word_length": 4.37,
+            "overall_avg_length": 4.39,
+            "length_deviation": -0.014,
+            "top_words": [
+              "the",
+              "and",
+              "to",
+              "of",
+              "her"
+            ]
+          },
+          "position_27": {
+            "sample_size": 1274,
+            "unique_words": 540,
+            "unique_ratio": 0.424,
+            "avg_word_length": 4.42,
+            "overall_avg_length": 4.39,
+            "length_deviation": 0.03,
+            "top_words": [
+              "the",
+              "to",
+              "and",
+              "of",
+              "in"
+            ]
+          },
+          "position_36": {
+            "sample_size": 956,
+            "unique_words": 434,
+            "unique_ratio": 0.454,
+            "avg_word_length": 4.36,
+            "overall_avg_length": 4.39,
+            "length_deviation": -0.026,
+            "top_words": [
+              "to",
+              "the",
+              "and",
+              "of",
+              "you"
+            ]
+          },
+          "position_72": {
+            "sample_size": 478,
+            "unique_words": 255,
+            "unique_ratio": 0.533,
+            "avg_word_length": 4.39,
+            "overall_avg_length": 4.39,
+            "length_deviation": 0.003,
+            "top_words": [
+              "the",
+              "of",
+              "to",
+              "and",
+              "not"
+            ]
+          },
+          "position_108": {
+            "sample_size": 318,
+            "unique_words": 183,
+            "unique_ratio": 0.575,
+            "avg_word_length": 4.18,
+            "overall_avg_length": 4.39,
+            "length_deviation": -0.209,
+            "top_words": [
+              "to",
+              "and",
+              "the",
+              "not",
+              "of"
+            ]
+          }
+        }
+      },
+      "letter_nth_test": {
+        "total_letters": 151051,
+        "positions_analyzed": 12,
+        "nth_analysis": {
+          "every_3th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "a"
+            ]
+          },
+          "every_6th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "o"
+            ]
+          },
+          "every_7th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "f"
+            ]
+          },
+          "every_9th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "h"
+            ]
+          },
+          "every_12th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "r"
+            ]
+          },
+          "every_18th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "g"
+            ]
+          },
+          "every_21th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "e"
+            ]
+          },
+          "every_27th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "e"
+            ]
+          },
+          "every_40th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "t"
+            ]
+          },
+          "every_49th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "e"
+            ]
+          },
+          "every_72th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "r"
+            ]
+          },
+          "every_108th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "n"
+            ]
+          }
+        }
+      },
+      "standing_wave_test": {
+        "total_words": 34422,
+        "total_letters": 151051,
+        "word_length_harmonics": {
+          "2:3": 48032,
+          "6:9": 48032,
+          "1:6": 4623,
+          "1:3": 26675,
+          "1:2": 45804,
+          "3:6": 45804,
+          "1:9": 1527
+        },
+        "sentence_length_harmonics": {
+          "2:3": 2188,
+          "6:9": 2188,
+          "1:2": 2185,
+          "3:6": 2185,
+          "1:6": 800,
+          "1:9": 472,
+          "1:3": 1668
+        },
+        "section_analysis": {
+          "sections_100": {
+            "num_sections": 345,
+            "mean_entropy": 5.8543,
+            "entropy_std": 0.1219
+          },
+          "sections_200": {
+            "num_sections": 173,
+            "mean_entropy": 6.5226,
+            "entropy_std": 0.0864
+          },
+          "sections_300": {
+            "num_sections": 115,
+            "mean_entropy": 6.9375,
+            "entropy_std": 0.0894
+          },
+          "sections_500": {
+            "num_sections": 69,
+            "mean_entropy": 7.3163,
+            "entropy_std": 0.1147
+          },
+          "sections_1000": {
+            "num_sections": 35,
+            "mean_entropy": 7.756,
+            "entropy_std": 0.0818
+          },
+          "sections_2000": {
+            "num_sections": 18,
+            "mean_entropy": 8.1439,
+            "entropy_std": 0.0626
+          }
+        }
+      },
+      "cross_text_test": {
+        "status": "requires_text_pair"
+      },
+      "composite_score": 0.8042
+    },
+    {
+      "name": "KJV Bible (sample)",
+      "text_length": 200000,
+      "digital_root_test": {
+        "total_chars": 160989,
+        "distribution": {
+          "1": 16350,
+          "2": 34798,
+          "3": 14486,
+          "4": 9876,
+          "5": 14727,
+          "6": 15870,
+          "7": 22685,
+          "8": 20691,
+          "9": 11506
+        },
+        "chi_squared": 25142.5458,
+        "p_value": 0.0,
+        "significant": true,
+        "count_369": 41862,
+        "expected_369": 53663.0,
+        "ratio_369": 0.78,
+        "digit_deviations": {
+          "1": -0.086,
+          "2": 0.945,
+          "3": -0.19,
+          "4": -0.448,
+          "5": -0.177,
+          "6": -0.113,
+          "7": 0.268,
+          "8": 0.157,
+          "9": -0.357
+        },
+        "top_deviations": [
+          [
+            2,
+            0.945
+          ],
+          [
+            4,
+            -0.448
+          ],
+          [
+            9,
+            -0.357
+          ]
+        ]
+      },
+      "gematria_test": {
+        "error": "No Greek characters found"
+      },
+      "word_position_test": {
+        "total_words": 37530,
+        "harmonic_positions_tested": 9,
+        "position_analysis": {
+          "position_3": {
+            "sample_size": 12510,
+            "unique_words": 1487,
+            "unique_ratio": 0.119,
+            "avg_word_length": 3.92,
+            "overall_avg_length": 3.94,
+            "length_deviation": -0.022,
+            "top_words": [
+              "and",
+              "the",
+              "of",
+              "his",
+              "to"
+            ]
+          },
+          "position_6": {
+            "sample_size": 6255,
+            "unique_words": 1063,
+            "unique_ratio": 0.17,
+            "avg_word_length": 3.92,
+            "overall_avg_length": 3.94,
+            "length_deviation": -0.028,
+            "top_words": [
+              "and",
+              "the",
+              "of",
+              "his",
+              "to"
+            ]
+          },
+          "position_9": {
+            "sample_size": 4170,
+            "unique_words": 845,
+            "unique_ratio": 0.203,
+            "avg_word_length": 3.92,
+            "overall_avg_length": 3.94,
+            "length_deviation": -0.029,
+            "top_words": [
+              "and",
+              "the",
+              "of",
+              "he",
+              "to"
+            ]
+          },
+          "position_12": {
+            "sample_size": 3127,
+            "unique_words": 749,
+            "unique_ratio": 0.24,
+            "avg_word_length": 3.96,
+            "overall_avg_length": 3.94,
+            "length_deviation": 0.014,
+            "top_words": [
+              "and",
+              "the",
+              "of",
+              "to",
+              "his"
+            ]
+          },
+          "position_18": {
+            "sample_size": 2085,
+            "unique_words": 577,
+            "unique_ratio": 0.277,
+            "avg_word_length": 3.92,
+            "overall_avg_length": 3.94,
+            "length_deviation": -0.025,
+            "top_words": [
+              "and",
+              "the",
+              "of",
+              "in",
+              "said"
+            ]
+          },
+          "position_27": {
+            "sample_size": 1390,
+            "unique_words": 419,
+            "unique_ratio": 0.301,
+            "avg_word_length": 3.86,
+            "overall_avg_length": 3.94,
+            "length_deviation": -0.087,
+            "top_words": [
+              "and",
+              "the",
+              "of",
+              "i",
+              "he"
+            ]
+          },
+          "position_36": {
+            "sample_size": 1042,
+            "unique_words": 383,
+            "unique_ratio": 0.368,
+            "avg_word_length": 3.94,
+            "overall_avg_length": 3.94,
+            "length_deviation": -0.001,
+            "top_words": [
+              "and",
+              "the",
+              "of",
+              "he",
+              "in"
+            ]
+          },
+          "position_72": {
+            "sample_size": 521,
+            "unique_words": 243,
+            "unique_ratio": 0.466,
+            "avg_word_length": 3.99,
+            "overall_avg_length": 3.94,
+            "length_deviation": 0.046,
+            "top_words": [
+              "and",
+              "the",
+              "in",
+              "said",
+              "of"
+            ]
+          },
+          "position_108": {
+            "sample_size": 347,
+            "unique_words": 178,
+            "unique_ratio": 0.513,
+            "avg_word_length": 3.95,
+            "overall_avg_length": 3.94,
+            "length_deviation": 0.001,
+            "top_words": [
+              "and",
+              "the",
+              "of",
+              "i",
+              "that"
+            ]
+          }
+        }
+      },
+      "letter_nth_test": {
+        "total_letters": 148045,
+        "positions_analyzed": 12,
+        "nth_analysis": {
+          "every_3th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "a"
+            ]
+          },
+          "every_6th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "o"
+            ]
+          },
+          "every_7th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "f"
+            ]
+          },
+          "every_9th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "h"
+            ]
+          },
+          "every_12th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "r"
+            ]
+          },
+          "every_18th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "g"
+            ]
+          },
+          "every_21th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "e"
+            ]
+          },
+          "every_27th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "e"
+            ]
+          },
+          "every_40th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "s"
+            ]
+          },
+          "every_49th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "t"
+            ]
+          },
+          "every_72th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "e"
+            ]
+          },
+          "every_108th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "i"
+            ]
+          }
+        }
+      },
+      "standing_wave_test": {
+        "total_words": 37530,
+        "total_letters": 148045,
+        "word_length_harmonics": {
+          "2:3": 50177,
+          "6:9": 50177,
+          "1:2": 48106,
+          "3:6": 48106,
+          "1:3": 18065,
+          "1:6": 1832,
+          "1:9": 409
+        },
+        "sentence_length_harmonics": {
+          "2:3": 2200,
+          "6:9": 2200,
+          "1:2": 1819,
+          "3:6": 1819,
+          "1:3": 1052,
+          "1:6": 229,
+          "1:9": 74
+        },
+        "section_analysis": {
+          "sections_100": {
+            "num_sections": 376,
+            "mean_entropy": 4.5301,
+            "entropy_std": 0.5735
+          },
+          "sections_200": {
+            "num_sections": 188,
+            "mean_entropy": 5.2789,
+            "entropy_std": 0.5479
+          },
+          "sections_300": {
+            "num_sections": 126,
+            "mean_entropy": 5.7864,
+            "entropy_std": 0.4723
+          },
+          "sections_500": {
+            "num_sections": 76,
+            "mean_entropy": 6.121,
+            "entropy_std": 0.3754
+          },
+          "sections_1000": {
+            "num_sections": 38,
+            "mean_entropy": 6.6565,
+            "entropy_std": 0.2736
+          },
+          "sections_2000": {
+            "num_sections": 19,
+            "mean_entropy": 7.1463,
+            "entropy_std": 0.2058
+          }
+        }
+      },
+      "cross_text_test": {
+        "status": "requires_text_pair"
+      },
+      "composite_score": 0.7851
+    },
+    {
+      "name": "Moby Dick (control)",
+      "text_length": 200000,
+      "digital_root_test": {
+        "total_chars": 163324,
+        "distribution": {
+          "1": 14141,
+          "2": 33588,
+          "3": 16184,
+          "4": 10364,
+          "5": 11226,
+          "6": 18772,
+          "7": 22682,
+          "8": 20720,
+          "9": 15647
+        },
+        "chi_squared": 22076.7037,
+        "p_value": 0.0,
+        "significant": true,
+        "count_369": 50603,
+        "expected_369": 54441.3,
+        "ratio_369": 0.929,
+        "digit_deviations": {
+          "1": -0.221,
+          "2": 0.851,
+          "3": -0.108,
+          "4": -0.429,
+          "5": -0.381,
+          "6": 0.034,
+          "7": 0.25,
+          "8": 0.142,
+          "9": -0.138
+        },
+        "top_deviations": [
+          [
+            2,
+            0.851
+          ],
+          [
+            4,
+            -0.429
+          ],
+          [
+            5,
+            -0.381
+          ]
+        ]
+      },
+      "gematria_test": {
+        "language": "hebrew",
+        "total_chars": 2,
+        "total_gematria_sum": 14,
+        "mean_gematria_value": 7.0,
+        "digital_root_distribution": {
+          "1": 0,
+          "2": 0,
+          "3": 0,
+          "4": 0,
+          "5": 0,
+          "6": 1,
+          "7": 0,
+          "8": 1,
+          "9": 0
+        },
+        "chi_squared": 7.0,
+        "p_value": 0.349575,
+        "significant": false,
+        "count_369": 1,
+        "ratio_369": 0.5,
+        "unique_values": 2
+      },
+      "word_position_test": {
+        "total_words": 35994,
+        "harmonic_positions_tested": 9,
+        "position_analysis": {
+          "position_3": {
+            "sample_size": 11998,
+            "unique_words": 3133,
+            "unique_ratio": 0.261,
+            "avg_word_length": 4.32,
+            "overall_avg_length": 4.31,
+            "length_deviation": 0.008,
+            "top_words": [
+              "the",
+              "and",
+              "of",
+              "a",
+              "to"
+            ]
+          },
+          "position_6": {
+            "sample_size": 5999,
+            "unique_words": 1950,
+            "unique_ratio": 0.325,
+            "avg_word_length": 4.31,
+            "overall_avg_length": 4.31,
+            "length_deviation": 0.004,
+            "top_words": [
+              "the",
+              "and",
+              "a",
+              "of",
+              "to"
+            ]
+          },
+          "position_9": {
+            "sample_size": 3999,
+            "unique_words": 1465,
+            "unique_ratio": 0.366,
+            "avg_word_length": 4.32,
+            "overall_avg_length": 4.31,
+            "length_deviation": 0.016,
+            "top_words": [
+              "the",
+              "and",
+              "of",
+              "a",
+              "to"
+            ]
+          },
+          "position_12": {
+            "sample_size": 2999,
+            "unique_words": 1169,
+            "unique_ratio": 0.39,
+            "avg_word_length": 4.26,
+            "overall_avg_length": 4.31,
+            "length_deviation": -0.047,
+            "top_words": [
+              "the",
+              "and",
+              "a",
+              "of",
+              "to"
+            ]
+          },
+          "position_18": {
+            "sample_size": 1999,
+            "unique_words": 873,
+            "unique_ratio": 0.437,
+            "avg_word_length": 4.32,
+            "overall_avg_length": 4.31,
+            "length_deviation": 0.014,
+            "top_words": [
+              "the",
+              "and",
+              "of",
+              "to",
+              "a"
+            ]
+          },
+          "position_27": {
+            "sample_size": 1333,
+            "unique_words": 657,
+            "unique_ratio": 0.493,
+            "avg_word_length": 4.36,
+            "overall_avg_length": 4.31,
+            "length_deviation": 0.051,
+            "top_words": [
+              "the",
+              "of",
+              "a",
+              "and",
+              "i"
+            ]
+          },
+          "position_36": {
+            "sample_size": 999,
+            "unique_words": 508,
+            "unique_ratio": 0.509,
+            "avg_word_length": 4.23,
+            "overall_avg_length": 4.31,
+            "length_deviation": -0.082,
+            "top_words": [
+              "the",
+              "and",
+              "of",
+              "a",
+              "to"
+            ]
+          },
+          "position_72": {
+            "sample_size": 499,
+            "unique_words": 290,
+            "unique_ratio": 0.581,
+            "avg_word_length": 4.22,
+            "overall_avg_length": 4.31,
+            "length_deviation": -0.085,
+            "top_words": [
+              "the",
+              "and",
+              "a",
+              "to",
+              "of"
+            ]
+          },
+          "position_108": {
+            "sample_size": 333,
+            "unique_words": 214,
+            "unique_ratio": 0.643,
+            "avg_word_length": 4.26,
+            "overall_avg_length": 4.31,
+            "length_deviation": -0.053,
+            "top_words": [
+              "the",
+              "to",
+              "a",
+              "of",
+              "and"
+            ]
+          }
+        }
+      },
+      "letter_nth_test": {
+        "total_letters": 155063,
+        "positions_analyzed": 12,
+        "nth_analysis": {
+          "every_3th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "a"
+            ]
+          },
+          "every_6th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "o"
+            ]
+          },
+          "every_7th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "f"
+            ]
+          },
+          "every_9th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "h"
+            ]
+          },
+          "every_12th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "r"
+            ]
+          },
+          "every_18th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "g"
+            ]
+          },
+          "every_21th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "e"
+            ]
+          },
+          "every_27th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "e"
+            ]
+          },
+          "every_40th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "o"
+            ]
+          },
+          "every_49th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "e"
+            ]
+          },
+          "every_72th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "t"
+            ]
+          },
+          "every_108th": {
+            "sample_size": 1,
+            "unique_letters": 1,
+            "entropy": -0.0,
+            "expected_entropy": 4.7004,
+            "entropy_ratio": -0.0,
+            "top_letters": [
+              "l"
+            ]
+          }
+        }
+      },
+      "standing_wave_test": {
+        "total_words": 35994,
+        "total_letters": 155063,
+        "word_length_harmonics": {
+          "2:3": 47764,
+          "6:9": 47764,
+          "1:2": 47321,
+          "3:6": 47321,
+          "1:3": 25601,
+          "1:6": 4730,
+          "1:9": 1641
+        },
+        "sentence_length_harmonics": {
+          "2:3": 2187,
+          "6:9": 2187,
+          "1:2": 2128,
+          "3:6": 2128,
+          "1:3": 1394,
+          "1:6": 734,
+          "1:9": 543
+        },
+        "section_analysis": {
+          "sections_100": {
+            "num_sections": 360,
+            "mean_entropy": 5.2353,
+            "entropy_std": 0.7247
+          },
+          "sections_200": {
+            "num_sections": 180,
+            "mean_entropy": 6.2373,
+            "entropy_std": 0.7273
+          },
+          "sections_300": {
+            "num_sections": 120,
+            "mean_entropy": 6.6999,
+            "entropy_std": 0.6459
+          },
+          "sections_500": {
+            "num_sections": 72,
+            "mean_entropy": 7.2468,
+            "entropy_std": 0.4907
+          },
+          "sections_1000": {
+            "num_sections": 36,
+            "mean_entropy": 7.8561,
+            "entropy_std": 0.2315
+          },
+          "sections_2000": {
+            "num_sections": 18,
+            "mean_entropy": 8.2953,
+            "entropy_std": 0.1587
+          }
+        }
+      },
+      "cross_text_test": {
+        "status": "requires_text_pair"
+      },
+      "composite_score": 0.668
+    }
+  ]
+}

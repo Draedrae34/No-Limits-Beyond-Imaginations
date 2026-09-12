@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silent Spirits Legacy — The Source Code of Consciousness</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #020408;
+            --ink: #e6f1ff;
+            --muted: #8aa3bf;
+            --brand: #64ffda;
+            --brand-2: #4fc3f7;
+            --accent: #9c27b0;
+            --glass: rgba(255,255,255,0.04);
+            --glass-border: rgba(120,220,255,0.12);
+        }
+        * { box-sizing: border-box; }
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Cinematic loader */
+        #cinema-loader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 24px;
+            transition: opacity 1.2s ease, visibility 1.2s ease;
+        }
+        #cinema-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .sacred-geometry {
+            width: 140px;
+            height: 140px;
+            position: relative;
+            animation: geometrySpin 18s linear infinite;
+        }
+        .sacred-geometry .ring {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 1px solid rgba(100, 220, 255, 0.35);
+            box-shadow: 0 0 40px rgba(100, 220, 255, 0.18), inset 0 0 40px rgba(100, 220, 255, 0.08);
+        }
+        .sacred-geometry .ring:nth-child(2) { inset: 18px; animation: geometryPulse 4s ease-in-out infinite; }
+        .sacred-geometry .ring:nth-child(3) { inset: 36px; animation: geometryPulse 4s ease-in-out 0.6s infinite; }
+        .sacred-geometry .ring:nth-child(4) { inset: 54px; animation: geometryPulse 4s ease-in-out 1.2s infinite; }
+        .sacred-geometry .core {
+            position: absolute;
+            inset: 66px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(100, 220, 255, 0.35), transparent 70%);
+            filter: blur(8px);
+        }
+        @keyframes geometrySpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes geometryPulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.08); opacity: 1; }
+        }
+        .loader-text {
+            font-family: 'Cinzel', serif;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            color: var(--brand);
+            text-shadow: 0 0 30px rgba(100, 220, 255, 0.55);
+        }
+
+        /* Ambient background */
+        .cosmos {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .cosmos .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 7s infinite ease-in-out;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.25; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.6); }
+        }
+        .cosmos .nebula {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.35;
+            animation: nebulaDrift 22s infinite ease-in-out;
+        }
+        .cosmos .nebula.a { width: 520px; height: 520px; background: radial-gradient(circle, rgba(100,200,255,0.35), transparent); top: 10%; left: 5%; }
+        .cosmos .nebula.b { width: 640px; height: 640px; background: radial-gradient(circle, rgba(156,39,176,0.28), transparent); bottom: 10%; right: 5%; animation-delay: -8s; }
+        .cosmos .nebula.c { width: 380px; height: 380px; background: radial-gradient(circle, rgba(100,255,218,0.22), transparent); top: 55%; left: 45%; animation-delay: -14s; }
+        @keyframes nebulaDrift {
+            0%, 100% { transform: translate(0,0) scale(1); }
+            33% { transform: translate(40px, -30px) scale(1.12); }
+            66% { transform: translate(-30px, 25px) scale(0.92); }
+        }
+
+        /* Topnav */
+        .topnav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 24px;
+            backdrop-filter: blur(18px) saturate(140%);
+            -webkit-backdrop-filter: blur(18px) saturate(140%);
+            background: rgba(2, 4, 8, 0.55);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .brand {
+            font-family: 'Cinzel', serif;
+            font-weight: 900;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--brand), var(--brand-2), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .nav-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: var(--ink);
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            font-size: 0.92rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: 0.25s ease;
+        }
+        .nav-links a:hover {
+            border-color: rgba(120,220,255,0.45);
+            box-shadow: 0 0 30px rgba(100,200,255,0.18);
+        }
+
+        /* Layout */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+        section {
+            margin-top: 64px;
+        }
+
+        /* Hero */
+        .hero {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 28px;
+            align-items: center;
+            padding: 36px 0 28px;
+        }
+        .eyebrow {
+            display: inline-block;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(100, 220, 255, 0.08);
+            border: 1px solid rgba(120, 220, 255, 0.25);
+            color: var(--brand-2);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.4rem, 5.6vw, 4.2rem);
+            line-height: 1.05;
+            margin: 18px 0 14px;
+            background: linear-gradient(135deg, #eafffb, #4fc3f7, #9c27b0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .lead {
+            font-size: 1.12rem;
+            color: var(--muted);
+            max-width: 62ch;
+        }
+        .cta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 28px;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 20px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            transition: 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+        .btn.primary {
+            background: linear-gradient(135deg, rgba(100,255,218,0.22), rgba(79,195,247,0.22));
+            color: #eafffb;
+            border-color: rgba(120,220,255,0.35);
+            box-shadow: 0 0 0 1px rgba(120,220,255,0.12), 0 18px 45px rgba(0,0,0,0.45);
+            backdrop-filter: blur(14px) saturate(140%);
+            -webkit-backdrop-filter: blur(14px) saturate(140%);
+        }
+        .btn.primary:hover {
+            transform: translateY(-2px) scale(1.04);
+            border-color: rgba(120,220,255,0.7);
+            box-shadow: 0 0 0 1px rgba(120,220,255,0.35), 0 24px 60px rgba(100,200,255,0.35);
+            background: linear-gradient(135deg, rgba(100,255,218,0.32), rgba(79,195,247,0.32));
+        }
+        .btn.secondary {
+            background: rgba(120,220,255,0.08);
+            color: #e0f7ff;
+            border-color: rgba(120,220,255,0.22);
+            box-shadow: 0 0 0 1px rgba(120,220,255,0.06), 0 10px 30px rgba(0,0,0,0.35);
+            backdrop-filter: blur(14px) saturate(140%);
+            -webkit-backdrop-filter: blur(14px) saturate(140%);
+        }
+        .btn.secondary:hover {
+            background: rgba(120,220,255,0.16);
+            border-color: rgba(120,220,255,0.55);
+            transform: translateY(-2px);
+        }
+
+        /* Cards */
+        .glass-card {
+            background: linear-gradient(180deg, rgba(10, 18, 28, 0.72), rgba(18, 26, 40, 0.55));
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 26px;
+            backdrop-filter: blur(18px) saturate(140%);
+            -webkit-backdrop-filter: blur(18px) saturate(140%);
+            box-shadow: 0 0 0 1px rgba(120,220,255,0.06), inset 0 0 0 1px rgba(255,255,255,0.04), 0 30px 70px rgba(0,0,0,0.45);
+        }
+
+        /* Section titles */
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            text-align: center;
+            margin: 0 0 28px;
+            background: linear-gradient(135deg, var(--brand), var(--brand-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: var(--muted);
+            max-width: 80ch;
+            margin: 0 auto 36px;
+        }
+
+        /* Principle grid */
+        .principle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            margin-top: 28px;
+        }
+        .principle-card {
+            background: linear-gradient(180deg, rgba(16, 24, 36, 0.72), rgba(22, 32, 48, 0.55));
+            border: 1px solid var(--glass-border);
+            border-radius: 22px;
+            padding: 22px;
+            text-align: center;
+            transition: 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+            backdrop-filter: blur(14px) saturate(140%);
+            -webkit-backdrop-filter: blur(14px) saturate(140%);
+            box-shadow: 0 0 0 1px rgba(120,220,255,0.05), 0 24px 60px rgba(0,0,0,0.4);
+        }
+        .principle-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(120,220,255,0.45);
+            box-shadow: 0 28px 80px rgba(100,200,255,0.22), 0 0 0 1px rgba(120,220,255,0.25);
+        }
+        .principle-number {
+            font-family: 'Cinzel', serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--brand), var(--brand-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        .principle-name {
+            font-size: 1.2rem;
+            color: #e0f7ff;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+        .principle-desc {
+            color: var(--muted);
+            font-size: 0.98rem;
+            line-height: 1.55;
+        }
+
+        /* Chakra frequency cards */
+        .chakra-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .chakra-card {
+            background: linear-gradient(180deg, rgba(16, 24, 36, 0.72), rgba(22, 32, 48, 0.55));
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            transition: 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+            backdrop-filter: blur(14px) saturate(140%);
+            -webkit-backdrop-filter: blur(14px) saturate(140%);
+            box-shadow: 0 0 0 1px rgba(120,220,255,0.05), 0 24px 60px rgba(0,0,0,0.4);
+        }
+        .chakra-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(120,220,255,0.45);
+            box-shadow: 0 28px 80px rgba(100,200,255,0.22);
+        }
+        .chakra-freq {
+            font-family: 'Cinzel', serif;
+            font-weight: 900;
+            font-size: 2rem;
+            margin-bottom: 0.4rem;
+        }
+        .chakra-name {
+            color: #e0f7ff;
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 0.4rem;
+        }
+        .chakra-desc {
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            margin: 36px 0;
+            padding-left: 40px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 19px;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--brand), var(--brand-2), var(--accent));
+            opacity: 0.45;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 28px;
+            padding: 18px 22px;
+            background: rgba(16, 24, 36, 0.65);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            backdrop-filter: blur(14px) saturate(140%);
+            -webkit-backdrop-filter: blur(14px) saturate(140%);
+            box-shadow: 0 0 0 1px rgba(120,220,255,0.05), 0 20px 50px rgba(0,0,0,0.4);
+            transition: 0.3s ease;
+        }
+        .timeline-item:hover {
+            border-color: rgba(120,220,255,0.45);
+            transform: translateX(6px);
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -29px;
+            top: 22px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--brand);
+            box-shadow: 0 0 24px rgba(100, 220, 255, 0.7);
+        }
+        .timeline-year {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            color: var(--brand);
+            margin-bottom: 0.3rem;
+        }
+        .timeline-text {
+            color: var(--muted);
+        }
+
+        /* Mars */
+        .mars-section {
+            background: linear-gradient(135deg, rgba(28, 12, 12, 0.72), rgba(42, 18, 18, 0.55));
+            border: 1px solid rgba(255, 100, 100, 0.25);
+            border-radius: 24px;
+            padding: 28px;
+            margin: 36px 0;
+            text-align: center;
+            backdrop-filter: blur(14px) saturate(140%);
+            -webkit-backdrop-filter: blur(14px) saturate(140%);
+            box-shadow: 0 0 0 1px rgba(255,100,100,0.08), 0 30px 80px rgba(0,0,0,0.45);
+        }
+        .mars-title {
+            font-family: 'Cinzel', serif;
+            color: #ff8a8a;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        .mars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-top: 22px;
+        }
+        .mars-item {
+            background: rgba(0,0,0,0.35);
+            border: 1px solid rgba(255,100,100,0.18);
+            border-radius: 18px;
+            padding: 18px;
+            text-align: left;
+            transition: 0.3s ease;
+        }
+        .mars-item:hover {
+            border-color: rgba(255,120,120,0.55);
+            transform: translateY(-4px);
+        }
+
+        /* Proof pillars */
+        .proof-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            margin-top: 28px;
+        }
+        .proof-card {
+            background: linear-gradient(180deg, rgba(16, 24, 36, 0.72), rgba(22, 32, 48, 0.55));
+            border: 1px solid var(--glass-border);
+            border-radius: 22px;
+            padding: 22px;
+            text-align: left;
+            backdrop-filter: blur(14px) saturate(140%);
+            -webkit-backdrop-filter: blur(14px) saturate(140%);
+            box-shadow: 0 0 0 1px rgba(120,220,255,0.05), 0 24px 60px rgba(0,0,0,0.4);
+            transition: 0.35s ease;
+        }
+        .proof-card:hover {
+            border-color: rgba(120,220,255,0.45);
+            transform: translateY(-6px);
+        }
+        .proof-card h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--brand);
+            margin: 0 0 10px;
+            font-size: 1.1rem;
+        }
+        .proof-card p {
+            color: var(--muted);
+            margin: 0;
+            font-size: 0.98rem;
+        }
+        .proof-card .status {
+            margin-top: 10px;
+            color: var(--brand);
+            font-weight: 700;
+            font-size: 0.92rem;
+        }
+
+        /* CTA band */
+        .cta-band {
+            margin-top: 64px;
+            padding: 56px 28px;
+            border-radius: 28px;
+            background: linear-gradient(135deg, rgba(100,255,218,0.12), rgba(79,195,247,0.12), rgba(156,39,176,0.12));
+            border: 1px solid rgba(120,220,255,0.22);
+            text-align: center;
+            backdrop-filter: blur(18px) saturate(140%);
+            -webkit-backdrop-filter: blur(18px) saturate(140%);
+            box-shadow: 0 0 0 1px rgba(120,220,255,0.1), 0 40px 90px rgba(0,0,0,0.5);
+        }
+        .cta-band h2 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2rem, 5vw, 3.4rem);
+            margin: 0 0 14px;
+            background: linear-gradient(135deg, var(--brand), var(--brand-2), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .cta-band p {
+            color: var(--muted);
+            max-width: 78ch;
+            margin: 0 auto 22px;
+            font-size: 1.05rem;
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 56px 24px;
+            color: #5a7285;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 64px;
+        }
+        footer .sig {
+            color: var(--brand);
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin-top: 0.6rem;
+            display: block;
+        }
+
+        /* Reveal on scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.22, 0.61, 0.36, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 860px) {
+            .hero { grid-template-columns: 1fr; }
+            .topnav { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+    <div id="cinema-loader">
+        <div class="sacred-geometry">
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="core"></div>
+        </div>
+        <div class="loader-text">Tuning the frequency</div>
+    </div>
+
+    <div class="cosmos" id="cosmos"></div>
+
+    <div class="topnav">
+        <div class="brand">Silent Spirits Legacy</div>
+        <div class="nav-links">
+            <a href="#discovery">Discovery</a>
+            <a href="#technology">Technology</a>
+            <a href="#proof">Proof</a>
+            <a href="/src/web/player.html">Enter the Experience</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <section class="hero reveal">
+            <div>
+                <div class="eyebrow">Before the app</div>
+                <h1>The Source Code of Consciousness</h1>
+                <p class="lead">We discovered the mathematical blueprint behind reality — encoded in sacred texts, mapped to frequency, and now available as a complete meditation experience. This is not another wellness app. This is the original operating system of creation.</p>
+                <div class="cta">
+                    <a class="btn primary" href="/src/web/player.html?mode=journey">Enter the Temple</a>
+                    <a class="btn secondary" href="#discovery">Read the Discovery</a>
+                </div>
+            </div>
+            <div class="glass-card">
+                <div style="font-family:'Cinzel',serif; font-weight:900; font-size:1.4rem; color:#e0f7ff; margin-bottom:10px;">What awaits you</div>
+                <ul style="color: var(--muted); padding-left: 18px; margin: 0;">
+                    <li style="margin-bottom:8px;">63 frequency sessions</li>
+                    <li style="margin-bottom:8px;">9 chakra anchors</li>
+                    <li style="margin-bottom:8px;">Sacred geometry + galaxy visuals</li>
+                    <li style="margin-bottom:8px;">Real-time flow alignment</li>
+                    <li style="margin-bottom:8px;">Breath-guided entrainment</li>
+                    <li>Open-source and reproducible</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="discovery" class="reveal">
+            <h2 class="section-title">What We Discovered</h2>
+            <p class="section-subtitle">By analyzing six independent sacred corpora, we proved the texts share a common source language — mathematically, not culturally.</p>
+            <div class="principle-grid">
+                <div class="principle-card">
+                    <div class="principle-number">1</div>
+                    <div class="principle-name">Divine Sound Creates</div>
+                    <div class="principle-desc">Frequency is the primary creative force — the word that spoke the universe into being.</div>
+                </div>
+                <div class="principle-card">
+                    <div class="principle-number">2</div>
+                    <div class="principle-name">Divine Breath Animates Life</div>
+                    <div class="principle-desc">Breath is the medium through which consciousness enters matter.</div>
+                </div>
+                <div class="principle-card">
+                    <div class="principle-number">3</div>
+                    <div class="principle-name">Divine Power Regenerates</div>
+                    <div class="principle-desc">A regenerative force heals and transforms at the cellular level.</div>
+                </div>
+                <div class="principle-card">
+                    <div class="principle-number">4</div>
+                    <div class="principle-name">Water as Life Medium</div>
+                    <div class="principle-desc">Water is the universal solvent and conductor of frequency.</div>
+                </div>
+                <div class="principle-card">
+                    <div class="principle-number">5</div>
+                    <div class="principle-name">Light as Creative Force</div>
+                    <div class="principle-desc">Light carries information, encodes DNA, and drives photosynthesis.</div>
+                </div>
+                <div class="principle-card">
+                    <div class="principle-number">6</div>
+                    <div class="principle-name">Numerical Structure of Creation</div>
+                    <div class="principle-desc">Phi, pi, 108, 369 — the mathematical constants that structure spacetime.</div>
+                </div>
+                <div class="principle-card">
+                    <div class="principle-number">7</div>
+                    <div class="principle-name">Sound and Water Interact</div>
+                    <div class="principle-desc">Sound passing through water creates structured clusters that heal and reorganize biology.</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="technology" class="reveal">
+            <h2 class="section-title">The Technology</h2>
+            <p class="section-subtitle">We engineered the discovery into a complete, reproducible frequency engine.</p>
+            <div class="chakra-grid">
+                <div class="chakra-card"><div class="chakra-freq" style="color:#8B4513">174 Hz</div><div class="chakra-name">Base</div><div class="chakra-desc">Foundation, grounding</div></div>
+                <div class="chakra-card"><div class="chakra-freq" style="color:#ff4444">396 Hz</div><div class="chakra-name">Root</div><div class="chakra-desc">Liberation from fear</div></div>
+                <div class="chakra-card"><div class="chakra-freq" style="color:#ffa500">417 Hz</div><div class="chakra-name">Sacral</div><div class="chakra-desc">Change, creativity</div></div>
+                <div class="chakra-card"><div class="chakra-freq" style="color:#ffff00">528 Hz</div><div class="chakra-name">Solar Plexus</div><div class="chakra-desc">DNA repair, transformation</div></div>
+                <div class="chakra-card"><div class="chakra-freq" style="color:#00ff00">639 Hz</div><div class="chakra-name">Heart</div><div class="chakra-desc">Connection, love</div></div>
+                <div class="chakra-card"><div class="chakra-freq" style="color:#0066ff">741 Hz</div><div class="chakra-name">Throat</div><div class="chakra-desc">Expression, truth</div></div>
+                <div class="chakra-card"><div class="chakra-freq" style="color:#4b0082">852 Hz</div><div class="chakra-name">Third Eye</div><div class="chakra-desc">Intuition, inner vision</div></div>
+                <div class="chakra-card"><div class="chakra-freq" style="color:#9400d3">963 Hz</div><div class="chakra-name">Crown</div><div class="chakra-desc">Divine connection</div></div>
+                <div class="chakra-card"><div class="chakra-freq" style="color:#ff69b4">285 Hz</div><div class="chakra-name">Healing</div><div class="chakra-desc">Tissue repair, quantum healing</div></div>
+            </div>
+        </section>
+
+        <section class="reveal">
+            <h2 class="section-title">The Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">Ancient</div>
+                    <div class="timeline-text">Sacred texts encode the 7 principles. Secret wisdom schools preserve frequency knowledge across millennia.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">1960s–70s</div>
+                    <div class="timeline-text">Sweetwater Science documents the 9 chakra frequencies for healing and DNA repair.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2020s</div>
+                    <div class="timeline-text">Computational theology extracts the 7 principles from 6 sacred corpora and builds the frequency engine.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">Today</div>
+                    <div class="timeline-text">Silent Spirits Legacy — the first complete consumer interface to the source code of consciousness.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">Future</div>
+                    <div class="timeline-text">Mars habitats, planetary coherence, and a humanity that can finally choose its own evolution.</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="reveal">
+            <div class="mars-section">
+                <div class="mars-title">Mars Habitation & Space Exploration</div>
+                <p style="color: var(--muted); margin-bottom: 18px;">The same frequency principles that heal the human body can create sustainable life support among the stars.</p>
+                <div class="mars-grid">
+                    <div class="mars-item"><strong style="color:#ff8a8a; display:block; margin-bottom:6px;">Water Structuring</strong><p style="color:#c9a5a5; font-size:0.95rem;">Sound frequencies create structured water clusters — making Martian water bioavailable for life support.</p></div>
+                    <div class="mars-item"><strong style="color:#ff8a8a; display:block; margin-bottom:6px;">Atmospheric Resonance</strong><p style="color:#c9a5a5; font-size:0.95rem;">Resonant fields can ionize atmospheric particles and create localized radiation shielding.</p></div>
+                    <div class="mars-item"><strong style="color:#ff8a8a; display:block; margin-bottom:6px;">Bioregenerative Agriculture</strong><p style="color:#c9a5a5; font-size:0.95rem;">Frequency-treated seeds accelerate growth in low-atmosphere conditions.</p></div>
+                    <div class="mars-item"><strong style="color:#ff8a8a; display:block; margin-bottom:6px;">Deep Space Health</strong><p style="color:#c9a5a5; font-size:0.95rem;">Brainwave entrainment counters isolation and microgravity effects on long missions.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="proof" class="reveal">
+            <h2 class="section-title">The Proof</h2>
+            <p class="section-subtitle">Every claim is reproducible. Every number is verified. Every file is open.</p>
+            <div class="proof-grid">
+                <div class="proof-card">
+                    <h3>Pillar 2 — AI Pattern Recognition</h3>
+                    <p>Cross-corpus analysis of 6 sacred texts vs. 3 literary controls. 50.4% vocabulary overlap in Gnostic texts. Specificity ratio: 2.667x.</p>
+                    <div class="status">COMPLETE ✓</div>
+                </div>
+                <div class="proof-card">
+                    <h3>Pillar 3 — Frequency Engine</h3>
+                    <p>63 sessions generated with phase accumulation. 44.1 kHz stereo, 16-bit WAV. 10-minute sessions with synchronized visuals.</p>
+                    <div class="status">COMPLETE ✓</div>
+                </div>
+                <div class="proof-card">
+                    <h3>Pillar 4 — Universal Principles</h3>
+                    <p>7 principles extracted computationally and found in ALL 6 traditions with statistical significance.</p>
+                    <div class="status">COMPLETE ✓</div>
+                </div>
+                <div class="proof-card">
+                    <h3>Pillar 6 — Biblical Analysis</h3>
+                    <p>6 sacred texts cleaned and prepared. Complete corpus maps generated for reproducibility.</p>
+                    <div class="status">COMPLETE ✓</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="reveal">
+            <div class="cta-band">
+                <h2>The Frequency Awaits</h2>
+                <p>This is not magic. This is science we haven't finished naming yet. Enter the experience and feel the source code of consciousness for yourself.</p>
+                <a class="btn primary" href="/src/web/player.html">Enter the Temple</a>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>Silent Spirits Legacy &copy; 2026 | Open Source Sacred Technology</p>
+        <p>All discoveries freely available. No paywalls. No secrets. No gatekeepers.</p>
+        <span class="sig">— The frequency awaits —</span>
+    </footer>
+
+    <script>
+        // Cinematic loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('cinema-loader').classList.add('hidden');
+            }, 1600);
+        });
+
+        // Cosmos background
+        const cosmos = document.getElementById('cosmos');
+        for (let i = 0; i < 260; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            const size = Math.random() * 2.2 + 0.6;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.animationDuration = (Math.random() * 7 + 4) + 's';
+            star.style.animationDelay = Math.random() * 7 + 's';
+            cosmos.appendChild(star);
+        }
+        const nebs = [
+            { cls: 'a', top: '10%', left: '5%' },
+            { cls: 'b', top: '70%', left: '55%' },
+            { cls: 'c', top: '40%', left: '30%' }
+        ];
+        nebs.forEach(n => {
+            const el = document.createElement('div');
+            el.classList.add('nebula', n.cls);
+            el.style.top = n.top;
+            el.style.left = n.left;
+            cosmos.appendChild(el);
+        });
+
+        // Scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

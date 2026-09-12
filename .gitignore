@@ -1,8 +1,14 @@
+# Private research (not pushed to public repo)
+bible-analysis/
+
+# Public research brand (this gets deployed)
+# research/ — INCLUDED in git
+
+# Environment
 .vercel
 .env*.local
 node_modules/
 *.log
-data/*.json
 __pycache__/
 *.pyc
 .venv/
@@ -18,3 +24,30 @@ shop_app.log
 shop_run.log
 vercel-dev.log
 cookies.txt
+
+# Generated outputs (large; keep out of git)
+meditation-app/outputs/
+archive/discovery_archive_2026-08-31/
+
+# Optional: keep a small sample for demos
+# meditation-app/outputs/audio/sample.wav
+# meditation-app/outputs/visuals/sample_visualization.json
+
+# IDE / tool caches
+.vs/
+.tools/
+
+# Packages and archives (rebuildable artifacts)
+*.zip
+
+# Screenshots (generated)
+app_final.png
+app_state.png
+godtier_view.png
+
+# Generated scan output
+dev-scan-outputs/
+
+# Broken-name stray sql files
+CREATE TABLE IF NOT EXISTS *.sql
+*.bak

@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silent Spirits Legacy — Live 4K AI Manifest Visuals</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100%; height: 100%; overflow: hidden; background: #000; font-family: 'Segoe UI', system-ui, sans-serif; }
+        #canvas { display: block; width: 100vw; height: 100vh; position: fixed; top: 0; left: 0; }
+        #ui { position: fixed; top: 20px; left: 20px; color: rgba(255,255,255,0.85); font-size: 12px; z-index: 100; pointer-events: none; text-shadow: 0 2px 8px #000; }
+        #seed { position: fixed; top: 20px; right: 20px; color: rgba(255,255,255,0.5); font-size: 10px; z-index: 100; font-family: monospace; text-shadow: 0 2px 8px #000; }
+        #controls { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 100; flex-wrap: wrap; justify-content: center; }
+        .btn { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); color: white; padding: 8px 14px; border-radius: 20px; cursor: pointer; font-size: 11px; backdrop-filter: blur(12px); transition: all 0.3s; pointer-events: auto; text-shadow: 0 1px 4px #000; }
+        .btn:hover { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.4); }
+        .btn.active { background: rgba(120,220,255,0.25); border-color: rgba(120,220,255,0.6); box-shadow: 0 0 20px rgba(120,220,255,0.3); }
+        #chakra-indicator { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 24px; font-weight: bold; z-index: 100; pointer-events: none; text-shadow: 0 0 20px currentColor; opacity: 0; transition: opacity 0.5s; }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div id="ui">
+        <div style="font-weight:700;letter-spacing:.18em;">LIVE 4K AI MANIFEST</div>
+        <div id="fps">FPS: --</div>
+        <div id="scene">Scene: --</div>
+        <div id="freq">Frequency: --</div>
+        <div id="chakra">Chakra: --</div>
+    </div>
+    <div id="seed"></div>
+    <div id="chakra-indicator"></div>
+    <div id="controls">
+        <button class="btn" data-chakra="base">🔴 Base</button>
+        <button class="btn" data-chakra="root">🟠 Root</button>
+        <button class="btn" data-chakra="sacral">🟡 Sacral</button>
+        <button class="btn" data-chakra="solar_plexus">🟢 Solar Plexus</button>
+        <button class="btn active" data-chakra="heart">💚 Heart</button>
+        <button class="btn" data-chakra="throat">💙 Throat</button>
+        <button class="btn" data-chakra="third_eye">💜 Third Eye</button>
+        <button class="btn" data-chakra="crown">⚪ Crown</button>
+        <button class="btn" data-chakra="healing">🩵 Healing</button>
+        <button class="btn" id="journeyBtn">🌀 9 Chakra Journey</button>
+    </div>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+        import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+        import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+        import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
+
+        // ============ CONFIGURATION ============
+        const urlParams = new URLSearchParams(window.location.search);
+        const CONFIG = {
+            seed: parseFloat(urlParams.get('seed')) || Math.random() * 10000,
+            frequency: parseInt(urlParams.get('freq')) || 528,
+            chakra: urlParams.get('chakra') || 'heart',
+            journey: urlParams.get('journey') === 'true',
+            duration: parseInt(urlParams.get('duration')) || 600 // 10 minutes default
+        };
+
+        // All 9 chakras with their properties
+        const CHAKRAS = {
+            base: { frequency: 174, color: '#8B4513', name: 'Base Chakra', sanskrit: 'Muladhara', purpose: 'Foundation, grounding, safety' },
+            root: { frequency: 396, color: '#e74c3c', name: 'Root Chakra', sanskrit: 'Muladhara', purpose: 'Grounding, stability, security' },
+            sacral: { frequency: 417, color: '#e67e22', name: 'Sacral Chakra', sanskrit: 'Svadhisthana', purpose: 'Creativity, passion, emotion' },
+            solar_plexus: { frequency: 528, color: '#f1c40f', name: 'Solar Plexus', sanskrit: 'Manipura', purpose: 'Power, transformation, will' },
+            heart: { frequency: 639, color: '#2ecc71', name: 'Heart Chakra', sanskrit: 'Anahata', purpose: 'Love, compassion, connection' },
+            throat: { frequency: 741, color: '#3498db', name: 'Throat Chakra', sanskrit: 'Vishuddha', purpose: 'Communication, expression, truth' },
+            third_eye: { frequency: 852, color: '#9b59b6', name: 'Third Eye', sanskrit: 'Ajna', purpose: 'Intuition, insight, wisdom' },
+            crown: { frequency: 963, color: '#9400D3', name: 'Crown Chakra', sanskrit: 'Sahasrara', purpose: 'Divine connection, unity, bliss' },
+            healing: { frequency: 285, color: '#1abc9c', name: 'Healing Chakra', sanskrit: 'Quantum', purpose: 'Healing, regeneration, repair' }
+        };
+
+        const CHAKRA_ORDER = ['base', 'root', 'sacral', 'solar_plexus', 'heart', 'throat', 'third_eye', 'crown', 'healing'];
+
+        // ============ SETUP ============
+        const canvas = document.getElementById('canvas');
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.4;
+        renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x000000, 0.0008);
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 2000);
+        camera.position.z = 6;
+
+        // Post-processing
+        const composer = new EffectComposer(renderer);
+        composer.addPass(new RenderPass(scene, camera));
+        const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.8, 0.6, 0.7);
+        composer.addPass(bloomPass);
+
+        // Chromatic aberration + film grain shader
+        const postShader = {
+            uniforms: {
+                tDiffuse: { value: null },
+                time: { value: 0 },
+                intensity: { value: 0.003 }
+            },
+            vertexShader: `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }`,
+            fragmentShader: `
+                varying vec2 vUv;
+                uniform sampler2D tDiffuse;
+                uniform float time;
+                uniform float intensity;
+                float random(vec2 st) { return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453); }
+                void main() {
+                    vec2 offset = (vUv - 0.5) * intensity;
+                    vec4 cr = texture2D(tDiffuse, vUv + offset);
+                    vec4 cg = texture2D(tDiffuse, vUv);
+                    vec4 cb = texture2D(tDiffuse, vUv - offset);
+                    vec4 color = vec4(cr.r, cg.g, cb.b, 1.0);
+                    float grain = random(vUv + time) * 0.06;
+                    color.rgb += grain - 0.03;
+                    gl_FragColor = color;
+                }
+            `
+        };
+        const postPass = new ShaderPass(postShader);
+        composer.addPass(postPass);
+
+        // ============ SEEDED RANDOM ============
+        class SeededRandom {
+            constructor(seed) { this.seed = seed; }
+            next() { this.seed = (this.seed * 9301 + 49297) % 233280; return this.seed / 233280; }
+            range(min, max) { return min + this.next() * (max - min); }
+            color() { return new THREE.Color().setHSL(this.next(), 0.85, 0.55); }
+        }
+        const random = new SeededRandom(CONFIG.seed);
+
+        // ============ CHAKRA SYSTEM ============
+        let currentChakraIndex = CHAKRA_ORDER.indexOf(CONFIG.chakra);
+        if (currentChakraIndex < 0) currentChakraIndex = 4; // default to heart
+        let currentChakra = CONFIG.chakra;
+        let chakraTransition = 0; // 0 to 1, for smooth transitions
+        let targetChakra = currentChakra;
+        let journeyActive = CONFIG.journey;
+        let journeyStartTime = Date.now();
+        let sessionDuration = CONFIG.duration * 1000; // 10 minutes per chakra
+        const CHAKRA_DURATION = 10000; // 10 seconds per chakra for demo (use 600000 for 10 min)
+
+        function getChakraColor(chakraKey, offset = 0) {
+            const chakra = CHAKRAS[chakraKey] || CHAKRAS.heart;
+            const color = new THREE.Color(chakra.color);
+            // Add some variation based on seed
+            const hsl = {};
+            color.getHSL(hsl);
+            hsl.h = (hsl.h + offset + CONFIG.seed * 0.0001) % 1;
+            color.setHSL(hsl.h, hsl.s, hsl.l);
+            return color;
+        }
+
+        function getChakraPalette(chakraKey) {
+            const base = getChakraColor(chakraKey);
+            const mid = getChakraColor(chakraKey, 0.1);
+            const outer = getChakraColor(chakraKey, 0.2);
+            const accent = getChakraColor(chakraKey, 0.5);
+            return { base, mid, outer, accent };
+        }
+
+        // ============ SCENE MANAGEMENT ============
+        let currentSceneIndex = 0;
+        let sceneObjects = [];
+        let uniforms = { time: { value: 0 } };
+        let time = 0;
+        let mouseX = 0, mouseY = 0;
+
+        function clearScene() {
+            sceneObjects.forEach(obj => {
+                scene.remove(obj);
+                if (obj.geometry) obj.geometry.dispose();
+                if (obj.material) {
+                    if (Array.isArray(obj.material)) obj.material.forEach(m => m.dispose());
+                    else obj.material.dispose();
+                }
+            });
+            sceneObjects = [];
+        }
+
+        // ---------- SCENE 0: Nebula Genesis ----------
+        function createNebulaGenesis() {
+            const group = new THREE.Group();
+            const count = 10000;
+            const positions = new Float32Array(count * 3);
+            const colors = new Float32Array(count * 3);
+            const sizes = new Float32Array(count);
+            const randoms = new Float32Array(count);
+
+            const palette = getChakraPalette(currentChakra);
+            
+            for (let i = 0; i < count; i++) {
+                const theta = random.next() * Math.PI * 2;
+                const phi = Math.acos(2 * random.next() - 1);
+                const radius = random.range(1, 15);
+                positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+                positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+                positions[i * 3 + 2] = radius * Math.cos(phi);
+                
+                const colorChoice = random.next();
+                let c;
+                if (colorChoice < 0.33) c = palette.base;
+                else if (colorChoice < 0.66) c = palette.mid;
+                else c = palette.accent;
+                
+                colors[i * 3] = c.r; colors[i * 3 + 1] = c.g; colors[i * 3 + 2] = c.b;
+                sizes[i] = random.range(0.02, 0.15);
+                randoms[i] = random.next();
+            }
+
+            const geo = new THREE.BufferGeometry();
+            geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+            geo.setAttribute('aRandom', new THREE.BufferAttribute(randoms, 1));
+
+            const mat = new THREE.ShaderMaterial({
+                uniforms: { time: uniforms.time, palette: { value: [palette.base, palette.mid, palette.accent] } },
+                vertexShader: `
+                    attribute float size;
+                    attribute float aRandom;
+                    varying vec3 vColor;
+                    varying float vAlpha;
+                    uniform float time;
+                    void main() {
+                        vColor = color;
+                        vec3 pos = position;
+                        float wave = sin(time * 0.5 + aRandom * 10.0) * 0.3;
+                        pos += normalize(pos) * wave;
+                        vAlpha = 0.6 + 0.4 * sin(time + aRandom * 6.28);
+                        vec4 mv = modelViewMatrix * vec4(pos, 1.0);
+                        gl_PointSize = size * (280.0 / -mv.z);
+                        gl_Position = projectionMatrix * mv;
+                    }
+                `,
+                fragmentShader: `
+                    varying vec3 vColor;
+                    varying float vAlpha;
+                    void main() {
+                        float d = length(gl_PointCoord - 0.5);
+                        if (d > 0.5) discard;
+                        float a = smoothstep(0.5, 0.0, d) * vAlpha * 0.7;
+                        gl_FragColor = vec4(vColor, a);
+                    }
+                `,
+                transparent: true,
+                vertexColors: true,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
+            });
+
+            const particles = new THREE.Points(geo, mat);
+            group.add(particles);
+            scene.add(group);
+            sceneObjects.push(group);
+            return { group, particles, material: mat };
+        }
+
+        // ---------- SCENE 1: Accretion Vortex ----------
+        function createAccretionVortex() {
+            const group = new THREE.Group();
+            const count = 8000;
+            const positions = new Float32Array(count * 3);
+            const colors = new Float32Array(count * 3);
+            const sizes = new Float32Array(count);
+            const angles = new Float32Array(count);
+            const radii = new Float32Array(count);
+
+            for (let i = 0; i < count; i++) {
+                const angle = random.next() * Math.PI * 2;
+                const radius = random.range(0.5, 8);
+                const height = random.range(-0.3, 0.3) * (radius / 8);
+                positions[i * 3] = Math.cos(angle) * radius;
+                positions[i * 3 + 1] = height;
+                positions[i * 3 + 2] = Math.sin(angle) * radius;
+                
+                const palette = getChakraPalette(currentChakra);
+                const t = radius / 8;
+                const c = new THREE.Color().lerpColors(palette.accent, palette.base, t);
+                colors[i * 3] = c.r; colors[i * 3 + 1] = c.g; colors[i * 3 + 2] = c.b;
+                sizes[i] = random.range(0.015, 0.06) * (1 + (8 - radius) / 3);
+                angles[i] = angle;
+                radii[i] = radius;
+            }
+
+            const geo = new THREE.BufferGeometry();
+            geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+            geo.setAttribute('aAngle', new THREE.BufferAttribute(angles, 1));
+            geo.setAttribute('aRadius', new THREE.BufferAttribute(radii, 1));
+
+            const mat = new THREE.ShaderMaterial({
+                uniforms: { time: uniforms.time },
+                vertexShader: `
+                    attribute float size;
+                    attribute float aAngle;
+                    attribute float aRadius;
+                    varying vec3 vColor;
+                    uniform float time;
+                    void main() {
+                        vColor = color;
+                        float speed = 2.0 / (aRadius + 0.5);
+                        float angle = aAngle + time * speed;
+                        vec3 pos = vec3(cos(angle) * aRadius, position.y + sin(time * 3.0 + aRadius) * 0.15, sin(angle) * aRadius);
+                        vec4 mv = modelViewMatrix * vec4(pos, 1.0);
+                        gl_PointSize = size * (240.0 / -mv.z);
+                        gl_Position = projectionMatrix * mv;
+                    }
+                `,
+                fragmentShader: `
+                    varying vec3 vColor;
+                    void main() {
+                        float d = length(gl_PointCoord - 0.5);
+                        if (d > 0.5) discard;
+                        float a = smoothstep(0.5, 0.0, d) * 0.8;
+                        gl_FragColor = vec4(vColor, a);
+                    }
+                `,
+                transparent: true,
+                vertexColors: true,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
+            });
+
+            const particles = new THREE.Points(geo, mat);
+            group.add(particles);
+
+            // Event horizon
+            const horizonGeo = new THREE.SphereGeometry(0.7, 64, 64);
+            const horizonMat = new THREE.ShaderMaterial({
+                uniforms: { time: uniforms.time },
+                vertexShader: `varying vec3 vNormal; void main() { vNormal = normalize(normalMatrix * normal); gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }`,
+                fragmentShader: `
+                    varying vec3 vNormal; uniform float time;
+                    void main() {
+                        float fresnel = pow(1.0 - abs(dot(vNormal, vec3(0,0,1))), 2.0);
+                        vec3 col = mix(vec3(0.0), mix(vec3(0.3,0.0,0.6), vec3(0.0,0.3,0.6), sin(time)*0.5+0.5), fresnel);
+                        gl_FragColor = vec4(col, 1.0);
+                    }
+                `
+            });
+            const horizon = new THREE.Mesh(horizonGeo, horizonMat);
+            group.add(horizon);
+            sceneObjects.push(horizon);
+
+            scene.add(group);
+            sceneObjects.push(group);
+            return { group, particles, material: mat };
+        }
+
+        // ---------- SCENE 2: Morphing Mandala ----------
+        function createMorphingMandala() {
+            const group = new THREE.Group();
+            const rings = 15;
+            const segments = 180;
+            const palette = getChakraPalette(currentChakra);
+
+            for (let r = 0; r < rings; r++) {
+                const baseRadius = 1 + r * 0.6;
+                const points = [];
+                for (let i = 0; i <= segments; i++) {
+                    const angle = (i / segments) * Math.PI * 2;
+                    const wobble = Math.sin(angle * (r + 2) * 3 + random.next() * 20) * 0.3;
+                    const r2 = baseRadius + wobble;
+                    points.push(new THREE.Vector3(Math.cos(angle) * r2, Math.sin(angle) * r2, 0));
+                }
+                const geo = new THREE.BufferGeometry().setFromPoints(points);
+                const hue = (r / rings + CONFIG.seed * 0.0002) % 1;
+                const color = new THREE.Color().setHSL(hue, 0.9, 0.6);
+                const mat = new THREE.LineBasicMaterial({
+                    color: color,
+                    transparent: true,
+                    opacity: 0.4 + r * 0.03,
+                    blending: THREE.AdditiveBlending
+                });
+                const ring = new THREE.Line(geo, mat);
+                ring.rotation.z = r * 0.1;
+                group.add(ring);
+                sceneObjects.push(ring);
+            }
+
+            // Flower of life centers
+            const centers = [[0,0],[1,0],[0.5,0.866],[-0.5,0.866],[-1,0],[-0.5,-0.866],[0.5,-0.866]];
+            centers.forEach((pos, i) => {
+                const geo = new THREE.RingGeometry(0.45, 0.48, 64);
+                const mat = new THREE.MeshBasicMaterial({
+                    color: palette.accent,
+                    transparent: true,
+                    opacity: 0.4,
+                    side: THREE.DoubleSide,
+                    blending: THREE.AdditiveBlending
+                });
+                const mesh = new THREE.Mesh(geo, mat);
+                mesh.position.set(pos[0] * 0.85, pos[1] * 0.85, 0);
+                group.add(mesh);
+                sceneObjects.push(mesh);
+            });
+
+            scene.add(group);
+            sceneObjects.push(group);
+            return { group };
+        }
+
+        // ---------- SCENE 3: Particle Genesis ----------
+        function createParticleGenesis() {
+            const group = new THREE.Group();
+            const count = 15000;
+            const positions = new Float32Array(count * 3);
+            const colors = new Float32Array(count * 3);
+            const sizes = new Float32Array(count);
+            const randoms = new Float32Array(count);
+
+            const palette = getChakraPalette(currentChakra);
+
+            for (let i = 0; i < count; i++) {
+                const theta = random.next() * Math.PI * 2;
+                const phi = Math.acos(2 * random.next() - 1);
+                const radius = random.range(0.5, 20);
+                positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+                positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+                positions[i * 3 + 2] = radius * Math.cos(phi);
+                
+                const colorChoice = random.next();
+                let c;
+                if (colorChoice < 0.25) c = palette.base;
+                else if (colorChoice < 0.5) c = palette.mid;
+                else if (colorChoice < 0.75) c = palette.accent;
+                else c = palette.outer;
+                
+                colors[i * 3] = c.r; colors[i * 3 + 1] = c.g; colors[i * 3 + 2] = c.b;
+                sizes[i] = random.range(0.01, 0.08);
+                randoms[i] = random.next();
+            }
+
+            const geo = new THREE.BufferGeometry();
+            geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+            geo.setAttribute('aRandom', new THREE.BufferAttribute(randoms, 1));
+
+            const mat = new THREE.ShaderMaterial({
+                uniforms: { time: uniforms.time },
+                vertexShader: `
+                    attribute float size;
+                    attribute float aRandom;
+                    varying vec3 vColor;
+                    varying float vAlpha;
+                    uniform float time;
+                    void main() {
+                        vColor = color;
+                        vec3 pos = position;
+                        float pulse = sin(time * 2.0 + aRandom * 12.0) * 0.5 + 0.5;
+                        pos *= 1.0 + pulse * 0.15;
+                        vAlpha = 0.4 + pulse * 0.6;
+                        vec4 mv = modelViewMatrix * vec4(pos, 1.0);
+                        gl_PointSize = size * (300.0 / -mv.z) * (0.8 + pulse * 0.4);
+                        gl_Position = projectionMatrix * mv;
+                    }
+                `,
+                fragmentShader: `
+                    varying vec3 vColor;
+                    varying float vAlpha;
+                    void main() {
+                        float d = length(gl_PointCoord - 0.5);
+                        if (d > 0.5) discard;
+                        float a = smoothstep(0.5, 0.0, d) * vAlpha * 0.75;
+                        gl_FragColor = vec4(vColor, a);
+                    }
+                `,
+                transparent: true,
+                vertexColors: true,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
+            });
+
+            const particles = new THREE.Points(geo, mat);
+            group.add(particles);
+            scene.add(group);
+            sceneObjects.push(group);
+            return { group, particles, material: mat };
+        }
+
+        // ---------- SCENE 4: Torus Field ----------
+        function createTorusField() {
+            const group = new THREE.Group();
+            const torusCount = 12;
+            const palette = getChakraPalette(currentChakra);
+
+            for (let i = 0; i < torusCount; i++) {
+                const radius = 1.5 + i * 0.8;
+                const tube = 0.03 + i * 0.012;
+                const geo = new THREE.TorusGeometry(radius, tube, 32, 250);
+                const hue = (i / torusCount + CONFIG.seed * 0.0002) % 1;
+                const color = new THREE.Color().setHSL(hue, 0.9, 0.55);
+                const mat = new THREE.MeshBasicMaterial({
+                    color: color,
+                    transparent: true,
+                    opacity: 0.5,
+                    blending: THREE.AdditiveBlending
+                });
+                const torus = new THREE.Mesh(geo, mat);
+                torus.rotation.x = random.next() * Math.PI;
+                torus.rotation.y = random.next() * Math.PI;
+                torus.userData.rotSpeed = { x: random.range(-0.005, 0.005), y: random.range(-0.005, 0.005) };
+                group.add(torus);
+                sceneObjects.push(torus);
+            }
+
+            scene.add(group);
+            sceneObjects.push(group);
+            return { group };
+        }
+
+        // ---------- SCENE 5: Frequency Current ----------
+        function createFrequencyCurrent() {
+            const group = new THREE.Group();
+            const bars = 180;
+            const barGroup = new THREE.Group();
+            const palette = getChakraPalette(currentChakra);
+
+            for (let i = 0; i < bars; i++) {
+                const geo = new THREE.BoxGeometry(0.06, 1, 0.06);
+                const hue = (i / bars);
+                const color = new THREE.Color().setHSL(hue, 0.85, 0.5);
+                const mat = new THREE.MeshBasicMaterial({
+                    color: color,
+                    transparent: true,
+                    opacity: 0.7,
+                    blending: THREE.AdditiveBlending
+                });
+                const bar = new THREE.Mesh(geo, mat);
+                const angle = (i / bars) * Math.PI * 2;
+                const radius = 3;
+                bar.position.x = Math.cos(angle) * radius;
+                bar.position.z = Math.sin(angle) * radius;
+                bar.rotation.y = -angle;
+                bar.userData.baseY = 0;
+                bar.userData.index = i;
+                barGroup.add(bar);
+                sceneObjects.push(bar);
+            }
+
+            group.add(barGroup);
+            scene.add(group);
+            sceneObjects.push(group);
+            return { group, barGroup };
+        }
+
+        // ============ SCENE SWITCHING ============
+        const sceneGenerators = [
+            createNebulaGenesis,
+            createAccretionVortex,
+            createMorphingMandala,
+            createParticleGenesis,
+            createTorusField,
+            createFrequencyCurrent
+        ];
+        const sceneNames = ['Nebula Genesis', 'Accretion Vortex', 'Morphing Mandala', 'Particle Genesis', 'Torus Field', 'Frequency Current'];
+
+        function switchScene(index) {
+            if (index === currentSceneIndex && sceneObjects.length > 0) return;
+            clearScene();
+            currentSceneIndex = index;
+            sceneGenerators[index]();
+            document.getElementById('scene').textContent = `Scene: ${sceneNames[index]}`;
+        }
+
+        function switchChakra(chakraKey) {
+            if (CHAKRAS[chakraKey]) {
+                targetChakra = chakraKey;
+                showChakraIndicator(chakraKey);
+            }
+        }
+
+        function showChakraIndicator(chakraKey) {
+            const indicator = document.getElementById('chakra-indicator');
+            const chakra = CHAKRAS[chakraKey];
+            if (chakra) {
+                indicator.textContent = `${chakra.name} (${chakra.frequency} Hz)`;
+                indicator.style.color = chakra.color;
+                indicator.style.opacity = '1';
+                setTimeout(() => { indicator.style.opacity = '0'; }, 2000);
+            }
+        }
+
+        switchScene(0);
+
+        // ============ ANIMATION LOOP ============
+        let lastTime = performance.now();
+        let frameCount = 0;
+        let fps = 0;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const now = performance.now();
+            const delta = Math.min((now - lastTime) / 1000, 0.1);
+            lastTime = now;
+            time += delta;
+
+            frameCount++;
+            if (frameCount % 20 === 0) {
+                fps = Math.round(1 / delta);
+                document.getElementById('fps').textContent = `FPS: ${fps}`;
+            }
+
+            // Handle chakra transitions
+            if (journeyActive) {
+                const elapsed = Date.now() - journeyStartTime;
+                const chakraIndex = Math.floor(elapsed / CHAKRA_DURATION) % CHAKRA_ORDER.length;
+                if (chakraIndex !== currentChakraIndex) {
+                    currentChakraIndex = chakraIndex;
+                    switchChakra(CHAKRA_ORDER[chakraIndex]);
+                    // Regenerate scene with new chakra
+                    switchScene(currentSceneIndex);
+                }
+            }
+
+            // Smooth chakra transition
+            if (targetChakra !== currentChakra) {
+                chakraTransition += delta * 0.5; // 2 second transition
+                if (chakraTransition >= 1) {
+                    currentChakra = targetChakra;
+                    chakraTransition = 0;
+                }
+            }
+
+            // Subtle camera movement
+            camera.position.x = Math.sin(time * 0.1) * 0.5 + mouseX * 0.001;
+            camera.position.y = Math.cos(time * 0.15) * 0.3 + mouseY * 0.001;
+            camera.lookAt(0, 0, 0);
+
+            // Update uniforms
+            uniforms.time.value = time;
+            postPass.uniforms.time.value = time;
+
+            // Scene-specific animations
+            if (currentSceneIndex === 4 && sceneObjects[0]) {
+                sceneObjects[0].children.forEach(torus => {
+                    if (torus.userData.rotSpeed) {
+                        torus.rotation.x += torus.userData.rotSpeed.x;
+                        torus.rotation.y += torus.userData.rotSpeed.y;
+                    }
+                });
+            }
+
+            if (currentSceneIndex === 5 && sceneObjects[0]) {
+                const t = time * 2;
+                sceneObjects[0].children.forEach((bar, i) => {
+                    const scale = 1 + Math.sin(t + i * 0.4) * 1.5 + Math.sin(t * 2.3 + i * 0.7) * 0.5;
+                    bar.scale.y = Math.max(0.2, scale);
+                    bar.material.color.setHSL((i / 180 + time * 0.08) % 1, 0.85, 0.5);
+                });
+            }
+
+            // Dynamic bloom
+            bloomPass.strength = 1.5 + Math.sin(time * 0.5) * 0.3;
+            postPass.uniforms.intensity.value = 0.002 + Math.sin(time * 0.3) * 0.001;
+
+            composer.render();
+        }
+
+        // ============ EVENT HANDLERS ============
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            composer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+            mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+        });
+
+        // Chakra buttons
+        document.querySelectorAll('[data-chakra]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('[data-chakra]').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const chakra = btn.dataset.chakra;
+                switchChakra(chakra);
+                currentChakra = chakra;
+                // Regenerate current scene with new chakra
+                switchScene(currentSceneIndex);
+                
+                // Update URL
+                const url = new URL(window.location);
+                url.searchParams.set('chakra', chakra);
+                url.searchParams.set('freq', CHAKRAS[chakra].frequency);
+                window.history.replaceState({}, '', url);
+            });
+        });
+
+        // Journey button
+        document.getElementById('journeyBtn').addEventListener('click', () => {
+            journeyActive = !journeyActive;
+            const btn = document.getElementById('journeyBtn');
+            if (journeyActive) {
+                btn.classList.add('active');
+                journeyStartTime = Date.now();
+                currentChakraIndex = 0;
+                switchChakra(CHAKRA_ORDER[0]);
+                switchScene(currentSceneIndex);
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+
+        document.getElementById('seed').textContent = `SEED: ${CONFIG.seed.toFixed(4)} | ${CONFIG.frequency}Hz | ${CONFIG.chakra.toUpperCase()}`;
+        document.getElementById('freq').textContent = `Frequency: ${CONFIG.frequency} Hz`;
+        document.getElementById('chakra').textContent = `Chakra: ${CHAKRAS[CONFIG.chakra]?.name || 'Heart'}`;
+
+        // Export for parent
+        window.liveVisuals = {
+            switchScene,
+            getScene: () => currentSceneIndex,
+            getCurrentChakra: () => currentChakra,
+            switchChakra,
+            startJourney: () => {
+                journeyActive = true;
+                journeyStartTime = Date.now();
+                currentChakraIndex = 0;
+                switchChakra(CHAKRA_ORDER[0]);
+                switchScene(currentSceneIndex);
+                document.getElementById('journeyBtn')?.classList.add('active');
+            },
+            stopJourney: () => {
+                journeyActive = false;
+                document.getElementById('journeyBtn')?.classList.remove('active');
+            },
+            setFrequency: (freq, chakra) => {
+                CONFIG.frequency = freq;
+                if (chakra && CHAKRAS[chakra]) {
+                    switchChakra(chakra);
+                    currentChakra = chakra;
+                    switchScene(currentSceneIndex);
+                }
+                document.getElementById('freq').textContent = `Frequency: ${freq} Hz`;
+                document.getElementById('seed').textContent = `SEED: ${CONFIG.seed.toFixed(4)} | ${freq}Hz | ${(chakra || CONFIG.chakra).toUpperCase()}`;
+            }
+        };
+
+        // Listen for messages from parent
+        window.addEventListener('message', (event) => {
+            if (event.data && event.data.type === 'chakra') {
+                switchChakra(event.data.chakra);
+                currentChakra = event.data.chakra;
+                switchScene(currentSceneIndex);
+            }
+        });
+
+        animate();
+    </script>
+</body>
+</html>

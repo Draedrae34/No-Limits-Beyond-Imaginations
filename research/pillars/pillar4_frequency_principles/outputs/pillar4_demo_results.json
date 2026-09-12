@@ -1,0 +1,302 @@
+{
+  "pillar": "Pillar 4: The Simulation Signature",
+  "generated": "2026-08-28T13:49:36.361990Z",
+  "texts_analyzed": 5,
+  "analyses": [
+    {
+      "name": "genesis_sample",
+      "text_length": 192,
+      "letter_entropy": 3.925765788534365,
+      "word_length_entropy": 2.3566865910496384,
+      "bigram_entropy": 6.02377787915313,
+      "trigram_entropy": 6.618659483892626,
+      "constant_correlations": [
+        {
+          "constant": "pi",
+          "similarity": 0.797787,
+          "best_offset": 48,
+          "sequence_length": 154,
+          "significant": false
+        },
+        {
+          "constant": "e",
+          "similarity": 0.787641,
+          "best_offset": 63,
+          "sequence_length": 154,
+          "significant": false
+        },
+        {
+          "constant": "phi",
+          "similarity": 0.836789,
+          "best_offset": 33,
+          "sequence_length": 154,
+          "significant": false
+        },
+        {
+          "constant": "sqrt2",
+          "similarity": 0.809818,
+          "best_offset": 88,
+          "sequence_length": 154,
+          "significant": false
+        }
+      ],
+      "baseline_comparison": {
+        "text_entropy": 4.0591,
+        "baseline_mean": 4.58,
+        "baseline_std": 0.0331,
+        "percentile": 0.0,
+        "interpretation": "much lower than random - expected for structured natural language"
+      },
+      "significance_tests": [
+        {
+          "test": "letter_entropy_permutation",
+          "result": {
+            "observed": 3.9258,
+            "null_mean": 4.0591,
+            "null_std": 0.0,
+            "p_value": 1.0,
+            "significant_at_0.05": false,
+            "significant_at_0.01": false,
+            "n_permutations": 10000
+          }
+        }
+      ]
+    },
+    {
+      "name": "enoch_sample",
+      "text_length": 298,
+      "letter_entropy": 4.007418637988002,
+      "word_length_entropy": 2.6452448498234795,
+      "bigram_entropy": 6.536654220159814,
+      "trigram_entropy": 7.356606556789929,
+      "constant_correlations": [
+        {
+          "constant": "pi",
+          "similarity": 0.805789,
+          "best_offset": 30,
+          "sequence_length": 241,
+          "significant": false
+        },
+        {
+          "constant": "e",
+          "similarity": 0.802568,
+          "best_offset": 77,
+          "sequence_length": 241,
+          "significant": false
+        },
+        {
+          "constant": "phi",
+          "similarity": 0.837927,
+          "best_offset": 63,
+          "sequence_length": 241,
+          "significant": false
+        },
+        {
+          "constant": "sqrt2",
+          "similarity": 0.823202,
+          "best_offset": 93,
+          "sequence_length": 241,
+          "significant": false
+        }
+      ],
+      "baseline_comparison": {
+        "text_entropy": 4.0474,
+        "baseline_mean": 4.6244,
+        "baseline_std": 0.021,
+        "percentile": 0.0,
+        "interpretation": "much lower than random - expected for structured natural language"
+      },
+      "significance_tests": [
+        {
+          "test": "letter_entropy_permutation",
+          "result": {
+            "observed": 4.0074,
+            "null_mean": 4.0474,
+            "null_std": 0.0,
+            "p_value": 1.0,
+            "significant_at_0.05": false,
+            "significant_at_0.01": false,
+            "n_permutations": 10000
+          }
+        }
+      ]
+    },
+    {
+      "name": "thomas_sample",
+      "text_length": 228,
+      "letter_entropy": 4.002816077805497,
+      "word_length_entropy": 2.113767036181796,
+      "bigram_entropy": 6.0063214392288815,
+      "trigram_entropy": 6.5972236302176785,
+      "constant_correlations": [
+        {
+          "constant": "pi",
+          "similarity": 0.734051,
+          "best_offset": 35,
+          "sequence_length": 178,
+          "significant": false
+        },
+        {
+          "constant": "e",
+          "similarity": 0.763866,
+          "best_offset": 66,
+          "sequence_length": 178,
+          "significant": false
+        },
+        {
+          "constant": "phi",
+          "similarity": 0.745023,
+          "best_offset": 26,
+          "sequence_length": 178,
+          "significant": false
+        },
+        {
+          "constant": "sqrt2",
+          "similarity": 0.737717,
+          "best_offset": 72,
+          "sequence_length": 178,
+          "significant": false
+        }
+      ],
+      "baseline_comparison": {
+        "text_entropy": 4.1139,
+        "baseline_mean": 4.5964,
+        "baseline_std": 0.0305,
+        "percentile": 0.0,
+        "interpretation": "much lower than random - expected for structured natural language"
+      },
+      "significance_tests": [
+        {
+          "test": "letter_entropy_permutation",
+          "result": {
+            "observed": 4.0028,
+            "null_mean": 4.1139,
+            "null_std": 0.0,
+            "p_value": 1.0,
+            "significant_at_0.05": false,
+            "significant_at_0.01": false,
+            "n_permutations": 10000
+          }
+        }
+      ]
+    },
+    {
+      "name": "hermetica_sample",
+      "text_length": 240,
+      "letter_entropy": 4.00469721837551,
+      "word_length_entropy": 2.328783227670793,
+      "bigram_entropy": 6.062824674619564,
+      "trigram_entropy": 6.789328936236572,
+      "constant_correlations": [
+        {
+          "constant": "pi",
+          "similarity": 0.83635,
+          "best_offset": 83,
+          "sequence_length": 189,
+          "significant": false
+        },
+        {
+          "constant": "e",
+          "similarity": 0.861385,
+          "best_offset": 41,
+          "sequence_length": 189,
+          "significant": true
+        },
+        {
+          "constant": "phi",
+          "similarity": 0.867188,
+          "best_offset": 13,
+          "sequence_length": 189,
+          "significant": true
+        },
+        {
+          "constant": "sqrt2",
+          "similarity": 0.864756,
+          "best_offset": 69,
+          "sequence_length": 189,
+          "significant": true
+        }
+      ],
+      "baseline_comparison": {
+        "text_entropy": 4.1908,
+        "baseline_mean": 4.6028,
+        "baseline_std": 0.0286,
+        "percentile": 0.0,
+        "interpretation": "much lower than random - expected for structured natural language"
+      },
+      "significance_tests": [
+        {
+          "test": "letter_entropy_permutation",
+          "result": {
+            "observed": 4.0047,
+            "null_mean": 4.1908,
+            "null_std": 0.0,
+            "p_value": 1.0,
+            "significant_at_0.05": false,
+            "significant_at_0.01": false,
+            "n_permutations": 10000
+          }
+        }
+      ]
+    },
+    {
+      "name": "random_control",
+      "text_length": 223,
+      "letter_entropy": 4.197520655127155,
+      "word_length_entropy": 2.771596383178741,
+      "bigram_entropy": 6.610301802715451,
+      "trigram_entropy": 7.28656023082239,
+      "constant_correlations": [
+        {
+          "constant": "pi",
+          "similarity": 0.841011,
+          "best_offset": 26,
+          "sequence_length": 184,
+          "significant": false
+        },
+        {
+          "constant": "e",
+          "similarity": 0.858314,
+          "best_offset": 66,
+          "sequence_length": 184,
+          "significant": true
+        },
+        {
+          "constant": "phi",
+          "similarity": 0.866751,
+          "best_offset": 18,
+          "sequence_length": 184,
+          "significant": true
+        },
+        {
+          "constant": "sqrt2",
+          "similarity": 0.846454,
+          "best_offset": 72,
+          "sequence_length": 184,
+          "significant": false
+        }
+      ],
+      "baseline_comparison": {
+        "text_entropy": 4.2282,
+        "baseline_mean": 4.5997,
+        "baseline_std": 0.0288,
+        "percentile": 0.0,
+        "interpretation": "much lower than random - expected for structured natural language"
+      },
+      "significance_tests": [
+        {
+          "test": "letter_entropy_permutation",
+          "result": {
+            "observed": 4.1975,
+            "null_mean": 4.2282,
+            "null_std": 0.0,
+            "p_value": 1.0,
+            "significant_at_0.05": false,
+            "significant_at_0.01": false,
+            "n_permutations": 10000
+          }
+        }
+      ]
+    }
+  ]
+}

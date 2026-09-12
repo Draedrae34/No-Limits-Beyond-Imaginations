@@ -1,0 +1,382 @@
+{
+  "pillar": "Pillar 2: AI Pattern Recognition in Ancient Texts",
+  "generated": "2026-08-28T13:57:20.776115Z",
+  "corpora_analyzed": 5,
+  "analyses": [
+    {
+      "name": "genesis",
+      "total_segments": 40,
+      "total_words": 2780,
+      "unique_words": 39,
+      "mean_ttr": 0.4621,
+      "ttr_std": 0.0258,
+      "top_bursty_terms": [
+        {
+          "term": "light",
+          "count": 200,
+          "burstiness": 0.0
+        },
+        {
+          "term": "darkness",
+          "count": 100,
+          "burstiness": 0.0
+        },
+        {
+          "term": "there",
+          "count": 80,
+          "burstiness": 0.0
+        },
+        {
+          "term": "called",
+          "count": 80,
+          "burstiness": 0.0
+        },
+        {
+          "term": "said",
+          "count": 40,
+          "burstiness": 0.0
+        },
+        {
+          "term": "that",
+          "count": 40,
+          "burstiness": 0.0
+        },
+        {
+          "term": "good",
+          "count": 40,
+          "burstiness": 0.0
+        },
+        {
+          "term": "divided",
+          "count": 40,
+          "burstiness": 0.0
+        },
+        {
+          "term": "from",
+          "count": 40,
+          "burstiness": 0.0
+        },
+        {
+          "term": "night",
+          "count": 40,
+          "burstiness": 0.0
+        }
+      ],
+      "cross_corpus_patterns": {
+        "enoch": {
+          "error": "Corpora not analyzed"
+        },
+        "thomas": {
+          "error": "Corpora not analyzed"
+        },
+        "hermetica": {
+          "error": "Corpora not analyzed"
+        },
+        "dead_sea_scrolls": {
+          "error": "Corpora not analyzed"
+        }
+      },
+      "historical_validations": []
+    },
+    {
+      "name": "enoch",
+      "total_segments": 50,
+      "total_words": 3725,
+      "unique_words": 47,
+      "mean_ttr": 0.448,
+      "ttr_std": 0.026,
+      "top_bursty_terms": [
+        {
+          "term": "children",
+          "count": 258,
+          "burstiness": 0.0
+        },
+        {
+          "term": "another",
+          "count": 142,
+          "burstiness": 0.0
+        },
+        {
+          "term": "said",
+          "count": 139,
+          "burstiness": 0.0
+        },
+        {
+          "term": "among",
+          "count": 100,
+          "burstiness": 0.0
+        },
+        {
+          "term": "beget",
+          "count": 100,
+          "burstiness": 0.0
+        },
+        {
+          "term": "they",
+          "count": 100,
+          "burstiness": 0.0
+        },
+        {
+          "term": "from",
+          "count": 99,
+          "burstiness": 0.0
+        },
+        {
+          "term": "wives",
+          "count": 98,
+          "burstiness": 0.0
+        },
+        {
+          "term": "choose",
+          "count": 96,
+          "burstiness": 0.0
+        },
+        {
+          "term": "come",
+          "count": 93,
+          "burstiness": 0.0
+        }
+      ],
+      "cross_corpus_patterns": {
+        "genesis": {
+          "error": "Corpora not analyzed"
+        },
+        "thomas": {
+          "error": "Corpora not analyzed"
+        },
+        "hermetica": {
+          "error": "Corpora not analyzed"
+        },
+        "dead_sea_scrolls": {
+          "error": "Corpora not analyzed"
+        }
+      },
+      "historical_validations": []
+    },
+    {
+      "name": "thomas",
+      "total_segments": 43,
+      "total_words": 3053,
+      "unique_words": 44,
+      "mean_ttr": 0.523,
+      "ttr_std": 0.0477,
+      "top_bursty_terms": [
+        {
+          "term": "will",
+          "count": 148,
+          "burstiness": 0.0
+        },
+        {
+          "term": "then",
+          "count": 139,
+          "burstiness": 0.0
+        },
+        {
+          "term": "come",
+          "count": 86,
+          "burstiness": 0.0
+        },
+        {
+          "term": "know",
+          "count": 86,
+          "burstiness": 0.0
+        },
+        {
+          "term": "yourselves",
+          "count": 86,
+          "burstiness": 0.0
+        },
+        {
+          "term": "poverty",
+          "count": 86,
+          "burstiness": 0.0
+        },
+        {
+          "term": "kingdom",
+          "count": 56,
+          "burstiness": 0.0
+        },
+        {
+          "term": "inside",
+          "count": 43,
+          "burstiness": 0.0
+        },
+        {
+          "term": "outside",
+          "count": 43,
+          "burstiness": 0.0
+        },
+        {
+          "term": "when",
+          "count": 43,
+          "burstiness": 0.0
+        }
+      ],
+      "cross_corpus_patterns": {
+        "genesis": {
+          "error": "Corpora not analyzed"
+        },
+        "enoch": {
+          "error": "Corpora not analyzed"
+        },
+        "hermetica": {
+          "error": "Corpora not analyzed"
+        },
+        "dead_sea_scrolls": {
+          "error": "Corpora not analyzed"
+        }
+      },
+      "historical_validations": []
+    },
+    {
+      "name": "hermetica",
+      "total_segments": 36,
+      "total_words": 2430,
+      "unique_words": 39,
+      "mean_ttr": 0.4422,
+      "ttr_std": 0.0177,
+      "top_bursty_terms": [
+        {
+          "term": "things",
+          "count": 215,
+          "burstiness": 0.0
+        },
+        {
+          "term": "this",
+          "count": 97,
+          "burstiness": 0.0
+        },
+        {
+          "term": "from",
+          "count": 72,
+          "burstiness": 0.0
+        },
+        {
+          "term": "born",
+          "count": 72,
+          "burstiness": 0.0
+        },
+        {
+          "term": "resolved",
+          "count": 72,
+          "burstiness": 0.0
+        },
+        {
+          "term": "source",
+          "count": 36,
+          "burstiness": 0.0
+        },
+        {
+          "term": "understands",
+          "count": 36,
+          "burstiness": 0.0
+        },
+        {
+          "term": "world",
+          "count": 36,
+          "burstiness": 0.0
+        },
+        {
+          "term": "understood",
+          "count": 36,
+          "burstiness": 0.0
+        },
+        {
+          "term": "whole",
+          "count": 36,
+          "burstiness": 0.0
+        }
+      ],
+      "cross_corpus_patterns": {
+        "genesis": {
+          "error": "Corpora not analyzed"
+        },
+        "enoch": {
+          "error": "Corpora not analyzed"
+        },
+        "thomas": {
+          "error": "Corpora not analyzed"
+        },
+        "dead_sea_scrolls": {
+          "error": "Corpora not analyzed"
+        }
+      },
+      "historical_validations": []
+    },
+    {
+      "name": "dead_sea_scrolls",
+      "total_segments": 32,
+      "total_words": 2096,
+      "unique_words": 41,
+      "mean_ttr": 0.5356,
+      "ttr_std": 0.0143,
+      "top_bursty_terms": [
+        {
+          "term": "shall",
+          "count": 96,
+          "burstiness": 0.0
+        },
+        {
+          "term": "they",
+          "count": 96,
+          "burstiness": 0.0
+        },
+        {
+          "term": "community",
+          "count": 85,
+          "burstiness": 0.0
+        },
+        {
+          "term": "examined",
+          "count": 64,
+          "burstiness": 0.0
+        },
+        {
+          "term": "priests",
+          "count": 64,
+          "burstiness": 0.0
+        },
+        {
+          "term": "light",
+          "count": 32,
+          "burstiness": 0.0
+        },
+        {
+          "term": "enter",
+          "count": 32,
+          "burstiness": 0.0
+        },
+        {
+          "term": "guardian",
+          "count": 32,
+          "burstiness": 0.0
+        },
+        {
+          "term": "taught",
+          "count": 32,
+          "burstiness": 0.0
+        },
+        {
+          "term": "statutes",
+          "count": 32,
+          "burstiness": 0.0
+        }
+      ],
+      "cross_corpus_patterns": {
+        "genesis": {
+          "error": "Corpora not analyzed"
+        },
+        "enoch": {
+          "error": "Corpora not analyzed"
+        },
+        "thomas": {
+          "error": "Corpora not analyzed"
+        },
+        "hermetica": {
+          "error": "Corpora not analyzed"
+        }
+      },
+      "historical_validations": []
+    }
+  ]
+}
