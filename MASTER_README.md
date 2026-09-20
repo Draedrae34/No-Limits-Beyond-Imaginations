@@ -28,20 +28,11 @@ Silent-Spirits-Legacy/
 │   ├── brothers-remembrance.html
 │   └── ...                   # Supporting CSS/JS files
 │
-├── research/                  # YOUR BRAND (public, deployable)
-│   ├── whitepaper.md         # Academic paper (submit to arXiv)
-│   ├── blueprint.md          # Complete reproduction guide
-│   ├── social-media-posts.md # Ready-to-publish content
-│   ├── concept-graph.html    # Interactive semantic network engine
-│   ├── chakra-visualizer.html # Sacred geometry GPU shader engine
-│   ├── meditation-app.html   # Binaural beat synthesizer
-│   ├── dashboard.html        # Unified research dashboard
-│   └── outputs/              # Key findings (PNGs, JSON)
-│       ├── enoch_dendrogram.png
-│       ├── enoch_pca.png
-│       ├── enoch_tsne.png
-│       ├── sentence_transformer_analysis.json
-│       └── stylometry_results.json
+├── whitepaper-submission/        # CANONICAL PAPER PACKAGE
+│   ├── WHITEPAPER.md            # Your complete paper — submit to arXiv
+│   ├── DISCOVERY.md             # Complete discovery narrative
+│   ├── PRIOR_ART.md             # Timestamp and IP baseline record
+│   └── EVIDENCE_INDEX.md        # Verified claim-to-file registry
 │
 ├── bible-analysis/           # DEEP RESEARCH (PRIVATE — gitignored)
 │   ├── bible_analysis.py     # Core analysis pipeline
@@ -61,7 +52,7 @@ Silent-Spirits-Legacy/
 │   ├── BLUEPRINT.md
 │   ├── SOCIAL_MEDIA_POSTS.md
 │   ├── dashboard.html
-│   ├── concept_graph.html
+│   ├── concept_graph.html       # Interactive semantic network (root-level)
 │   │
 │   ├── outputs/              # All analysis results (23 files)
 │   │   ├── stylometry_results.json
@@ -161,13 +152,13 @@ Silent-Spirits-Legacy/
 ## Your Action Plan
 
 ### Phase 1: Establish Authority (This Week)
-1. Submit `research/whitepaper.md` to arXiv or SSRN
+1. Submit `whitepaper-submission/WHITEPAPER.md` to arXiv or SSRN
 2. Post the social media content from `research/social-media-posts.md`
 3. Deploy `public/index.html` as your landing page
 
 ### Phase 2: Build Audience (Weeks 2-4)
 1. Post 3x per week using scheduled content
-2. Share `research/concept-graph.html` as interactive proof
+2. Share `concept_graph.html` as interactive proof
 3. Pitch podcasts, YouTube channels, documentary makers
 
 ### Phase 3: Monetize (Month 2+)
@@ -192,12 +183,13 @@ Silent-Spirits-Legacy/
 
 | File | Purpose |
 |------|---------|
-| `research/whitepaper.md` | Your academic paper — submit to arXiv |
+| `whitepaper-submission/WHITEPAPER.md` | Your complete paper — submit to arXiv |
 | `research/blueprint.md` | Complete reproduction guide |
 | `research/social-media-posts.md` | Copy-paste posts for Twitter, Reddit, LinkedIn |
 | `research/concept-graph.html` | Interactive semantic network (show this to everyone) |
 | `research/chakra-visualizer.html` | Sacred geometry engine (wow factor) |
 | `research/meditation-app.html` | Binaural beat studio (product potential) |
+| `whitepaper-submission/EVIDENCE_INDEX.md` | Verified claim-to-file registry |
 
 ---
 

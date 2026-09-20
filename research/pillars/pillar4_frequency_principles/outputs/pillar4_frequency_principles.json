@@ -1,6 +1,6 @@
 {
   "pillar": "Pillar 4: Frequency Principles in Ancient Texts",
-  "generated": "2026-09-01T15:06:33.198777Z",
+  "generated": "2026-09-19T17:50:12.670706Z",
   "principles": [
     {
       "name": "Divine Sound Creates",
@@ -38,12 +38,12 @@
         }
       ],
       "texts_found_in": [
-        "Nag Hammadi Library",
+        "KJV Bible",
         "Gospel of Thomas",
         "Corpus Hermeticum",
-        "Book of Enoch",
-        "KJV Bible",
-        "Dead Sea Scrolls"
+        "Dead Sea Scrolls",
+        "Nag Hammadi Library",
+        "Book of Enoch"
       ],
       "frequency": 1675,
       "confidence": 0.85
@@ -84,12 +84,12 @@
         }
       ],
       "texts_found_in": [
-        "Nag Hammadi Library",
+        "KJV Bible",
         "Gospel of Thomas",
         "Corpus Hermeticum",
-        "Book of Enoch",
-        "KJV Bible",
-        "Dead Sea Scrolls"
+        "Dead Sea Scrolls",
+        "Nag Hammadi Library",
+        "Book of Enoch"
       ],
       "frequency": 2664,
       "confidence": 0.85
@@ -130,12 +130,12 @@
         }
       ],
       "texts_found_in": [
-        "Nag Hammadi Library",
+        "KJV Bible",
         "Gospel of Thomas",
         "Corpus Hermeticum",
-        "Book of Enoch",
-        "KJV Bible",
-        "Dead Sea Scrolls"
+        "Dead Sea Scrolls",
+        "Nag Hammadi Library",
+        "Book of Enoch"
       ],
       "frequency": 751,
       "confidence": 0.85
@@ -176,12 +176,12 @@
         }
       ],
       "texts_found_in": [
-        "Nag Hammadi Library",
+        "KJV Bible",
         "Gospel of Thomas",
         "Corpus Hermeticum",
-        "Book of Enoch",
-        "KJV Bible",
-        "Dead Sea Scrolls"
+        "Dead Sea Scrolls",
+        "Nag Hammadi Library",
+        "Book of Enoch"
       ],
       "frequency": 2524,
       "confidence": 0.85
@@ -222,12 +222,12 @@
         }
       ],
       "texts_found_in": [
-        "Nag Hammadi Library",
+        "KJV Bible",
         "Gospel of Thomas",
         "Corpus Hermeticum",
-        "Book of Enoch",
-        "KJV Bible",
-        "Dead Sea Scrolls"
+        "Dead Sea Scrolls",
+        "Nag Hammadi Library",
+        "Book of Enoch"
       ],
       "frequency": 718,
       "confidence": 0.85
@@ -268,12 +268,12 @@
         }
       ],
       "texts_found_in": [
-        "Nag Hammadi Library",
+        "KJV Bible",
         "Gospel of Thomas",
         "Corpus Hermeticum",
-        "Book of Enoch",
-        "KJV Bible",
-        "Dead Sea Scrolls"
+        "Dead Sea Scrolls",
+        "Nag Hammadi Library",
+        "Book of Enoch"
       ],
       "frequency": 975,
       "confidence": 0.85
@@ -314,12 +314,12 @@
         }
       ],
       "texts_found_in": [
-        "Nag Hammadi Library",
+        "KJV Bible",
         "Gospel of Thomas",
         "Corpus Hermeticum",
-        "Book of Enoch",
-        "KJV Bible",
-        "Dead Sea Scrolls"
+        "Dead Sea Scrolls",
+        "Nag Hammadi Library",
+        "Book of Enoch"
       ],
       "frequency": 1535,
       "confidence": 0.85

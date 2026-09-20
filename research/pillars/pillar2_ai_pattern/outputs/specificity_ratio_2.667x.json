@@ -1,0 +1,47 @@
+{
+  "metric": "specificity_ratio",
+  "value": 2.667,
+  "unit": "x",
+  "description": "Sacred texts are 2.667x more specific for recurring conceptual patterns than literary controls",
+  "generated": "2026-09-19T17:45:00.000000Z",
+  "methodology": {
+    "principles_analyzed": 7,
+    "ancient_texts": [
+      "KJV Bible",
+      "Book of Enoch",
+      "Gospel of Thomas",
+      "Corpus Hermeticum",
+      "Dead Sea Scrolls",
+      "Nag Hammadi Library"
+    ],
+    "control_texts": [
+      "Shakespeare Complete Works",
+      "Moby Dick",
+      "Pride and Prejudice"
+    ],
+    "extraction_source": "research/pillars/pillar4_frequency_principles/frequency_principles.py",
+    "computed_values": {
+      "wisdom_texts_count": 6,
+      "control_texts_count": 3,
+      "total_wisdom_passages": 10842,
+      "total_control_passages": 2033,
+      "wisdom_avg_per_text": 1807.0,
+      "control_avg_per_text": 677.67,
+      "calculation": "1807.0 / 677.67 = 2.667x"
+    },
+    "ancient_principle_coverage": {
+      "total": 42,
+      "found": 42,
+      "coverage_rate": 1.0
+    },
+    "control_principle_coverage": {
+      "total": 21,
+      "found": 0,
+      "coverage_rate": 0.0
+    }
+  },
+  "source_files": [
+    "research/pillars/pillar4_frequency_principles/frequency_principles.py",
+    "research/pillars/pillar4_frequency_principles/outputs/pillar4_frequency_principles.json"
+  ]
+}

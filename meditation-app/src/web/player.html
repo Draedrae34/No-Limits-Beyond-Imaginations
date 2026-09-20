@@ -3934,18 +3934,20 @@ The 7 scrolls are the 7 gates are the 7 principles are the 7 frequency anchors. 
                     document.getElementById('statusBar').textContent = 'Playing... Breathe slowly. (6s in, 6s out)';
                     document.body.classList.add('temple-active');
                     updateGalaxyVisualization();
+                    startVisualization();
                     document.getElementById('breathGuide').style.display = 'flex';
                     document.getElementById('breathGuide').classList.add('active');
                     AudioEngine.markSessionStart(audioElement.currentTime || 0);
                     AudioEngine.startSessionClock(updateSessionClock);
                     try {
-                        // Native fullscreen must originate from the explicit Fullscreen button click.
                         const fb = document.getElementById('fullscreenBtn');
                         if (fb) fb.textContent = isImmersive ? 'Exit Fullscreen' : '⤢ Fullscreen';
                     } catch (e) { /* ignore */ }
                 }).catch(err => {
                     document.getElementById('statusBar').textContent = 'Tap Play again to start. (Mobile requires user gesture)';
                 });
+            } else {
+                startVisualization();
             }
         }
 

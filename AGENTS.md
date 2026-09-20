@@ -19,14 +19,18 @@ Build a god-tier local-first galaxy-themed frequency meditation app around locke
 ## Key Files
 - `meditation-app/src/web/player.html` — main app experience
 - `meditation-app/src/web/server.py` — local server
+- `whitepaper-submission/EVIDENCE_INDEX.md` — verified claim-to-file registry
 - `meditation-app/outputs/master_manifest.json` — 63 sessions catalog
 - `DISCOVERY.md` — full discovery narrative and scientific foundation
-- `WHITEPAPER.md` — SSRN-submitted whitepaper
+- `whitepaper-submission/WHITEPAPER.md` — SSRN-submitted whitepaper
 
 ## User Preferences
 - Direct execution, no lecture
 - Do not ask unnecessary questions
 - Preserve audio/frequency/manifest invariants at all costs
+- Do not create duplicate whitepaper copies; use `whitepaper-submission/WHITEPAPER.md` as the single source of truth
+- Verify every claim against `whitepaper-submission/EVIDENCE_INDEX.md` before editing the paper
+- Do not move, rename, or delete research outputs without updating the evidence index and all references
 - Make the app feel alive, galaxy-based, and god-tier
 - Fullscreen video player must work
 - Include beginner guidance and chakra education
