@@ -559,16 +559,147 @@
             return { group, barGroup };
         }
 
-        // ============ SCENE SWITCHING ============
+        // ---------- SCENE 6: Ambient Flow ----------
+        function createAmbientFlow() {
+            const group = new THREE.Group();
+            const count = 12000;
+            const positions = new Float32Array(count * 3);
+            const colors = new Float32Array(count * 3);
+            const sizes = new Float32Array(count);
+            const randoms = new Float32Array(count);
+            const palette = getChakraPalette(currentChakra);
+
+            for (let i = 0; i < count; i++) {
+                const theta = random.next() * Math.PI * 2;
+                const phi = Math.acos(2 * random.next() - 1);
+                const radius = random.range(1.5, 18);
+                positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+                positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+                positions[i * 3 + 2] = radius * Math.cos(phi);
+
+                const colorChoice = random.next();
+                let c;
+                if (colorChoice < 0.4) c = palette.base;
+                else if (colorChoice < 0.75) c = palette.mid;
+                else c = palette.accent;
+
+                colors[i * 3] = c.r;
+                colors[i * 3 + 1] = c.g;
+                colors[i * 3 + 2] = c.b;
+                sizes[i] = random.range(0.03, 0.18);
+                randoms[i] = random.next();
+            }
+
+            const geo = new THREE.BufferGeometry();
+            geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+            geo.setAttribute('aRandom', new THREE.BufferAttribute(randoms, 1));
+
+            const mat = new THREE.ShaderMaterial({
+                uniforms: { time: uniforms.time },
+                vertexShader: `
+                    attribute float size;
+                    attribute float aRandom;
+                    varying vec3 vColor;
+                    varying float vAlpha;
+                    uniform float time;
+                    void main() {
+                        vColor = color;
+                        vec3 pos = position;
+                        float wave = sin(time * 0.35 + aRandom * 8.0) * 0.35;
+                        pos += normalize(pos) * wave;
+                        vAlpha = 0.45 + 0.35 * sin(time * 0.7 + aRandom * 6.28);
+                        vec4 mv = modelViewMatrix * vec4(pos, 1.0);
+                        gl_PointSize = size * (260.0 / -mv.z);
+                        gl_Position = projectionMatrix * mv;
+                    }
+                `,
+                fragmentShader: `
+                    varying vec3 vColor;
+                    varying float vAlpha;
+                    void main() {
+                        float d = length(gl_PointCoord - 0.5);
+                        if (d > 0.5) discard;
+                        float a = smoothstep(0.5, 0.0, d) * vAlpha * 0.65;
+                        gl_FragColor = vec4(vColor, a);
+                    }
+                `,
+                transparent: true,
+                vertexColors: true,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
+            });
+
+            const particles = new THREE.Points(geo, mat);
+            group.add(particles);
+            scene.add(group);
+            sceneObjects.push(group);
+            return { group, particles, material: mat };
+        }
+
+        // ---------- SCENE 7: Soft Mandala ----------
+        function createSoftMandala() {
+            const group = new THREE.Group();
+            const rings = 10;
+            const segments = 220;
+            const palette = getChakraPalette(currentChakra);
+
+            for (let r = 0; r < rings; r++) {
+                const baseRadius = 1.2 + r * 0.55;
+                const points = [];
+                for (let i = 0; i <= segments; i++) {
+                    const angle = (i / segments) * Math.PI * 2;
+                    const wobble = Math.sin(angle * (r + 2) * 2 + random.next() * 18) * 0.22;
+                    const r2 = baseRadius + wobble;
+                    points.push(new THREE.Vector3(Math.cos(angle) * r2, Math.sin(angle) * r2, 0));
+                }
+                const geo = new THREE.BufferGeometry().setFromPoints(points);
+                const hue = (r / rings + CONFIG.seed * 0.0002) % 1;
+                const color = new THREE.Color().setHSL(hue, 0.75, 0.55);
+                const mat = new THREE.LineBasicMaterial({
+                    color: color,
+                    transparent: true,
+                    opacity: 0.25 + r * 0.025,
+                    blending: THREE.AdditiveBlending
+                });
+                const ring = new THREE.Line(geo, mat);
+                ring.rotation.z = r * 0.08;
+                group.add(ring);
+                sceneObjects.push(ring);
+            }
+
+            const centers = [[0,0],[1,0],[0.5,0.866],[-0.5,0.866],[-1,0],[-0.5,-0.866],[0.5,-0.866]];
+            centers.forEach((pos, i) => {
+                const geo = new THREE.RingGeometry(0.4, 0.43, 64);
+                const mat = new THREE.MeshBasicMaterial({
+                    color: palette.accent,
+                    transparent: true,
+                    opacity: 0.3,
+                    side: THREE.DoubleSide,
+                    blending: THREE.AdditiveBlending
+                });
+                const mesh = new THREE.Mesh(geo, mat);
+                mesh.position.set(pos[0] * 0.8, pos[1] * 0.8, 0);
+                group.add(mesh);
+                sceneObjects.push(mesh);
+            });
+
+            scene.add(group);
+            sceneObjects.push(group);
+            return { group };
+        }
         const sceneGenerators = [
             createNebulaGenesis,
             createAccretionVortex,
             createMorphingMandala,
             createParticleGenesis,
             createTorusField,
-            createFrequencyCurrent
+            createFrequencyCurrent,
+            createAmbientFlow,
+            createSoftMandala
         ];
-        const sceneNames = ['Nebula Genesis', 'Accretion Vortex', 'Morphing Mandala', 'Particle Genesis', 'Torus Field', 'Frequency Current'];
+        const sceneNames = ['Nebula Genesis', 'Accretion Vortex', 'Morphing Mandala', 'Particle Genesis', 'Torus Field', 'Frequency Current', 'Ambient Flow', 'Soft Mandala'];
 
         function switchScene(index) {
             if (index === currentSceneIndex && sceneObjects.length > 0) return;
@@ -596,7 +727,7 @@
             }
         }
 
-        switchScene(0);
+        switchScene(6);
 
         // ============ ANIMATION LOOP ============
         let lastTime = performance.now();
@@ -623,8 +754,8 @@
                 if (chakraIndex !== currentChakraIndex) {
                     currentChakraIndex = chakraIndex;
                     switchChakra(CHAKRA_ORDER[chakraIndex]);
-                    // Regenerate scene with new chakra
-                    switchScene(currentSceneIndex);
+                    const nextScene = (currentSceneIndex + 1) % sceneGenerators.length;
+                    switchScene(nextScene);
                 }
             }
 
@@ -638,8 +769,8 @@
             }
 
             // Subtle camera movement
-            camera.position.x = Math.sin(time * 0.1) * 0.5 + mouseX * 0.001;
-            camera.position.y = Math.cos(time * 0.15) * 0.3 + mouseY * 0.001;
+            camera.position.x = Math.sin(time * 0.06) * 0.35 + mouseX * 0.0008;
+            camera.position.y = Math.cos(time * 0.08) * 0.25 + mouseY * 0.0008;
             camera.lookAt(0, 0, 0);
 
             // Update uniforms
@@ -650,24 +781,38 @@
             if (currentSceneIndex === 4 && sceneObjects[0]) {
                 sceneObjects[0].children.forEach(torus => {
                     if (torus.userData.rotSpeed) {
-                        torus.rotation.x += torus.userData.rotSpeed.x;
-                        torus.rotation.y += torus.userData.rotSpeed.y;
+                        torus.rotation.x += torus.userData.rotSpeed.x * 0.6;
+                        torus.rotation.y += torus.userData.rotSpeed.y * 0.6;
                     }
                 });
             }
 
             if (currentSceneIndex === 5 && sceneObjects[0]) {
-                const t = time * 2;
+                const t = time * 1.2;
                 sceneObjects[0].children.forEach((bar, i) => {
-                    const scale = 1 + Math.sin(t + i * 0.4) * 1.5 + Math.sin(t * 2.3 + i * 0.7) * 0.5;
-                    bar.scale.y = Math.max(0.2, scale);
-                    bar.material.color.setHSL((i / 180 + time * 0.08) % 1, 0.85, 0.5);
+                    const scale = 1 + Math.sin(t + i * 0.35) * 0.9 + Math.sin(t * 1.7 + i * 0.55) * 0.35;
+                    bar.scale.y = Math.max(0.3, scale);
+                    bar.material.color.setHSL((i / 180 + time * 0.04) % 1, 0.75, 0.5);
+                });
+            }
+
+            if (currentSceneIndex === 6 && sceneObjects[0] && sceneObjects[0].children[0]) {
+                const particleSystem = sceneObjects[0].children[0];
+                if (particleSystem && particleSystem.material && particleSystem.material.uniforms) {
+                    particleSystem.material.uniforms.time.value = time * 0.8;
+                }
+            }
+
+            if (currentSceneIndex === 7 && sceneObjects[0]) {
+                sceneObjects[0].children.forEach((ring, i) => {
+                    ring.rotation.z += 0.0004 * (i % 2 === 0 ? 1 : -1);
+                    ring.material.opacity = 0.2 + Math.sin(time * 0.25 + i) * 0.08;
                 });
             }
 
             // Dynamic bloom
-            bloomPass.strength = 1.5 + Math.sin(time * 0.5) * 0.3;
-            postPass.uniforms.intensity.value = 0.002 + Math.sin(time * 0.3) * 0.001;
+            bloomPass.strength = 1.25 + Math.sin(time * 0.35) * 0.25;
+            postPass.uniforms.intensity.value = 0.0018 + Math.sin(time * 0.2) * 0.0008;
 
             composer.render();
         }
