@@ -6,9 +6,10 @@ Fixes the three reviewer objections to the raw 2.667x ratio:
 
 1. NORMALIZATION  - hit rates are computed per equal-sized 10,000-word chunk,
    so text length and corpus size no longer matter.
-2. NULL BASELINE  - a permutation test shuffles each text's word order,
-   destroying semantic co-occurrence structure while preserving vocabulary
-   and frequencies. The observed metric is compared against this null.
+2. NULL BASELINE  - a label-permutation test reassigns wisdom/control labels
+   across equal-sized chunks, destroying the group structure while preserving
+   each text's vocabulary and word frequencies. The observed metric is
+   compared against this null.
 3. SIGNIFICANCE   - Mann-Whitney U on per-chunk rates (ancient vs. control),
    plus an effect size (Cliff's delta) and bootstrap 95% CI on the ratio.
 
@@ -134,8 +135,8 @@ def cliffs_delta(a, b):
     """Nonparametric effect size: P(a > b) - P(a < b)."""
     import bisect
     bs = sorted(b)
-    gt = sum(len(bs) - bisect.bisect_right(bs, v) for v in a)
-    lt = sum(bisect.bisect_left(bs, v) for v in a)
+    gt = sum(bisect.bisect_left(bs, v) for v in a)             # count(a > b)
+    lt = sum(len(bs) - bisect.bisect_right(bs, v) for v in a)  # count(a < b)
     return (gt - lt) / (len(a) * len(b))
 
 
@@ -221,6 +222,10 @@ def main():
             "small" if abs(delta) < 0.33 else
             "medium" if abs(delta) < 0.474 else "large"),
         "per_text_detail": per_text,
+        "caveats": [
+            "Gospel of Thomas (~2.6k words) is shorter than one 10,000-word chunk and contributes no chunks",
+            "KJV Bible contributes 79 of 128 wisdom chunks (largest corpus dominates the pooled mean)",
+        ],
         "conclusion": (
             f"Ancient wisdom texts show a keyword hit-rate of "
             f"{ratio:.2f}x control literature (95% CI {lo:.2f}-{hi:.2f}); "
