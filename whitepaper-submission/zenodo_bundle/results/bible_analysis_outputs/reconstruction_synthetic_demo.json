@@ -1,0 +1,38 @@
+[
+  {
+    "context_before": ". \u2039 \u203a. The use of these brackets means that the words so enclosed are restored. ",
+    "context_after": ". The use of these brackets means that the words so enclosed are interpolations.",
+    "suggestions": [
+      {
+        "word": "the",
+        "confidence": 1,
+        "gap_length": 1,
+        "context_before": [
+          "enclosed",
+          "are",
+          "restored"
+        ],
+        "context_after": [
+          "the",
+          "use",
+          "of"
+        ]
+      },
+      {
+        "word": "the",
+        "confidence": 1,
+        "gap_length": 2,
+        "context_before": [
+          "enclosed",
+          "are",
+          "restored"
+        ],
+        "context_after": [
+          "the",
+          "use",
+          "of"
+        ]
+      }
+    ]
+  }
+]

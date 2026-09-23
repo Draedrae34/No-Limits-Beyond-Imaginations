@@ -1,0 +1,1224 @@
+{
+  "corpus_name": "book_of_enoch",
+  "total_segments": 379,
+  "letter_reversal": {
+    "total_letters": 157453,
+    "reversed_length": 157453,
+    "sample_reversed": "decnerefererayehthcihwnisretpahcehtwollofotdevomneebevahsetontoofsgekilstekcarbylrucnidesolcneeratpircsrepusnisretcarahcelpitlumsgylpmissitpircsrepusretcarahcelgnisangisteracaybdedecerpsitpircsrepusnisawtahttxetdlobsngisslauqeybdesolcnesiecafdlobnisawtahttxetscilatiserocsrednuybdesolcnesiscilatinisawtahttxetsetonsrebircsnartyagnubdtlynapmocdnayalcdrahcirybniatirbtaergnidetnirpmehtrofdebircserperasnosaesdnasyaderehwogllahsdeedniyehtdnatnednelpsermehteesdnaduolayrcllahssrennisehtdnatnednelpserebll",
+    "common_word_fragments": {
+      "man": {
+        "forward_count": 318,
+        "reversed_count": 116
+      },
+      "god": {
+        "forward_count": 65,
+        "reversed_count": 7
+      },
+      "end": {
+        "forward_count": 126,
+        "reversed_count": 21
+      },
+      "life": {
+        "forward_count": 34,
+        "reversed_count": 17
+      },
+      "love": {
+        "forward_count": 18,
+        "reversed_count": 8
+      },
+      "son": {
+        "forward_count": 168,
+        "reversed_count": 6
+      },
+      "word": {
+        "forward_count": 64,
+        "reversed_count": 1
+      }
+    }
+  },
+  "word_reversal": {
+    "total_words": 37629,
+    "sample_reversed": "referenced are they which in chapters the follow to moved been have Footnotes Gs like brackets curly in enclosed are superscript in characters multiple Gs simply is superscript character single A sign caret a by preceded is superscript in was that Text bold signs equals by enclosed is face bold",
+    "common_word_pairs_in_reversed": [
+      [
+        "the of",
+        695
+      ],
+      [
+        "the and",
+        460
+      ],
+      [
+        "the in",
+        263
+      ],
+      [
+        "earth the",
+        209
+      ],
+      [
+        "the all",
+        208
+      ],
+      [
+        "be shall",
+        204
+      ],
+      [
+        "lord the",
+        194
+      ],
+      [
+        "the to",
+        189
+      ],
+      [
+        "i and",
+        171
+      ],
+      [
+        "of lord",
+        164
+      ],
+      [
+        "they and",
+        155
+      ],
+      [
+        "saw i",
+        154
+      ],
+      [
+        "the on",
+        151
+      ],
+      [
+        "all and",
+        128
+      ],
+      [
+        "and earth",
+        106
+      ],
+      [
+        "and them",
+        103
+      ],
+      [
+        "righteous the",
+        95
+      ],
+      [
+        "he and",
+        94
+      ],
+      [
+        "spirits of",
+        94
+      ],
+      [
+        "in and",
+        89
+      ]
+    ]
+  },
+  "verse_reversal": {
+    "verses_analyzed": 379,
+    "readable_samples_count": 365,
+    "sample_entries": [
+      {
+        "reference": "Enoch Chapter of:4",
+        "letter_reversed": "fonevaehehtmorfthgimsihfohtgnertsehtniraeppadnapma",
+        "word_reversed": "of heaven the from might His of strength the in appear And camp His from appear And Mount on even ea"
+      },
+      {
+        "reference": "Enoch Chapter of:5",
+        "letter_reversed": "fosdneehtotnumehteziesllahsgnilbmertdnaraeftaergdn",
+        "word_reversed": "of ends the unto them seize shall trembling and fear great And quake shall Watchers the And fear wit"
+      },
+      {
+        "reference": "Enoch Chapter of:6",
+        "letter_reversed": "emalfehterofebxawekiltlemllahsdnawoledamebllahssll",
+        "word_reversed": "flame the before wax like melt shall And low made be shall hills high the And shaken be shall mounta"
+      },
+      {
+        "reference": "Enoch Chapter of:7",
+        "letter_reversed": "nemllanoputnemegdujaebllahserehtdnahsirepllahshtra",
+        "word_reversed": "men all upon judgement a be shall there And perish shall earth the upon is that all And sunder in re"
+      },
+      {
+        "reference": "Enoch Chapter of:8",
+        "letter_reversed": "mehthtiwecaepekamlliwehdnamehtotnuraeppallahsthgil",
+        "word_reversed": "them with peace make will He And them unto appear shall light And all them help will He And blessed "
+      },
+      {
+        "reference": "Enoch Chapter of:9",
+        "letter_reversed": "osmehtedamhtahreverofhteviltahtehwohezingocerdnask",
+        "word_reversed": "so them made hath ever for liveth that He how recognize and works His all to regard with know and he"
+      },
+      {
+        "reference": "Enoch Chapter of:2",
+        "letter_reversed": "enodtisiosdeniadrohtahdogsagnidroccatubtonegnahcsk",
+        "word_reversed": "done it is so ordained hath God as according but not change tasks their and Him for accomplish they "
+      },
+      {
+        "reference": "Enoch Chapter of:3",
+        "letter_reversed": "stnemdnammocsihmorfsksatriehttonegnahcdnahsilpmocc",
+        "word_reversed": "commandments His from tasks their not change and accomplish manner like in rivers the and sea the ho"
+      },
+      {
+        "reference": "Enoch Chapter of:4",
+        "letter_reversed": "ecaepondnifllahseydetraehdraheyhossentaergsihtsnia",
+        "word_reversed": "peace no find shall ye hardhearted ye Oh greatness His against mouths impure your With words hard an"
+      },
+      {
+        "reference": "Enoch Chapter of:5",
+        "letter_reversed": "htraeehttirehnillahsyehtdnabecaepdnaecargdnathgile",
+        "word_reversed": "earth the inherit shall they And b peace and grace and light be shall there elect the for But a curs"
+      }
+    ]
+  },
+  "plant_growth": {
+    "sections": [
+      "Enoch Chapter"
+    ],
+    "new_words_per_section": {
+      "Enoch Chapter": {
+        "total_unique_words": 2914,
+        "new_words_injected": 2914,
+        "new_word_samples": [
+          "moved",
+          "waters",
+          "samjz",
+          "oh",
+          "powerful",
+          "delights",
+          "teach",
+          "associated",
+          "lest",
+          "thirsty"
+        ]
+      }
+    },
+    "total_unique_words": 2914,
+    "growth_pattern": [
+      [
+        "Enoch Chapter",
+        2914
+      ]
+    ]
+  },
+  "network_shadow": {
+    "total_entities_found": 34,
+    "super_hubs": [
+      {
+        "name": "Eve",
+        "total_mentions": 129,
+        "unique_connections": 29,
+        "total_connectivity": 503,
+        "top_connections": [
+          [
+            "Lord",
+            59
+          ],
+          [
+            "Earth",
+            52
+          ],
+          [
+            "Spirit",
+            47
+          ],
+          [
+            "Heaven",
+            43
+          ],
+          [
+            "Angel",
+            35
+          ]
+        ]
+      },
+      {
+        "name": "Lord",
+        "total_mentions": 112,
+        "unique_connections": 31,
+        "total_connectivity": 482,
+        "top_connections": [
+          [
+            "Spirit",
+            68
+          ],
+          [
+            "Eve",
+            59
+          ],
+          [
+            "Earth",
+            51
+          ],
+          [
+            "Heaven",
+            31
+          ],
+          [
+            "Holy",
+            30
+          ]
+        ]
+      },
+      {
+        "name": "Earth",
+        "total_mentions": 107,
+        "unique_connections": 29,
+        "total_connectivity": 469,
+        "top_connections": [
+          [
+            "Eve",
+            52
+          ],
+          [
+            "Lord",
+            51
+          ],
+          [
+            "Heaven",
+            42
+          ],
+          [
+            "Spirit",
+            39
+          ],
+          [
+            "Angel",
+            37
+          ]
+        ]
+      },
+      {
+        "name": "Spirit",
+        "total_mentions": 98,
+        "unique_connections": 26,
+        "total_connectivity": 423,
+        "top_connections": [
+          [
+            "Lord",
+            68
+          ],
+          [
+            "Eve",
+            47
+          ],
+          [
+            "Earth",
+            39
+          ],
+          [
+            "Angel",
+            32
+          ],
+          [
+            "Heaven",
+            30
+          ]
+        ]
+      },
+      {
+        "name": "Heaven",
+        "total_mentions": 77,
+        "unique_connections": 26,
+        "total_connectivity": 382,
+        "top_connections": [
+          [
+            "Eve",
+            43
+          ],
+          [
+            "Earth",
+            42
+          ],
+          [
+            "Holy",
+            32
+          ],
+          [
+            "Lord",
+            31
+          ],
+          [
+            "Angel",
+            31
+          ]
+        ]
+      },
+      {
+        "name": "Angel",
+        "total_mentions": 70,
+        "unique_connections": 28,
+        "total_connectivity": 396,
+        "top_connections": [
+          [
+            "Angels",
+            53
+          ],
+          [
+            "Earth",
+            37
+          ],
+          [
+            "Eve",
+            35
+          ],
+          [
+            "Spirit",
+            32
+          ],
+          [
+            "Heaven",
+            31
+          ]
+        ]
+      },
+      {
+        "name": "Holy",
+        "total_mentions": 58,
+        "unique_connections": 26,
+        "total_connectivity": 314,
+        "top_connections": [
+          [
+            "Heaven",
+            32
+          ],
+          [
+            "Lord",
+            30
+          ],
+          [
+            "Earth",
+            29
+          ],
+          [
+            "Eve",
+            27
+          ],
+          [
+            "Spirit",
+            27
+          ]
+        ]
+      },
+      {
+        "name": "Son",
+        "total_mentions": 56,
+        "unique_connections": 28,
+        "total_connectivity": 260,
+        "top_connections": [
+          [
+            "Eve",
+            28
+          ],
+          [
+            "Earth",
+            24
+          ],
+          [
+            "Lord",
+            23
+          ],
+          [
+            "Angel",
+            21
+          ],
+          [
+            "Holy",
+            17
+          ]
+        ]
+      },
+      {
+        "name": "Angels",
+        "total_mentions": 53,
+        "unique_connections": 28,
+        "total_connectivity": 334,
+        "top_connections": [
+          [
+            "Angel",
+            53
+          ],
+          [
+            "Earth",
+            31
+          ],
+          [
+            "Eve",
+            28
+          ],
+          [
+            "Heaven",
+            24
+          ],
+          [
+            "Holy",
+            22
+          ]
+        ]
+      },
+      {
+        "name": "Light",
+        "total_mentions": 42,
+        "unique_connections": 22,
+        "total_connectivity": 219,
+        "top_connections": [
+          [
+            "Eve",
+            26
+          ],
+          [
+            "Lord",
+            22
+          ],
+          [
+            "Heaven",
+            22
+          ],
+          [
+            "Spirit",
+            20
+          ],
+          [
+            "Earth",
+            19
+          ]
+        ]
+      },
+      {
+        "name": "Glory",
+        "total_mentions": 42,
+        "unique_connections": 25,
+        "total_connectivity": 198,
+        "top_connections": [
+          [
+            "Lord",
+            24
+          ],
+          [
+            "Eve",
+            22
+          ],
+          [
+            "Spirit",
+            20
+          ],
+          [
+            "Earth",
+            18
+          ],
+          [
+            "Angel",
+            13
+          ]
+        ]
+      },
+      {
+        "name": "God",
+        "total_mentions": 36,
+        "unique_connections": 26,
+        "total_connectivity": 201,
+        "top_connections": [
+          [
+            "Earth",
+            23
+          ],
+          [
+            "Eve",
+            20
+          ],
+          [
+            "Heaven",
+            16
+          ],
+          [
+            "Lord",
+            14
+          ],
+          [
+            "Holy",
+            13
+          ]
+        ]
+      },
+      {
+        "name": "Power",
+        "total_mentions": 29,
+        "unique_connections": 24,
+        "total_connectivity": 145,
+        "top_connections": [
+          [
+            "Lord",
+            15
+          ],
+          [
+            "Eve",
+            15
+          ],
+          [
+            "Heaven",
+            13
+          ],
+          [
+            "Spirit",
+            13
+          ],
+          [
+            "Earth",
+            12
+          ]
+        ]
+      },
+      {
+        "name": "Enoch",
+        "total_mentions": 28,
+        "unique_connections": 26,
+        "total_connectivity": 207,
+        "top_connections": [
+          [
+            "Earth",
+            18
+          ],
+          [
+            "Eve",
+            18
+          ],
+          [
+            "Angel",
+            16
+          ],
+          [
+            "Lord",
+            16
+          ],
+          [
+            "Heaven",
+            15
+          ]
+        ]
+      },
+      {
+        "name": "Wisdom",
+        "total_mentions": 26,
+        "unique_connections": 24,
+        "total_connectivity": 98,
+        "top_connections": [
+          [
+            "Eve",
+            12
+          ],
+          [
+            "Spirit",
+            12
+          ],
+          [
+            "Lord",
+            9
+          ],
+          [
+            "God",
+            6
+          ],
+          [
+            "Holy",
+            6
+          ]
+        ]
+      },
+      {
+        "name": "Darkness",
+        "total_mentions": 20,
+        "unique_connections": 22,
+        "total_connectivity": 108,
+        "top_connections": [
+          [
+            "Eve",
+            12
+          ],
+          [
+            "Spirit",
+            11
+          ],
+          [
+            "Light",
+            10
+          ],
+          [
+            "Lord",
+            9
+          ],
+          [
+            "Heaven",
+            9
+          ]
+        ]
+      },
+      {
+        "name": "Father",
+        "total_mentions": 18,
+        "unique_connections": 26,
+        "total_connectivity": 127,
+        "top_connections": [
+          [
+            "Earth",
+            12
+          ],
+          [
+            "Son",
+            12
+          ],
+          [
+            "Lord",
+            12
+          ],
+          [
+            "Enoch",
+            11
+          ],
+          [
+            "Spirit",
+            9
+          ]
+        ]
+      },
+      {
+        "name": "Tat",
+        "total_mentions": 17,
+        "unique_connections": 27,
+        "total_connectivity": 120,
+        "top_connections": [
+          [
+            "Eve",
+            12
+          ],
+          [
+            "Earth",
+            11
+          ],
+          [
+            "Lord",
+            11
+          ],
+          [
+            "Son",
+            8
+          ],
+          [
+            "Heaven",
+            8
+          ]
+        ]
+      },
+      {
+        "name": "Michael",
+        "total_mentions": 13,
+        "unique_connections": 23,
+        "total_connectivity": 110,
+        "top_connections": [
+          [
+            "Angel",
+            12
+          ],
+          [
+            "Angels",
+            11
+          ],
+          [
+            "Holy",
+            8
+          ],
+          [
+            "Earth",
+            8
+          ],
+          [
+            "Lord",
+            8
+          ]
+        ]
+      },
+      {
+        "name": "Noah",
+        "total_mentions": 7,
+        "unique_connections": 24,
+        "total_connectivity": 73,
+        "top_connections": [
+          [
+            "Earth",
+            7
+          ],
+          [
+            "Eve",
+            7
+          ],
+          [
+            "Angels",
+            6
+          ],
+          [
+            "Angel",
+            6
+          ],
+          [
+            "Heaven",
+            5
+          ]
+        ]
+      }
+    ],
+    "top_entities_by_count": [
+      [
+        "Eve",
+        129
+      ],
+      [
+        "Lord",
+        112
+      ],
+      [
+        "Earth",
+        107
+      ],
+      [
+        "Spirit",
+        98
+      ],
+      [
+        "Heaven",
+        77
+      ],
+      [
+        "Angel",
+        70
+      ],
+      [
+        "Holy",
+        58
+      ],
+      [
+        "Son",
+        56
+      ],
+      [
+        "Angels",
+        53
+      ],
+      [
+        "Light",
+        42
+      ],
+      [
+        "Glory",
+        42
+      ],
+      [
+        "God",
+        36
+      ],
+      [
+        "Power",
+        29
+      ],
+      [
+        "Enoch",
+        28
+      ],
+      [
+        "Wisdom",
+        26
+      ],
+      [
+        "Darkness",
+        20
+      ],
+      [
+        "Father",
+        18
+      ],
+      [
+        "Tat",
+        17
+      ],
+      [
+        "Michael",
+        13
+      ],
+      [
+        "Noah",
+        7
+      ]
+    ]
+  },
+  "self_similarity": {
+    "total_verses": 379,
+    "average_verse_length": 99.28,
+    "std_dev_verse_length": 174.28,
+    "min_verse_length": 13,
+    "max_verse_length": 1812,
+    "autocorrelation_high_points": {
+      "1": 0.2286,
+      "2": 0.1592,
+      "30": 0.1335,
+      "32": 0.0955,
+      "11": 0.0952,
+      "4": 0.0882,
+      "28": 0.0711,
+      "17": 0.0697,
+      "39": 0.0692,
+      "41": 0.0685
+    },
+    "repeated_motifs": [
+      [
+        [
+          25,
+          48
+        ],
+        2
+      ],
+      [
+        [
+          45,
+          33
+        ],
+        2
+      ],
+      [
+        [
+          35,
+          30
+        ],
+        2
+      ],
+      [
+        [
+          41,
+          26
+        ],
+        2
+      ],
+      [
+        [
+          28,
+          22
+        ],
+        2
+      ],
+      [
+        [
+          22,
+          45
+        ],
+        2
+      ],
+      [
+        [
+          30,
+          38
+        ],
+        2
+      ],
+      [
+        [
+          48,
+          39
+        ],
+        2
+      ],
+      [
+        [
+          39,
+          41
+        ],
+        2
+      ],
+      [
+        [
+          27,
+          32
+        ],
+        2
+      ],
+      [
+        [
+          27,
+          21
+        ],
+        2
+      ],
+      [
+        [
+          28,
+          22,
+          45
+        ],
+        2
+      ]
+    ],
+    "verse_length_distribution": [
+      0,
+      0,
+      2,
+      13,
+      38,
+      54,
+      34,
+      35,
+      22,
+      25,
+      17,
+      8,
+      11,
+      8,
+      8,
+      4,
+      7,
+      2,
+      6,
+      3,
+      3,
+      3,
+      2,
+      0,
+      74
+    ],
+    "short_verses_sample": [],
+    "long_verses_sample": [
+      [
+        4,
+        56
+      ],
+      [
+        5,
+        300
+      ],
+      [
+        9,
+        152
+      ],
+      [
+        11,
+        952
+      ],
+      [
+        12,
+        54
+      ],
+      [
+        13,
+        411
+      ],
+      [
+        15,
+        114
+      ],
+      [
+        16,
+        190
+      ],
+      [
+        17,
+        97
+      ],
+      [
+        18,
+        779
+      ]
+    ]
+  },
+  "forbidden_transforms": {
+    "reverse_every_other_verse": [
+      {
+        "reference": "Enoch Chapter of:4",
+        "is_reversed": true,
+        "text": "of heaven the from might His of strength the in appear And camp His from appear And Mount on even ea"
+      },
+      {
+        "reference": "Enoch Chapter of:5",
+        "is_reversed": false,
+        "text": "And all shall be smitten with fear, And the Watchers shall quake, And great fear and trembling shall"
+      },
+      {
+        "reference": "Enoch Chapter of:6",
+        "is_reversed": true,
+        "text": "flame the before wax like melt shall And low made be shall hills high the And shaken be shall mounta"
+      },
+      {
+        "reference": "Enoch Chapter of:7",
+        "is_reversed": false,
+        "text": "And the earth shall be \u231cwholly\u231d rent in sunder, And all that is upon the earth shall perish, And the"
+      },
+      {
+        "reference": "Enoch Chapter of:8",
+        "is_reversed": true,
+        "text": "them with peace make will He And them unto appear shall light And all them help will He And blessed "
+      },
+      {
+        "reference": "Enoch Chapter of:9",
+        "is_reversed": false,
+        "text": "And behold! He cometh with ten thousands of \u231cHis\u231d holy ones To execute judgement upon all, And to de"
+      },
+      {
+        "reference": "Enoch Chapter of:2",
+        "is_reversed": true,
+        "text": "done it is so ordained hath God as according but not change tasks their and Him for accomplish they "
+      },
+      {
+        "reference": "Enoch Chapter of:3",
+        "is_reversed": false,
+        "text": "And behold how the sea and the rivers in like manner accomplish \u231cand change not\u231d their tasks \u231cfrom H"
+      },
+      {
+        "reference": "Enoch Chapter of:4",
+        "is_reversed": true,
+        "text": "peace no find shall ye hardhearted ye Oh greatness His against mouths impure your With words hard an"
+      },
+      {
+        "reference": "Enoch Chapter of:5",
+        "is_reversed": false,
+        "text": "Therefore shall ye execrate your days, And the years of your life shall perish, And \u231cthe years of yo"
+      },
+      {
+        "reference": "Enoch Chapter of:8",
+        "is_reversed": true,
+        "text": "humble be shall wise are who they But pride through or ungodliness through Either sin again never an"
+      },
+      {
+        "reference": "Enoch Chapter of:9",
+        "is_reversed": false,
+        "text": "And they shall not again transgress, Nor shall they sin all the days of their life, Nor shall they d"
+      },
+      {
+        "reference": "Enoch Chapter of:3",
+        "is_reversed": true,
+        "text": "therein him cast and Ddl in is which desert the in opening an make and darkness the into him cast an"
+      },
+      {
+        "reference": "Enoch Chapter of:5",
+        "is_reversed": false,
+        "text": "And place upon him rough and jagged rocks, and cover him with darkness, and let him abide there for "
+      },
+      {
+        "reference": "Enoch Chapter of:17",
+        "is_reversed": true,
+        "text": "peace in complete they shall age old their and youth their of days the all And children of thousands"
+      },
+      {
+        "reference": "Enoch Chapter of:18",
+        "is_reversed": false,
+        "text": "And then shall the whole earth be tilled in righteousness, and shall all be planted with trees and b"
+      },
+      {
+        "reference": "Enoch Chapter of:21",
+        "is_reversed": true,
+        "text": "ones holy the with were days his and Watchers the with do to had activities his And him of become ha"
+      },
+      {
+        "reference": "Enoch Chapter of:3",
+        "is_reversed": false,
+        "text": "And I, Enoch, was blessing the Lord of =majesty= and the King of the ages, and lo! the Watchers call"
+      },
+      {
+        "reference": "Enoch Chapter of:6",
+        "is_reversed": true,
+        "text": "vision a beheld I And face my upon fell I trembled and quaked I as And me upon hold gat trembling an"
+      },
+      {
+        "reference": "Enoch Chapter of:15",
+        "is_reversed": false,
+        "text": "And lo! there was a second house, greater than the former, and the entire portal stood open before m"
+      }
+    ],
+    "reverse_vowels_only": {
+      "original": "And the eternal God will tread upon the earth, (even) on Mount [And appear from His camp] And appear in the strength of His might from the heaven \u231cof",
+      "reversed": "ond the aternel God will triod epen thi aerth, (avAn) an Miont [and eppaAr frum Hos comp] end eppaer en tho strungth af Hes might from tha heeven \u231cAf"
+    },
+    "interleave_first_last": [
+      {
+        "from_start": "Enoch Chapter of:4",
+        "from_end": "Enoch Chapter of:9"
+      },
+      {
+        "from_start": "Enoch Chapter of:5",
+        "from_end": "Enoch Chapter of:15"
+      },
+      {
+        "from_start": "Enoch Chapter of:6",
+        "from_end": "Enoch Chapter of:14"
+      },
+      {
+        "from_start": "Enoch Chapter of:7",
+        "from_end": "Enoch Chapter of:13"
+      },
+      {
+        "from_start": "Enoch Chapter of:8",
+        "from_end": "Enoch Chapter of:12"
+      },
+      {
+        "from_start": "Enoch Chapter of:9",
+        "from_end": "Enoch Chapter of:11"
+      },
+      {
+        "from_start": "Enoch Chapter of:2",
+        "from_end": "Enoch Chapter of:10"
+      },
+      {
+        "from_start": "Enoch Chapter of:3",
+        "from_end": "Enoch Chapter of:9"
+      },
+      {
+        "from_start": "Enoch Chapter of:4",
+        "from_end": "Enoch Chapter of:8"
+      },
+      {
+        "from_start": "Enoch Chapter of:5",
+        "from_end": "Enoch Chapter of:7"
+      },
+      {
+        "from_start": "Enoch Chapter of:8",
+        "from_end": "Enoch Chapter of:6"
+      },
+      {
+        "from_start": "Enoch Chapter of:9",
+        "from_end": "Enoch Chapter of:5"
+      },
+      {
+        "from_start": "Enoch Chapter of:3",
+        "from_end": "Enoch Chapter of:4"
+      },
+      {
+        "from_start": "Enoch Chapter of:5",
+        "from_end": "Enoch Chapter of:3"
+      },
+      {
+        "from_start": "Enoch Chapter of:17",
+        "from_end": "Enoch Chapter of:2"
+      },
+      {
+        "from_start": "Enoch Chapter of:18",
+        "from_end": "Enoch Chapter of:9"
+      },
+      {
+        "from_start": "Enoch Chapter of:21",
+        "from_end": "Enoch Chapter of:8"
+      },
+      {
+        "from_start": "Enoch Chapter of:3",
+        "from_end": "Enoch Chapter of:7"
+      },
+      {
+        "from_start": "Enoch Chapter of:6",
+        "from_end": "Enoch Chapter of:6"
+      },
+      {
+        "from_start": "Enoch Chapter of:15",
+        "from_end": "Enoch Chapter of:5"
+      }
+    ]
+  }
+}

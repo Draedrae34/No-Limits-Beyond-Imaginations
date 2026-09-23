@@ -1,0 +1,133 @@
+[
+  {
+    "context_before": "\ufeff\n 1QS Transcription by David L. Washburn Col 1 #wrdl dxyh k ",
+    "context_after": " wyxl s 2 ymi 1 [ ] l r#)k wynpl r#yhw 3 pw+h tw#( [ ] ci [ ] nil) lwk bwh)lw My)ybnh wydb( lwk dybw",
+    "suggestions": []
+  },
+  {
+    "context_before": "\ufeff\n 1QS Transcription by David L. Washburn Col 1 #wrdl dxyh k [ ] wyxl s 2 ymi 1 ",
+    "context_after": " l r#)k wynpl r#yhw 3 pw+h tw#( [ ] ci [ ] nil) lwk bwh)lw My)ybnh wydb( lwk dybw h#wm ~ dyb hwc (r ",
+    "suggestions": []
+  },
+  {
+    "context_before": "ption by David L. Washburn Col 1 #wrdl dxyh k [ ] wyxl s 2 ymi 1 [ ] l r#)k wynpl r#yhw 3 pw+h tw#( ",
+    "context_after": " ci [ ] nil) lwk bwh)lw My)ybnh wydb( lwk dybw h#wm ~ dyb hwc (r lwkm qwxrl s)m r#) lwk t) )wn#lw wx",
+    "suggestions": []
+  },
+  {
+    "context_before": "y David L. Washburn Col 1 #wrdl dxyh k [ ] wyxl s 2 ymi 1 [ ] l r#)k wynpl r#yhw 3 pw+h tw#( [ ] ci ",
+    "context_after": " nil) lwk bwh)lw My)ybnh wydb( lwk dybw h#wm ~ dyb hwc (r lwkm qwxrl s)m r#) lwk t) )wn#lw wxb 4 r#)",
+    "suggestions": []
+  },
+  {
+    "context_before": " M(ym#mw tl#mmb Mt)+xw Mtm#) y(#p lwkw l)r#y ynb twnww( t) wnyw(n rwm)l Mhyrx) Mydwm tyrbb Myrbw(hl ",
+    "context_after": " l(ylb wntk l [ ] b wnynplm wnytwbi [ ] wn) wn(#rh wn) [ ] ] tiwb)bw wnb w+p#m [ ] qiydcw tm) [ ] 1 ",
+    "suggestions": []
+  },
+  {
+    "context_before": "t)+xw Mtm#) y(#p lwkw l)r#y ynb twnww( t) wnyw(n rwm)l Mhyrx) Mydwm tyrbb Myrbw(hl [ ] l(ylb wntk l ",
+    "context_after": " b wnynplm wnytwbi [ ] wn) wn(#rh wn) [ ] ] tiwb)bw wnb w+p#m [ ] qiydcw tm) [ ] 1 Charlesworth read",
+    "suggestions": []
+  },
+  {
+    "context_before": "l)r#y ynb twnww( t) wnyw(n rwm)l Mhyrx) Mydwm tyrbb Myrbw(hl [ ] l(ylb wntk l [ ] b wnynplm wnytwbi ",
+    "context_after": " wn) wn(#rh wn) [ ] ] tiwb)bw wnb w+p#m [ ] qiydcw tm) [ ] 1 Charlesworth reads # , but the left str",
+    "suggestions": []
+  },
+  {
+    "context_before": " wnyw(n rwm)l Mhyrx) Mydwm tyrbb Myrbw(hl [ ] l(ylb wntk l [ ] b wnynplm wnytwbi [ ] wn) wn(#rh wn) ",
+    "context_after": " ] tiwb)bw wnb w+p#m [ ] qiydcw tm) [ ] 1 Charlesworth reads # , but the left stroke of every # in t",
+    "suggestions": []
+  },
+  {
+    "context_before": "wm tyrbb Myrbw(hl [ ] l(ylb wntk l [ ] b wnynplm wnytwbi [ ] wn) wn(#rh wn) [ ] ] tiwb)bw wnb w+p#m ",
+    "context_after": " qiydcw tm) [ ] 1 Charlesworth reads # , but the left stroke of every # in the document has a distin",
+    "suggestions": [
+      {
+        "word": "van",
+        "confidence": 5,
+        "gap_length": 1,
+        "context_before": [
+          "w",
+          "p",
+          "m"
+        ],
+        "context_after": [
+          "qiydcw",
+          "tm",
+          "charlesworth"
+        ]
+      },
+      {
+        "word": "van",
+        "confidence": 5,
+        "gap_length": 2,
+        "context_before": [
+          "w",
+          "p",
+          "m"
+        ],
+        "context_after": [
+          "qiydcw",
+          "tm",
+          "charlesworth"
+        ]
+      }
+    ]
+  },
+  {
+    "context_before": "hl [ ] l(ylb wntk l [ ] b wnynplm wnytwbi [ ] wn) wn(#rh wn) [ ] ] tiwb)bw wnb w+p#m [ ] qiydcw tm) ",
+    "context_after": " 1 Charlesworth reads # , but the left stroke of every # in the document has a distinctive curvature",
+    "suggestions": []
+  },
+  {
+    "context_before": "turn \n 1QS Transcription by David L. Washburn Col. 2 lwk t) Mykrbm Mynhwkhw Mlw( d(w Mlw(m wnyl( lm ",
+    "context_after": " wdqx ~ ybxrw lwkb hkkrby Myrmw)w wykrd lwkb Mymt Myklwhh l) lrwg y#n) Mymlw( t(db hknwxyw Myyx lk#b",
+    "suggestions": []
+  },
+  {
+    "context_before": "h yrbd t) w(m w #b Ny)l hwwrh M( h)mch wmi 3 xr htpsnw kl) ybl twryr#b )yk lwk wb wqbdw Mymlw( tlkl ",
+    "context_after": " b wr(by w+p#m t)nqw l) p) hxyls wgwshb rw) ynb lwk kwtm trknw h(rl l) wy 4 wlydbyw twzh tyrbh twl) ",
+    "suggestions": []
+  },
+  {
+    "context_before": " t(dl twr#(w My#mxw wlrwg Mwqmm Mwry )wlw wdm(mi tybm #y) lp#y )wlw Mymlw( tc(l qdc tb#xmw dsx tbh) ",
+    "context_after": " bw+ twn(w tm) dxyb wyhy lwkh )yk )wbl s)wmh lwkw Mymlw( [ l ] dws ynbw #dwq tc(b wh(rl # [ y) ] hl(",
+    "suggestions": []
+  },
+  {
+    "context_before": " dxyb wyhy lwkh )yk )wbl s)wmh lwkw Mymlw( [ l ] dws ynbw #dwq tc(b wh(rl # [ y) ] hl(g )yk wtm) dx ",
+    "context_after": " )wl wbl twryr#b tkll l [ ] 1 Charlesworth reads twzh as in line 13, but the first two letters of th",
+    "suggestions": []
+  },
+  {
+    "context_before": "wmh lwkw Mymlw( [ l ] dws ynbw #dwq tc(b wh(rl # [ y) ] hl(g )yk wtm) dx [ ] )wl wbl twryr#b tkll l ",
+    "context_after": " 1 Charlesworth reads twzh as in line 13, but the first two letters of this word look markedly diffe",
+    "suggestions": []
+  },
+  {
+    "context_before": "b ly#khl wlrwg yxwr lwkw h#(m lwk dsw Nyhyl(w k#wxw rw) twxwr )rb h)whw rw) ynb lwkl l) bh) tx) hdi ",
+    "context_after": " li [ ] Nhykrd l(w hdwb( lwk Nh [ ] \n 1QS Transcription by David L. Washburn Col. 4 xcnl )n# hykrd l",
+    "suggestions": []
+  },
+  {
+    "context_before": "l wlrwg yxwr lwkw h#(m lwk dsw Nyhyl(w k#wxw rw) twxwr )rb h)whw rw) ynb lwkl l) bh) tx) hdi [ ] li ",
+    "context_after": " Nhykrd l(w hdwb( lwk Nh [ ] \n 1QS Transcription by David L. Washburn Col. 4 xcnl )n# hykrd lwkw hdw",
+    "suggestions": []
+  },
+  {
+    "context_before": "sw Nyhyl(w k#wxw rw) twxwr )rb h)whw rw) ynb lwkl l) bh) tx) hdi [ ] li [ ] Nhykrd l(w hdwb( lwk Nh ",
+    "context_after": " \n 1QS Transcription by David L. Washburn Col. 4 xcnl )n# hykrd lwkw hdwm 1 b(t tx) d(l hcry hytw tw",
+    "suggestions": []
+  },
+  {
+    "context_before": "kxb wklhty ycq lwkl Nh y#(m tlw(p (dy h)whw h#dx tw#(w hcrxn cq d( l) Nm# dbb db )yk tm) b(ty hdwqp ",
+    "context_after": " b wxwr ypl yx lwkl twlrwg lyp [] li [ ] bw+ t(dl #y) ynbl Nlyxn yy [ ] 1 Charlesworth reads hdws an",
+    "suggestions": []
+  },
+  {
+    "context_before": "(dy h)whw h#dx tw#(w hcrxn cq d( l) Nm# dbb db )yk tm) b(ty hdwqp [ ] b wxwr ypl yx lwkl twlrwg lyp ",
+    "context_after": " li [ ] bw+ t(dl #y) ynbl Nlyxn yy [ ] 1 Charlesworth reads hdws and in a footnote calls it an error",
+    "suggestions": []
+  }
+]

@@ -1,0 +1,1256 @@
+{
+  "pca_explained_variance": [
+    0.19854571311211308,
+    0.1633548575545664
+  ],
+  "segments": [
+    {
+      "reference": "Enoch Chapter of:8",
+      "index": 0,
+      "pca_x": -0.1524,
+      "pca_y": 0.0623,
+      "tsne_x": -4.9893,
+      "tsne_y": 3.6263
+    },
+    {
+      "reference": "Enoch Chapter of:9",
+      "index": 1,
+      "pca_x": -0.0178,
+      "pca_y": -0.0202,
+      "tsne_x": -1.9024,
+      "tsne_y": 2.4192
+    },
+    {
+      "reference": "Enoch Chapter of:5",
+      "index": 2,
+      "pca_x": -0.1327,
+      "pca_y": -0.0001,
+      "tsne_x": -5.1708,
+      "tsne_y": 1.476
+    },
+    {
+      "reference": "Enoch Chapter of:9",
+      "index": 3,
+      "pca_x": -0.0158,
+      "pca_y": 0.0127,
+      "tsne_x": -0.6721,
+      "tsne_y": 2.3444
+    },
+    {
+      "reference": "Enoch Chapter of:3",
+      "index": 4,
+      "pca_x": -0.0275,
+      "pca_y": 0.0357,
+      "tsne_x": -0.5296,
+      "tsne_y": 2.5324
+    },
+    {
+      "reference": "Enoch Chapter of:5",
+      "index": 5,
+      "pca_x": -0.0148,
+      "pca_y": -0.0169,
+      "tsne_x": -1.089,
+      "tsne_y": 0.7599
+    },
+    {
+      "reference": "Enoch Chapter of:18",
+      "index": 6,
+      "pca_x": -0.0762,
+      "pca_y": 0.0407,
+      "tsne_x": -3.2031,
+      "tsne_y": 3.9412
+    },
+    {
+      "reference": "Enoch Chapter of:21",
+      "index": 7,
+      "pca_x": -0.0246,
+      "pca_y": 0.0386,
+      "tsne_x": -2.1409,
+      "tsne_y": 3.9577
+    },
+    {
+      "reference": "Enoch Chapter of:3",
+      "index": 8,
+      "pca_x": 0.0415,
+      "pca_y": -0.027,
+      "tsne_x": 0.9523,
+      "tsne_y": 0.1226
+    },
+    {
+      "reference": "Enoch Chapter of:6",
+      "index": 9,
+      "pca_x": -0.0416,
+      "pca_y": -0.001,
+      "tsne_x": -1.0005,
+      "tsne_y": 2.0829
+    },
+    {
+      "reference": "Enoch Chapter of:17",
+      "index": 10,
+      "pca_x": -0.0235,
+      "pca_y": 0.0089,
+      "tsne_x": -1.0319,
+      "tsne_y": 1.6828
+    },
+    {
+      "reference": "Enoch Chapter of:3",
+      "index": 11,
+      "pca_x": 0.0431,
+      "pca_y": -0.0348,
+      "tsne_x": 0.6456,
+      "tsne_y": -0.8312
+    },
+    {
+      "reference": "Enoch Chapter of:3",
+      "index": 12,
+      "pca_x": 0.0359,
+      "pca_y": -0.1118,
+      "tsne_x": -0.4824,
+      "tsne_y": -2.0934
+    },
+    {
+      "reference": "Enoch Chapter of:5",
+      "index": 13,
+      "pca_x": -0.0603,
+      "pca_y": 0.0606,
+      "tsne_x": 2.6065,
+      "tsne_y": 3.8738
+    },
+    {
+      "reference": "Enoch Chapter of:9",
+      "index": 14,
+      "pca_x": -0.0692,
+      "pca_y": -0.07,
+      "tsne_x": -2.9527,
+      "tsne_y": -0.0434
+    },
+    {
+      "reference": "Enoch Chapter of:9",
+      "index": 15,
+      "pca_x": -0.0624,
+      "pca_y": -0.0721,
+      "tsne_x": -2.9602,
+      "tsne_y": -0.1344
+    },
+    {
+      "reference": "Enoch Chapter of:12",
+      "index": 16,
+      "pca_x": -0.019,
+      "pca_y": -0.034,
+      "tsne_x": -0.8274,
+      "tsne_y": 0.6118
+    },
+    {
+      "reference": "Enoch Chapter of:4",
+      "index": 17,
+      "pca_x": -0.0624,
+      "pca_y": -0.0872,
+      "tsne_x": -5.1996,
+      "tsne_y": -1.4466
+    },
+    {
+      "reference": "Enoch Chapter of:6",
+      "index": 18,
+      "pca_x": -0.1855,
+      "pca_y": 0.0205,
+      "tsne_x": -6.0702,
+      "tsne_y": 2.7479
+    },
+    {
+      "reference": "Enoch Chapter of:7",
+      "index": 19,
+      "pca_x": 0.0225,
+      "pca_y": -0.0304,
+      "tsne_x": 0.1591,
+      "tsne_y": -0.775
+    },
+    {
+      "reference": "Enoch Chapter of:4",
+      "index": 20,
+      "pca_x": 0.0306,
+      "pca_y": 0.0342,
+      "tsne_x": 1.0788,
+      "tsne_y": 2.4529
+    },
+    {
+      "reference": "Enoch Chapter of:4",
+      "index": 21,
+      "pca_x": 0.0372,
+      "pca_y": -0.0377,
+      "tsne_x": 0.5324,
+      "tsne_y": -0.8352
+    },
+    {
+      "reference": "Enoch Chapter of:2",
+      "index": 22,
+      "pca_x": 0.0558,
+      "pca_y": -0.1006,
+      "tsne_x": -0.4587,
+      "tsne_y": -3.2187
+    },
+    {
+      "reference": "Enoch Chapter of:6",
+      "index": 23,
+      "pca_x": 0.0237,
+      "pca_y": -0.0036,
+      "tsne_x": 3.3434,
+      "tsne_y": -0.1964
+    },
+    {
+      "reference": "Enoch Chapter of:5",
+      "index": 24,
+      "pca_x": -0.0313,
+      "pca_y": 0.066,
+      "tsne_x": -2.0663,
+      "tsne_y": 4.2869
+    },
+    {
+      "reference": "Enoch Chapter of:9",
+      "index": 25,
+      "pca_x": -0.0389,
+      "pca_y": 0.0049,
+      "tsne_x": -1.7891,
+      "tsne_y": 1.6698
+    },
+    {
+      "reference": "Enoch Chapter of:13",
+      "index": 26,
+      "pca_x": -0.018,
+      "pca_y": 0.0366,
+      "tsne_x": 0.1972,
+      "tsne_y": 2.1253
+    },
+    {
+      "reference": "Enoch Chapter of:3",
+      "index": 27,
+      "pca_x": 0.1486,
+      "pca_y": -0.0384,
+      "tsne_x": 2.8759,
+      "tsne_y": -3.9029
+    },
+    {
+      "reference": "Enoch Chapter of:8",
+      "index": 28,
+      "pca_x": 0.064,
+      "pca_y": -0.0348,
+      "tsne_x": 1.1629,
+      "tsne_y": -1.1656
+    },
+    {
+      "reference": "Enoch Chapter of:3",
+      "index": 29,
+      "pca_x": 0.0598,
+      "pca_y": 0.023,
+      "tsne_x": 2.6808,
+      "tsne_y": -0.8603
+    },
+    {
+      "reference": "Enoch Chapter of:8",
+      "index": 30,
+      "pca_x": 0.1986,
+      "pca_y": -0.1004,
+      "tsne_x": 2.8562,
+      "tsne_y": -4.9936
+    },
+    {
+      "reference": "Enoch Chapter of:9",
+      "index": 31,
+      "pca_x": -0.1017,
+      "pca_y": -0.034,
+      "tsne_x": -2.4146,
+      "tsne_y": 1.613
+    },
+    {
+      "reference": "Enoch Chapter of:3",
+      "index": 32,
+      "pca_x": 0.0209,
+      "pca_y": -0.0192,
+      "tsne_x": 0.7116,
+      "tsne_y": -0.0307
+    },
+    {
+      "reference": "Enoch Chapter of:6",
+      "index": 33,
+      "pca_x": -0.0298,
+      "pca_y": -0.0368,
+      "tsne_x": -0.6413,
+      "tsne_y": 1.2408
+    },
+    {
+      "reference": "Enoch Chapter of:2",
+      "index": 34,
+      "pca_x": 0.003,
+      "pca_y": -0.0219,
+      "tsne_x": -1.4643,
+      "tsne_y": -0.5589
+    },
+    {
+      "reference": "Enoch Chapter of:6",
+      "index": 35,
+      "pca_x": -0.0757,
+      "pca_y": -0.0311,
+      "tsne_x": 2.48,
+      "tsne_y": 1.6864
+    },
+    {
+      "reference": "Enoch Chapter of:7",
+      "index": 36,
+      "pca_x": 0.0216,
+      "pca_y": 0.0489,
+      "tsne_x": 4.0557,
+      "tsne_y": 1.1522
+    },
+    {
+      "reference": "Enoch Chapter of:8",
+      "index": 37,
+      "pca_x": 0.1882,
+      "pca_y": -0.0945,
+      "tsne_x": 2.8117,
+      "tsne_y": -4.9472
+    },
+    {
+      "reference": "Enoch Chapter of:2",
+      "index": 38,
+      "pca_x": 0.0154,
+      "pca_y": -0.0453,
+      "tsne_x": -1.1961,
+      "tsne_y": -1.5893
+    },
+    {
+      "reference": "Enoch Chapter of:4",
+      "index": 39,
+      "pca_x": 0.1577,
+      "pca_y": -0.0415,
+      "tsne_x": 2.7093,
+      "tsne_y": -4.6995
+    },
+    {
+      "reference": "Enoch Chapter of:7",
+      "index": 40,
+      "pca_x": 0.0084,
+      "pca_y": -0.0472,
+      "tsne_x": -0.9362,
+      "tsne_y": -1.0795
+    },
+    {
+      "reference": "Enoch Chapter of:9",
+      "index": 41,
+      "pca_x": 0.0095,
+      "pca_y": -0.1234,
+      "tsne_x": -1.7981,
+      "tsne_y": -3.1355
+    },
+    {
+      "reference": "Enoch Chapter of:10",
+      "index": 42,
+      "pca_x": -0.0413,
+      "pca_y": -0.0228,
+      "tsne_x": -2.1822,
+      "tsne_y": 0.895
+    },
+    {
+      "reference": "Enoch Chapter of:4",
+      "index": 43,
+      "pca_x": 0.0251,
+      "pca_y": -0.0222,
+      "tsne_x": -3.6177,
+      "tsne_y": -2.049
+    },
+    {
+      "reference": "Enoch Chapter of:5",
+      "index": 44,
+      "pca_x": -0.0299,
+      "pca_y": -0.0487,
+      "tsne_x": -2.3153,
+      "tsne_y": -1.031
+    },
+    {
+      "reference": "Enoch Chapter of:4",
+      "index": 45,
+      "pca_x": -0.0329,
+      "pca_y": -0.0105,
+      "tsne_x": -4.232,
+      "tsne_y": 0.3137
+    },
+    {
+      "reference": "Enoch Chapter of:6",
+      "index": 46,
+      "pca_x": 0.1074,
+      "pca_y": -0.0146,
+      "tsne_x": 1.6761,
+      "tsne_y": -4.543
+    },
+    {
+      "reference": "Enoch Chapter of:9",
+      "index": 47,
+      "pca_x": 0.0531,
+      "pca_y": -0.0457,
+      "tsne_x": 0.8602,
+      "tsne_y": -4.2734
+    },
+    {
+      "reference": "Enoch Chapter of:3",
+      "index": 48,
+      "pca_x": -0.0293,
+      "pca_y": -0.0543,
+      "tsne_x": -1.8806,
+      "tsne_y": -0.0805
+    },
+    {
+      "reference": "Enoch Chapter of:7",
+      "index": 49,
+      "pca_x": -0.0414,
+      "pca_y": -0.0165,
+      "tsne_x": -1.4087,
+      "tsne_y": 1.1742
+    },
+    {
+      "reference": "Enoch Chapter of:6",
+      "index": 50,
+      "pca_x": -0.0424,
+      "pca_y": 0.0232,
+      "tsne_x": -1.0604,
+      "tsne_y": 6.3179
+    },
+    {
+      "reference": "Enoch Chapter of:7",
+      "index": 51,
+      "pca_x": -0.0076,
+      "pca_y": -0.0348,
+      "tsne_x": -0.9881,
+      "tsne_y": 0.0102
+    },
+    {
+      "reference": "Enoch Chapter of:3",
+      "index": 52,
+      "pca_x": 0.0161,
+      "pca_y": -0.0523,
+      "tsne_x": -0.0941,
+      "tsne_y": -1.1419
+    },
+    {
+      "reference": "Enoch Chapter of:5",
+      "index": 53,
+      "pca_x": -0.0881,
+      "pca_y": 0.0055,
+      "tsne_x": -5.9832,
+      "tsne_y": 2.9767
+    },
+    {
+      "reference": "Enoch Chapter of:7",
+      "index": 54,
+      "pca_x": -0.1562,
+      "pca_y": -0.0382,
+      "tsne_x": 2.9869,
+      "tsne_y": 2.1691
+    },
+    {
+      "reference": "Enoch Chapter of:8",
+      "index": 55,
+      "pca_x": 0.0744,
+      "pca_y": -0.0257,
+      "tsne_x": 2.3975,
+      "tsne_y": -2.4403
+    },
+    {
+      "reference": "Enoch Chapter of:6",
+      "index": 56,
+      "pca_x": 0.0743,
+      "pca_y": -0.0457,
+      "tsne_x": 1.4419,
+      "tsne_y": -2.761
+    },
+    {
+      "reference": "Enoch Chapter of:4",
+      "index": 57,
+      "pca_x": 0.0132,
+      "pca_y": -0.0014,
+      "tsne_x": 0.0632,
+      "tsne_y": 1.084
+    },
+    {
+      "reference": "Enoch Chapter of:5",
+      "index": 58,
+      "pca_x": -0.0019,
+      "pca_y": -0.0959,
+      "tsne_x": -2.3945,
+      "tsne_y": -2.5217
+    },
+    {
+      "reference": "Enoch Chapter of:7",
+      "index": 59,
+      "pca_x": 0.1062,
+      "pca_y": -0.1338,
+      "tsne_x": 1.8043,
+      "tsne_y": -3.2662
+    },
+    {
+      "reference": "Enoch Chapter of:9",
+      "index": 60,
+      "pca_x": 0.0292,
+      "pca_y": -0.0704,
+      "tsne_x": 0.1082,
+      "tsne_y": -1.7257
+    },
+    {
+      "reference": "Enoch Chapter of:11",
+      "index": 61,
+      "pca_x": 0.054,
+      "pca_y": -0.0098,
+      "tsne_x": 2.2013,
+      "tsne_y": -1.6048
+    },
+    {
+      "reference": "Enoch Chapter of:20",
+      "index": 62,
+      "pca_x": 0.0779,
+      "pca_y": -0.0417,
+      "tsne_x": 2.1805,
+      "tsne_y": -2.2392
+    },
+    {
+      "reference": "Enoch Chapter of:5",
+      "index": 63,
+      "pca_x": 0.0302,
+      "pca_y": -0.0583,
+      "tsne_x": -0.6543,
+      "tsne_y": -3.2035
+    },
+    {
+      "reference": "Enoch Chapter of:9",
+      "index": 64,
+      "pca_x": 0.0724,
+      "pca_y": -0.0532,
+      "tsne_x": 0.6434,
+      "tsne_y": -4.5262
+    },
+    {
+      "reference": "Enoch Chapter of:10",
+      "index": 65,
+      "pca_x": 0.1891,
+      "pca_y": 0.0541,
+      "tsne_x": 4.0689,
+      "tsne_y": -4.0908
+    },
+    {
+      "reference": "Enoch Chapter of:11",
+      "index": 66,
+      "pca_x": 0.0544,
+      "pca_y": 0.0389,
+      "tsne_x": 3.9808,
+      "tsne_y": -0.2498
+    },
+    {
+      "reference": "Enoch Chapter of:12",
+      "index": 67,
+      "pca_x": -0.0688,
+      "pca_y": 0.0706,
+      "tsne_x": -2.4835,
+      "tsne_y": 4.9493
+    },
+    {
+      "reference": "Enoch Chapter of:13",
+      "index": 68,
+      "pca_x": 0.1001,
+      "pca_y": -0.0014,
+      "tsne_x": 3.3313,
+      "tsne_y": -2.5843
+    },
+    {
+      "reference": "Enoch Chapter of:3",
+      "index": 69,
+      "pca_x": -0.0085,
+      "pca_y": 0.0838,
+      "tsne_x": -1.9424,
+      "tsne_y": 4.9749
+    },
+    {
+      "reference": "Enoch Chapter of:16",
+      "index": 70,
+      "pca_x": 0.0097,
+      "pca_y": -0.055,
+      "tsne_x": -1.4553,
+      "tsne_y": -2.5349
+    },
+    {
+      "reference": "Enoch Chapter of:12",
+      "index": 71,
+      "pca_x": 0.09,
+      "pca_y": -0.01,
+      "tsne_x": 2.6513,
+      "tsne_y": -2.035
+    },
+    {
+      "reference": "Enoch Chapter of:3",
+      "index": 72,
+      "pca_x": -0.1008,
+      "pca_y": 0.0614,
+      "tsne_x": 2.7312,
+      "tsne_y": 3.9086
+    },
+    {
+      "reference": "Enoch Chapter of:6",
+      "index": 73,
+      "pca_x": -0.0126,
+      "pca_y": -0.031,
+      "tsne_x": -0.9845,
+      "tsne_y": 0.1981
+    },
+    {
+      "reference": "Enoch Chapter of:12",
+      "index": 74,
+      "pca_x": -0.0183,
+      "pca_y": -0.0234,
+      "tsne_x": -1.1202,
+      "tsne_y": 0.8091
+    },
+    {
+      "reference": "Enoch Chapter of:4",
+      "index": 75,
+      "pca_x": -0.0434,
+      "pca_y": 0.0388,
+      "tsne_x": -0.7365,
+      "tsne_y": 4.8587
+    },
+    {
+      "reference": "Enoch Chapter of:8",
+      "index": 76,
+      "pca_x": -0.0057,
+      "pca_y": -0.0562,
+      "tsne_x": -0.9733,
+      "tsne_y": -0.3796
+    },
+    {
+      "reference": "Enoch Chapter of:2",
+      "index": 77,
+      "pca_x": 0.0564,
+      "pca_y": -0.0704,
+      "tsne_x": 2.3536,
+      "tsne_y": 0.1563
+    },
+    {
+      "reference": "Enoch Chapter of:4",
+      "index": 78,
+      "pca_x": 0.0406,
+      "pca_y": -0.0328,
+      "tsne_x": 0.485,
+      "tsne_y": -0.7844
+    },
+    {
+      "reference": "Enoch Chapter of:21",
+      "index": 79,
+      "pca_x": 0.0485,
+      "pca_y": 0.0416,
+      "tsne_x": 3.7717,
+      "tsne_y": 0.9158
+    },
+    {
+      "reference": "Enoch Chapter of:23",
+      "index": 80,
+      "pca_x": 0.169,
+      "pca_y": 0.0289,
+      "tsne_x": 3.4677,
+      "tsne_y": -4.363
+    },
+    {
+      "reference": "Enoch Chapter of:29",
+      "index": 81,
+      "pca_x": 0.0061,
+      "pca_y": -0.0124,
+      "tsne_x": -0.0677,
+      "tsne_y": 0.5435
+    },
+    {
+      "reference": "Enoch Chapter of:12",
+      "index": 82,
+      "pca_x": 0.0206,
+      "pca_y": -0.0197,
+      "tsne_x": -0.988,
+      "tsne_y": -4.6717
+    },
+    {
+      "reference": "Enoch Chapter of:17",
+      "index": 83,
+      "pca_x": 0.1028,
+      "pca_y": 0.0128,
+      "tsne_x": 3.2877,
+      "tsne_y": -2.087
+    },
+    {
+      "reference": "Enoch Chapter of:25",
+      "index": 84,
+      "pca_x": 0.0719,
+      "pca_y": 0.0194,
+      "tsne_x": 2.939,
+      "tsne_y": -1.8278
+    },
+    {
+      "reference": "Enoch Chapter of:7",
+      "index": 85,
+      "pca_x": 0.0636,
+      "pca_y": -0.033,
+      "tsne_x": 2.0078,
+      "tsne_y": -2.0121
+    },
+    {
+      "reference": "Enoch Chapter of:5",
+      "index": 86,
+      "pca_x": 0.0972,
+      "pca_y": 0.0973,
+      "tsne_x": 4.5104,
+      "tsne_y": -1.9281
+    },
+    {
+      "reference": "Enoch Chapter of:7",
+      "index": 87,
+      "pca_x": 0.0793,
+      "pca_y": 0.1515,
+      "tsne_x": 1.3644,
+      "tsne_y": 6.8425
+    },
+    {
+      "reference": "Enoch Chapter of:10",
+      "index": 88,
+      "pca_x": 0.0953,
+      "pca_y": 0.2707,
+      "tsne_x": 2.1314,
+      "tsne_y": 7.426
+    },
+    {
+      "reference": "Enoch Chapter of:12",
+      "index": 89,
+      "pca_x": 0.119,
+      "pca_y": 0.2985,
+      "tsne_x": 2.1197,
+      "tsne_y": 7.4239
+    },
+    {
+      "reference": "Enoch Chapter of:14",
+      "index": 90,
+      "pca_x": 0.1184,
+      "pca_y": -0.0127,
+      "tsne_x": 3.4896,
+      "tsne_y": -3.1052
+    },
+    {
+      "reference": "Enoch Chapter of:4",
+      "index": 91,
+      "pca_x": 0.1272,
+      "pca_y": -0.0244,
+      "tsne_x": 3.2715,
+      "tsne_y": -2.8273
+    },
+    {
+      "reference": "Enoch Chapter of:3",
+      "index": 92,
+      "pca_x": 0.0876,
+      "pca_y": -0.0862,
+      "tsne_x": 2.1778,
+      "tsne_y": -2.9271
+    },
+    {
+      "reference": "Enoch Chapter of:14",
+      "index": 93,
+      "pca_x": 0.0197,
+      "pca_y": -0.0142,
+      "tsne_x": 0.2099,
+      "tsne_y": -0.3091
+    },
+    {
+      "reference": "Enoch Chapter of:2",
+      "index": 94,
+      "pca_x": -0.0474,
+      "pca_y": 0.0225,
+      "tsne_x": -6.1848,
+      "tsne_y": -0.0057
+    },
+    {
+      "reference": "Enoch Chapter of:2",
+      "index": 95,
+      "pca_x": 0.1012,
+      "pca_y": -0.0412,
+      "tsne_x": 1.834,
+      "tsne_y": -4.4674
+    },
+    {
+      "reference": "Enoch Chapter of:5",
+      "index": 96,
+      "pca_x": -0.0871,
+      "pca_y": -0.0062,
+      "tsne_x": -4.0386,
+      "tsne_y": 4.9508
+    },
+    {
+      "reference": "Enoch Chapter of:10",
+      "index": 97,
+      "pca_x": -0.0,
+      "pca_y": 0.0032,
+      "tsne_x": 1.5436,
+      "tsne_y": 2.027
+    },
+    {
+      "reference": "Enoch Chapter of:4",
+      "index": 98,
+      "pca_x": 0.0436,
+      "pca_y": -0.0662,
+      "tsne_x": 1.4478,
+      "tsne_y": -2.0154
+    },
+    {
+      "reference": "Enoch Chapter of:7",
+      "index": 99,
+      "pca_x": 0.0889,
+      "pca_y": 0.0657,
+      "tsne_x": 3.797,
+      "tsne_y": -1.5918
+    },
+    {
+      "reference": "Enoch Chapter of:10",
+      "index": 100,
+      "pca_x": 0.0339,
+      "pca_y": -0.0527,
+      "tsne_x": 2.0276,
+      "tsne_y": -0.1086
+    },
+    {
+      "reference": "Enoch Chapter of:15",
+      "index": 101,
+      "pca_x": 0.0575,
+      "pca_y": -0.0228,
+      "tsne_x": 1.8666,
+      "tsne_y": -0.6014
+    },
+    {
+      "reference": "Enoch Chapter of:18",
+      "index": 102,
+      "pca_x": 0.0356,
+      "pca_y": -0.0157,
+      "tsne_x": 1.5444,
+      "tsne_y": -0.3066
+    },
+    {
+      "reference": "Enoch Chapter of:3",
+      "index": 103,
+      "pca_x": 0.0083,
+      "pca_y": 0.0411,
+      "tsne_x": 0.5744,
+      "tsne_y": 2.7244
+    },
+    {
+      "reference": "Enoch Chapter of:2",
+      "index": 104,
+      "pca_x": 0.033,
+      "pca_y": 0.1142,
+      "tsne_x": 3.9862,
+      "tsne_y": 4.8835
+    },
+    {
+      "reference": "Enoch Chapter of:3",
+      "index": 105,
+      "pca_x": -0.1006,
+      "pca_y": 0.0992,
+      "tsne_x": -3.813,
+      "tsne_y": 5.5626
+    },
+    {
+      "reference": "Enoch Chapter of:6",
+      "index": 106,
+      "pca_x": -0.0423,
+      "pca_y": 0.0353,
+      "tsne_x": -0.4304,
+      "tsne_y": 4.1998
+    },
+    {
+      "reference": "Enoch Chapter of:9",
+      "index": 107,
+      "pca_x": -0.0232,
+      "pca_y": 0.1562,
+      "tsne_x": 1.4126,
+      "tsne_y": 5.3399
+    },
+    {
+      "reference": "Enoch Chapter of:5",
+      "index": 108,
+      "pca_x": -0.0253,
+      "pca_y": 0.0925,
+      "tsne_x": 0.7734,
+      "tsne_y": 4.8524
+    },
+    {
+      "reference": "Enoch Chapter of:2",
+      "index": 109,
+      "pca_x": -0.006,
+      "pca_y": 0.0464,
+      "tsne_x": 0.2215,
+      "tsne_y": 4.2686
+    },
+    {
+      "reference": "Enoch Chapter of:10",
+      "index": 110,
+      "pca_x": 0.0035,
+      "pca_y": 0.0505,
+      "tsne_x": 0.5144,
+      "tsne_y": 4.5629
+    },
+    {
+      "reference": "Enoch Chapter of:28",
+      "index": 111,
+      "pca_x": -0.0337,
+      "pca_y": 0.0698,
+      "tsne_x": 0.3447,
+      "tsne_y": 4.7208
+    },
+    {
+      "reference": "Enoch Chapter of:42",
+      "index": 112,
+      "pca_x": 0.0366,
+      "pca_y": 0.0461,
+      "tsne_x": 0.0637,
+      "tsne_y": 5.531
+    },
+    {
+      "reference": "Enoch Chapter of:44",
+      "index": 113,
+      "pca_x": 0.0149,
+      "pca_y": 0.0911,
+      "tsne_x": 0.6502,
+      "tsne_y": 5.8282
+    },
+    {
+      "reference": "Enoch Chapter of:48",
+      "index": 114,
+      "pca_x": 0.0158,
+      "pca_y": 0.2703,
+      "tsne_x": 2.1187,
+      "tsne_y": 7.0095
+    },
+    {
+      "reference": "Enoch Chapter of:50",
+      "index": 115,
+      "pca_x": 0.0575,
+      "pca_y": 0.0633,
+      "tsne_x": 3.8103,
+      "tsne_y": 3.269
+    },
+    {
+      "reference": "Enoch Chapter of:51",
+      "index": 116,
+      "pca_x": -0.0108,
+      "pca_y": 0.0502,
+      "tsne_x": 0.4396,
+      "tsne_y": 4.6012
+    },
+    {
+      "reference": "Enoch Chapter of:60",
+      "index": 117,
+      "pca_x": -0.0721,
+      "pca_y": 0.0174,
+      "tsne_x": -0.9184,
+      "tsne_y": 3.4827
+    },
+    {
+      "reference": "Enoch Chapter of:68",
+      "index": 118,
+      "pca_x": -0.0298,
+      "pca_y": 0.0131,
+      "tsne_x": -0.4115,
+      "tsne_y": 4.025
+    },
+    {
+      "reference": "Enoch Chapter of:72",
+      "index": 119,
+      "pca_x": -0.005,
+      "pca_y": 0.0172,
+      "tsne_x": 0.3072,
+      "tsne_y": 3.3156
+    },
+    {
+      "reference": "Enoch Chapter of:2",
+      "index": 120,
+      "pca_x": 0.0289,
+      "pca_y": 0.0367,
+      "tsne_x": 1.7667,
+      "tsne_y": 2.9395
+    },
+    {
+      "reference": "Enoch Chapter of:6",
+      "index": 121,
+      "pca_x": -0.0268,
+      "pca_y": 0.1009,
+      "tsne_x": 0.9242,
+      "tsne_y": 5.2239
+    },
+    {
+      "reference": "Enoch Chapter of:18",
+      "index": 122,
+      "pca_x": 0.1604,
+      "pca_y": 0.031,
+      "tsne_x": 3.8705,
+      "tsne_y": -3.88
+    },
+    {
+      "reference": "Enoch Chapter of:20",
+      "index": 123,
+      "pca_x": 0.0245,
+      "pca_y": -0.0085,
+      "tsne_x": 1.0078,
+      "tsne_y": 1.2354
+    },
+    {
+      "reference": "Enoch Chapter of:23",
+      "index": 124,
+      "pca_x": 0.0126,
+      "pca_y": 0.0661,
+      "tsne_x": 1.3716,
+      "tsne_y": 4.1445
+    },
+    {
+      "reference": "Enoch Chapter of:28",
+      "index": 125,
+      "pca_x": 0.0081,
+      "pca_y": 0.001,
+      "tsne_x": 0.5538,
+      "tsne_y": 3.1073
+    },
+    {
+      "reference": "Enoch Chapter of:30",
+      "index": 126,
+      "pca_x": -0.0053,
+      "pca_y": 0.046,
+      "tsne_x": 0.4721,
+      "tsne_y": 3.9566
+    },
+    {
+      "reference": "Enoch Chapter of:37",
+      "index": 127,
+      "pca_x": 0.0119,
+      "pca_y": 0.0856,
+      "tsne_x": 1.43,
+      "tsne_y": 3.7333
+    },
+    {
+      "reference": "Enoch Chapter of:41",
+      "index": 128,
+      "pca_x": -0.0621,
+      "pca_y": -0.049,
+      "tsne_x": -1.985,
+      "tsne_y": 0.7771
+    },
+    {
+      "reference": "Enoch Chapter of:5",
+      "index": 129,
+      "pca_x": -0.1269,
+      "pca_y": -0.0133,
+      "tsne_x": -4.2213,
+      "tsne_y": 4.6754
+    },
+    {
+      "reference": "Enoch Chapter of:2",
+      "index": 130,
+      "pca_x": -0.0202,
+      "pca_y": 0.0792,
+      "tsne_x": 2.5356,
+      "tsne_y": 5.3697
+    },
+    {
+      "reference": "Enoch Chapter of:10",
+      "index": 131,
+      "pca_x": -0.0548,
+      "pca_y": 0.0222,
+      "tsne_x": -6.1885,
+      "tsne_y": -0.0007
+    },
+    {
+      "reference": "Enoch Chapter of:19",
+      "index": 132,
+      "pca_x": 0.0424,
+      "pca_y": -0.0303,
+      "tsne_x": 0.7095,
+      "tsne_y": -1.392
+    },
+    {
+      "reference": "Enoch Chapter of:4",
+      "index": 133,
+      "pca_x": -0.1364,
+      "pca_y": 0.0173,
+      "tsne_x": -5.7719,
+      "tsne_y": 0.8443
+    },
+    {
+      "reference": "Enoch Chapter of:8",
+      "index": 134,
+      "pca_x": -0.0566,
+      "pca_y": -0.0383,
+      "tsne_x": -5.1542,
+      "tsne_y": 0.0637
+    },
+    {
+      "reference": "Enoch Chapter of:10",
+      "index": 135,
+      "pca_x": -0.0156,
+      "pca_y": -0.0363,
+      "tsne_x": -0.4149,
+      "tsne_y": -0.0006
+    },
+    {
+      "reference": "Enoch Chapter of:13",
+      "index": 136,
+      "pca_x": -0.0393,
+      "pca_y": -0.0456,
+      "tsne_x": -4.9839,
+      "tsne_y": -0.6856
+    },
+    {
+      "reference": "Enoch Chapter of:17",
+      "index": 137,
+      "pca_x": -0.0942,
+      "pca_y": 0.0253,
+      "tsne_x": -4.8505,
+      "tsne_y": 1.3999
+    },
+    {
+      "reference": "Enoch Chapter of:5",
+      "index": 138,
+      "pca_x": -0.1154,
+      "pca_y": -0.0451,
+      "tsne_x": -3.2452,
+      "tsne_y": 1.7535
+    },
+    {
+      "reference": "Enoch Chapter of:11",
+      "index": 139,
+      "pca_x": -0.0747,
+      "pca_y": -0.0498,
+      "tsne_x": -1.9463,
+      "tsne_y": 2.9944
+    },
+    {
+      "reference": "Enoch Chapter of:7",
+      "index": 140,
+      "pca_x": -0.0109,
+      "pca_y": -0.0498,
+      "tsne_x": -3.9314,
+      "tsne_y": -1.1202
+    },
+    {
+      "reference": "Enoch Chapter of:8",
+      "index": 141,
+      "pca_x": 0.0279,
+      "pca_y": -0.1069,
+      "tsne_x": 0.6553,
+      "tsne_y": -2.6435
+    },
+    {
+      "reference": "Enoch Chapter of:10",
+      "index": 142,
+      "pca_x": -0.1271,
+      "pca_y": -0.0594,
+      "tsne_x": -4.2717,
+      "tsne_y": 2.0384
+    },
+    {
+      "reference": "Enoch Chapter of:4",
+      "index": 143,
+      "pca_x": -0.1282,
+      "pca_y": -0.0751,
+      "tsne_x": -3.266,
+      "tsne_y": 0.6769
+    },
+    {
+      "reference": "Enoch Chapter of:7",
+      "index": 144,
+      "pca_x": -0.1068,
+      "pca_y": -0.0848,
+      "tsne_x": -3.3774,
+      "tsne_y": 2.7323
+    },
+    {
+      "reference": "Enoch Chapter of:10",
+      "index": 145,
+      "pca_x": -0.0784,
+      "pca_y": -0.0905,
+      "tsne_x": 5.514,
+      "tsne_y": 2.3739
+    },
+    {
+      "reference": "Enoch Chapter of:11",
+      "index": 146,
+      "pca_x": -0.0769,
+      "pca_y": -0.0948,
+      "tsne_x": -4.2498,
+      "tsne_y": 2.1394
+    },
+    {
+      "reference": "Enoch Chapter of:15",
+      "index": 147,
+      "pca_x": -0.1251,
+      "pca_y": -0.0145,
+      "tsne_x": -4.9575,
+      "tsne_y": 2.6081
+    },
+    {
+      "reference": "Enoch Chapter of:5",
+      "index": 148,
+      "pca_x": -0.1846,
+      "pca_y": 0.0324,
+      "tsne_x": -6.1031,
+      "tsne_y": 2.9619
+    },
+    {
+      "reference": "Enoch Chapter of:6",
+      "index": 149,
+      "pca_x": -0.0976,
+      "pca_y": 0.1493,
+      "tsne_x": 1.8757,
+      "tsne_y": 5.6859
+    },
+    {
+      "reference": "Enoch Chapter of:16",
+      "index": 150,
+      "pca_x": -0.0214,
+      "pca_y": -0.0332,
+      "tsne_x": -4.6784,
+      "tsne_y": -0.916
+    },
+    {
+      "reference": "Enoch Chapter of:10",
+      "index": 151,
+      "pca_x": -0.0559,
+      "pca_y": -0.0155,
+      "tsne_x": -2.9517,
+      "tsne_y": 2.3442
+    },
+    {
+      "reference": "Enoch Chapter of:6",
+      "index": 152,
+      "pca_x": -0.0104,
+      "pca_y": -0.0135,
+      "tsne_x": -2.5591,
+      "tsne_y": 2.4603
+    },
+    {
+      "reference": "Enoch Chapter of:9",
+      "index": 153,
+      "pca_x": -0.0369,
+      "pca_y": 0.0345,
+      "tsne_x": -1.0256,
+      "tsne_y": 3.0204
+    },
+    {
+      "reference": "Enoch Chapter of:15",
+      "index": 154,
+      "pca_x": -0.0919,
+      "pca_y": -0.0242,
+      "tsne_x": -4.0166,
+      "tsne_y": 1.9975
+    },
+    {
+      "reference": "Enoch Chapter of:9",
+      "index": 155,
+      "pca_x": -0.0588,
+      "pca_y": -0.0051,
+      "tsne_x": -1.5344,
+      "tsne_y": 1.7614
+    }
+  ]
+}

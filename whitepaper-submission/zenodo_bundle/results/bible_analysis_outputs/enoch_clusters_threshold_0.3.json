@@ -1,0 +1,224 @@
+{
+  "threshold": 0.3,
+  "total_clusters": 31,
+  "clusters": {
+    "5": [
+      "Enoch Chapter of:8"
+    ],
+    "29": [
+      "Enoch Chapter of:9",
+      "Enoch Chapter of:9",
+      "Enoch Chapter of:7",
+      "Enoch Chapter of:21",
+      "Enoch Chapter of:10",
+      "Enoch Chapter of:7",
+      "Enoch Chapter of:42",
+      "Enoch Chapter of:2",
+      "Enoch Chapter of:10",
+      "Enoch Chapter of:6"
+    ],
+    "1": [
+      "Enoch Chapter of:5",
+      "Enoch Chapter of:4",
+      "Enoch Chapter of:17"
+    ],
+    "28": [
+      "Enoch Chapter of:3",
+      "Enoch Chapter of:21",
+      "Enoch Chapter of:6",
+      "Enoch Chapter of:17",
+      "Enoch Chapter of:4",
+      "Enoch Chapter of:5",
+      "Enoch Chapter of:13",
+      "Enoch Chapter of:3",
+      "Enoch Chapter of:3",
+      "Enoch Chapter of:37",
+      "Enoch Chapter of:9",
+      "Enoch Chapter of:9"
+    ],
+    "20": [
+      "Enoch Chapter of:5",
+      "Enoch Chapter of:3",
+      "Enoch Chapter of:3",
+      "Enoch Chapter of:12",
+      "Enoch Chapter of:7",
+      "Enoch Chapter of:4",
+      "Enoch Chapter of:3",
+      "Enoch Chapter of:8",
+      "Enoch Chapter of:3",
+      "Enoch Chapter of:3",
+      "Enoch Chapter of:7",
+      "Enoch Chapter of:10",
+      "Enoch Chapter of:13",
+      "Enoch Chapter of:6",
+      "Enoch Chapter of:12",
+      "Enoch Chapter of:8",
+      "Enoch Chapter of:4",
+      "Enoch Chapter of:23",
+      "Enoch Chapter of:29",
+      "Enoch Chapter of:14",
+      "Enoch Chapter of:14",
+      "Enoch Chapter of:4",
+      "Enoch Chapter of:10",
+      "Enoch Chapter of:15",
+      "Enoch Chapter of:18",
+      "Enoch Chapter of:18",
+      "Enoch Chapter of:20",
+      "Enoch Chapter of:19",
+      "Enoch Chapter of:10"
+    ],
+    "2": [
+      "Enoch Chapter of:18",
+      "Enoch Chapter of:6",
+      "Enoch Chapter of:4",
+      "Enoch Chapter of:4",
+      "Enoch Chapter of:2",
+      "Enoch Chapter of:10",
+      "Enoch Chapter of:8",
+      "Enoch Chapter of:13",
+      "Enoch Chapter of:16"
+    ],
+    "18": [
+      "Enoch Chapter of:3",
+      "Enoch Chapter of:2",
+      "Enoch Chapter of:5"
+    ],
+    "26": [
+      "Enoch Chapter of:5",
+      "Enoch Chapter of:3"
+    ],
+    "14": [
+      "Enoch Chapter of:9",
+      "Enoch Chapter of:9"
+    ],
+    "9": [
+      "Enoch Chapter of:4"
+    ],
+    "3": [
+      "Enoch Chapter of:6",
+      "Enoch Chapter of:5",
+      "Enoch Chapter of:15",
+      "Enoch Chapter of:5"
+    ],
+    "19": [
+      "Enoch Chapter of:6",
+      "Enoch Chapter of:2",
+      "Enoch Chapter of:4",
+      "Enoch Chapter of:7",
+      "Enoch Chapter of:6",
+      "Enoch Chapter of:9",
+      "Enoch Chapter of:3",
+      "Enoch Chapter of:9",
+      "Enoch Chapter of:11",
+      "Enoch Chapter of:16",
+      "Enoch Chapter of:12",
+      "Enoch Chapter of:2"
+    ],
+    "15": [
+      "Enoch Chapter of:9",
+      "Enoch Chapter of:2",
+      "Enoch Chapter of:4"
+    ],
+    "21": [
+      "Enoch Chapter of:8",
+      "Enoch Chapter of:8",
+      "Enoch Chapter of:8",
+      "Enoch Chapter of:6",
+      "Enoch Chapter of:7",
+      "Enoch Chapter of:9",
+      "Enoch Chapter of:11",
+      "Enoch Chapter of:20",
+      "Enoch Chapter of:12",
+      "Enoch Chapter of:17",
+      "Enoch Chapter of:25",
+      "Enoch Chapter of:7",
+      "Enoch Chapter of:4",
+      "Enoch Chapter of:3",
+      "Enoch Chapter of:8"
+    ],
+    "6": [
+      "Enoch Chapter of:9"
+    ],
+    "16": [
+      "Enoch Chapter of:6",
+      "Enoch Chapter of:10",
+      "Enoch Chapter of:3",
+      "Enoch Chapter of:7",
+      "Enoch Chapter of:41"
+    ],
+    "17": [
+      "Enoch Chapter of:9",
+      "Enoch Chapter of:5",
+      "Enoch Chapter of:5"
+    ],
+    "31": [
+      "Enoch Chapter of:6"
+    ],
+    "4": [
+      "Enoch Chapter of:7"
+    ],
+    "24": [
+      "Enoch Chapter of:12",
+      "Enoch Chapter of:2",
+      "Enoch Chapter of:2",
+      "Enoch Chapter of:6"
+    ],
+    "30": [
+      "Enoch Chapter of:4",
+      "Enoch Chapter of:6",
+      "Enoch Chapter of:9",
+      "Enoch Chapter of:5",
+      "Enoch Chapter of:2",
+      "Enoch Chapter of:10",
+      "Enoch Chapter of:28",
+      "Enoch Chapter of:44",
+      "Enoch Chapter of:48",
+      "Enoch Chapter of:50",
+      "Enoch Chapter of:51",
+      "Enoch Chapter of:60",
+      "Enoch Chapter of:68",
+      "Enoch Chapter of:72",
+      "Enoch Chapter of:6",
+      "Enoch Chapter of:23",
+      "Enoch Chapter of:28",
+      "Enoch Chapter of:30"
+    ],
+    "22": [
+      "Enoch Chapter of:2"
+    ],
+    "27": [
+      "Enoch Chapter of:5",
+      "Enoch Chapter of:7",
+      "Enoch Chapter of:10",
+      "Enoch Chapter of:12"
+    ],
+    "23": [
+      "Enoch Chapter of:5",
+      "Enoch Chapter of:5"
+    ],
+    "25": [
+      "Enoch Chapter of:3"
+    ],
+    "7": [
+      "Enoch Chapter of:5"
+    ],
+    "11": [
+      "Enoch Chapter of:11"
+    ],
+    "8": [
+      "Enoch Chapter of:7",
+      "Enoch Chapter of:10",
+      "Enoch Chapter of:11",
+      "Enoch Chapter of:15"
+    ],
+    "12": [
+      "Enoch Chapter of:4"
+    ],
+    "13": [
+      "Enoch Chapter of:7"
+    ],
+    "10": [
+      "Enoch Chapter of:10"
+    ]
+  }
+}

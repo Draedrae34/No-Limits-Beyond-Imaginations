@@ -1,0 +1,328 @@
+{
+  "pillar": "Pillar 4: Frequency Principles in Ancient Texts",
+  "generated": "2026-09-19T17:50:12.670706Z",
+  "principles": [
+    {
+      "name": "Divine Sound Creates",
+      "description": "The universe is created through divine sound/word/command. Sound is the fundamental creative force.",
+      "supporting_passages": [
+        {
+          "keyword": "voice",
+          "position": 10661,
+          "context": " of them both were opened, and they knew that they were naked; and they sewed fig leaves together, and made themselves aprons. 3:8 And they heard the voice of the LORD God walking in the garden in the cool of the day: and Adam and his wife hid themselves from the presence of the LORD God amongst the tree",
+          "concept_category": "sound_creation"
+        },
+        {
+          "keyword": "voice",
+          "position": 10937,
+          "context": "the LORD God amongst the trees of the garden. 3:9 And the LORD God called unto Adam, and said unto him, Where art thou? 3:10 And he said, I heard thy voice in the garden, and I was afraid, because I was naked; and I hid myself. 3:11 And he said, Who told thee that thou wast naked? Hast thou eaten of the ",
+          "concept_category": "sound_creation"
+        },
+        {
+          "keyword": "voice",
+          "position": 12027,
+          "context": "forth children; and thy desire shall be to thy husband, and he shall rule over thee. 3:17 And unto Adam he said, Because thou hast hearkened unto the voice of thy wife, and hast eaten of the tree, of which I commanded thee, saying, Thou shalt not eat of it: cursed is the ground for thy sake; in sorrow sh",
+          "concept_category": "sound_creation"
+        },
+        {
+          "keyword": "voice",
+          "position": 14296,
+          "context": "And the LORD said unto Cain, Where is Abel thy brother? And he said, I know not: Am I my brother s keeper? 4:10 And he said, What hast thou done? the voice of thy brother s blood crieth unto me from the ground. 4:11 And now art thou cursed from the earth, which hath opened her mouth to receive thy brothe",
+          "concept_category": "sound_creation"
+        },
+        {
+          "keyword": "voice",
+          "position": 15990,
+          "context": "nstructer of every artificer in brass and iron: and the sister of Tubalcain was Naamah. 4:23 And Lamech said unto his wives, Adah and Zillah, Hear my voice; ye wives of Lamech, hearken unto my speech: for I have slain a man to my wounding, and a young man to my hurt. 4:24 If Cain shall be avenged sevenfo",
+          "concept_category": "sound_creation"
+        }
+      ],
+      "texts_found_in": [
+        "KJV Bible",
+        "Gospel of Thomas",
+        "Corpus Hermeticum",
+        "Dead Sea Scrolls",
+        "Nag Hammadi Library",
+        "Book of Enoch"
+      ],
+      "frequency": 1675,
+      "confidence": 0.85
+    },
+    {
+      "name": "Divine Breath Animates Life",
+      "description": "Life is infused through divine breath/spirit. The animating force comes from the divine.",
+      "supporting_passages": [
+        {
+          "keyword": "god said",
+          "position": 2392,
+          "context": "nd the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters. 1:3 And God said, Let there be light: and there was light. 1:4 And God saw the light, that it was good: and God divided the light from the darkness. 1:5 And God calle",
+          "concept_category": "divine_command"
+        },
+        {
+          "keyword": "god said",
+          "position": 2661,
+          "context": "ht from the darkness. 1:5 And God called the light Day, and the darkness he called Night. And the evening and the morning were the first day. 1:6 And God said, Let there be a firmament in the midst of the waters, and let it divide the waters from the waters. 1:7 And God made the firmament, and divided the w",
+          "concept_category": "divine_command"
+        },
+        {
+          "keyword": "god said",
+          "position": 3021,
+          "context": " which were above the firmament: and it was so. 1:8 And God called the firmament Heaven. And the evening and the morning were the second day. 1:9 And God said, Let the waters under the heaven be gathered together unto one place, and let the dry land appear: and it was so. 1:10 And God called the dry land Ea",
+          "concept_category": "divine_command"
+        },
+        {
+          "keyword": "god said",
+          "position": 3280,
+          "context": "nd it was so. 1:10 And God called the dry land Earth; and the gathering together of the waters called he Seas: and God saw that it was good. 1:11 And God said, Let the earth bring forth grass, the herb yielding seed, and the fruit tree yielding fruit after his kind, whose seed is in itself, upon the earth: ",
+          "concept_category": "divine_command"
+        },
+        {
+          "keyword": "god said",
+          "position": 3699,
+          "context": "ding fruit, whose seed was in itself, after his kind: and God saw that it was good. 1:13 And the evening and the morning were the third day. 1:14 And God said, Let there be lights in the firmament of the heaven to divide the day from the night; and let them be for signs, and for seasons, and for days, and y",
+          "concept_category": "divine_command"
+        }
+      ],
+      "texts_found_in": [
+        "KJV Bible",
+        "Gospel of Thomas",
+        "Corpus Hermeticum",
+        "Dead Sea Scrolls",
+        "Nag Hammadi Library",
+        "Book of Enoch"
+      ],
+      "frequency": 2664,
+      "confidence": 0.85
+    },
+    {
+      "name": "Divine Power Regenerates",
+      "description": "Healing and regeneration come through divine power/authority. The divine can restore and renew life.",
+      "supporting_passages": [
+        {
+          "keyword": "god said",
+          "position": 2392,
+          "context": "nd the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters. 1:3 And God said, Let there be light: and there was light. 1:4 And God saw the light, that it was good: and God divided the light from the darkness. 1:5 And God calle",
+          "concept_category": "divine_command"
+        },
+        {
+          "keyword": "god said",
+          "position": 2661,
+          "context": "ht from the darkness. 1:5 And God called the light Day, and the darkness he called Night. And the evening and the morning were the first day. 1:6 And God said, Let there be a firmament in the midst of the waters, and let it divide the waters from the waters. 1:7 And God made the firmament, and divided the w",
+          "concept_category": "divine_command"
+        },
+        {
+          "keyword": "god said",
+          "position": 3021,
+          "context": " which were above the firmament: and it was so. 1:8 And God called the firmament Heaven. And the evening and the morning were the second day. 1:9 And God said, Let the waters under the heaven be gathered together unto one place, and let the dry land appear: and it was so. 1:10 And God called the dry land Ea",
+          "concept_category": "divine_command"
+        },
+        {
+          "keyword": "god said",
+          "position": 3280,
+          "context": "nd it was so. 1:10 And God called the dry land Earth; and the gathering together of the waters called he Seas: and God saw that it was good. 1:11 And God said, Let the earth bring forth grass, the herb yielding seed, and the fruit tree yielding fruit after his kind, whose seed is in itself, upon the earth: ",
+          "concept_category": "divine_command"
+        },
+        {
+          "keyword": "god said",
+          "position": 3699,
+          "context": "ding fruit, whose seed was in itself, after his kind: and God saw that it was good. 1:13 And the evening and the morning were the third day. 1:14 And God said, Let there be lights in the firmament of the heaven to divide the day from the night; and let them be for signs, and for seasons, and for days, and y",
+          "concept_category": "divine_command"
+        }
+      ],
+      "texts_found_in": [
+        "KJV Bible",
+        "Gospel of Thomas",
+        "Corpus Hermeticum",
+        "Dead Sea Scrolls",
+        "Nag Hammadi Library",
+        "Book of Enoch"
+      ],
+      "frequency": 751,
+      "confidence": 0.85
+    },
+    {
+      "name": "Water as Life Medium",
+      "description": "Water is the medium through which life flows and is sustained. Living water represents the source of life.",
+      "supporting_passages": [
+        {
+          "keyword": "spirit",
+          "position": 2335,
+          "context": "the beginning God created the heaven and the earth. 1:2 And the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters. 1:3 And God said, Let there be light: and there was light. 1:4 And God saw the light, that it was good: and",
+          "concept_category": "life_force"
+        },
+        {
+          "keyword": "spirit",
+          "position": 19642,
+          "context": "m, 6:2 That the sons of God saw the daughters of men that they were fair; and they took them wives of all which they chose. 6:3 And the LORD said, My spirit shall not always strive with man, for that he also is flesh: yet his days shall be an hundred and twenty years. 6:4 There were giants in the earth in",
+          "concept_category": "life_force"
+        },
+        {
+          "keyword": "spirit",
+          "position": 161343,
+          "context": "ven thin ears devoured the seven rank and full ears. And Pharaoh awoke, and, behold, it was a dream. 41:8 And it came to pass in the morning that his spirit was troubled; and he sent and called for all the magicians of Egypt, and all the wise men thereof: and Pharaoh told them his dream; but there was non",
+          "concept_category": "life_force"
+        },
+        {
+          "keyword": "spirit",
+          "position": 165343,
+          "context": " eyes of Pharaoh, and in the eyes of all his servants. 41:38 And Pharaoh said unto his servants, Can we find such a one as this is, a man in whom the Spirit of God is? 41:39 And Pharaoh said unto Joseph, Forasmuch as God hath shewed thee all this, there is none so discreet and wise as thou art: 41:40 Thou",
+          "concept_category": "life_force"
+        },
+        {
+          "keyword": "spirit",
+          "position": 186464,
+          "context": "not. 45:27 And they told him all the words of Joseph, which he had said unto them: and when he saw the wagons which Joseph had sent to carry him, the spirit of Jacob their father revived: 45:28 And Israel said, It is enough; Joseph my son is yet alive: I will go and see him before I die. 46:1 And Israel t",
+          "concept_category": "life_force"
+        }
+      ],
+      "texts_found_in": [
+        "KJV Bible",
+        "Gospel of Thomas",
+        "Corpus Hermeticum",
+        "Dead Sea Scrolls",
+        "Nag Hammadi Library",
+        "Book of Enoch"
+      ],
+      "frequency": 2524,
+      "confidence": 0.85
+    },
+    {
+      "name": "Light as Creative Force",
+      "description": "Light is the first creation and represents divine presence. Light dispels darkness and enables life.",
+      "supporting_passages": [
+        {
+          "keyword": "god said",
+          "position": 2392,
+          "context": "nd the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters. 1:3 And God said, Let there be light: and there was light. 1:4 And God saw the light, that it was good: and God divided the light from the darkness. 1:5 And God calle",
+          "concept_category": "divine_command"
+        },
+        {
+          "keyword": "god said",
+          "position": 2661,
+          "context": "ht from the darkness. 1:5 And God called the light Day, and the darkness he called Night. And the evening and the morning were the first day. 1:6 And God said, Let there be a firmament in the midst of the waters, and let it divide the waters from the waters. 1:7 And God made the firmament, and divided the w",
+          "concept_category": "divine_command"
+        },
+        {
+          "keyword": "god said",
+          "position": 3021,
+          "context": " which were above the firmament: and it was so. 1:8 And God called the firmament Heaven. And the evening and the morning were the second day. 1:9 And God said, Let the waters under the heaven be gathered together unto one place, and let the dry land appear: and it was so. 1:10 And God called the dry land Ea",
+          "concept_category": "divine_command"
+        },
+        {
+          "keyword": "god said",
+          "position": 3280,
+          "context": "nd it was so. 1:10 And God called the dry land Earth; and the gathering together of the waters called he Seas: and God saw that it was good. 1:11 And God said, Let the earth bring forth grass, the herb yielding seed, and the fruit tree yielding fruit after his kind, whose seed is in itself, upon the earth: ",
+          "concept_category": "divine_command"
+        },
+        {
+          "keyword": "god said",
+          "position": 3699,
+          "context": "ding fruit, whose seed was in itself, after his kind: and God saw that it was good. 1:13 And the evening and the morning were the third day. 1:14 And God said, Let there be lights in the firmament of the heaven to divide the day from the night; and let them be for signs, and for seasons, and for days, and y",
+          "concept_category": "divine_command"
+        }
+      ],
+      "texts_found_in": [
+        "KJV Bible",
+        "Gospel of Thomas",
+        "Corpus Hermeticum",
+        "Dead Sea Scrolls",
+        "Nag Hammadi Library",
+        "Book of Enoch"
+      ],
+      "frequency": 718,
+      "confidence": 0.85
+    },
+    {
+      "name": "Numerical Structure of Creation",
+      "description": "Creation follows numerical patterns and structures. Specific numbers (3, 6, 9, 7, 12, 40) carry structural significance.",
+      "supporting_passages": [
+        {
+          "keyword": "seven",
+          "position": 17164,
+          "context": "and thirty years: and he died. 5:6 And Seth lived an hundred and five years, and begat Enos: 5:7 And Seth lived after he begat Enos eight hundred and seven years, and begat sons and daughters: 5:8 And all the days of Seth were nine hundred and twelve years: and he died. 5:9 And Enos lived ninety years, a",
+          "concept_category": "frequency_structure"
+        },
+        {
+          "keyword": "seven",
+          "position": 18636,
+          "context": "three hundred sixty and five years: 5:24 And Enoch walked with God: and he was not; for God took him. 5:25 And Methuselah lived an hundred eighty and seven years, and begat Lamech. 5:26 And Methuselah lived after he begat Lamech seven hundred eighty and two years, and begat sons and daughters: 5:27 And a",
+          "concept_category": "frequency_structure"
+        },
+        {
+          "keyword": "seven",
+          "position": 18715,
+          "context": "not; for God took him. 5:25 And Methuselah lived an hundred eighty and seven years, and begat Lamech. 5:26 And Methuselah lived after he begat Lamech seven hundred eighty and two years, and begat sons and daughters: 5:27 And all the days of Methuselah were nine hundred sixty and nine years: and he died. ",
+          "concept_category": "frequency_structure"
+        },
+        {
+          "keyword": "seven",
+          "position": 19249,
+          "context": "sed. 5:30 And Lamech lived after he begat Noah five hundred ninety and five years, and begat sons and daughters: 5:31 And all the days of Lamech were seven hundred seventy and seven years: and he died. 5:32 And Noah was five hundred years old: and Noah begat Shem, Ham, and Japheth. 6:1 And it came to pas",
+          "concept_category": "frequency_structure"
+        },
+        {
+          "keyword": "seven",
+          "position": 19275,
+          "context": " after he begat Noah five hundred ninety and five years, and begat sons and daughters: 5:31 And all the days of Lamech were seven hundred seventy and seven years: and he died. 5:32 And Noah was five hundred years old: and Noah begat Shem, Ham, and Japheth. 6:1 And it came to pass, when men began to multi",
+          "concept_category": "frequency_structure"
+        }
+      ],
+      "texts_found_in": [
+        "KJV Bible",
+        "Gospel of Thomas",
+        "Corpus Hermeticum",
+        "Dead Sea Scrolls",
+        "Nag Hammadi Library",
+        "Book of Enoch"
+      ],
+      "frequency": 975,
+      "confidence": 0.85
+    },
+    {
+      "name": "Sound and Water Interact",
+      "description": "Sound/vibration interacts with water to create or transform. Water responds to vibrational frequencies.",
+      "supporting_passages": [
+        {
+          "keyword": "voice",
+          "position": 10661,
+          "context": " of them both were opened, and they knew that they were naked; and they sewed fig leaves together, and made themselves aprons. 3:8 And they heard the voice of the LORD God walking in the garden in the cool of the day: and Adam and his wife hid themselves from the presence of the LORD God amongst the tree",
+          "concept_category": "sound_creation"
+        },
+        {
+          "keyword": "voice",
+          "position": 10937,
+          "context": "the LORD God amongst the trees of the garden. 3:9 And the LORD God called unto Adam, and said unto him, Where art thou? 3:10 And he said, I heard thy voice in the garden, and I was afraid, because I was naked; and I hid myself. 3:11 And he said, Who told thee that thou wast naked? Hast thou eaten of the ",
+          "concept_category": "sound_creation"
+        },
+        {
+          "keyword": "voice",
+          "position": 12027,
+          "context": "forth children; and thy desire shall be to thy husband, and he shall rule over thee. 3:17 And unto Adam he said, Because thou hast hearkened unto the voice of thy wife, and hast eaten of the tree, of which I commanded thee, saying, Thou shalt not eat of it: cursed is the ground for thy sake; in sorrow sh",
+          "concept_category": "sound_creation"
+        },
+        {
+          "keyword": "voice",
+          "position": 14296,
+          "context": "And the LORD said unto Cain, Where is Abel thy brother? And he said, I know not: Am I my brother s keeper? 4:10 And he said, What hast thou done? the voice of thy brother s blood crieth unto me from the ground. 4:11 And now art thou cursed from the earth, which hath opened her mouth to receive thy brothe",
+          "concept_category": "sound_creation"
+        },
+        {
+          "keyword": "voice",
+          "position": 15990,
+          "context": "nstructer of every artificer in brass and iron: and the sister of Tubalcain was Naamah. 4:23 And Lamech said unto his wives, Adah and Zillah, Hear my voice; ye wives of Lamech, hearken unto my speech: for I have slain a man to my wounding, and a young man to my hurt. 4:24 If Cain shall be avenged sevenfo",
+          "concept_category": "sound_creation"
+        }
+      ],
+      "texts_found_in": [
+        "KJV Bible",
+        "Gospel of Thomas",
+        "Corpus Hermeticum",
+        "Dead Sea Scrolls",
+        "Nag Hammadi Library",
+        "Book of Enoch"
+      ],
+      "frequency": 1535,
+      "confidence": 0.85
+    }
+  ]
+}

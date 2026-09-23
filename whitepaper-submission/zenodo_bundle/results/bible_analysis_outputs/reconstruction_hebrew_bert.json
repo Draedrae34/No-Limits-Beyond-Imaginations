@@ -1,0 +1,588 @@
+{
+  "pipeline": "AlephBERT/HebBERT Native Hebrew Reconstruction",
+  "model_used": "onlplab/alephbert-base",
+  "total_lacunae": 45,
+  "gaps_processed": 20,
+  "results": [
+    {
+      "gap_index": 1,
+      "context_before": "קס טרנסחרפטנ בי דד ל וסהברנ חל  אורדל דשיה כ ",
+      "context_after": " וישל ס  ימ  [ ] ל ראצכ וינפל ראיהו  פוה טואע [ ] ח [ ] נלצ לוכ בוהצלו מיציבנה וידבע לוכ דיבו האומ  דיב הוח ער לוכמ קושרל סצמ ראצ לוכ טצ צונאלו ושב  ר",
+      "model_used": "onlplab/alephbert-base",
+      "bert_suggestions": [
+        {
+          "word": "…",
+          "confidence": 11.23
+        },
+        {
+          "word": "כן",
+          "confidence": 10.28
+        },
+        {
+          "word": "תודה",
+          "confidence": 9.38
+        },
+        {
+          "word": "לא",
+          "confidence": 9.33
+        },
+        {
+          "word": "מה",
+          "confidence": 9.09
+        }
+      ],
+      "ngram_suggestions": []
+    },
+    {
+      "gap_index": 2,
+      "context_before": "קס טרנסחרפטנ בי דד ל וסהברנ חל  אורדל דשיה כ [ ] וישל ס  ימ  ",
+      "context_after": " ל ראצכ וינפל ראיהו  פוה טואע [ ] ח [ ] נלצ לוכ בוהצלו מיציבנה וידבע לוכ דיבו האומ  דיב הוח ער לוכמ קושרל סצמ ראצ לוכ טצ צונאלו ושב  ראצ פאמו הקדחו טמ",
+      "model_used": "onlplab/alephbert-base",
+      "bert_suggestions": [
+        {
+          "word": "…",
+          "confidence": 11.23
+        },
+        {
+          "word": "כן",
+          "confidence": 10.28
+        },
+        {
+          "word": "תודה",
+          "confidence": 9.38
+        },
+        {
+          "word": "לא",
+          "confidence": 9.33
+        },
+        {
+          "word": "מה",
+          "confidence": 9.09
+        }
+      ],
+      "ngram_suggestions": []
+    },
+    {
+      "gap_index": 3,
+      "context_before": "קס טרנסחרפטנ בי דד ל וסהברנ חל  אורדל דשיה כ [ ] וישל ס  ימ  [ ] ל ראצכ וינפל ראיהו  פוה טואע ",
+      "context_after": " ח [ ] נלצ לוכ בוהצלו מיציבנה וידבע לוכ דיבו האומ  דיב הוח ער לוכמ קושרל סצמ ראצ לוכ טצ צונאלו ושב  ראצ פאמו הקדחו טמצ טואעלו בו  יאעמ לוכב קובדלו טונ",
+      "model_used": "onlplab/alephbert-base",
+      "bert_suggestions": [
+        {
+          "word": "…",
+          "confidence": 11.23
+        },
+        {
+          "word": "כן",
+          "confidence": 10.28
+        },
+        {
+          "word": "תודה",
+          "confidence": 9.38
+        },
+        {
+          "word": "לא",
+          "confidence": 9.33
+        },
+        {
+          "word": "מה",
+          "confidence": 9.09
+        }
+      ],
+      "ngram_suggestions": []
+    },
+    {
+      "gap_index": 4,
+      "context_before": "קס טרנסחרפטנ בי דד ל וסהברנ חל  אורדל דשיה כ [ ] וישל ס  ימ  [ ] ל ראצכ וינפל ראיהו  פוה טואע [ ] ח ",
+      "context_after": " נלצ לוכ בוהצלו מיציבנה וידבע לוכ דיבו האומ  דיב הוח ער לוכמ קושרל סצמ ראצ לוכ טצ צונאלו ושב  ראצ פאמו הקדחו טמצ טואעלו בו  יאעמ לוכב קובדלו טונז  יני",
+      "model_used": "onlplab/alephbert-base",
+      "bert_suggestions": [
+        {
+          "word": "…",
+          "confidence": 11.23
+        },
+        {
+          "word": "כן",
+          "confidence": 10.28
+        },
+        {
+          "word": "תודה",
+          "confidence": 9.38
+        },
+        {
+          "word": "לא",
+          "confidence": 9.33
+        },
+        {
+          "word": "מה",
+          "confidence": 9.09
+        }
+      ],
+      "ngram_suggestions": []
+    },
+    {
+      "gap_index": 5,
+      "context_before": "סמ מינהוכהו מירפסמ מייולהו לצראי לע מימשר  ידסש לוכ מעימאמו טלאממב מטצשו מטמאצ יעאפ לוכו לצראי ינב טונווע טצ וניוענ רומצל מהירשצ מידומ טירבב מירבועהל ",
+      "context_after": " לעילב ונטכ ל [ ] ב ונינפלמ וניטוב [ ] ונצ ונעארה ונצ [ ] ] טובצבו ונב ופאמ [ ] קידחו טמצ [ ]  חהרלסורטה רדס א  בט טה לט סטרכ  רי א נ טה דחמנט הס  דסט",
+      "model_used": "onlplab/alephbert-base",
+      "bert_suggestions": [
+        {
+          "word": "…",
+          "confidence": 11.23
+        },
+        {
+          "word": "כן",
+          "confidence": 10.28
+        },
+        {
+          "word": "תודה",
+          "confidence": 9.38
+        },
+        {
+          "word": "לא",
+          "confidence": 9.33
+        },
+        {
+          "word": "מה",
+          "confidence": 9.09
+        }
+      ],
+      "ngram_suggestions": []
+    },
+    {
+      "gap_index": 6,
+      "context_before": "מ מייולהו לצראי לע מימשר  ידסש לוכ מעימאמו טלאממב מטצשו מטמאצ יעאפ לוכו לצראי ינב טונווע טצ וניוענ רומצל מהירשצ מידומ טירבב מירבועהל [ ] לעילב ונטכ ל ",
+      "context_after": " ב ונינפלמ וניטוב [ ] ונצ ונעארה ונצ [ ] ] טובצבו ונב ופאמ [ ] קידחו טמצ [ ]  חהרלסורטה רדס א  בט טה לט סטרכ  רי א נ טה דחמנט הס  דסטנחט חרטר ט ט טה ס",
+      "model_used": "onlplab/alephbert-base",
+      "bert_suggestions": [
+        {
+          "word": "…",
+          "confidence": 11.23
+        },
+        {
+          "word": "כן",
+          "confidence": 10.28
+        },
+        {
+          "word": "תודה",
+          "confidence": 9.38
+        },
+        {
+          "word": "לא",
+          "confidence": 9.33
+        },
+        {
+          "word": "מה",
+          "confidence": 9.09
+        }
+      ],
+      "ngram_suggestions": []
+    },
+    {
+      "gap_index": 7,
+      "context_before": "משר  ידסש לוכ מעימאמו טלאממב מטצשו מטמאצ יעאפ לוכו לצראי ינב טונווע טצ וניוענ רומצל מהירשצ מידומ טירבב מירבועהל [ ] לעילב ונטכ ל [ ] ב ונינפלמ וניטוב ",
+      "context_after": " ונצ ונעארה ונצ [ ] ] טובצבו ונב ופאמ [ ] קידחו טמצ [ ]  חהרלסורטה רדס א  בט טה לט סטרכ  רי א נ טה דחמנט הס  דסטנחט חרטר ט ט טה סבל סטרכ הר ס חלרלי רט",
+      "model_used": "onlplab/alephbert-base",
+      "bert_suggestions": [
+        {
+          "word": "…",
+          "confidence": 11.23
+        },
+        {
+          "word": "כן",
+          "confidence": 10.28
+        },
+        {
+          "word": "תודה",
+          "confidence": 9.38
+        },
+        {
+          "word": "לא",
+          "confidence": 9.33
+        },
+        {
+          "word": "מה",
+          "confidence": 9.09
+        }
+      ],
+      "ngram_suggestions": []
+    },
+    {
+      "gap_index": 8,
+      "context_before": "מו טלאממב מטצשו מטמאצ יעאפ לוכו לצראי ינב טונווע טצ וניוענ רומצל מהירשצ מידומ טירבב מירבועהל [ ] לעילב ונטכ ל [ ] ב ונינפלמ וניטוב [ ] ונצ ונעארה ונצ ",
+      "context_after": " ] טובצבו ונב ופאמ [ ] קידחו טמצ [ ]  חהרלסורטה רדס א  בט טה לט סטרכ  רי א נ טה דחמנט הס  דסטנחט חרטר ט ט טה סבל סטרכ הר ס חלרלי רטחל נד מסט רסמבלס טה",
+      "model_used": "onlplab/alephbert-base",
+      "bert_suggestions": [
+        {
+          "word": "…",
+          "confidence": 11.23
+        },
+        {
+          "word": "כן",
+          "confidence": 10.28
+        },
+        {
+          "word": "תודה",
+          "confidence": 9.38
+        },
+        {
+          "word": "לא",
+          "confidence": 9.33
+        },
+        {
+          "word": "מה",
+          "confidence": 9.09
+        }
+      ],
+      "ngram_suggestions": []
+    },
+    {
+      "gap_index": 9,
+      "context_before": "יעאפ לוכו לצראי ינב טונווע טצ וניוענ רומצל מהירשצ מידומ טירבב מירבועהל [ ] לעילב ונטכ ל [ ] ב ונינפלמ וניטוב [ ] ונצ ונעארה ונצ [ ] ] טובצבו ונב ופאמ ",
+      "context_after": " קידחו טמצ [ ]  חהרלסורטה רדס א  בט טה לט סטרכ  רי א נ טה דחמנט הס  דסטנחט חרטר ט ט טה סבל סטרכ הר ס חלרלי רטחל נד מסט רסמבלס טהט   מ  רטרנ  חהרלסורטה",
+      "model_used": "onlplab/alephbert-base",
+      "bert_suggestions": [
+        {
+          "word": "…",
+          "confidence": 11.23
+        },
+        {
+          "word": "כן",
+          "confidence": 10.28
+        },
+        {
+          "word": "תודה",
+          "confidence": 9.38
+        },
+        {
+          "word": "לא",
+          "confidence": 9.33
+        },
+        {
+          "word": "מה",
+          "confidence": 9.09
+        }
+      ],
+      "ngram_suggestions": []
+    },
+    {
+      "gap_index": 10,
+      "context_before": "י ינב טונווע טצ וניוענ רומצל מהירשצ מידומ טירבב מירבועהל [ ] לעילב ונטכ ל [ ] ב ונינפלמ וניטוב [ ] ונצ ונעארה ונצ [ ] ] טובצבו ונב ופאמ [ ] קידחו טמצ ",
+      "context_after": "  חהרלסורטה רדס א  בט טה לט סטרכ  רי א נ טה דחמנט הס  דסטנחט חרטר ט ט טה סבל סטרכ הר ס חלרלי רטחל נד מסט רסמבלס טהט   מ  רטרנ  חהרלסורטה רדס מ  הור טה",
+      "model_used": "onlplab/alephbert-base",
+      "bert_suggestions": [
+        {
+          "word": "…",
+          "confidence": 11.23
+        },
+        {
+          "word": "כן",
+          "confidence": 10.28
+        },
+        {
+          "word": "תודה",
+          "confidence": 9.38
+        },
+        {
+          "word": "לא",
+          "confidence": 9.33
+        },
+        {
+          "word": "מה",
+          "confidence": 9.09
+        }
+      ],
+      "ngram_suggestions": []
+    },
+    {
+      "gap_index": 11,
+      "context_before": " חהרלסורטהס רדנג הר בט מימשרו ודסש ר נ מימשרו דסש פפרס קללי פססבל רטרנ\nקס טרנסחרפטנ בי דד ל וסהברנ חל  לוכ טצ מיכרבמ מינהוכהו מלוע דעו מלועמ ונילע למ ",
+      "context_after": " ודקש  יבשרו לוכב הככרבי מירמוצו ויכרד לוכב מימט מיכלוהה לצ לרוג יאנצ מימלוע טעדב הכנושיו מייש לכאב הכבל רציו ער לוכמ הכרומאיו בו יאנצ לוכ  טצ מיללקמ ",
+      "model_used": "onlplab/alephbert-base",
+      "bert_suggestions": [
+        {
+          "word": "…",
+          "confidence": 11.23
+        },
+        {
+          "word": "כן",
+          "confidence": 10.28
+        },
+        {
+          "word": "תודה",
+          "confidence": 9.38
+        },
+        {
+          "word": "לא",
+          "confidence": 9.33
+        },
+        {
+          "word": "מה",
+          "confidence": 9.09
+        }
+      ],
+      "ngram_suggestions": []
+    },
+    {
+      "gap_index": 12,
+      "context_before": "  טירבב צבה יל יהי  מולא רומצל ובבלב כרבטו טוזה טירבה ירבד טצ ועמ ו אב ניצל הוורה מע הצמחה ומ  שר הטפסנו כלצ יבל טוריראב ציכ לוכ וב וקבדו מימלוע טלכל ",
+      "context_after": " ב ורעבי ופאמ טצנקו לצ פצ השילס וגוסהב רוצ ינב לוכ כוטמ טרכנו הערל לצ וי  ולידביו טוזה טירבה טולצ מימלוע ירורצ כוטב ולרוג נטי ונווע לואכמו וילולגב לצ ",
+      "model_used": "onlplab/alephbert-base",
+      "bert_suggestions": [
+        {
+          "word": "…",
+          "confidence": 11.23
+        },
+        {
+          "word": "כן",
+          "confidence": 10.28
+        },
+        {
+          "word": "תודה",
+          "confidence": 9.38
+        },
+        {
+          "word": "לא",
+          "confidence": 9.33
+        },
+        {
+          "word": "מה",
+          "confidence": 9.09
+        }
+      ],
+      "ngram_suggestions": []
+    },
+    {
+      "gap_index": 13,
+      "context_before": "וריבעי מעה לוכו לצ דשיב ודמעמ טיב איצ לצראי איצ לוכ טעדל טוראעו מיאמשו ולרוג מוקממ מורי צולו ודמעמ טיבמ איצ לפאי צולו מימלוע טחעל קדח טבאשמו דסש טבהצ ",
+      "context_after": " בו טונעו טמצ דשיב ויהי לוכה ציכ צובל סצומה לוכו מימלוע [ ל ] דוס ינבו אדוק טחעב והערל א [ יצ ] הלעג ציכ וטמצ דש [ ] צול ובל טוריראב טכלל ל [ ]  חהרלס",
+      "model_used": "onlplab/alephbert-base",
+      "bert_suggestions": [
+        {
+          "word": "…",
+          "confidence": 11.23
+        },
+        {
+          "word": "כן",
+          "confidence": 10.28
+        },
+        {
+          "word": "תודה",
+          "confidence": 9.38
+        },
+        {
+          "word": "לא",
+          "confidence": 9.33
+        },
+        {
+          "word": "מה",
+          "confidence": 9.09
+        }
+      ],
+      "ngram_suggestions": []
+    },
+    {
+      "gap_index": 14,
+      "context_before": "לו מימלוע טחעל קדח טבאשמו דסש טבהצ [] בו טונעו טמצ דשיב ויהי לוכה ציכ צובל סצומה לוכו מימלוע [ ל ] דוס ינבו אדוק טחעב והערל א [ יצ ] הלעג ציכ וטמצ דש ",
+      "context_after": " צול ובל טוריראב טכלל ל [ ]  חהרלסורטה רדס טוזה ס נ לנ  בט טה רסט טו לטטרס  טהס ורד לכ מרכדלי דרנט רמ טהס נ לנ  טה פהטגרפה חלרלי סהוס טו לנס חלס טגטהר",
+      "model_used": "onlplab/alephbert-base",
+      "bert_suggestions": [
+        {
+          "word": "…",
+          "confidence": 11.23
+        },
+        {
+          "word": "כן",
+          "confidence": 10.28
+        },
+        {
+          "word": "תודה",
+          "confidence": 9.38
+        },
+        {
+          "word": "לא",
+          "confidence": 9.33
+        },
+        {
+          "word": "מה",
+          "confidence": 9.09
+        }
+      ],
+      "ngram_suggestions": []
+    },
+    {
+      "gap_index": 15,
+      "context_before": "סש טבהצ [] בו טונעו טמצ דשיב ויהי לוכה ציכ צובל סצומה לוכו מימלוע [ ל ] דוס ינבו אדוק טחעב והערל א [ יצ ] הלעג ציכ וטמצ דש [ ] צול ובל טוריראב טכלל ל ",
+      "context_after": "  חהרלסורטה רדס טוזה ס נ לנ  בט טה רסט טו לטטרס  טהס ורד לכ מרכדלי דרנט רמ טהס נ לנ  טה פהטגרפה חלרלי סהוס טו לנס חלס טגטהר בטונ טה לטטרס  ה דנטד ס ש ",
+      "model_used": "onlplab/alephbert-base",
+      "bert_suggestions": [
+        {
+          "word": "…",
+          "confidence": 11.23
+        },
+        {
+          "word": "כן",
+          "confidence": 10.28
+        },
+        {
+          "word": "תודה",
+          "confidence": 9.38
+        },
+        {
+          "word": "לא",
+          "confidence": 9.33
+        },
+        {
+          "word": "מה",
+          "confidence": 9.09
+        }
+      ],
+      "ngram_suggestions": []
+    },
+    {
+      "gap_index": 16,
+      "context_before": "ק דע לצ יזריפל לוכל רוע וטמצ כצלמו לצראי לצו רוצ ינב ליאכהל ולרוג ישור לוכו האעמ לוכ דסו ניהילעו כאושו רוצ טושור צרב הצוהו רוצ ינב לוכל לצ בהצ טשצ הד ",
+      "context_after": " ל [ ] נהיכרד לעו הדובע לוכ נה [ ]\nקס טרנסחרפטנ בי דד ל וסהברנ חל  שחנל צנא היכרד לוכו הדומ  בעט טשצ דעל החרי היטו טולילע לוכבו מימלוע דע יפאמב ובבל ד",
+      "model_used": "onlplab/alephbert-base",
+      "bert_suggestions": [
+        {
+          "word": "…",
+          "confidence": 11.23
+        },
+        {
+          "word": "כן",
+          "confidence": 10.28
+        },
+        {
+          "word": "תודה",
+          "confidence": 9.38
+        },
+        {
+          "word": "לא",
+          "confidence": 9.33
+        },
+        {
+          "word": "מה",
+          "confidence": 9.09
+        }
+      ],
+      "ngram_suggestions": []
+    },
+    {
+      "gap_index": 17,
+      "context_before": "צ יזריפל לוכל רוע וטמצ כצלמו לצראי לצו רוצ ינב ליאכהל ולרוג ישור לוכו האעמ לוכ דסו ניהילעו כאושו רוצ טושור צרב הצוהו רוצ ינב לוכל לצ בהצ טשצ הד [ ] ל ",
+      "context_after": " נהיכרד לעו הדובע לוכ נה [ ]\nקס טרנסחרפטנ בי דד ל וסהברנ חל  שחנל צנא היכרד לוכו הדומ  בעט טשצ דעל החרי היטו טולילע לוכבו מימלוע דע יפאמב ובבל דשפלו ט",
+      "model_used": "onlplab/alephbert-base",
+      "bert_suggestions": [
+        {
+          "word": "…",
+          "confidence": 11.23
+        },
+        {
+          "word": "כן",
+          "confidence": 10.28
+        },
+        {
+          "word": "תודה",
+          "confidence": 9.38
+        },
+        {
+          "word": "לא",
+          "confidence": 9.33
+        },
+        {
+          "word": "מה",
+          "confidence": 9.09
+        }
+      ],
+      "ngram_suggestions": []
+    },
+    {
+      "gap_index": 18,
+      "context_before": " לצראי לצו רוצ ינב ליאכהל ולרוג ישור לוכו האעמ לוכ דסו ניהילעו כאושו רוצ טושור צרב הצוהו רוצ ינב לוכל לצ בהצ טשצ הד [ ] ל [ ] נהיכרד לעו הדובע לוכ נה ",
+      "context_after": "\nקס טרנסחרפטנ בי דד ל וסהברנ חל  שחנל צנא היכרד לוכו הדומ  בעט טשצ דעל החרי היטו טולילע לוכבו מימלוע דע יפאמב ובבל דשפלו טמצ קדח יכרד לוכ וינפל ראילו ",
+      "model_used": "onlplab/alephbert-base",
+      "bert_suggestions": [
+        {
+          "word": "…",
+          "confidence": 11.23
+        },
+        {
+          "word": "כן",
+          "confidence": 10.28
+        },
+        {
+          "word": "תודה",
+          "confidence": 9.38
+        },
+        {
+          "word": "לא",
+          "confidence": 9.33
+        },
+        {
+          "word": "מה",
+          "confidence": 9.09
+        }
+      ],
+      "ngram_suggestions": []
+    },
+    {
+      "gap_index": 19,
+      "context_before": "כו הלוע צנאי לוכו קדחי טמצב איצ טלשנ יפכו טלוצו המכשב וכלהטי יחק לוכל נה יאעמ טלועפ עדי הצוהו האדש טואעו החרשנ חק דע לצ נמא דבב דב ציכ טמצ בעטי הדוקפ ",
+      "context_after": " ב ושור יפל יש לוכל טולרוג ליפ [] ל [ ] בו טעדל איצ ינבל נלישנ יי [ ]  חהרלסורטה רדס הדוס נד נ  טנט חללס ט נ ררר ר הדומ  הור טה לטטר פפרס נ טה פהטגרפה",
+      "model_used": "onlplab/alephbert-base",
+      "bert_suggestions": [
+        {
+          "word": "…",
+          "confidence": 11.23
+        },
+        {
+          "word": "כן",
+          "confidence": 10.28
+        },
+        {
+          "word": "תודה",
+          "confidence": 9.38
+        },
+        {
+          "word": "לא",
+          "confidence": 9.33
+        },
+        {
+          "word": "מה",
+          "confidence": 9.09
+        }
+      ],
+      "ngram_suggestions": []
+    },
+    {
+      "gap_index": 20,
+      "context_before": "שנ יפכו טלוצו המכשב וכלהטי יחק לוכל נה יאעמ טלועפ עדי הצוהו האדש טואעו החרשנ חק דע לצ נמא דבב דב ציכ טמצ בעטי הדוקפ [ ] ב ושור יפל יש לוכל טולרוג ליפ ",
+      "context_after": " ל [ ] בו טעדל איצ ינבל נלישנ יי [ ]  חהרלסורטה רדס הדוס נד נ  טנט חללס ט נ ררר ר הדומ  הור טה לטטר פפרס נ טה פהטגרפה ט ב  חלר ממ  טהס סחרבס סמכ הס  מ",
+      "model_used": "onlplab/alephbert-base",
+      "bert_suggestions": [
+        {
+          "word": "…",
+          "confidence": 11.23
+        },
+        {
+          "word": "כן",
+          "confidence": 10.28
+        },
+        {
+          "word": "תודה",
+          "confidence": 9.38
+        },
+        {
+          "word": "לא",
+          "confidence": 9.33
+        },
+        {
+          "word": "מה",
+          "confidence": 9.09
+        }
+      ],
+      "ngram_suggestions": []
+    }
+  ]
+}

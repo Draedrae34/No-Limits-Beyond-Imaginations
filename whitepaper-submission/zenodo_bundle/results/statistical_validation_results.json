@@ -1,0 +1,67 @@
+{
+  "title": "Statistical validation of text-classification specificity",
+  "generated": "2026-09-23T00:00:57.241228Z",
+  "detector": "identical keyword ontology as frequency_principles.py (VIBRATIONAL_CONCEPTS)",
+  "normalization": "equal 10,000-word chunks; metric = keyword hits per 1,000 words",
+  "wisdom_chunks": 128,
+  "control_chunks": 25,
+  "wisdom_mean_rate": 30.48,
+  "control_mean_rate": 17.388,
+  "rate_ratio": 1.753,
+  "ratio_bootstrap_95ci": [
+    1.59,
+    1.944
+  ],
+  "mann_whitney_u": 2930.5,
+  "mann_whitney_z": 6.566,
+  "p_value_two_sided": 9.999000099990002e-05,
+  "permutation_p_value": 9.999000099990002e-05,
+  "permutations": 10000,
+  "cliffs_delta": 0.832,
+  "cliffs_delta_interpretation": "large",
+  "per_text_detail": {
+    "KJV Bible": {
+      "chunks": 79,
+      "mean_rate_per_1k_words": 30.341
+    },
+    "Book of Enoch": {
+      "chunks": 4,
+      "mean_rate_per_1k_words": 29.95
+    },
+    "Gospel of Thomas": {
+      "chunks": 0,
+      "mean_rate_per_1k_words": 0
+    },
+    "Corpus Hermeticum": {
+      "chunks": 5,
+      "mean_rate_per_1k_words": 43.9
+    },
+    "Dead Sea Scrolls": {
+      "chunks": 20,
+      "mean_rate_per_1k_words": 22.815
+    },
+    "Nag Hammadi Library": {
+      "chunks": 20,
+      "mean_rate_per_1k_words": 35.445
+    },
+    "Shakespeare": {
+      "chunks": 9,
+      "mean_rate_per_1k_words": 18.589
+    },
+    "Moby Dick": {
+      "chunks": 8,
+      "mean_rate_per_1k_words": 19.35
+    },
+    "Pride & Prejudice": {
+      "chunks": 8,
+      "mean_rate_per_1k_words": 14.075
+    }
+  },
+  "caveats": [
+    "Gospel of Thomas (~2.6k words) is shorter than one 10,000-word chunk and contributes no chunks",
+    "KJV Bible contributes 79 of 128 wisdom chunks (largest corpus dominates the pooled mean)"
+  ],
+  "conclusion": "Ancient wisdom texts show a keyword hit-rate of 1.75x control literature (95% CI 1.59-1.94); permutation test p = 0.0001, Mann-Whitney p = 5.18e-11, Cliff's delta = 0.83 (large).",
+  "replaces": "raw 1807.0/677.67 ratio in specificity_ratio_2.667x.json",
+  "seed": 20260922
+}

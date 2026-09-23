@@ -1,0 +1,1301 @@
+{
+  "corpus_name": "corpus_hermeticum",
+  "total_segments": 1175,
+  "letter_reversal": {
+    "total_letters": 213611,
+    "reversed_length": 213611,
+    "sample_reversed": "esiwylurtebotsuipelcsaotkoobhtneetnevesehtsgnihtllaerahcihwninoitarenegdnadogruoftubllaerayehtrofderebmunylisaednaweftubynamtonerasgnihtesehtdnanoitomdnaefilelohwehtniegnahchtraeehtniytilatrommiwosnevaehnidogseodoseertrehtoemosroeertgifaroeertelppanaroenivagnitnalpnamemasehtnopukoolsdeesrehtoemoserehweslednayelraberehttaehwerehhtraeehtotnisdeesstsacehwohnamdnabsuhehtnopukoolekildnalufituaebyrevfoerehtegaminaeestseyamuoynraellliwuoyfidnaenoderatahtenoderasgnihtehtwohdnasgnihtllaskamehwohnehteesac",
+    "common_word_fragments": {
+      "man": {
+        "forward_count": 581,
+        "reversed_count": 50
+      },
+      "god": {
+        "forward_count": 618,
+        "reversed_count": 1
+      },
+      "end": {
+        "forward_count": 131,
+        "reversed_count": 36
+      },
+      "life": {
+        "forward_count": 120,
+        "reversed_count": 6
+      },
+      "love": {
+        "forward_count": 42,
+        "reversed_count": 11
+      },
+      "son": {
+        "forward_count": 416,
+        "reversed_count": 46
+      }
+    }
+  },
+  "word_reversal": {
+    "total_words": 50960,
+    "sample_reversed": "Wise Truly be to Asclepius To Book Seventeenth The things all are which in Generation and God four but all are they for numbered easily and few but many not are things these And Motion and Life whole the in Change Earth the in Immortality sow Heaven in God does",
+    "common_word_pairs_in_reversed": [
+      [
+        "the of",
+        423
+      ],
+      [
+        "is it",
+        216
+      ],
+      [
+        "things all",
+        214
+      ],
+      [
+        "the and",
+        205
+      ],
+      [
+        "the is",
+        185
+      ],
+      [
+        "the in",
+        171
+      ],
+      [
+        "that things",
+        171
+      ],
+      [
+        "are that",
+        169
+      ],
+      [
+        "not is",
+        151
+      ],
+      [
+        "which that",
+        150
+      ],
+      [
+        "mind the",
+        149
+      ],
+      [
+        "is which",
+        134
+      ],
+      [
+        "the to",
+        128
+      ],
+      [
+        "all of",
+        124
+      ],
+      [
+        "be to",
+        121
+      ],
+      [
+        "soul the",
+        117
+      ],
+      [
+        "god of",
+        115
+      ],
+      [
+        "good the",
+        109
+      ],
+      [
+        "world the",
+        106
+      ],
+      [
+        "is that",
+        105
+      ]
+    ]
+  },
+  "verse_reversal": {
+    "verses_analyzed": 500,
+    "readable_samples_count": 458,
+    "sample_entries": [
+      {
+        "reference": "Hermetica Book I:",
+        "letter_reversed": "",
+        "word_reversed": ""
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "letter_reversed": "wonkdnanraelotdnimniuoyevahtahwdnaeesdnaraehuoydlu",
+        "word_reversed": "know and learn to mind in you have what and see and hear you would What says and name my out called "
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "letter_reversed": "erehwyreveuoyhtiwmidnatseriseduoytahwwonkidoohrets",
+        "word_reversed": "everywhere you with Im and desirest you what know I allmasterhood of Mind Poemandres ManShepherd am "
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "letter_reversed": "uoyhcaetlliwidnawonkdluowuoylladnimruoynidlohemotk",
+        "word_reversed": "you teach will I and know would you all mind your in Hold me to back answered He hear to desire I wh"
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "letter_reversed": "eriffoeciovaerewtihguohtsatimorfhtrofemacetalucitr",
+        "word_reversed": "Fire of Voice a were it though as it from forth came inarticulate outcry an that after And descripti"
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "letter_reversed": "mehtgnidavrepsogoldrowtiripsehtfonosaerybraehotdev",
+        "word_reversed": "them pervading Logos SpiritWord the of reason by hear to moved they were Yet discern could one no Wa"
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "letter_reversed": "tihtiwsdneirfekamdnaderewsnaehthgilehtdnatsrednuos",
+        "word_reversed": "it with friends make and answered He Light the understand So said I You to be Thanks consists Life i"
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "letter_reversed": "sogoldrowsdrehpehsnamfonosaerybdootsrednuisgnihtes",
+        "word_reversed": "Logos Word ManShepherds of reason by understood I things these saw I when And stand a unto come had "
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "letter_reversed": "sluosfoshtribehtybdnastnemelenworehfosnaemybsomsoc",
+        "word_reversed": "souls of births the by and elements own her of means by cosmos a into herself making it copy did Bea"
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "letter_reversed": "etafgnilurriehtllacnemseviecrepesnesehttahtsomsoce",
+        "word_reversed": "Fate ruling their call Men perceives sense the that cosmos the enclose who Rulers Seven formed Spiri"
+      }
+    ]
+  },
+  "plant_growth": {
+    "sections": [
+      "Hermetica Book"
+    ],
+    "new_words_per_section": {
+      "Hermetica Book": {
+        "total_unique_words": 3735,
+        "new_words_injected": 3735,
+        "new_word_samples": [
+          "moved",
+          "hes",
+          "oh",
+          "diggs",
+          "powerful",
+          "concealment",
+          "employed",
+          "existing",
+          "teach",
+          "lazy"
+        ]
+      }
+    },
+    "total_unique_words": 3735,
+    "growth_pattern": [
+      [
+        "Hermetica Book",
+        3735
+      ]
+    ]
+  },
+  "network_shadow": {
+    "total_entities_found": 29,
+    "super_hubs": [
+      {
+        "name": "God",
+        "total_mentions": 355,
+        "unique_connections": 26,
+        "total_connectivity": 817,
+        "top_connections": [
+          [
+            "Mind",
+            114
+          ],
+          [
+            "Son",
+            96
+          ],
+          [
+            "Eve",
+            91
+          ],
+          [
+            "Father",
+            73
+          ],
+          [
+            "Tat",
+            59
+          ]
+        ]
+      },
+      {
+        "name": "Son",
+        "total_mentions": 236,
+        "unique_connections": 25,
+        "total_connectivity": 633,
+        "top_connections": [
+          [
+            "God",
+            96
+          ],
+          [
+            "Hermes",
+            77
+          ],
+          [
+            "Mind",
+            74
+          ],
+          [
+            "Tat",
+            61
+          ],
+          [
+            "Father",
+            56
+          ]
+        ]
+      },
+      {
+        "name": "Eve",
+        "total_mentions": 235,
+        "unique_connections": 27,
+        "total_connectivity": 594,
+        "top_connections": [
+          [
+            "God",
+            91
+          ],
+          [
+            "Mind",
+            64
+          ],
+          [
+            "Son",
+            54
+          ],
+          [
+            "Tat",
+            51
+          ],
+          [
+            "Father",
+            47
+          ]
+        ]
+      },
+      {
+        "name": "Mind",
+        "total_mentions": 226,
+        "unique_connections": 26,
+        "total_connectivity": 641,
+        "top_connections": [
+          [
+            "God",
+            114
+          ],
+          [
+            "Son",
+            74
+          ],
+          [
+            "Eve",
+            64
+          ],
+          [
+            "Tat",
+            53
+          ],
+          [
+            "Father",
+            51
+          ]
+        ]
+      },
+      {
+        "name": "Tat",
+        "total_mentions": 167,
+        "unique_connections": 25,
+        "total_connectivity": 477,
+        "top_connections": [
+          [
+            "Father",
+            92
+          ],
+          [
+            "Son",
+            61
+          ],
+          [
+            "God",
+            59
+          ],
+          [
+            "Mind",
+            53
+          ],
+          [
+            "Eve",
+            51
+          ]
+        ]
+      },
+      {
+        "name": "Father",
+        "total_mentions": 158,
+        "unique_connections": 25,
+        "total_connectivity": 498,
+        "top_connections": [
+          [
+            "Tat",
+            92
+          ],
+          [
+            "God",
+            73
+          ],
+          [
+            "Son",
+            56
+          ],
+          [
+            "Mind",
+            51
+          ],
+          [
+            "Eve",
+            47
+          ]
+        ]
+      },
+      {
+        "name": "Hermes",
+        "total_mentions": 129,
+        "unique_connections": 24,
+        "total_connectivity": 381,
+        "top_connections": [
+          [
+            "Son",
+            77
+          ],
+          [
+            "God",
+            50
+          ],
+          [
+            "Mind",
+            42
+          ],
+          [
+            "Tat",
+            38
+          ],
+          [
+            "Eve",
+            31
+          ]
+        ]
+      },
+      {
+        "name": "Nature",
+        "total_mentions": 112,
+        "unique_connections": 24,
+        "total_connectivity": 342,
+        "top_connections": [
+          [
+            "God",
+            48
+          ],
+          [
+            "Mind",
+            37
+          ],
+          [
+            "Eve",
+            37
+          ],
+          [
+            "Son",
+            31
+          ],
+          [
+            "Father",
+            20
+          ]
+        ]
+      },
+      {
+        "name": "Earth",
+        "total_mentions": 101,
+        "unique_connections": 23,
+        "total_connectivity": 318,
+        "top_connections": [
+          [
+            "God",
+            40
+          ],
+          [
+            "Heaven",
+            33
+          ],
+          [
+            "Son",
+            30
+          ],
+          [
+            "Mind",
+            30
+          ],
+          [
+            "Eve",
+            30
+          ]
+        ]
+      },
+      {
+        "name": "Power",
+        "total_mentions": 78,
+        "unique_connections": 24,
+        "total_connectivity": 294,
+        "top_connections": [
+          [
+            "God",
+            41
+          ],
+          [
+            "Son",
+            31
+          ],
+          [
+            "Eve",
+            31
+          ],
+          [
+            "Father",
+            23
+          ],
+          [
+            "Mind",
+            22
+          ]
+        ]
+      },
+      {
+        "name": "Asclepius",
+        "total_mentions": 66,
+        "unique_connections": 20,
+        "total_connectivity": 110,
+        "top_connections": [
+          [
+            "God",
+            22
+          ],
+          [
+            "Eve",
+            20
+          ],
+          [
+            "Hermes",
+            12
+          ],
+          [
+            "Nature",
+            11
+          ],
+          [
+            "Mind",
+            7
+          ]
+        ]
+      },
+      {
+        "name": "Light",
+        "total_mentions": 65,
+        "unique_connections": 23,
+        "total_connectivity": 240,
+        "top_connections": [
+          [
+            "God",
+            32
+          ],
+          [
+            "Mind",
+            32
+          ],
+          [
+            "Eve",
+            24
+          ],
+          [
+            "Son",
+            20
+          ],
+          [
+            "Nature",
+            16
+          ]
+        ]
+      },
+      {
+        "name": "Truth",
+        "total_mentions": 49,
+        "unique_connections": 22,
+        "total_connectivity": 163,
+        "top_connections": [
+          [
+            "Son",
+            20
+          ],
+          [
+            "God",
+            19
+          ],
+          [
+            "Mind",
+            15
+          ],
+          [
+            "Tat",
+            14
+          ],
+          [
+            "Hermes",
+            12
+          ]
+        ]
+      },
+      {
+        "name": "Cosmos",
+        "total_mentions": 47,
+        "unique_connections": 20,
+        "total_connectivity": 184,
+        "top_connections": [
+          [
+            "God",
+            33
+          ],
+          [
+            "Eve",
+            21
+          ],
+          [
+            "Son",
+            19
+          ],
+          [
+            "Mind",
+            19
+          ],
+          [
+            "Earth",
+            17
+          ]
+        ]
+      },
+      {
+        "name": "Heaven",
+        "total_mentions": 44,
+        "unique_connections": 21,
+        "total_connectivity": 169,
+        "top_connections": [
+          [
+            "Earth",
+            33
+          ],
+          [
+            "God",
+            25
+          ],
+          [
+            "Eve",
+            16
+          ],
+          [
+            "Mind",
+            13
+          ],
+          [
+            "Nature",
+            12
+          ]
+        ]
+      },
+      {
+        "name": "Spirit",
+        "total_mentions": 39,
+        "unique_connections": 21,
+        "total_connectivity": 142,
+        "top_connections": [
+          [
+            "Mind",
+            20
+          ],
+          [
+            "Eve",
+            19
+          ],
+          [
+            "Nature",
+            14
+          ],
+          [
+            "Light",
+            13
+          ],
+          [
+            "God",
+            12
+          ]
+        ]
+      },
+      {
+        "name": "Knowledge",
+        "total_mentions": 36,
+        "unique_connections": 21,
+        "total_connectivity": 99,
+        "top_connections": [
+          [
+            "God",
+            15
+          ],
+          [
+            "Mind",
+            10
+          ],
+          [
+            "Eve",
+            10
+          ],
+          [
+            "Son",
+            8
+          ],
+          [
+            "Nature",
+            8
+          ]
+        ]
+      },
+      {
+        "name": "Holy",
+        "total_mentions": 32,
+        "unique_connections": 23,
+        "total_connectivity": 108,
+        "top_connections": [
+          [
+            "Nature",
+            12
+          ],
+          [
+            "God",
+            11
+          ],
+          [
+            "Father",
+            11
+          ],
+          [
+            "Mind",
+            10
+          ],
+          [
+            "Power",
+            10
+          ]
+        ]
+      },
+      {
+        "name": "Darkness",
+        "total_mentions": 20,
+        "unique_connections": 18,
+        "total_connectivity": 58,
+        "top_connections": [
+          [
+            "Light",
+            10
+          ],
+          [
+            "Power",
+            7
+          ],
+          [
+            "Nature",
+            7
+          ],
+          [
+            "God",
+            6
+          ],
+          [
+            "Mind",
+            5
+          ]
+        ]
+      },
+      {
+        "name": "Lord",
+        "total_mentions": 15,
+        "unique_connections": 18,
+        "total_connectivity": 74,
+        "top_connections": [
+          [
+            "God",
+            11
+          ],
+          [
+            "Mind",
+            9
+          ],
+          [
+            "Son",
+            8
+          ],
+          [
+            "Father",
+            7
+          ],
+          [
+            "Tat",
+            7
+          ]
+        ]
+      }
+    ],
+    "top_entities_by_count": [
+      [
+        "God",
+        355
+      ],
+      [
+        "Son",
+        236
+      ],
+      [
+        "Eve",
+        235
+      ],
+      [
+        "Mind",
+        226
+      ],
+      [
+        "Tat",
+        167
+      ],
+      [
+        "Father",
+        158
+      ],
+      [
+        "Hermes",
+        129
+      ],
+      [
+        "Nature",
+        112
+      ],
+      [
+        "Earth",
+        101
+      ],
+      [
+        "Power",
+        78
+      ],
+      [
+        "Asclepius",
+        66
+      ],
+      [
+        "Light",
+        65
+      ],
+      [
+        "Truth",
+        49
+      ],
+      [
+        "Cosmos",
+        47
+      ],
+      [
+        "Heaven",
+        44
+      ],
+      [
+        "Spirit",
+        39
+      ],
+      [
+        "Knowledge",
+        36
+      ],
+      [
+        "Holy",
+        32
+      ],
+      [
+        "Darkness",
+        20
+      ],
+      [
+        "Lord",
+        15
+      ]
+    ]
+  },
+  "self_similarity": {
+    "total_verses": 1175,
+    "average_verse_length": 43.37,
+    "std_dev_verse_length": 73.15,
+    "min_verse_length": 0,
+    "max_verse_length": 2118,
+    "autocorrelation_high_points": {
+      "5": 0.2444,
+      "15": 0.2372,
+      "16": 0.2317,
+      "19": 0.2311,
+      "4": 0.2295,
+      "21": 0.2265,
+      "10": 0.2258,
+      "2": 0.2249,
+      "11": 0.224,
+      "7": 0.2227
+    },
+    "repeated_motifs": [
+      [
+        [
+          29,
+          19
+        ],
+        5
+      ],
+      [
+        [
+          23,
+          20
+        ],
+        5
+      ],
+      [
+        [
+          27,
+          29
+        ],
+        5
+      ],
+      [
+        [
+          15,
+          9
+        ],
+        4
+      ],
+      [
+        [
+          17,
+          29
+        ],
+        4
+      ],
+      [
+        [
+          31,
+          24
+        ],
+        4
+      ],
+      [
+        [
+          35,
+          23
+        ],
+        4
+      ],
+      [
+        [
+          19,
+          16
+        ],
+        4
+      ],
+      [
+        [
+          19,
+          17
+        ],
+        4
+      ],
+      [
+        [
+          17,
+          21
+        ],
+        4
+      ],
+      [
+        [
+          12,
+          14
+        ],
+        4
+      ],
+      [
+        [
+          5,
+          4
+        ],
+        4
+      ],
+      [
+        [
+          14,
+          5
+        ],
+        3
+      ],
+      [
+        [
+          19,
+          19
+        ],
+        3
+      ],
+      [
+        [
+          40,
+          15
+        ],
+        3
+      ]
+    ],
+    "verse_length_distribution": [
+      29,
+      76,
+      123,
+      164,
+      150,
+      130,
+      70,
+      60,
+      45,
+      34,
+      33,
+      31,
+      16,
+      11,
+      12,
+      14,
+      10,
+      17,
+      9,
+      10,
+      13,
+      9,
+      8,
+      11,
+      90
+    ],
+    "short_verses_sample": [
+      [
+        0,
+        0
+      ],
+      [
+        33,
+        0
+      ],
+      [
+        51,
+        0
+      ],
+      [
+        56,
+        0
+      ],
+      [
+        68,
+        0
+      ],
+      [
+        80,
+        0
+      ],
+      [
+        87,
+        0
+      ],
+      [
+        96,
+        0
+      ],
+      [
+        389,
+        4
+      ],
+      [
+        443,
+        4
+      ],
+      [
+        445,
+        4
+      ],
+      [
+        560,
+        3
+      ],
+      [
+        562,
+        2
+      ],
+      [
+        564,
+        4
+      ],
+      [
+        566,
+        4
+      ]
+    ],
+    "long_verses_sample": [
+      [
+        1,
+        83
+      ],
+      [
+        4,
+        124
+      ],
+      [
+        5,
+        88
+      ],
+      [
+        6,
+        102
+      ],
+      [
+        7,
+        80
+      ],
+      [
+        8,
+        82
+      ],
+      [
+        11,
+        108
+      ],
+      [
+        12,
+        57
+      ],
+      [
+        13,
+        107
+      ],
+      [
+        14,
+        155
+      ]
+    ]
+  },
+  "forbidden_transforms": {
+    "reverse_every_other_verse": [
+      {
+        "reference": "Hermetica Book I:",
+        "is_reversed": true,
+        "text": ""
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "is_reversed": false,
+        "text": "It chanced once on a time my mind was meditating on the things that are, my thought was raised to a "
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "is_reversed": true,
+        "text": "everywhere you with Im and desirest you what know I allmasterhood of Mind Poemandres ManShepherd am "
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "is_reversed": false,
+        "text": "[And] I reply: I long to learn the things that are, and comprehend their nature, and know God. This "
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "is_reversed": true,
+        "text": "Fire of Voice a were it though as it from forth came inarticulate outcry an that after And descripti"
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "is_reversed": false,
+        "text": "[Thereon] out of the Light [...] a Holy Word (Logos) descended on that Nature. And upwards to the he"
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "is_reversed": true,
+        "text": "it with friends make and answered He Light the understand So said I You to be Thanks consists Life i"
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "is_reversed": false,
+        "text": "And speaking thus He gazed for long into my eyes, so that I trembled at the look of him. But when He"
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "is_reversed": true,
+        "text": "souls of births the by and elements own her of means by cosmos a into herself making it copy did Bea"
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "is_reversed": false,
+        "text": "And God\u2212the\u2212Mind, being male and female both, as Light and Life subsisting, brought forth another Mi"
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "is_reversed": true,
+        "text": "matter pure be to as so reasonless left thus were elements downward Natures And it with coessential "
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "is_reversed": false,
+        "text": "Then the Formative Mind ([at\u2212oned] with Reason), he who surrounds the spheres and spins them with hi"
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "is_reversed": true,
+        "text": "formations own His of all bestow did him on and Form own his with love in fell God truth very In Sir"
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "is_reversed": false,
+        "text": "And when he gazed upon what the Enformer had created in the Father, [Man] too wished to enform; and "
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "is_reversed": true,
+        "text": "lovers were they for intermingled were they and him around completely herself wound and love her of "
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "is_reversed": false,
+        "text": "And this is why beyond all creatures on the earth man is twofold; mortal because of body, but becaus"
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "is_reversed": true,
+        "text": "said I still am I Lo logoi discourse first the you for unrolled I have yet as not for silence Keep s"
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "is_reversed": false,
+        "text": "In such wise than, as I have said, the generation of these seven came to pass. Earth was as woman, h"
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "is_reversed": true,
+        "text": "all is Love though love is death of cause the that and deathless is himself he that know to learn hi"
+      },
+      {
+        "reference": "Hermetica Book I:",
+        "is_reversed": false,
+        "text": "When He said this, His Forethought did by means of Fate and Harmony effect their couplings and their"
+      }
+    ],
+    "reverse_vowels_only": {
+      "original": "---------------------------------------",
+      "reversed": "---------------------------------------"
+    },
+    "interleave_first_last": [
+      {
+        "from_start": "Hermetica Book I:",
+        "from_end": "Hermetica Book IX:"
+      },
+      {
+        "from_start": "Hermetica Book I:",
+        "from_end": "Hermetica Book IX:"
+      },
+      {
+        "from_start": "Hermetica Book I:",
+        "from_end": "Hermetica Book IX:"
+      },
+      {
+        "from_start": "Hermetica Book I:",
+        "from_end": "Hermetica Book IX:"
+      },
+      {
+        "from_start": "Hermetica Book I:",
+        "from_end": "Hermetica Book IX:"
+      },
+      {
+        "from_start": "Hermetica Book I:",
+        "from_end": "Hermetica Book IX:"
+      },
+      {
+        "from_start": "Hermetica Book I:",
+        "from_end": "Hermetica Book IX:"
+      },
+      {
+        "from_start": "Hermetica Book I:",
+        "from_end": "Hermetica Book IX:"
+      },
+      {
+        "from_start": "Hermetica Book I:",
+        "from_end": "Hermetica Book IX:"
+      },
+      {
+        "from_start": "Hermetica Book I:",
+        "from_end": "Hermetica Book IX:"
+      },
+      {
+        "from_start": "Hermetica Book I:",
+        "from_end": "Hermetica Book IX:"
+      },
+      {
+        "from_start": "Hermetica Book I:",
+        "from_end": "Hermetica Book IX:"
+      },
+      {
+        "from_start": "Hermetica Book I:",
+        "from_end": "Hermetica Book IX:"
+      },
+      {
+        "from_start": "Hermetica Book I:",
+        "from_end": "Hermetica Book IX:"
+      },
+      {
+        "from_start": "Hermetica Book I:",
+        "from_end": "Hermetica Book IX:"
+      },
+      {
+        "from_start": "Hermetica Book I:",
+        "from_end": "Hermetica Book IX:"
+      },
+      {
+        "from_start": "Hermetica Book I:",
+        "from_end": "Hermetica Book IX:"
+      },
+      {
+        "from_start": "Hermetica Book I:",
+        "from_end": "Hermetica Book IX:"
+      },
+      {
+        "from_start": "Hermetica Book I:",
+        "from_end": "Hermetica Book IX:"
+      },
+      {
+        "from_start": "Hermetica Book I:",
+        "from_end": "Hermetica Book IX:"
+      }
+    ]
+  }
+}

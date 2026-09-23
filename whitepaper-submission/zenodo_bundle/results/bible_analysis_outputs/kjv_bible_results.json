@@ -1,0 +1,2603 @@
+{
+  "corpus_name": "kjv_bible",
+  "total_segments": 24995,
+  "letter_reversal": {
+    "total_letters": 3212999,
+    "reversed_length": 3212999,
+    "sample_reversed": "nemallauoyhtiwebtsirhcsusejdrolruofoecargehtnemaylkciuqemociylerushtiassgnihtesehthteifitsethcihwehkoobsihtninettirwerahcihwsgnihtehtmorfdnayticylohehtfotuodnaefilfokoobehtfotuotrapsihyawaekatllahsdogycehporpsihtfokoobehtfosdrowehtmorfyawaekatllahsnamynafidnakoobsihtninettirweratahtseugalpehtmihotnuddallahsdogsgnihtesehtotnuddallahsnamynafikoobsihtfoycehporpehtfosdrowehthteraehtahtnamyreveotnuyfitsetirofyleerfefilforetawehtekatmihtellliwreveosohwdnaemoctsrihtasitahtmihteldnaemocyashteraehtahtmih",
+    "common_word_fragments": {
+      "man": {
+        "forward_count": 8876,
+        "reversed_count": 1425
+      },
+      "god": {
+        "forward_count": 4859,
+        "reversed_count": 104
+      },
+      "end": {
+        "forward_count": 1637,
+        "reversed_count": 786
+      },
+      "life": {
+        "forward_count": 455,
+        "reversed_count": 212
+      },
+      "love": {
+        "forward_count": 673,
+        "reversed_count": 16
+      },
+      "light": {
+        "forward_count": 466,
+        "reversed_count": 21
+      },
+      "lord": {
+        "forward_count": 7991,
+        "reversed_count": 6
+      },
+      "son": {
+        "forward_count": 4589,
+        "reversed_count": 165
+      },
+      "word": {
+        "forward_count": 1692,
+        "reversed_count": 13
+      }
+    }
+  },
+  "word_reversal": {
+    "total_words": 787299,
+    "sample_reversed": "Amen all you with be Christ Jesus Lord our of grace The Amen quickly come I Surely saith things these testifieth which He book this in written are which things the from and city holy the of out and life of book the of out part his away take shall",
+    "common_word_pairs_in_reversed": [
+      [
+        "the of",
+        11495
+      ],
+      [
+        "lord the",
+        6890
+      ],
+      [
+        "the and",
+        6244
+      ],
+      [
+        "the in",
+        5015
+      ],
+      [
+        "he and",
+        2769
+      ],
+      [
+        "be shall",
+        2458
+      ],
+      [
+        "the to",
+        2136
+      ],
+      [
+        "the all",
+        2136
+      ],
+      [
+        "they and",
+        2079
+      ],
+      [
+        "the unto",
+        2024
+      ],
+      [
+        "will i",
+        1920
+      ],
+      [
+        "israel of",
+        1688
+      ],
+      [
+        "the for",
+        1671
+      ],
+      [
+        "unto said",
+        1641
+      ],
+      [
+        "of son",
+        1592
+      ],
+      [
+        "of out",
+        1496
+      ],
+      [
+        "son the",
+        1488
+      ],
+      [
+        "children the",
+        1410
+      ],
+      [
+        "of children",
+        1389
+      ],
+      [
+        "king the",
+        1371
+      ]
+    ]
+  },
+  "verse_reversal": {
+    "verses_analyzed": 500,
+    "readable_samples_count": 452,
+    "sample_entries": [
+      {
+        "reference": "Genesis 1:1",
+        "letter_reversed": "htraeehtdnanevaehehtdetaercdoggninnigebehtni",
+        "word_reversed": "earth the and heaven the created God beginning the In"
+      },
+      {
+        "reference": "Genesis 1:2",
+        "letter_reversed": "sretawehtfoecafehtnopudevomdogfotiripsehtdnapeedeh",
+        "word_reversed": "waters the of face the upon moved God of Spirit the And deep the of face the upon was darkness and v"
+      },
+      {
+        "reference": "Genesis 1:3",
+        "letter_reversed": "thgilsawerehtdnathgileberehtteldiasdogdna",
+        "word_reversed": "light was there and light be there Let said God And"
+      },
+      {
+        "reference": "Genesis 1:4",
+        "letter_reversed": "ssenkradehtmorfthgilehtdedividdogdnadoogsawtitahtt",
+        "word_reversed": "darkness the from light the divided God and good was it that light the saw God And"
+      },
+      {
+        "reference": "Genesis 1:5",
+        "letter_reversed": "yadtsrifehterewgninromehtdnagnineveehtdnathgindell",
+        "word_reversed": "day first the were morning the and evening the And Night called he darkness the and Day light the ca"
+      },
+      {
+        "reference": "Genesis 1:6",
+        "letter_reversed": "sretawehtmorfsretawehtedividtiteldnasretawehtfotsd",
+        "word_reversed": "waters the from waters the divide it let and waters the of midst the in firmament a be there Let sai"
+      },
+      {
+        "reference": "Genesis 1:7",
+        "letter_reversed": "ossawtidnatnemamrifehtevobaerewhcihwsretawehtmorft",
+        "word_reversed": "so was it and firmament the above were which waters the from firmament the under were which waters t"
+      },
+      {
+        "reference": "Genesis 1:8",
+        "letter_reversed": "yaddnocesehterewgninromehtdnagnineveehtdnanevaehtn",
+        "word_reversed": "day second the were morning the and evening the And Heaven firmament the called God And"
+      },
+      {
+        "reference": "Genesis 1:9",
+        "letter_reversed": "ossawtidnaraeppadnalyrdehtteldnaecalpenootnurehteg",
+        "word_reversed": "so was it and appear land dry the let and place one unto together gathered be heaven the under water"
+      },
+      {
+        "reference": "Genesis 1:10",
+        "letter_reversed": "doogsawtitahtwasdogdnasaesehdellacsretawehtforehte",
+        "word_reversed": "good was it that saw God and Seas he called waters the of together gathering the and Earth land dry "
+      }
+    ]
+  },
+  "plant_growth": {
+    "sections": [
+      "Genesis",
+      "Exodus",
+      "Leviticus",
+      "Numbers",
+      "Deuteronomy",
+      "Joshua",
+      "Judges",
+      "Ruth",
+      "1 Samuel",
+      "2 Samuel",
+      "1 Kings",
+      "2 Kings",
+      "1 Chronicles",
+      "2 Chronicles",
+      "Ezra",
+      "Nehemiah",
+      "Esther",
+      "Job",
+      "Psalms",
+      "Proverbs",
+      "Ecclesiastes",
+      "Song of Solomon",
+      "Isaiah",
+      "Jeremiah",
+      "Lamentations",
+      "Ezekiel",
+      "Hosea",
+      "Joel",
+      "Amos",
+      "Obadiah",
+      "Jonah",
+      "Micah",
+      "Nahum",
+      "Habakkuk",
+      "Zephaniah",
+      "Haggai",
+      "Zechariah",
+      "Malachi",
+      "Matthew",
+      "Mark",
+      "Luke",
+      "John",
+      "Acts",
+      "Romans",
+      "1 Corinthians",
+      "2 Corinthians",
+      "Galatians",
+      "Ephesians",
+      "Philippians",
+      "Colossians",
+      "1 Thessalonians",
+      "2 Thessalonians",
+      "1 Timothy",
+      "2 Timothy",
+      "Titus",
+      "Philemon",
+      "Hebrews",
+      "James",
+      "1 Peter",
+      "2 Peter",
+      "1 John",
+      "2 John",
+      "3 John",
+      "Jude",
+      "Revelation"
+    ],
+    "new_words_per_section": {
+      "Genesis": {
+        "total_unique_words": 2490,
+        "new_words_injected": 2490,
+        "new_word_samples": [
+          "moved",
+          "waters",
+          "discerned",
+          "peaceably",
+          "potiphar",
+          "oh",
+          "kissed",
+          "bowels",
+          "ladder",
+          "royal"
+        ]
+      },
+      "Exodus": {
+        "total_unique_words": 2038,
+        "new_words_injected": 886,
+        "new_word_samples": [
+          "dishes",
+          "taches",
+          "please",
+          "obedient",
+          "wires",
+          "sighed",
+          "teach",
+          "usury",
+          "hallow",
+          "melt"
+        ]
+      },
+      "Leviticus": {
+        "total_unique_words": 1423,
+        "new_words_injected": 378,
+        "new_word_samples": [
+          "chastise",
+          "appertaineth",
+          "feathers",
+          "adulteress",
+          "hare",
+          "scab",
+          "idols",
+          "soever",
+          "leper",
+          "trespassing"
+        ]
+      },
+      "Numbers": {
+        "total_unique_words": 2075,
+        "new_words_injected": 590,
+        "new_word_samples": [
+          "kinsman",
+          "booty",
+          "perverse",
+          "curses",
+          "satisfaction",
+          "uttered",
+          "enan",
+          "balaams",
+          "possesseth",
+          "sardites"
+        ]
+      },
+      "Deuteronomy": {
+        "total_unique_words": 2046,
+        "new_words_injected": 419,
+        "new_word_samples": [
+          "sitting",
+          "hewer",
+          "transgressing",
+          "unwalled",
+          "cleft",
+          "gall",
+          "sirion",
+          "siege",
+          "behave",
+          "whet"
+        ]
+      },
+      "Joshua": {
+        "total_unique_words": 1623,
+        "new_words_injected": 422,
+        "new_word_samples": [
+          "sharuhen",
+          "karkaa",
+          "shihorlibnath",
+          "japhleti",
+          "inheritances",
+          "kartah",
+          "dor",
+          "chesalon",
+          "irpeel",
+          "eglon"
+        ]
+      },
+      "Judges": {
+        "total_unique_words": 1675,
+        "new_words_injected": 327,
+        "new_word_samples": [
+          "passing",
+          "thirsty",
+          "pirathon",
+          "careless",
+          "jael",
+          "comparison",
+          "inclined",
+          "millo",
+          "helbah",
+          "outside"
+        ]
+      },
+      "Ruth": {
+        "total_unique_words": 520,
+        "new_words_injected": 46,
+        "new_word_samples": [
+          "redeeming",
+          "reapers",
+          "jesse",
+          "hope",
+          "kinsmans",
+          "chilions",
+          "obed",
+          "changing",
+          "moabitish",
+          "worthily"
+        ]
+      },
+      "1 Samuel": {
+        "total_unique_words": 1900,
+        "new_words_injected": 366,
+        "new_word_samples": [
+          "goodliest",
+          "chorashan",
+          "nahash",
+          "behaviour",
+          "lucre",
+          "nabal",
+          "abiathar",
+          "bribes",
+          "dagons",
+          "sorry"
+        ]
+      },
+      "2 Samuel": {
+        "total_unique_words": 1894,
+        "new_words_injected": 360,
+        "new_word_samples": [
+          "ahithophel",
+          "unsavoury",
+          "delights",
+          "zadok",
+          "perversely",
+          "ruleth",
+          "nachons",
+          "blaspheme",
+          "cost",
+          "devised"
+        ]
+      },
+      "1 Kings": {
+        "total_unique_words": 1876,
+        "new_words_injected": 314,
+        "new_word_samples": [
+          "shunammite",
+          "wreaths",
+          "ahab",
+          "diseased",
+          "kinsfolks",
+          "nets",
+          "warriors",
+          "dekar",
+          "queen",
+          "govern"
+        ]
+      },
+      "2 Kings": {
+        "total_unique_words": 1780,
+        "new_words_injected": 278,
+        "new_word_samples": [
+          "gozan",
+          "hook",
+          "riders",
+          "johanan",
+          "plat",
+          "agreement",
+          "warring",
+          "zibiah",
+          "thelasar",
+          "provocations"
+        ]
+      },
+      "1 Chronicles": {
+        "total_unique_words": 2496,
+        "new_words_injected": 717,
+        "new_word_samples": [
+          "bithiah",
+          "mallothi",
+          "zimmah",
+          "jekuthiel",
+          "employed",
+          "hagerite",
+          "meshillemith",
+          "hamuel",
+          "maaz",
+          "gershonite"
+        ]
+      },
+      "2 Chronicles": {
+        "total_unique_words": 2031,
+        "new_words_injected": 173,
+        "new_word_samples": [
+          "shimrith",
+          "benefit",
+          "renewed",
+          "cyrus",
+          "thanking",
+          "amounting",
+          "engines",
+          "lubims",
+          "supplications",
+          "collection"
+        ]
+      },
+      "Ezra": {
+        "total_unique_words": 1085,
+        "new_words_injected": 202,
+        "new_word_samples": [
+          "elamites",
+          "azgad",
+          "sotai",
+          "ahasuerus",
+          "magistrates",
+          "adonikam",
+          "chelal",
+          "treasurer",
+          "zaccai",
+          "meremoth"
+        ]
+      },
+      "Nehemiah": {
+        "total_unique_words": 1462,
+        "new_words_injected": 184,
+        "new_word_samples": [
+          "allied",
+          "joiada",
+          "gilalai",
+          "sallai",
+          "nebai",
+          "armoury",
+          "elul",
+          "decayed",
+          "aforetime",
+          "siloah"
+        ]
+      },
+      "Esther": {
+        "total_unique_words": 785,
+        "new_words_injected": 88,
+        "new_word_samples": [
+          "media",
+          "aridatha",
+          "persians",
+          "haman",
+          "durst",
+          "vashti",
+          "mehuman",
+          "fastings",
+          "parmashta",
+          "mordecais"
+        ]
+      },
+      "Job": {
+        "total_unique_words": 2241,
+        "new_words_injected": 472,
+        "new_word_samples": [
+          "hardness",
+          "straitened",
+          "wrinkles",
+          "shaketh",
+          "strengtheneth",
+          "naamathite",
+          "perceiveth",
+          "infants",
+          "kezia",
+          "despiseth"
+        ]
+      },
+      "Psalms": {
+        "total_unique_words": 2889,
+        "new_words_injected": 446,
+        "new_word_samples": [
+          "powerful",
+          "stillest",
+          "envious",
+          "lowly",
+          "skipped",
+          "curiously",
+          "converting",
+          "bendeth",
+          "stouthearted",
+          "confident"
+        ]
+      },
+      "Proverbs": {
+        "total_unique_words": 1844,
+        "new_words_injected": 247,
+        "new_word_samples": [
+          "clamorous",
+          "advised",
+          "sweeping",
+          "lender",
+          "easy",
+          "hearty",
+          "decked",
+          "pondereth",
+          "procureth",
+          "strongest"
+        ]
+      },
+      "Ecclesiastes": {
+        "total_unique_words": 888,
+        "new_words_injected": 54,
+        "new_word_samples": [
+          "acquainting",
+          "rash",
+          "offences",
+          "circuits",
+          "threefold",
+          "requireth",
+          "points",
+          "creator",
+          "conclusion",
+          "grinders"
+        ]
+      },
+      "Song of Solomon": {
+        "total_unique_words": 658,
+        "new_words_injected": 47,
+        "new_word_samples": [
+          "ointments",
+          "inclose",
+          "galleries",
+          "flagons",
+          "knocketh",
+          "rafters",
+          "orchard",
+          "wellbeloved",
+          "baalhamon",
+          "goblet"
+        ]
+      },
+      "Isaiah": {
+        "total_unique_words": 3105,
+        "new_words_injected": 427,
+        "new_word_samples": [
+          "pruninghooks",
+          "purely",
+          "telassar",
+          "taker",
+          "stinketh",
+          "menstruous",
+          "publisheth",
+          "doleful",
+          "dedanim",
+          "heweth"
+        ]
+      },
+      "Jeremiah": {
+        "total_unique_words": 2607,
+        "new_words_injected": 237,
+        "new_word_samples": [
+          "entreat",
+          "paleness",
+          "slidden",
+          "hammelech",
+          "watchers",
+          "confidences",
+          "sarsechim",
+          "divorce",
+          "native",
+          "dreamers"
+        ]
+      },
+      "Lamentations": {
+        "total_unique_words": 806,
+        "new_words_injected": 40,
+        "new_word_samples": [
+          "compassions",
+          "aliens",
+          "languished",
+          "miseries",
+          "ostriches",
+          "persecution",
+          "princess",
+          "pursuer",
+          "comparable",
+          "remembering"
+        ]
+      },
+      "Ezekiel": {
+        "total_unique_words": 2778,
+        "new_words_injected": 303,
+        "new_word_samples": [
+          "astrologer",
+          "carefulness",
+          "diblath",
+          "koa",
+          "sentences",
+          "debtor",
+          "quaking",
+          "inordinate",
+          "wideness",
+          "exploits"
+        ]
+      },
+      "Hosea": {
+        "total_unique_words": 963,
+        "new_words_injected": 34,
+        "new_word_samples": [
+          "repentings",
+          "poplars",
+          "jareb",
+          "shamefully",
+          "shalman",
+          "similitudes",
+          "miscarrying",
+          "reaped",
+          "raising",
+          "spiritual"
+        ]
+      },
+      "Joel": {
+        "total_unique_words": 528,
+        "new_words_injected": 19,
+        "new_word_samples": [
+          "moderately",
+          "cankerworm",
+          "wondrously",
+          "girl",
+          "palestine",
+          "quake",
+          "grecians",
+          "barked",
+          "fats",
+          "vats"
+        ]
+      },
+      "Amos": {
+        "total_unique_words": 832,
+        "new_words_injected": 29,
+        "new_word_samples": [
+          "amos",
+          "grain",
+          "formeth",
+          "createth",
+          "growth",
+          "reaper",
+          "agreed",
+          "brotherly",
+          "stall",
+          "plumbline"
+        ]
+      },
+      "Obadiah": {
+        "total_unique_words": 246,
+        "new_words_injected": 3,
+        "new_word_samples": [
+          "sepharad",
+          "crossway",
+          "foreigners"
+        ]
+      },
+      "Jonah": {
+        "total_unique_words": 367,
+        "new_words_injected": 11,
+        "new_word_samples": [
+          "wished",
+          "sleeper",
+          "gourd",
+          "rowed",
+          "preaching",
+          "repentest",
+          "bottoms",
+          "shipmaster",
+          "fishs",
+          "vomited"
+        ]
+      },
+      "Micah": {
+        "total_unique_words": 739,
+        "new_words_injected": 21,
+        "new_word_samples": [
+          "breaker",
+          "aphrah",
+          "bethezel",
+          "halteth",
+          "saphir",
+          "justly",
+          "haughtily",
+          "pardoneth",
+          "entrances",
+          "chop"
+        ]
+      },
+      "Nahum": {
+        "total_unique_words": 465,
+        "new_words_injected": 22,
+        "new_word_samples": [
+          "feedingplace",
+          "pransing",
+          "worthies",
+          "folden",
+          "nahum",
+          "imagineth",
+          "lubim",
+          "revengeth",
+          "rattling",
+          "elkoshite"
+        ]
+      },
+      "Habakkuk": {
+        "total_unique_words": 506,
+        "new_words_injected": 20,
+        "new_word_samples": [
+          "cushan",
+          "imputing",
+          "spewing",
+          "readeth",
+          "woundedst",
+          "quivered",
+          "drag",
+          "shigionoth",
+          "deride",
+          "booties"
+        ]
+      },
+      "Zephaniah": {
+        "total_unique_words": 467,
+        "new_words_injected": 14,
+        "new_word_samples": [
+          "lintels",
+          "hizkiah",
+          "saltpits",
+          "speedy",
+          "determination",
+          "chemarims",
+          "breeding",
+          "cottages",
+          "gnaw",
+          "suppliants"
+        ]
+      },
+      "Haggai": {
+        "total_unique_words": 288,
+        "new_words_injected": 3,
+        "new_word_samples": [
+          "pressfat",
+          "josedech",
+          "earneth"
+        ]
+      },
+      "Zechariah": {
+        "total_unique_words": 944,
+        "new_words_injected": 25,
+        "new_word_samples": [
+          "brand",
+          "shoutings",
+          "prised",
+          "torch",
+          "resist",
+          "headstone",
+          "separating",
+          "possessors",
+          "girls",
+          "sebat"
+        ]
+      },
+      "Malachi": {
+        "total_unique_words": 457,
+        "new_words_injected": 13,
+        "new_word_samples": [
+          "purifier",
+          "partial",
+          "storehouse",
+          "refiner",
+          "contemptible",
+          "malachi",
+          "refiners",
+          "voweth",
+          "delightsome",
+          "herewith"
+        ]
+      },
+      "Matthew": {
+        "total_unique_words": 2117,
+        "new_words_injected": 312,
+        "new_word_samples": [
+          "testament",
+          "proselyte",
+          "disciple",
+          "peters",
+          "legions",
+          "moneychangers",
+          "boisterous",
+          "stonest",
+          "begged",
+          "transfigured"
+        ]
+      },
+      "Mark": {
+        "total_unique_words": 1665,
+        "new_words_injected": 90,
+        "new_word_samples": [
+          "bartimaeus",
+          "lasciviousness",
+          "eloi",
+          "salome",
+          "rowing",
+          "seduce",
+          "creation",
+          "lordship",
+          "cares",
+          "praetorium"
+        ]
+      },
+      "Luke": {
+        "total_unique_words": 2386,
+        "new_words_injected": 212,
+        "new_word_samples": [
+          "rubbing",
+          "confidently",
+          "jurisdiction",
+          "forewarn",
+          "ragau",
+          "tiling",
+          "augustus",
+          "farewell",
+          "shape",
+          "eliseus"
+        ]
+      },
+      "John": {
+        "total_unique_words": 1382,
+        "new_words_injected": 82,
+        "new_word_samples": [
+          "mansions",
+          "didymus",
+          "remitted",
+          "containing",
+          "cedron",
+          "impotent",
+          "perdition",
+          "sheepfold",
+          "dined",
+          "seam"
+        ]
+      },
+      "Acts": {
+        "total_unique_words": 2277,
+        "new_words_injected": 408,
+        "new_word_samples": [
+          "beckoning",
+          "flux",
+          "havens",
+          "chanaan",
+          "mainsail",
+          "superstitious",
+          "silversmith",
+          "signified",
+          "pisidia",
+          "banded"
+        ]
+      },
+      "Romans": {
+        "total_unique_words": 1323,
+        "new_words_injected": 163,
+        "new_word_samples": [
+          "willeth",
+          "oldness",
+          "resisted",
+          "sabaoth",
+          "uncircumcision",
+          "julia",
+          "andronicus",
+          "rebecca",
+          "uncorruptible",
+          "stumblingstone"
+        ]
+      },
+      "1 Corinthians": {
+        "total_unique_words": 1241,
+        "new_words_injected": 113,
+        "new_word_samples": [
+          "differ",
+          "dispensation",
+          "absent",
+          "supplied",
+          "distraction",
+          "secondarily",
+          "examples",
+          "sowest",
+          "idolater",
+          "signification"
+        ]
+      },
+      "2 Corinthians": {
+        "total_unique_words": 1034,
+        "new_words_injected": 88,
+        "new_word_samples": [
+          "infidel",
+          "unfeigned",
+          "contrariwise",
+          "possessing",
+          "titus",
+          "proof",
+          "envyings",
+          "unspeakable",
+          "purposeth",
+          "debates"
+        ]
+      },
+      "Galatians": {
+        "total_unique_words": 647,
+        "new_words_injected": 29,
+        "new_word_samples": [
+          "elements",
+          "schoolmaster",
+          "effectually",
+          "communicate",
+          "tutors",
+          "neverthless",
+          "seditions",
+          "traditions",
+          "compellest",
+          "mediator"
+        ]
+      },
+      "Ephesians": {
+        "total_unique_words": 662,
+        "new_words_injected": 31,
+        "new_word_samples": [
+          "jesting",
+          "sleight",
+          "commonwealth",
+          "principality",
+          "nourisheth",
+          "fellowheirs",
+          "greediness",
+          "feeling",
+          "ages",
+          "nurture"
+        ]
+      },
+      "Philippians": {
+        "total_unique_words": 551,
+        "new_words_injected": 27,
+        "new_word_samples": [
+          "requests",
+          "sincere",
+          "yokefellow",
+          "furtherance",
+          "ensample",
+          "deacons",
+          "forgetting",
+          "disputings",
+          "confirmation",
+          "moderation"
+        ]
+      },
+      "Colossians": {
+        "total_unique_words": 533,
+        "new_words_injected": 42,
+        "new_word_samples": [
+          "marcus",
+          "philosophy",
+          "bodys",
+          "sometime",
+          "epaphras",
+          "onesimus",
+          "acknowledgement",
+          "unreproveable",
+          "luke",
+          "colosse"
+        ]
+      },
+      "1 Thessalonians": {
+        "total_unique_words": 455,
+        "new_words_injected": 12,
+        "new_word_samples": [
+          "allowed",
+          "unblameably",
+          "unruly",
+          "forewarned",
+          "gentle",
+          "fellowlabourer",
+          "archangel",
+          "holily",
+          "feebleminded",
+          "cloke"
+        ]
+      },
+      "2 Thessalonians": {
+        "total_unique_words": 313,
+        "new_words_injected": 8,
+        "new_word_samples": [
+          "obtaining",
+          "disorderly",
+          "deceivableness",
+          "busybodies",
+          "admired",
+          "delusion",
+          "opposeth",
+          "belief"
+        ]
+      },
+      "1 Timothy": {
+        "total_unique_words": 678,
+        "new_words_injected": 56,
+        "new_word_samples": [
+          "hymenaeus",
+          "lawfully",
+          "blasphemer",
+          "shamefacedness",
+          "intercessions",
+          "surmisings",
+          "profession",
+          "purity",
+          "honesty",
+          "babblings"
+        ]
+      },
+      "2 Timothy": {
+        "total_unique_words": 547,
+        "new_words_injected": 40,
+        "new_word_samples": [
+          "warreth",
+          "lois",
+          "crescens",
+          "denying",
+          "shun",
+          "youthful",
+          "pudens",
+          "hermogenes",
+          "philetus",
+          "canker"
+        ]
+      },
+      "Titus": {
+        "total_unique_words": 364,
+        "new_words_injected": 19,
+        "new_word_samples": [
+          "selfwilled",
+          "convince",
+          "subverted",
+          "riot",
+          "purloining",
+          "jewish",
+          "uses",
+          "fidelity",
+          "uncorruptness",
+          "cretians"
+        ]
+      },
+      "Philemon": {
+        "total_unique_words": 191,
+        "new_words_injected": 5,
+        "new_word_samples": [
+          "apphia",
+          "oweth",
+          "philemon",
+          "enjoin",
+          "lucas"
+        ]
+      },
+      "Hebrews": {
+        "total_unique_words": 1213,
+        "new_words_injected": 69,
+        "new_word_samples": [
+          "wavering",
+          "anchor",
+          "bastards",
+          "gedeon",
+          "express",
+          "wilfully",
+          "unprofitableness",
+          "builder",
+          "discerner",
+          "assaying"
+        ]
+      },
+      "James": {
+        "total_unique_words": 654,
+        "new_words_injected": 24,
+        "new_word_samples": [
+          "cries",
+          "tamed",
+          "variableness",
+          "engrafted",
+          "wavereth",
+          "trying",
+          "upbraideth",
+          "bridleth",
+          "converteth",
+          "entire"
+        ]
+      },
+      "1 Peter": {
+        "total_unique_words": 680,
+        "new_words_injected": 22,
+        "new_word_samples": [
+          "plaiting",
+          "busybody",
+          "rendering",
+          "supreme",
+          "fashioning",
+          "adorning",
+          "foreordained",
+          "banquetings",
+          "courteous",
+          "eschew"
+        ]
+      },
+      "2 Peter": {
+        "total_unique_words": 513,
+        "new_words_injected": 16,
+        "new_word_samples": [
+          "deceivings",
+          "lingereth",
+          "dignities",
+          "brute",
+          "bosor",
+          "cunningly",
+          "pernicious",
+          "damnable",
+          "beguiling",
+          "slackness"
+        ]
+      },
+      "1 John": {
+        "total_unique_words": 358,
+        "new_words_injected": 6,
+        "new_word_samples": [
+          "acknowledgeth",
+          "overcometh",
+          "assure",
+          "antichrists",
+          "antichrist",
+          "unction"
+        ]
+      },
+      "2 John": {
+        "total_unique_words": 132,
+        "new_words_injected": 1,
+        "new_word_samples": [
+          "biddeth"
+        ]
+      },
+      "3 John": {
+        "total_unique_words": 155,
+        "new_words_injected": 4,
+        "new_word_samples": [
+          "malicious",
+          "diotrephes",
+          "fellowhelpers",
+          "forbiddeth"
+        ]
+      },
+      "Jude": {
+        "total_unique_words": 295,
+        "new_words_injected": 7,
+        "new_word_samples": [
+          "murmurers",
+          "core",
+          "jude",
+          "contending",
+          "admiration",
+          "complainers",
+          "crept"
+        ]
+      },
+      "Revelation": {
+        "total_unique_words": 1283,
+        "new_words_injected": 59,
+        "new_word_samples": [
+          "sardine",
+          "accuser",
+          "gnawed",
+          "nicolaitanes",
+          "conquer",
+          "harpers",
+          "bottomless",
+          "balac",
+          "alleluia",
+          "chalcedony"
+        ]
+      }
+    },
+    "total_unique_words": 12672,
+    "growth_pattern": [
+      [
+        "Genesis",
+        2490
+      ],
+      [
+        "Exodus",
+        886
+      ],
+      [
+        "Leviticus",
+        378
+      ],
+      [
+        "Numbers",
+        590
+      ],
+      [
+        "Deuteronomy",
+        419
+      ],
+      [
+        "Joshua",
+        422
+      ],
+      [
+        "Judges",
+        327
+      ],
+      [
+        "Ruth",
+        46
+      ],
+      [
+        "1 Samuel",
+        366
+      ],
+      [
+        "2 Samuel",
+        360
+      ],
+      [
+        "1 Kings",
+        314
+      ],
+      [
+        "2 Kings",
+        278
+      ],
+      [
+        "1 Chronicles",
+        717
+      ],
+      [
+        "2 Chronicles",
+        173
+      ],
+      [
+        "Ezra",
+        202
+      ],
+      [
+        "Nehemiah",
+        184
+      ],
+      [
+        "Esther",
+        88
+      ],
+      [
+        "Job",
+        472
+      ],
+      [
+        "Psalms",
+        446
+      ],
+      [
+        "Proverbs",
+        247
+      ],
+      [
+        "Ecclesiastes",
+        54
+      ],
+      [
+        "Song of Solomon",
+        47
+      ],
+      [
+        "Isaiah",
+        427
+      ],
+      [
+        "Jeremiah",
+        237
+      ],
+      [
+        "Lamentations",
+        40
+      ],
+      [
+        "Ezekiel",
+        303
+      ],
+      [
+        "Hosea",
+        34
+      ],
+      [
+        "Joel",
+        19
+      ],
+      [
+        "Amos",
+        29
+      ],
+      [
+        "Obadiah",
+        3
+      ],
+      [
+        "Jonah",
+        11
+      ],
+      [
+        "Micah",
+        21
+      ],
+      [
+        "Nahum",
+        22
+      ],
+      [
+        "Habakkuk",
+        20
+      ],
+      [
+        "Zephaniah",
+        14
+      ],
+      [
+        "Haggai",
+        3
+      ],
+      [
+        "Zechariah",
+        25
+      ],
+      [
+        "Malachi",
+        13
+      ],
+      [
+        "Matthew",
+        312
+      ],
+      [
+        "Mark",
+        90
+      ],
+      [
+        "Luke",
+        212
+      ],
+      [
+        "John",
+        82
+      ],
+      [
+        "Acts",
+        408
+      ],
+      [
+        "Romans",
+        163
+      ],
+      [
+        "1 Corinthians",
+        113
+      ],
+      [
+        "2 Corinthians",
+        88
+      ],
+      [
+        "Galatians",
+        29
+      ],
+      [
+        "Ephesians",
+        31
+      ],
+      [
+        "Philippians",
+        27
+      ],
+      [
+        "Colossians",
+        42
+      ],
+      [
+        "1 Thessalonians",
+        12
+      ],
+      [
+        "2 Thessalonians",
+        8
+      ],
+      [
+        "1 Timothy",
+        56
+      ],
+      [
+        "2 Timothy",
+        40
+      ],
+      [
+        "Titus",
+        19
+      ],
+      [
+        "Philemon",
+        5
+      ],
+      [
+        "Hebrews",
+        69
+      ],
+      [
+        "James",
+        24
+      ],
+      [
+        "1 Peter",
+        22
+      ],
+      [
+        "2 Peter",
+        16
+      ],
+      [
+        "1 John",
+        6
+      ],
+      [
+        "2 John",
+        1
+      ],
+      [
+        "3 John",
+        4
+      ],
+      [
+        "Jude",
+        7
+      ],
+      [
+        "Revelation",
+        59
+      ]
+    ],
+    "flatline_point": 7
+  },
+  "network_shadow": {
+    "total_entities_found": 56,
+    "super_hubs": [
+      {
+        "name": "Lord",
+        "total_mentions": 6198,
+        "unique_connections": 53,
+        "total_connectivity": 9421,
+        "top_connections": [
+          [
+            "God",
+            1635
+          ],
+          [
+            "Eve",
+            1168
+          ],
+          [
+            "Israel",
+            1029
+          ],
+          [
+            "Son",
+            694
+          ],
+          [
+            "Moses",
+            482
+          ]
+        ]
+      },
+      {
+        "name": "Eve",
+        "total_mentions": 4124,
+        "unique_connections": 52,
+        "total_connectivity": 5825,
+        "top_connections": [
+          [
+            "Lord",
+            1168
+          ],
+          [
+            "God",
+            784
+          ],
+          [
+            "Son",
+            497
+          ],
+          [
+            "Israel",
+            446
+          ],
+          [
+            "Father",
+            298
+          ]
+        ]
+      },
+      {
+        "name": "God",
+        "total_mentions": 3778,
+        "unique_connections": 50,
+        "total_connectivity": 7023,
+        "top_connections": [
+          [
+            "Lord",
+            1635
+          ],
+          [
+            "Eve",
+            784
+          ],
+          [
+            "Israel",
+            541
+          ],
+          [
+            "Son",
+            465
+          ],
+          [
+            "Father",
+            349
+          ]
+        ]
+      },
+      {
+        "name": "Son",
+        "total_mentions": 2901,
+        "unique_connections": 52,
+        "total_connectivity": 4424,
+        "top_connections": [
+          [
+            "Lord",
+            694
+          ],
+          [
+            "Eve",
+            497
+          ],
+          [
+            "God",
+            465
+          ],
+          [
+            "Israel",
+            378
+          ],
+          [
+            "Father",
+            336
+          ]
+        ]
+      },
+      {
+        "name": "Israel",
+        "total_mentions": 2200,
+        "unique_connections": 48,
+        "total_connectivity": 4243,
+        "top_connections": [
+          [
+            "Lord",
+            1029
+          ],
+          [
+            "God",
+            541
+          ],
+          [
+            "Eve",
+            446
+          ],
+          [
+            "Son",
+            378
+          ],
+          [
+            "Moses",
+            239
+          ]
+        ]
+      },
+      {
+        "name": "Father",
+        "total_mentions": 1423,
+        "unique_connections": 46,
+        "total_connectivity": 2880,
+        "top_connections": [
+          [
+            "Lord",
+            423
+          ],
+          [
+            "God",
+            349
+          ],
+          [
+            "Son",
+            336
+          ],
+          [
+            "Eve",
+            298
+          ],
+          [
+            "Israel",
+            210
+          ]
+        ]
+      },
+      {
+        "name": "Earth",
+        "total_mentions": 921,
+        "unique_connections": 43,
+        "total_connectivity": 1683,
+        "top_connections": [
+          [
+            "Lord",
+            314
+          ],
+          [
+            "Heaven",
+            233
+          ],
+          [
+            "God",
+            210
+          ],
+          [
+            "Eve",
+            195
+          ],
+          [
+            "Son",
+            77
+          ]
+        ]
+      },
+      {
+        "name": "Servant",
+        "total_mentions": 879,
+        "unique_connections": 44,
+        "total_connectivity": 1702,
+        "top_connections": [
+          [
+            "Lord",
+            321
+          ],
+          [
+            "God",
+            167
+          ],
+          [
+            "Eve",
+            149
+          ],
+          [
+            "David",
+            126
+          ],
+          [
+            "Son",
+            121
+          ]
+        ]
+      },
+      {
+        "name": "Jesus",
+        "total_mentions": 878,
+        "unique_connections": 45,
+        "total_connectivity": 1655,
+        "top_connections": [
+          [
+            "Christ",
+            238
+          ],
+          [
+            "God",
+            226
+          ],
+          [
+            "Lord",
+            192
+          ],
+          [
+            "Eve",
+            167
+          ],
+          [
+            "Son",
+            109
+          ]
+        ]
+      },
+      {
+        "name": "David",
+        "total_mentions": 845,
+        "unique_connections": 41,
+        "total_connectivity": 1684,
+        "top_connections": [
+          [
+            "Lord",
+            290
+          ],
+          [
+            "Son",
+            223
+          ],
+          [
+            "Israel",
+            152
+          ],
+          [
+            "God",
+            140
+          ],
+          [
+            "Eve",
+            135
+          ]
+        ]
+      },
+      {
+        "name": "Moses",
+        "total_mentions": 744,
+        "unique_connections": 39,
+        "total_connectivity": 1493,
+        "top_connections": [
+          [
+            "Lord",
+            482
+          ],
+          [
+            "Israel",
+            239
+          ],
+          [
+            "Eve",
+            142
+          ],
+          [
+            "Son",
+            114
+          ],
+          [
+            "God",
+            113
+          ]
+        ]
+      },
+      {
+        "name": "Judah",
+        "total_mentions": 735,
+        "unique_connections": 36,
+        "total_connectivity": 1452,
+        "top_connections": [
+          [
+            "Lord",
+            282
+          ],
+          [
+            "Israel",
+            214
+          ],
+          [
+            "Jerusalem",
+            181
+          ],
+          [
+            "Son",
+            177
+          ],
+          [
+            "God",
+            126
+          ]
+        ]
+      },
+      {
+        "name": "Jerusalem",
+        "total_mentions": 734,
+        "unique_connections": 42,
+        "total_connectivity": 1366,
+        "top_connections": [
+          [
+            "Lord",
+            247
+          ],
+          [
+            "Judah",
+            181
+          ],
+          [
+            "God",
+            135
+          ],
+          [
+            "Eve",
+            129
+          ],
+          [
+            "Israel",
+            108
+          ]
+        ]
+      },
+      {
+        "name": "Heaven",
+        "total_mentions": 658,
+        "unique_connections": 45,
+        "total_connectivity": 1501,
+        "top_connections": [
+          [
+            "Earth",
+            233
+          ],
+          [
+            "Lord",
+            192
+          ],
+          [
+            "God",
+            174
+          ],
+          [
+            "Eve",
+            151
+          ],
+          [
+            "Father",
+            75
+          ]
+        ]
+      },
+      {
+        "name": "Holy",
+        "total_mentions": 532,
+        "unique_connections": 41,
+        "total_connectivity": 1089,
+        "top_connections": [
+          [
+            "Lord",
+            222
+          ],
+          [
+            "God",
+            137
+          ],
+          [
+            "Eve",
+            127
+          ],
+          [
+            "Israel",
+            83
+          ],
+          [
+            "Son",
+            70
+          ]
+        ]
+      },
+      {
+        "name": "Spirit",
+        "total_mentions": 502,
+        "unique_connections": 46,
+        "total_connectivity": 1015,
+        "top_connections": [
+          [
+            "God",
+            158
+          ],
+          [
+            "Lord",
+            146
+          ],
+          [
+            "Eve",
+            91
+          ],
+          [
+            "Jesus",
+            56
+          ],
+          [
+            "Son",
+            51
+          ]
+        ]
+      },
+      {
+        "name": "Christ",
+        "total_mentions": 479,
+        "unique_connections": 42,
+        "total_connectivity": 1254,
+        "top_connections": [
+          [
+            "Jesus",
+            238
+          ],
+          [
+            "God",
+            210
+          ],
+          [
+            "Eve",
+            136
+          ],
+          [
+            "Lord",
+            130
+          ],
+          [
+            "Son",
+            55
+          ]
+        ]
+      },
+      {
+        "name": "Tat",
+        "total_mentions": 463,
+        "unique_connections": 45,
+        "total_connectivity": 829,
+        "top_connections": [
+          [
+            "Lord",
+            152
+          ],
+          [
+            "Eve",
+            109
+          ],
+          [
+            "God",
+            95
+          ],
+          [
+            "Israel",
+            62
+          ],
+          [
+            "Son",
+            52
+          ]
+        ]
+      },
+      {
+        "name": "Prophet",
+        "total_mentions": 442,
+        "unique_connections": 42,
+        "total_connectivity": 940,
+        "top_connections": [
+          [
+            "Lord",
+            188
+          ],
+          [
+            "God",
+            107
+          ],
+          [
+            "Son",
+            85
+          ],
+          [
+            "Eve",
+            84
+          ],
+          [
+            "Israel",
+            69
+          ]
+        ]
+      },
+      {
+        "name": "Light",
+        "total_mentions": 400,
+        "unique_connections": 40,
+        "total_connectivity": 627,
+        "top_connections": [
+          [
+            "Lord",
+            92
+          ],
+          [
+            "God",
+            75
+          ],
+          [
+            "Eve",
+            71
+          ],
+          [
+            "Darkness",
+            60
+          ],
+          [
+            "Son",
+            38
+          ]
+        ]
+      }
+    ],
+    "top_entities_by_count": [
+      [
+        "Lord",
+        6198
+      ],
+      [
+        "Eve",
+        4124
+      ],
+      [
+        "God",
+        3778
+      ],
+      [
+        "Son",
+        2901
+      ],
+      [
+        "Israel",
+        2200
+      ],
+      [
+        "Father",
+        1423
+      ],
+      [
+        "Earth",
+        921
+      ],
+      [
+        "Servant",
+        879
+      ],
+      [
+        "Jesus",
+        878
+      ],
+      [
+        "David",
+        845
+      ],
+      [
+        "Moses",
+        744
+      ],
+      [
+        "Judah",
+        735
+      ],
+      [
+        "Jerusalem",
+        734
+      ],
+      [
+        "Heaven",
+        658
+      ],
+      [
+        "Holy",
+        532
+      ],
+      [
+        "Spirit",
+        502
+      ],
+      [
+        "Christ",
+        479
+      ],
+      [
+        "Tat",
+        463
+      ],
+      [
+        "Prophet",
+        442
+      ],
+      [
+        "Light",
+        400
+      ]
+    ]
+  },
+  "self_similarity": {
+    "total_verses": 24995,
+    "average_verse_length": 31.5,
+    "std_dev_verse_length": 20.39,
+    "min_verse_length": 2,
+    "max_verse_length": 469,
+    "autocorrelation_high_points": {
+      "2": 0.1892,
+      "3": 0.1785,
+      "1": 0.1782,
+      "4": 0.1764,
+      "5": 0.1714,
+      "6": 0.1633,
+      "8": 0.1585,
+      "11": 0.1548,
+      "14": 0.151,
+      "13": 0.1499
+    },
+    "repeated_motifs": [
+      [
+        [
+          14,
+          17
+        ],
+        65
+      ],
+      [
+        [
+          15,
+          15
+        ],
+        63
+      ],
+      [
+        [
+          15,
+          16
+        ],
+        59
+      ],
+      [
+        [
+          17,
+          17
+        ],
+        59
+      ],
+      [
+        [
+          15,
+          14
+        ],
+        58
+      ],
+      [
+        [
+          14,
+          13
+        ],
+        58
+      ],
+      [
+        [
+          13,
+          14
+        ],
+        57
+      ],
+      [
+        [
+          16,
+          15
+        ],
+        55
+      ],
+      [
+        [
+          15,
+          17
+        ],
+        54
+      ],
+      [
+        [
+          13,
+          17
+        ],
+        52
+      ],
+      [
+        [
+          17,
+          14
+        ],
+        52
+      ],
+      [
+        [
+          16,
+          17
+        ],
+        52
+      ],
+      [
+        [
+          17,
+          16
+        ],
+        52
+      ],
+      [
+        [
+          17,
+          18
+        ],
+        50
+      ],
+      [
+        [
+          18,
+          16
+        ],
+        50
+      ]
+    ],
+    "verse_length_distribution": [
+      12,
+      378,
+      2769,
+      4256,
+      3666,
+      3425,
+      2633,
+      2053,
+      1461,
+      1067,
+      787,
+      549,
+      444,
+      270,
+      241,
+      196,
+      144,
+      132,
+      86,
+      81,
+      63,
+      54,
+      32,
+      26,
+      170
+    ],
+    "short_verses_sample": [
+      [
+        1687,
+        4
+      ],
+      [
+        1689,
+        4
+      ],
+      [
+        3976,
+        4
+      ],
+      [
+        3978,
+        4
+      ],
+      [
+        20900,
+        3
+      ],
+      [
+        21598,
+        2
+      ],
+      [
+        23915,
+        2
+      ],
+      [
+        23916,
+        3
+      ],
+      [
+        23918,
+        4
+      ],
+      [
+        23919,
+        3
+      ],
+      [
+        23924,
+        4
+      ],
+      [
+        24321,
+        4
+      ]
+    ],
+    "long_verses_sample": [
+      [
+        13,
+        56
+      ],
+      [
+        32,
+        72
+      ],
+      [
+        50,
+        57
+      ],
+      [
+        53,
+        51
+      ],
+      [
+        60,
+        71
+      ],
+      [
+        62,
+        105
+      ],
+      [
+        65,
+        62
+      ],
+      [
+        90,
+        61
+      ],
+      [
+        96,
+        53
+      ],
+      [
+        134,
+        68
+      ]
+    ]
+  },
+  "forbidden_transforms": {
+    "reverse_every_other_verse": [
+      {
+        "reference": "Genesis 1:1",
+        "is_reversed": true,
+        "text": "earth the and heaven the created God beginning the In"
+      },
+      {
+        "reference": "Genesis 1:2",
+        "is_reversed": false,
+        "text": "And the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit"
+      },
+      {
+        "reference": "Genesis 1:3",
+        "is_reversed": true,
+        "text": "light was there and light be there Let said God And"
+      },
+      {
+        "reference": "Genesis 1:4",
+        "is_reversed": false,
+        "text": "And God saw the light, that it was good: and God divided the light from the darkness."
+      },
+      {
+        "reference": "Genesis 1:5",
+        "is_reversed": true,
+        "text": "day first the were morning the and evening the And Night called he darkness the and Day light the ca"
+      },
+      {
+        "reference": "Genesis 1:6",
+        "is_reversed": false,
+        "text": "And God said, Let there be a firmament in the midst of the waters, and let it divide the waters from"
+      },
+      {
+        "reference": "Genesis 1:7",
+        "is_reversed": true,
+        "text": "so was it and firmament the above were which waters the from firmament the under were which waters t"
+      },
+      {
+        "reference": "Genesis 1:8",
+        "is_reversed": false,
+        "text": "And God called the firmament Heaven. And the evening and the morning were the second day."
+      },
+      {
+        "reference": "Genesis 1:9",
+        "is_reversed": true,
+        "text": "so was it and appear land dry the let and place one unto together gathered be heaven the under water"
+      },
+      {
+        "reference": "Genesis 1:10",
+        "is_reversed": false,
+        "text": "And God called the dry land Earth; and the gathering together of the waters called he Seas: and God "
+      },
+      {
+        "reference": "Genesis 1:11",
+        "is_reversed": true,
+        "text": "so was it and earth the upon itself in is seed whose kind his after fruit yielding tree fruit the an"
+      },
+      {
+        "reference": "Genesis 1:12",
+        "is_reversed": false,
+        "text": "And the earth brought forth grass, and herb yielding seed after his kind, and the tree yielding frui"
+      },
+      {
+        "reference": "Genesis 1:13",
+        "is_reversed": true,
+        "text": "day third the were morning the and evening the And"
+      },
+      {
+        "reference": "Genesis 1:14",
+        "is_reversed": false,
+        "text": "And God said, Let there be lights in the firmament of the heaven to divide the day from the night; a"
+      },
+      {
+        "reference": "Genesis 1:16",
+        "is_reversed": true,
+        "text": "also stars the made he night the rule to light lesser the and day the rule to light greater the ligh"
+      },
+      {
+        "reference": "Genesis 1:17",
+        "is_reversed": false,
+        "text": "And God set them in the firmament of the heaven to give light upon the earth, 1:18 And to rule over "
+      },
+      {
+        "reference": "Genesis 1:19",
+        "is_reversed": true,
+        "text": "day fourth the were morning the and evening the And"
+      },
+      {
+        "reference": "Genesis 1:20",
+        "is_reversed": false,
+        "text": "And God said, Let the waters bring forth abundantly the moving creature that hath life, and fowl tha"
+      },
+      {
+        "reference": "Genesis 1:21",
+        "is_reversed": true,
+        "text": "good was it that saw God and kind his after fowl winged every and kind their after abundantly forth "
+      },
+      {
+        "reference": "Genesis 1:22",
+        "is_reversed": false,
+        "text": "And God blessed them, saying, Be fruitful, and multiply, and fill the waters in the seas, and let fo"
+      }
+    ],
+    "reverse_vowels_only": {
+      "original": "In the beginning God created the heaven and the earth.",
+      "reversed": "an the beganneng Gad creeted tha heovin ind the eIrth."
+    },
+    "interleave_first_last": [
+      {
+        "from_start": "Genesis 1:1",
+        "from_end": "Revelation 22:21"
+      },
+      {
+        "from_start": "Genesis 1:2",
+        "from_end": "Revelation 22:20"
+      },
+      {
+        "from_start": "Genesis 1:3",
+        "from_end": "Revelation 22:18"
+      },
+      {
+        "from_start": "Genesis 1:4",
+        "from_end": "Revelation 22:17"
+      },
+      {
+        "from_start": "Genesis 1:5",
+        "from_end": "Revelation 22:16"
+      },
+      {
+        "from_start": "Genesis 1:6",
+        "from_end": "Revelation 22:15"
+      },
+      {
+        "from_start": "Genesis 1:7",
+        "from_end": "Revelation 22:14"
+      },
+      {
+        "from_start": "Genesis 1:8",
+        "from_end": "Revelation 22:13"
+      },
+      {
+        "from_start": "Genesis 1:9",
+        "from_end": "Revelation 22:12"
+      },
+      {
+        "from_start": "Genesis 1:10",
+        "from_end": "Revelation 22:11"
+      },
+      {
+        "from_start": "Genesis 1:11",
+        "from_end": "Revelation 22:10"
+      },
+      {
+        "from_start": "Genesis 1:12",
+        "from_end": "Revelation 22:9"
+      },
+      {
+        "from_start": "Genesis 1:13",
+        "from_end": "Revelation 22:8"
+      },
+      {
+        "from_start": "Genesis 1:14",
+        "from_end": "Revelation 22:7"
+      },
+      {
+        "from_start": "Genesis 1:16",
+        "from_end": "Revelation 22:6"
+      },
+      {
+        "from_start": "Genesis 1:17",
+        "from_end": "Revelation 22:5"
+      },
+      {
+        "from_start": "Genesis 1:19",
+        "from_end": "Revelation 22:3"
+      },
+      {
+        "from_start": "Genesis 1:20",
+        "from_end": "Revelation 22:2"
+      },
+      {
+        "from_start": "Genesis 1:21",
+        "from_end": "Revelation 22:1"
+      },
+      {
+        "from_start": "Genesis 1:22",
+        "from_end": "Revelation 21:27"
+      }
+    ]
+  }
+}

@@ -1,0 +1,984 @@
+{
+  "corpus_name": "gospel_of_thomas",
+  "total_segments": 88,
+  "letter_reversal": {
+    "total_letters": 9759,
+    "reversed_length": 9759,
+    "sample_reversed": "efilevresedtnodselamefrofsuevaelyramekammehtotdiasretepnomisemocmodgnikehtlliwnehwmihotdiasselpicsidsihhselfehtnosdnepedtahtluosehtnmadluosehtnosdnepedtahthselfehtnmaddiassusejhtaedeestonlliwenognivilehtmorfgnivilsireveohwdnaecneserpruoynipullorlliwhtraeehtdnasnevaehehtdiassusejdlrowehtecnuoneryhtlaewemocebsahdnadlrowehtdnuofsahohwenoteldiassusejmihotdelaevereblliwsgnihtneddihehtdnanosreptahtemocebllahsflesymiemekilemoceblliwhtuomymmorfsknirdreveohwdiassusejeninyteninehtnahteromuoyevolipeehsehto",
+    "common_word_fragments": {
+      "god": {
+        "forward_count": 0,
+        "reversed_count": 3
+      }
+    }
+  },
+  "word_reversal": {
+    "total_words": 2405,
+    "sample_reversed": "life deserve dont females for us leave Mary Make them to said Peter Simon come kingdom the will When him to said disciples His flesh the on depends that soul the Damn soul the on depends that flesh the Damn said Jesus death see not will one living the from",
+    "common_word_pairs_in_reversed": [
+      [
+        "said jesus",
+        66
+      ],
+      [
+        "to said",
+        18
+      ],
+      [
+        "be will",
+        15
+      ],
+      [
+        "will you",
+        15
+      ],
+      [
+        "world the",
+        12
+      ],
+      [
+        "disciples his",
+        11
+      ],
+      [
+        "the and",
+        10
+      ],
+      [
+        "him to",
+        9
+      ],
+      [
+        "said disciples",
+        9
+      ],
+      [
+        "whoever said",
+        9
+      ],
+      [
+        "said he",
+        9
+      ],
+      [
+        "the in",
+        9
+      ],
+      [
+        "who those",
+        9
+      ],
+      [
+        "not will",
+        8
+      ],
+      [
+        "the from",
+        8
+      ],
+      [
+        "whoever and",
+        8
+      ],
+      [
+        "i said",
+        8
+      ],
+      [
+        "the to",
+        7
+      ],
+      [
+        "kingdom fathers",
+        7
+      ],
+      [
+        "fathers the",
+        7
+      ]
+    ]
+  },
+  "verse_reversal": {
+    "verses_analyzed": 88,
+    "readable_samples_count": 74,
+    "sample_entries": [
+      {
+        "reference": "Thomas Saying 1",
+        "letter_reversed": "htaedetsattonlliwsgniyasesehtfonoitaterpretniehtsr",
+        "word_reversed": "death taste not will sayings these of interpretation the discovers Whoever said he And"
+      },
+      {
+        "reference": "Thomas Saying 2",
+        "letter_reversed": "tserlliwyehtdengierevahyehtretfadnallarevongierlli",
+        "word_reversed": "rest will they reigned have they after And all over reign will and marvel will they disturbed are th"
+      },
+      {
+        "reference": "Thomas Saying 3",
+        "letter_reversed": "uoyedistuositidnauoynihtiwsimodgniksrehtafehtrehta",
+        "word_reversed": "you outside is it and you within is kingdom Fathers the Rather you precede will fish the then sea th"
+      },
+      {
+        "reference": "Thomas Saying 4",
+        "letter_reversed": "evillliwnosreptahtdnaefilfoecalpehttuobadlosyadnev",
+        "word_reversed": "live will person that and life of place the about old days seven child little a ask to hesitate wont"
+      },
+      {
+        "reference": "Thomas Saying 5",
+        "letter_reversed": "uoyotdesolcsideblliwuoymorfneddihsitahwdnaecafruoy",
+        "word_reversed": "you to disclosed be will you from hidden is what and face your of front in is what Know said Jesus"
+      },
+      {
+        "reference": "Thomas Saying 6",
+        "letter_reversed": "evresboewdluohsteidtahwytirahcotevigewdluohsyarpew",
+        "word_reversed": "observe we should diet What charity to give we Should pray we should How fast to us want you Do him "
+      },
+      {
+        "reference": "Thomas Saying 7",
+        "letter_reversed": "namuhemoceblliwllitsnoilehtdnataelliwnoilehttahtna",
+        "word_reversed": "human become will still lion the and eat will lion the that human the is foul And human becomes lion"
+      },
+      {
+        "reference": "Thomas Saying 8",
+        "letter_reversed": "netsilrettebdahsraedoogowthtiwerehenoynahsifegrale",
+        "word_reversed": "listen better had ears good two with here Anyone fish large the chose easily and sea the into back f"
+      },
+      {
+        "reference": "Thomas Saying 9",
+        "letter_reversed": "erusaemrepytnewtderdnuhenodnaerusaemrepytxisdedlei",
+        "word_reversed": "measure per twenty hundred one and measure per sixty yielded it crop good a produced it and soil goo"
+      },
+      {
+        "reference": "Thomas Saying 10",
+        "letter_reversed": "sezalbtilitnutignidraugmikooldnadlrowehtnopuerifts",
+        "word_reversed": "blazes it until it guarding Im look and world the upon fire cast have I said Jesus"
+      }
+    ]
+  },
+  "plant_growth": {
+    "sections": [
+      "Thomas Saying"
+    ],
+    "new_words_per_section": {
+      "Thomas Saying": {
+        "total_unique_words": 569,
+        "new_words_injected": 569,
+        "new_word_samples": [
+          "powerful",
+          "kill",
+          "disciple",
+          "thirsty",
+          "pupil",
+          "belongs",
+          "knowledge",
+          "think",
+          "circumcision",
+          "home"
+        ]
+      }
+    },
+    "total_unique_words": 569,
+    "growth_pattern": [
+      [
+        "Thomas Saying",
+        569
+      ]
+    ]
+  },
+  "network_shadow": {
+    "total_entities_found": 21,
+    "super_hubs": [
+      {
+        "name": "Jesus",
+        "total_mentions": 70,
+        "unique_connections": 17,
+        "total_connectivity": 62,
+        "top_connections": [
+          [
+            "Eve",
+            12
+          ],
+          [
+            "Father",
+            11
+          ],
+          [
+            "Son",
+            9
+          ],
+          [
+            "Kingdom",
+            7
+          ],
+          [
+            "Heaven",
+            4
+          ]
+        ]
+      },
+      {
+        "name": "Eve",
+        "total_mentions": 14,
+        "unique_connections": 9,
+        "total_connectivity": 30,
+        "top_connections": [
+          [
+            "Jesus",
+            12
+          ],
+          [
+            "Father",
+            5
+          ],
+          [
+            "Son",
+            4
+          ],
+          [
+            "Tat",
+            2
+          ],
+          [
+            "Earth",
+            2
+          ]
+        ]
+      },
+      {
+        "name": "Father",
+        "total_mentions": 13,
+        "unique_connections": 8,
+        "total_connectivity": 27,
+        "top_connections": [
+          [
+            "Jesus",
+            11
+          ],
+          [
+            "Kingdom",
+            6
+          ],
+          [
+            "Eve",
+            5
+          ],
+          [
+            "Spirit",
+            1
+          ],
+          [
+            "Earth",
+            1
+          ]
+        ]
+      },
+      {
+        "name": "Son",
+        "total_mentions": 12,
+        "unique_connections": 10,
+        "total_connectivity": 21,
+        "top_connections": [
+          [
+            "Jesus",
+            9
+          ],
+          [
+            "Eve",
+            4
+          ],
+          [
+            "Tat",
+            1
+          ],
+          [
+            "Spirit",
+            1
+          ],
+          [
+            "Earth",
+            1
+          ]
+        ]
+      },
+      {
+        "name": "Kingdom",
+        "total_mentions": 9,
+        "unique_connections": 4,
+        "total_connectivity": 15,
+        "top_connections": [
+          [
+            "Jesus",
+            7
+          ],
+          [
+            "Father",
+            6
+          ],
+          [
+            "Heaven",
+            1
+          ],
+          [
+            "Eve",
+            1
+          ]
+        ]
+      },
+      {
+        "name": "Heaven",
+        "total_mentions": 4,
+        "unique_connections": 8,
+        "total_connectivity": 13,
+        "top_connections": [
+          [
+            "Jesus",
+            4
+          ],
+          [
+            "Earth",
+            2
+          ],
+          [
+            "Eve",
+            2
+          ],
+          [
+            "Spirit",
+            1
+          ],
+          [
+            "Son",
+            1
+          ]
+        ]
+      },
+      {
+        "name": "Spirit",
+        "total_mentions": 3,
+        "unique_connections": 7,
+        "total_connectivity": 9,
+        "top_connections": [
+          [
+            "Jesus",
+            3
+          ],
+          [
+            "Earth",
+            1
+          ],
+          [
+            "Son",
+            1
+          ],
+          [
+            "Heaven",
+            1
+          ],
+          [
+            "Eve",
+            1
+          ]
+        ]
+      },
+      {
+        "name": "Earth",
+        "total_mentions": 3,
+        "unique_connections": 7,
+        "total_connectivity": 11,
+        "top_connections": [
+          [
+            "Jesus",
+            3
+          ],
+          [
+            "Heaven",
+            2
+          ],
+          [
+            "Eve",
+            2
+          ],
+          [
+            "Spirit",
+            1
+          ],
+          [
+            "Son",
+            1
+          ]
+        ]
+      },
+      {
+        "name": "Tat",
+        "total_mentions": 2,
+        "unique_connections": 3,
+        "total_connectivity": 4,
+        "top_connections": [
+          [
+            "Eve",
+            2
+          ],
+          [
+            "Son",
+            1
+          ],
+          [
+            "Jesus",
+            1
+          ]
+        ]
+      },
+      {
+        "name": "Mary",
+        "total_mentions": 2,
+        "unique_connections": 2,
+        "total_connectivity": 2,
+        "top_connections": [
+          [
+            "Jesus",
+            1
+          ],
+          [
+            "Peter",
+            1
+          ]
+        ]
+      },
+      {
+        "name": "Prophet",
+        "total_mentions": 2,
+        "unique_connections": 2,
+        "total_connectivity": 2,
+        "top_connections": [
+          [
+            "Jesus",
+            1
+          ],
+          [
+            "Israel",
+            1
+          ]
+        ]
+      },
+      {
+        "name": "Holy",
+        "total_mentions": 2,
+        "unique_connections": 7,
+        "total_connectivity": 7,
+        "top_connections": [
+          [
+            "Spirit",
+            1
+          ],
+          [
+            "Jesus",
+            1
+          ],
+          [
+            "Earth",
+            1
+          ],
+          [
+            "Son",
+            1
+          ],
+          [
+            "Heaven",
+            1
+          ]
+        ]
+      },
+      {
+        "name": "Adam",
+        "total_mentions": 2,
+        "unique_connections": 2,
+        "total_connectivity": 3,
+        "top_connections": [
+          [
+            "Jesus",
+            2
+          ],
+          [
+            "John",
+            1
+          ]
+        ]
+      },
+      {
+        "name": "Light",
+        "total_mentions": 2,
+        "unique_connections": 1,
+        "total_connectivity": 2,
+        "top_connections": [
+          [
+            "Jesus",
+            2
+          ]
+        ]
+      },
+      {
+        "name": "Power",
+        "total_mentions": 2,
+        "unique_connections": 3,
+        "total_connectivity": 4,
+        "top_connections": [
+          [
+            "Jesus",
+            2
+          ],
+          [
+            "Son",
+            1
+          ],
+          [
+            "Truth",
+            1
+          ]
+        ]
+      },
+      {
+        "name": "Knowledge",
+        "total_mentions": 1,
+        "unique_connections": 1,
+        "total_connectivity": 1,
+        "top_connections": [
+          [
+            "Jesus",
+            1
+          ]
+        ]
+      },
+      {
+        "name": "John",
+        "total_mentions": 1,
+        "unique_connections": 2,
+        "total_connectivity": 2,
+        "top_connections": [
+          [
+            "Adam",
+            1
+          ],
+          [
+            "Jesus",
+            1
+          ]
+        ]
+      },
+      {
+        "name": "Israel",
+        "total_mentions": 1,
+        "unique_connections": 1,
+        "total_connectivity": 1,
+        "top_connections": [
+          [
+            "Prophet",
+            1
+          ]
+        ]
+      },
+      {
+        "name": "Lord",
+        "total_mentions": 1,
+        "unique_connections": 0,
+        "total_connectivity": 0,
+        "top_connections": []
+      },
+      {
+        "name": "Truth",
+        "total_mentions": 1,
+        "unique_connections": 3,
+        "total_connectivity": 3,
+        "top_connections": [
+          [
+            "Son",
+            1
+          ],
+          [
+            "Power",
+            1
+          ],
+          [
+            "Jesus",
+            1
+          ]
+        ]
+      }
+    ],
+    "top_entities_by_count": [
+      [
+        "Jesus",
+        70
+      ],
+      [
+        "Eve",
+        14
+      ],
+      [
+        "Father",
+        13
+      ],
+      [
+        "Son",
+        12
+      ],
+      [
+        "Kingdom",
+        9
+      ],
+      [
+        "Heaven",
+        4
+      ],
+      [
+        "Spirit",
+        3
+      ],
+      [
+        "Earth",
+        3
+      ],
+      [
+        "Tat",
+        2
+      ],
+      [
+        "Mary",
+        2
+      ],
+      [
+        "Prophet",
+        2
+      ],
+      [
+        "Holy",
+        2
+      ],
+      [
+        "Adam",
+        2
+      ],
+      [
+        "Light",
+        2
+      ],
+      [
+        "Power",
+        2
+      ],
+      [
+        "Knowledge",
+        1
+      ],
+      [
+        "John",
+        1
+      ],
+      [
+        "Israel",
+        1
+      ],
+      [
+        "Lord",
+        1
+      ],
+      [
+        "Truth",
+        1
+      ]
+    ]
+  },
+  "self_similarity": {
+    "total_verses": 88,
+    "average_verse_length": 27.33,
+    "std_dev_verse_length": 16.92,
+    "min_verse_length": 4,
+    "max_verse_length": 117,
+    "autocorrelation_high_points": {
+      "15": -0.2534,
+      "14": -0.2159,
+      "4": -0.2018,
+      "18": 0.2003,
+      "21": 0.1574,
+      "20": -0.1447,
+      "5": 0.1321,
+      "9": -0.1158,
+      "3": -0.1137,
+      "7": -0.1134
+    },
+    "repeated_motifs": [
+      [
+        [
+          21,
+          17
+        ],
+        2
+      ],
+      [
+        [
+          17,
+          18
+        ],
+        2
+      ],
+      [
+        [
+          14,
+          14
+        ],
+        2
+      ]
+    ],
+    "verse_length_distribution": [
+      1,
+      1,
+      12,
+      19,
+      16,
+      12,
+      11,
+      4,
+      3,
+      1,
+      2,
+      0,
+      3,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0
+    ],
+    "short_verses_sample": [
+      [
+        40,
+        4
+      ]
+    ],
+    "long_verses_sample": [
+      [
+        2,
+        53
+      ],
+      [
+        7,
+        63
+      ],
+      [
+        8,
+        81
+      ],
+      [
+        26,
+        69
+      ],
+      [
+        55,
+        60
+      ],
+      [
+        58,
+        63
+      ],
+      [
+        60,
+        117
+      ]
+    ]
+  },
+  "forbidden_transforms": {
+    "reverse_every_other_verse": [
+      {
+        "reference": "Thomas Saying 1",
+        "is_reversed": true,
+        "text": "death taste not will sayings these of interpretation the discovers Whoever said he And"
+      },
+      {
+        "reference": "Thomas Saying 2",
+        "is_reversed": false,
+        "text": "Jesus said, \"Those who seek should not stop seeking until they find. When they find, they will be di"
+      },
+      {
+        "reference": "Thomas Saying 3",
+        "is_reversed": true,
+        "text": "you outside is it and you within is kingdom Fathers the Rather you precede will fish the then sea th"
+      },
+      {
+        "reference": "Thomas Saying 4",
+        "is_reversed": false,
+        "text": "Jesus said, \"The person old in days won't hesitate to ask a little child seven days old about the pl"
+      },
+      {
+        "reference": "Thomas Saying 5",
+        "is_reversed": true,
+        "text": "you to disclosed be will you from hidden is what and face your of front in is what Know said Jesus"
+      },
+      {
+        "reference": "Thomas Saying 6",
+        "is_reversed": false,
+        "text": "His disciples asked him and said to him, \"Do you want us to fast? How should we pray? Should we give"
+      },
+      {
+        "reference": "Thomas Saying 7",
+        "is_reversed": true,
+        "text": "human become will still lion the and eat will lion the that human the is foul And human becomes lion"
+      },
+      {
+        "reference": "Thomas Saying 8",
+        "is_reversed": false,
+        "text": "And he said, \"The person is like a wise fisherman who cast his net into the sea and drew it up from "
+      },
+      {
+        "reference": "Thomas Saying 9",
+        "is_reversed": true,
+        "text": "measure per twenty hundred one and measure per sixty yielded it crop good a produced it and soil goo"
+      },
+      {
+        "reference": "Thomas Saying 10",
+        "is_reversed": false,
+        "text": "Jesus said, \"I have cast fire upon the world, and look, I'm guarding it until it blazes.\""
+      },
+      {
+        "reference": "Thomas Saying 11",
+        "is_reversed": true,
+        "text": "away pass will it above one the and away pass will heaven This said Jesus"
+      },
+      {
+        "reference": "Thomas Saying 12",
+        "is_reversed": false,
+        "text": "The disciples said to Jesus, \"We know that you are going to leave us. Who will be our leader?\""
+      },
+      {
+        "reference": "Thomas Saying 13",
+        "is_reversed": true,
+        "text": "like am I what me tell and something to me Compare disciples his to said Jesus"
+      },
+      {
+        "reference": "Thomas Saying 14",
+        "is_reversed": false,
+        "text": "Jesus said to them, \"If you fast, you will bring sin upon yourselves, and if you pray, you will be c"
+      },
+      {
+        "reference": "Thomas Saying 15",
+        "is_reversed": true,
+        "text": "Father your is one That worship and faces your on fall woman of born not was who one see you When sa"
+      },
+      {
+        "reference": "Thomas Saying 16",
+        "is_reversed": false,
+        "text": "Jesus said, \"Perhaps people think that I have come to cast peace upon the world. They do not know th"
+      },
+      {
+        "reference": "Thomas Saying 17",
+        "is_reversed": true,
+        "text": "heart human the in arisen not has what touched has hand no what heard has ear no what seen has eye n"
+      },
+      {
+        "reference": "Thomas Saying 18",
+        "is_reversed": false,
+        "text": "The disciples said to Jesus, \"Tell us, how will our end come?\""
+      },
+      {
+        "reference": "Thomas Saying 19",
+        "is_reversed": true,
+        "text": "being into coming before being into came who one the to Congratulations said Jesus"
+      },
+      {
+        "reference": "Thomas Saying 21",
+        "is_reversed": false,
+        "text": "Mary said to Jesus, \"What are your disciples like?\""
+      }
+    ],
+    "reverse_vowels_only": {
+      "original": "And he said, \"Whoever discovers the interpretation of these sayings will not taste death.\"",
+      "reversed": "and he sead, \"Whoivir dascevers tho ontirpratetein ef theso siyengs well not tista deAth.\""
+    },
+    "interleave_first_last": [
+      {
+        "from_start": "Thomas Saying 1",
+        "from_end": "Thomas Saying 114"
+      },
+      {
+        "from_start": "Thomas Saying 2",
+        "from_end": "Thomas Saying 113"
+      },
+      {
+        "from_start": "Thomas Saying 3",
+        "from_end": "Thomas Saying 112"
+      },
+      {
+        "from_start": "Thomas Saying 4",
+        "from_end": "Thomas Saying 111"
+      },
+      {
+        "from_start": "Thomas Saying 5",
+        "from_end": "Thomas Saying 110"
+      },
+      {
+        "from_start": "Thomas Saying 6",
+        "from_end": "Thomas Saying 108"
+      },
+      {
+        "from_start": "Thomas Saying 7",
+        "from_end": "Thomas Saying 107"
+      },
+      {
+        "from_start": "Thomas Saying 8",
+        "from_end": "Thomas Saying 106"
+      },
+      {
+        "from_start": "Thomas Saying 9",
+        "from_end": "Thomas Saying 105"
+      },
+      {
+        "from_start": "Thomas Saying 10",
+        "from_end": "Thomas Saying 102"
+      },
+      {
+        "from_start": "Thomas Saying 11",
+        "from_end": "Thomas Saying 101"
+      },
+      {
+        "from_start": "Thomas Saying 12",
+        "from_end": "Thomas Saying 93"
+      },
+      {
+        "from_start": "Thomas Saying 13",
+        "from_end": "Thomas Saying 82"
+      },
+      {
+        "from_start": "Thomas Saying 14",
+        "from_end": "Thomas Saying 81"
+      },
+      {
+        "from_start": "Thomas Saying 15",
+        "from_end": "Thomas Saying 80"
+      },
+      {
+        "from_start": "Thomas Saying 16",
+        "from_end": "Thomas Saying 79"
+      },
+      {
+        "from_start": "Thomas Saying 17",
+        "from_end": "Thomas Saying 78"
+      },
+      {
+        "from_start": "Thomas Saying 18",
+        "from_end": "Thomas Saying 77"
+      },
+      {
+        "from_start": "Thomas Saying 19",
+        "from_end": "Thomas Saying 76"
+      },
+      {
+        "from_start": "Thomas Saying 21",
+        "from_end": "Thomas Saying 75"
+      }
+    ]
+  }
+}

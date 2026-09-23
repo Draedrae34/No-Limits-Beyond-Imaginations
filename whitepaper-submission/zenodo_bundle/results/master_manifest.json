@@ -1,0 +1,1181 @@
+{
+  "base": {
+    "chakra_name": "Base Chakra",
+    "sanskrit": "Muladhara",
+    "frequency": 174.0,
+    "purpose": "Foundation, grounding, safety, survival",
+    "color": "#8B4513",
+    "audio_variations": [
+      {
+        "chakra": "base",
+        "variation": 1,
+        "filename": "base_174.0hz_offset5_harm2_var1.wav",
+        "base_freq": 174.0,
+        "binaural_offset": 5,
+        "harmonics": 2,
+        "volume": 0.4,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\base_174.0hz_offset5_harm2_var1.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "base",
+        "variation": 2,
+        "filename": "base_174.0hz_offset10_harm3_var2.wav",
+        "base_freq": 174.0,
+        "binaural_offset": 10,
+        "harmonics": 3,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\base_174.0hz_offset10_harm3_var2.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "base",
+        "variation": 3,
+        "filename": "base_174.0hz_offset15_harm4_var3.wav",
+        "base_freq": 174.0,
+        "binaural_offset": 15,
+        "harmonics": 4,
+        "volume": 0.6,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\base_174.0hz_offset15_harm4_var3.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "base",
+        "variation": 4,
+        "filename": "base_174.0hz_offset20_harm5_var4.wav",
+        "base_freq": 174.0,
+        "binaural_offset": 20,
+        "harmonics": 5,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\base_174.0hz_offset20_harm5_var4.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "base",
+        "variation": 5,
+        "filename": "base_174.0hz_offset25_harm3_var5.wav",
+        "base_freq": 174.0,
+        "binaural_offset": 25,
+        "harmonics": 3,
+        "volume": 0.45,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\base_174.0hz_offset25_harm3_var5.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "base",
+        "variation": 6,
+        "filename": "base_174.0hz_offset30_harm4_var6.wav",
+        "base_freq": 174.0,
+        "binaural_offset": 30,
+        "harmonics": 4,
+        "volume": 0.55,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\base_174.0hz_offset30_harm4_var6.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "base",
+        "variation": 7,
+        "filename": "base_174.0hz_offset35_harm2_var7.wav",
+        "base_freq": 174.0,
+        "binaural_offset": 35,
+        "harmonics": 2,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\base_174.0hz_offset35_harm2_var7.wav",
+        "skipped": false
+      }
+    ],
+    "visual_variations": [
+      {
+        "variation": 1,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\base_var1_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\base_var1_meditation.html"
+      },
+      {
+        "variation": 2,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\base_var2_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\base_var2_meditation.html"
+      },
+      {
+        "variation": 3,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\base_var3_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\base_var3_meditation.html"
+      },
+      {
+        "variation": 4,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\base_var4_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\base_var4_meditation.html"
+      },
+      {
+        "variation": 5,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\base_var5_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\base_var5_meditation.html"
+      },
+      {
+        "variation": 6,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\base_var6_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\base_var6_meditation.html"
+      },
+      {
+        "variation": 7,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\base_var7_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\base_var7_meditation.html"
+      }
+    ],
+    "total_variations": 7
+  },
+  "crown": {
+    "chakra_name": "Crown Chakra",
+    "sanskrit": "Sahasrara",
+    "frequency": 963.0,
+    "purpose": "Divine connection, unity, enlightenment, bliss",
+    "color": "#9400D3",
+    "audio_variations": [
+      {
+        "chakra": "crown",
+        "variation": 1,
+        "filename": "crown_963.0hz_offset5_harm2_var1.wav",
+        "base_freq": 963.0,
+        "binaural_offset": 5,
+        "harmonics": 2,
+        "volume": 0.4,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\crown_963.0hz_offset5_harm2_var1.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "crown",
+        "variation": 2,
+        "filename": "crown_963.0hz_offset10_harm3_var2.wav",
+        "base_freq": 963.0,
+        "binaural_offset": 10,
+        "harmonics": 3,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\crown_963.0hz_offset10_harm3_var2.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "crown",
+        "variation": 3,
+        "filename": "crown_963.0hz_offset15_harm4_var3.wav",
+        "base_freq": 963.0,
+        "binaural_offset": 15,
+        "harmonics": 4,
+        "volume": 0.6,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\crown_963.0hz_offset15_harm4_var3.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "crown",
+        "variation": 4,
+        "filename": "crown_963.0hz_offset20_harm5_var4.wav",
+        "base_freq": 963.0,
+        "binaural_offset": 20,
+        "harmonics": 5,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\crown_963.0hz_offset20_harm5_var4.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "crown",
+        "variation": 5,
+        "filename": "crown_963.0hz_offset25_harm3_var5.wav",
+        "base_freq": 963.0,
+        "binaural_offset": 25,
+        "harmonics": 3,
+        "volume": 0.45,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\crown_963.0hz_offset25_harm3_var5.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "crown",
+        "variation": 6,
+        "filename": "crown_963.0hz_offset30_harm4_var6.wav",
+        "base_freq": 963.0,
+        "binaural_offset": 30,
+        "harmonics": 4,
+        "volume": 0.55,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\crown_963.0hz_offset30_harm4_var6.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "crown",
+        "variation": 7,
+        "filename": "crown_963.0hz_offset35_harm2_var7.wav",
+        "base_freq": 963.0,
+        "binaural_offset": 35,
+        "harmonics": 2,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\crown_963.0hz_offset35_harm2_var7.wav",
+        "skipped": false
+      }
+    ],
+    "visual_variations": [
+      {
+        "variation": 1,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\crown_var1_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\crown_var1_meditation.html"
+      },
+      {
+        "variation": 2,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\crown_var2_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\crown_var2_meditation.html"
+      },
+      {
+        "variation": 3,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\crown_var3_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\crown_var3_meditation.html"
+      },
+      {
+        "variation": 4,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\crown_var4_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\crown_var4_meditation.html"
+      },
+      {
+        "variation": 5,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\crown_var5_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\crown_var5_meditation.html"
+      },
+      {
+        "variation": 6,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\crown_var6_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\crown_var6_meditation.html"
+      },
+      {
+        "variation": 7,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\crown_var7_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\crown_var7_meditation.html"
+      }
+    ],
+    "total_variations": 7
+  },
+  "healing": {
+    "chakra_name": "Healing Chakra",
+    "sanskrit": "Quantum",
+    "frequency": 285.0,
+    "purpose": "Healing tissue, quantum regeneration, cellular repair",
+    "color": "#FF69B4",
+    "audio_variations": [
+      {
+        "chakra": "healing",
+        "variation": 1,
+        "filename": "healing_285.0hz_offset5_harm2_var1.wav",
+        "base_freq": 285.0,
+        "binaural_offset": 5,
+        "harmonics": 2,
+        "volume": 0.4,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\healing_285.0hz_offset5_harm2_var1.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "healing",
+        "variation": 2,
+        "filename": "healing_285.0hz_offset10_harm3_var2.wav",
+        "base_freq": 285.0,
+        "binaural_offset": 10,
+        "harmonics": 3,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\healing_285.0hz_offset10_harm3_var2.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "healing",
+        "variation": 3,
+        "filename": "healing_285.0hz_offset15_harm4_var3.wav",
+        "base_freq": 285.0,
+        "binaural_offset": 15,
+        "harmonics": 4,
+        "volume": 0.6,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\healing_285.0hz_offset15_harm4_var3.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "healing",
+        "variation": 4,
+        "filename": "healing_285.0hz_offset20_harm5_var4.wav",
+        "base_freq": 285.0,
+        "binaural_offset": 20,
+        "harmonics": 5,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\healing_285.0hz_offset20_harm5_var4.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "healing",
+        "variation": 5,
+        "filename": "healing_285.0hz_offset25_harm3_var5.wav",
+        "base_freq": 285.0,
+        "binaural_offset": 25,
+        "harmonics": 3,
+        "volume": 0.45,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\healing_285.0hz_offset25_harm3_var5.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "healing",
+        "variation": 6,
+        "filename": "healing_285.0hz_offset30_harm4_var6.wav",
+        "base_freq": 285.0,
+        "binaural_offset": 30,
+        "harmonics": 4,
+        "volume": 0.55,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\healing_285.0hz_offset30_harm4_var6.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "healing",
+        "variation": 7,
+        "filename": "healing_285.0hz_offset35_harm2_var7.wav",
+        "base_freq": 285.0,
+        "binaural_offset": 35,
+        "harmonics": 2,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\healing_285.0hz_offset35_harm2_var7.wav",
+        "skipped": false
+      }
+    ],
+    "visual_variations": [
+      {
+        "variation": 1,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\healing_var1_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\healing_var1_meditation.html"
+      },
+      {
+        "variation": 2,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\healing_var2_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\healing_var2_meditation.html"
+      },
+      {
+        "variation": 3,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\healing_var3_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\healing_var3_meditation.html"
+      },
+      {
+        "variation": 4,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\healing_var4_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\healing_var4_meditation.html"
+      },
+      {
+        "variation": 5,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\healing_var5_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\healing_var5_meditation.html"
+      },
+      {
+        "variation": 6,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\healing_var6_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\healing_var6_meditation.html"
+      },
+      {
+        "variation": 7,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\healing_var7_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\healing_var7_meditation.html"
+      }
+    ],
+    "total_variations": 7
+  },
+  "heart": {
+    "chakra_name": "Heart Chakra",
+    "sanskrit": "Vishuddha",
+    "frequency": 639.0,
+    "purpose": "Connection, relationships, compassion, love",
+    "color": "#00FF00",
+    "audio_variations": [
+      {
+        "chakra": "heart",
+        "variation": 1,
+        "filename": "heart_639.0hz_offset5_harm2_var1.wav",
+        "base_freq": 639.0,
+        "binaural_offset": 5,
+        "harmonics": 2,
+        "volume": 0.4,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\heart_639.0hz_offset5_harm2_var1.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "heart",
+        "variation": 2,
+        "filename": "heart_639.0hz_offset10_harm3_var2.wav",
+        "base_freq": 639.0,
+        "binaural_offset": 10,
+        "harmonics": 3,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\heart_639.0hz_offset10_harm3_var2.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "heart",
+        "variation": 3,
+        "filename": "heart_639.0hz_offset15_harm4_var3.wav",
+        "base_freq": 639.0,
+        "binaural_offset": 15,
+        "harmonics": 4,
+        "volume": 0.6,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\heart_639.0hz_offset15_harm4_var3.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "heart",
+        "variation": 4,
+        "filename": "heart_639.0hz_offset20_harm5_var4.wav",
+        "base_freq": 639.0,
+        "binaural_offset": 20,
+        "harmonics": 5,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\heart_639.0hz_offset20_harm5_var4.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "heart",
+        "variation": 5,
+        "filename": "heart_639.0hz_offset25_harm3_var5.wav",
+        "base_freq": 639.0,
+        "binaural_offset": 25,
+        "harmonics": 3,
+        "volume": 0.45,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\heart_639.0hz_offset25_harm3_var5.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "heart",
+        "variation": 6,
+        "filename": "heart_639.0hz_offset30_harm4_var6.wav",
+        "base_freq": 639.0,
+        "binaural_offset": 30,
+        "harmonics": 4,
+        "volume": 0.55,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\heart_639.0hz_offset30_harm4_var6.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "heart",
+        "variation": 7,
+        "filename": "heart_639.0hz_offset35_harm2_var7.wav",
+        "base_freq": 639.0,
+        "binaural_offset": 35,
+        "harmonics": 2,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\heart_639.0hz_offset35_harm2_var7.wav",
+        "skipped": false
+      }
+    ],
+    "visual_variations": [
+      {
+        "variation": 1,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\heart_var1_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\heart_var1_meditation.html"
+      },
+      {
+        "variation": 2,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\heart_var2_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\heart_var2_meditation.html"
+      },
+      {
+        "variation": 3,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\heart_var3_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\heart_var3_meditation.html"
+      },
+      {
+        "variation": 4,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\heart_var4_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\heart_var4_meditation.html"
+      },
+      {
+        "variation": 5,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\heart_var5_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\heart_var5_meditation.html"
+      },
+      {
+        "variation": 6,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\heart_var6_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\heart_var6_meditation.html"
+      },
+      {
+        "variation": 7,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\heart_var7_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\heart_var7_meditation.html"
+      }
+    ],
+    "total_variations": 7
+  },
+  "root": {
+    "chakra_name": "Root Chakra",
+    "sanskrit": "Svadhishthana",
+    "frequency": 396.0,
+    "purpose": "Liberation from fear, guilt, anxiety",
+    "color": "#FF0000",
+    "audio_variations": [
+      {
+        "chakra": "root",
+        "variation": 1,
+        "filename": "root_396.0hz_offset5_harm2_var1.wav",
+        "base_freq": 396.0,
+        "binaural_offset": 5,
+        "harmonics": 2,
+        "volume": 0.4,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\root_396.0hz_offset5_harm2_var1.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "root",
+        "variation": 2,
+        "filename": "root_396.0hz_offset10_harm3_var2.wav",
+        "base_freq": 396.0,
+        "binaural_offset": 10,
+        "harmonics": 3,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\root_396.0hz_offset10_harm3_var2.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "root",
+        "variation": 3,
+        "filename": "root_396.0hz_offset15_harm4_var3.wav",
+        "base_freq": 396.0,
+        "binaural_offset": 15,
+        "harmonics": 4,
+        "volume": 0.6,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\root_396.0hz_offset15_harm4_var3.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "root",
+        "variation": 4,
+        "filename": "root_396.0hz_offset20_harm5_var4.wav",
+        "base_freq": 396.0,
+        "binaural_offset": 20,
+        "harmonics": 5,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\root_396.0hz_offset20_harm5_var4.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "root",
+        "variation": 5,
+        "filename": "root_396.0hz_offset25_harm3_var5.wav",
+        "base_freq": 396.0,
+        "binaural_offset": 25,
+        "harmonics": 3,
+        "volume": 0.45,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\root_396.0hz_offset25_harm3_var5.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "root",
+        "variation": 6,
+        "filename": "root_396.0hz_offset30_harm4_var6.wav",
+        "base_freq": 396.0,
+        "binaural_offset": 30,
+        "harmonics": 4,
+        "volume": 0.55,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\root_396.0hz_offset30_harm4_var6.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "root",
+        "variation": 7,
+        "filename": "root_396.0hz_offset35_harm2_var7.wav",
+        "base_freq": 396.0,
+        "binaural_offset": 35,
+        "harmonics": 2,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\root_396.0hz_offset35_harm2_var7.wav",
+        "skipped": false
+      }
+    ],
+    "visual_variations": [
+      {
+        "variation": 1,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\root_var1_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\root_var1_meditation.html"
+      },
+      {
+        "variation": 2,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\root_var2_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\root_var2_meditation.html"
+      },
+      {
+        "variation": 3,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\root_var3_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\root_var3_meditation.html"
+      },
+      {
+        "variation": 4,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\root_var4_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\root_var4_meditation.html"
+      },
+      {
+        "variation": 5,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\root_var5_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\root_var5_meditation.html"
+      },
+      {
+        "variation": 6,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\root_var6_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\root_var6_meditation.html"
+      },
+      {
+        "variation": 7,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\root_var7_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\root_var7_meditation.html"
+      }
+    ],
+    "total_variations": 7
+  },
+  "sacral": {
+    "chakra_name": "Sacral Chakra",
+    "sanskrit": "Manipura",
+    "frequency": 417.0,
+    "purpose": "Change, creativity, sexuality, transformation",
+    "color": "#FFA500",
+    "audio_variations": [
+      {
+        "chakra": "sacral",
+        "variation": 1,
+        "filename": "sacral_417.0hz_offset5_harm2_var1.wav",
+        "base_freq": 417.0,
+        "binaural_offset": 5,
+        "harmonics": 2,
+        "volume": 0.4,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\sacral_417.0hz_offset5_harm2_var1.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "sacral",
+        "variation": 2,
+        "filename": "sacral_417.0hz_offset10_harm3_var2.wav",
+        "base_freq": 417.0,
+        "binaural_offset": 10,
+        "harmonics": 3,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\sacral_417.0hz_offset10_harm3_var2.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "sacral",
+        "variation": 3,
+        "filename": "sacral_417.0hz_offset15_harm4_var3.wav",
+        "base_freq": 417.0,
+        "binaural_offset": 15,
+        "harmonics": 4,
+        "volume": 0.6,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\sacral_417.0hz_offset15_harm4_var3.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "sacral",
+        "variation": 4,
+        "filename": "sacral_417.0hz_offset20_harm5_var4.wav",
+        "base_freq": 417.0,
+        "binaural_offset": 20,
+        "harmonics": 5,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\sacral_417.0hz_offset20_harm5_var4.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "sacral",
+        "variation": 5,
+        "filename": "sacral_417.0hz_offset25_harm3_var5.wav",
+        "base_freq": 417.0,
+        "binaural_offset": 25,
+        "harmonics": 3,
+        "volume": 0.45,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\sacral_417.0hz_offset25_harm3_var5.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "sacral",
+        "variation": 6,
+        "filename": "sacral_417.0hz_offset30_harm4_var6.wav",
+        "base_freq": 417.0,
+        "binaural_offset": 30,
+        "harmonics": 4,
+        "volume": 0.55,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\sacral_417.0hz_offset30_harm4_var6.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "sacral",
+        "variation": 7,
+        "filename": "sacral_417.0hz_offset35_harm2_var7.wav",
+        "base_freq": 417.0,
+        "binaural_offset": 35,
+        "harmonics": 2,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\sacral_417.0hz_offset35_harm2_var7.wav",
+        "skipped": false
+      }
+    ],
+    "visual_variations": [
+      {
+        "variation": 1,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\sacral_var1_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\sacral_var1_meditation.html"
+      },
+      {
+        "variation": 2,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\sacral_var2_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\sacral_var2_meditation.html"
+      },
+      {
+        "variation": 3,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\sacral_var3_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\sacral_var3_meditation.html"
+      },
+      {
+        "variation": 4,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\sacral_var4_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\sacral_var4_meditation.html"
+      },
+      {
+        "variation": 5,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\sacral_var5_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\sacral_var5_meditation.html"
+      },
+      {
+        "variation": 6,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\sacral_var6_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\sacral_var6_meditation.html"
+      },
+      {
+        "variation": 7,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\sacral_var7_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\sacral_var7_meditation.html"
+      }
+    ],
+    "total_variations": 7
+  },
+  "solar_plexus": {
+    "chakra_name": "Solar Plexus Chakra",
+    "sanskrit": "Anahata",
+    "frequency": 528.0,
+    "purpose": "DNA repair, transformation, love, healing",
+    "color": "#FFFF00",
+    "audio_variations": [
+      {
+        "chakra": "solar_plexus",
+        "variation": 1,
+        "filename": "solar_plexus_528.0hz_offset5_harm2_var1.wav",
+        "base_freq": 528.0,
+        "binaural_offset": 5,
+        "harmonics": 2,
+        "volume": 0.4,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\solar_plexus_528.0hz_offset5_harm2_var1.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "solar_plexus",
+        "variation": 2,
+        "filename": "solar_plexus_528.0hz_offset10_harm3_var2.wav",
+        "base_freq": 528.0,
+        "binaural_offset": 10,
+        "harmonics": 3,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\solar_plexus_528.0hz_offset10_harm3_var2.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "solar_plexus",
+        "variation": 3,
+        "filename": "solar_plexus_528.0hz_offset15_harm4_var3.wav",
+        "base_freq": 528.0,
+        "binaural_offset": 15,
+        "harmonics": 4,
+        "volume": 0.6,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\solar_plexus_528.0hz_offset15_harm4_var3.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "solar_plexus",
+        "variation": 4,
+        "filename": "solar_plexus_528.0hz_offset20_harm5_var4.wav",
+        "base_freq": 528.0,
+        "binaural_offset": 20,
+        "harmonics": 5,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\solar_plexus_528.0hz_offset20_harm5_var4.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "solar_plexus",
+        "variation": 5,
+        "filename": "solar_plexus_528.0hz_offset25_harm3_var5.wav",
+        "base_freq": 528.0,
+        "binaural_offset": 25,
+        "harmonics": 3,
+        "volume": 0.45,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\solar_plexus_528.0hz_offset25_harm3_var5.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "solar_plexus",
+        "variation": 6,
+        "filename": "solar_plexus_528.0hz_offset30_harm4_var6.wav",
+        "base_freq": 528.0,
+        "binaural_offset": 30,
+        "harmonics": 4,
+        "volume": 0.55,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\solar_plexus_528.0hz_offset30_harm4_var6.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "solar_plexus",
+        "variation": 7,
+        "filename": "solar_plexus_528.0hz_offset35_harm2_var7.wav",
+        "base_freq": 528.0,
+        "binaural_offset": 35,
+        "harmonics": 2,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\solar_plexus_528.0hz_offset35_harm2_var7.wav",
+        "skipped": false
+      }
+    ],
+    "visual_variations": [
+      {
+        "variation": 1,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\solar_plexus_var1_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\solar_plexus_var1_meditation.html"
+      },
+      {
+        "variation": 2,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\solar_plexus_var2_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\solar_plexus_var2_meditation.html"
+      },
+      {
+        "variation": 3,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\solar_plexus_var3_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\solar_plexus_var3_meditation.html"
+      },
+      {
+        "variation": 4,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\solar_plexus_var4_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\solar_plexus_var4_meditation.html"
+      },
+      {
+        "variation": 5,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\solar_plexus_var5_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\solar_plexus_var5_meditation.html"
+      },
+      {
+        "variation": 6,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\solar_plexus_var6_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\solar_plexus_var6_meditation.html"
+      },
+      {
+        "variation": 7,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\solar_plexus_var7_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\solar_plexus_var7_meditation.html"
+      }
+    ],
+    "total_variations": 7
+  },
+  "third_eye": {
+    "chakra_name": "Third Eye Chakra",
+    "sanskrit": "Ajna",
+    "frequency": 852.0,
+    "purpose": "Intuition, inner vision, wisdom, insight",
+    "color": "#4B0082",
+    "audio_variations": [
+      {
+        "chakra": "third_eye",
+        "variation": 1,
+        "filename": "third_eye_852.0hz_offset5_harm2_var1.wav",
+        "base_freq": 852.0,
+        "binaural_offset": 5,
+        "harmonics": 2,
+        "volume": 0.4,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\third_eye_852.0hz_offset5_harm2_var1.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "third_eye",
+        "variation": 2,
+        "filename": "third_eye_852.0hz_offset10_harm3_var2.wav",
+        "base_freq": 852.0,
+        "binaural_offset": 10,
+        "harmonics": 3,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\third_eye_852.0hz_offset10_harm3_var2.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "third_eye",
+        "variation": 3,
+        "filename": "third_eye_852.0hz_offset15_harm4_var3.wav",
+        "base_freq": 852.0,
+        "binaural_offset": 15,
+        "harmonics": 4,
+        "volume": 0.6,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\third_eye_852.0hz_offset15_harm4_var3.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "third_eye",
+        "variation": 4,
+        "filename": "third_eye_852.0hz_offset20_harm5_var4.wav",
+        "base_freq": 852.0,
+        "binaural_offset": 20,
+        "harmonics": 5,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\third_eye_852.0hz_offset20_harm5_var4.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "third_eye",
+        "variation": 5,
+        "filename": "third_eye_852.0hz_offset25_harm3_var5.wav",
+        "base_freq": 852.0,
+        "binaural_offset": 25,
+        "harmonics": 3,
+        "volume": 0.45,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\third_eye_852.0hz_offset25_harm3_var5.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "third_eye",
+        "variation": 6,
+        "filename": "third_eye_852.0hz_offset30_harm4_var6.wav",
+        "base_freq": 852.0,
+        "binaural_offset": 30,
+        "harmonics": 4,
+        "volume": 0.55,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\third_eye_852.0hz_offset30_harm4_var6.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "third_eye",
+        "variation": 7,
+        "filename": "third_eye_852.0hz_offset35_harm2_var7.wav",
+        "base_freq": 852.0,
+        "binaural_offset": 35,
+        "harmonics": 2,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\third_eye_852.0hz_offset35_harm2_var7.wav",
+        "skipped": false
+      }
+    ],
+    "visual_variations": [
+      {
+        "variation": 1,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\third_eye_var1_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\third_eye_var1_meditation.html"
+      },
+      {
+        "variation": 2,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\third_eye_var2_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\third_eye_var2_meditation.html"
+      },
+      {
+        "variation": 3,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\third_eye_var3_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\third_eye_var3_meditation.html"
+      },
+      {
+        "variation": 4,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\third_eye_var4_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\third_eye_var4_meditation.html"
+      },
+      {
+        "variation": 5,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\third_eye_var5_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\third_eye_var5_meditation.html"
+      },
+      {
+        "variation": 6,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\third_eye_var6_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\third_eye_var6_meditation.html"
+      },
+      {
+        "variation": 7,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\third_eye_var7_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\third_eye_var7_meditation.html"
+      }
+    ],
+    "total_variations": 7
+  },
+  "throat": {
+    "chakra_name": "Throat Chakra",
+    "sanskrit": "Ajna",
+    "frequency": 741.0,
+    "purpose": "Expression, solutions, communication, truth",
+    "color": "#0000FF",
+    "audio_variations": [
+      {
+        "chakra": "throat",
+        "variation": 1,
+        "filename": "throat_741.0hz_offset5_harm2_var1.wav",
+        "base_freq": 741.0,
+        "binaural_offset": 5,
+        "harmonics": 2,
+        "volume": 0.4,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\throat_741.0hz_offset5_harm2_var1.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "throat",
+        "variation": 2,
+        "filename": "throat_741.0hz_offset10_harm3_var2.wav",
+        "base_freq": 741.0,
+        "binaural_offset": 10,
+        "harmonics": 3,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\throat_741.0hz_offset10_harm3_var2.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "throat",
+        "variation": 3,
+        "filename": "throat_741.0hz_offset15_harm4_var3.wav",
+        "base_freq": 741.0,
+        "binaural_offset": 15,
+        "harmonics": 4,
+        "volume": 0.6,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\throat_741.0hz_offset15_harm4_var3.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "throat",
+        "variation": 4,
+        "filename": "throat_741.0hz_offset20_harm5_var4.wav",
+        "base_freq": 741.0,
+        "binaural_offset": 20,
+        "harmonics": 5,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\throat_741.0hz_offset20_harm5_var4.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "throat",
+        "variation": 5,
+        "filename": "throat_741.0hz_offset25_harm3_var5.wav",
+        "base_freq": 741.0,
+        "binaural_offset": 25,
+        "harmonics": 3,
+        "volume": 0.45,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\throat_741.0hz_offset25_harm3_var5.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "throat",
+        "variation": 6,
+        "filename": "throat_741.0hz_offset30_harm4_var6.wav",
+        "base_freq": 741.0,
+        "binaural_offset": 30,
+        "harmonics": 4,
+        "volume": 0.55,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\throat_741.0hz_offset30_harm4_var6.wav",
+        "skipped": false
+      },
+      {
+        "chakra": "throat",
+        "variation": 7,
+        "filename": "throat_741.0hz_offset35_harm2_var7.wav",
+        "base_freq": 741.0,
+        "binaural_offset": 35,
+        "harmonics": 2,
+        "volume": 0.5,
+        "duration_minutes": 10.0,
+        "output_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\audio\\\\throat_741.0hz_offset35_harm2_var7.wav",
+        "skipped": false
+      }
+    ],
+    "visual_variations": [
+      {
+        "variation": 1,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\throat_var1_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\throat_var1_meditation.html"
+      },
+      {
+        "variation": 2,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\throat_var2_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\throat_var2_meditation.html"
+      },
+      {
+        "variation": 3,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\throat_var3_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\throat_var3_meditation.html"
+      },
+      {
+        "variation": 4,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\throat_var4_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\throat_var4_meditation.html"
+      },
+      {
+        "variation": 5,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\throat_var5_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\throat_var5_meditation.html"
+      },
+      {
+        "variation": 6,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\throat_var6_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\throat_var6_meditation.html"
+      },
+      {
+        "variation": 7,
+        "visualization_json": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\throat_var7_visualization.json",
+        "html_path": "D:\\\\Projects\\\\Silent-Spirits-Legacy\\\\meditation-app\\\\outputs\\\\visuals\\\\throat_var7_meditation.html"
+      }
+    ],
+    "total_variations": 7
+  }
+}
