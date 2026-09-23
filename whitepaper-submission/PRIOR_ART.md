@@ -9,7 +9,7 @@
 ## Key Claims Requiring Timestamp Protection
 
 1. **7 universal regenerative principles** extracted from 6 sacred corpora via NLP
-2. **Specificity ratio: 2.667x** vs literary controls
+2. **Specificity ratio: 2.667x** vs literary controls (length-normalized re-validation: 1.753x, 95% CI 1.59–1.94, permutation p < 0.001)
 3. **50.4% Jaccard index** between Nag Hammadi, Thomas, and Enoch
 4. **9 chakra frequencies** mapped to binaural beat sessions
 5. **63-session architecture** (9 chakras × 7 variations)
@@ -24,6 +24,8 @@
 - `whitepaper-submission/SHA256SUMS` — Integrity checksums for canonical artifacts
 - `whitepaper-submission/DISCOVERY.md` — Complete discovery narrative
 - `research/pillars/pillar2_ai_pattern/outputs/specificity_ratio_2.667x.json` — Specificity ratio computation
+- `research/pillars/pillar4_frequency_principles/statistical_validation.py` — Statistical validation suite (normalization, permutation test, effect size)
+- `research/pillars/pillar4_frequency_principles/outputs/statistical_validation_results.json` — Validation results (1.753x, p < 0.001)
 - `research/pillars/bible-analysis/cleaning_report.json` — Corpus cleaning audit
 - `meditation-app/docs/wearable_integration.md` — Wearable integration design
 - `tests/test_nlp.py` — NLP claim tests

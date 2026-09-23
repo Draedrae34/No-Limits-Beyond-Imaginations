@@ -12,7 +12,7 @@ We ran computational analysis on six sacred corpora:
 - Dead Sea Scrolls
 - Nag Hammadi Library
 
-Using natural language processing, cross-corpus pattern recognition, and Jaccard similarity analysis, we found that these texts share a vocabulary and conceptual structure far beyond random chance. When we compared them against literary controls—Shakespeare, Moby Dick, Pride & Prejudice—the sacred texts showed a **specificity ratio of 2.667x** for recurring conceptual patterns.
+Using natural language processing, cross-corpus pattern recognition, and Jaccard similarity analysis, we found that these texts share a vocabulary and conceptual structure far beyond random chance. When we compared them against literary controls—Shakespeare, Moby Dick, Pride & Prejudice—the sacred texts showed a **specificity ratio of 2.667x** for recurring conceptual patterns. A rigorous re-validation—equal 10,000-word chunks, 10,000-iteration permutation test, Mann–Whitney U, Cliff's δ—confirms the effect at **1.75x** (95% CI 1.59–1.94, p < 0.001; see `research/pillars/pillar4_frequency_principles/outputs/statistical_validation_results.json`).
 
 The Gnostic texts alone showed **50.4% vocabulary overlap** with each other, while the literary controls showed no such clustering. This proved the texts share a common source language—not just culturally, but mathematically.
 
@@ -118,7 +118,7 @@ We analyzed 6 sacred texts using NLP. We extracted:
 - Gnostic texts (Nag Hammadi, Thomas, Enoch) share 50.4% vocabulary overlap
 - KJV Bible shares 47-48% with DSS and Hermeticum
 - Literary controls (Shakespeare, Moby Dick, P&P) show NO significant cross-text clustering
-- **Specificity ratio: 2.667x** — the sacred texts are 2,667% more likely to contain the 7 principles than random English text
+- **Specificity ratio: 2.667x** (raw aggregate counts) — and **1.75x** after length normalization (95% CI 1.59–1.94, permutation p < 0.001, Cliff's δ = 0.83 large)
 
 ### Test 2: Frequency Mapping Validation
 We mapped the 7 principles to specific Hz frequencies based on:

@@ -1,8 +1,8 @@
 # Silent Spirits Legacy — Evidence Index
 
 **Canonical whitepaper:** `whitepaper-submission/WHITEPAPER.md`  
-**SHA256:** `38B58C0E13B520DF9CEED6367E4BAD26E1F8EF2D0ABF31B98303F34CCBFEED3F`  
-**Last verified:** 2026-09-19  
+**SHA256:** `81DF6F923FC88C99F81F7A4AF2D09FA5F2C203C58555E3FA8E6C6A8E79DAA6CF`
+**Last verified:** 2026-09-22
 
 ---
 
@@ -33,7 +33,8 @@
 | Generation timestamp | `research/pillars/pillar2_ai_pattern/outputs/pillar2_full_corpora_results.json` | **VERIFIED** | `generated` field present |
 | Generation timestamp | `research/pillars/pillar4_frequency_principles/outputs/pillar4_frequency_principles.json` | **VERIFIED** | `generated` field present |
 | Corpus cleaning | `research/pillars/bible-analysis/cleaning_report.json` | **VERIFIED** | 6 corpora audited; 2 contaminated with HTML/CSS markup, 4 clean; recommended re-download and cleaning pipeline |
-| Specificity ratio 2.667x | `research/pillars/pillar2_ai_pattern/outputs/specificity_ratio_2.667x.json` | **VERIFIED** | Serialized computation: sacred texts 2.667x more specific than literary controls |
+| Specificity ratio 2.667x | `research/pillars/pillar2_ai_pattern/outputs/specificity_ratio_2.667x.json` | **VERIFIED** | Serialized computation: sacred texts 2.667x more specific than literary controls; raw aggregate counts — superseded for publication by the length-normalized re-validation (next row) |
+| Statistical validation of specificity | `research/pillars/pillar4_frequency_principles/statistical_validation.py` + `outputs/statistical_validation_results.json` | **VERIFIED** | Equal 10,000-word chunks: 1.753x (95% CI 1.59–1.94); permutation p = 1.0e-4 (10,000 perms); Mann–Whitney z = 6.57, p ≈ 5e-11; Cliff's δ = +0.83 (large); Gospel of Thomas < 1 chunk (excluded); KJV = 79/128 wisdom chunks |
 | Wearable/heart-rate integration | `meditation-app/docs/wearable_integration.md` | **VERIFIED** | Design doc with BLE architecture, frequency adjustment algorithm, privacy model, and implementation phases |
 | SHA256 timestamp proof | `whitepaper-submission/SHA256SUMS` | **VERIFIED** | 8 canonical artifact hashes computed and stored |
 | Tests for research/audio/visuals | `tests/test_nlp.py`, `tests/test_audio.py`, `tests/test_visualization.py` | **VERIFIED** | 31 unittest cases covering Jaccard, TTR, specificity ratio, frequency principles, binaural generation, manifest schema, and visualization JSON structure |

@@ -118,6 +118,19 @@ The 7 universal regenerative principles extracted through computational analysis
 **Master Manifest** (`meditation-app/outputs/master_manifest.json`):
 - Catalogs all 189 output files: 63 audio WAVs, 63 visualization JSONs, 63 HTML renderers
 
+### 2.7 Statistical Validation of the Specificity Ratio
+
+The raw specificity ratio (2.667x from aggregate keyword counts) was re-validated against three standard objections—length bias, absent null baseline, and missing significance testing—using the identical `VIBRATIONAL_CONCEPTS` keyword ontology:
+
+- **Normalization**: keyword hit rates computed per equal 10,000-word chunk (hits per 1,000 words), removing corpus-length dependence
+- **Null baseline**: label-permutation test (10,000 iterations) reassigning wisdom/control labels across chunks
+- **Significance**: Mann–Whitney U with tie correction, Cliff's δ effect size, and bootstrap 95% CI on the ratio
+
+Result: wisdom corpora show **1.753x** the control hit rate (30.48 vs 17.39 hits/1,000 words; 95% CI 1.59–1.94; permutation p = 1.0×10⁻⁴, the resolution floor for 10,000 permutations; Mann–Whitney z = 6.57, p ≈ 5×10⁻¹¹; Cliff's δ = 0.83, large). Two caveats are disclosed: the Gospel of Thomas (~2,600 words) falls below one 10,000-word chunk and contributes no data, and the KJV contributes 79 of 128 wisdom chunks.
+
+**Implementation:** `research/pillars/pillar4_frequency_principles/statistical_validation.py`
+**Output:** `research/pillars/pillar4_frequency_principles/outputs/statistical_validation_results.json`
+
 ---
 
 ## 3. Results
@@ -362,6 +375,7 @@ The meditation engine (`meditation-app/`) serves as applied validation: 63 binau
 Supporting artifacts:
 - **Evidence index:** `whitepaper-submission/EVIDENCE_INDEX.md`
 - **Specificity ratio computation:** `research/pillars/pillar2_ai_pattern/outputs/specificity_ratio_2.667x.json`
+- **Statistical validation (normalized ratio, permutation test, effect size):** `research/pillars/pillar4_frequency_principles/outputs/statistical_validation_results.json`
 - **Corpus cleaning audit:** `research/pillars/bible-analysis/cleaning_report.json`
 - **Wearable integration design:** `meditation-app/docs/wearable_integration.md`
 - **SHA256 checksums:** `whitepaper-submission/SHA256SUMS`
@@ -380,6 +394,7 @@ Supporting artifacts:
 - [x] Open source license (MIT)
 - [x] Timestamped publication
 - [x] Specificity ratio 2.667x computed artifact
+- [x] Statistical validation of specificity ratio (§2.7): normalization, permutation test, effect size
 - [x] Corpus cleaning report populated
 - [x] Wearable integration design doc
 - [x] SHA256 checksums for canonical artifacts
