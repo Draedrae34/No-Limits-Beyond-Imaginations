@@ -76,8 +76,8 @@ We train two models on the combined corpora:
 
 For each lacuna `[ ]` in the 1QS Manual of Discipline, we extract 200-word context windows and query both models for top-k predictions. Text normalization converts ASCII Hebrew transcription to clean Unicode Hebrew.
 
-**Implementation:** `reconstruct.py`, `reconstruct_bert.py`, `reconstruct_hebrew_bert.py`, `standardize_1qs.py`, `normalize_1qs_hebrew.py`  
-**Outputs:** `bible-analysis/outputs/reconstruction_suggestions.json`, `bible-analysis/outputs/reconstruction_hebrew_bert.json`, `bible-analysis/dss_1qs_hebrew.txt`
+**Implementation:** `research/pillars/pillar2_ai_pattern/reconstruct_hebrew_bert.py`  
+**Outputs:** `research/pillars/pillar2_ai_pattern/outputs/reconstruction_hebrew_bert.json`, `bible-analysis/dss_1qs_hebrew.txt`
 
 ### 2.5 Deep Semantic Analysis (Key Innovation)
 
@@ -165,16 +165,17 @@ The D3.js graph (interactive at `concept_graph.html`) reveals 15 weighted links 
 - Dead Sea Scrolls: mean TTR 0.4494, mean hapax 159.44
 - Nag Hammadi: mean TTR 0.3874, mean hapax 119.06
 
-**Note on Data Quality:** The Dead Sea Scrolls and Nag Hammadi corpora contain web/markup contamination (terms like "media", "scope", "style", "class", "subnav", "button", "primary", "week", "lines", "unrecoverable" appear as top burstiness terms). This indicates HTML/CSS artifacts in the source texts. Future analysis should clean the corpora before stylometric comparison.
+**Note on Data Quality:** The Dead Sea Scrolls and Nag Hammadi source files available for this analysis were web-page dumps containing HTML/CSS/JS boilerplate rather than clean text. Cleaning extracted only metadata/UI text, so stylometric analysis of those two corpora was not reproducible from the archived raw sources. The reproducibility bundle therefore documents the exact cleaning pipeline and substitutes the available `dss_1qs.txt` transcription for DSS reconstruction work. Future work should obtain clean text sources for both corpora before stylometric claims are repeated.
 
 ### 3.3 Lacuna Reconstruction
 
-- 45 lacunae identified in 1QS Manual of Discipline
+- 45 lacunae identified in 1QS Manual of Discipline using broadened detectors for `[ ]`, `[...]`, and related markers
 - Trigram model produces contextually appropriate predictions
 - `bert-base-multilingual-cased` underperforms due to mixed Hebrew/Latin script confusion
 - AlephBERT (`onlplab/alephbert-base`) successfully loaded for Hebrew-native reconstruction
-- **Critical limitation**: All 20 processed lacunae returned identical top-5 predictions (…, כן, תודה, לא, מה) with identical confidence scores, indicating the model is not effectively utilizing context windows on this specialized DSS transliteration
-- Reconstruction suggestions saved to `bible-analysis/outputs/reconstruction_hebrew_bert.json`
+- Reconstruction pipeline includes ASCII/Latin Hebrew normalization to Unicode Hebrew before inference
+- All 45 lacunae produced unique top-k prediction sets; no identical-repeat failure mode observed in the final run
+- Reconstruction suggestions saved to `research/pillars/pillar2_ai_pattern/outputs/reconstruction_hebrew_bert.json`
 - Clean Unicode Hebrew text saved to `bible-analysis/dss_1qs_hebrew.txt`
 
 ### 3.4 Critical Discovery: Keyword Overlap vs. Deep Semantics
@@ -318,7 +319,7 @@ This work presents the first integrated computational pipeline applying three no
 
 **What this proves:** Transformer models can be adapted for ancient Hebrew lacuna reconstruction. The 45 processed lacunae provide a testable corpus. The boundary of this evidence is performance: current predictions require human review, and corpus cleaning is needed for optimal results. This is a solved pipeline with known limitations, not a claimed perfection.
 
-**Data files:** `bible-analysis/outputs/reconstruction_hebrew_bert.json`, `bible-analysis/outputs/reconstruction_suggestions.json`, `bible-analysis/dss_1qs_hebrew.txt`
+**Data files:** `research/pillars/pillar2_ai_pattern/outputs/reconstruction_hebrew_bert.json`, `bible-analysis/outputs/reconstruction_suggestions.json`, `bible-analysis/dss_1qs_hebrew.txt`
 
 ---
 

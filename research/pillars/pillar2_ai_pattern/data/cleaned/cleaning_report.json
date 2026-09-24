@@ -1,0 +1,49 @@
+{
+  "reports": [
+    {
+      "file": "kjv.txt",
+      "original_chars": 4307442,
+      "cleaned_chars": 4307307,
+      "removed_chars": 135,
+      "removed_pct": 0.0
+    },
+    {
+      "file": "enoch.txt",
+      "original_chars": 268765,
+      "cleaned_chars": 249700,
+      "removed_chars": 19065,
+      "removed_pct": 7.09
+    },
+    {
+      "file": "thomas.txt",
+      "original_chars": 14394,
+      "cleaned_chars": 14394,
+      "removed_chars": 0,
+      "removed_pct": 0.0
+    },
+    {
+      "file": "hermetica.txt",
+      "original_chars": 283620,
+      "cleaned_chars": 283620,
+      "removed_chars": 0,
+      "removed_pct": 0.0
+    },
+    {
+      "file": "dead_sea_scrolls.txt",
+      "original_chars": 1181668,
+      "cleaned_chars": 0,
+      "removed_chars": 1181668,
+      "removed_pct": 100.0,
+      "status": "skipped_insufficient_content"
+    },
+    {
+      "file": "nag_hammadi.txt",
+      "original_chars": 1147405,
+      "cleaned_chars": 0,
+      "removed_chars": 1147405,
+      "removed_pct": 100.0,
+      "status": "skipped_insufficient_content"
+    }
+  ],
+  "status": "completed"
+}
