@@ -64,7 +64,7 @@ We analyze the Book of Enoch through four complementary lenses:
 - **Hierarchical Clustering**: Ward linkage dendrogram on 156 chapter-level segments
 - **Dimensionality Reduction**: PCA and t-SNE scatter plots
 
-**Implementation:** `stylometry.py`, `hierarchical_clustering.py`, `pca_tsne_plot.py`  
+**Implementation:** `bible-analysis/stylometry.py`, `bible-analysis/hierarchical_clustering.py`, `bible-analysis/pca_tsne_plot.py`  
 **Outputs:** `bible-analysis/outputs/enoch_hierarchical_clustering.json`, `bible-analysis/outputs/enoch_clusters_threshold_*.json`, `bible-analysis/outputs/enoch_dendrogram.png`, `bible-analysis/outputs/enoch_pca.png`, `bible-analysis/outputs/enoch_tsne.png`
 
 ### 2.4 Lacuna Reconstruction
@@ -107,13 +107,15 @@ The 7 universal regenerative principles extracted through computational analysis
 - Sacred geometry parameters: circles, rotation speed, pulse rate, complexity
 - Particle system: count, spread, speed, color shift
 - Color field: hue, saturation, brightness, pulse
+- Generates per-session visualization JSONs and static HTML renderers for `outputs/visuals/`
 
-**Web Player** (`meditation-app/src/web/player.html`):
-- Three.js galaxy visualization with 15,000 particles
+**Web Player** (`meditation-app/src/web/player.html` + `meditation-app/src/web/live_visuals/index.html`):
+- Three.js galaxy visualization with 15,000 particles in the live player
 - Real-time audio reactivity via Web Audio API AnalyserNode
 - GLSL shader-based particle system with audio-driven displacement
 - PWA-capable with service worker for offline mode
 - Mobile-optimized with touch event handling
+- Live visuals iframe loads the procedural 4K-style engine separately from the static visualization JSONs
 
 **Master Manifest** (`meditation-app/outputs/master_manifest.json`):
 - Catalogs all 189 output files: 63 audio WAVs, 63 visualization JSONs, 63 HTML renderers
@@ -221,11 +223,11 @@ The 7 universal regenerative principles extracted through conceptual network map
 | Sound and Water Interact | Base, Healing | 174 Hz, 285 Hz | Tissue repair protocol |
 
 **Technical Validation:**
-- Spectral analysis confirms exact frequencies present
-- No DC offset (verified)
+- Frequencies validated by synthesis implementation (`binaural_beats.py` phase accumulation)
+- No DC offset (verified in implementation)
 - Stereo separation > 40 dB for binaural effect
 - Phase accumulation eliminates popping artifacts
-- 189 total files catalogued in master manifest
+- 63 audio sessions + 9 previews + 63 viz JSONs + 63 viz HTMLs catalogued in master manifest
 - JSON schema validated across all 63 visualization files
 
 ---
