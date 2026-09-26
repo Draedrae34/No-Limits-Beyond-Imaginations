@@ -377,6 +377,7 @@ All code, corpora, and results are available at:
 - **Repository:** https://github.com/silent-spirits-legacy/silent-spirits-legacy
 - **License:** MIT License (code), CC BY 4.0 (data and documentation)
 - **Contact:** Aundrae Giles — aundrae@semanticarchaeology.com
+- **Zenodo DOI:** https://doi.org/10.5281/zenodo.22982341
 
 The meditation engine (`meditation-app/`) serves as applied validation: 63 binaural beat sessions (9 chakras × 7 variations) with synchronized galaxy visualizations, demonstrating that the discovered frequency mappings can be translated into functional, reproducible technology.
 
@@ -388,6 +389,7 @@ Supporting artifacts:
 - **Wearable integration design:** `meditation-app/docs/wearable_integration.md`
 - **SHA256 checksums:** `whitepaper-submission/SHA256SUMS`
 - **Test suites:** `tests/test_nlp.py`, `tests/test_audio.py`, `tests/test_visualization.py`
+- **Zenodo reproducibility bundle:** `https://doi.org/10.5281/zenodo.22982341`
 
 ---
 
