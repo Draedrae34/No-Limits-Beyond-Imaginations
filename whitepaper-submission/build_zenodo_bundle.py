@@ -137,6 +137,18 @@ def main():
         copied.append((src_rel, dst_rel + f"/  ({n} files)", dst))
         print(f"  [dir ] {src_rel} -> {dst_rel} ({n} files)")
 
+    # Remove known-broken cleaned corpora produced from web-page dumps.
+    # These files are empty/boilerplate-only and should not be shipped as
+    # reproducible cleaned text. The raw 1QS transcriptions remain in corpora/raw/.
+    remove_cleaned = [
+        BUNDLE_DIR / "corpora/cleaned/dead_sea_scrolls_cleaned.txt",
+        BUNDLE_DIR / "corpora/cleaned/nag_hammadi_cleaned.txt",
+    ]
+    for p in remove_cleaned:
+        if p.exists():
+            p.unlink()
+            print(f"  [REMOVE] {p.relative_to(BUNDLE_DIR).as_posix()}")
+
     # --- verify the canonical SHA256SUMS against the copied bytes ----------
     print("-" * 70)
     sums_file = BUNDLE_DIR / SUMS_REL
