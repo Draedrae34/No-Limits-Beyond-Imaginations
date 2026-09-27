@@ -79,6 +79,10 @@ FILES = [
       "corpora/raw/dss_1qs.txt"),
     ("bible-analysis/dss_1qs_hebrew.txt",
       "corpora/raw/dss_1qs_hebrew.txt"),
+    ("bible-analysis/dead_sea_scrolls.txt",
+      "corpora/raw/dead_sea_scrolls.txt"),
+    ("bible-analysis/nag_hammadi.txt",
+      "corpora/raw/nag_hammadi.txt"),
     # concept network frontier
     ("build_graph.py",          "code/build_graph.py"),
     ("concept_graph.html",      "results/concept_graph.html"),

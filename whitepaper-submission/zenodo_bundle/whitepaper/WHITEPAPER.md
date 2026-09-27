@@ -426,4 +426,4 @@ Supporting artifacts:
 
 ---
 
-*This document was published on 2026-09-19. All timestamps are UTC. All code is released under the MIT License. All data is released under CC BY 4.0. This whitepaper serves as prior art and establishes the intellectual property baseline for the Silent Spirits Legacy discovery.*
+*This document was published on 2026-09-26. All timestamps are UTC. All code is released under the MIT License. All data is released under CC BY 4.0. This whitepaper serves as prior art and establishes the intellectual property baseline for the Silent Spirits Legacy discovery.*
